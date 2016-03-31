@@ -562,7 +562,7 @@ class Comet(object):
         config = ConfigDict("cloudmesh.yaml")
         cometConf = config["cloudmesh.comet"]
         defaultUser = cometConf["username"]
-        user = input("Comet Nucleus Usename [%s]: " \
+        user = input("Comet nucleus username [%s]: " \
                          % defaultUser)
         if not user:
             user = defaultUser

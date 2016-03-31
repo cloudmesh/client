@@ -133,30 +133,30 @@ Comet
 +---------------------------------------+------------------------------------------------------------------------+
 | | cm comet console vc4 vm-vc4-0       | | Get console of a running node                                        |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet image list                 | | Get list of images available to you                                  |
+| | cm comet iso list                   | | Get list of images available to you                                  |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet image upload               | | Upload an image to the shared public directory on                    |
+| | cm comet iso upload                 | | Upload an image to the shared public directory on                    |
 | |    /path/to/your/image.iso          | | nucleus server                                                       |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet image upload               | | Upload an image to the shared public directory on                    |
+| | cm comet iso upload                 | | Upload an image to the shared public directory on                    |
 | |    /path/to/your/image.iso          | | nucleus server with a new image name                                 |
 | |    --imagename=newimagename.iso     | |                                                                      |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet image attach               | | Attach an image (newimagename.iso) to frontend of                    |
+| | cm comet iso attach                 | | Attach an image (newimagename.iso) to frontend of                    |
 | |    newimagename.iso vc2             | | a cluster (vc2)                                                      |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet image attach               | | Attach an image to a compute node (vm-vc2-0) for a                   |
+| | cm comet iso attach                 | | Attach an image to a compute node (vm-vc2-0) for a                   |
 | |    newimagename.iso vc2 vm-vc2-0    | | cluster (vc2)                                                        |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet image detach vc2           | | Detach the attached iso image from frontend of a                     |
+| | cm comet iso detach vc2             | | Detach the attached iso image from frontend of a                     |
 | |                                     | | cluster (vc2)                                                        |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet image detach vc2 vm-vc2-0  | | Detach the attached iso image from a compute node                    |
+| | cm comet iso detach vc2 vm-vc2-0    | | Detach the attached iso image from a compute node                    |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet image attach               | | Attach an image to a set of compute node, specified in               |
+| | cm comet iso attach                 | | Attach an image to a set of compute node, specified in               |
 | |    imagename.iso vc2 vm-vc2-[0-3]   | | hostlist format (vm-vc2-[0-3]) for a cluster (vc2)                   |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet image detach               | | Detach also works in bulk                                            |
+| | cm comet iso detach                 | | Detach also works in bulk                                            |
 | |    vc2 vm-vc2-[0-3]                 | |                                                                      |
 +---------------------------------------+------------------------------------------------------------------------+
 | | cm comet node rename vc2            | | Rename a list of compute node (vm-vc2-[0-3]) from a                  |
