@@ -259,8 +259,8 @@ class Comet(object):
     # To make GET calls for synchronous or asynchronous API
 
     @staticmethod
-    def get(url, headers=None, allow_redirects=True):
-        return Comet.http(url, action="get", headers=headers,
+    def get(url, headers=None, allow_redirects=True, data=None):
+        return Comet.http(url, action="get", headers=headers, data=data,
                           allow_redirects=allow_redirects)
 
     @staticmethod
@@ -305,8 +305,12 @@ class Comet(object):
                 r = requests.put(url, headers=headers, data=json.dumps(data),
                                  allow_redirects=allow_redirects, verify=cacert)
             else:
-                r = requests.get(url, headers=headers,
-                                 allow_redirects=allow_redirects, verify=cacert)
+                if data:
+                    r = requests.get(url, headers=headers, params=data,
+                                     allow_redirects=allow_redirects, verify=cacert)
+                else:
+                    r = requests.get(url, headers=headers,
+                                     allow_redirects=allow_redirects, verify=cacert)
 
             # print ("KKK --- DEBUGGING HTTP CALL")
             # pprint (r)
@@ -381,9 +385,18 @@ class Comet(object):
                                  allow_redirects=allow_redirects,
                                  verify=cacert)
             else:
-                r = requests.get(url, auth=Comet.api_auth, headers=headers,
-                                 allow_redirects=allow_redirects,
-                                 verify=cacert)
+                if data:
+                    # print (url)
+                    # print (data)
+                    r = requests.get(url, auth=Comet.api_auth, headers=headers,
+                                     params=data,
+                                     allow_redirects=allow_redirects,
+                                     verify=cacert)
+                else:
+                    r = requests.get(url, auth=Comet.api_auth, headers=headers,
+                                     allow_redirects=allow_redirects,
+                                     verify=cacert)
+
             ret = None
 
             # print ("KKK", r.status_code)
@@ -445,11 +458,17 @@ class Comet(object):
         return ret
 
     @staticmethod
-    def get_computeset(id=None):
-        geturl = Comet.url("computeset/")
-        if id:
+    def get_computeset(id=None, state=None):
+        # print (id, state)
+        if not id:
+            if not state:
+                state = 'running'
+            params = {'state': state}
+            geturl = Comet.url("computeset/")
+            r = Comet.get(geturl, data=params)
+        else:
             geturl = Comet.url("computeset/{}/".format(id))
-        r = Comet.get(geturl)
+            r = Comet.get(geturl)
         return r
 
     @staticmethod

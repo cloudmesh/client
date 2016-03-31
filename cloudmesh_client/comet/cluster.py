@@ -347,107 +347,112 @@ class Cluster(object):
 
     @staticmethod
     def computeset(id=None, cluster=None, state=None, allocation=None):
-        computesets = Comet.get_computeset(id)
+        #
+        # state could be one of
+        # ['created' or 'submitted' or 'failed' or 'running' 
+        #   or 'cancelled' or 'ending' or 'completed']
+        computesets = Comet.get_computeset(id, state)
         if computesets is not None:
             if 'cluster' in computesets:
-                result = Cluster.output_computeset(computesets, state='ALL')
+                result = Cluster.output_computeset(computesets)
             else:
                 result = ''
                 for acomputeset in computesets:
                     result += Cluster.output_computeset(acomputeset,
                                                         cluster,
-                                                        state,
                                                         allocation)
         else:
             result = "No computeset exists with the specified ID"
         return result
 
     @staticmethod
-    def output_computeset(computesetdict, cluster=None, state=None, allocation=None):
+    def output_computeset(computesetdict, cluster=None, allocation=None):
         # print (cluster, state, allocation)
         result = ""
         # filter out based on query criteria
         if cluster and 'cluster' in computesetdict:
             if computesetdict["cluster"] != cluster:
                 return result
-        if state and 'state' in computesetdict:
-            if "ALL" != state and computesetdict["state"] != state:
-                return result
+        # no longer needing state filter as handled by API
+        # if state and 'state' in computesetdict:
+        #     if "ALL" != state and computesetdict["state"] != state:
+        #         return result
         if allocation and 'account' in computesetdict:
             if computesetdict["account"] != allocation:
                 return result
 
-        if (state and ("ALL" == state or computesetdict["state"] == state)) or \
-           (computesetdict["state"] not in Cluster.FINISHED_COMPUTESETS):
-            starttime = ''
-            endtime = ''
-            walltime = ''
-            runningTime = ''
-            remainingTime = ''
-            if 'walltime_mins' in computesetdict:
-                walltime = computesetdict["walltime_mins"]
-                walltime_seconds = walltime * 60
-                walltime = Cluster.format_ddd_hh_mm(walltime_seconds)
-            if 'start_time' in computesetdict and \
-                computesetdict["start_time"] is not None:
-                start_seconds = int(computesetdict["start_time"])
-                end_seconds = start_seconds + walltime_seconds
-                if computesetdict["state"] in Cluster.FINISHED_COMPUTESETS \
-                    or computesetdict["state"] == 'ending':
-                    runningSecs = walltime_seconds
-                else:
-                    runningSecs = int(time.time())-start_seconds
-                remainingSecs = walltime_seconds - runningSecs
-                starttime = time.strftime("%D %H:%M %Z",
-                                    time.localtime(start_seconds))
-                endtime = time.strftime("%D %H:%M %Z",
-                                    time.localtime(end_seconds))
-                runningTime = Cluster.format_ddd_hh_mm(runningSecs)
-                remainingTime = Cluster.format_ddd_hh_mm(remainingSecs)
+        # no longer needing state filter as handled by API
+        # if (state and ("ALL" == state or computesetdict["state"] == state)) or \
+        #    (computesetdict["state"] not in Cluster.FINISHED_COMPUTESETS):
+        starttime = ''
+        endtime = ''
+        walltime = ''
+        runningTime = ''
+        remainingTime = ''
+        if 'walltime_mins' in computesetdict:
+            walltime = computesetdict["walltime_mins"]
+            walltime_seconds = walltime * 60
+            walltime = Cluster.format_ddd_hh_mm(walltime_seconds)
+        if 'start_time' in computesetdict and \
+            computesetdict["start_time"] is not None:
+            start_seconds = int(computesetdict["start_time"])
+            end_seconds = start_seconds + walltime_seconds
+            if computesetdict["state"] in Cluster.FINISHED_COMPUTESETS \
+                or computesetdict["state"] == 'ending':
+                runningSecs = walltime_seconds
+            else:
+                runningSecs = int(time.time())-start_seconds
+            remainingSecs = walltime_seconds - runningSecs
+            starttime = time.strftime("%D %H:%M %Z",
+                                time.localtime(start_seconds))
+            endtime = time.strftime("%D %H:%M %Z",
+                                time.localtime(end_seconds))
+            runningTime = Cluster.format_ddd_hh_mm(runningSecs)
+            remainingTime = Cluster.format_ddd_hh_mm(remainingSecs)
 
-            result += "\nClusterID: {}\tComputesetID: {}\t State: {}\t\tAllocation: {}\n" \
-                      "Start (est): {}\t\tEnd (est): {}\n"\
-                      "Requested Time (ddd-hh:mm): {}\tRunning Time (est): {}\t\tRemaining Time (est): {}\n"\
-                        .format(computesetdict["cluster"],
-                                computesetdict["id"],
-                                computesetdict["state"],
-                                computesetdict["account"],
-                                starttime,
-                                endtime,
-                                walltime,
-                                runningTime,
-                                remainingTime
-                                )
-            data = computesetdict["computes"]
-            for index, anode in enumerate(data):
-                bnode = dict(anode)
-                if "interface" in bnode:
-                    macs = []
-                    #ips = []
-                    for ipaddr in anode["interface"]:
-                        macs.append(ipaddr["mac"])
-                        #ips.append(ipaddr["ip"] or "N/A")
-                    if format=='table':
-                        bnode["mac"] = "\n".join(macs)
-                    else:
-                        bnode["mac"] = ";".join(macs)
-                    #anode["ip"] = "; ".join(ips)
-                del bnode["interface"]
-                data[index] = bnode
-            result += str(list_printer(data,
-                                       order=[
-                                           "name",
-                                           "state",
-                                           "type",
-                                           "mac",
-                                           #"ip",
-                                           "cpus",
-                                           "cluster",
-                                           "host",
-                                           "memory",
-                                       ],
-                                       output="table",
-                                       sort_keys='cluster'))
+        result += "\nClusterID: {}\tComputesetID: {}\t State: {}\t\tAllocation: {}\n" \
+                  "Start (est): {}\t\tEnd (est): {}\n"\
+                  "Requested Time (ddd-hh:mm): {}\tRunning Time (est): {}\t\tRemaining Time (est): {}\n"\
+                    .format(computesetdict["cluster"],
+                            computesetdict["id"],
+                            computesetdict["state"],
+                            computesetdict["account"],
+                            starttime,
+                            endtime,
+                            walltime,
+                            runningTime,
+                            remainingTime
+                            )
+        data = computesetdict["computes"]
+        for index, anode in enumerate(data):
+            bnode = dict(anode)
+            if "interface" in bnode:
+                macs = []
+                #ips = []
+                for ipaddr in anode["interface"]:
+                    macs.append(ipaddr["mac"])
+                    #ips.append(ipaddr["ip"] or "N/A")
+                if format=='table':
+                    bnode["mac"] = "\n".join(macs)
+                else:
+                    bnode["mac"] = ";".join(macs)
+                #anode["ip"] = "; ".join(ips)
+            del bnode["interface"]
+            data[index] = bnode
+        result += str(list_printer(data,
+                                   order=[
+                                       "name",
+                                       "state",
+                                       "type",
+                                       "mac",
+                                       #"ip",
+                                       "cpus",
+                                       "cluster",
+                                       "host",
+                                       "memory",
+                                   ],
+                                   output="table",
+                                   sort_keys='cluster'))
         return result
 
     @staticmethod
