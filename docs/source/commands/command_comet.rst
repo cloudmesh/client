@@ -313,53 +313,53 @@ Get the list of images that are available to you:
 
 .. prompt:: bash
 
-    cm comet image list
+    cm comet iso list
 
 Upload an image to the public shared folder:
 
 .. prompt:: bash
 
-    cm comet image upload /path/to/your/image.iso
+    cm comet iso upload /path/to/your/image.iso
 
 Or with a specified new image name:
 
 .. prompt:: bash
 
-    cm comet image upload /path/to/your/image.iso --imagename=newimagename.iso
+    cm comet iso upload /path/to/your/image.iso --imagename=newimagename.iso
 
 Attach an image to the frontend:
 
 .. prompt:: bash
 
-    cm comet image attach newimagename.iso vc2
+    cm comet iso attach newimagename.iso vc2
 
 Or to a compute node:
 
 .. prompt:: bash
 
-    cm comet image attach newimagename.iso vc2 vm-vc2-0
+    cm comet iso attach newimagename.iso vc2 vm-vc2-0
 
 To detach the attached iso image from frontend node:
 
 .. prompt:: bash
 
-    cm comet image detach vc2
+    cm comet iso detach vc2
 
 Or from a compute node:
 
 .. prompt:: bash
 
-    cm comet image detach vc2 vm-vc2-0
+    cm comet iso detach vc2 vm-vc2-0
 
 Image attaching/detaching also works on compute nodes in bulk:
 
 .. prompt:: bash
 
-    cm comet image attach newimagename.iso vc2 vm-vc2-[0-4]
+    cm comet iso attach newimagename.iso vc2 vm-vc2-[0-4]
 
 .. prompt:: bash
 
-    cm comet image detach vc2 vm-vc2-[0-4]
+    cm comet iso detach vc2 vm-vc2-[0-4]
 
 Please note image attaching/detaching will only take effect after you hard reboot 
 the node (power off and then power on).
@@ -405,12 +405,12 @@ How to get a virtual cluster?
 4. Please note that it will be up to you to provide an apropriate iso image.
    A small number of sample images are provided and you can list tehm with ::
 
-     cm comet image list
+     cm comet iso list
 
 5. Next you need to attach an image to your compute nodes (we assume you
    have 3 nodes called vm-vc2-0, vm-vc2-1, vm-vc2-2 ::
 
-        cm image attach imagename.iso vc2 vm-vc2-[0-3]
+        cm comet iso attach imagename.iso vc2 vm-vc2-[0-3]
 
    Please note that the name of the cluster (vc2) will be different for you
 
