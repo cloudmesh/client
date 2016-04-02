@@ -6,7 +6,7 @@ import cloudmesh_client
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
 # from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
-from cloudmesh_client2 import CloudmeshDatabase
+from cloudmesh_client import CloudmeshDatabase
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.dotdict import dotdict
 
