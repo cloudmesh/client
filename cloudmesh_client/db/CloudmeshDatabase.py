@@ -62,6 +62,7 @@ class CloudmeshDatabase(object):
 
     def __init__(self, user=None):
         self.__dict__ = self.__shared_state
+
         if self.initialized is None:
             self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
             self.filename = Config.path_expand(os.path.join("~", ".cloudmesh", "cloudmesh.db"))
@@ -72,20 +73,19 @@ class CloudmeshDatabase(object):
                 self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
             else:
                 self.user = user
-            CloudmeshDatabase.create(self.engine)
+            CloudmeshDatabase.create()
             CloudmeshDatabase.create_tables()
-            CloudmeshDatabase.start(self.engine)
-            self.initialized = "true"
+            CloudmeshDatabase.start()
 
     #
     # MODEL
     #
     @classmethod
-    def create(cls, engine):
+    def create(cls):
         # cls.clean()
         filename = Config.path_expand(os.path.join("~", ".cloudmesh", "cloudmesh.db"))
         if not os.path.isfile(filename):
-            cls.create_model(engine)
+            cls.create_model()
 
 
     '''
@@ -173,7 +173,7 @@ class CloudmeshDatabase(object):
     #
     # noinspection PyPep8Naming
     @classmethod
-    def start(cls, engine):
+    def start(cls):
         if cls.session is None:
             print("start session")
             Session = sessionmaker(bind=cls.engine)
