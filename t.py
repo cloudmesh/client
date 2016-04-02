@@ -2,4 +2,4 @@
 
 import os
 
-os.system("py.test tests/cm_basic")
+os.system("py.test --capture=no tests/cm_basic/test_cloud_model.py")
