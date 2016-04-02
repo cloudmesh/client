@@ -5,7 +5,7 @@ from cloudmesh_client.common.todo import TODO
 # add imports for other cloud providers in future
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.ListResource import ListResource
-from cloudmesh_client.common.Printer import dict_printer, attribute_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.db import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.common.Error import Error
@@ -34,7 +34,7 @@ class Key(ListResource):
 
             (order, header) = CloudProvider(cloud).get_attributes("key")
 
-            return dict_printer(keys,
+            return Printer.write(keys,
                                 order=order,
                                 header=header,
                                 output=format)

@@ -2,7 +2,7 @@ from __future__ import print_function
 
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.default import Default
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.command import command, PluginCommand, CloudPluginCommand
 from cloudmesh_client.common.ConfigDict import ConfigDict
@@ -125,5 +125,5 @@ class CloudCommand(PluginCommand, CloudPluginCommand):
 
             (order, header) = CloudProvider(cloudname).get_attributes("clouds")
 
-            Console.msg(dict_printer(clouds, order=order, header=header))
+            Console.msg(Printer.write(clouds, order=order, header=header))
         return ""

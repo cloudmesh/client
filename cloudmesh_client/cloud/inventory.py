@@ -3,7 +3,7 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.util import banner
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.shell.console import Console
 import yaml
 import hostlist
@@ -96,7 +96,7 @@ class Inventory(ListResource):
     def list(self, format='dict', sort_keys=True, order=None):
         if order is None:
             order = self.order
-        return dict_printer(self.data,
+        return Printer.write(self.data,
                             order=order,
                             output=format,
                             sort_keys=sort_keys)

@@ -5,7 +5,7 @@ from cloudmesh_client.common.todo import TODO
 # add imports for other cloud providers in future
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.ListResource import ListResource
-from cloudmesh_client.common.Printer import dict_printer, attribute_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.db import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.common.Error import Error
@@ -269,10 +269,10 @@ class Vm(ListResource):
 
             # order = None
             if "name_or_id" in kwargs and kwargs["name_or_id"] is not None:
-                return attribute_printer(list(elements.values())[0],
+                return Printer.attribute(list(elements.values())[0],
                                          output=kwargs["output_format"])
             else:
-                return dict_printer(elements,
+                return Printer.write(elements,
                                     order=order,
                                     output=kwargs["output_format"])
         except Exception as ex:

@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db import CloudmeshDatabase
@@ -44,7 +44,7 @@ class List(object):
 
             if elements is not None or elements is not {}:
                 # convert the output to a dict
-                return (dict_printer(elements,
+                return (Printer.write(elements,
                                      order=order,
                                      header=header,
                                      output=output))

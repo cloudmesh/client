@@ -23,7 +23,7 @@ from cloudmesh_client.default import Default
 from cloudmesh_client.util import get_python
 from cloudmesh_client.util import check_python
 import cloudmesh_client
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.command import PluginCommand
 from cloudmesh_client.common.ssh_config import ssh_config
@@ -84,7 +84,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
     def postcmd(self, stop, line):
         StopWatch.stop("command")
-        if Default.timer():
+        if Default.timer:
             print ("Timer: {:.4f}s ({})".format(StopWatch.get("command"),
                                                 line.strip()))
         return stop
@@ -213,19 +213,19 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             cluster = value
         Default.set('cluster', cluster, category='general')
 
-        group = Default.get_group()
+        group = Default.group
         if group is None:
             Default.set_group("default")
 
         Default.load("cloudmesh.yaml")
 
-        on = Default.timer()
+        on = Default.timer
 
-        group = Default.get_group()
+        group = Default.group
         if group is None:
             Default.set_group("default")
 
-        r = Default.get_refresh()
+        r = Default.refresh
         if r is None:
             Default.set_refresh("on")
 
@@ -360,7 +360,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         }
 
 
-        print(dict_printer(versions, output=arguments["--format"],
+        print(Printer.write(versions, output=arguments["--format"],
                            order=["name", "version"]))
         if arguments["--check"] in ["True"]:
             check_python()

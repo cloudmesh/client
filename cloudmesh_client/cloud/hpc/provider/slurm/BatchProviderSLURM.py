@@ -4,7 +4,7 @@ from datetime import datetime
 import textwrap
 
 from cloudmesh_client.common.Shell import Shell
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.common.TableParser import TableParser
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 from cloudmesh_client.cloud.hpc.BatchProviderBase import BatchProviderBase
@@ -52,7 +52,7 @@ class BatchProviderSLURM(BatchProviderBase):
                 return json.dumps(d, indent=4, separators=(',', ': '))
 
             else:
-                return (dict_printer(d,
+                return (Printer.write(d,
                                      order=['cluster',
                                             'jobid',
                                             'partition',
@@ -97,7 +97,7 @@ class BatchProviderSLURM(BatchProviderBase):
             return json.dumps(d, indent=4, separators=(',', ': '))
 
         else:
-            return (dict_printer(d,
+            return (Printer.write(d,
                                  order=['cluster',
                                         'partition',
                                         'avail',

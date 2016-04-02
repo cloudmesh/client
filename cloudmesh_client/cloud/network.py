@@ -4,9 +4,9 @@ import socket
 from uuid import UUID
 
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.cloud.ListResource import ListResource
-from cloudmesh_client.common.Printer import attribute_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.db import CloudmeshDatabase
 
@@ -33,7 +33,7 @@ class Network(ListResource):
             cloud_provider = CloudProvider(cloudname).provider
             result = cloud_provider.get_fixed_ip(fixed_ip_addr=fixed_ip_addr)
 
-            return attribute_printer(result,
+            return Printer.attribute(result,
                                      header=[
                                          "name",
                                          "value"
@@ -90,7 +90,7 @@ class Network(ListResource):
             result["user"] = cloud_provider.cloud_details["credentials"]["OS_USERNAME"]
             result["project"] = cloud_provider.cloud_details["credentials"]["OS_TENANT_NAME"]
 
-            return attribute_printer(result,
+            return Printer.attribute(result,
                                      header=[
                                          "name",
                                          "value"
@@ -107,7 +107,7 @@ class Network(ListResource):
                     choice = input().lower()
                     # if yes, return dict
                     if choice == 'y':
-                        return attribute_printer(floating_ip,
+                        return Printer.attribute(floating_ip,
                                                  header=[
                                                      "name",
                                                      "value"
@@ -301,7 +301,7 @@ class Network(ListResource):
 
             (order, header) = CloudProvider(cloudname).get_attributes("floating_ip")
 
-            return dict_printer(floating_ips,
+            return Printer.write(floating_ips,
                                 order=order,
                                 header=header)
         except Exception as ex:
@@ -322,7 +322,7 @@ class Network(ListResource):
 
             (order, header) = CloudProvider(cloudname).get_attributes("floating_ip_pool")
 
-            return dict_printer(floating_ip_pools,
+            return Printer.write(floating_ip_pools,
                                 order=order,
                                 header=header)
 

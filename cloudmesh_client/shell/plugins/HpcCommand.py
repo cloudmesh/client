@@ -6,7 +6,7 @@ from cloudmesh_client.util import yn_choice
 from cloudmesh_client.cloud.experiment import Experiment
 from cloudmesh_client.shell.command import PluginCommand, HPCPluginCommand, \
     CometPluginCommand
-from cloudmesh_client.common.Printer import attribute_printer
+from cloudmesh_client.common.Printer import Printer
 
 
 # noinspection PyBroadException
@@ -232,7 +232,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
 
             result = batch.run(cluster, group, script, **arg_dict)
             if isinstance(result, dict):
-                print (attribute_printer(result))
+                print (Printer.attribute(result))
                 Console.ok("Experiment {count}: Started batch job {job_id} on {cluster}".format(**result))
             else:
                 Console.error(result)

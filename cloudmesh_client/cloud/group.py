@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db import CloudmeshDatabase
@@ -120,7 +120,7 @@ class Group(ListResource):
             d = cls.cm.find("GROUP", **args)
             # d = cls.cm.all(model.GROUP)
 
-            return (dict_printer(d,
+            return (Printer.write(d,
                                  order=cls.order,
                                  output=format))
         except Exception as ex:
@@ -148,7 +148,7 @@ class Group(ListResource):
 
             group = cls.cm.find("group", output="dict", **args)
 
-            return dict_printer(group,
+            return Printer.write(group,
                                 order=cls.order,
                                 output=output)
         except Exception as ex:
@@ -224,7 +224,7 @@ class Group(ListResource):
             if group is not None \
                     and "output" in kwargs:
                 d = {"0": group}
-                group = dict_printer(d)
+                group = Printer.write(d)
             return group
 
         except Exception as ex:

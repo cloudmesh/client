@@ -3,7 +3,7 @@ import os
 
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.logger import LOGGER
-from cloudmesh_client.common.Printer import row_table
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.cloud.nova import Nova
 from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.shell.command import command
@@ -92,7 +92,7 @@ class NovaCommand (PluginCommand, CloudPluginCommand):
                     d[attribute] = None
                 if not arguments["--password"]:
                     d['OS_PASSWORD'] = "********"
-            print(row_table(d, order=None, labels=["Variable", "Value"]))
+            print(Printer.row_table(d, order=None, labels=["Variable", "Value"]))
             msg = "info. OK."
             Console.ok(msg)
             return ""

@@ -17,7 +17,7 @@ import yaml
 
 from cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI import CloudProviderOpenstackAPI
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.dotdict import dotdict
 
@@ -123,7 +123,7 @@ class Test_keys:
         d = sshdb.dict()
         print(d)
 
-        print(dict_printer(d, output="table"))
+        print(Printer.write(d, output="table"))
         assert 'id_rsa.pub' in d[1]['uri']
 
         d = sshdb.find('rsa')

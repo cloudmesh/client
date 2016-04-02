@@ -22,7 +22,7 @@ pprint(cm.dict(cloudmesh_db.VM))
 pprint(cm.json(cloudmesh_db.VM))
 
 for output in ["dict", "json", "yaml", "table"]:
-    print (dict_printer(cm.dict(cloudmesh_db.VM), output=output))
+    print (Printer.write(cm.dict(cloudmesh_db.VM), output=output))
 
 # d = [DEFAULT(name="user", value="albert")]
 # db.add(d)
@@ -34,9 +34,9 @@ cm.default("user", getpass.getuser(), cloud="india")
 for v in cm.data.query(cloudmesh_db.DEFAULT):
     print (v.name, v.value, v.cloud)
 
-print (dict_printer(cm.dict(cloudmesh_db.DEFAULT), output='yaml'))
+print (Printer.write(cm.dict(cloudmesh_db.DEFAULT), output='yaml'))
 
-print (dict_printer(cm.dict(cloudmesh_db.DEFAULT),
+print (Printer.write(cm.dict(cloudmesh_db.DEFAULT),
                     order=['id', 'cloud', 'name', 'value']))
 
 cm.name("gregor-001")

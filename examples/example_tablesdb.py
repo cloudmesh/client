@@ -31,5 +31,5 @@ for u in r:
             values[key] = u.__dict__[key]
     result[_id] = values
 
-output = models.dict_printer(result, order=None, header=None, output="dict", sort_keys=True)
+output = models.Printer.write(result, order=None, header=None, output="dict", sort_keys=True)
 print(output)
