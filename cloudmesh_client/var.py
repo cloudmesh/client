@@ -1,7 +1,7 @@
 from __future__ import print_function
 
-from cloudmesh_client2.common.Printer import Printer
-from cloudmesh_client2.db import CloudmeshDatabase
+from cloudmesh_client.common.Printer import Printer
+from cloudmesh_client.db import CloudmeshDatabase
 # from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from .provider import Attributes
