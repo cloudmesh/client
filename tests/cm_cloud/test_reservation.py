@@ -23,7 +23,7 @@ from cloudmesh_client.default import Default
 # noinspection PyPep8Naming
 class Test_reservation:
     data = dotdict({
-        "cloud": Default.get_cloud(),
+        "cloud": Default.cloud,
         "json": "json",
         "yaml": "yaml",
         "user": "albert",

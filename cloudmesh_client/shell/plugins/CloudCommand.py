@@ -76,7 +76,7 @@ class CloudCommand(PluginCommand, CloudPluginCommand):
              register
         """
 
-        cloudname = arguments["--cloud"] or Default.get_cloud()
+        cloudname = arguments["--cloud"] or Default.cloud
 
         if arguments["logon"]:
             cloudname = arguments["CLOUD"]
@@ -105,7 +105,7 @@ class CloudCommand(PluginCommand, CloudPluginCommand):
         elif arguments["list"]:
             provider = CloudProvider(cloudname).provider
             clouds = provider.list_clouds()
-            default = Default.get_cloud()
+            default = Default.cloud
             active = ConfigDict("cloudmesh.yaml")["cloudmesh"]["active"]
             key = Default.get_key()
 

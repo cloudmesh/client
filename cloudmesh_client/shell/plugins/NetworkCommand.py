@@ -87,7 +87,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
         """
         # pprint(arguments)
         # Get the cloud parameter OR read default
-        cloudname = arguments["--cloud"] or Default.get_cloud()
+        cloudname = arguments["--cloud"] or Default.cloud
 
         if cloudname is None:
             Console.error("Default cloud has not been set!"

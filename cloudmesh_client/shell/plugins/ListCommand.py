@@ -62,7 +62,7 @@ class ListCommand(PluginCommand, CloudPluginCommand):
 
         # Read commandline arguments
         output_format = arguments['--format']
-        cloud = arguments['--cloud'] or Default.get_cloud()
+        cloud = arguments['--cloud'] or Default.cloud
         user = arguments['--user']
         tenant = arguments['--tenant']
 

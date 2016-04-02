@@ -25,7 +25,7 @@ class Test_usage:
     """
 
     data = dotdict({
-        "cloud": Default.get_cloud(),
+        "cloud": Default.cloud,
         "wrong_cloud": "no_cloud"
     })
 

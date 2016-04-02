@@ -23,7 +23,7 @@ class Test_nova:
     """tests nova command"""
 
     data = dotdict({
-        "cloud": Default.get_cloud(),
+        "cloud": Default.cloud,
         "group": "mygroup",
         "wrong_cloud": "no_cloud"
     })

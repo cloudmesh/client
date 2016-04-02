@@ -26,7 +26,7 @@ class Test_base:
 
     # noinspection PyTypeChecker
     data = dotdict({
-        "cloud": Default.get_cloud(),
+        "cloud": Default.cloud,
     })
 
     def run(self, command):

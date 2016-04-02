@@ -23,7 +23,7 @@ class Test_script:
     """tests script command"""
 
     data = dotdict({
-        "cloud": Default.get_cloud(),
+        "cloud": Default.cloud,
         "group": "mygroup"
     })
 

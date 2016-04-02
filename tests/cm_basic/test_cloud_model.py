@@ -35,7 +35,7 @@ class Test_cloud_model(object):
     cm = CloudmeshDatabase()
 
     data = dotdict({
-        "cloud": Default.get_cloud(),
+        "cloud": Default.cloud,
     })
 
     def run(self, command):

@@ -94,7 +94,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
         """
         # pprint(arguments)
 
-        category = arguments["--category"] or Default.get_cloud()
+        category = arguments["--category"] or Default.cloud
 
         if arguments["list"]:
 

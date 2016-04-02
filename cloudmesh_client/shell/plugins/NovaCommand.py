@@ -56,7 +56,7 @@ class NovaCommand (PluginCommand, CloudPluginCommand):
 
         """
         # pprint(arguments)
-        cloud = arguments['CLOUD'] or Default.get_cloud()
+        cloud = arguments['CLOUD'] or Default.cloud
         if not cloud:
             Console.error("Default cloud not set!")
             return ""

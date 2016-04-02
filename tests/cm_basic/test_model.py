@@ -15,7 +15,6 @@ from pprint import pprint
 
 from cloudmesh_client.util import HEADING
 import cloudmesh_client.db
-from cloudmesh_client.db import database
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming
 class Test_model:

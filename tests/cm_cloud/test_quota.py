@@ -25,7 +25,7 @@ class Test_quota:
     """
 
     data = dotdict({
-        "cloud": Default.get_cloud(),
+        "cloud": Default.cloud,
         "format": "csv",
         "wrong_cloud": "no_cloud"
     })
