@@ -51,6 +51,7 @@ class Test_cloud_model(object):
 
     def setup(self):
         self.d = {
+            'name': 'vm1',
             'cloud': 'india',
             'update': '2015-06-18 22:11:48 UTC',
             'user': 'gregor',
@@ -102,7 +103,7 @@ class Test_cloud_model(object):
                       'uri': 'http://i5r.idp.iu.futuregrid.org/v2/1234/servers/abcd'},
             'id': '67f6bsf67a6b',
             'image': None,
-            'name': 'gregor-cm_test',
+            'name': 'vm2',
             'private_ips': [],
             'public_ips': [],
             'size': None,
@@ -110,7 +111,6 @@ class Test_cloud_model(object):
         }
 
         self.d = FlatDict(self.vm)
-        pass
 
     # noinspection PyPep8Naming
     def tearDown(self):
@@ -124,33 +124,33 @@ class Test_cloud_model(object):
         HEADING("check the model")
         d = self.d
 
-        banner("VM Data")
+        banner("VM Data", c='-')
         pprint(d.__dict__)
+        assert d['extra__imageId'] == 'abcd'
 
-        banner("Add VM")
-        
+        banner("Add VM", c='-')
 
 
         name = "vm1"
         uuid = d.id
 
         vm = VM_OPENSTACK(name=name,
-                          uuid=uuid,
                           user="test",
                           category=self.data.cloud,
                           **d)
-        banner("VM added")
+        print (vm)
+        banner("VM added", c='-')
 
-        pprint(vm.__dict__)
-        vm.bla = "bla"
+        # pprint(vm.__dict__)
+        # vm.bla = "bla"
         self.cm.add(vm)
         self.cm.save()
 
-        banner("Get VM from Database")
+        banner("Get VM from Database", c='-')
 
-        o = self.cm.find(VM_OPENSTACK, name=name)
+        # o = self.cm.find(VM_OPENSTACK, name=name)
         # o = self.cm.find_by_name(VM, name)
-        pprint(o)
+        # pprint(o)
 
         assert True
 
@@ -196,15 +196,18 @@ class Test_cloud_model(object):
         
 
         print ("---------")
-        all_tables = self.cm.db.tables()
+        all_tables = self.cm.tables
         for t in all_tables:
-            print (t.__tablename__, t.kind)
+            print (t.__tablename__, t.__kind__)
 
-        print ("---------")
-        vm_tables = self.cm.db.tables(kind="vm")
-        for t in vm_tables:
-            print (t.__tablename__, t.kind)
-        assert len(vm_tables) == 2
+        print(all_tables)
+        assert 'COUNTER' in str(all_tables)
+
+        # print ("---------")
+        # vm_tables = self.cm.tables(kind="vm")
+        # for t in vm_tables:
+        #     print (t.__tablename__, t.__kind__)
+        # assert len(vm_tables) == 2
 
 
     def test_004(self):
@@ -213,17 +216,17 @@ class Test_cloud_model(object):
         print ("-------------")
         vm = self.cm.x_find(name="vm_001")
         pprint (vm)
-        #assert vm.provider == 'openstack'
+        assert vm.name == 'vm_001'
 
 
         print ("-------------")
         vm = self.cm.x_find(name="vm_006")
         pprint (vm)
-        #assert vm.provider == 'libcloud'
+        assert vm.name == 'vm_006'
 
         print ("-------------")
         vms = self.cm.x_find(kind="vm", scope="all")
         pprint (vms)
         print (len(vms))
-        #assert len(vms) == 10
+        assert len(vms) == 11
 
