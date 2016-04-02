@@ -23,7 +23,7 @@ from cloudmesh_client.common.dotdict import dotdict
 # noinspection PyPep8Naming
 class Test_group:
     data = dotdict({
-        "cloud": Default.get_cloud(),
+        "cloud": Default.cloud,
         "user": "test",
         "group": "groupA"
     })

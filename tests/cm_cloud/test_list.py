@@ -21,7 +21,7 @@ from cloudmesh_client.default import Default
 # noinspection PyPep8Naming
 class Test_list:
     data = dotdict({
-        "cloud": Default.get_cloud(),
+        "cloud": Default.cloud,
         "format": "json",
         "user": "fake",
         "wrong_cloud": "no_cloud",

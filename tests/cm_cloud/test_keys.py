@@ -34,7 +34,7 @@ from cloudmesh_client.util import banner
 class Test_keys:
     # noinspection PyTypeChecker
     data = dotdict({
-        "cloud": Default.get_cloud(),
+        "cloud": Default.cloud,
         "username": ConfigDict("cloudmesh.yaml")["cloudmesh"]["github"]["username"]}
     )
 

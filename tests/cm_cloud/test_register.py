@@ -22,7 +22,7 @@ class Test_register:
 # for india only
 """
     data = dotdict({
-        "cloud": Default.get_cloud(),
+        "cloud": Default.cloud,
         "group": "test",
         "vm": "testvm",
         "flavor": "TBD",

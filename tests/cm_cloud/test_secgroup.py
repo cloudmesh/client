@@ -23,7 +23,7 @@ from cloudmesh_client.default import Default
 # noinspection PyPep8Naming
 class Test_secgroup:
     data = dotdict({
-        "cloud": Default.get_cloud(),
+        "cloud": Default.cloud,
         "group": "test_group",
         "wrong_cloud": "no_cloud",
         "rule-80": "80 80 tcp  0.0.0.0/0",

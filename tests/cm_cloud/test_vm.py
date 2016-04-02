@@ -22,7 +22,7 @@ from cloudmesh_client.default import Default
 class Test_vm:
     data = dotdict({
         "wrong_cloud": "no_cloud",
-        "cloud": Default.get_cloud(),
+        "cloud": Default.cloud,
         "group": "test",
         "image": "TBD",
         "flavor": "TBD",

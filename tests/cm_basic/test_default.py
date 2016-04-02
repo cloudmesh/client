@@ -23,7 +23,7 @@ class Test_default(object):
     """  """
 
     data = dotdict({
-        "cloud": Default.get_cloud(),
+        "cloud": Default.cloud,
         "image": "myimage",
         "flavor": "myflavor"
     })
@@ -63,9 +63,9 @@ class Test_default(object):
         result = Default.list()
         print(result)
 
-        print("KKK", Default.get_cloud())
+        print("KKK", Default.cloud)
 
-        assert Default.get_cloud() == name
+        assert Default.cloud == name
         self._check(name)
 
     def test_003(self):

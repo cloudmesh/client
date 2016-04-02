@@ -61,7 +61,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
         """
         # pprint(arguments)
 
-        cloud = arguments["--cloud"] or Default.get_cloud()
+        cloud = arguments["--cloud"] or Default.cloud
 
         # if refresh ON, pull data from cloud to db
         if arguments["refresh"] or \
@@ -130,7 +130,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
         # Delete security group rule
         elif arguments["rules-delete"]:
             # if no arguments read default
-            cloud = arguments["--cloud"] or Default.get_cloud()
+            cloud = arguments["--cloud"] or Default.cloud
 
             label = arguments["LABEL"]
             from_port = arguments["FROMPORT"]

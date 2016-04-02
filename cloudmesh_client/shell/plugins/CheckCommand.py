@@ -33,7 +33,7 @@ class CheckCommand(PluginCommand, CloudPluginCommand):
                 cm check --cloud=kilo
 
         """
-        cloud = arguments["--cloud"] or Default.get_cloud()
+        cloud = arguments["--cloud"] or Default.cloud
 
         if cloud is None:
             Console.error("Default cloud doesn't exist")

@@ -238,7 +238,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
 
 
-        cloud = arguments["--cloud"] or Default.get_cloud()
+        cloud = arguments["--cloud"] or Default.cloud
 
 
         config = ConfigDict("cloudmesh.yaml")
@@ -370,7 +370,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 vm_name = prefix + "-" + str(count).zfill(3)
                 data = {"name": vm_name,
-                        "cloud": arguments["--cloud"] or Default.get_cloud()}
+                        "cloud": arguments["--cloud"] or Default.cloud}
                 for attribute in ["image", "flavor", "key", "group", "secgroup"]:
                     data[attribute] = Default.get(attribute, category=cloud)
 

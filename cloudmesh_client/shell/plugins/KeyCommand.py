@@ -437,7 +437,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 'all': arguments['--all'] or False,
                 'active': arguments['--active'] or False,
                 'keyname': arguments['KEYNAME'] or False,
-                'clouds': arguments["--cloud"] or Default.get_cloud()
+                'clouds': arguments["--cloud"] or Default.cloud
             })
 
 
@@ -488,7 +488,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 if arguments["--active"]:
                     cloud = 'active'
                 else:
-                    cloud = arguments["--cloud"] or Default.get_cloud()
+                    cloud = arguments["--cloud"] or Default.cloud
 
                 if cloud == "all":
                     config = ConfigDict("cloudmesh.yaml")

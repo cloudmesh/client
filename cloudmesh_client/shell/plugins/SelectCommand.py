@@ -45,7 +45,7 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
 
         """
         # pprint(arguments)
-        cloud = arguments["CLOUD"] or Default.get_cloud()
+        cloud = arguments["CLOUD"] or Default.cloud
         if arguments["image"]:
             try:
                 refresh = arguments['--refresh'] or Default.refresh()
