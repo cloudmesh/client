@@ -8,7 +8,7 @@ import requests
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.common.menu import menu_return_num
 from cloudmesh_client.keys.SSHkey import SSHkey
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
@@ -33,7 +33,7 @@ class SSHKeyManager(object):
     @property
     def table(self):
         d = dict(self.__keys__)
-        return (dict_printer(d,
+        return (Printer.write(d,
                              order=["comment",
                                     "uri",
                                     "fingerprint"],

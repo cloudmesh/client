@@ -10,7 +10,7 @@ from cloudmesh_client.util import banner
 from cloudmesh_client.shell.command import PluginCommand, ShellPluginCommand, \
     CometPluginCommand
 from cloudmesh_client.common.ConfigDict import path_expand
-from cloudmesh_client.common.Printer import list_printer
+from cloudmesh_client.common.Printer import Printer
 
 
 class SecureShellCommand(PluginCommand, ShellPluginCommand, CometPluginCommand):
@@ -149,7 +149,7 @@ class SecureShellCommand(PluginCommand, ShellPluginCommand, CometPluginCommand):
                      "localforward",
                      "forwardx11"]
 
-            print(list_printer(entries, order=order))
+            print(Printer.list(entries, order=order))
 
         elif arguments["cat"]:
 

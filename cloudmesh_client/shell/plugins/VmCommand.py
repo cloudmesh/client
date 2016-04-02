@@ -13,7 +13,7 @@ from cloudmesh_client.cloud.secgroup import SecGroup
 from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.cloud.counter import Counter
 from cloudmesh_client.default import Default
-from cloudmesh_client.common.Printer import dict_printer, attribute_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.ConfigDict import Username
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
@@ -166,7 +166,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             elif format == "yaml":
                 return pyaml.dump(d)
             elif format == "table":
-                return dict_printer(d,
+                return Printer.write(d,
                                     order=["id",
                                            "name",
                                            "status"],
@@ -181,7 +181,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             elif format == "yaml":
                 return pyaml.dump(d)
             elif format == "table":
-                return dict_printer(d,
+                return Printer.write(d,
                                     order=["network",
                                            "version",
                                            "addr"],
@@ -220,7 +220,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
             # TODO: Get this printed in a table
             print("Print table")
-            dict_printer(servers, output=_format)
+            Printer.write(servers, output=_format)
         """
 
         # pprint(arguments)
@@ -325,7 +325,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         "secgroup_list": secgroup_list,
                         "group": group
                     }
-                    print (attribute_printer(data, output="table"))
+                    print (Printer.attribute(data, output="table"))
                     msg = "dryrun info. OK."
                     Console.ok(msg)
                 else:
@@ -378,7 +378,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 data["key"] = Default.get_key()
 
                 output_format = arguments["--format"] or "table"
-                print (attribute_printer(data, output=output_format))
+                print (Printer.attribute(data, output=output_format))
                 msg = "info. OK."
                 Console.ok(msg)
                 ValueError("default command not implemented properly. Upon "
@@ -404,7 +404,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 vms = cloud_provider.list_vm(cloud)
                 vm = vms[0]
                 output_format = arguments["--format"] or "table"
-                print (attribute_printer(vm, output=output_format))
+                print (Printer.attribute(vm, output=output_format))
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception as e:
@@ -450,7 +450,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 pprint (test)
 
-                print (dict_printer(test,
+                print (Printer.write(test,
                                     order=["id",
                                            "name",
                                            "status",

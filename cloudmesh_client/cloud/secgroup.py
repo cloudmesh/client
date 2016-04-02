@@ -4,7 +4,7 @@ import requests
 from pprint import pprint
 
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.db import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.cloud.ListResource import ListResource
@@ -107,7 +107,7 @@ class SecGroup(ListResource):
             #pprint(elements)
             (order, header) = CloudProvider(cloud).get_attributes("secgroup")
 
-            return dict_printer(elements,
+            return Printer.write(elements,
                                 order=order,
                                 header=header,
                                 output=format)
@@ -245,7 +245,7 @@ class SecGroup(ListResource):
                 return "No rules for security group [{}] in the database. Try cm secgroup refresh."
 
             # return table
-            return (dict_printer(rule,
+            return (Printer.write(rule,
                                  order=["user",
                                         "category",
                                         "name",

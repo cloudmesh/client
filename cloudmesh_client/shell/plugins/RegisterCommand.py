@@ -10,8 +10,7 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 from cloudmesh_client.cloud.register import CloudRegister, Register
-from cloudmesh_client.common.Printer import attribute_printer, dict_printer, \
-    print_list
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.util import path_expand
 from cloudmesh_client.common.Error import Error
 
@@ -180,9 +179,9 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                 for attribute, value in credentials.items():
                     print("export {}={}".format(attribute, value))
             elif output == "table":
-                print(attribute_printer(credentials))
+                print(Printer.attribute(credentials))
             else:
-                print(dict_printer(credentials, output=output))
+                print(Printer.write(credentials, output=output))
                 # TODO: bug csv does not work
             return ""
 
@@ -280,7 +279,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
         elif arguments['list'] and arguments['ssh']:
             output = arguments['--format'] or 'table'
             hosts = CloudRegister.list_ssh()
-            print(print_list(hosts, output=output))
+            print(Printer.list(hosts, output=output))
             return ""
 
         elif arguments['list']:

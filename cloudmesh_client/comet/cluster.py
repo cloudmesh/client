@@ -6,7 +6,7 @@ from builtins import input
 
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.comet.comet import Comet
-from cloudmesh_client.common.Printer import dict_printer, list_printer
+from cloudmesh_client.common.Printer import Printer
 
 from cloudmesh_client.common.hostlist import Parameter
 import time
@@ -64,7 +64,7 @@ class Cluster(object):
 
                     elements[cluster["name"]] = element
 
-                result = dict_printer(elements,
+                result = Printer.write(elements,
                                       order=[
                                           "name",
                                           "project",
@@ -183,7 +183,7 @@ class Cluster(object):
                             stuck_computesets[bnode["cluster"]][bnode["name"]]
                     data[index] = bnode
 
-                result = list_printer(data,
+                result = Printer.list(data,
                                       order=[
                                           "name",
                                           "state",
@@ -355,7 +355,7 @@ class Cluster(object):
                     #anode["ip"] = "; ".join(ips)
                 del bnode["interface"]
                 data[index] = bnode
-            result += str(list_printer(data,
+            result += str(Printer.list(data,
                                        order=[
                                            "name",
                                            "state",

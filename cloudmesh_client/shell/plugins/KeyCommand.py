@@ -8,7 +8,7 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
 from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.default import Default
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
@@ -138,7 +138,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
             elif format == "yaml":
                 return yaml.dump(d, default_flow_style=False)
             elif format == "table":
-                return dict_printer(d,
+                return Printer.write(d,
                                     order=["name",
                                            "comment",
                                            "uri",
@@ -148,7 +148,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                                     sort_keys=True)
             else:
                 return d
-                # return dict_printer(d,order=['cm_id, name, fingerprint'])
+                # return Printer.write(d,order=['cm_id, name, fingerprint'])
 
         directory = Config.path_expand(arguments["--dir"])
 

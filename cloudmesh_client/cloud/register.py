@@ -79,7 +79,7 @@ class CloudRegister(object):
                     config["cloudmesh"]["clouds"][key][
                         "cm_type_version"] or "N/A"
             }
-        return Printer.dict_printer(d,
+        return Printer.Printer.write(d,
                                     order=['id',
                                            'cloud',
                                            'iaas',

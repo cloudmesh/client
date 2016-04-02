@@ -1,7 +1,7 @@
 from __future__ import print_function
 
 from cloudmesh_client.shell.command import command
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.cloud.reservation import Reservation
 
 from cloudmesh_client.shell.console import Console
@@ -106,7 +106,7 @@ class ReservationCommand(PluginCommand, CloudPluginCommand):
             elif format == "yaml":
                 return pyaml.dump(d)
             elif format == "table":
-                return dict_printer(d,
+                return Printer.write(d,
                                     order=["id",
                                            "name",
                                            "start_time",
@@ -122,7 +122,7 @@ class ReservationCommand(PluginCommand, CloudPluginCommand):
                 TODO.implement()
             else:
                 return d
-                # return dict_printer(d,order=['cm_id, name, fingerprint'])
+                # return Printer.write(d,order=['cm_id, name, fingerprint'])
 
         def _get_db_date_format(date):
             """

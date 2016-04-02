@@ -1,6 +1,6 @@
 from cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI import \
     set_os_environ
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.TableParser import TableParser
@@ -60,7 +60,7 @@ class Usage(ListResource):
 
             # del d['0']
 
-            return dict_printer(d,
+            return Printer.write(d,
                                 order=["start",
                                        "end",
                                        "servers",

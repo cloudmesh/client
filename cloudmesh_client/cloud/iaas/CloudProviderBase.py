@@ -2,7 +2,7 @@
 import inspect
 # from abc import ABCMeta
 
-from cloudmesh_client.common.Printer import dict_printer, attribute_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.shell.console import Console
 
 
@@ -401,9 +401,9 @@ class CloudProviderBase(object):
 
             if format == "table":
                 element = list(elements.values())[0]
-                return attribute_printer(element)
+                return Printer.attribute(element)
             else:
-                return dict_printer(elements,
+                return Printer.write(elements,
                                     output=format)
         except Exception as ex:
             Console.error(ex.message, ex)
