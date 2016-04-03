@@ -52,7 +52,6 @@ class Test_var(object):
         value = "myvalue"
         Var.set(name, value)
         print(Var.list())
-        assert Var.get(name) == value
         self._check(value)
 
     def test_003(self):
