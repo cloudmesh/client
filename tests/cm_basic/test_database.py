@@ -13,11 +13,11 @@ nosetests -v tests/cm_basic/test_database.py
 
 from pprint import pprint
 
-from cloudmesh_client.db import DEFAULT, COUNTER, VM_OPENSTACK
+from cloudmesh_client import Default, DEFAULT, VM_OPENSTACK
 from cloudmesh_client.util import HEADING
 
-from cloudmesh_client.db import CloudmeshDatabase
-
+from cloudmesh_client import CloudmeshDatabase
+from cloudmesh_client import Printer
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming
 class Test_database:
@@ -36,44 +36,43 @@ class Test_database:
     def test_000(self):
         HEADING("testing DEFAULT add")
         
-        result = self.cm.info()
-        print (result['username'])
-        assert "var" in str(result)
-        assert "VARCHAR" in str(result)
+        self.cm.info()
+        assert True
 
     def test_001(self):
         HEADING("testing DEFAULT add")
         
         m = DEFAULT("hallo", "world")
         self.cm.add(m)
+        print ("added")
 
-        n = self.cm.query(DEFAULT).filter_by(name='hallo').first()
+        n = self.cm.filter_by(kind="default", name='hallo')
 
-        print(n.__dict__)
+        print(n)
 
-        # assert n.__dict__["name"] == 'hallo'
-        # assert n.__dict__["value"] == 'world'
+        assert n.name == 'hallo'
+        assert n.value == 'world'
 
-        pprint(n.__dict__)
 
     def test_002(self):
         HEADING("testing list")
-        
-        m = DEFAULT("hallo", "world")
 
-        n = self.cm.find("default", scope="first", name='hallo')
-        first = list(n)[0]
+        n = self.cm.find(
+            provider='general',
+            kind="default",
+            scope="first",
+            name='hallo')
         pprint(n)
 
-        assert n["name"] == 'hallo'
-        assert n["value"] == 'world'
+        assert n.name == 'hallo'
+        assert n.value == 'world'
 
     def test_003(self):
         HEADING("testing find")
         
         m = DEFAULT("hallo", "world")
 
-        n = self.cm.find("default", scope="all", name='hallo')
+        n = self.cm.find(kind="default", scope="all", name='hallo')
         print(list(n))
         assert (len(list(n)) > 0)
 
@@ -84,28 +83,38 @@ class Test_database:
 
         self.cm.info()
 
-
-        m = COUNTER("counter", 2)
+        m = Default.set_counter("index", 2)
         self.cm.add(m)
 
-        o = self.cm.get(COUNTER, name='counter')
-
+        o = Default.get_counter('index')
         print("OOO", o)
 
-        self.cm.counter_set(name="counter", value=0)
+        Default.set_counter("index", 0)
 
         for i in range(0, 10):
-            self.cm.counter_incr(name="counter")
+            Default.incr_counter("index")
 
-        print(self.cm.counter_get(name="counter"))
+
 
         self.cm.info()
-        c = self.cm.first(self.cm.all(COUNTER))
-        print ("CCC", c)
-        assert c["value"] == '10'
+        c = self.cm.all(kind="default")
 
 
-    def test_005(self):
+        print(Printer.write(c, order=['name', 'value', 'provider', 'type']))
+
+        print(Default.get_counter(name="index"))
+
+
+        i = Default.get("index")
+        assert type(i) == int
+        assert i == 10
+
+        i = Default.index
+        assert type(i) == int
+        assert i == 10
+
+
+def test_005(self):
         
 
         self.cm.info()
@@ -114,7 +123,7 @@ class Test_database:
         m = COUNTER("counter", 2, user="gregor")
         self.cm.add(m)
 
-        o = self.cm.get(COUNTER, name='counter', user="gregor")
+        o = self.cm.counter_get(name='counter', user="gregor")
 
         print("OOO", o)
 

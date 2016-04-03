@@ -10,11 +10,15 @@ from cloudmesh_client import CloudmeshDatabase
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.dotdict import dotdict
 
+
+# noinspection PyPep8Naming
 class readable_classproperty(object):
     def __init__(self, f):
         self.f = f
+
     def __get__(self, obj, owner):
         return self.f(owner)
+
 
 # noinspection PyBroadException
 class Default(object):
@@ -31,7 +35,6 @@ class Default(object):
     __provider__ = "general"
 
     cm = CloudmeshDatabase()
-
 
     @classmethod
     def list(cls,
@@ -72,8 +75,6 @@ class Default(object):
             Console.error("Error creating list")
             return None
 
-
-
     #
     # GENERAL SETTER AND GETTER METHOD
     #
@@ -106,7 +107,6 @@ class Default(object):
         except Exception as e:
             Console.error("problem setting key value {}={}".format(key, value))
 
-
     @classmethod
     def get(cls, name=None, category='default'):
         o = cls.cm.find(provider="general",
@@ -116,7 +116,10 @@ class Default(object):
         if o is None:
             return None
 
-        return (o.value)
+        if o.type == 'int':
+            return int(o.value)
+        else:
+            return (o.value)
 
     @classmethod
     def delete(cls, name):
@@ -131,16 +134,20 @@ class Default(object):
         cls.cm.delete(provider=cls.__provider__, kind=cls.__kind__)
 
     @readable_classproperty
+    def index(cls):
+        return cls.get(name="index")
+
+    @readable_classproperty
     def cloud(cls):
         return cls.get(name="cloud")
 
     @readable_classproperty
     def image(cls):
-        return cls.get(name="image", category=cls.Default.cloud)
+        return cls.get(name="image", category=Default.cloud)
 
     @readable_classproperty
     def flavor(cls):
-        return cls.get(name="flavor", category=cls.Default.cloud)
+        return cls.get(name="flavor", category=Default.cloud)
 
     @readable_classproperty
     def lastvm(cls):
@@ -170,7 +177,6 @@ class Default(object):
     def cluster(cls):
         return cls.get(name="cluster")
 
-
     @readable_classproperty
     def timer(cls):
         return cls.get(name="timer")
@@ -192,6 +198,45 @@ class Default(object):
         else:
             Console.error("unkown logging level. Setting to debug.")
             cls.set("loglevel", 'debug')
+
+    # ###################################
+    # COUNTER
+    # ###################################
+    @classmethod
+    def incr_counter(cls, name="index"):
+        count = cls.get_counter(name=name)
+
+        count += 1
+
+        cls.set_counter(name=name, value=count)
+
+    @classmethod
+    def get_counter(cls, name="index"):
+        """
+        Function that returns the prefix username and count for vm naming.
+        If it is not present in db, it creates a new entry.
+        :return:
+        """
+        count = cls.get(name=name)
+        if count is None:
+            count = 1
+            cls.set_counter(name, count)
+
+        return int(count)
+
+    @classmethod
+    def set_counter(cls, name, value):
+        """
+        Special function to update vm prefix count.
+
+        :param name:
+        :param value:
+        :param user:
+        :return:
+        """
+
+        cls.set(name, str(value), type='int')
+        cls.set(name, str(value), type='int')
 
     @classmethod
     def set_cloud(cls, value):
@@ -262,7 +307,6 @@ class Default(object):
         """
         cls.set("group", value)
 
-
     @classmethod
     def set_key(cls, name):
         """
@@ -306,7 +350,6 @@ class Default(object):
         :return:
         """
         cls.set("timer", value)
-
 
     @classmethod
     def load(cls, filename):

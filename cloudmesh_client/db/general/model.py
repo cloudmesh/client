@@ -3,22 +3,6 @@ from ..CloudmeshDatabase import CloudmeshDatabase, CloudmeshMixin
 from sqlalchemy import Column, Date, Integer, String
 
 
-class COUNTER(CloudmeshMixin, CloudmeshDatabase.Base):
-    __tablename__ = "counter"
-    __kind__ = 'counter'
-    __provider__ = 'general'
-
-    value = Column(Integer)
-    type = Column(String, default=int)
-
-    def __init__(self,
-                 name=None,
-                 value=None,
-                 user=None):
-        super(COUNTER, self).set_defaults(name=name, user=user)
-        self.value = int(value)
-
-
 
 class DEFAULT(CloudmeshMixin, CloudmeshDatabase.Base):
     """table to store default values
