@@ -146,7 +146,7 @@ class CloudmeshDatabase(object):
         print()
 
     @classmethod
-    def table(cls, category=None, provider=None, kind=None):
+    def table(cls, provider=None, kind=None):
         """
 
         :param category:
@@ -154,6 +154,13 @@ class CloudmeshDatabase(object):
         :return: the table class based on a given table name.
                  In case the table does not exist an exception is thrown
         """
+
+        if provider is None and kind is not None:
+            for t in cls.tables:
+                if t.__kind__ == kind and t.__provider__ == provider:
+                    return t
+
+
         def valid(category, check):
             if category is None:
                 return True
@@ -166,7 +173,7 @@ class CloudmeshDatabase(object):
 
             if test_provider and test_kind:
                 return t
-        ValueError("ERROR: unkown table {} {}".format(provider, kind))
+        Console.error("ERROR: unkown table {} {}".format(provider, kind))
 
     #
     # SESSION
@@ -186,20 +193,16 @@ class CloudmeshDatabase(object):
             table=None):
 
         t = table
+        data = {
+            "provider": provider,
+            "kind": kind,
+        }
 
         if provider is not None and kind is not None:
             t = cls.table(provider=provider, kind=kind)
-            data = {
-                "provider": provider,
-                "kind": kind,
-            }
 
         elif provider is None and kind is not None:
             t = cls.table(kind=kind)
-            data = {
-                "kind": kind,
-            }
-
         else:
             ValueError("find is improperly used provider={provider} kind={kind}"
                        .format(**data))
@@ -209,7 +212,7 @@ class CloudmeshDatabase(object):
     @classmethod
     def find(cls,
              scope='first',
-             provider=None,
+             provider='general',
              kind=None,
              output='dict',
              table=None,
@@ -227,6 +230,7 @@ class CloudmeshDatabase(object):
         """
         t = table
 
+
         if provider is not None and kind is not None:
             t = cls.table(provider=provider, kind=kind)
         else:
@@ -236,6 +240,8 @@ class CloudmeshDatabase(object):
                 "table": table,
                 "args": kwargs
             }
+            Console.error("find is improperly used provider={provider} kind={kind}"
+                       .format(**data))
         elements = cls.session.query(t).filter_by(**kwargs)
 
         if scope == 'first':
