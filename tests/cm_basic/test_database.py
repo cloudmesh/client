@@ -114,33 +114,6 @@ class Test_database:
         assert i == 10
 
 
-def test_005(self):
-        
-
-        self.cm.info()
-
-
-        m = COUNTER("counter", 2, user="gregor")
-        self.cm.add(m)
-
-        o = self.cm.counter_get(name='counter', user="gregor")
-
-        print("OOO", o)
-
-        self.cm.counter_set(name="counter", user="gregor", value=0)
-
-        for i in range(0, 10):
-            self.cm.counter_incr(name="counter", user="gregor")
-
-        print(self.cm.counter_get(name="counter", user="gregor"))
-
-        self.cm.info()
-        c = self.cm.first(self.cm.all(COUNTER))
-        print ("CCC", c)
-        assert c["value"] == '10'
-
-
-
 
 """
     def test_005(self):
