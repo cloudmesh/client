@@ -67,12 +67,11 @@ class Default(object):
                 result = cls.cm.all(cls.__kind__)
             else:
                 result = cls.cm.all(category=category, kind=cls.__kind__)
-
             return (Printer.write(result,
                                   order=order,
                                   output=output))
         except:
-            Console.error("Error creating list")
+            # Console.error("Error creating list")
             return None
 
     #

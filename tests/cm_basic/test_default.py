@@ -23,7 +23,7 @@ class Test_default(object):
     """  """
 
     data = dotdict({
-        "cloud": Default.cloud,
+        "cloud": "mycloud",
         "image": "myimage",
         "flavor": "myflavor"
     })
@@ -45,56 +45,56 @@ class Test_default(object):
     def test_001(self):
         HEADING("delete defaults")
         Default.clear()
-        assert Default.list() is None
-
-    def _check(self, content):
-        result = Default.list()
-        print(result)
-        assert content in str(result)
+        defaults = Default.list()
+        print ("LIST:", defaults)
+        assert defaults is None
 
     def test_002(self):
         HEADING("list default cloud")
         result = Default.list()
-        print(result)
+        print("LIST:", result)
+        assert result is None
 
         name = self.data.cloud
-        Default.set_cloud(name)
+        print ("Name", name, self.data, self.data.cloud)
+        Default.set("cloud", name)
 
         result = Default.list()
-        print(result)
+        print("LIST:", result)
 
-        print("KKK", Default.cloud)
+        print("Default.cloud", Default.cloud)
 
         assert Default.cloud == name
-        self._check(name)
 
     def test_003(self):
         HEADING("set default image")
         name = self.data.image
+
+        print (self.data)
         Default.set_image(name, self.data.cloud)
+
+        print (Default.get(name, self.data.cloud))
+
         assert Default.get("image", category=self.data.cloud) == name
-        self._check(name)
+
 
     def test_004(self):
         HEADING("set default flavor")
         name = "myflavor"
         Default.set_flavor(name, self.data.cloud)
         assert Default.get_flavor(self.data.cloud) == name
-        self._check(name)
 
     def test_005(self):
         HEADING("set default key ")
         name = "mykey"
         Default.set_key(name)
-        assert Default.get_key() == name
-        self._check(name)
+        assert Default.key == name
 
     def test_006(self):
         HEADING("set default key  ")
         name = "mygroup"
         Default.set_group(name)
-        assert Default.get_group() == name
-        self._check(name)
+        assert Default.group == name
 
     def test_007(self):
         HEADING(" set default variable ")
@@ -103,7 +103,6 @@ class Test_default(object):
         cloud = self.data.cloud
         Default.set(name, value, cloud)
         assert Default.get(name, cloud) == value
-        self._check(value)
 
     def test_008(self):
         HEADING("cm default test=testValue --cloud={cloud}"
