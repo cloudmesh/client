@@ -72,7 +72,7 @@ class Test_default(object):
         HEADING("set default image")
         name = self.data.image
         Default.set_image(name, self.data.cloud)
-        assert Default.get_image(self.data.cloud) == name
+        assert Default.get("image", category=self.data.cloud) == name
         self._check(name)
 
     def test_004(self):

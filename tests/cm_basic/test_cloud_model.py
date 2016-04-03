@@ -201,7 +201,7 @@ class Test_cloud_model(object):
             print (t.__tablename__, t.__kind__)
 
         print(all_tables)
-        assert 'COUNTER' in str(all_tables)
+        assert 'DEFAULT' in str(all_tables)
 
         # print ("---------")
         # vm_tables = self.cm.tables(kind="vm")
