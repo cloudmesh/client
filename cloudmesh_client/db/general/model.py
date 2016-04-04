@@ -118,7 +118,7 @@ class GROUP(CloudmeshMixin, CloudmeshDatabase.Base):
     
     __tablename__ = "group"
 
-    __kind__ = 'counter'
+    __kind__ = 'group'
     __provider__ = 'general'
     
     member = Column(String)
@@ -142,7 +142,7 @@ class RESERVATION(CloudmeshMixin, CloudmeshDatabase.Base):
     __tablename__ = "reservation"
 
 
-    __kind__ = 'counter'
+    __kind__ = 'reservation'
     __provider__ = 'general'
 
 
