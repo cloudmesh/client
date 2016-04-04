@@ -207,7 +207,7 @@ class CloudmeshDatabase(object):
         elif provider is None and kind is not None:
             t = cls.table(kind=kind)
         else:
-            ValueError("find is improperly used provider={provider} kind={kind}"
+            Console.error("find is improperly used provider={provider} kind={kind}"
                        .format(**data))
         result = cls.session.query(t).all()
         return cls.to_list(result)
@@ -215,7 +215,7 @@ class CloudmeshDatabase(object):
     @classmethod
     def find(cls,
              scope='first',
-             provider='general',
+             provider=None,
              kind=None,
              output='dict',
              table=None,
@@ -234,17 +234,21 @@ class CloudmeshDatabase(object):
         t = table
 
 
-        if provider is not None and kind is not None:
-            t = cls.table(provider=provider, kind=kind)
-        else:
-            data = {
-                "provider": provider,
-                "kind": kind,
-                "table": table,
-                "args": kwargs
-            }
-            Console.error("find is improperly used provider={provider} kind={kind}"
-                       .format(**data))
+        if table is None:
+
+            if provider is None and kind is None:
+                data = {
+                    "provider": provider,
+                    "kind": kind,
+                    "table": table,
+                    "args": kwargs
+                }
+                Console.error("find is improperly used provider={provider} kind={kind}"
+                              .format(**data))
+
+            else:
+                t = cls.table(provider=provider, kind=kind)
+
         elements = cls.session.query(t).filter_by(**kwargs)
 
         if scope == 'first':
@@ -254,8 +258,9 @@ class CloudmeshDatabase(object):
             if output == 'dict':
                 result = dotdict(cls.to_list([result])[0])
         elif output == 'dict':
+            print ("EEEE", elements)
             result =  cls.to_list(elements)
-
+            print ("qqqq", result)
         return result
 
     @classmethod
@@ -437,3 +442,140 @@ class CloudmeshDatabase(object):
                                attribute: value}
                        )
 
+
+# ###################################
+# REFRESH
+# ###################################
+# noinspection PyUnusedLocal
+def refresh(self, kind, name, **kwargs):
+    """
+    This method refreshes the local database
+    with the live cloud details
+    :param kind:
+    :param name:
+    :param kwargs:
+    :return:
+    """
+
+    try:
+        # print(cloudname)
+        # get the user
+        # TODO: Confirm user
+        user = self.user
+
+        if kind in ["flavor", "image", "vm", "secgroup"]:
+
+            # get provider for specific cloud
+            provider = CloudProvider(name).provider
+
+            # clear local db records for kind
+            self.clear(kind, name)
+
+            # for secgroup, clear rules as well
+            if kind == "secgroup":
+                self.clear("secgrouprule", name)
+
+            if kind in ["flavor", "image"]:
+
+                # flavors = provider.list_flavor(name)
+                elements = provider.list(kind, name)
+                for element in list(elements.values()):
+                    element["uuid"] = element['id']
+                    element['type'] = 'string'
+                    element["category"] = name
+                    element["cloud"] = name
+                    element["user"] = user
+
+                    db_obj = {0: {kind: element}}
+                    self.add_obj(db_obj)
+                    self.save()
+
+                return True
+
+            elif kind in ["vm"]:
+
+                # flavors = provider.list_flavor(name)
+                elements = provider.list(kind, name)
+
+                for element in list(elements.values()):
+                    element[u"uuid"] = element['id']
+                    element[u'type'] = 'string'
+                    element[u"category"] = name
+                    element[u"cloud"] = name
+                    element[u"user"] = user
+                    vm_name = element["name"]
+
+                    g = self.find_by_attributes("group", member=vm_name)
+
+                    if g is not None:
+                        element[u"group"] = g["name"]
+                    else:
+                        element[u"group"] = "undefined"
+
+                    db_obj = {0: {kind: element}}
+
+                    self.add_obj(db_obj)
+                    self.save()
+                return True
+
+            elif kind == "secgroup":
+                secgroups = provider.list_secgroup(name)
+                # pprint(secgroups)
+                for secgroup in list(secgroups.values()):
+                    secgroup_db_obj = self.db_obj_dict("secgroup",
+                                                       name=secgroup['name'],
+                                                       uuid=secgroup['id'],
+                                                       category=name,
+                                                       project=secgroup['tenant_id'],
+                                                       user=user
+                                                       )
+
+                    for rule in secgroup['rules']:
+                        rule_db_obj = self.db_obj_dict("secgrouprule",
+                                                       uuid=rule['id'],
+                                                       name=secgroup['name'],
+                                                       groupid=rule['parent_group_id'],
+                                                       category=name,
+                                                       user=user,
+                                                       project=secgroup['tenant_id'],
+                                                       fromPort=rule['from_port'],
+                                                       toPort=rule['to_port'],
+                                                       protocol=rule['ip_protocol'])
+
+                        if bool(rule['ip_range']) is not False:
+                            rule_db_obj[0]['secgrouprule']['cidr'] = rule['ip_range']['cidr']
+
+                        self.add_obj(rule_db_obj)
+                        self.save()
+                    # rule-for-loop ends
+
+                    self.add_obj(secgroup_db_obj)
+                    self.save()
+                return True
+
+        elif kind in ["batchjob"]:
+
+            # provider = BatchProvider(name).provider
+            # provider = BatchProvider(name)
+
+            from cloudmesh_client.cloud.hpc.BatchProvider import BatchProvider
+            provider = BatchProvider(name)
+
+            vms = provider.list_job(name)
+            for vm in list(vms.values()):
+                vm[u'uuid'] = vm['id']
+                vm[u'type'] = 'string'
+                vm[u'category'] = name
+                vm[u'user'] = user
+                db_obj = {0: {kind: vm}}
+
+                self.add_obj(db_obj)
+                self.save()
+            return True
+
+        else:
+            Console.error("refresh not supported for this kind: {}".format(kind))
+
+    except Exception as ex:
+        Console.error(ex.message)
+        return False

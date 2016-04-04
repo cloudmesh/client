@@ -16,6 +16,9 @@ from pprint import pprint
 # noinspection PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming
 class Group(ListResource):
 
+    __kind__ = "group"
+    __provider__ = "general"
+
     cm = CloudmeshDatabase()
     
     order = ["name",
@@ -106,25 +109,50 @@ class Group(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
-    def list(cls, format="table", category="general"):
+    def list(cls,
+             category=None,
+             order=None,
+             header=None,
+             output='table'):
         """
-        Method to get list of groups in
-            the cloudmesh database
-        :param format:
-        :param cloud:
+        lists the default values in the specified format.
+        TODO: This method has a bug as it uses format and output,
+        only one should be used.
+
+        :param category: the category of the default value. If general is used
+                      it is a special category that is used for global values.
+        :param format: json, table, yaml, dict, csv
+        :param order: The order in which the attributes are returned
+        :param output: The output format.
         :return:
         """
+        if order is None:
+            order, header = None, None
+            # order = ['user',
+            #         'category',
+            #         'name',
+            #         'value',
+            #         'updated_at']
+            # order, header = Attributes(cls.__kind__, provider=cls.__provider__)
         try:
-            
-            args = {}
-            d = cls.cm.find(kind="group", **args)
-            # d = cls.cm.all(model.GROUP)
+            if category is None:
+                result = cls.cm.all(kind=cls.__kind__)
+            else:
+                print ("llll", category, cls.__provider__, cls.__kind__)
+                result = cls.cm.find(provider=cls.__provider__,
+                                     kind=cls.__kind__,
+                                     category=category)
+                print ("rrrr", result)
+            if result is None:
+                table = None
+            else:
+                table = Printer.write(result,
+                                  output='table')
+            return table
+        except:
+            Console.error("Error creating list")
+            return None
 
-            return (Printer.write(d,
-                                  order=cls.order,
-                                  output=format))
-        except Exception as ex:
-            Console.error(ex.message, ex)
 
     @classmethod
     def get_info(cls, category="general", name=None, output="table"):
@@ -180,20 +208,26 @@ class Group(ListResource):
 
             group = cls.cm.find(kind="group", output="object",**data)
 
+            t = cls.cm.table(provider="general", kind="group")
+            o = t(name=name,
+                  member=member,
+                  category=category,
+                  user=user
+                  )
+
             if group is None:
-                cls.cm.add(kind="group",
-                                           name=name,
-                                           member=member,
-                                           category=category,
-                                           user=user)
                 Console.ok("Group: add {} to group {}".format(member, name))
             else:
-                group.name = name
-                group.member = member
-
-                cls.cm.save()
+                # bug
+                o.name = name
+                o.member = member
 
                 Console.ok("Group: move {} to group {}".format(member, name))
+
+            cls.cm.add(o)
+
+            cls.cm.save()
+
 
         except Exception as ex:
             Console.error(ex.message, ex)
@@ -218,7 +252,10 @@ class Group(ListResource):
                     query[key] = "None"
             del query['output']
         try:
-            group = cls.cm.find("group", **query)
+
+            print ("QQQ"), query
+            group = cls.cm.find(kind="group", **query)
+            print ("gggg", group)
             if group is not None \
                     and "output" in kwargs:
                 d = {"0": group}

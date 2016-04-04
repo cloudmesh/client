@@ -94,7 +94,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
         """
         # pprint(arguments)
 
-        category = arguments["--category"] or Default.cloud
+        category = arguments["--category"]
 
         if arguments["list"]:
 
@@ -103,7 +103,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
             name = arguments["GROUPNAME"]
             if name is None:
 
-                result = Group.list(format=output, category=category)
+                result = Group.list(output=output, category=category)
                 if result:
                     print(result)
                 else:
