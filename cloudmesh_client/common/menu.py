@@ -135,14 +135,14 @@ def dict_choice(d):
     if elements != {}:
         # noinspection PyPep8
         print(Printer.write(elements,
-                           order=["id",
+                            order=["id",
                                   "name",
                                   "comment",
                                   "uri",
                                   "fingerprint",
                                   "source"],
-                           output="table",
-                           sort_keys=True))
+                            output="table",
+                            sort_keys=True))
     else:
         print("ERROR: No keys in the database")
         return

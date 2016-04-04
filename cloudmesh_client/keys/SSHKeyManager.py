@@ -34,11 +34,11 @@ class SSHKeyManager(object):
     def table(self):
         d = dict(self.__keys__)
         return (Printer.write(d,
-                             order=["comment",
+                              order=["comment",
                                     "uri",
                                     "fingerprint"],
-                             output="table",
-                             sort_keys=True))
+                              output="table",
+                              sort_keys=True))
 
     def __delitem__(self, key):
         del self.__keys__[key]

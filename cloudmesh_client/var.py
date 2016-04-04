@@ -49,8 +49,8 @@ class Var(object):
             result = cls.cm.all(provider=cls.__provider__, kind=cls.__kind__)
 
             return (Printer.write(result,
-                                         order=order,
-                                         output=output))
+                                  order=order,
+                                  output=output))
         except:
             Console.error("Error creating list")
             return None

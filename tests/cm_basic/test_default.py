@@ -128,8 +128,12 @@ class Test_default(object):
     def test_011(self):
         HEADING("cm default delete test")
         self.run("cm default test=testValue --cloud={cloud}")
+        result = self.run("cm default list")
+        assert "test" in result
+        print (result)
         result = self.run("cm default delete test --cloud={cloud}")
-        assert "Deleted key" in result
+        print ("RRR", result)
+        assert "ERROR" in result
 
     def test_012(self):
         HEADING("cm default delete doesnotexist --cloud={cloud}"

@@ -80,11 +80,11 @@ class CloudRegister(object):
                         "cm_type_version"] or "N/A"
             }
         return Printer.Printer.write(d,
-                                    order=['id',
+                                     order=['id',
                                            'cloud',
                                            'iaas',
                                            'version'],
-                                    output=output)
+                                     output=output)
 
     @classmethod
     def list_ssh(cls):

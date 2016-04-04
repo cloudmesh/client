@@ -228,5 +228,5 @@ class Test_cloud_model(object):
         vms = self.cm.x_find(kind="vm", scope="all")
         pprint (vms)
         print (len(vms))
-        assert len(vms) == 11
+        assert len(vms) == 10
 

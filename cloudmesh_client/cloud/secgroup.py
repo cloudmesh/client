@@ -108,9 +108,9 @@ class SecGroup(ListResource):
             (order, header) = CloudProvider(cloud).get_attributes("secgroup")
 
             return Printer.write(elements,
-                                order=order,
-                                header=header,
-                                output=format)
+                                 order=order,
+                                 header=header,
+                                 output=format)
 
         except Exception as ex:
             Console.error(ex.message, ex)
@@ -246,14 +246,14 @@ class SecGroup(ListResource):
 
             # return table
             return (Printer.write(rule,
-                                 order=["user",
+                                  order=["user",
                                         "category",
                                         "name",
                                         "fromPort",
                                         "toPort",
                                         "protocol",
                                         "cidr"],
-                                 output="table"))
+                                  output="table"))
 
         except Exception as ex:
             Console.error(ex.message, ex)

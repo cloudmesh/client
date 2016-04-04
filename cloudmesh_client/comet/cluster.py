@@ -65,7 +65,7 @@ class Cluster(object):
                     elements[cluster["name"]] = element
 
                 result = Printer.write(elements,
-                                      order=[
+                                       order=[
                                           "name",
                                           "project",
                                           "nodes",
@@ -75,7 +75,7 @@ class Cluster(object):
                                           "frontend type",
                                           "description",
                                       ],
-                                      header=[
+                                       header=[
                                           "Name",
                                           "Project",
                                           "Count",
@@ -86,7 +86,7 @@ class Cluster(object):
                                           "Description",
                                       ],
 
-                                      output=format)
+                                       output=format)
             return result
 
     @staticmethod

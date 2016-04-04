@@ -97,9 +97,9 @@ class Inventory(ListResource):
         if order is None:
             order = self.order
         return Printer.write(self.data,
-                            order=order,
-                            output=format,
-                            sort_keys=sort_keys)
+                             order=order,
+                             output=format,
+                             sort_keys=sort_keys)
 
     def _str(self, data, with_empty=False):
         print

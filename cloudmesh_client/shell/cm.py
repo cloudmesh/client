@@ -361,7 +361,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
 
         print(Printer.write(versions, output=arguments["--format"],
-                           order=["name", "version"]))
+                            order=["name", "version"]))
         if arguments["--check"] in ["True"]:
             check_python()
 

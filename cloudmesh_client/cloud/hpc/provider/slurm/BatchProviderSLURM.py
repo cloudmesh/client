@@ -53,7 +53,7 @@ class BatchProviderSLURM(BatchProviderBase):
 
             else:
                 return (Printer.write(d,
-                                     order=['cluster',
+                                      order=['cluster',
                                             'jobid',
                                             'partition',
                                             'name',
@@ -63,7 +63,7 @@ class BatchProviderSLURM(BatchProviderBase):
                                             'nodes',
                                             'nodelist',
                                             'updated'],
-                                     output=format))
+                                      output=format))
         except Exception as e:
             Error.traceback(e)
             return e
@@ -98,7 +98,7 @@ class BatchProviderSLURM(BatchProviderBase):
 
         else:
             return (Printer.write(d,
-                                 order=['cluster',
+                                  order=['cluster',
                                         'partition',
                                         'avail',
                                         'timelimit',
@@ -106,7 +106,7 @@ class BatchProviderSLURM(BatchProviderBase):
                                         'state',
                                         'nodelist',
                                         'updated'],
-                                 output=format))
+                                  output=format))
 
     @classmethod
     def test(cls, cluster, time):

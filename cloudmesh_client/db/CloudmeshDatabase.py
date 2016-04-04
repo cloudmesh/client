@@ -10,6 +10,7 @@ from sqlalchemy.orm import sessionmaker
 from pprint import pprint
 from sqlalchemy import update
 from cloudmesh_client.shell.console import Console
+from cloudmesh_client.common.ConfigDict import ConfigDict, Config
 
 class CloudmeshMixin(object):
     __mapper_args__ = {'always_refresh': True}
@@ -90,7 +91,7 @@ class CloudmeshDatabase(object):
 
     '''
     __shared_state = {}
-    data = {"filename": "data.db"}
+    data = {"filename": Config.path_expand(os.path.join("~", ".cloudmesh", "cloudmesh.db"))}
     initialized = None
     engine = create_engine('sqlite:///{filename}'.format(**data), echo=False)
     Base = declarative_base()
@@ -102,6 +103,8 @@ class CloudmeshDatabase(object):
         self.__dict__ = self.__shared_state
 
         if self.initialized is None:
+            self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
+            self.filename = Config.path_expand(os.path.join("~", ".cloudmesh", "cloudmesh.db"))
             self.create()
             self.create_tables()
             self.start()

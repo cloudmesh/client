@@ -42,9 +42,9 @@ class Hpc(ListResource):
             (order, header) = CloudProvider(cloud).get_attributes("hpc")
 
             return Printer.write(elements,
-                                order=order,
-                                header=header,
-                                output=format)
+                                 order=order,
+                                 header=header,
+                                 output=format)
         except Exception as ex:
             Console.error(ex.message, ex)
 

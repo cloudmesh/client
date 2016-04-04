@@ -273,8 +273,8 @@ class Vm(ListResource):
                                          output=kwargs["output_format"])
             else:
                 return Printer.write(elements,
-                                    order=order,
-                                    output=kwargs["output_format"])
+                                     order=order,
+                                     output=kwargs["output_format"])
         except Exception as ex:
             Console.error(ex.message, ex)
 

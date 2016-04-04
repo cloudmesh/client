@@ -121,8 +121,8 @@ class Group(ListResource):
             # d = cls.cm.all(model.GROUP)
 
             return (Printer.write(d,
-                                 order=cls.order,
-                                 output=format))
+                                  order=cls.order,
+                                  output=format))
         except Exception as ex:
             Console.error(ex.message, ex)
 
@@ -149,8 +149,8 @@ class Group(ListResource):
             group = cls.cm.find("group", output="dict", **args)
 
             return Printer.write(group,
-                                order=cls.order,
-                                output=output)
+                                 order=cls.order,
+                                 output=output)
         except Exception as ex:
             Console.error(ex.message, ex)
 

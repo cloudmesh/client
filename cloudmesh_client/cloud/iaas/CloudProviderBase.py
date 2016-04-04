@@ -404,6 +404,6 @@ class CloudProviderBase(object):
                 return Printer.attribute(element)
             else:
                 return Printer.write(elements,
-                                    output=format)
+                                     output=format)
         except Exception as ex:
             Console.error(ex.message, ex)

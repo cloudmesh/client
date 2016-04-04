@@ -8,7 +8,7 @@ from .common.Printer import Printer
 
 import cloudmesh_client.version
 from cloudmesh_client.cloud.register import CloudRegister
-from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.common.ConfigDict import ConfigDict, Config
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.util import path_expand
 from cloudmesh_client.common.Shell import Shell
