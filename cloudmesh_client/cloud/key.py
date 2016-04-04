@@ -35,9 +35,9 @@ class Key(ListResource):
             (order, header) = CloudProvider(cloud).get_attributes("key")
 
             return Printer.write(keys,
-                                order=order,
-                                header=header,
-                                output=format)
+                                 order=order,
+                                 header=header,
+                                 output=format)
         except Exception as ex:
             Console.error(ex.message, ex)
 

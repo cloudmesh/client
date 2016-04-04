@@ -45,9 +45,9 @@ class List(object):
             if elements is not None or elements is not {}:
                 # convert the output to a dict
                 return (Printer.write(elements,
-                                     order=order,
-                                     header=header,
-                                     output=output))
+                                      order=order,
+                                      header=header,
+                                      output=output))
             else:
                 return None
 

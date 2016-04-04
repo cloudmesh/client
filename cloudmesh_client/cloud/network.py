@@ -302,8 +302,8 @@ class Network(ListResource):
             (order, header) = CloudProvider(cloudname).get_attributes("floating_ip")
 
             return Printer.write(floating_ips,
-                                order=order,
-                                header=header)
+                                 order=order,
+                                 header=header)
         except Exception as ex:
             Console.error(ex.message, ex)
 
@@ -323,8 +323,8 @@ class Network(ListResource):
             (order, header) = CloudProvider(cloudname).get_attributes("floating_ip_pool")
 
             return Printer.write(floating_ip_pools,
-                                order=order,
-                                header=header)
+                                 order=order,
+                                 header=header)
 
         except Exception as ex:
             Console.error(ex.message, ex)

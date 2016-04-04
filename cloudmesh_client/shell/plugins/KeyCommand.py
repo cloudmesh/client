@@ -139,13 +139,13 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 return yaml.dump(d, default_flow_style=False)
             elif format == "table":
                 return Printer.write(d,
-                                    order=["name",
+                                     order=["name",
                                            "comment",
                                            "uri",
                                            "fingerprint",
                                            "source"],
-                                    output="table",
-                                    sort_keys=True)
+                                     output="table",
+                                     sort_keys=True)
             else:
                 return d
                 # return Printer.write(d,order=['cm_id, name, fingerprint'])

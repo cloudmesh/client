@@ -107,7 +107,7 @@ class ReservationCommand(PluginCommand, CloudPluginCommand):
                 return pyaml.dump(d)
             elif format == "table":
                 return Printer.write(d,
-                                    order=["id",
+                                     order=["id",
                                            "name",
                                            "start_time",
                                            "end_time",
@@ -116,8 +116,8 @@ class ReservationCommand(PluginCommand, CloudPluginCommand):
                                            "hosts",
                                            "description",
                                            "cloud"],
-                                    output="table",
-                                    sort_keys=True)
+                                     output="table",
+                                     sort_keys=True)
             elif format == "csv":
                 TODO.implement()
             else:

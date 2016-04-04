@@ -61,13 +61,13 @@ class Usage(ListResource):
             # del d['0']
 
             return Printer.write(d,
-                                order=["start",
+                                 order=["start",
                                        "end",
                                        "servers",
                                        "cpu hours",
                                        "ram mb-hours",
                                        "disk gb-hours"],
-                                output=format)
+                                 output=format)
 
         except Exception as e:
             return e

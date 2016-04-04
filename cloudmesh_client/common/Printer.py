@@ -7,9 +7,9 @@ from prettytable import PrettyTable
 import yaml
 from cloudmesh_client.util import convert_from_unicode
 from pprint import pprint
+from cloudmesh_client.shell.console import Console
 
 class Printer (object):
-
 
     @classmethod
     def write(cls,   table,
@@ -28,6 +28,8 @@ class Printer (object):
             return cls.list(table,
                             order=order, header=header, output=output,
                             sort_keys=sort_keys, show_none=show_none, key=key)
+        else:
+            Console.error("unkown type")
 
     @classmethod
     def list(cls,
@@ -54,7 +56,6 @@ class Printer (object):
             name = str(count)
             d[name] = entry
             count += 1
-
         return cls.dict(d,
                         order=order,
                         header=header,

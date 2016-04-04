@@ -167,11 +167,11 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 return pyaml.dump(d)
             elif format == "table":
                 return Printer.write(d,
-                                    order=["id",
+                                     order=["id",
                                            "name",
                                            "status"],
-                                    output="table",
-                                    sort_keys=True)
+                                     output="table",
+                                     sort_keys=True)
             else:
                 return d
 
@@ -182,11 +182,11 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 return pyaml.dump(d)
             elif format == "table":
                 return Printer.write(d,
-                                    order=["network",
+                                     order=["network",
                                            "version",
                                            "addr"],
-                                    output="table",
-                                    sort_keys=True)
+                                     output="table",
+                                     sort_keys=True)
             else:
                 return d
 
@@ -451,14 +451,14 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 pprint (test)
 
                 print (Printer.write(test,
-                                    order=["id",
+                                     order=["id",
                                            "name",
                                            "status",
                                            "ip",
                                            "ping",
                                            "login"],
-                                    output="table",
-                                    sort_keys=True))
+                                     output="table",
+                                     sort_keys=True))
 
 
                 msg = "not yet implemented. failed."

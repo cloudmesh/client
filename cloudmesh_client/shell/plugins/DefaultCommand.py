@@ -130,7 +130,8 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
             arguments["list"] = True
             order = ['name', 'value']
             output_format = arguments["--format"]
-            result = Default.list(category=cloud, order=order,
+            result = Default.list(category=cloud,
+                                  order=order,
                                   output=output_format)
             print (result)
             return ""

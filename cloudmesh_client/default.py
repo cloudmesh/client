@@ -9,6 +9,7 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client import CloudmeshDatabase
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.dotdict import dotdict
+from cloudmesh_client.common.Printer import Printer
 
 
 # noinspection PyPep8Naming
@@ -56,22 +57,23 @@ class Default(object):
         """
         if order is None:
             order, header = None, None
-            order = ['user',
-                     'category',
-                     'name',
-                     'value',
-                     'updated_at']
+            #order = ['user',
+            #         'category',
+            #         'name',
+            #         'value',
+            #         'updated_at']
             # order, header = Attributes(cls.__kind__, provider=cls.__provider__)
         try:
             if category is None:
-                result = cls.cm.all(cls.__kind__)
+                result = cls.cm.all(kind=cls.__kind__)
             else:
                 result = cls.cm.all(category=category, kind=cls.__kind__)
-            return (Printer.write(result,
-                                  order=order,
-                                  output=output))
+
+            table = Printer.write(result,
+                                  output='table')
+            return table
         except:
-            # Console.error("Error creating list")
+            Console.error("Error creating list")
             return None
 
     #
@@ -121,8 +123,11 @@ class Default(object):
             return (o.value)
 
     @classmethod
-    def delete(cls, name):
-        cls.cm.delete(name=name, provider=cls.__provider__, kind=cls.__kind__)
+    def delete(cls, name, category=None):
+        if category is None:
+            cls.cm.delete(name=name, provider=cls.__provider__, kind=cls.__kind__)
+        else:
+            cls.cm.delete(name=name, provider=cls.__provider__, kind=cls.__kind__, category=category)
 
     @classmethod
     def clear(cls):
