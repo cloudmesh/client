@@ -53,10 +53,10 @@ class Test_group:
         c = "cm group add {prefix}-001 --group={group}  --type=vm"
         self.run(c)
 
-        index = str(Group.get(name="{group}".format(**self.data)))
-        print(index)
+        index = str(Group.get(name="{group}".format(**self.data), scope='all'))
+        print("INDEX", index)
         assert "test-001" in index
-        return
+
 
     def test_002(self):
         HEADING("testing cm group add")
@@ -72,8 +72,7 @@ class Test_group:
 
         names = ["{user}-001".format(**self.data),
                  "{user}-002".format(**self.data)]
-        for index in group:
-            element = group[index]
+        for element in group:
             pprint(element)
             assert element["name"] == "groupA"
             assert element["species"] == "vm"

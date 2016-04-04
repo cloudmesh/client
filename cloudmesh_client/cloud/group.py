@@ -201,46 +201,25 @@ class Group(ListResource):
         try:
             # See if group already exists. If yes, add id to the group
             data = dotdict({
-                'category': category,
                 'member': member,
-                'type': type,
                 'name': name,
                 'kind': 'group',
                 'provider': 'general'
             })
 
-            print ("SE", data)
-            group = cls.cm.find(output="object",**data)
-            print ("GROPU", group)
+            group = cls.cm.find(**data)
 
-
-
-
-            t = cls.cm.table(provider="general", kind="group")
-
-            print ("DDDDD==", data, t)
-            print ("\nTTTT", t)
-
-            o = t(name=name,
-                  member=member,
-                  category=category,
-                  user=user
-                  )
-
-            print ("===============")
-            print ("\nFFFFF", str(o))
             if group is None:
-                Console.ok("Group: add {} to group {}".format(member, name))
-            else:
-                # bug
-                o.name = name
-                o.member = member
 
-                Console.ok("Group: move {} to group {}".format(member, name))
-            print ("OOOO", o)
-            cls.cm.add(o, replace=False)
+                t = cls.cm.table(provider="general", kind="group")
 
-            cls.cm.save()
+                group = t(name=name,
+                          member=member,
+                          category=category,
+                          user=user
+                          )
+                cls.cm.add(group, replace=False)
+                return
 
 
         except Exception as ex:
@@ -397,16 +376,17 @@ class Group(ListResource):
                 "name": _toName
             }
 
-            _fromGroup = cls.cm.find(kind="group", output="dict", **from_args)
-            _toGroup = cls.cm.find(kind="group", output="dict", **to_args)
+            _fromGroup = cls.cm.find(kind="group", scope="all", output="dict", **from_args)
+            _toGroup = cls.cm.find(kind="group", scope="all", output="dict", **to_args)
 
+            print ("A")
             pprint (_fromGroup)
+            print ("B")
             pprint(_toGroup)
 
             if _fromGroup is not None:
 
-                for key in _fromGroup:
-                    from_element=_fromGroup[key]
+                for from_element in _fromGroup:
                     member = from_element["member"]
                     type = from_element["type"]
                     category = from_element["category"]
