@@ -1,5 +1,5 @@
 from __future__ import print_function
-from ..CloudmeshDatabase import CloudmeshDatabase, CloudmeshMixin
+from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase, CloudmeshMixin
 from sqlalchemy import Column, Date, Integer, String
 
 
@@ -124,17 +124,16 @@ class GROUP(CloudmeshMixin, CloudmeshDatabase.Base):
     member = Column(String)
     species = Column(String)
 
-    def __init__(self,
-                 name,
-                 member,
-                 species=None,
-                 category=None,
-                 user=None):
-        super(GROUP, self).set_defaults(name=name, user=user)
+    def __init__(self, **kwargs):
 
-        self.species = species or "vm"
-        self.member = member
+        super(GROUP, self).set_defaults(**kwargs)
 
+        self.member = kwargs.get('member')
+        self.species = kwargs.get('species') or 'vm'
+        self.category = kwargs.get('category', 'general')
+        self.type = 'str'
+
+        print ("INIT", kwargs, self.__dict__)
 
 
 class RESERVATION(CloudmeshMixin, CloudmeshDatabase.Base):
