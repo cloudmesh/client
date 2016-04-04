@@ -25,6 +25,7 @@ class Test_group:
     data = dotdict({
         "cloud": Default.cloud,
         "user": "test",
+        "prefix": "test",
         "group": "groupA"
     })
 
@@ -49,10 +50,10 @@ class Test_group:
     def test_001(self):
         HEADING("testing cm group add ")
 
-        c = "cm group add {user}-001 --group={group}  --type=vm"
+        c = "cm group add {prefix}-001 --group={group}  --type=vm"
         self.run(c)
 
-        index = str(Group.get(name="groupA"))
+        index = str(Group.get(name="{group}".format(**self.data)))
         print(index)
         assert "test-001" in index
         return
@@ -60,10 +61,14 @@ class Test_group:
     def test_002(self):
         HEADING("testing cm group add")
 
-        command = "cm group add {user}-002 --group={group}   --type=vm"
+        command = "cm group add {prefix}-002 --group={group}   --type=vm"
         self.run(command)
 
-        group = Group.get(name="groupA")
+
+
+        group = Group.get(name="groupA", scope='all')
+
+        print ("GGGG", group)
 
         names = ["{user}-001".format(**self.data),
                  "{user}-002".format(**self.data)]
