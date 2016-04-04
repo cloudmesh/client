@@ -183,7 +183,7 @@ class Group(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
-    def add(cls, name=None, type="vm", member=None, category="general"):
+    def add(cls, name=None, type="vm", member=None, category=None):
         """
         Add an instance to a new group
             or add it to an existing one
@@ -196,6 +196,7 @@ class Group(ListResource):
         
         # user logged into cloudmesh
         user = ConfigDict.getUser(category) or cls.cm.user
+        category = category or "general"
 
         try:
             # See if group already exists. If yes, add id to the group
@@ -203,18 +204,31 @@ class Group(ListResource):
                 'category': category,
                 'member': member,
                 'type': type,
-                'name': name
+                'name': name,
+                'kind': 'group',
+                'provider': 'general'
             })
 
-            group = cls.cm.find(kind="group", output="object",**data)
+            print ("SE", data)
+            group = cls.cm.find(output="object",**data)
+            print ("GROPU", group)
+
+
+
 
             t = cls.cm.table(provider="general", kind="group")
+
+            print ("DDDDD==", data, t)
+            print ("\nTTTT", t)
+
             o = t(name=name,
                   member=member,
                   category=category,
                   user=user
                   )
 
+            print ("===============")
+            print ("\nFFFFF", str(o))
             if group is None:
                 Console.ok("Group: add {} to group {}".format(member, name))
             else:
@@ -223,8 +237,8 @@ class Group(ListResource):
                 o.member = member
 
                 Console.ok("Group: move {} to group {}".format(member, name))
-
-            cls.cm.add(o)
+            print ("OOOO", o)
+            cls.cm.add(o, replace=False)
 
             cls.cm.save()
 

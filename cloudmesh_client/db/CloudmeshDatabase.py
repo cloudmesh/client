@@ -44,9 +44,10 @@ class CloudmeshMixin(object):
 
     def __repr__(self):
         try:
-            print("{} {} {} {}".format(self.id, self.name, self.kind, self.category))
+            return("<{}> id={} name={} category={}: dict={}".format(self.kind, self.cm_id, self.name, self.category, self.__dict__))
         except:
             Console.error("could not print object")
+            return None
 
     def __str__(self):
         s = None
