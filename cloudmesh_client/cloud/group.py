@@ -50,7 +50,7 @@ class Group(ListResource):
             
             query = {}
 
-            d = cls.cm.find("GROUP", **query)
+            d = cls.cm.find(kind="group", **query)
             names = set()
             for vm in d:
                 names.add(d[vm]['name'])
@@ -75,7 +75,7 @@ class Group(ListResource):
             if name is not None:
                 query["name"] = name
 
-            d = cls.cm.find("GROUP", **query)
+            d = cls.cm.find(kind="group", **query)
             names = set()
             for vm in d:
                 names.add(d[vm]['member'])
@@ -97,7 +97,7 @@ class Group(ListResource):
                 "member": vm
             }
 
-            d = cls.cm.find("GROUP", **query)
+            d = cls.cm.find(kind="group", **query)
             groups = set()
             for vm in d:
                 groups.add(d[vm]['name'])
@@ -117,7 +117,7 @@ class Group(ListResource):
         try:
             
             args = {}
-            d = cls.cm.find("GROUP", **args)
+            d = cls.cm.find(kind="group", **args)
             # d = cls.cm.all(model.GROUP)
 
             return (Printer.write(d,
@@ -137,7 +137,7 @@ class Group(ListResource):
         """
         
         try:
-            cloud = category or Default.get("cloud")
+            cloud = category or Default.cloud
 
             args = {
                 "category": category
@@ -146,7 +146,7 @@ class Group(ListResource):
             if name is not None:
                 args["name"] = name
 
-            group = cls.cm.find("group", output="dict", **args)
+            group = cls.cm.find(kind="group", output="dict", **args)
 
             return Printer.write(group,
                                  order=cls.order,
@@ -178,16 +178,14 @@ class Group(ListResource):
                 'name': name
             })
 
-            group = cls.cm.find("group", output="object",**data).first()
+            group = cls.cm.find(kind="group", output="object",**data)
 
             if group is None:
-                obj_d = cls.cm.db_obj_dict("group",
+                cls.cm.add(kind="group",
                                            name=name,
                                            member=member,
                                            category=category,
                                            user=user)
-                cls.cm.add_obj(obj_d)
-                cls.cm.save()
                 Console.ok("Group: add {} to group {}".format(member, name))
             else:
                 group.name = name
@@ -252,8 +250,8 @@ class Group(ListResource):
 
             print ("DDD", args)
 
-            group = cls.cm.find("group",  output="dict", **args)
-            group_object = cls.cm.find("group", output="object", **args)
+            group = cls.cm.find(kind="group",  output="dict", **args)
+            group_object = cls.cm.find(kind="group", output="object", **args)
 
 
             print ("A", group, group_object)
@@ -310,8 +308,8 @@ class Group(ListResource):
             }
 
             # Find an existing group with name & category
-            group = cls.cm.find("group", output="object", **args)
-            d = cls.cm.find("group", output="dict", **args)
+            group = cls.cm.find(kind="group", output="object", **args)
+            d = cls.cm.find(kind="group", output="dict", **args)
 
             pprint (args)
             pprint(d)
@@ -348,8 +346,8 @@ class Group(ListResource):
                 "name": _toName
             }
 
-            _fromGroup = cls.cm.find("group", output="dict", **from_args)
-            _toGroup = cls.cm.find("group", output="dict", **to_args)
+            _fromGroup = cls.cm.find(kind="group", output="dict", **from_args)
+            _toGroup = cls.cm.find(kind="group", output="dict", **to_args)
 
             pprint (_fromGroup)
             pprint(_toGroup)
