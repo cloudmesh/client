@@ -1,7 +1,7 @@
 from __future__ import print_function
 from pprint import pprint
 import collections
-from cloudmesh_client import Default
+
 
 def key_prefix_replace(d, prefix, new_prefix=""):
     """
@@ -97,6 +97,7 @@ class FlatDict(dict):
     def __getattr__(self, attr):
         return self.get(attr)
 
+'''
 
 def main():
     d = {
@@ -182,3 +183,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+'''
