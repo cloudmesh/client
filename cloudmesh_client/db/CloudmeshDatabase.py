@@ -186,7 +186,7 @@ class CloudmeshDatabase(object):
     @classmethod
     def start(cls):
         if cls.session is None:
-            print("start session")
+            # print("start session")
             Session = sessionmaker(bind=cls.engine)
             cls.session = Session()
 
