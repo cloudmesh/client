@@ -34,7 +34,7 @@ you can simply say::
 .. todo:: verify if this works
 
 On chameleoncloud.org you can for example go to the horizon web interface and
-download the credentials in teh security panel.
+download the credentials in the security panel.
 
 
 Introduction

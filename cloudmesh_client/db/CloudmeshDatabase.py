@@ -437,7 +437,7 @@ class CloudmeshDatabase(object):
         #
         if provider is None:
 
-            cls.get_provider(kind)
+            cls.get_table_from_kind(kind)
 
         if provider is  None or kind is None:
             data = {

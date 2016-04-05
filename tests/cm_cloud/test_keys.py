@@ -124,15 +124,16 @@ class Test_keys:
         print(d)
 
         print(Printer.write(d, output="table"))
-        assert 'id_rsa.pub' in d[1]['uri']
+        assert 'id_rsa.pub' in str(d)
 
         d = sshdb.find('rsa')
         print('find function: ', d)
 
         sshdb.delete('rsa')
 
-        d = sshdb.object_to_dict(sshdb.find_all())
-        print("DICT", d)
+        d = sshdb.find_all(output='dict')
+
+        print("table", d)
         assert len(d) == 0
 
     def test_005(self):
@@ -274,7 +275,7 @@ class Test_keys:
         """
 
         HEADING()
-        result = self.run("cm key default testkey")
+        result = self.run("cm default key=testkey")
         assert "OK." in result
 
         result = self.run("cm default key")

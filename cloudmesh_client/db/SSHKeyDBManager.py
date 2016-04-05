@@ -91,7 +91,7 @@ class SSHKeyDBManager(object):
         :return:
         """
 
-        self.cm.delete_by_name(KEY, name=keyname)
+        self.cm.delete(kind='key', name=keyname)
 
     def set_default(self, keyname):
 
@@ -102,7 +102,7 @@ class SSHKeyDBManager(object):
         key = self.find(keyname)
         key["is_default"] = True
 
-        self.cm.find("KEY", output="object", name=key["name"]).update(key)
+        self.cm.find(kind='key', output="object", name=key["name"]).update(key)
         self.cm.save()
         # self.cm.update("KEY", key)
         # self.cm.find(keyname).is_default = 'True'
@@ -111,7 +111,7 @@ class SSHKeyDBManager(object):
     def get_default(self):
 
         value = "True"
-        return self.cm.get(KEY, is_default=value)
+        return self.cm.get(kind='key', is_default=value)
 
     def find(self, keyname):
         """
@@ -121,23 +121,21 @@ class SSHKeyDBManager(object):
         :return: Query object of the search
         """
 
-        return self.cm.find_by_name(KEY, name=keyname)
+        return self.cm.find(kind="key", name=keyname)
 
-    def find_all(self):
+    def find_all(self, output='object'):
         """
 
         :return: Query object from all the entries
         """
-
-        return self.cm.find(KEY)
+        return self.cm.all(kind="key")
 
     def table_dict(self):
         """
 
         :return: dict from all elements in the table KEY
         """
-
-        return self.cm.dict(KEY)
+        return self.cm.find(kind="key", scope="all", output="dict")
 
     def dict(self):
         """
@@ -145,12 +143,13 @@ class SSHKeyDBManager(object):
         :return: Query object from all the entries
         """
 
-        return self.cm.find(KEY)
+        return self.cm.find(kind="key", scope="all", output="dict")
 
     def update(self, **kwargs):
         # i'm not sure how this function works
 
-        self.cm.update("key", kwargs)
+        kwargs['kind'] = "key"
+        self.cm.update(kwargs)
 
     def delete_all(self):
         """
@@ -159,7 +158,7 @@ class SSHKeyDBManager(object):
         :return:
         """
 
-        self.cm.delete_all(KEY)
+        self.cm.delete(kind='key')
 
     def select(self):
         options = []
@@ -172,15 +171,6 @@ class SSHKeyDBManager(object):
         if num != 'q':
             return options[num]
         return num
-
-    def object_to_dict(self, obj):
-        """
-
-        :param obj: object to be converted to dict
-        :return: dict from the object
-        """
-
-        return self.cm.object_to_dict(obj)
 
     """
     def load(self):
