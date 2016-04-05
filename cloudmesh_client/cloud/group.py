@@ -78,7 +78,7 @@ class Group(ListResource):
             if name is not None:
                 query["name"] = name
 
-            d = cls.cm.find(kind="group", **query)
+            d = cls.cm.find(kind="group", scope='all', **query)
             names = set()
             for vm in d:
                 names.add(d[vm]['member'])
@@ -100,7 +100,7 @@ class Group(ListResource):
                 "member": vm
             }
 
-            d = cls.cm.find(kind="group", **query)
+            d = cls.cm.find(kind="group", scope='all', **query)
             groups = set()
             for vm in d:
                 groups.add(d[vm]['name'])
@@ -141,7 +141,8 @@ class Group(ListResource):
                 print ("llll", category, cls.__provider__, cls.__kind__)
                 result = cls.cm.find(provider=cls.__provider__,
                                      kind=cls.__kind__,
-                                     category=category)
+                                     category=category,
+                                     scope='all')
                 print ("rrrr", result)
             if result is None:
                 table = None
@@ -280,8 +281,8 @@ class Group(ListResource):
 
             print ("DDD", args)
 
-            group = cls.cm.find(kind="group",  output="dict", **args)
-            group_object = cls.cm.find(kind="group", output="object", **args)
+            group = cls.cm.find(provider='general', kind="group",  scope='all', output="dict", **args)
+            group_object = cls.cm.find(provider='general', kind="group", scope='all', output="object", **args)
 
 
             print ("A", group, group_object)
@@ -338,8 +339,8 @@ class Group(ListResource):
             }
 
             # Find an existing group with name & category
-            group = cls.cm.find(kind="group", output="object", **args)
-            d = cls.cm.find(kind="group", output="dict", **args)
+            group = cls.cm.find(kind="group", scope='all', output="object", **args)
+            d = cls.cm.find(kind="group", scope='all', output="dict", **args)
 
             pprint (args)
             pprint(d)
@@ -379,10 +380,10 @@ class Group(ListResource):
             _fromGroup = cls.cm.find(kind="group", scope="all", output="dict", **from_args)
             _toGroup = cls.cm.find(kind="group", scope="all", output="dict", **to_args)
 
-            print ("A")
-            pprint (_fromGroup)
-            print ("B")
-            pprint(_toGroup)
+            # print ("A")
+            # pprint (_fromGroup)
+            # print ("B")
+            # pprint(_toGroup)
 
             if _fromGroup is not None:
 
