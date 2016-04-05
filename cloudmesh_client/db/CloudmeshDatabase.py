@@ -291,7 +291,6 @@ class CloudmeshDatabase(object):
         :return: a list of objects, if scope is first a single object in dotdict format is returned
         """
 
-        print ("GGGG", kwargs)
         scope = kwargs.pop("scope", "all")
         output = kwargs.pop("output", "dict")
 
@@ -300,7 +299,6 @@ class CloudmeshDatabase(object):
         result = []
 
         if table is not None:
-            print ("TTT", table)
             part = cls.session.query(table).filter_by(**kwargs)
             result.extend(cls.to_list(part))
 
@@ -313,7 +311,6 @@ class CloudmeshDatabase(object):
             if provider is not None and kind is not None:
 
                 t = cls.table(provider, kind)
-                print ("tttt", t)
                 part = cls.session.query(t).filter_by(**kwargs)
                 if output == 'dict':
                     result.extend(cls.to_list(part))
@@ -322,7 +319,6 @@ class CloudmeshDatabase(object):
             elif provider is None:
                 for t in cls.tables:
                     if (t.__kind__ == kind):
-                        print ("yyyy", t)
                         part = cls.session.query(t).filter_by(**kwargs)
                         if output == 'dict':
                             result.extend(cls.to_list(part))
@@ -333,7 +329,6 @@ class CloudmeshDatabase(object):
 
         objects = result
 
-        print ("OOOO", objects)
         if len(objects) == 0:
             return None
         elif scope == "first":
@@ -358,7 +353,6 @@ class CloudmeshDatabase(object):
                 name=o.name
             )
 
-            print("CCCC", current)
             if current is not None:
                 for key in o.__dict__.keys():
                     current.__dict__[key] = o.__dict__[key]

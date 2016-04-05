@@ -214,18 +214,18 @@ class Test_cloud_model(object):
         HEADING("find vm tables")
         
         print ("-------------")
-        vm = self.cm.x_find(name="vm_001")
+        vm = self.cm.find(kind="vm", name="vm_001", scope='first')
         pprint (vm)
         assert vm.name == 'vm_001'
 
 
         print ("-------------")
-        vm = self.cm.x_find(name="vm_006")
+        vm = self.cm.find(kind="vm", name="vm_006", scope='first')
         pprint (vm)
         assert vm.name == 'vm_006'
 
         print ("-------------")
-        vms = self.cm.x_find(kind="vm", scope="all")
+        vms = self.cm.find(kind="vm", scope="all")
         pprint (vms)
         print (len(vms))
         assert len(vms) == 10
