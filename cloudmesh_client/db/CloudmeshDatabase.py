@@ -38,7 +38,9 @@ class CloudmeshMixin(object):
     project = Column(String, default="undefined")
 
     def set_defaults(self, **kwargs):
-        self.user = kwargs.get('user', CloudmeshDatabase.user)
+        #self.user = kwargs.get('user', CloudmeshDatabase.user)
+        # TODO: for now hardcode user
+        self.user = 'gvonlasz'
         self.name = kwargs.get('name', 'undefined')
         self.label = kwargs.get('name', 'undefined')
         self.category = kwargs.get('category', 'undefined')

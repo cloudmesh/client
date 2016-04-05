@@ -18,10 +18,10 @@ class DEFAULT(CloudmeshMixin, CloudmeshDatabase.Base):
     value = Column(String)
 
     def __init__(self, **kwargs):
-
         super(DEFAULT, self).set_defaults(**kwargs)
-        value = kwargs.get('value', None)
-
+        self.value = kwargs.get('value', None)
+        print ("KWARGS", kwargs)
+        print ("DDDDD", self.__dict__)
 
 
 class VAR(CloudmeshMixin, CloudmeshDatabase.Base):

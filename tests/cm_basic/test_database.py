@@ -42,7 +42,7 @@ class Test_database:
     def test_001(self):
         HEADING("testing DEFAULT add")
         
-        m = DEFAULT("hallo", "world")
+        m = DEFAULT(name="hallo", value="world")
         self.cm.add(m)
         print ("added")
 
@@ -70,7 +70,7 @@ class Test_database:
     def test_003(self):
         HEADING("testing find")
         
-        m = DEFAULT("hallo", "world")
+        m = DEFAULT(name="hallo", value="world")
 
         n = self.cm.find(kind="default", scope="all", name='hallo')
         print(list(n))
