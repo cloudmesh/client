@@ -135,6 +135,10 @@ class SSHKeyManager(object):
 
             sshkey = SSHkey(location)
             i = sshkey.comment
+            i= i.replace("@","_")
+            i=i.replace("-", "_")
+            i=i.replace(" ", "_")
+            i=i.replace(".", "_")
             self.__keys__[i] = sshkey.__key__
 
     # noinspection PyProtectedMember

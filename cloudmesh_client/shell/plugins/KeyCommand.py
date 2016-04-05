@@ -173,8 +173,22 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 try:
                     sshm = SSHKeyManager()
                     sshm.get_from_dir(directory)
+
+                    print ("SSS", type(sshm.__keys__))
                     d = dict(sshm.__keys__)
-                    print(_print_dict(d, format=_format))
+                    print (d)
+                    print(Printer.write(d,
+                                        order=["name",
+                                               "comment",
+                                               "uri",
+                                               "fingerprint",
+                                               "source"],
+                                        output="table"))
+
+
+                    #d = dict(sshm.__keys__)
+
+                    #print(_print_dict(d, format=_format))
                     msg = "info. OK."
                     Console.ok(msg)
                 except Exception as e:
