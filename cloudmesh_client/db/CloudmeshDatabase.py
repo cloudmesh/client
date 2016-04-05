@@ -139,17 +139,20 @@ class CloudmeshDatabase(object):
 
     @classmethod
     def info(cls, kind=None):
-        info = []
+        result = []
 
         for t in cls.tables:
-            entry = dotdict()
+            entry = dict()
             if kind is None or t.__kind__ in kind:
-                entry.count = cls.session.query(t).count()
-                entry.tablename = t.__tablename__
-                entry.provider = t.__provider__
-                entry.kind = t.__kind__
-                info.append(entry)
-        Printer.write(info)
+                entry = {
+                    "count" : cls.session.query(t).count(),
+                    "tablename":   t.__tablename__,
+                    "provider": t.__provider__,
+                    "kind": t.__kind__
+                }
+                result.append(entry)
+        return result
+
 
     @classmethod
     def table(cls, provider=None, kind=None, name=None):

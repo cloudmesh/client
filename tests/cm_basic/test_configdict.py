@@ -94,7 +94,8 @@ class Test_configdict:
 """	def main():
     d = ConfigDict("cmd3.yaml")
     print (d, end='')
-    d.info()
+    print(Printer.write(self.cm.info()))
+
 
     print (d["meta"])
     print (d["meta.kind"])
