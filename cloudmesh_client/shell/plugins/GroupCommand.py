@@ -143,7 +143,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
             data = dotdict({
                 "type": arguments["--type"] or "vm",
                 "category": category,
-                "name": arguments["--group"] or Default.get_group()
+                "name": arguments["--group"] or Default.group
             })
             for member in members:
                 data.member = member
@@ -168,7 +168,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
         elif arguments["remove"]:
             members = Parameter.expand(arguments["NAME"])
 
-            group = arguments["--group"] or Default.get_group()
+            group = arguments["--group"] or Default.group
 
             for member in members:
                 result = Group.remove(group, member, category)
