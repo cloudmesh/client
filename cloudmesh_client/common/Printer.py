@@ -17,17 +17,17 @@ class Printer (object):
                      header=None,
                      output="table",
                      sort_keys=True,
-                     show_none="",
-                     key="name"):
+                     show_none=""
+                     ):
         if type(table) == dict:
-            return cls.list(table, order=order, header=header, output=output,
-                            sort_keys=sort_keys, show_none=show_none, key=key)
+            return cls.dict(table, order=order, header=header, output=output,
+                            sort_keys=sort_keys, show_none=show_none)
 
         elif type(table) == list:
 
             return cls.list(table,
                             order=order, header=header, output=output,
-                            sort_keys=sort_keys, show_none=show_none, key=key)
+                            sort_keys=sort_keys, show_none=show_none)
         else:
             Console.error("unkown type")
 
@@ -38,8 +38,8 @@ class Printer (object):
                      header=None,
                      output="table",
                      sort_keys=True,
-                     show_none="",
-                     key="name"):
+                     show_none=""
+                     ):
         """
         :param l: l is a lsit not a dict
         :param order:
