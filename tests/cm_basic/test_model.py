@@ -15,6 +15,8 @@ from pprint import pprint
 
 from cloudmesh_client.util import HEADING
 from cloudmesh_client import CloudmeshDatabase
+from cloudmesh_client.common.Printer import Printer
+
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming
 class Test_model:
@@ -39,3 +41,11 @@ class Test_model:
         for t in self.cm.tables:
             print(t.__tablename__)
         assert "DEFAULT" in str(self.cm.tables)
+
+
+    def test_003(self):
+        HEADING("table info")
+        d = self.cm.info()
+
+        print(Printer.write(d))
+        assert 'default' in str(d)

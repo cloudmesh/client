@@ -36,7 +36,7 @@ class Test_database:
     def test_000(self):
         HEADING("testing DEFAULT add")
         
-        self.cm.info()
+        print(Printer.write(self.cm.info()))
         assert True
 
     def test_001(self):
@@ -81,7 +81,8 @@ class Test_database:
     def test_004(self):
         
 
-        self.cm.info()
+        print(Printer.write(self.cm.info()))
+
 
         m = Default.set_counter("index", 2)
         self.cm.add(m)
@@ -96,7 +97,8 @@ class Test_database:
 
 
 
-        self.cm.info()
+        print(Printer.write(self.cm.info()))
+
         c = self.cm.all(kind="default")
 
 
