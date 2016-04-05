@@ -252,9 +252,8 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 sshdb = SSHKeyDBManager()
                 d = sshdb.table_dict()
 
-                for i in d:
-                    if d[i]["name"] == name:
-                        key = d[i]
+                for key in d:
+                    if key["name"] == name:
                         print("{:}: {:}".format(key['name'], key['fingerprint']))
                         msg = "info. OK."
                         Console.ok(msg)
@@ -524,8 +523,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     sshdb = SSHKeyDBManager()
                     sshm = SSHKeyManager()
                     keys = sshdb.find_all()
-                    for keyid in keys:
-                        key = keys[keyid]
+                    for key in keys:
 
                         print ("upload key {} -> {}".format(key["name"],
                                                             cloud))
