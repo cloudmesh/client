@@ -13,6 +13,7 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict, Config
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.common.Printer import Printer
+from cloudmesh_client.shell.console import Console
 
 class CloudmeshMixin(object):
     __mapper_args__ = {'always_refresh': True}
@@ -234,7 +235,7 @@ class CloudmeshDatabase(object):
         return cls.to_list(result)
 
     @classmethod
-    def find(cls,
+    def _find(cls,
              scope='all',
              provider=None,
              kind=None,
@@ -277,7 +278,7 @@ class CloudmeshDatabase(object):
         return result
 
     @classmethod
-    def x_find(cls, **kwargs):
+    def find(cls, **kwargs):
         """
         This method returns either
         a) an array of objects from the database in dict format, that match a particular kind.
@@ -289,46 +290,57 @@ class CloudmeshDatabase(object):
                is returned. first is default.
         :return: a list of objects, if scope is first a single object in dotdict format is returned
         """
-        kind = kwargs.pop("kind", "vm")
-        scope = kwargs.pop("scope", "first")
+
+        print ("GGGG", kwargs)
+        scope = kwargs.pop("scope", "all")
+        output = kwargs.pop("output", "dict")
+
+        table = kwargs.pop("table", None)
 
         result = []
 
-        for t in cls.tables:
-            if (t.__kind__ == kind):
-                part = cls.session.query(t).filter_by(**kwargs)
-                result.extend(cls.to_list(part))
-
-        objects = result
-        if scope == "first" and objects is not None:
-            objects = dotdict(result[0])
-
-        return objects
-
-    @classmethod
-    def filter_by(cls, **kwargs):
-        """
-        This method returns either
-        a) an array of objects from the database in dict format, that match a particular kind.
-           If the kind is not specified vm is used. one of the arguments must be scope="all"
-        b) a single entry that matches the first occurance of the query specified by kwargs,
-           such as name="vm_001"
-
-        :param kwargs: the arguments to be matched, scope defines if all or just the first value
-               is returned. first is default.
-        :return: a list of objects, if scope is first a single object in dotdict format is returned
-        """
-        scope = kwargs.pop("scope", "first")
-
-        result = []
-
-        for t in cls.tables:
-            part = cls.session.query(t).filter_by(**kwargs)
+        if table is not None:
+            print ("TTT", table)
+            part = cls.session.query(table).filter_by(**kwargs)
             result.extend(cls.to_list(part))
 
+        else:
+            category = kwargs.get("category", None)
+            provider = kwargs.get("provider", None)
+            kind = kwargs.get("kind", None)
+
+
+            if provider is not None and kind is not None:
+
+                t = cls.table(provider, kind)
+                print ("tttt", t)
+                part = cls.session.query(t).filter_by(**kwargs)
+                if output == 'dict':
+                    result.extend(cls.to_list(part))
+                else:
+                    result.extend(part)
+            elif provider is None:
+                for t in cls.tables:
+                    if (t.__kind__ == kind):
+                        print ("yyyy", t)
+                        part = cls.session.query(t).filter_by(**kwargs)
+                        if output == 'dict':
+                            result.extend(cls.to_list(part))
+                        else:
+                            result.extend(part)
+            else:
+                Console.error("nothing searched {}".format(kwargs))
+
         objects = result
-        if scope == "first" and objects is not None:
-            objects = dotdict(result[0])
+
+        print ("OOOO", objects)
+        if len(objects) == 0:
+            return None
+        elif scope == "first":
+            if output == 'dict':
+                objects = dotdict(result[0])
+            else:
+                objects = result[0]
 
         return objects
 
@@ -346,6 +358,7 @@ class CloudmeshDatabase(object):
                 name=o.name
             )
 
+            print("CCCC", current)
             if current is not None:
                 for key in o.__dict__.keys():
                     current.__dict__[key] = o.__dict__[key]
@@ -355,6 +368,35 @@ class CloudmeshDatabase(object):
         else:
             cls.session.add(o)
         cls.save()
+
+    @classmethod
+    def filter_by(cls, **kwargs):
+        """
+        This method returns either
+        a) an array of objects from the database in dict format, that match a particular kind.
+           If the kind is not specified vm is used. one of the arguments must be scope="all"
+        b) a single entry that matches the first occurance of the query specified by kwargs,
+           such as name="vm_001"
+
+        :param kwargs: the arguments to be matched, scope defines if all or just the first value
+               is returned. first is default.
+        :return: a list of objects, if scope is first a single object in dotdict format is returned
+        """
+        scope = kwargs.pop("scope", "all")
+
+        result = []
+
+        for t in cls.tables:
+            part = cls.session.query(t).filter_by(**kwargs)
+            result.extend(cls.to_list(part))
+
+        objects = result
+        if scope == "first" and objects is not None:
+            objects = dotdict(result[0])
+
+        return objects
+
+
 
     @classmethod
     def save(cls):
