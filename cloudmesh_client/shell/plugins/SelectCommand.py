@@ -48,7 +48,7 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
         cloud = arguments["CLOUD"] or Default.cloud
         if arguments["image"]:
             try:
-                refresh = arguments['--refresh'] or Default.refresh()
+                refresh = arguments['--refresh'] or Default.refresh
                 if refresh:
                     Image.refresh(cloud)
 
@@ -74,7 +74,7 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["flavor"]:
             try:
-                refresh = arguments['--refresh'] or Default.refresh()
+                refresh = arguments['--refresh'] or Default.refresh
                 if refresh:
                     Flavor.refresh(cloud)
 

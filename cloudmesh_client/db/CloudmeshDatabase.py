@@ -11,6 +11,8 @@ from pprint import pprint
 from sqlalchemy import update
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict, Config
+from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
+from cloudmesh_client.common.Printer import Printer
 
 class CloudmeshMixin(object):
     __mapper_args__ = {'always_refresh': True}
@@ -137,20 +139,20 @@ class CloudmeshDatabase(object):
 
     @classmethod
     def info(cls, kind=None):
-        print()
-        print("Info")
-        print()
-        print("{:<20} {:<15} {:<15} {:<4}".format("tablename", "provider", "kind", "count"))
-        print(70 * "=")
+        info = []
 
         for t in cls.tables:
+            entry = dotdict()
             if kind is None or t.__kind__ in kind:
-                count = cls.session.query(t).count()
-                print("{:<20} {:<15} {:<15} {:<4}".format(t.__tablename__, t.__provider__, t.__kind__, count))
-        print()
+                entry.count = cls.session.query(t).count()
+                entry.tablename = t.__tablename__
+                entry.provider = t.__provider__
+                entry.kind = t.__kind__
+                info.append(entry)
+        Printer.write(info)
 
     @classmethod
-    def table(cls, provider=None, kind=None):
+    def table(cls, provider=None, kind=None, name=None):
         """
 
         :param category:
@@ -159,26 +161,41 @@ class CloudmeshDatabase(object):
                  In case the table does not exist an exception is thrown
         """
 
-        if provider is None and kind is not None:
+        t = None
+        if name is not None:
             for t in cls.tables:
-                if t.__kind__ == kind and t.__provider__ == provider:
+                if t.__tablename__ == name:
                     return t
 
+        if provider is None and kind is not None:
+            t = cls.get_table_from_kind(kind)
+            return t
 
-        def valid(category, check):
-            if category is None:
-                return True
-            else:
-                return check == category
+        if provider is None and kind is None:
+            Console.error("No Kind specified")
+            return None
+
 
         for t in cls.tables:
-            test_provider = valid(provider, t.__provider__)
-            test_kind = valid(kind, t.__kind__)
-
-            if test_provider and test_kind:
+            if t.__kind__ == kind and t.__provider__ == provider:
                 return t
-        Console.error("ERROR: unkown table {} {}".format(provider, kind))
 
+        Console.error("No table found for name={}, provider={}, kind={}".format(name, provider, kind))
+
+    @classmethod
+    def get_table_from_kind(cls, kind):
+        providers = set()
+        for t in cls.tables:
+            if t.__kind__ == kind:
+                providers.add(t)
+        providers = list(providers)
+        if len(providers) == 1:
+            return providers[0]
+        elif len(providers) > 1:
+            Console.error("Providers for kind={} are not unique. Found={}".format(kind, providers))
+        else:
+            Console.error("Providers for kind={} nor found".format(kind))
+        return None
     #
     # SESSION
     #
@@ -215,7 +232,7 @@ class CloudmeshDatabase(object):
 
     @classmethod
     def find(cls,
-             scope='first',
+             scope='all',
              provider=None,
              kind=None,
              output='dict',
@@ -238,15 +255,7 @@ class CloudmeshDatabase(object):
         if table is None:
 
             if provider is None and kind is None:
-                data = {
-                    "provider": provider,
-                    "kind": kind,
-                    "table": table,
-                    "args": kwargs
-                }
-                Console.error("find is improperly used provider={provider} kind={kind}"
-                              .format(**data))
-
+                Console.error("No provider or kind specified in find")
             else:
                 t = cls.table(provider=provider, kind=kind)
 
@@ -383,15 +392,20 @@ class CloudmeshDatabase(object):
         # BUG does not look for user related data
         # user = self.user or Username()
         #
-        if provider is not None and kind is not None:
-            t = cls.table(provider=provider, kind=kind)
-        else:
+        if provider is None:
+
+            cls.get_provider(kind)
+
+        if provider is  None or kind is None:
             data = {
                 "provider": provider,
                 "kind": kind,
             }
             ValueError("find is improperly used provider={provider} kind={kind}"
                        .format(**data))
+
+        t = cls.table(provider=provider, kind=kind)
+
         if len(kwargs) == 0:
             cls.session.query(t).delete()
         else:
@@ -443,140 +457,163 @@ class CloudmeshDatabase(object):
                                attribute: value}
                        )
 
+    def clear(self, kind, category, user=None):
+        """
+        This method deletes all 'kind' entries
+        from the cloudmesh database
+        :param category: the category name
+        """
+        if user is None:
+            user = self.user
 
-# ###################################
-# REFRESH
-# ###################################
-# noinspection PyUnusedLocal
-def refresh(self, kind, name, **kwargs):
-    """
-    This method refreshes the local database
-    with the live cloud details
-    :param kind:
-    :param name:
-    :param kwargs:
-    :return:
-    """
+        try:
+            elements = self.find(kind=kind,
+                                 output='object',
+                                 scope="all",
+                                 category=category,
+                                 user=user)
+            # pprint(elements)
+            for element in elements:
+                # pprint(element)
+                self.delete(element)
 
-    try:
-        # print(cloudname)
-        # get the user
-        # TODO: Confirm user
-        user = self.user
+        except Exception as ex:
+            Console.error(ex.message, ex)
 
-        if kind in ["flavor", "image", "vm", "secgroup"]:
+    # ###################################
+    # REFRESH
+    # ###################################
+    # noinspection PyUnusedLocal
+    def refresh(self, kind, name, **kwargs):
+        """
+        This method refreshes the local database
+        with the live cloud details
+        :param kind:
+        :param name:
+        :param kwargs:
+        :return:
+        """
 
-            # get provider for specific cloud
-            provider = CloudProvider(name).provider
+        try:
+            # print(cloudname)
+            # get the user
+            # TODO: Confirm user
+            user = self.user
 
-            # clear local db records for kind
-            self.clear(kind, name)
+            if kind in ["flavor", "image", "vm", "secgroup"]:
 
-            # for secgroup, clear rules as well
-            if kind == "secgroup":
-                self.clear("secgrouprule", name)
+                # get provider for specific cloud
+                provider = CloudProvider(name).provider
 
-            if kind in ["flavor", "image"]:
+                print("PPPP", provider)
+                # clear local db records for kind
+                self.clear(kind=kind, category=name)
 
-                # flavors = provider.list_flavor(name)
-                elements = provider.list(kind, name)
-                for element in list(elements.values()):
-                    element["uuid"] = element['id']
-                    element['type'] = 'string'
-                    element["category"] = name
-                    element["cloud"] = name
-                    element["user"] = user
+                # for secgroup, clear rules as well
+                if kind == "secgroup":
+                    self.clear(kind="secgrouprule", category=name)
 
-                    db_obj = {0: {kind: element}}
-                    self.add_obj(db_obj)
-                    self.save()
+                if kind in ["flavor", "image"]:
 
-                return True
+                    # flavors = provider.list_flavor(name)
+                    elements = provider.list(kind, name)
+                    for element in list(elements.values()):
+                        element["uuid"] = element['id']
+                        element['type'] = 'string'
+                        element["category"] = name
+                        element["cloud"] = name
+                        element["user"] = user
 
-            elif kind in ["vm"]:
-
-                # flavors = provider.list_flavor(name)
-                elements = provider.list(kind, name)
-
-                for element in list(elements.values()):
-                    element[u"uuid"] = element['id']
-                    element[u'type'] = 'string'
-                    element[u"category"] = name
-                    element[u"cloud"] = name
-                    element[u"user"] = user
-                    vm_name = element["name"]
-
-                    g = self.find_by_attributes("group", member=vm_name)
-
-                    if g is not None:
-                        element[u"group"] = g["name"]
-                    else:
-                        element[u"group"] = "undefined"
-
-                    db_obj = {0: {kind: element}}
-
-                    self.add_obj(db_obj)
-                    self.save()
-                return True
-
-            elif kind == "secgroup":
-                secgroups = provider.list_secgroup(name)
-                # pprint(secgroups)
-                for secgroup in list(secgroups.values()):
-                    secgroup_db_obj = self.db_obj_dict("secgroup",
-                                                       name=secgroup['name'],
-                                                       uuid=secgroup['id'],
-                                                       category=name,
-                                                       project=secgroup['tenant_id'],
-                                                       user=user
-                                                       )
-
-                    for rule in secgroup['rules']:
-                        rule_db_obj = self.db_obj_dict("secgrouprule",
-                                                       uuid=rule['id'],
-                                                       name=secgroup['name'],
-                                                       groupid=rule['parent_group_id'],
-                                                       category=name,
-                                                       user=user,
-                                                       project=secgroup['tenant_id'],
-                                                       fromPort=rule['from_port'],
-                                                       toPort=rule['to_port'],
-                                                       protocol=rule['ip_protocol'])
-
-                        if bool(rule['ip_range']) is not False:
-                            rule_db_obj[0]['secgrouprule']['cidr'] = rule['ip_range']['cidr']
-
-                        self.add_obj(rule_db_obj)
+                        db_obj = {0: {kind: element}}
+                        self.add_obj(db_obj)
                         self.save()
-                    # rule-for-loop ends
 
-                    self.add_obj(secgroup_db_obj)
+                    return True
+
+                elif kind in ["vm"]:
+
+                    # flavors = provider.list_flavor(name)
+                    elements = provider.list(kind, name)
+
+                    for element in list(elements.values()):
+                        element[u"uuid"] = element['id']
+                        element[u'type'] = 'string'
+                        element[u"category"] = name
+                        element[u"cloud"] = name
+                        element[u"user"] = user
+                        vm_name = element["name"]
+
+                        g = self.find_by_attributes("group", member=vm_name)
+
+                        if g is not None:
+                            element[u"group"] = g["name"]
+                        else:
+                            element[u"group"] = "undefined"
+
+                        db_obj = {0: {kind: element}}
+
+                        self.add_obj(db_obj)
+                        self.save()
+                    return True
+
+                elif kind == "secgroup":
+                    secgroups = provider.list_secgroup(name)
+                    # pprint(secgroups)
+                    for secgroup in list(secgroups.values()):
+                        secgroup_db_obj = self.db_obj_dict("secgroup",
+                                                           name=secgroup['name'],
+                                                           uuid=secgroup['id'],
+                                                           category=name,
+                                                           project=secgroup['tenant_id'],
+                                                           user=user
+                                                           )
+
+                        for rule in secgroup['rules']:
+                            rule_db_obj = self.db_obj_dict("secgrouprule",
+                                                           uuid=rule['id'],
+                                                           name=secgroup['name'],
+                                                           groupid=rule['parent_group_id'],
+                                                           category=name,
+                                                           user=user,
+                                                           project=secgroup['tenant_id'],
+                                                           fromPort=rule['from_port'],
+                                                           toPort=rule['to_port'],
+                                                           protocol=rule['ip_protocol'])
+
+                            if bool(rule['ip_range']) is not False:
+                                rule_db_obj[0]['secgrouprule']['cidr'] = rule['ip_range']['cidr']
+
+                            self.add_obj(rule_db_obj)
+                            self.save()
+                        # rule-for-loop ends
+
+                        self.add_obj(secgroup_db_obj)
+                        self.save()
+                    return True
+
+            elif kind in ["batchjob"]:
+
+                # provider = BatchProvider(name).provider
+                # provider = BatchProvider(name)
+
+                from cloudmesh_client.cloud.hpc.BatchProvider import BatchProvider
+                provider = BatchProvider(name)
+
+                vms = provider.list_job(name)
+                for vm in list(vms.values()):
+                    vm[u'uuid'] = vm['id']
+                    vm[u'type'] = 'string'
+                    vm[u'category'] = name
+                    vm[u'user'] = user
+                    db_obj = {0: {kind: vm}}
+
+                    self.add_obj(db_obj)
                     self.save()
                 return True
 
-        elif kind in ["batchjob"]:
+            else:
+                Console.error("refresh not supported for this kind: {}".format(kind))
 
-            # provider = BatchProvider(name).provider
-            # provider = BatchProvider(name)
-
-            from cloudmesh_client.cloud.hpc.BatchProvider import BatchProvider
-            provider = BatchProvider(name)
-
-            vms = provider.list_job(name)
-            for vm in list(vms.values()):
-                vm[u'uuid'] = vm['id']
-                vm[u'type'] = 'string'
-                vm[u'category'] = name
-                vm[u'user'] = user
-                db_obj = {0: {kind: vm}}
-
-                self.add_obj(db_obj)
-                self.save()
-            return True
-
-        else:
-            Console.error("refresh not supported for this kind: {}".format(kind))
-
-    except Exception as ex:
-        Console.error(ex.message)
-        return False
+        except Exception as ex:
+            Console.error(ex.message)
+            return False

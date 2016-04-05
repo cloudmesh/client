@@ -34,7 +34,7 @@ class Image(ListResource):
 
 
         try:
-            elements = cls.cm.find("image", category=cloud)
+            elements = cls.cm.find(kind="image", category=cloud, scope="all")
 
             (order, header) = CloudProvider(cloud).get_attributes("image")
 

@@ -36,6 +36,6 @@ class Test_model:
 
     def test_002(self):
         HEADING("loop over tablenames")
-        for name in self.cm.tables:
-            print(self.cm.table(name))
+        for t in self.cm.tables:
+            print(t.__tablename__)
         assert "DEFAULT" in str(self.cm.tables)

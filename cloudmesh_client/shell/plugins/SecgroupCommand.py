@@ -65,7 +65,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
         # if refresh ON, pull data from cloud to db
         if arguments["refresh"] or \
-                Default.refresh():
+                Default.refresh:
             msg = "Refresh secgroup for cloud {:}.".format(cloud)
             if SecGroup.refresh(cloud):
                 Console.ok("{:} ok".format(msg))

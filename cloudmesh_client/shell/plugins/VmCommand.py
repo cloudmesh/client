@@ -736,7 +736,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     d = ConfigDict("cloudmesh.yaml")
                     for cloud in active_clouds:
 
-                        if arguments["--refresh"] or Default.refresh():
+                        if arguments["--refresh"] or Default.refresh:
                             _refresh(cloud)
 
 
@@ -769,7 +769,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     _format = arguments["--format"] or "table"
 
                     # list_vms_on_cloud(cloud, group, _format)
-                    if arguments["--refresh"] or Default.refresh():
+                    if arguments["--refresh"] or Default.refresh:
                         _refresh(cloud)
 
                     result = Vm.list(name_or_id=name_or_id, cloud=cloud, output_format=_format)
