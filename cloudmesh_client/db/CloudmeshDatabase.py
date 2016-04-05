@@ -42,6 +42,7 @@ class CloudmeshMixin(object):
         self.name = kwargs.get('name', 'undefined')
         self.label = kwargs.get('name', 'undefined')
         self.category = kwargs.get('category', 'undefined')
+        self.type = kwargs.get('type', 'str')
         self.kind = self.__kind__
         self.provider = self.__provider__
 
@@ -107,7 +108,7 @@ class CloudmeshDatabase(object):
         self.__dict__ = self.__shared_state
 
         if self.initialized is None:
-            self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
+            self.user = ConfigDict(filename="cloudmesh.yaml")["cloudmesh.profile.username"]
             self.filename = Config.path_expand(os.path.join("~", ".cloudmesh", "cloudmesh.db"))
             self.create()
             self.create_tables()
@@ -342,8 +343,10 @@ class CloudmeshDatabase(object):
     @classmethod
     def add(cls, o, replace=True):
 
+
         if o is None:
             return
+
         if replace:
             current = cls.find(
                 scope='first',
@@ -352,11 +355,10 @@ class CloudmeshDatabase(object):
                 output='object',
                 name=o.name
             )
-
             if current is not None:
                 for key in o.__dict__.keys():
                     current.__dict__[key] = o.__dict__[key]
-                cls.save()
+                    current.__dict__['user'] = o.user
             else:
                 cls.session.add(o)
         else:

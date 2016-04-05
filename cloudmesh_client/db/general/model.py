@@ -16,20 +16,12 @@ class DEFAULT(CloudmeshMixin, CloudmeshDatabase.Base):
     __provider__ = 'general'
 
     value = Column(String)
-    type = Column(String, default="string")
 
-    def __init__(self,
-                 name=None,
-                 value=None,
-                 type="str",
-                 category='general',
-                 user=None):
-        super(DEFAULT, self).set_defaults(name=name, user=user)
+    def __init__(self, **kwargs):
 
-        self.type = str(type)
-        self.value = str(value)
-        self.category = category
-        self.kind = 'default'
+        super(DEFAULT, self).set_defaults(**kwargs)
+        value = kwargs.get('value', None)
+
 
 
 class VAR(CloudmeshMixin, CloudmeshDatabase.Base):
@@ -43,7 +35,6 @@ class VAR(CloudmeshMixin, CloudmeshDatabase.Base):
     __provider__ = 'general'
 
     value = Column(String)
-    type = Column(String, default="str")
 
     def __init__(self,
                  name=None,
@@ -225,7 +216,6 @@ class BATCHJOB(CloudmeshMixin, CloudmeshDatabase.Base):
     __kind__ = 'batchjob'
     __provider__ = 'general'
 
-    type = Column(String, default="string")
     dir = Column(String, default="string")
     nodes = Column(String, default="string")
     output_file = Column(String, default="string")

@@ -229,6 +229,12 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         if r is None:
             Default.set_refresh("on")
 
+
+        user = Default.user
+        if user is None:
+            user = ConfigDict(filename=filename)["cloudmesh"]["profile"]["username"]
+            Default.set_user("default")
+
         """
         try:
             sshm = SSHKeyManager()

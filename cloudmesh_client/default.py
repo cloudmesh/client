@@ -182,6 +182,10 @@ class Default(object):
         return cls.get(name="cluster")
 
     @readable_classproperty
+    def user(cls):
+        return cls.get(name="user")
+
+    @readable_classproperty
     def timer(cls):
         return cls.get(name="timer")
 
@@ -241,6 +245,15 @@ class Default(object):
 
         cls.set(name, str(value), type='int')
         cls.set(name, str(value), type='int')
+
+    @classmethod
+    def set_user(cls, value):
+        """
+        sets the cloud in the category general
+        :param value: the cloud as defined in cloudmesh.yaml
+        :return:
+        """
+        cls.set("user", value)
 
     @classmethod
     def set_cloud(cls, value):
