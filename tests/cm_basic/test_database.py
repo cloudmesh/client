@@ -46,7 +46,7 @@ class Test_database:
         self.cm.add(m)
         print ("added")
 
-        n = self.cm.filter_by(kind="default", name='hallo')
+        n = self.cm.filter_by(kind="default", name='hallo', scope="first")
 
         print(n)
 
