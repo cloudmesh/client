@@ -302,7 +302,7 @@ class Default(object):
     def set_flavor(cls, value, category):
         """
         sets the default flavor for a particular category
-        :param value: teh flavor name or uuid
+        :param value: the flavor name or uuid
         :param category: the category
         :return:
         """

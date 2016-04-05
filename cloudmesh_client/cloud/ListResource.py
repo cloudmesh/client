@@ -92,7 +92,7 @@ class ListResource(object):
     @classmethod
     def get_object(cls, key, category="general"):
         """
-        returns the first object that matches the key in teh Default
+        returns the first object that matches the key in the Default
         database.
 
         :param key: The dictionary key

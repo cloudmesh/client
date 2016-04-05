@@ -47,7 +47,7 @@ class LogUtil(object):
     @staticmethod
     def set_level(log_level):
         """
-        sets th eloglevel in teh database and the loglevel file from
+        sets th eloglevel in the database and the loglevel file from
         cloudmesh.yaml
         :param log_level: the loglevel
         :return:

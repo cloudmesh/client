@@ -291,11 +291,12 @@ class Group(ListResource):
                 # Delete VM from cloud before deleting group
 
                 for vm in group:
-                    server = group[vm]["member"]
+                    print("VVVV", vm)
+                    server = vm["member"]
 
                     groups = Group.vm_groups(server)
 
-                    if len(groups) == 1:
+                    if groups is not None and len(groups) == 1:
 
                         try:
                             Vm.delete(cloud=category, servers=[server])

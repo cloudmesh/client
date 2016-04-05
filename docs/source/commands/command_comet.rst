@@ -373,7 +373,7 @@ How to get a virtual cluster?
 
 
 4. Please note that it will be up to you to provide an apropriate iso image.
-   A small number of sample images are provided and you can list tehm with ::
+   A small number of sample images are provided and you can list them with ::
 
      cm comet image list
 

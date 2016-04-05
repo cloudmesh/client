@@ -83,7 +83,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
                 default group mygroup
 
                 group add --type=vm --id=albert-[001-003]
-                    adds the vms with teh given name using the Parameter
+                    adds the vms with the given name using the Parameter
                     see base
 
                 group add --type=vm

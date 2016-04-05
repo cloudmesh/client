@@ -45,7 +45,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
              key add [NAME] [--git]
              key add [NAME] [--ssh]
              key get NAME
-             key default [KEYNAME | --select]
+             key default --select
              key delete (KEYNAME | --select | --all) [--force] [--active]
              key delete KEYNAME --cloud=CLOUD
              key upload [KEYNAME] [--cloud=CLOUD]
@@ -94,7 +94,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
            key list [--format=FORMAT]
 
-               list the keys in teh giiven format: json, yaml,
+               list the keys in the giiven format: json, yaml,
                table. table is default
 
            key list
@@ -425,7 +425,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
             except:
-                Console.error("Problem deleting the key {name} on teh cloud {cloud}".format(**key))
+                Console.error("Problem deleting the key {name} on the cloud {cloud}".format(**key))
         elif arguments['delete']:
 
 
