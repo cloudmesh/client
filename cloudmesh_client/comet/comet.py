@@ -116,7 +116,8 @@ class Comet(object):
         pid = None
         info = None
         for line in r:
-            if ("localhost" in line and "nucleus" in line) or ("comet" in line and "tunnel" in line) and not 'status' in line:
+            if ("localhost" in line and "nucleus" in line) or (
+                            "comet" in line and "tunnel" in line) and 'status' not in line:
                 info = line.strip()
                 break
         if info:
@@ -294,12 +295,12 @@ class Comet(object):
                     del headers["content-type"]
                     headers["md5"] = md5
                     r = requests.post(url, headers=headers, files=files,
-                                  allow_redirects=allow_redirects,
-                                  verify=cacert)
+                                      allow_redirects=allow_redirects,
+                                      verify=cacert)
                 else:
                     r = requests.post(url, headers=headers, data=json.dumps(data),
-                                  allow_redirects=allow_redirects,
-                                  verify=cacert)
+                                      allow_redirects=allow_redirects,
+                                      verify=cacert)
 
             elif 'put' == action:
                 r = requests.put(url, headers=headers, data=json.dumps(data),
@@ -363,18 +364,18 @@ class Comet(object):
             if 'post' == action:
                 if files:
                     headers = {"timestamp": int(time.time()),
-                                "nonce": Comet.get_nonce(),
-                                "X-Api-Key": Comet.api_key,
-                                "md5": md5}
+                               "nonce": Comet.get_nonce(),
+                               "X-Api-Key": Comet.api_key,
+                               "md5": md5}
                     r = requests.post(url, auth=Comet.api_auth, headers=headers,
-                                  files=files,
-                                  allow_redirects=allow_redirects,
-                                  verify=cacert)
+                                      files=files,
+                                      allow_redirects=allow_redirects,
+                                      verify=cacert)
                 else:
                     r = requests.post(url, auth=Comet.api_auth, headers=headers,
-                                  data=json.dumps(data),
-                                  allow_redirects=allow_redirects,
-                                  verify=cacert)
+                                      data=json.dumps(data),
+                                      allow_redirects=allow_redirects,
+                                      verify=cacert)
             elif 'put' == action:
                 r = requests.put(url, auth=Comet.api_auth, headers=headers,
                                  data=json.dumps(data),
@@ -531,8 +532,8 @@ class Comet(object):
         r = None
         md5 = Comet.md5(filepath)
         with open(filepath, 'rb') as fh:
-            files={'file':(filename, fh)}
-            print ("File to be uploaded: %s" % filename)
+            files = {'file': (filename, fh)}
+            print("File to be uploaded: %s" % filename)
             r = Comet.post(posturl, files=files, md5=md5)
             if r is not None:
                 ret = r
@@ -544,7 +545,7 @@ class Comet(object):
         cometConf = config["cloudmesh.comet"]
         defaultUser = cometConf["username"]
         user = input("Comet Nucleus Usename [%s]: " \
-                         % defaultUser)
+                     % defaultUser)
         if not user:
             user = defaultUser
         password = getpass.getpass()
@@ -556,18 +557,19 @@ class Comet(object):
             api_key = keyobj["key_name"]
             api_secret = keyobj["key"]
             config = ConfigDict("cloudmesh.yaml")
-            config.data["cloudmesh"]["comet"]["endpoints"]\
-                        [endpoint]["auth_provider"] = 'apikey'
-            config.data["cloudmesh"]["comet"]["endpoints"]\
-                        [endpoint]["apikey"]["api_key"] = api_key
-            config.data["cloudmesh"]["comet"]["endpoints"]\
-                        [endpoint]["apikey"]["api_secret"] = api_secret
+            config.data["cloudmesh"]["comet"]["endpoints"] \
+                [endpoint]["auth_provider"] = 'apikey'
+            config.data["cloudmesh"]["comet"]["endpoints"] \
+                [endpoint]["apikey"]["api_key"] = api_key
+            config.data["cloudmesh"]["comet"]["endpoints"] \
+                [endpoint]["apikey"]["api_secret"] = api_secret
 
             config.save()
             Console.ok("api key retrieval and set was successful!")
         else:
-            Console.error("Error getting api key. " \
+            Console.error("Error getting api key. "
                           "Please check your username/password", traceflag=False)
+
 
 def main():
     comet = Comet()

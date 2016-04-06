@@ -45,7 +45,7 @@ class FlavorCommand(PluginCommand, CloudPluginCommand):
             return
 
         if arguments["-v"]:
-            print ("Cloud: {}".format(cloud))
+            print("Cloud: {}".format(cloud))
 
         if arguments["refresh"] or Default.refresh:
             msg = "Refresh flavor for cloud {:}.".format(cloud)

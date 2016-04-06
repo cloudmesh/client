@@ -5,13 +5,11 @@ from cloudmesh_client.util import path_expand
 from cloudmesh_client.default import Default
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
-
 # define the logger
 LOGGER = logging.getLogger('LogUtil')
 
 
 class LogUtil(object):
-
     # define global format for logs
     FORMAT = "%(asctime)s [%(levelname)s] %(filename)s:%(lineno)s %(funcName)s() %(message)s"
 
@@ -99,10 +97,9 @@ class LogUtil(object):
         :return: the loglevel
         """
         config = ConfigDict("cloudmesh.yaml")
-        log_level = config["cloudmesh"]["logging"]["level"] or \
-            LogUtil.DEFAULT_LOG_LEVEL
+        log_level = config["cloudmesh"]["logging"]["level"] or LogUtil.DEFAULT_LOG_LEVEL
 
-        print ("PPPP", log_level)
+        print("PPPP", log_level)
 
         # Set the log level
         LogUtil.set_level(log_level)

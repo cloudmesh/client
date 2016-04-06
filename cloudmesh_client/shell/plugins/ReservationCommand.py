@@ -108,14 +108,14 @@ class ReservationCommand(PluginCommand, CloudPluginCommand):
             elif format == "table":
                 return Printer.write(d,
                                      order=["id",
-                                           "name",
-                                           "start_time",
-                                           "end_time",
-                                           "user",
-                                           "project",
-                                           "hosts",
-                                           "description",
-                                           "cloud"],
+                                            "name",
+                                            "start_time",
+                                            "end_time",
+                                            "user",
+                                            "project",
+                                            "hosts",
+                                            "description",
+                                            "cloud"],
                                      output="table",
                                      sort_keys=True)
             elif format == "csv":

@@ -71,33 +71,32 @@ class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
 
         if arguments["list"]:
             result = launcher.list()
-            print (result)
+            print(result)
 
         elif arguments["delete"]:
             result = launcher.delete()
-            print (result)
+            print(result)
 
         elif arguments["run"]:
             result = launcher.run()
-            print (result)
+            print(result)
 
         elif arguments["resume"]:
             result = launcher.resume()
-            print (result)
+            print(result)
 
         elif arguments["suspend"]:
             result = launcher.suspend()
-            print (result)
+            print(result)
 
         elif arguments["details"]:
             result = launcher.details()
-            print (result)
+            print(result)
 
         elif arguments["clear"]:
             result = launcher.clear()
-            print (result)
+            print(result)
 
         elif arguments["refresh"]:
             result = launcher.refresh()
-            print (result)
-
+            print(result)

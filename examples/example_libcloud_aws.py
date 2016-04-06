@@ -22,23 +22,23 @@ driver = cls(cloudcred['EC2_ACCESS_KEY'],
 
 # list VMs
 # nodes = driver.list_nodes()
-#print nodes
+# print nodes
 
 # THIS FUNCTION TAKES TIME TO LOAD 40K+ IMAGES
 # obtain available images
 images = driver.list_images()
-#print images[0]
+# print images[0]
 
 # sizes/flavors
 sizes = driver.list_sizes()
-#print sizes
+# print sizes
 
 # specify flavor and image
 myflavor = clouddefault['flavor']
 myimage = clouddefault['image']
 name = "sup-instance"
-pprint("Flavor="+myflavor)
-pprint("Image="+myimage)
+pprint("Flavor=" + myflavor)
+pprint("Image=" + myimage)
 # Changed "name" -> "id" (diff from openstack)
 size = [s for s in sizes if s.id == myflavor][0]
 image = [i for i in images if i.id == myimage][0]
@@ -47,11 +47,10 @@ image = [i for i in images if i.id == myimage][0]
 # name = "{:}-libcloud".format(cloudcred['userid'])
 node = driver.create_node(name=name, image=image, size=size)
 
-
 sleep(10)
 # check if the new VM is in the list
 nodes = driver.list_nodes()
-print (nodes)
+print(nodes)
 
 # wait the node to be ready before assigning public IP
 

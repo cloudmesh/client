@@ -20,7 +20,6 @@ from builtins import input
 
 
 class Register(object):
-
     @classmethod
     def entry(cls, name):
         return ValueError("not implemented yet")
@@ -81,9 +80,9 @@ class CloudRegister(object):
             }
         return Printer.Printer.write(d,
                                      order=['id',
-                                           'cloud',
-                                           'iaas',
-                                           'version'],
+                                            'cloud',
+                                            'iaas',
+                                            'version'],
                                      output=output)
 
     @classmethod
@@ -330,12 +329,12 @@ class CloudRegister(object):
                 "EC2_CERT": "{DEST}/cert.pem".format(**data),
                 "NOVA_CERT": "{DEST}/cacert.pem".format(**data),
                 "EUCALYPTUS_CERT": "{DEST}/cacert.pem".format(**data),
-                },
-                "default": {
-                    "flavor": "m1.small",
-                    "image": "None",
-                }
+            },
+            "default": {
+                "flavor": "m1.small",
+                "image": "None",
             }
+        }
         from pprint import pprint
         config = ConfigDict("cloudmesh.yaml")
         config["cloudmesh"]["clouds"][cloud] = d
@@ -505,7 +504,7 @@ class CloudRegister(object):
         cm_heading = input(
             "Heading for the cloud (Default: {:} Cloud): ".format(cm_label)) or "{:} Cloud".format(cm_label)
 
-        cm_host = input("Cloud host name (Default: {:}): ".format(cloudname_suggest)) or "{:}"\
+        cm_host = input("Cloud host name (Default: {:}): ".format(cloudname_suggest)) or "{:}" \
             .format(cloudname_suggest)
 
         if provider is None:

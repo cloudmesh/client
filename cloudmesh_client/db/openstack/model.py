@@ -116,7 +116,6 @@ class FLAVOR_OPENSTACK(CloudmeshMixin, CloudmeshDatabase.Base):
                  **kwargs):
         super(FLAVOR_OPENSTACK, self).set_defaults(name=name, user=user)
 
-
         self.uuid = uuid
         self.ram = kwargs.get('ram')
         self.os_flv_disabled = kwargs.get('OS-FLV-DISABLED:disabled')
@@ -168,7 +167,6 @@ class VM_OPENSTACK(CloudmeshMixin, CloudmeshDatabase.Base):
     user_id = Column(String)  # what is this used for?
 
     def __init__(self, **kwargs):
-
         super(VM_OPENSTACK, self).set_defaults(**kwargs)
 
         self.uuid = kwargs.get("uuid", None)
@@ -202,5 +200,3 @@ class VM_OPENSTACK(CloudmeshMixin, CloudmeshDatabase.Base):
         self.updated = kwargs.get("updated", None)
         self.user_id = kwargs.get("user_id", None)
         self.status = kwargs.get("status", "defined")
-
-

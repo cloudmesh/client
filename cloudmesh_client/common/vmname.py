@@ -2,6 +2,7 @@ from cloudmesh_client.default import Default
 
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
+
 class VMName(object):
     @staticmethod
     def format(name=None):

@@ -89,7 +89,6 @@ class SSHkey(object):
 
         return ':'.join(a + b for a, b in zip(fp_plain[::2], fp_plain[1::2]))
 
-
     def _parse(self, keystring):
         """
         parse the keystring/keycontent into type,key,comment

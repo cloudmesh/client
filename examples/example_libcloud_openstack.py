@@ -23,8 +23,7 @@ pprint(dict(credential))
 auth_url = "%s/tokens/" % credential['OS_AUTH_URL']
 auth_url = auth_url.split("/v3")[0]
 
-print (auth_url)
-
+print(auth_url)
 
 driver = OpenStack(
     credential['OS_USERNAME'],
@@ -35,37 +34,30 @@ driver = OpenStack(
     ex_force_service_region='RegionOne',
     ex_tenant_name=credential['OS_TENANT_NAME'])
 
-
 # list VMs
 nodes = driver.list_nodes()
-pprint (nodes)
+pprint(nodes)
 
 # obtain available images
 images = driver.list_images()
-pprint (images)
+pprint(images)
 
 # sizes/flavors
 sizes = driver.list_sizes()
-pprint (sizes)
+pprint(sizes)
 
 # specify flavor and image
 myflavor = 'm1.small'
 myimage = 'Ubuntu-14.04-64'
 
-
 size = [s for s in sizes if s.name == myflavor][0]
 image = [i for i in images if i.name == myimage][0]
 
-
-
-pprint (driver.ex_list_floating_ip_pools())
+pprint(driver.ex_list_floating_ip_pools())
 print("NNNN")
 
-
-networks= driver.ex_list_networks()
-pprint (networks)
-
-
+networks = driver.ex_list_networks()
+pprint(networks)
 
 mynetworkname = "%s-net" % credential['OS_TENANT_NAME']
 mynetwork = [i for i in networks if i.name == mynetworkname][0]
@@ -76,7 +68,7 @@ node = driver.create_node(name=name, image=image, size=size, networks=[mynetwork
 
 # check if the new VM is in the list
 nodes = driver.list_nodes()
-pprint (nodes)
+pprint(nodes)
 
 # wait the node to be ready before assigning public IP
 sleep(10)
@@ -99,7 +91,7 @@ driver.ex_attach_floating_ip_to_node(node, floating_ip)
 
 # check updated VMs list to see if public ip is assigned
 nodes = driver.list_nodes()
-pprint (nodes)
+pprint(nodes)
 
 # remove it from the node
 driver.ex_detach_floating_ip_from_node(node, floating_ip)

@@ -1,12 +1,12 @@
 import sys
 import traceback
 
-class Error(object):
 
+class Error(object):
     @classmethod
     def msg(cls, error=None, debug=True, trace=True):
         if debug and error is not None:
-            print (error)
+            print(error)
         if trace:
             print(traceback.format_exc())
 

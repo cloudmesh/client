@@ -46,7 +46,7 @@ class Test_default(object):
         HEADING("delete defaults")
         Default.clear()
         defaults = Default.list()
-        print ("LIST:", defaults)
+        print("LIST:", defaults)
         assert defaults is None
 
     def test_002(self):
@@ -55,10 +55,9 @@ class Test_default(object):
         print("LIST:", result)
         # assert result is None
 
-
-        print ("------")
+        print("------")
         name = self.data.cloud
-        print ("Name", name, self.data, self.data.cloud)
+        print("Name", name, self.data, self.data.cloud)
         Default.set("cloud", name)
         print("HHH", Default.cloud)
         print("------")
@@ -74,13 +73,12 @@ class Test_default(object):
         HEADING("set default image")
         name = self.data.image
 
-        print (self.data)
+        print(self.data)
         Default.set_image(name, self.data.cloud)
 
-        print (Default.get(name, self.data.cloud))
+        print(Default.get(name, self.data.cloud))
 
         assert Default.get("image", category=self.data.cloud) == name
-
 
     def test_004(self):
         HEADING("set default flavor")
@@ -134,9 +132,9 @@ class Test_default(object):
         self.run("cm default test=testValue --cloud={cloud}")
         result = self.run("cm default list")
         assert "test" in result
-        print (result)
+        print(result)
         result = self.run("cm default delete test --cloud={cloud}")
-        print ("RRR", result)
+        print("RRR", result)
         assert "ERROR" in result
 
     def test_012(self):

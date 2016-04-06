@@ -1,5 +1,5 @@
 import os
-from novaclient import exceptions 
+from novaclient import exceptions
 from novaclient.client import Client
 from novaclient.v2.quotas import QuotaSetManager
 from novaclient.v2.limits import LimitsManager
@@ -12,12 +12,11 @@ from pprint import pprint
 
 # disable security warning for old certs
 import requests.packages.urllib3
+
 requests.packages.urllib3.disable_warnings()
 
 
-
 def get_nova_credentials(kind="yaml", cloud=None):
-
     d = {}
     if kind in ["env"]:
         d['version'] = '2'
@@ -39,8 +38,9 @@ def get_nova_credentials(kind="yaml", cloud=None):
         if 'OS_CACERT' in cred:
             d['cacert'] = path_expand(cred['OS_CACERT'])
     else:
-        raise Exception ("unsupported kind: " + kind)
+        raise Exception("unsupported kind: " + kind)
     return d
+
 
 '''
 openstack_client_keys  = [
@@ -70,7 +70,6 @@ print("P", m["OS_PASSWORD"])
 
 
 class CloudMesh(object):
-
     def __init__(self):
         self.config = dict(ConfigDict(filename="~/.cloudmesh/cloudmesh.yaml")["cloudmesh"]["clouds"])
         self.client = {}
@@ -113,7 +112,6 @@ class CloudMesh(object):
             for i in objects:
                 result[cloud][i.name] = i.__dict__
 
-
         if self.cloud_type(cloud) == "openstack":
             if kind in ["server"]:
                 objects = self.client[cloud].servers.list()
@@ -144,25 +142,24 @@ class CloudMesh(object):
             raise Exception("unsupported kind or cloud: " + kind + " " + str(cloud))
         return result
 
-
     # #############################################
     # IMAGE MANAGEMENT
     # #############################################
     def image_get(self, name, cloud=None):
         pass
-       
+
     # #############################################
     # FLAVOR MANAGEMENT
     # #############################################
     def flavor_get(self, name, cloud=None):
         pass
-       
+
     # #############################################
     # SEVER MANAGEMENT
     # #############################################
 
     def vm_create(self, name, flavor, image, secgroup, keypair, meta, userdata, cloud=None):
-	self.client[cloud].servers.create(name, image, flavor, meta=meta,
+        self.client[cloud].servers.create(name, image, flavor, meta=meta,
                                           security_groups=secgroup, key_name=keypair, userdata=userdata)
         # TBD
 
@@ -171,13 +168,13 @@ class CloudMesh(object):
 
     def vm_set_meta(self, name, cloud=None):
         pass
-       
+
     def vm_get_meta(self, name, cloud=None):
         pass
 
     def vm_set_userdata(self, name, cloud=None):
         pass
-       
+
     def vm_get_usedata(self, name, cloud=None):
         pass
 
@@ -199,8 +196,6 @@ class CloudMesh(object):
     def secgroup_list_rule(self):
         pass
 
-
-
     # #############################################
     # KEY MANAGEMENT
     # #############################################
@@ -209,10 +204,10 @@ class CloudMesh(object):
         keyfile = path_expand(filename)
         if self.cloud_type(cloud) == "openstack":
             with open(os.path.expanduser(filename), 'r') as public_key:
-              try:
-                 self.client[cloud].keypairs.create(name=name, public_key=public_key.read())
-              except exceptions.Conflict, e:
-                 print ("key already exists: {0}".format(str(e)))
+                try:
+                    self.client[cloud].keypairs.create(name=name, public_key=public_key.read())
+                except exceptions.Conflict, e:
+                    print("key already exists: {0}".format(str(e)))
         else:
             raise Exception("unsupported kind or cloud: " + kind + " " + str(cloud))
 
@@ -246,8 +241,7 @@ class CloudMesh(object):
             raise Exception("unsupported kind or cloud: " + kind + " " + str(cloud))
 
 
-
-#mesh = Mesh()
+# mesh = Mesh()
 
 # cred = mesh.credentials("india")
 # print("CCC", cred)
@@ -266,7 +260,7 @@ class CloudMesh(object):
 
 # credential = get_nova_credentials(cloud="chameleon")
 
-#pprint (credential)
+# pprint (credential)
 
 # credential = get_nova_credentials(kind="env")
 # pprint (credential)
@@ -295,16 +289,15 @@ for cloud in clouds:
 for cloud in clouds:
     for kind in kinds:
         l = cm.list(kind, cloud=cloud)
-        pprint (l)
+        pprint(l)
 
 cm.key_delete("gregor-key", cloud='india')
-print ("--------------")
+print("--------------")
 pprint(cm.list("key", cloud='india'))
-print ("--------------")
+print("--------------")
 cm.key_add("gregor-key", "~/.ssh/id_rsa.pub", cloud='india')
 pprint(cm.list("key", cloud='india'))
-print ("--------------")
-
+print("--------------")
 
 '''
 export OS_USERNAME=username
@@ -345,5 +338,3 @@ connection_pool (bool) - Use a connection pool
 session (str) - Session
 auth (str) - Auth
 '''
-
-

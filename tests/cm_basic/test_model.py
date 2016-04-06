@@ -20,7 +20,6 @@ from cloudmesh_client.common.Printer import Printer
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming
 class Test_model:
-
     cm = CloudmeshDatabase()
 
     def setup(self):
@@ -41,7 +40,6 @@ class Test_model:
         for t in self.cm.tables:
             print(t.__tablename__)
         assert "DEFAULT" in str(self.cm.tables)
-
 
     def test_003(self):
         HEADING("table info")

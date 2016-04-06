@@ -14,15 +14,17 @@ from datetime import datetime
 import pytz
 from pprint import pprint
 
+
 class Cluster(object):
-    WALLTIME_MINS = 60*24*2
+    WALLTIME_MINS = 60 * 24 * 2
     N_ALLOCATIONS_PER_LINE = 5
     MINS_PER_UNIT = {"m": 1, "h": 60, "d": 1440, "w": 10080}
-    SECS_PER_DAY = 60*60*24
+    SECS_PER_DAY = 60 * 60 * 24
     STUCK_COMPUTESETS = ["submitted", "ending"]
     FINISHED_COMPUTESETS = ["completed", "failed"]
     ACTIVE_COMPUTESETS = ["running", "running", "submitted", "created"]
     PENDING_COMPUTESETS = ["queued", "submitted", "created"]
+
     @staticmethod
     def simple_list(id=None, format="table"):
         result = ""
@@ -66,25 +68,25 @@ class Cluster(object):
 
                 result = Printer.write(elements,
                                        order=[
-                                          "name",
-                                          "project",
-                                          "nodes",
-                                          "computes",
-                                          "frontend name",
-                                          "frontend state",
-                                          "frontend type",
-                                          "description",
-                                      ],
+                                           "name",
+                                           "project",
+                                           "nodes",
+                                           "computes",
+                                           "frontend name",
+                                           "frontend state",
+                                           "frontend type",
+                                           "description",
+                                       ],
                                        header=[
-                                          "Name",
-                                          "Project",
-                                          "Count",
-                                          "Nodes",
-                                          "Frontend (Fe)",
-                                          "State (Fe)",
-                                          "Type (Fe)",
-                                          "Description",
-                                      ],
+                                           "Name",
+                                           "Project",
+                                           "Count",
+                                           "Nodes",
+                                           "Frontend (Fe)",
+                                           "State (Fe)",
+                                           "Type (Fe)",
+                                           "Description",
+                                       ],
 
                                        output=format)
             return result
@@ -124,7 +126,7 @@ class Cluster(object):
                         stuck_computesets[cluster] = {}
                     for node in nodes:
                         stuck_computesets[cluster][node["name"]] = \
-                            "{}({})".format (id, computeset["state"])
+                            "{}({})".format(id, computeset["state"])
 
         if r is not None:
             if format == "rest":
@@ -166,19 +168,19 @@ class Cluster(object):
                     bnode = dict(anode)
                     if "interface" in bnode:
                         macs = []
-                        #ips = []
+                        # ips = []
                         for ipaddr in anode["interface"]:
                             macs.append(ipaddr["mac"])
-                            #ips.append(ipaddr["ip"] or "N/A")
-                        if format=='table':
+                            # ips.append(ipaddr["ip"] or "N/A")
+                        if format == 'table':
                             bnode["mac"] = "\n".join(macs)
                         else:
                             bnode["mac"] = ";".join(macs)
-                        #anode["ip"] = "; ".join(ips)
+                            # anode["ip"] = "; ".join(ips)
                     del bnode["interface"]
 
                     if bnode["cluster"] in stuck_computesets and \
-                            bnode["name"] in stuck_computesets[bnode["cluster"]]:
+                                    bnode["name"] in stuck_computesets[bnode["cluster"]]:
                         bnode["active_computeset"] = \
                             stuck_computesets[bnode["cluster"]][bnode["name"]]
                     data[index] = bnode
@@ -190,7 +192,7 @@ class Cluster(object):
                                           "kind",
                                           "type",
                                           "mac",
-                                          #"ip",
+                                          # "ip",
                                           "cpus",
                                           "cluster",
                                           "memory",
@@ -210,7 +212,7 @@ class Cluster(object):
                                           "computeset"
                                       ],
                                       output=format,
-                                      sort_keys=('cluster','mac'))
+                                      sort_keys=('cluster', 'mac'))
             return result
 
     @staticmethod
@@ -221,11 +223,11 @@ class Cluster(object):
         while i < len(allocations_sorted) + 1:
             for j in range(0, Cluster.N_ALLOCATIONS_PER_LINE):
                 if i < len(allocations_sorted) + 1:
-                    print ("{}: {}".format(i, allocations_sorted[i - 1]),
-                           end="\t")
+                    print("{}: {}".format(i, allocations_sorted[i - 1]),
+                          end="\t")
                     i += 1
-            print ("")
-        print ("")
+            print("")
+        print("")
         chosen_alloc = -1
         while chosen_alloc < 0:
             allocation_input = input("Pick an allocation by specifying its index: ")
@@ -235,10 +237,10 @@ class Cluster(object):
                     allocation = allocations_sorted[chosen_alloc - 1]
                 else:
                     chosen_alloc = -1
-                    print ("Invalid index specified. "
-                           "Please choose between 1 and {}"
-                           .format(len(allocations_sorted))
-                           )
+                    print("Invalid index specified. "
+                          "Please choose between 1 and {}"
+                          .format(len(allocations_sorted))
+                          )
             except:
                 if allocation_input in allocations_sorted:
                     chosen_alloc = 0
@@ -299,7 +301,7 @@ class Cluster(object):
                 return result
 
         if (state and ("ALL" == state or computesetdict["state"] == state)) or \
-           (computesetdict["state"] not in Cluster.FINISHED_COMPUTESETS):
+                (computesetdict["state"] not in Cluster.FINISHED_COMPUTESETS):
             starttime = ''
             endtime = ''
             walltime = ''
@@ -310,49 +312,49 @@ class Cluster(object):
                 walltime_seconds = walltime * 60
                 walltime = Cluster.format_ddd_hh_mm(walltime_seconds)
             if 'start_time' in computesetdict and \
-                computesetdict["start_time"] is not None:
+                            computesetdict["start_time"] is not None:
                 start_seconds = int(computesetdict["start_time"])
                 end_seconds = start_seconds + walltime_seconds
                 if computesetdict["state"] in Cluster.FINISHED_COMPUTESETS \
-                    or computesetdict["state"] == 'ending':
+                        or computesetdict["state"] == 'ending':
                     runningSecs = walltime_seconds
                 else:
-                    runningSecs = int(time.time())-start_seconds
+                    runningSecs = int(time.time()) - start_seconds
                 remainingSecs = walltime_seconds - runningSecs
                 starttime = time.strftime("%D %H:%M %Z",
-                                    time.localtime(start_seconds))
+                                          time.localtime(start_seconds))
                 endtime = time.strftime("%D %H:%M %Z",
-                                    time.localtime(end_seconds))
+                                        time.localtime(end_seconds))
                 runningTime = Cluster.format_ddd_hh_mm(runningSecs)
                 remainingTime = Cluster.format_ddd_hh_mm(remainingSecs)
 
             result += "\nClusterID: {}\tComputesetID: {}\t State: {}\t\tAllocation: {}\n" \
-                      "Start (est): {}\t\tEnd (est): {}\n"\
-                      "Requested Time (ddd-hh:mm): {}\tRunning Time (est): {}\t\tRemaining Time (est): {}\n"\
-                        .format(computesetdict["cluster"],
-                                computesetdict["id"],
-                                computesetdict["state"],
-                                computesetdict["account"],
-                                starttime,
-                                endtime,
-                                walltime,
-                                runningTime,
-                                remainingTime
-                                )
+                      "Start (est): {}\t\tEnd (est): {}\n" \
+                      "Requested Time (ddd-hh:mm): {}\tRunning Time (est): {}\t\tRemaining Time (est): {}\n" \
+                .format(computesetdict["cluster"],
+                        computesetdict["id"],
+                        computesetdict["state"],
+                        computesetdict["account"],
+                        starttime,
+                        endtime,
+                        walltime,
+                        runningTime,
+                        remainingTime
+                        )
             data = computesetdict["computes"]
             for index, anode in enumerate(data):
                 bnode = dict(anode)
                 if "interface" in bnode:
                     macs = []
-                    #ips = []
+                    # ips = []
                     for ipaddr in anode["interface"]:
                         macs.append(ipaddr["mac"])
-                        #ips.append(ipaddr["ip"] or "N/A")
-                    if format=='table':
+                        # ips.append(ipaddr["ip"] or "N/A")
+                    if format == 'table':
                         bnode["mac"] = "\n".join(macs)
                     else:
                         bnode["mac"] = ";".join(macs)
-                    #anode["ip"] = "; ".join(ips)
+                        # anode["ip"] = "; ".join(ips)
                 del bnode["interface"]
                 data[index] = bnode
             result += str(Printer.list(data,
@@ -361,7 +363,7 @@ class Cluster(object):
                                            "state",
                                            "type",
                                            "mac",
-                                           #"ip",
+                                           # "ip",
                                            "cpus",
                                            "cluster",
                                            "host",
@@ -373,10 +375,10 @@ class Cluster(object):
 
     @staticmethod
     def format_ddd_hh_mm(time_duration_secs):
-        ddd = time_duration_secs//Cluster.SECS_PER_DAY
-        secs = time_duration_secs%Cluster.SECS_PER_DAY
-        hh = secs//3600
-        mm = (secs%3600)//60
+        ddd = time_duration_secs // Cluster.SECS_PER_DAY
+        secs = time_duration_secs % Cluster.SECS_PER_DAY
+        hh = secs // 3600
+        mm = (secs % 3600) // 60
         if ddd != 0:
             ret = "%s-%02d:%02d" % (ddd, hh, mm)
         else:
@@ -459,7 +461,7 @@ class Cluster(object):
         # {"cluster":"vc3","count":2}
         #
         if numnodes:
-            data = {"cluster":"%s" % clusterid,
+            data = {"cluster": "%s" % clusterid,
                     "count": "%s" % numnodes,
                     "walltime_mins": "%s" % walltime,
                     "allocation": "%s" % allocation}
@@ -484,7 +486,7 @@ class Cluster(object):
         # print (r)
         if 'cluster' in r:
             if 'state' in r and \
-                r['state'] in Cluster.PENDING_COMPUTESETS:
+                            r['state'] in Cluster.PENDING_COMPUTESETS:
                 computesetid = r['id']
                 ret = 'Request accepted! Check status with:\n' \
                       'comet cluster {}\n'.format(clusterid) + \
@@ -496,10 +498,10 @@ class Cluster(object):
         elif 'error' in r:
             ret = "An error occurred: {}".format(r['error'])
         else:
-            ret = "An internal error occured. "\
-                  "Please submit a ticket with the "\
-                  "following info:\n {}\n"\
-                  .format(r)
+            ret = "An internal error occured. " \
+                  "Please submit a ticket with the " \
+                  "following info:\n {}\n" \
+                .format(r)
         return ret
 
     @staticmethod
@@ -514,10 +516,10 @@ class Cluster(object):
             if '' != r.strip():
                 ret = r
             else:
-                ret = "Request Accepted. "\
+                ret = "Request Accepted. " \
                       "In the process of terminating the computeset"
         else:
-            ret = "Problem executing the request. "\
+            ret = "Problem executing the request. " \
                   "Check if the computeset exists"
         return ret
 
@@ -545,17 +547,17 @@ class Cluster(object):
                         if '' != r.strip():
                             ret = r
                         else:
-                            ret += "Request Accepted. "\
-                                "In the process of {} node {}\n"\
+                            ret += "Request Accepted. " \
+                                   "In the process of {} node {}\n" \
                                 .format(action, host)
                     else:
-                        ret += "Problem executing the request. "\
-                            "Check if the node {} belongs to the cluster"\
+                        ret += "Problem executing the request. " \
+                               "Check if the node {} belongs to the cluster" \
                             .format(host)
                         # print(ret)
             else:
-                Console.error("At least one specified node is not in any "\
-                              "active computesets thus cannot be powered on.\n"\
+                Console.error("At least one specified node is not in any "
+                              "active computesets thus cannot be powered on.\n"
                               "Please start the node(s) with 'comet start' first",
                               traceflag=False)
         elif 'FE' == subject:
@@ -570,10 +572,10 @@ class Cluster(object):
                     if '' != r.strip():
                         ret = r
                     else:
-                        ret = "Request Accepted. "\
+                        ret = "Request Accepted. " \
                               "In the process of {} the front-end node".format(action)
                 else:
-                    ret = "Problem executing the request. "\
+                    ret = "Problem executing the request. " \
                           "Check if the cluster exists"
             else:
                 ret = "Action not supported! Try these: on/off/reboot/reset/shutdown"
@@ -591,10 +593,10 @@ class Cluster(object):
                     if '' != r.strip():
                         ret = r
                     else:
-                        ret = "Request Accepted. "\
+                        ret = "Request Accepted. " \
                               "In the process of {} the computeset".format(action)
                 else:
-                    ret = "Problem executing the request. "\
+                    ret = "Problem executing the request. " \
                           "Check if the computeset exists"
             else:
                 ret = "Action not supported! Try these: reboot/reset/shutdown"
@@ -620,13 +622,13 @@ class Cluster(object):
         if nodeids:
             nodeids = hostlist.expand_hostlist(nodeids)
             for nodeid in nodeids:
-                url = Comet.url("cluster/{}/compute/{}/attach_iso?iso_name={}")\
-                                .format(clusterid, nodeid, isoname)
+                url = Comet.url("cluster/{}/compute/{}/attach_iso?iso_name={}") \
+                    .format(clusterid, nodeid, isoname)
                 urls["Node {}".format(nodeid)] = url
         else:
             # attaching to fronend node
-            url = Comet.url("cluster/{}/frontend/attach_iso?iso_name={}")\
-                            .format(clusterid, isoname)
+            url = Comet.url("cluster/{}/frontend/attach_iso?iso_name={}") \
+                .format(clusterid, isoname)
             urls['Frontend'] = url
         # data = {"iso_name": "%s" % isoname}
         # print ("url: %s" % url)
@@ -641,19 +643,19 @@ class Cluster(object):
                 if '' != r.strip():
                     ret += r
                 else:
-                    ret += "Request Accepted. {} the iso image {} {} of cluster {}\n"\
-                            .format(action, tofrom[action], node, clusterid)
+                    ret += "Request Accepted. {} the iso image {} {} of cluster {}\n" \
+                        .format(action, tofrom[action], node, clusterid)
             else:
-                ret += "Something wrong during {} the iso image {} {} of cluster {}!"\
-                       "Please check the command and try again\n"\
-                       .format(action, tofrom[action], node, clusterid)
+                ret += "Something wrong during {} the iso image {} {} of cluster {}!" \
+                       "Please check the command and try again\n" \
+                    .format(action, tofrom[action], node, clusterid)
         return ret
 
     @staticmethod
     def rename_node(clusterid, old_compute_name, new_compute_name):
-        url = Comet.url("cluster/{}/compute/{}/rename"\
+        url = Comet.url("cluster/{}/compute/{}/rename"
                         .format(clusterid, old_compute_name))
-        data = {"name":"%s" % new_compute_name}
+        data = {"name": "%s" % new_compute_name}
         ret = ""
         r = Comet.post(url, data=data)
         # print (r)

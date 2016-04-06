@@ -119,7 +119,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
             result = SecGroup.delete_secgroup(label, cloud)
             if result is not None:
-                Console.ok("Security Group [{}] in cloud [{}] deleted successfully." \
+                Console.ok("Security Group [{}] in cloud [{}] deleted successfully."
                            .format(label, cloud))
             else:
                 Console.error("Failed to delete Security Group [{}] in cloud [{}]"

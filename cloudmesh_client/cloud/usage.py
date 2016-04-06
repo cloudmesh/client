@@ -62,11 +62,11 @@ class Usage(ListResource):
 
             return Printer.write(d,
                                  order=["start",
-                                       "end",
-                                       "servers",
-                                       "cpu hours",
-                                       "ram mb-hours",
-                                       "disk gb-hours"],
+                                        "end",
+                                        "servers",
+                                        "cpu hours",
+                                        "ram mb-hours",
+                                        "disk gb-hours"],
                                  output=format)
 
         except Exception as e:

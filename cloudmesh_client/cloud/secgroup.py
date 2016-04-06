@@ -9,12 +9,11 @@ from cloudmesh_client.db import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.LibcloudDict import LibcloudDict
+
 requests.packages.urllib3.disable_warnings()
 
 
-
 class SecGroup(ListResource):
-
     cm = CloudmeshDatabase()
 
     @classmethod
@@ -51,7 +50,7 @@ class SecGroup(ListResource):
         the database, then inserting new data
         :param cloud: the cloud name
         """
-        
+
         return cls.cm.refresh('secgroup', cloud)
 
     # noinspection PyPep8Naming
@@ -104,7 +103,7 @@ class SecGroup(ListResource):
             global cm
             elements = cls.cm.find("secgroup",
                                    category=cloud)
-            #pprint(elements)
+            # pprint(elements)
             (order, header) = CloudProvider(cloud).get_attributes("secgroup")
 
             return Printer.write(elements,
@@ -247,12 +246,12 @@ class SecGroup(ListResource):
             # return table
             return (Printer.write(rule,
                                   order=["user",
-                                        "category",
-                                        "name",
-                                        "fromPort",
-                                        "toPort",
-                                        "protocol",
-                                        "cidr"],
+                                         "category",
+                                         "name",
+                                         "fromPort",
+                                         "toPort",
+                                         "protocol",
+                                         "cidr"],
                                   output="table"))
 
         except Exception as ex:

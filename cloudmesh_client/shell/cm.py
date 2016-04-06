@@ -32,10 +32,10 @@ import cloudmesh_client.etc
 import cloudmesh_client.shell.plugins
 from cloudmesh_client.common.StopWatch import StopWatch
 
-
 from cloudmesh_client.db import CloudmeshDatabase
 
 cm = CloudmeshDatabase()
+
 
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
@@ -46,7 +46,6 @@ PluginCommandClasses = type(
     'CommandProxyClass',
     tuple(PluginCommand.__subclasses__()),
     {})
-
 
 # print (type(PluginCommand.__subclasses__()))
 # print (PluginCommand.__subclasses__())
@@ -85,8 +84,8 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
     def postcmd(self, stop, line):
         StopWatch.stop("command")
         if Default.timer:
-            print ("Timer: {:.4f}s ({})".format(StopWatch.get("command"),
-                                                line.strip()))
+            print("Timer: {:.4f}s ({})".format(StopWatch.get("command"),
+                                               line.strip()))
         return stop
 
     def onecmd(self, line):
@@ -229,7 +228,6 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         if r is None:
             Default.set_refresh("on")
 
-
         user = Default.user
         if user is None:
             user = ConfigDict(filename=filename)["cloudmesh"]["profile"]["username"]
@@ -365,7 +363,6 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
         }
 
-
         print(Printer.write(versions, output=arguments["--format"],
                             order=["name", "version"]))
         if arguments["--check"] in ["True"]:
@@ -485,7 +482,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         try:
             os.system(command)
         except Exception as e:
-            print (e)
+            print(e)
 
     # noinspection PyUnusedLocal
     # BUG: this does not for some reason execute the arguments
@@ -503,7 +500,8 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         try:
             os.system(command)
         except Exception as e:
-            print (e)
+            print(e)
+
     #
     # VAR
     #
@@ -564,7 +562,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         for v in vars["dot"]:
             try:
                 config = ConfigDict("cloudmesh.yaml")
-                print (config["cloudmesh.profile"])
+                print(config["cloudmesh.profile"])
                 value = config[v]
                 line = line.replace(c + v, value)
             except Exception as e:
@@ -626,7 +624,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         """
         if arguments['list'] or arg == '' or arg is None:
             # self._list_variables()
-            print (Var.list())
+            print(Var.list())
             return ""
 
         elif arguments['NAME=VALUE'] and "=" in arguments["NAME=VALUE"]:
@@ -670,10 +668,10 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         """
         try:
             if arguments["list"] or args == "":
-                print ("LIST")
+                print("LIST")
                 h = 0
                 for line in self._hist:
-                    print ("{}: {}".format(h, self._hist[h]))
+                    print("{}: {}".format(h, self._hist[h]))
                     h += 1
                 return ""
 
@@ -689,7 +687,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             elif arguments["ID"]:
                 h = int(arguments["ID"])
                 if h in range(0, len(self._hist)):
-                    print ("{}".format(self._hist[h]))
+                    print("{}".format(self._hist[h]))
                     if not args.startswith("history"):
                         command = self._hist[h]
                         self.precmd(command)

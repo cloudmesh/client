@@ -12,15 +12,13 @@ from cloudmesh_client.common.dotdict import dotdict
 from pprint import pprint
 
 
-
 # noinspection PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming
 class Group(ListResource):
-
     __kind__ = "group"
     __provider__ = "general"
 
     cm = CloudmeshDatabase()
-    
+
     order = ["name",
              "member",
              "user",
@@ -46,11 +44,10 @@ class Group(ListResource):
                 "the default value {} in cloud {} does not exist".format(name,
                                                                          cloud))
 
-
     @classmethod
     def names(cls):
         try:
-            
+
             query = {}
 
             d = cls.cm.find(kind="group", **query)
@@ -61,7 +58,6 @@ class Group(ListResource):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-
     @classmethod
     def get_vms(cls, name):
         """
@@ -70,7 +66,7 @@ class Group(ListResource):
         :return:
         """
         try:
-            
+
             query = {
                 "type": "vm",
             }
@@ -138,22 +134,21 @@ class Group(ListResource):
             if category is None:
                 result = cls.cm.all(kind=cls.__kind__)
             else:
-                print ("llll", category, cls.__provider__, cls.__kind__)
+                print("llll", category, cls.__provider__, cls.__kind__)
                 result = cls.cm.find(provider=cls.__provider__,
                                      kind=cls.__kind__,
                                      category=category,
                                      scope='all')
-                print ("rrrr", result)
+                print("rrrr", result)
             if result is None:
                 table = None
             else:
                 table = Printer.write(result,
-                                  output='table')
+                                      output='table')
             return table
         except:
             Console.error("Error creating list")
             return None
-
 
     @classmethod
     def get_info(cls, category="general", name=None, output="table"):
@@ -164,7 +159,7 @@ class Group(ListResource):
         :param output:
         :return:
         """
-        
+
         try:
             cloud = category or Default.cloud
 
@@ -194,7 +189,7 @@ class Group(ListResource):
         :param cloud:
         :return:
         """
-        
+
         # user logged into cloudmesh
         user = ConfigDict.getUser(category) or cls.cm.user
         category = category or "general"
@@ -211,7 +206,6 @@ class Group(ListResource):
             group = cls.cm.find(**data)
 
             if group is None:
-
                 t = cls.cm.table(provider="general", kind="group")
 
                 group = t(name=name,
@@ -221,7 +215,6 @@ class Group(ListResource):
                           )
                 cls.cm.add(group, replace=False)
                 return
-
 
         except Exception as ex:
             Console.error(ex.message, ex)
@@ -237,7 +230,7 @@ class Group(ListResource):
         :param cloud:
         :return:
         """
-        
+
         query = dict(kwargs)
 
         if 'output' in kwargs:
@@ -247,9 +240,9 @@ class Group(ListResource):
             del query['output']
         try:
 
-            print ("QQQ"), query
+            print("QQQ"), query
             group = cls.cm.find(kind="group", **query)
-            print ("gggg", group)
+            print("gggg", group)
             if group is not None \
                     and "output" in kwargs:
                 d = {"0": group}
@@ -268,9 +261,8 @@ class Group(ListResource):
         :param cloud:
         :return:
         """
-        
 
-        print ("DELETE")
+        print("DELETE")
         try:
             # group = cls.get(name=name, category=category)
             args = {}
@@ -279,13 +271,12 @@ class Group(ListResource):
             if category is not None:
                 args["category"] = category
 
-            print ("DDD", args)
+            print("DDD", args)
 
-            group = cls.cm.find(provider='general', kind="group",  scope='all', output="dict", **args)
+            group = cls.cm.find(provider='general', kind="group", scope='all', output="dict", **args)
             group_object = cls.cm.find(provider='general', kind="group", scope='all', output="object", **args)
 
-
-            print ("A", group, group_object)
+            print("A", group, group_object)
 
             if group:
                 # Delete VM from cloud before deleting group
@@ -328,8 +319,7 @@ class Group(ListResource):
         :param category:
         :return:
         """
-        print ("RRRRR")
-        
+        print("RRRRR")
 
         try:
             # group = cls.get(name=name, category=category)
@@ -343,9 +333,9 @@ class Group(ListResource):
             group = cls.cm.find(kind="group", scope='all', output="object", **args)
             d = cls.cm.find(kind="group", scope='all', output="dict", **args)
 
-            pprint (args)
+            pprint(args)
             pprint(d)
-            print ("GGGGG", group)
+            print("GGGGG", group)
             for g in group:
                 if group is not None:
                     cls.cm.delete(g)
@@ -354,7 +344,6 @@ class Group(ListResource):
             cls.cm.save()
 
             return "Removed {} from the group {}. ok.".format(member, name)
-
 
         except Exception as ex:
             Console.error(ex.message, ex)
@@ -369,7 +358,7 @@ class Group(ListResource):
         :param _toName:
         :return:
         """
-        
+
         try:
             from_args = {
                 "name": _fromName
@@ -392,7 +381,7 @@ class Group(ListResource):
                     member = from_element["member"]
                     type = from_element["type"]
                     category = from_element["category"]
-                    print ("TTT", _toName)
+                    print("TTT", _toName)
                     cls.add(name=_toName, type=type, member=member, category=category)
                 cls.cm.save()
                 Console.ok("Copy from group {} to group {}. ok."
@@ -401,12 +390,11 @@ class Group(ListResource):
             else:
                 Console.error(
                     "Group [{}] does not exist in the cloudmesh database!"
-                    .format(_fromName))
+                        .format(_fromName))
                 return None
 
         except Exception as ex:
             Console.error(ex.message, ex)
-
 
     @classmethod
     def merge(cls, group_a, group_b, merged_group):
@@ -421,7 +409,6 @@ class Group(ListResource):
         cls.copy(group_a, merged_group)
         cls.copy(group_b, merged_group)
 
-
     # TODO: this is dependent on the provider This needs to be imported from the provider
     @classmethod
     def to_dict(cls, item):
@@ -435,4 +422,3 @@ class Group(ListResource):
             if not key.startswith("_sa"):
                 d[item.id][key] = str(item.__dict__[key])
         return d
-

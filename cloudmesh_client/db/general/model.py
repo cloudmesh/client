@@ -3,7 +3,6 @@ from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase, CloudmeshMi
 from sqlalchemy import Column, Date, Integer, String
 
 
-
 class DEFAULT(CloudmeshMixin, CloudmeshDatabase.Base):
     """table to store default values
 
@@ -20,8 +19,8 @@ class DEFAULT(CloudmeshMixin, CloudmeshDatabase.Base):
     def __init__(self, **kwargs):
         super(DEFAULT, self).set_defaults(**kwargs)
         self.value = kwargs.get('value', None)
-        print ("KWARGS", kwargs)
-        print ("DDDDD", self.__dict__)
+        print("KWARGS", kwargs)
+        print("DDDDD", self.__dict__)
 
 
 class VAR(CloudmeshMixin, CloudmeshDatabase.Base):
@@ -47,6 +46,7 @@ class VAR(CloudmeshMixin, CloudmeshDatabase.Base):
         self.type = str(type)
         self.value = str(value)
 
+
 class LAUNCHER(CloudmeshMixin, CloudmeshDatabase.Base):
     """table to store default values
 
@@ -54,25 +54,23 @@ class LAUNCHER(CloudmeshMixin, CloudmeshDatabase.Base):
 
     todo: check if its global or general
     """
-    
+
     __tablename__ = "launcher"
 
     __kind__ = 'launcher'
     __provider__ = 'general'
 
-
     parameters = Column(String)  # This is the parameter represented as yaml object
 
     def __init__(self,
                  name=None,
-                 user=None, 
+                 user=None,
                  parameters=None):
         super(LAUNCHER, self).set_defaults(name=name, user=user)
         self.parameters = parameters
-        
+
 
 class KEY(CloudmeshMixin, CloudmeshDatabase.Base):
-    
     __tablename__ = "key"
 
     __kind__ = 'key'
@@ -106,17 +104,15 @@ class KEY(CloudmeshMixin, CloudmeshDatabase.Base):
 
 
 class GROUP(CloudmeshMixin, CloudmeshDatabase.Base):
-    
     __tablename__ = "group"
 
     __kind__ = 'group'
     __provider__ = 'general'
-    
+
     member = Column(String)
     species = Column(String)
 
     def __init__(self, **kwargs):
-
         super(GROUP, self).set_defaults(**kwargs)
 
         self.member = kwargs.get('member')
@@ -124,17 +120,14 @@ class GROUP(CloudmeshMixin, CloudmeshDatabase.Base):
         self.category = kwargs.get('category', 'general')
         self.type = 'str'
 
-        print ("INIT", kwargs, self.__dict__)
+        print("INIT", kwargs, self.__dict__)
 
 
 class RESERVATION(CloudmeshMixin, CloudmeshDatabase.Base):
-    
     __tablename__ = "reservation"
-
 
     __kind__ = 'reservation'
     __provider__ = 'general'
-
 
     hosts = Column(String)  # should be list of strings
     description = Column(String)
@@ -153,7 +146,6 @@ class RESERVATION(CloudmeshMixin, CloudmeshDatabase.Base):
 
 
 class SECGROUP(CloudmeshMixin, CloudmeshDatabase.Base):
-    
     __tablename__ = "secgroup"
 
     __kind__ = 'secgroup'
@@ -168,14 +160,12 @@ class SECGROUP(CloudmeshMixin, CloudmeshDatabase.Base):
                  project=None):
         super(SECGROUP, self).set_defaults(name=name, user=user)
 
-
         self.uuid = uuid
         self.project = project
 
 
 class SECGROUPRULE(CloudmeshMixin, CloudmeshDatabase.Base):
     __tablename__ = "secgrouprule"
-
 
     __kind__ = 'secgrouprule'
     __provider__ = 'general'
@@ -209,9 +199,7 @@ class SECGROUPRULE(CloudmeshMixin, CloudmeshDatabase.Base):
 
 
 class BATCHJOB(CloudmeshMixin, CloudmeshDatabase.Base):
-
     __tablename__ = "batchjob"
-
 
     __kind__ = 'batchjob'
     __provider__ = 'general'
@@ -227,7 +215,6 @@ class BATCHJOB(CloudmeshMixin, CloudmeshDatabase.Base):
     time = Column(String, default="string")
     group = Column(String, default="string")
     job_id = Column(String, default="string")
-
 
     def __init__(self,
                  name,
@@ -247,4 +234,3 @@ class BATCHJOB(CloudmeshMixin, CloudmeshDatabase.Base):
         self.time = kwargs.pop('time')
         self.group = kwargs.pop('group')
         self.job_id = kwargs.pop('job_id')
-

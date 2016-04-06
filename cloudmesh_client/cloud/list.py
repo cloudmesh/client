@@ -6,10 +6,8 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db import CloudmeshDatabase
 
 
-
 # noinspection PyPep8Naming,PyPep8Naming
 class List(object):
-
     cm = CloudmeshDatabase()
 
     @classmethod
@@ -82,4 +80,3 @@ class List(object):
 
         # return the dict
         return d
-

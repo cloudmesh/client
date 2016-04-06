@@ -11,9 +11,8 @@ from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
 cm = CloudmeshDatabase()
 
+
 class Command_vm(object):
-
-
     # TODO DOES NOT INTERFACE WITH DATABASE
 
     @classmethod
@@ -41,7 +40,6 @@ class Command_vm(object):
         # TODO: vm start (without arguments) use default cloud, image, flavor, group.
         if cloud is None:  # use default values for cloud, image and flavor
             pass
-
 
         config = CloudRegister.get(cloud)
         if 'cm_type' in ["openstack"]:

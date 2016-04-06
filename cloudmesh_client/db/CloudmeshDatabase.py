@@ -15,6 +15,7 @@ from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.shell.console import Console
 
+
 class CloudmeshMixin(object):
     __mapper_args__ = {'always_refresh': True}
 
@@ -38,7 +39,7 @@ class CloudmeshMixin(object):
     project = Column(String, default="undefined")
 
     def set_defaults(self, **kwargs):
-        #self.user = kwargs.get('user', CloudmeshDatabase.user)
+        # self.user = kwargs.get('user', CloudmeshDatabase.user)
         # TODO: for now hardcode user
         self.user = 'gvonlasz'
         self.name = kwargs.get('name', 'undefined')
@@ -50,7 +51,8 @@ class CloudmeshMixin(object):
 
     def __repr__(self):
         try:
-            return("<{}> id={} name={} category={}: dict={}".format(self.kind, self.cm_id, self.name, self.category, self.__dict__))
+            return ("<{}> id={} name={} category={}: dict={}".format(self.kind, self.cm_id, self.name, self.category,
+                                                                     self.__dict__))
         except:
             Console.error("could not print object")
             return None
@@ -149,14 +151,13 @@ class CloudmeshDatabase(object):
             entry = dict()
             if kind is None or t.__kind__ in kind:
                 entry = {
-                    "count" : cls.session.query(t).count(),
-                    "tablename":   t.__tablename__,
+                    "count": cls.session.query(t).count(),
+                    "tablename": t.__tablename__,
                     "provider": t.__provider__,
                     "kind": t.__kind__
                 }
                 result.append(entry)
         return result
-
 
     @classmethod
     def table(cls, provider=None, kind=None, name=None):
@@ -182,7 +183,6 @@ class CloudmeshDatabase(object):
             Console.error("No Kind specified")
             return None
 
-
         for t in cls.tables:
             if t.__kind__ == kind and t.__provider__ == provider:
                 return t
@@ -203,6 +203,7 @@ class CloudmeshDatabase(object):
         else:
             Console.error("Providers for kind={} nor found".format(kind))
         return None
+
     #
     # SESSION
     #
@@ -233,19 +234,19 @@ class CloudmeshDatabase(object):
             t = cls.table(kind=kind)
         else:
             Console.error("find is improperly used provider={provider} kind={kind}"
-                       .format(**data))
+                          .format(**data))
         result = cls.session.query(t).all()
         return cls.to_list(result)
 
     @classmethod
     def _find(cls,
-             scope='all',
-             provider=None,
-             kind=None,
-             output='dict',
-             table=None,
-             **kwargs
-             ):
+              scope='all',
+              provider=None,
+              kind=None,
+              output='dict',
+              table=None,
+              **kwargs
+              ):
         """
         find (category="openstack", kind="vm", name="vm_002")
         find (VM_OPENSTACK, kind="vm", name="vm_002") # do not use this one its only used internally
@@ -257,7 +258,6 @@ class CloudmeshDatabase(object):
         :return:
         """
         t = table
-
 
         if table is None:
 
@@ -275,9 +275,9 @@ class CloudmeshDatabase(object):
             if output == 'dict':
                 result = dotdict(cls.to_list([result])[0])
         elif output == 'dict':
-            print ("EEEE", elements)
-            result =  cls.to_list(elements)
-            print ("qqqq", result)
+            print("EEEE", elements)
+            result = cls.to_list(elements)
+            print("qqqq", result)
         return result
 
     @classmethod
@@ -309,7 +309,6 @@ class CloudmeshDatabase(object):
             category = kwargs.get("category", None)
             provider = kwargs.get("provider", None)
             kind = kwargs.get("kind", None)
-
 
             if provider is not None and kind is not None:
 
@@ -344,7 +343,6 @@ class CloudmeshDatabase(object):
 
     @classmethod
     def add(cls, o, replace=True):
-
 
         if o is None:
             return
@@ -394,8 +392,6 @@ class CloudmeshDatabase(object):
 
         return objects
 
-
-
     @classmethod
     def save(cls):
         cls.session.commit()
@@ -436,10 +432,9 @@ class CloudmeshDatabase(object):
         # user = self.user or Username()
         #
         if provider is None:
-
             cls.get_table_from_kind(kind)
 
-        if provider is  None or kind is None:
+        if provider is None or kind is None:
             data = {
                 "provider": provider,
                 "kind": kind,

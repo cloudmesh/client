@@ -21,6 +21,7 @@ from cloudmesh_client.db import CloudmeshDatabase
 
 __version__ = cloudmesh_client.version.__version__
 
+
 def create_cloudmesh_yaml(filename):
     if not os.path.exists(filename):
         path = os.path.dirname(filename)
@@ -32,6 +33,7 @@ def create_cloudmesh_yaml(filename):
         shutil.copy(etc_file, to_dir)
         os.system("chmod -R go-rwx " + path_expand("~/.cloudmesh"))
         Console.ok("~/.cloudmesh/cloudmesh.yaml created")
+
 
 def setup_yaml():
     filename = path_expand("~/.cloudmesh/cloudmesh.yaml")

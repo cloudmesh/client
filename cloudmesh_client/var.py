@@ -8,6 +8,7 @@ from .provider import Attributes
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.dotdict import dotdict
 
+
 # noinspection PyBroadException
 class Var(object):
     """
@@ -102,11 +103,9 @@ class Var(object):
                         name=name)
         return o
 
-
     @classmethod
     def delete(cls, name):
         cls.cm.delete(name=name, provider=cls.__provider__, kind=cls.__kind__)
-
 
     @classmethod
     def clear(cls):
@@ -115,4 +114,3 @@ class Var(object):
         :return:
         """
         cls.cm.delete(provider=cls.__provider__, kind=cls.__kind__)
-

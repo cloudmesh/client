@@ -28,7 +28,7 @@ class Inventory(ListResource):
             Console.error("Problem reading the yaml file {:}".format(
                 self.config_filename))
             Console.error("Please check if the file exists or is empty")
-            print (e)
+            print(e)
 
         banner("")
 
@@ -75,7 +75,7 @@ class Inventory(ListResource):
     def add(self, **kwargs):
 
         if "host" not in kwargs:
-            print ("ERROR no id specified")
+            print("ERROR no id specified")
             sys.exit(1)
 
         hosts = hostlist.expand_hostlist(kwargs['host'])
@@ -107,7 +107,7 @@ class Inventory(ListResource):
             if self.data[key] is '' or self.data[key] is None:
                 pass
             else:
-                print (self.data[key])
+                print(self.data[key])
 
 
 # noinspection PyBroadException,PyPep8Naming

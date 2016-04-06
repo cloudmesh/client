@@ -2,13 +2,12 @@ from future.utils import with_metaclass
 
 
 class ListResource(object):
-
     def _init__(self,
                 category=None,
                 kind=None,
                 order=None,
                 header=None):
-        self.category=category
+        self.category = category
         self.kind = kind
 
     def info(cls, **kwargs):
@@ -22,8 +21,6 @@ class ListResource(object):
 
     def refresh(cls, **kwargs):
         raise NotImplementedError()
-
-
 
     @classmethod
     def list(cls,
@@ -121,7 +118,7 @@ class ListResource(object):
         :return:
         """
 
-        o = cls.cm.find(category= category,
+        o = cls.cm.find(category=category,
                         kind='default',
                         output='dict',
                         scope='first',
@@ -160,7 +157,6 @@ class ListResource(object):
             cls.cm.save()
         except:
             return None
-
 
     '''
     # @abstractmethod

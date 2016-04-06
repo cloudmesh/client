@@ -10,6 +10,7 @@ from cloudmesh_client.default import Default
 
 cm = CloudmeshDatabase()
 
+
 class Mesh(object):
     """
     Design decision. Bellow we like to implement actually a type detection that based on
