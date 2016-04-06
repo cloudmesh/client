@@ -59,11 +59,12 @@ class Test_list:
 
         cp = CloudProviderOpenstackAPI(cloudname, cloud_details)
 
-        pprint(cp.list_flavor(cloudname))
+        #pprint(cp.list_flavor(cloudname))
 
-        pprint(cp.list_image(cloudname))
+        # pprint(cp.list_image(cloudname))
+
 
         pprint(cp.list_vm(cloudname))
 
-        pprint(cp.list_quota(cloudname))
+        #pprint(cp.list_quota(cloudname))
 

@@ -281,10 +281,16 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         # return self._to_dict(self.provider.keypairs.list())
 
     def list_flavor(self, cloudname, **kwargs):
-        return self._to_dict(self.provider.flavors.list())
+        d = self._to_dict(self.provider.flavors.list())
+        return d
 
     def list_image(self, cloudname, **kwargs):
-        return self._to_dict(self.provider.images.list())
+        d =  self._to_dict(self.provider.images.list())
+        for e in d:
+            o = d[e]
+            if 'server__links' in o:
+                del o['server__links']
+        return d
 
     def list_secgroup(self, cloudname, **kwargs):
         return self._to_dict(self.provider.security_groups.list())
@@ -323,6 +329,13 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             vm_dict[index][u"floating_ip"] = ip_detail_dict[index]["floating_ip"]
             vm_dict[index][u"static_ip"] = ip_detail_dict[index]["static_ip"]
             vm_dict[index][u"security_ groups"] = secgroup_list_dict[index]
+
+
+        for e in vm_dict:
+            o = vm_dict[e]
+            for link in ['server_links', 'flavor__links', 'image__links']:
+                if link in o:
+                    del o[link]
 
         return vm_dict
 
