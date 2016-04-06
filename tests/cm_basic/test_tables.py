@@ -67,11 +67,10 @@ class Test_tables:
         HEADING("Printer.write of a table object")
         output = Printer.write(self.d, order=None, header=None, output="table", sort_keys=True)
         print(output)
-        #assert "id" in str(output)
-
+        # assert "id" in str(output)
 
     def test_005_csv(self):
         HEADING("Printer.write of a csv object")
         output = Printer.write(self.d, order=None, header=None, output="csv", sort_keys=True)
         print(output)
-        #assert "id" in str(output)
+        # assert "id" in str(output)

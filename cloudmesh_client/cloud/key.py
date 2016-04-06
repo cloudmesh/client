@@ -14,9 +14,9 @@ from cloudmesh_client.common.dotdict import dotdict
 from builtins import input
 from pprint import pprint
 
+
 # noinspection PyPep8Naming
 class Key(ListResource):
-
     @classmethod
     def info(cls, **kwargs):
         raise NotImplementedError()
@@ -29,8 +29,7 @@ class Key(ListResource):
         """
         try:
 
-            keys= CloudProvider(cloud).provider.list_key(cloud)
-
+            keys = CloudProvider(cloud).provider.list_key(cloud)
 
             (order, header) = CloudProvider(cloud).get_attributes("key")
 
@@ -40,7 +39,6 @@ class Key(ListResource):
                                  output=format)
         except Exception as ex:
             Console.error(ex.message, ex)
-
 
     @classmethod
     def clear(cls, **kwargs):
@@ -54,4 +52,3 @@ class Key(ListResource):
     def delete(self, name, cloud=None):
 
         result = CloudProvider(cloud).provider.delete_key_from_cloud(name)
-

@@ -7,10 +7,7 @@ from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.cloud.ListResource import ListResource
 
 
-
-
 class Hpc(ListResource):
-
     cm = CloudmeshDatabase()
 
     @classmethod
@@ -21,7 +18,7 @@ class Hpc(ListResource):
         :param cloud: the cloud name
         """
 
-        return cls.cm.refresh('hpc', cloud)
+        return cls.cm.refresh(kind='hpc', cloud)
 
     @classmethod
     def list(cls, cloud, live=False, format="table"):
@@ -35,7 +32,7 @@ class Hpc(ListResource):
             if live:
                 cls.refresh(cloud)
 
-            elements = cls.cm.find("hpc", category=cloud)
+            elements = cls.cm.find(kind="hpc", category=cloud)
 
             # pprint(elements)
 
@@ -54,5 +51,3 @@ class Hpc(ListResource):
             cls.refresh(cloud)
 
         return CloudProvider(cloud).details('hpc', cloud, id, format)
-
-

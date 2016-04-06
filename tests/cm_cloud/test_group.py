@@ -22,7 +22,6 @@ from cloudmesh_client.common.dotdict import dotdict
 
 # noinspection PyPep8Naming
 class Test_group:
-
     data = dotdict({
         "cloud": Default.cloud,
         "user": "test",
@@ -58,18 +57,15 @@ class Test_group:
         print("INDEX", index)
         assert "test-001" in index
 
-
     def test_002(self):
         HEADING("testing cm group add")
 
         command = "cm group add {prefix}-002 --group={group}   --type=vm"
         self.run(command)
 
-
-
         group = Group.get(name="groupA", scope='all')
 
-        print ("GGGG", group)
+        print("GGGG", group)
 
         names = ["{user}-001".format(**self.data),
                  "{user}-002".format(**self.data)]
@@ -127,21 +123,21 @@ class Test_group:
         banner("cm group add --name=groupX --id=albert-00x", c='-')
 
         result = self.run("cm default cloud")
-        print ("UUUU", result)
+        print("UUUU", result)
         pprint(self.data.cloud)
-        print (type(result), type(self.data.cloud))
+        print(type(result), type(self.data.cloud))
         assert self.data.cloud in result
 
         result = self.run("cm default type=vm")
         assert "ok." in result
 
         result = self.run("cm group add albert-00x --group=groupX ")
-        #print ("RRR", result)
-        #assert "albert-00x" in result
+        # print ("RRR", result)
+        # assert "albert-00x" in result
 
         result = self.run("cm group list groupX")
 
-        print ("DDDDD", result)
+        print("DDDDD", result)
 
         assert "groupX" in result
 
@@ -223,12 +219,11 @@ class Test_group:
         assert 'group_x' in result
         assert 'group_y' in result
 
-
         print("T6")
         result = Group.delete(name="group_x")
         print(result)
         result = self.run("cm group list")
-        print (result)
+        print(result)
 
         assert 'vm_1' not in result
         assert 'vm_2' not in result
@@ -239,7 +234,7 @@ class Test_group:
         for command in setup:
             self.run(command)
         result = self.run("cm group list")
-        print (result)
+        print(result)
 
         result = Group.delete(name="group_y")
 

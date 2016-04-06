@@ -14,6 +14,7 @@ import getpass
 
 requests.packages.urllib3.disable_warnings()
 
+
 # TODO: unset as not allowing to smoothly switch
 def set_os_environ(cloudname):
     """Set os environment variables on a given cloudname"""
@@ -38,7 +39,6 @@ def set_os_environ(cloudname):
 
 # noinspection PyPep8Naming,PyUnusedLocal,PyUnusedLocal
 class CloudProviderOpenstackAPI(CloudProviderBase):
-
     cloud_type = "openstack"
     cloud_pwd = {}
 
@@ -232,7 +232,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         # or read os.environ if set as "env".
         """
         os_password = credentials["OS_PASSWORD"]
-        if os_password.lower() in  ["readline", "read", "tbd"]:
+        if os_password.lower() in ["readline", "read", "tbd"]:
             os_password = getpass.getpass()
         elif os_password.lower() == "env":
             os_password = os.environ.get("OS_PASSWORD", getpass.getpass())
@@ -266,8 +266,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         for id in _keys:
             key = _keys[id]
 
-            #key["type"], key["string"], key["comment"] = (key["keypair__public_key"] + " ").split(" ", 3)
-            #key["comment"] = key["comment"].strip()
+            # key["type"], key["string"], key["comment"] = (key["keypair__public_key"] + " ").split(" ", 3)
+            # key["comment"] = key["comment"].strip()
             key_segments = key["keypair__public_key"].split(" ")
             key["type"] = key_segments[0]
             key["string"] = key_segments[1]
@@ -278,7 +278,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 key["comment"] = " ".join(key_segments[2:])
 
         return _keys
-        #return self._to_dict(self.provider.keypairs.list())
+        # return self._to_dict(self.provider.keypairs.list())
 
     def list_flavor(self, cloudname, **kwargs):
         return self._to_dict(self.provider.flavors.list())
@@ -560,7 +560,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             try:
                 server.add_floating_ip(fip)
             except Exception as e:
-                print (e)
+                print(e)
                 self.provider.floating_ips.delete(floating_ip)
 
             ret = fip
@@ -594,7 +594,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
         keypair = self.provider.keypairs.delete(name)
         return keypair
-
 
     def create_floating_ip(self, float_pool):
         """
@@ -893,7 +892,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'value',
                     'created_at',
                     'updated_at'
-                     ],
+                ],
                 'header': [
                     'user',
                     'category',
@@ -901,9 +900,9 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'value',
                     'created_at',
                     'updated_at'
-                     ],
+                ],
             },
-            'group':{
+            'group': {
                 'order': [
                     "name",
                     "member",
@@ -918,13 +917,13 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     "type"]
 
             },
-            'key':{
-                'order':[
+            'key': {
+                'order': [
                     'keypair__name',
                     "type",
                     "comment",
                     "keypair__fingerprint"
-                    ],
+                ],
                 'header': [
                     "Name",
                     "Type",

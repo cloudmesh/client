@@ -16,7 +16,7 @@
 from cloudmesh_client.version import __version__
 import os
 
-#os.path.abspath('../cloudmesh_client')
+# os.path.abspath('../cloudmesh_client')
 
 # on_rtd is whether we are on readthedocs.org
 
@@ -42,17 +42,17 @@ if bootstrap_theme:
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    #'sphinx.ext.doctest',
+    # 'sphinx.ext.doctest',
     'sphinx.ext.todo',
-    #'sphinx.ext.coverage',
-    #'sphinx.ext.mathjax',
+    # 'sphinx.ext.coverage',
+    # 'sphinx.ext.mathjax',
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
     'sphinx.ext.autodoc',
 ]
 extensions += ['sphinx-prompt']
     
-todo_include_todos=True
+todo_include_todos = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

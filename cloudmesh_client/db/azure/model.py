@@ -1,6 +1,7 @@
 from __future__ import print_function
 from ..CloudmeshDatabase import CloudmeshDatabase, CloudmeshMixin
 from sqlalchemy import Column, Date, Integer, String
+
 '''
 Azure via libcloud
 =====
@@ -70,6 +71,7 @@ class IMAGE_AZURE(CloudmeshMixin, CloudmeshDatabase.Base):
         self.vm_image = kwargs.get('vm_image')
         self.id = kwargs.get('id')
 
+
 # noinspection PyPep8Naming
 class FLAVOR_AZURE(CloudmeshMixin, CloudmeshDatabase.Base):
     __tablename__ = "flavor_azure"
@@ -103,7 +105,3 @@ class FLAVOR_AZURE(CloudmeshMixin, CloudmeshDatabase.Base):
         self.id = kwargs.get('id')
         self.price = kwargs.get('price')
         self.ram = kwargs.get('ram')
-
-
-
-

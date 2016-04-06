@@ -6,7 +6,6 @@ from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.shell.console import Console
 
 
-
 # noinspection PyBroadException,PyUnreachableCode,PyUnusedLocal
 class CloudProviderBase(object):
     #    __metaclass__ = ABCMeta
@@ -356,7 +355,6 @@ class CloudProviderBase(object):
         raise ValueError(
             "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return
-
 
     def list_key(self, cloudname, **kwargs):
         """

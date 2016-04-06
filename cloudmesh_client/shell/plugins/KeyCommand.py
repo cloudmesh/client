@@ -18,8 +18,8 @@ from cloudmesh_client.cloud.key import Key
 from cloudmesh_client.common.dotdict import dotdict
 from pprint import pprint
 
-class KeyCommand(PluginCommand, CloudPluginCommand):
 
+class KeyCommand(PluginCommand, CloudPluginCommand):
     topics = {"key": "security"}
 
     def __init__(self, context):
@@ -140,10 +140,10 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
             elif format == "table":
                 return Printer.write(d,
                                      order=["name",
-                                           "comment",
-                                           "uri",
-                                           "fingerprint",
-                                           "source"],
+                                            "comment",
+                                            "uri",
+                                            "fingerprint",
+                                            "source"],
                                      output="table",
                                      sort_keys=True)
             else:
@@ -174,9 +174,9 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     sshm = SSHKeyManager()
                     sshm.get_from_dir(directory)
 
-                    print ("SSS", type(sshm.__keys__))
+                    print("SSS", type(sshm.__keys__))
                     d = dict(sshm.__keys__)
-                    print (d)
+                    print(d)
                     print(Printer.write(d,
                                         order=["name",
                                                "comment",
@@ -185,10 +185,9 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                                                "source"],
                                         output="table"))
 
+                    # d = dict(sshm.__keys__)
 
-                    #d = dict(sshm.__keys__)
-
-                    #print(_print_dict(d, format=_format))
+                    # print(_print_dict(d, format=_format))
                     msg = "info. OK."
                     Console.ok(msg)
                 except Exception as e:
@@ -243,8 +242,6 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     Error.traceback(e)
                     Console.error("Problem listing keys from database")
 
-
-
         elif arguments['get']:
 
             try:
@@ -265,14 +262,13 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 Error.traceback(e)
                 Console.error("The key is not in the database")
 
-
-        #     key add [NAME] [--source=FILENAME]
+        # key add [NAME] [--source=FILENAME]
         #     key add [NAME] [--git]
 
         elif arguments['add'] and arguments["--git"]:
 
-            #Console.error("This feature is not yet implemented", traceflag=False)
-            #return ""
+            # Console.error("This feature is not yet implemented", traceflag=False)
+            # return ""
 
             print('git add')
             sshdb = SSHKeyDBManager()
@@ -281,7 +277,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
             keyname = data.NAME
 
-#
+            #
             # get name
             #
             conf = ConfigDict("cloudmesh.yaml")
@@ -296,7 +292,6 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
             if str(data.name).lower() in invalid_names:
                 Console.error("The github user name is not set in the yaml file", traceflag=False)
                 return ""
-
 
             try:
                 Console.msg("Retrieving github ssh keys for user {username}".format(**data))
@@ -320,13 +315,13 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                         o['key'] = "AAA"
                         sshdb.add_from_dict(key)
                     except Exception as e:
-                        Console.error("The key {keyname} with that finger print already exists".format(**key), traceflag=False)
+                        Console.error("The key {keyname} with that finger print already exists".format(**key),
+                                      traceflag=False)
 
         elif arguments['add'] and not arguments["--git"]:
 
-        #     key add [NAME] [--source=FILENAME]
-        #     key add [NAME] [--git]
-
+            #     key add [NAME] [--source=FILENAME]
+            #     key add [NAME] [--git]
 
             sshdb = SSHKeyDBManager()
 
@@ -339,22 +334,18 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
             data.username = conf["cloudmesh.profile.username"]
             data.name = arguments['NAME'] or data.username
 
-
-
             data.filename = arguments['--source']
             if data.filename == "db" or data.filename is None:
                 data.filename = Config.path_expand("~/.ssh/id_rsa.pub")
 
-
             if str(data.name).lower() in invalid_names:
-
                 msg = ("Your choice of keyname {username} is insufficient. \n"
-                              "You must be chosing a keyname that is distingct on all clouds. \n"
-                              "Possible choices are your gmail name, your XSEDE name, or \n"
-                              "some name that is uniqe. "
-                              "Best is also to set this name in \n"
-                              "cloudmesh.profile.username as "
-                              "part of your \n~/cloudmesh/cloudmesh.yaml file.")
+                       "You must be chosing a keyname that is distingct on all clouds. \n"
+                       "Possible choices are your gmail name, your XSEDE name, or \n"
+                       "some name that is uniqe. "
+                       "Best is also to set this name in \n"
+                       "cloudmesh.profile.username as "
+                       "part of your \n~/cloudmesh/cloudmesh.yaml file.")
                 Console.error(msg.format(**data), traceflag=False)
                 return ""
 
@@ -371,28 +362,13 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 Console.error("A key with this fingerprint already exists".format(**data), traceflag=False)
                 Console.msg("Please use check with: key list")
 
-
             return ""
 
         elif arguments['default']:
 
             # print("default")
 
-            if arguments['KEYNAME']:
-                keyname = None
-                try:
-                    keyname = arguments['KEYNAME']
-                    sshdb = SSHKeyDBManager()
-                    sshdb.set_default(keyname)
-                    Default.set_key(keyname)
-                    print("Key {:} set as default".format(keyname))
-                    msg = "info. OK."
-                    Console.ok(msg)
-                except Exception as e:
-                    Error.traceback(e)
-                    Console.error("Setting default for key {:} failed.".format(keyname))
-
-            elif arguments['--select']:
+            if arguments['--select']:
                 keyname = None
                 try:
                     sshdb = SSHKeyDBManager()
@@ -426,7 +402,6 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     Error.traceback(e)
                     Console.error("Problem retrieving default key.")
 
-
         elif arguments['delete'] and arguments["--cloud"]:
 
             key = dotdict({
@@ -439,11 +414,10 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 Console.ok(msg)
             except:
                 Console.error("Problem deleting the key {name} on the cloud {cloud}".format(**key))
+
         elif arguments['delete']:
 
-
             # key delete (KEYNAME | --select| --all) [--force] [--active]
-
 
             data = dotdict({
                 "on_cloud": arguments["--force"] or False,
@@ -453,11 +427,11 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 'clouds': arguments["--cloud"] or Default.cloud
             })
 
+            pprint(data)
 
             if data.active or data.all:
                 config = ConfigDict("cloudmesh.yaml")
                 data.clouds = config["cloudmesh"]["active"]
-
 
             remove = []
             for cloud in data.clouds:
@@ -477,12 +451,14 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     Error.traceback(e)
                     Console.error("Remove key {} from cloud {}.".format(name, cloud), traceflag=False)
 
+            #### delete in db.
+
             msg = "info. OK."
             Console.ok(msg)
 
         elif arguments['upload']:
 
-            pprint (arguments)
+            pprint(arguments)
 
             try:
                 #
@@ -512,8 +488,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 else:
                     clouds.append(cloud)
 
-
-                print ("CCC", cloud, clouds)
+                print("CCC", cloud, clouds)
                 #
                 # get keyname
                 #
@@ -525,8 +500,8 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     keys = sshdb.find_all()
                     for key in keys:
 
-                        print ("upload key {} -> {}".format(key["name"],
-                                                            cloud))
+                        print("upload key {} -> {}".format(key["name"],
+                                                           cloud))
 
                         try:
                             status = sshm.add_key_to_cloud(
@@ -536,17 +511,16 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                                 key["name"])
 
                         except Exception as e:
-                            print (e)
+                            print(e)
                             if "already exists" in str(e):
-                                print ("key already exists. Skipping "
-                                       "upload. ok.")
+                                print("key already exists. Skipping "
+                                      "upload. ok.")
                         if status == 1:
                             print("Problem uploading key {} to {}. failed.".format(key["name"],
-                                                            cloud))
+                                                                                   cloud))
                 msg = "info. OK."
                 Console.ok(msg)
 
             except Exception as e:
                 Error.traceback(e)
                 Console.error("Problem adding key to cloud")
-

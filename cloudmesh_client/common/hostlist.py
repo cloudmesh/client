@@ -42,33 +42,34 @@ corner cases the behaviour of this module have not been compared for
 compatibility with pdsh/dshbak/SLURM et al.
 """
 
-__version__ = "1.14"
-
 import re
 import itertools
+
+__version__ = "1.14"
 
 
 # Exception used for error reporting to the caller
 class BadHostlist(Exception):
     pass
 
+
 # Configuration to guard against ridiculously long expanded lists
 MAX_SIZE = 100000
+
 
 # Hostlist expansion
 
 
 class Parameter(object):
-
     @classmethod
     def expand(cls, *args, **kwargs):
 
-        allow_duplicates=False
+        allow_duplicates = False
         sort = False
         if "allow_duplicates" in kwargs:
-            allow_duplicates=kwargs["allow_duplicates"]
+            allow_duplicates = kwargs["allow_duplicates"]
         if "sort" in kwargs:
-            sort=kwargs["sort"]
+            sort = kwargs["sort"]
 
         parameters = ','.join(*args)
         return expand_hostlist(parameters, allow_duplicates=allow_duplicates, sort=sort)
@@ -426,6 +427,7 @@ def parse_slurm_tasks_per_node(s):
         else:
             raise BadHostlist("bad task list syntax")
     return res
+
 
 #
 # Keep this part to tell users where the command line interface went

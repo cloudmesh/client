@@ -26,9 +26,6 @@ class TestCommand(PluginCommand, CloudPluginCommand):
         if self.context.debug:
             print("init command test")
 
-
-
-
     # noinspection PyUnusedLocal
     @command
     def do_test(self, args, arguments):
@@ -65,7 +62,6 @@ class TestCommand(PluginCommand, CloudPluginCommand):
             "tester": arguments["--test"]
         })
 
-
         def get_file():
             data.file = None
             for file in files:
@@ -73,10 +69,9 @@ class TestCommand(PluginCommand, CloudPluginCommand):
                     break
             data.file = file
 
-
-        def run( command):
+        def run(command):
             command = command.format(**data)
-            banner(command, c ="-")
+            banner(command, c="-")
             parameter = command.split(" ")
 
             os.system(command)
@@ -84,12 +79,11 @@ class TestCommand(PluginCommand, CloudPluginCommand):
             # shell_command = parameter[0]
             # args = parameter[1:]
 
-            #result = Shell.execute(shell_command, args)
-            #print(result)
-            #return str(result)
+            # result = Shell.execute(shell_command, args)
+            # print(result)
+            # return str(result)
 
         # command = "nosetests -v  --nocapture {0}:{1}.{2}".format(filename, classname, name)
-
 
         files = []
         dirs = []
@@ -103,12 +97,10 @@ class TestCommand(PluginCommand, CloudPluginCommand):
                     files.append(os.path.join(root, filename))
 
         if arguments["list"]:
-            print ('\n'.join(files))
+            print('\n'.join(files))
 
             # find tests
             return ""
-
-
 
         if data.test is None:
             command = "{tester}"
@@ -124,7 +116,7 @@ class TestCommand(PluginCommand, CloudPluginCommand):
             # run specific test
             get_file()
             # python setup.py install; nosetests -v --nocapture  tests/cm_cloud/test_group.py:Test_group.test_001
-            data.basename = os.path.basename(data.file).replace(".py","")
+            data.basename = os.path.basename(data.file).replace(".py", "")
             data.basename = data.basename.replace("test_", "")
             data.number = data.number.zfill(3)
 

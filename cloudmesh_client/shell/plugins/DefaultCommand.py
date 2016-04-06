@@ -6,7 +6,6 @@ from cloudmesh_client.shell.command import command, PluginCommand, \
 from cloudmesh_client.default import Default
 from cloudmesh_client.common.LogUtil import LogUtil
 
-
 logger = LogUtil.get_logger()
 
 
@@ -133,7 +132,7 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
             result = Default.list(category=cloud,
                                   order=order,
                                   output=output_format)
-            print (result)
+            print(result)
             return ""
 
         else:

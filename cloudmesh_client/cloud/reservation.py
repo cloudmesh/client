@@ -8,11 +8,9 @@ from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.ListResource import ListResource
 
 
-
 class Reservation(ListResource):
-
     cm = CloudmeshDatabase()
-    
+
     def info(cls, user=None, project=None):
         """
         prints if the user has access to the reservation an on which host.
@@ -30,7 +28,7 @@ class Reservation(ListResource):
         :return:
         """
         TODO.implement()
-    
+
     @classmethod
     def add(cls,
             name,
@@ -54,14 +52,14 @@ class Reservation(ListResource):
         :return:
         """
         obj_d = cls.cm.db_obj_dict("reservation",
-                                    name=name,
-                                    hosts=hosts,
-                                    start=start,
-                                    end=end,
-                                    description=description,
-                                    cloud=cloud,
-                                    user=user,
-                                    project=project)
+                                   name=name,
+                                   hosts=hosts,
+                                   start=start,
+                                   end=end,
+                                   description=description,
+                                   cloud=cloud,
+                                   user=user,
+                                   project=project)
         cls.cm.add_obj(obj_d)
         cls.cm.save()
 
@@ -83,7 +81,7 @@ class Reservation(ListResource):
         :param hosts: Hosts reserved
         :return:
         """
-     
+
         args = {}
 
         if name is not None:
@@ -113,7 +111,7 @@ class Reservation(ListResource):
         :return:
         """
         TODO.implement()
-    
+
     @classmethod
     def suspend(cls, names=None):
         TODO.implement()
@@ -149,7 +147,7 @@ class Reservation(ListResource):
         :param hosts: Hosts reserved
         :return:
         """
-       
+
         args = {}
 
         if name is not None:

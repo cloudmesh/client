@@ -57,7 +57,7 @@ class Default(object):
         """
         if order is None:
             order, header = None, None
-            #order = ['user',
+            # order = ['user',
             #         'category',
             #         'name',
             #         'value',
@@ -93,7 +93,7 @@ class Default(object):
         print("SET", key, value)
         try:
             o = cls.get(name=key)
-            print ("XO", o)
+            print("XO", o)
             if o is not None:
                 cls.cm.update(kind=cls.__kind__,
                               provider=cls.__provider__,
@@ -106,7 +106,7 @@ class Default(object):
             else:
                 t = cls.cm.table(provider=cls.__provider__, kind=cls.__kind__)
                 o = t(name=key, value=value, type=type, user=user, category=category)
-                print ("OOO", o, t)
+                print("OOO", o, t)
                 cls.cm.add(o)
             cls.cm.save()
         except Exception as e:

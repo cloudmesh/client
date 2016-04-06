@@ -17,14 +17,13 @@ log = LOGGER(__file__)
 
 
 # noinspection PyBroadException
-class NovaCommand (PluginCommand, CloudPluginCommand):
-
+class NovaCommand(PluginCommand, CloudPluginCommand):
     topics = {"nova": "cloud"}
 
     def __init__(self, context):
         self.context = context
         if self.context.debug:
-            print ("init command nova")
+            print("init command nova")
 
     # noinspection PyUnusedLocal
     @command

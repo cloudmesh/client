@@ -182,13 +182,13 @@ class TableParser(object):
 if __name__ == "__main__":
     parser = TableParser()
     d = parser.to_list("|a|b|c|\n|1|2|3|\n+|4|5|6|\n|7|8|9|")
-    print (d)
-    print (parser.json())
-    print (parser.headers)
-    print (parser)
+    print(d)
+    print(parser.json())
+    print(parser.headers)
+    print(parser)
 
     parser.to_dict("|a|b|c|\n|1|2|3|\n|4|5|6|")
-    print (parser.json())
+    print(parser.json())
 
-    print (parser.headers)
-    print (parser)
+    print(parser.headers)
+    print(parser)

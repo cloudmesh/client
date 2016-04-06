@@ -8,9 +8,7 @@ from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.cloud.ListResource import ListResource
 
 
-
 class Image(ListResource):
-
     cm = CloudmeshDatabase()
 
     @classmethod
@@ -32,7 +30,6 @@ class Image(ListResource):
         """
         # TODO: make a CloudmeshDatabase without requiring the user=
 
-
         try:
             elements = cls.cm.find(kind="image", category=cloud, scope="all")
 
@@ -52,4 +49,3 @@ class Image(ListResource):
             cls.refresh(cloud)
 
         return CloudProvider(cloud).details('image', cloud, id, format)
-

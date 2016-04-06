@@ -11,6 +11,7 @@ import sys
 from builtins import input
 from past.builtins import basestring
 
+
 def grep(pattern, filename):
     """Very simple grep that returns the first matching line in a file.
     String matching only, does not do REs as currently implemented.
@@ -68,7 +69,7 @@ def yn_choice(message, default='y', tries=None):
             elif choice in ['n', 'no', 'q']:
                 return False
             else:
-                print ("Invalid input...")
+                print("Invalid input...")
                 tries -= 1
 
 
@@ -88,10 +89,10 @@ def banner(txt=None, c="#", debug=True):
     """
     if debug:
         print
-        print ("#", 70 * c)
+        print("#", 70 * c)
         if txt is not None:
-            print ("#", txt)
-            print ("#", 70 * c)
+            print("#", txt)
+            print("#", 70 * c)
 
 
 def str_banner(txt=None, c="#", debug=True):
@@ -257,4 +258,3 @@ def check_python():
         print("WARNING: You are running an old version of pip: " + str(pip_version))
         print("         We recommend you update your pip  with \n")
         print("             pip install -U pip\n")
-

@@ -19,7 +19,6 @@ from cloudmesh_client.util import backup_name, path_expand
 import simplejson
 import yaml
 
-
 log = LOGGER(__file__)
 package_dir = os.path.dirname(os.path.abspath(__file__))
 attribute_indent = 4
@@ -59,16 +58,19 @@ def ordered_load(stream, Loader=yaml.Loader, object_pairs_hook=OrderedDict):
     :param Loader: the yam loader (such as yaml.SafeLoader)
     :param object_pairs_hook: the ordered dict
     """
+
     class OrderedLoader(Loader):
         pass
 
     def construct_mapping(loader, node):
         loader.flatten_mapping(node)
         return object_pairs_hook(loader.construct_pairs(node))
+
     OrderedLoader.add_constructor(
         yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
         construct_mapping)
     return yaml.load(stream, OrderedLoader)
+
 
 # usage example:
 # ordered_load(stream, yaml.SafeLoader)
@@ -82,6 +84,7 @@ def ordered_dump(data, stream=None, Dumper=yaml.Dumper, **kwds):
     :param stream: the stream
     :param Dumper: the dumper such as yaml.SafeDumper
     """
+
     class OrderedDumper(Dumper):
         pass
 
@@ -89,8 +92,10 @@ def ordered_dump(data, stream=None, Dumper=yaml.Dumper, **kwds):
         return dumper.represent_mapping(
             yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
             data.items())
+
     OrderedDumper.add_representer(OrderedDict, _dict_representer)
     return yaml.dump(data, stream, OrderedDumper, **kwds)
+
 
 # usage:
 # ordered_dump(data, Dumper=yaml.SafeDumper)
@@ -154,14 +159,13 @@ def read_yaml_config(filename, check=True, osreplace=True, exit=True):
 
 
 class OrderedJsonEncoder(simplejson.JSONEncoder):
-
     indent = attribute_indent
 
     def encode(self, o, depth=0):
         if isinstance(o, OrderedDict):
             return "{" + ",\n ".join([self.encode(k) + ":" +
-                                     self.encode(v, depth + 1)
-                                     for (k, v) in o.items()]) + "}\n"
+                                      self.encode(v, depth + 1)
+                                      for (k, v) in o.items()]) + "}\n"
         else:
             return simplejson.JSONEncoder.encode(self, o)
 
@@ -253,7 +257,7 @@ class BaseConfigDict(OrderedDict):
             try:
                 self.update(d)
             except:
-                print ("ERROR: can not find", self["location"])
+                print("ERROR: can not find", self["location"])
                 sys.exit()
         else:
             print("Error while reading and updating the configuration file {:}".format(filename))
@@ -286,7 +290,7 @@ class BaseConfigDict(OrderedDict):
         else:
             location = self['meta']['location']
 
-        # with open('data.yml', 'w') as outfile:
+            # with open('data.yml', 'w') as outfile:
             #    outfile.write( yaml.dump(data, default_flow_style=True) )
 
         # Make a backup
@@ -446,6 +450,7 @@ class BaseConfigDict(OrderedDict):
         else:
             k = self['meta']['prefix'] + "." + keys
         return self.get(k)
+
 
 if __name__ == "__main__":
     config = ConfigDict({"a": "1", "b": {"c": 3}},

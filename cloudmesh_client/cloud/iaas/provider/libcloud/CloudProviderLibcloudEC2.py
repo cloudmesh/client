@@ -15,6 +15,7 @@ from cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud import 
 
 from cloudmesh_client.shell.console import Console
 
+
 class CloudProviderLibcloudEC2(CloudProviderLibcloud):
     def __init__(self, cloud_name, cloud_details, user=None, flat=True):
         super(CloudProviderLibcloudEC2, self).__init__(cloud_name, cloud_details, user=user)
@@ -66,4 +67,3 @@ class CloudProviderLibcloudEC2(CloudProviderLibcloud):
         else:
             Console.info("AWS INIT")
             self.provider = cls(ec2_access_key, ec2_secret_key)
-

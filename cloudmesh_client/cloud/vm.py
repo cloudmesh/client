@@ -15,12 +15,10 @@ from builtins import input
 from pprint import pprint
 
 
-
 # noinspection PyPep8Naming
 class Vm(ListResource):
-
     cm = CloudmeshDatabase()
-    
+
     @classmethod
     def construct_ip_dict(cls, ip_addr, name="kilo"):
         try:
@@ -65,11 +63,11 @@ class Vm(ListResource):
     def boot(cls, **kwargs):
 
         data = dotdict(kwargs)
-        pprint (data)
+        pprint(data)
 
         for a in ["key", "name", "image", "flavor"]:
             if a not in kwargs:
-                raise ValueError (a + " not in arguments to vm boot")
+                raise ValueError(a + " not in arguments to vm boot")
 
         conf = ConfigDict("cloudmesh.yaml")
         data.username = conf["cloudmesh"]["profile"]["username"]
@@ -88,7 +86,6 @@ class Vm(ListResource):
                                     secgroup=kwargs["secgroup_list"],
                                     nics=nics)
 
-
         print("Machine {name} is being booted on {cloud} Cloud...".format(**data))
         cls.refresh(cloud=data.cloud)
 
@@ -103,8 +100,8 @@ class Vm(ListResource):
             cloud_provider.start_vm(server)
             print("Machine {:} is being started on {:} Cloud...".format(server, cloud_provider.cloud))
 
-        # Explicit refresh called after VM start, to update db.
-        # cls.refresh(cloud=kwargs["cloud"])
+            # Explicit refresh called after VM start, to update db.
+            # cls.refresh(cloud=kwargs["cloud"])
 
     @classmethod
     def stop(cls, **kwargs):
@@ -113,8 +110,8 @@ class Vm(ListResource):
             cloud_provider.stop_vm(server)
             print("Machine {:} is being stopped on {:} Cloud...".format(server, cloud_provider.cloud))
 
-        # Explicit refresh called after VM stop, to update db.
-        # cls.refresh(cloud=kwargs["cloud"])
+            # Explicit refresh called after VM stop, to update db.
+            # cls.refresh(cloud=kwargs["cloud"])
 
     @classmethod
     def delete(cls, **kwargs):
@@ -131,7 +128,7 @@ class Vm(ListResource):
             clouds = set()
             for server in kwargs["servers"]:
                 try:
-                    vm = cls.cm.find_by_name("VM", name=server)
+                    vm = cls.cm.find(kind="vm", name=server)
 
                     cloud = vm["category"]
                     cloud_provider = CloudProvider(cloud).provider
@@ -144,11 +141,10 @@ class Vm(ListResource):
             for cloud in clouds:
                 cls.refresh(cloud=cloud)
 
-
     @classmethod
     def get_vms_by_name(cls, name, cloud):
-       
-        vm_data = cls.cm.find("vm", name=name, category=cloud)
+
+        vm_data = cls.cm.find(kind="vm", name=name, category=cloud)
         if vm_data is None or len(vm_data) == 0:
             raise RuntimeError("VM data not found in database.")
         return vm_data
@@ -217,7 +213,7 @@ class Vm(ListResource):
         """
         This method lists all VMs of the cloud
         """
-        
+
         # prevent circular dependency
         def vm_groups(vm):
             """
@@ -225,14 +221,14 @@ class Vm(ListResource):
             :param vm: name of the vm
             :return: a list of groups the vm is in
             """
-            
+
             try:
                 query = {
                     "type": "vm",
                     "member": vm
                 }
 
-                d = cls.cm.find("GROUP", **query)
+                d = cls.cm.find(kind="group", **query)
                 groups = set()
                 for vm in d:
                     groups.add(d[vm]['name'])
@@ -243,18 +239,16 @@ class Vm(ListResource):
         try:
             if "name_or_id" in kwargs and kwargs["name_or_id"] is not None:
                 if cls.isUuid(kwargs["name_or_id"]):
-                    elements = cls.cm.find("vm",
+                    elements = cls.cm.find(kind="vm",
                                            category=kwargs["cloud"],
                                            uuid=kwargs["name_or_id"])
                 else:
-                    elements = cls.cm.find("vm",
+                    elements = cls.cm.find(kind="vm",
                                            category=kwargs["cloud"],
                                            label=kwargs["name_or_id"])
             else:
-                elements = cls.cm.find("vm",
+                elements = cls.cm.find(kind="vm",
                                        category=kwargs["cloud"])
-
-
 
             for key in elements:
                 element = elements[key]
@@ -285,7 +279,7 @@ class Vm(ListResource):
     @classmethod
     def refresh(cls, **kwargs):
         # print("Inside refresh")
-        
+
         return cls.cm.refresh("vm", kwargs["cloud"])
 
     @classmethod
@@ -298,17 +292,17 @@ class Vm(ListResource):
     def set_vm_login_user(cls, name_or_id, cloud, username):
         print(name_or_id, username)
         ValueError("this method is wrong implemented")
-       
+
         '''
         if cls.isUuid(name_or_id):
             uuid = name_or_id
         else:
-            vm_data = cls.cm.find("vm", category=cloud, label=name_or_id)
+            vm_data = cls.cm.find(kind="vm", category=cloud, label=name_or_id)
             if vm_data is None or len(vm_data) == 0:
                 raise RuntimeError("VM with label {} not found in database.".format(name_or_id))
             uuid = list(vm_data.values())[0]["uuid"]
 
-        user_map_entry = cls.cm.find("VMUSERMAP", vm_uuid=uuid)
+        user_map_entry = cls.cm.find(kind="VMUSERMAP", vm_uuid=uuid)
 
         if user_map_entry is None or len(user_map_entry) == 0:
             user_map_dict = cls.cm.db_obj_dict("VMUSERMAP", vm_uuid=uuid, username=username)
@@ -323,12 +317,12 @@ class Vm(ListResource):
         print(name_or_id, cloud)
 
         ValueError("this method is wrong implemented")
-       
+
         '''
         if cls.isUuid(name_or_id):
             uuid = name_or_id
         else:
-            vm_data = cls.cm.find("vm", category=cloud, label=name_or_id)
+            vm_data = cls.cm.find(kind="vm", category=cloud, label=name_or_id)
             if vm_data is None or len(vm_data) == 0:
                 raise RuntimeError("VM with label {} not found in database.".format(name_or_id))
             uuid = list(vm_data.values())[0]["uuid"]
@@ -347,8 +341,8 @@ class Vm(ListResource):
 
     @classmethod
     def get_last_vm(cls, cloud):
-       
-        vm_data = cls.cm.find("vm", scope="first", category=cloud)
+
+        vm_data = cls.cm.find(kind="vm", scope="first", category=cloud)
         if vm_data is None or len(vm_data) == 0:
             raise RuntimeError("VM data not found in database.")
         return vm_data

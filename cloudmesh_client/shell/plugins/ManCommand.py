@@ -25,13 +25,13 @@ class ManCommand(PluginCommand, ShellPluginCommand, CometPluginCommand):
         """
 
         print
-        print ("Command - %s::" % what)
+        print("Command - %s::" % what)
         h = None
-        exec ("h = self.do_%s.__doc__" % what)
+        exec("h = self.do_%s.__doc__" % what)
         # noinspection PyUnboundLocalVariable
         h = textwrap.dedent(h).replace("::\n\n", "")
         h = textwrap.dedent(h).replace("\n", "\n    ")
-        print (h)
+        print(h)
 
     # noinspection PyUnusedLocal
     @command
@@ -59,24 +59,24 @@ class ManCommand(PluginCommand, ShellPluginCommand, CometPluginCommand):
         if arguments['COMMAND'] is None:
 
             print
-            print ("Commands")
-            print (70 * "=")
+            print("Commands")
+            print(70 * "=")
 
             commands = [k for k in dir(self) if k.startswith("do_")]
             commands = sorted(commands, key=str.lower)
 
         else:
-            print (arguments)
+            print(arguments)
             commands = [arguments['COMMAND']]
 
         for command in commands:
             what = command.replace("do_", "")
             try:
                 if not arguments["--noheader"]:
-                    print (what)
-                    print (70 * "-")
+                    print(what)
+                    print(70 * "-")
                 self._print_rst(what)
             except:
-                print ("\n    Command documentation %s missing, help_%s" % (what, what))
+                print("\n    Command documentation %s missing, help_%s" % (what, what))
             print
         return ""

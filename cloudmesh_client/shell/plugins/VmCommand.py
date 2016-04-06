@@ -25,6 +25,7 @@ from cloudmesh_client.common.hostlist import Parameter
 from cloudmesh_client.common.Shell import Shell
 from pprint import pprint
 
+
 class VmCommand(PluginCommand, CloudPluginCommand):
     topics = {"vm": "cloud"}
 
@@ -158,8 +159,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         """
 
-
-
         def _print_dict(d, header=None, format='table'):
             if format == "json":
                 return json.dumps(d, indent=4)
@@ -168,8 +167,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             elif format == "table":
                 return Printer.write(d,
                                      order=["id",
-                                           "name",
-                                           "status"],
+                                            "name",
+                                            "status"],
                                      output="table",
                                      sort_keys=True)
             else:
@@ -183,8 +182,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             elif format == "table":
                 return Printer.write(d,
                                      order=["network",
-                                           "version",
-                                           "addr"],
+                                            "version",
+                                            "addr"],
                                      output="table",
                                      sort_keys=True)
             else:
@@ -226,20 +225,17 @@ class VmCommand(PluginCommand, CloudPluginCommand):
         # pprint(arguments)
 
         def _refresh_cloud(cloud):
-                try:
-                    msg = "Refresh VMs for cloud {:}.".format(cloud)
-                    if Vm.refresh(cloud=cloud):
-                        Console.ok("{:} OK.".format(msg))
-                    else:
-                        Console.error("{:} failed".format(msg))
-                except Exception as e:
-                    # Error.traceback(e)
-                    Console.error("Problem running VM refresh")
-
-
+            try:
+                msg = "Refresh VMs for cloud {:}.".format(cloud)
+                if Vm.refresh(cloud=cloud):
+                    Console.ok("{:} OK.".format(msg))
+                else:
+                    Console.error("{:} failed".format(msg))
+            except Exception as e:
+                # Error.traceback(e)
+                Console.error("Problem running VM refresh")
 
         cloud = arguments["--cloud"] or Default.cloud
-
 
         config = ConfigDict("cloudmesh.yaml")
         active_clouds = config["cloudmesh"]["active"]
@@ -252,9 +248,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             else:
                 for cloud in active_clouds:
                     _refresh_cloud(cloud)
-
-
-
 
         if arguments["boot"]:
             name = None
@@ -325,7 +318,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         "secgroup_list": secgroup_list,
                         "group": group
                     }
-                    print (Printer.attribute(data, output="table"))
+                    print(Printer.attribute(data, output="table"))
                     msg = "dryrun info. OK."
                     Console.ok(msg)
                 else:
@@ -378,7 +371,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 data["key"] = Default.get_key()
 
                 output_format = arguments["--format"] or "table"
-                print (Printer.attribute(data, output=output_format))
+                print(Printer.attribute(data, output=output_format))
                 msg = "info. OK."
                 Console.ok(msg)
                 ValueError("default command not implemented properly. Upon "
@@ -404,7 +397,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 vms = cloud_provider.list_vm(cloud)
                 vm = vms[0]
                 output_format = arguments["--format"] or "table"
-                print (Printer.attribute(vm, output=output_format))
+                print(Printer.attribute(vm, output=output_format))
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception as e:
@@ -416,11 +409,10 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             test = {}
             try:
 
-
                 names = Parameter.expand(arguments["NAME"])
                 id = 0
                 for name in names:
-                    print ("Not implemented: {}".format(name))
+                    print("Not implemented: {}".format(name))
                     # TODO: check the status of the vms
                     status = "active"
                     # TODO: check if they have a floating ip
@@ -439,7 +431,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     except:
                         check = False
                     test[name] = {
-                        "id" : id,
+                        "id": id,
                         "name": name,
                         "status": status,
                         "ip": ip,
@@ -448,18 +440,17 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     }
                     id = id + 1
 
-                pprint (test)
+                pprint(test)
 
-                print (Printer.write(test,
-                                     order=["id",
+                print(Printer.write(test,
+                                    order=["id",
                                            "name",
                                            "status",
                                            "ip",
                                            "ping",
                                            "login"],
-                                     output="table",
-                                     sort_keys=True))
-
+                                    output="table",
+                                    sort_keys=True))
 
                 msg = "not yet implemented. failed."
                 Console.error(msg)
@@ -534,7 +525,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["delete"]:
 
-
             group = arguments["--group"]
             force = arguments["--force"]
             cloud = arguments["--cloud"]
@@ -542,18 +532,18 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
             if servers is None or len(servers) == 0:
 
-                    last_vm = Vm.get_last_vm(cloud=cloud)
-                    if last_vm is None:
-                        Console.error("No VM records in database. Please run vm refresh.")
-                        return ""
+                last_vm = Vm.get_last_vm(cloud=cloud)
+                if last_vm is None:
+                    Console.error("No VM records in database. Please run vm refresh.")
+                    return ""
 
-                    name = last_vm["name"]
-                    servers = list()
-                    servers.append(name)
+                name = last_vm["name"]
+                servers = list()
+                servers.append(name)
 
             else:
 
-                print (servers)
+                print(servers)
 
                 for server in servers:
                     Vm.delete(servers=[server])
@@ -561,7 +551,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
                 return ""
-
 
         elif arguments["ip"] and arguments["assign"]:
             vmids = arguments["NAME"]
@@ -710,7 +699,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 SecGroup.enable_ssh(cloud=cloud)
 
-                Console.info("Connecting to Instance at IP:"+format(ip))
+                Console.info("Connecting to Instance at IP:" + format(ip))
                 # Constructing the ssh command to connect to the machine.
                 sshcommand = "ssh"
                 if key is not None:
@@ -727,7 +716,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["list"]:
 
-
             groups = Group.list(format="dict")
 
             if arguments["--all"] or arguments["NAME_OR_ID"] == "all":
@@ -739,13 +727,11 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         if arguments["--refresh"] or Default.refresh:
                             _refresh(cloud)
 
-
                         print("Listing VMs on Cloud: {:}".format(cloud))
 
                         vms = Vm.list(cloud=cloud, output_format="dict")
 
                         result = Vm.list(cloud=cloud, output_format=_format)
-
 
                         if result is not None:
                             print(result)
@@ -841,4 +827,3 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 Console.error("Problem deleting instances")
 
         return ""
-

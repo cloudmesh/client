@@ -61,7 +61,7 @@ def command(func):
         except SystemExit as e:
             if args not in ('-h', '--help'):
                 print("Could not execute the command.")
-                print (e)
+                print(e)
             print(doc)
 
     new.__doc__ = doc

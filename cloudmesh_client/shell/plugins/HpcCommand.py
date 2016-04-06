@@ -152,17 +152,17 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
         elif arguments["run"] and arguments["list"]:
             # hpc experiment list [--cluster=CLUSTER]
             if arguments["ID"]:
-                print ("# List of experiment {ID} on Cluster {CLUSTER}".format(**arguments))
+                print("# List of experiment {ID} on Cluster {CLUSTER}".format(**arguments))
                 result = Experiment.list(cluster, id=arguments["ID"], format="list")
                 if result is not None:
-                    print ("\n".join(result))
+                    print("\n".join(result))
                 else:
                     Console.error("Could not find experiment {ID} on {CLUSTER}".format(**arguments))
             else:
-                print ("# List of experiments on Cluster {CLUSTER}".format(**arguments))
+                print("# List of experiments on Cluster {CLUSTER}".format(**arguments))
                 ids = Experiment.list(cluster, id=None, format="list")
                 if ids is not None:
-                    print (", ".join([str(i) for i in ids]))
+                    print(", ".join([str(i) for i in ids]))
                 else:
                     Console.error("Could not find experiment {ID} on {CLUSTER}".format(**arguments))
 
@@ -198,17 +198,17 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
         elif arguments["run"] and arguments["output"]:
             # hpc experiment list [--cluster=CLUSTER]
             if arguments["ID"]:
-                print ("# List of experiment {ID} on Cluster {CLUSTER}".format(**arguments))
+                print("# List of experiment {ID} on Cluster {CLUSTER}".format(**arguments))
                 result = Experiment.output(cluster, id=arguments["ID"], format="list")
                 if result is not None:
-                    print ("\n".join(result))
+                    print("\n".join(result))
                 else:
                     Console.error("Could not find experiment {ID} on {CLUSTER}".format(**arguments))
             else:
-                print ("# List of experiments on Cluster {CLUSTER}".format(**arguments))
+                print("# List of experiments on Cluster {CLUSTER}".format(**arguments))
                 ids = Experiment.output(cluster, id=None, format="list")
                 if ids is not None:
-                    print (", ".join([str(i) for i in ids]))
+                    print(", ".join([str(i) for i in ids]))
                 else:
                     Console.error("Could not find experiment {ID} on {CLUSTER}".format(**arguments))
 
@@ -232,7 +232,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
 
             result = batch.run(cluster, group, script, **arg_dict)
             if isinstance(result, dict):
-                print (Printer.attribute(result))
+                print(Printer.attribute(result))
                 Console.ok("Experiment {count}: Started batch job {job_id} on {cluster}".format(**result))
             else:
                 Console.error(result)

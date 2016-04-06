@@ -12,15 +12,11 @@ from cloudmesh_client.db import CloudmeshDatabase
 
 from builtins import input
 
-# noinspection PyBroadException,PyPep8Naming,PyPep8Naming,PyPep8Naming
 
-
-
-
+# noinspection PyBroadException,PyPep8Naming
 class Network(ListResource):
-    
     cm = CloudmeshDatabase()
-    
+
     @classmethod
     def get_fixed_ip(cls, cloudname, fixed_ip_addr):
         """
@@ -368,11 +364,10 @@ class Network(ListResource):
         instance_id = kwargs["instance_id"]
 
         # Cloudmesh database instance
-        
 
         # Lookup instance details from db
         instance_dict = cls.cm.find(kind="vm", category=cloudname,
-                                uuid=instance_id)
+                                    uuid=instance_id)
 
         # Get instance_name for vm
         if len(instance_dict) > 0:
@@ -391,15 +386,14 @@ class Network(ListResource):
         instance_id = kwargs["instance_id"]
 
         # Cloudmesh database instance
-        
 
         # Lookup instance details from db
         if cls.isUuid(instance_id):
             instance_dict = cls.cm.find(kind="vm", category=cloudname,
-                                    uuid=instance_id)
+                                        uuid=instance_id)
         else:
             instance_dict = cls.cm.find(kind="vm", category=cloudname,
-                                    name=instance_id)
+                                        name=instance_id)
 
         # Instance not found in DB
         if cls.isDictEmpty(instance_dict):

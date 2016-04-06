@@ -16,7 +16,7 @@ class CloudProvider(CloudProviderBase):
 
         try:
             d = ConfigDict("cloudmesh.yaml")
-            if not cloudname in d["cloudmesh"]["clouds"]:
+            if cloudname not in d["cloudmesh"]["clouds"]:
                 raise ValueError("the cloud {} is not defined in the yaml file. failed."
                                  .format(cloudname))
 
@@ -55,7 +55,7 @@ def main():
     cloud = "kilo"
     provider = CloudProvider(cloud).provider
 
-    print (provider, type(provider))
+    print(provider, type(provider))
 
     # pprint (provider.__dict__)
     # pprint (dir(provider))
@@ -63,7 +63,7 @@ def main():
     r = provider.list_flavor(cloud)
     pprint(r)
 
-    for kind in ["flavor", "image", "vm", "key"]: # "limits", "quota"]:
+    for kind in ["flavor", "image", "vm", "key"]:  # "limits", "quota"]:
         r = provider.list(kind, cloud)
         pprint(r)
 

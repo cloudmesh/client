@@ -29,6 +29,7 @@ def ordered_dump(data, stream=None, Dumper=yaml.Dumper, **kwds):
     :param stream: the stream
     :param Dumper: the dumper such as yaml.SafeDumper
     """
+
     class OrderedDumper(Dumper):
         pass
 
@@ -36,6 +37,7 @@ def ordered_dump(data, stream=None, Dumper=yaml.Dumper, **kwds):
         return dumper.represent_mapping(
             yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
             data.items())
+
     OrderedDumper.add_representer(OrderedDict, _dict_representer)
     return yaml.dump(data, stream, OrderedDumper, **kwds)
 
@@ -64,7 +66,8 @@ def dprint(OD, mode='dict', s="", indent=' ' * 4, level=0):
         if type(OD[k]) in [dict, OrderedDict]:
             level += 1
             s += (level - 1) * indent + kv_tpl % (k, ST + dprint(OD[k], mode=mode,
-                                                                 indent=indent, level=level) + (level - 1) * indent + END)
+                                                                 indent=indent, level=level) + (
+                                                  level - 1) * indent + END)
             level -= 1
         else:
             s += level * indent + kv_tpl % (k, fstr(OD[k]))
@@ -165,7 +168,7 @@ class ConfigDict(object):
         self.data = None
 
         if etc:
-            load_order=[cloudmesh_client.etc.__file_]
+            load_order = [cloudmesh_client.etc.__file_]
         elif load_order is None:
             self.load_order = [".", os.path.join("~", ".cloudmesh")]
         else:
@@ -205,7 +208,7 @@ class ConfigDict(object):
         else:
             location = self['meta']['location']
 
-        # with open('data.yml', 'w') as outfile:
+            # with open('data.yml', 'w') as outfile:
             #    outfile.write( yaml.dump(data, default_flow_style=True) )
 
         # Make a backup

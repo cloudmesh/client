@@ -10,7 +10,6 @@ class Counter(object):
     vm id or the job id.
     """
 
-
     cm = CloudmeshDatabase()
 
     @classmethod

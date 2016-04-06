@@ -9,16 +9,16 @@ from cloudmesh_client.util import convert_from_unicode
 from pprint import pprint
 from cloudmesh_client.shell.console import Console
 
-class Printer (object):
 
+class Printer(object):
     @classmethod
-    def write(cls,   table,
-                     order=None,
-                     header=None,
-                     output="table",
-                     sort_keys=True,
-                     show_none=""
-                     ):
+    def write(cls, table,
+              order=None,
+              header=None,
+              output="table",
+              sort_keys=True,
+              show_none=""
+              ):
         if type(table) == dict:
             return cls.dict(table, order=order, header=header, output=output,
                             sort_keys=sort_keys, show_none=show_none)
@@ -33,13 +33,13 @@ class Printer (object):
 
     @classmethod
     def list(cls,
-                     l,
-                     order=None,
-                     header=None,
-                     output="table",
-                     sort_keys=True,
-                     show_none=""
-                     ):
+             l,
+             order=None,
+             header=None,
+             output="table",
+             sort_keys=True,
+             show_none=""
+             ):
         """
         :param l: l is a lsit not a dict
         :param order:
@@ -62,7 +62,6 @@ class Printer (object):
                         sort_keys=sort_keys,
                         output=output,
                         show_none=show_none)
-
 
     @classmethod
     def dict(cls,
@@ -108,7 +107,6 @@ class Printer (object):
             return d
         else:
             return "UNKOWN FORMAT. Please use table, csv, json, yaml, dict."
-
 
     @classmethod
     def csv(cls,
@@ -223,9 +221,9 @@ class Printer (object):
 
         if sort_keys:
             if type(sort_keys) is str:
-                sorted_list = sorted(d, key = lambda x: d[x][sort_keys])
+                sorted_list = sorted(d, key=lambda x: d[x][sort_keys])
             elif type(sort_keys) == tuple:
-                sorted_list = sorted(d, key = lambda x: tuple([d[x][sort_key] for sort_key in sort_keys]))
+                sorted_list = sorted(d, key=lambda x: tuple([d[x][sort_key] for sort_key in sort_keys]))
             else:
                 sorted_list = d
         else:

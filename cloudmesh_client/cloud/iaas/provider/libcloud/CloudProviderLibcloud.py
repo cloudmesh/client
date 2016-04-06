@@ -15,15 +15,14 @@ from cloudmesh_client.shell.console import Console
 
 
 class CloudProviderLibcloud(CloudProviderBase):
-
     debug = True
 
     def _print(self, o):
         if self.debug:
 
-            pprint (o)
+            pprint(o)
             for element in o:
-                pprint (element.__dict__)
+                pprint(element.__dict__)
 
     def __init__(self, cloud_name, cloud_details, user=None, flat=True):
         super(CloudProviderLibcloud, self).__init__(cloud_name, user=user)
@@ -44,12 +43,11 @@ class CloudProviderLibcloud(CloudProviderBase):
         d = self._to_dict(nodes)
         return d
 
-
     def list_key(self, cloudname, **kwargs):
         print("In list_key")
-        print (self.provider)
+        print(self.provider)
         keys = self.provider.list_key_pairs()
-        print (keys)
+        print(keys)
         self._print(keys)
         keys_dict = self._to_dict(keys)
         return keys_dict
@@ -91,9 +89,9 @@ class CloudProviderLibcloud(CloudProviderBase):
         result_type = ""
         if len(libcloud_result) > 0:
             name = libcloud_result[0].__class__.__name__
-            print ("RRRR", name)
+            print("RRRR", name)
 
-            if  name in ["Node", "NodeImage", "NodeSize"]:
+            if name in ["Node", "NodeImage", "NodeSize"]:
                 result_type = name
                 Console.info("{} type object received".format(name))
         # pprint(libcloud_result[0])
@@ -105,7 +103,7 @@ class CloudProviderLibcloud(CloudProviderBase):
                 d[index] = dict(LibcloudDict.handle_vm_image_details(obj))
             elif result_type == "NodeSize":
                 d[index] = dict(LibcloudDict.handle_vm_size_details(obj))
-            # pprint("Index:"+str(index))
+                # pprint("Index:"+str(index))
         return d
 
     def attributes(self, kind):
@@ -276,7 +274,7 @@ class CloudProviderLibcloud(CloudProviderBase):
                     'value',
                     'created_at',
                     'updated_at'
-                     ],
+                ],
                 'header': [
                     'user',
                     'cloud',
@@ -284,7 +282,7 @@ class CloudProviderLibcloud(CloudProviderBase):
                     'value',
                     'created',
                     'updated'
-                     ],
+                ],
             }
         }
         # TODO: bug, this only returns some og the attributes, but not all
@@ -381,16 +379,16 @@ class CloudProviderLibcloud(CloudProviderBase):
         try:
             self.provider.ex_create_security_group(secgroup_name, "Default Security Group")
         except Exception as e:
-            Console.info("create_sec_group exception."+e.args[0])
+            Console.info("create_sec_group exception." + e.args[0])
 
     def enable_ssh(self, cloud, secgroup_name='default'):
         if cloud == "aws":
             params = {'Action': 'AuthorizeSecurityGroupIngress',
-              'GroupName': secgroup_name,
-              'IpProtocol': 'tcp',
-              'FromPort': '22',
-              'ToPort': '22',
-              'CidrIp': '0.0.0.0/0'}
+                      'GroupName': secgroup_name,
+                      'IpProtocol': 'tcp',
+                      'FromPort': '22',
+                      'ToPort': '22',
+                      'CidrIp': '0.0.0.0/0'}
             try:
                 self.provider.connection.request(self.provider.path, params=params).object
                 Console.info("Permission added.ok")

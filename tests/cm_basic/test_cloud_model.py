@@ -24,14 +24,13 @@ from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
+
 # import cloudmesh_client
 # cloudmesh_client.init()
 
 
-
 # noinspection PyPep8Naming
 class Test_cloud_model(object):
-
     cm = CloudmeshDatabase()
 
     data = dotdict({
@@ -130,7 +129,6 @@ class Test_cloud_model(object):
 
         banner("Add VM", c='-')
 
-
         name = "vm1"
         uuid = d.id
 
@@ -138,7 +136,7 @@ class Test_cloud_model(object):
                           user="test",
                           category=self.data.cloud,
                           **d)
-        print (vm)
+        print(vm)
         banner("VM added", c='-')
 
         # pprint(vm.__dict__)
@@ -158,47 +156,43 @@ class Test_cloud_model(object):
         HEADING("VM DB test")
         result = self.run("make db")
 
-        
-        print ("ADD TO OS ")
-        for index in range(1,6):
+        print("ADD TO OS ")
+        for index in range(1, 6):
             name = "vm_" + str(index).zfill(3)
-            print ("ADD", name)
+            print("ADD", name)
             try:
                 vm = VM_OPENSTACK(name=name,
-                                  uuid="uuid_"+str(index),
+                                  uuid="uuid_" + str(index),
                                   user="test",
                                   category=self.data.cloud)
             except Exception as e:
                 Console.error("issue adding vm", traceflag=True)
-            print ("VM", vm.__dict__)
+            print("VM", vm.__dict__)
             self.cm.add(vm)
-        print ("ADD TO LIBCLOUD ")
-        for index in range(6,11):
+        print("ADD TO LIBCLOUD ")
+        for index in range(6, 11):
             name = "vm_" + str(index).zfill(3)
-            print ("ADD", name)
+            print("ADD", name)
             vm = VM_LIBCLOUD(name=name,
-                             uuid="uuid_"+str(index),
+                             uuid="uuid_" + str(index),
                              user="test",
                              category=self.data.cloud)
-            print ("VM", vm.__dict__)
+            print("VM", vm.__dict__)
             self.cm.add(vm)
         self.cm.save()
 
         result = self.run("cm refresh off")
-        print (result)
+        print(result)
         result = self.run("cm vm list")
         print(result)
 
-
-
     def test_003(self):
         HEADING("find vm tables")
-        
 
-        print ("---------")
+        print("---------")
         all_tables = self.cm.tables
         for t in all_tables:
-            print (t.__tablename__, t.__kind__)
+            print(t.__tablename__, t.__kind__)
 
         print(all_tables)
         assert 'DEFAULT' in str(all_tables)
@@ -209,24 +203,21 @@ class Test_cloud_model(object):
         #     print (t.__tablename__, t.__kind__)
         # assert len(vm_tables) == 2
 
-
     def test_004(self):
         HEADING("find vm tables")
-        
-        print ("-------------")
+
+        print("-------------")
         vm = self.cm.find(kind="vm", name="vm_001", scope='first')
-        pprint (vm)
+        pprint(vm)
         assert vm.name == 'vm_001'
 
-
-        print ("-------------")
+        print("-------------")
         vm = self.cm.find(kind="vm", name="vm_006", scope='first')
-        pprint (vm)
+        pprint(vm)
         assert vm.name == 'vm_006'
 
-        print ("-------------")
+        print("-------------")
         vms = self.cm.find(kind="vm", scope="all")
-        pprint (vms)
-        print (len(vms))
+        pprint(vms)
+        print(len(vms))
         assert len(vms) == 10
-

@@ -35,8 +35,8 @@ class SSHKeyManager(object):
         d = dict(self.__keys__)
         return (Printer.write(d,
                               order=["comment",
-                                    "uri",
-                                    "fingerprint"],
+                                     "uri",
+                                     "fingerprint"],
                               output="table",
                               sort_keys=True))
 
@@ -135,10 +135,10 @@ class SSHKeyManager(object):
 
             sshkey = SSHkey(location)
             i = sshkey.comment
-            i= i.replace("@","_")
-            i=i.replace("-", "_")
-            i=i.replace(" ", "_")
-            i=i.replace(".", "_")
+            i = i.replace("@", "_")
+            i = i.replace("-", "_")
+            i = i.replace(" ", "_")
+            i = i.replace(".", "_")
             self.__keys__[i] = sshkey.__key__
 
     # noinspection PyProtectedMember
@@ -229,7 +229,7 @@ class SSHKeyManager(object):
 
 
 if __name__ == "__main__":
-    print ("HALLO")
+    print("HALLO")
     from cloudmesh_client.util import banner
 
     mykeys = SSHKeyManager()

@@ -9,6 +9,7 @@ from cloudmesh_client.common.dotdict import dotdict
 from pprint import pprint
 from cloudmesh_client.common.hostlist import Parameter
 
+
 class GroupCommand(PluginCommand, CloudPluginCommand):
     topics = {"group": "cloud"}
 
@@ -98,7 +99,6 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
 
         if arguments["list"]:
 
-
             output = arguments["--format"] or Default.get("format", category) or "table"
             name = arguments["GROUPNAME"]
             if name is None:
@@ -138,7 +138,6 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
         elif arguments["add"]:
             # group add NAME... [--type=TYPE] [--category=CLOUD] [--group=GROUP]
 
-
             members = Parameter.expand(arguments["NAME"])
             data = dotdict({
                 "type": arguments["--type"] or "vm",
@@ -163,7 +162,6 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
                     Console.error(
                         "delete group {}. failed.".format(group))
             return ""
-
 
         elif arguments["remove"]:
             members = Parameter.expand(arguments["NAME"])
@@ -194,5 +192,3 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
 
             Group.merge(_groupA, _groupB, _mergedGroup)
             return ""
-
-

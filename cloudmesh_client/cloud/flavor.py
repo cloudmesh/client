@@ -7,11 +7,7 @@ from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.cloud.ListResource import ListResource
 
 
-
-
-
 class Flavor(ListResource):
-
     cm = CloudmeshDatabase()
 
     @classmethod
@@ -36,7 +32,7 @@ class Flavor(ListResource):
             if live:
                 cls.refresh(cloud)
 
-            elements = cls.cm.find("flavor", category=cloud)
+            elements = cls.cm.find(kind="flavor", category=cloud)
 
             # pprint(elements)
 

@@ -8,6 +8,7 @@ from cloudmesh_client.shell.command import command, PluginCommand, CloudPluginCo
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from pprint import pprint
 
+
 class CloudCommand(PluginCommand, CloudPluginCommand):
     topics = {"cloud": "cloud"}
 
@@ -114,7 +115,6 @@ class CloudCommand(PluginCommand, CloudPluginCommand):
                     return "*"
                 else:
                     return " "
-
 
             for index in clouds:
                 cloud = clouds[index]
