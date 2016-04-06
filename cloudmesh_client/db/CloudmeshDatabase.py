@@ -349,17 +349,22 @@ class CloudmeshDatabase(object):
         if o is None:
             return
 
+        # hack
+        provider = 'openstack'
+
         if type(o) == dict:
             print ("HALLO")
             if "provider" in o:
                 t = cls.table(kind=o["kind"], provider=o["provider"])
             else:
                 t = cls.table(kind=o["kind"], provider="openstack")
+            o["provider"] = provider
             print ("TABLE", t)
             print ("OBJ", o)
-            n = t(o)
+            n = t(**o)
             print ("KKKKK", n)
             cls.session.add(n)
+            return 
         if replace:
             print("JJJJJJ")
             current = cls.find(
