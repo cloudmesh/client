@@ -75,6 +75,8 @@ class Group(ListResource):
                 query["name"] = name
 
             d = cls.cm.find(kind="group", scope='all', **query)
+            if d is None:
+                return None
             names = set()
             for vm in d:
                 names.add(d[vm]['member'])
@@ -97,6 +99,8 @@ class Group(ListResource):
             }
 
             d = cls.cm.find(kind="group", scope='all', **query)
+            if d is None:
+                return None
             groups = set()
             for vm in d:
                 groups.add(d[vm]['name'])
@@ -336,12 +340,10 @@ class Group(ListResource):
             pprint(args)
             pprint(d)
             print("GGGGG", group)
-            for g in group:
-                if group is not None:
+            if group is not None:
+                for g in group:
                     cls.cm.delete(g)
-                else:
-                    Console.msg("Group: could not find {name} {member}.".format(args))
-            cls.cm.save()
+
 
             return "Removed {} from the group {}. ok.".format(member, name)
 

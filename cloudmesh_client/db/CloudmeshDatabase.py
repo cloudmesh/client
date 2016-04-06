@@ -344,26 +344,47 @@ class CloudmeshDatabase(object):
     @classmethod
     def add(cls, o, replace=True):
 
+        print ("ADD", type(o), o)
+
         if o is None:
             return
 
+        if type(o) == dict:
+            print ("HALLO")
+            if "provider" in o:
+                t = cls.table(kind=o["kind"], provider=o["provider"])
+            else:
+                t = cls.table(kind=o["kind"], provider="openstack")
+
+            o = t(o)
+            print ("KKKKK", o)
+            cls.session.add(o)
         if replace:
+            print("JJJJJJ")
             current = cls.find(
                 scope='first',
-                provider=o.provider,
-                kind=o.kind,
+                provider=o["provider"],
+                kind=o["kind"],
                 output='object',
-                name=o.name
+                name=o["name"]
             )
             if current is not None:
                 for key in o.__dict__.keys():
                     current.__dict__[key] = o.__dict__[key]
-                    current.__dict__['user'] = o.user
+                    current.__dict__['user'] = o["user"]
             else:
                 cls.session.add(o)
         else:
             cls.session.add(o)
         cls.save()
+
+
+    def add_obj(self, objects):
+        for obj in list(objects.values()):
+            for key in list(obj.keys()):
+                t = self.table(kind=key)
+                o = t(**obj[key])
+                self.add(o)
 
     @classmethod
     def filter_by(cls, **kwargs):
@@ -511,6 +532,8 @@ class CloudmeshDatabase(object):
                                  category=category,
                                  user=user)
             # pprint(elements)
+            if elements is None:
+                return
             for element in elements:
                 # pprint(element)
                 self.delete(element)
@@ -561,9 +584,10 @@ class CloudmeshDatabase(object):
                         element["category"] = name
                         element["cloud"] = name
                         element["user"] = user
+                        element["kind"] = kind
 
-                        db_obj = {0: {kind: element}}
-                        self.add_obj(db_obj)
+                        print ("EEEE", element)
+                        self.add(element)
                         self.save()
 
                     return True
@@ -588,9 +612,8 @@ class CloudmeshDatabase(object):
                         else:
                             element[u"group"] = "undefined"
 
-                        db_obj = {0: {kind: element}}
 
-                        self.add_obj(db_obj)
+                        self.add(element)
                         self.save()
                     return True
 
@@ -638,14 +661,13 @@ class CloudmeshDatabase(object):
                 provider = BatchProvider(name)
 
                 vms = provider.list_job(name)
-                for vm in list(vms.values()):
-                    vm[u'uuid'] = vm['id']
-                    vm[u'type'] = 'string'
-                    vm[u'category'] = name
-                    vm[u'user'] = user
-                    db_obj = {0: {kind: vm}}
+                for job in list(vms.values()):
+                    job[u'uuid'] = job['id']
+                    job[u'type'] = 'string'
+                    job[u'category'] = name
+                    job[u'user'] = user
 
-                    self.add_obj(db_obj)
+                    self.add(job)
                     self.save()
                 return True
 
