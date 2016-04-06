@@ -355,10 +355,11 @@ class CloudmeshDatabase(object):
                 t = cls.table(kind=o["kind"], provider=o["provider"])
             else:
                 t = cls.table(kind=o["kind"], provider="openstack")
-
-            o = t(o)
-            print ("KKKKK", o)
-            cls.session.add(o)
+            print ("TABLE", t)
+            print ("OBJ", o)
+            n = t(o)
+            print ("KKKKK", n)
+            cls.session.add(n)
         if replace:
             print("JJJJJJ")
             current = cls.find(
@@ -559,6 +560,9 @@ class CloudmeshDatabase(object):
             # print(cloudname)
             # get the user
             # TODO: Confirm user
+
+            print("REFRESH", kind, name)
+            print("KWARGS", kwargs)
             user = self.user
 
             if kind in ["flavor", "image", "vm", "secgroup"]:
@@ -568,25 +572,31 @@ class CloudmeshDatabase(object):
 
                 print("PPPP", provider)
                 # clear local db records for kind
+                print ("CLEAR1")
                 self.clear(kind=kind, category=name)
 
                 # for secgroup, clear rules as well
+                print("CLEAR2")
                 if kind == "secgroup":
                     self.clear(kind="secgrouprule", category=name)
 
                 if kind in ["flavor", "image"]:
-
+                    print ("KIND", kind)
                     # flavors = provider.list_flavor(name)
                     elements = provider.list(kind, name)
+                    print ("AAAAA", elements)
+                    print ("NAME", name)
+
+
                     for element in list(elements.values()):
                         element["uuid"] = element['id']
                         element['type'] = 'string'
                         element["category"] = name
-                        element["cloud"] = name
                         element["user"] = user
                         element["kind"] = kind
 
                         print ("EEEE", element)
+
                         self.add(element)
                         self.save()
 

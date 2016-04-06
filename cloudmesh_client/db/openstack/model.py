@@ -39,16 +39,11 @@ class IMAGE_OPENSTACK(CloudmeshMixin, CloudmeshDatabase.Base):
     metadata__ramdisk_id = Column(String)
     metadata__user_id = Column(String)
 
-    def __init__(self,
-                 name=None,
-                 uuid=None,
-                 user=None,
-                 **kwargs):
-        super(IMAGE_OPENSTACK, self).set_defaults(name=name, user=user)
+    def __init__(self, **kwargs):
+        super(IMAGE_OPENSTACK, self).set_defaults(**kwargs)
 
         self.username = kwargs.get("username", 'undefined')
-        self.uuid = uuid
-        self.type = self.__tablename__
+        self.uuid = kwargs.get('uuid')
         self.status = kwargs.get('status')
         self.updated = kwargs.get('updated')
         self.created = kwargs.get('created')
@@ -109,14 +104,10 @@ class FLAVOR_OPENSTACK(CloudmeshMixin, CloudmeshDatabase.Base):
     os_flv_ext_data = Column(String)
     disk = Column(String)
 
-    def __init__(self,
-                 name=None,
-                 uuid=None,
-                 user=None,
-                 **kwargs):
-        super(FLAVOR_OPENSTACK, self).set_defaults(name=name, user=user)
+    def __init__(self, **kwrags):
+        super(FLAVOR_OPENSTACK, self).set_defaults(**kwargs)
 
-        self.uuid = uuid
+        self.uuid = kwargs.get('uuid')
         self.ram = kwargs.get('ram')
         self.os_flv_disabled = kwargs.get('OS-FLV-DISABLED:disabled')
         self.vcpus = kwargs.get('vcpus')
@@ -125,7 +116,6 @@ class FLAVOR_OPENSTACK(CloudmeshMixin, CloudmeshDatabase.Base):
         self.rxtx_factor = kwargs.get('rxtx_factor')
         self.os_flv_ext_data = kwargs.get('OS-FLV-EXT-DATA:ephemeral')
         self.disk = kwargs.get('disk')
-        self.type = self.__tablename__
 
         """if kwargs is not None:
             for key, value in kwargs.iteritems():
