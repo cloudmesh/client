@@ -1,7 +1,7 @@
 """ run with
 
-python setup.py install; nosetests -v --nocapture  tests/cm_cloud/test_list.py:Test_list.test_001
-
+python setup.py install; nosetests -v --nocapture  tests/cm_cloud/test_OS_API.py:Test_osapi.test_001
+python setup.py install; py.test tests/cm_cloud/test_OS_API.py:Test_osapi.test_001
 nosetests -v --nocapture tests/test_list.py
 
 or
@@ -22,7 +22,7 @@ from cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI im
 from pprint import pprint
 
 # noinspection PyPep8Naming
-class Test_list:
+class Test_osapi:
     data = dotdict({
         "cloud": Default.cloud,
         "format": "json",

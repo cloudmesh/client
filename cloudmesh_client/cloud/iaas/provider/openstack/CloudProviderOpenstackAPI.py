@@ -64,8 +64,12 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             d[index] = dict(value.__dict__["_info"])
             if 'links' in d[index]:
                 del d[index]['links']
-            if 'server_links' in d[index]:
-                del d[index]['server_links']
+            if 'server__links' in d[index]:
+                del d[index]['server__links']
+            if 'image__links' in d[index]:
+                del d[index]['image__links']
+            if 'flavor__links' in d[index]:
+                del d[index]['flavor__links']
 
             # If flat dict flag set, convert to flatdict
             if self.flat is True:
