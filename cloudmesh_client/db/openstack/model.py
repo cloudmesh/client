@@ -104,7 +104,7 @@ class FLAVOR_OPENSTACK(CloudmeshMixin, CloudmeshDatabase.Base):
     os_flv_ext_data = Column(String)
     disk = Column(String)
 
-    def __init__(self, **kwrags):
+    def __init__(self, **kwargs):
         super(FLAVOR_OPENSTACK, self).set_defaults(**kwargs)
 
         self.uuid = kwargs.get('uuid')
