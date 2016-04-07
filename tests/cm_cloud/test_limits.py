@@ -32,7 +32,8 @@ class Test_limits:
         "format": 'table'
     })
     config = ConfigDict("cloudmesh.yaml")
-    data.tenant = config["cloudmesh"]["clouds"][data.cloud]["credentials"]["OS_TENANT_ID"]
+    credentials = config["cloudmesh"]["clouds"][data.cloud]["credentials"]
+    data.tenant = credentials.get("OS_TENANT_NAME") or credentials.get("OS_TENANT_ID")
 
     def run(self, command):
         command = command.format(**self.data)
