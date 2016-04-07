@@ -276,7 +276,7 @@ class Test_keys:
 
         HEADING()
         result = self.run("cm default key=testkey")
-        assert "OK." in result
+        assert "ok." in result
 
         result = self.run("cm default key")
         assert "testkey" in result
@@ -290,6 +290,7 @@ class Test_keys:
         self.clean_db()
         result = self.run("cm key add testkey --ssh")
         result = self.run("cm key delete testkey")
+        assert "testkey" in result
         assert "OK." in result
 
         result = self.run("cm key list")
@@ -319,6 +320,7 @@ class Test_keys:
 
         cloud = CloudProviderOpenstackAPI(cloudname, cloud_details)
 
+        
         d = cloud.list_key(cloudname)
         pprint(d)
 

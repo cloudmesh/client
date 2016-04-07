@@ -69,12 +69,15 @@ class SSHKeyDBManager(object):
 
         # if so return warning and return command
 
+        print ("YYYYY", sshkey)
+
         key_obj = KEY(
             name=keyname,
             uri=sshkey['uri'],
             source=sshkey['source'],
             fingerprint=sshkey['fingerprint'],
             comment=sshkey['comment'],
+            value=sshkey['string'],
             category="general",
             user=user)
 
