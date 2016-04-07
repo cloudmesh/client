@@ -28,7 +28,8 @@ class Test_limits:
     data = dotdict({
         "cloud": Default.cloud,
         "wrong_cloud": "no_cloud",
-        "tenant": "TBD"
+        "tenant": "TBD",
+        "format": 'table'
     })
     config = ConfigDict("cloudmesh.yaml")
     data.tenant = config["cloudmesh"]["clouds"][data.cloud]["credentials"]["OS_TENANT_ID"]
@@ -59,14 +60,14 @@ class Test_limits:
     def test_002(self):
         HEADING("test limits list with csv output")
         result = self.run("cm limits list --format={format}").split('\n')
-        assert "maxTotalFloatingIps" in result[0]
+        assert "maxTotalFloatingIps" in str(result)
 
     def test_003(self):
         HEADING("test limits class where cloud doesnt exist")
         result = self.run("cm limits list --cloud={wrong_cloud}")
-        assert "Error" in result
+        assert "ERROR" in str(result)
 
     def test_004(self):
         HEADING("test limits class with unauthorised access")
         result = self.run("cm limits list --tenant={tenant}")
-        assert "Not authorized" in result
+        assert "Not authorized" in str(result)
