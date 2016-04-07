@@ -53,7 +53,7 @@ class Group(ListResource):
             d = cls.cm.find(kind="group", **query)
             names = set()
             for vm in d:
-                names.add(d[vm]['name'])
+                names.add(vm['name'])
             return list(names)
         except Exception as ex:
             Console.error(ex.message, ex)
@@ -69,18 +69,23 @@ class Group(ListResource):
 
 
             query = {
-                "type": "vm",
+                "species": "vm",
+                "scope": "all",
+                "category": "general",
+                "kind": "group"
             }
 
             if name is not None:
                 query["name"] = name
 
-            d = cls.cm.find(kind="group", scope='all', **query)
+            d = cls.cm.find(**query)
+
+
             if d is None:
                 return None
             names = set()
             for vm in d:
-                names.add(d[vm]['member'])
+                names.add(vm['member'])
             return list(names)
         except Exception as ex:
             Console.error(ex.message, ex)
@@ -106,7 +111,7 @@ class Group(ListResource):
                 return None
             groups = set()
             for vm in d:
-                groups.add(d[vm]['name'])
+                groups.add(vm['name'])
             return list(groups)
         except Exception as ex:
             Console.error(ex.message, ex)
@@ -114,7 +119,6 @@ class Group(ListResource):
     @classmethod
     def list(cls,
              name=None,
-             category=None,
              order=None,
              header=None,
              output='table'):
@@ -142,21 +146,17 @@ class Group(ListResource):
             query = {
                 "provider": cls.__provider__,
                 "kind": cls.__kind__,
+                "category": 'general'
             }
+            result = None
             if name is not None:
                 query["name"] = name
 
-            if category is None:
-                result = cls.cm.find(**query)
-            else:
-                print("llll", category, cls.__provider__, cls.__kind__)
+            result = cls.cm.find(**query)
 
 
-                query["category"] =  category,
+            print("rrrr", result)
 
-                result = cls.cm.find(**query)
-
-                print("rrrr", result)
             if result is None:
                 table = None
             else:
@@ -228,7 +228,7 @@ class Group(ListResource):
 
                 group = t(name=name,
                           member=member,
-                          category=category,
+                          category="general",
                           user=user
                           )
                 cls.cm.add(group, replace=False)
@@ -271,7 +271,7 @@ class Group(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
-    def delete(cls, name=None, category="general"):
+    def delete(cls, name=None):
         """
         Method to delete a group from
             the cloudmesh database
@@ -285,8 +285,6 @@ class Group(ListResource):
             args = {}
             if name is not None:
                 args["name"] = name
-            if category is not None:
-                args["category"] = category
 
             group = cls.cm.find(provider='general', kind="group", scope='all', output="dict", **args)
 
@@ -301,7 +299,7 @@ class Group(ListResource):
                     if groups is not None and len(groups) == 1:
 
                         try:
-                            Vm.delete(cloud=category, servers=[server])
+                            Vm.delete(name=server, servers=[server])
                         except Exception as e:
                             Console.error("Failed to delete VM {}, error: {}"
                                           .format(vm, e))
@@ -320,7 +318,7 @@ class Group(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
-    def remove(cls, name, member, category):
+    def remove(cls, name, member):
         """
         Method to remove an ID from the group
         in the cloudmesh database
@@ -333,15 +331,16 @@ class Group(ListResource):
             # group = cls.get(name=name, category=category)
             args = {
                 "name": name,
-                "category": category,
+                "category": "general",
                 "member": member,
             }
 
             # Find an existing group with name & category
             group = cls.cm.find(kind="group", scope='all', output="dict", **args)
-
+            print ("YYYY", group, args)
             if group is not None:
                 for element in group:
+                    print("ELEMENT", element)
                     cls.cm.delete(**element)
 
             return "Removed {} from the group {}. ok.".format(member, name)
@@ -349,7 +348,7 @@ class Group(ListResource):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-        return
+        return None
 
     @classmethod
     def copy(cls, _fromName, _toName):
