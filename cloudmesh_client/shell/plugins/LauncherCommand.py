@@ -4,7 +4,8 @@ from cloudmesh_client.shell.command import command, PluginCommand, \
     CloudPluginCommand, CometPluginCommand
 from cloudmesh_client.default import Default
 from cloudmesh_client.cloud.launcher import Launcher
-
+from pprint import pprint
+from cloudmesh_client.common.dotdict import dotdict
 
 class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
     topics = {"launcher": "cloud"}
@@ -21,14 +22,15 @@ class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         ::
 
           Usage:
-              launcher list [--cloud=CLOUD] [--format=FORMAT] [--all]
-              launcher delete KEY [--cloud=CLOUD]
-              launcher run
-              launcher resume
-              launcher suspend
-              launcher details
+              launcher list [NAME] [--cloud=CLOUD] [--format=FORMAT] [--all]
+              launcher delete [NAME] [--cloud=CLOUD]
+              launcher run [NAME]
+              launcher resume [NAME]
+              launcher suspend [NAME]
               launcher clear
               launcher refresh
+              launcher log [NAME]
+              launcher status [NAME]
 
           Arguments:
 
@@ -60,7 +62,16 @@ class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
             launcher list --cloud=general
             launcher delete <KEY>
         """
-        # pprint(arguments)
+        pprint(arguments)
+
+        data = dotdict(arguments)
+
+        c = data.list
+        data.cloud = arguments["--cloud"] or Default.cloud
+
+        print ("CCCC", c, data.NAME, data.cloud)
+
+        print ("Hallo {cloud} is list={list}".format(**data))
 
         cloud = arguments["--cloud"] or Default.cloud
         launcher = Launcher(kind=None)
@@ -70,12 +81,30 @@ class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
             return
 
         if arguments["list"]:
-            result = launcher.list()
-            print(result)
+
+            print("CLOUD", cloud)
+
+            # result = launcher.list(name=data.name,
+            #                       category=data.cloud,
+            #
+            #output=data.format)
+            # print(result)
 
         elif arguments["delete"]:
-            result = launcher.delete()
-            print(result)
+
+            if arguments['NAME'] is not None:
+                # name = arguments["NAME"]
+                # delete a launcher by name
+                # remember if cloud is specified only delete it on that cloud
+                # result = launcher.delete(name=name, category=cloud)
+                pass
+            else:
+                # delete all launchers
+                # remember if cloud is specified only delete it on that cloud
+                pass
+
+            #result = launcher.delete()
+            #print(result)
 
         elif arguments["run"]:
             result = launcher.run()

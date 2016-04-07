@@ -57,8 +57,8 @@ class LAUNCHER(CloudmeshMixin, CloudmeshDatabase.Base):
 
     parameters = Column(String)  # This is the parameter represented as yaml object
 
-    def __init__(self, kwargs):
-        super(LAUNCHER, self).set_defaults(name=name, user=user)
+    def __init__(self, **kwargs):
+        super(LAUNCHER, self).set_defaults(**kwargs)
         self.parameters = kwargs.get('parameters')
 
 
@@ -76,7 +76,7 @@ class KEY(CloudmeshMixin, CloudmeshDatabase.Base):
     is_default = Column(String)
 
     def __init__(self, **kwargs):
-        super(KEY, self).set_defaults(name=name, user=user)
+        super(KEY, self).set_defaults(**kwargs)
 
         self.value = kwargs.get("value")
         self.uri = kwargs.get("uri")
