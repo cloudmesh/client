@@ -99,7 +99,7 @@ class Test_group:
         command = "cm group list  {group}"
 
         result = self.run(command)
-        assert "groupA" in result
+        assert "groupA" in str(result)
         return
 
     def test_006(self):
