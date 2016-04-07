@@ -374,7 +374,7 @@ class CloudProviderBase(object):
     # DETAILS
     # ####################################
 
-    def details(self, kind, cloud, id, format="table"):
+    def details(self, kind, category, id, format="table"):
 
         from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
@@ -385,23 +385,27 @@ class CloudProviderBase(object):
                 raise ValueError('{} not defined'.format(kind))
 
             elements = None
-            for idkey in ["name", "uuid", "id"]:
+            for idkey in ["cm_id", "name", "uuid", "id", "cm_id"]:
                 s = {idkey: id}
                 try:
-                    elements = cm.find(kind, category=cloud, **s)
+                    elements = cm.find(kind=kind, category=category, **s)
                 except:
                     pass
-                if len(elements) > 0:
+                if elements is not None:
                     break
 
-            if len(elements) == 0:
+            if elements is None:
                 return None
 
-            if format == "table":
-                element = list(elements.values())[0]
-                return Printer.attribute(element)
+            if len(elements) > 0:
+                element = elements[0]
+                if format == "table":
+                    return Printer.attribute(element)
+                else:
+                    return Printer.write(element,
+                                         output=format)
             else:
-                return Printer.write(elements,
-                                     output=format)
+                return None
+
         except Exception as ex:
             Console.error(ex.message, ex)

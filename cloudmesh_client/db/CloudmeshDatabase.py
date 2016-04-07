@@ -493,7 +493,6 @@ class CloudmeshDatabase(object):
         # user = self.user or Username()
         #
 
-        print ("DELETE", provider, kind, kwargs, type(element))
         if provider is None:
             t = cls.get_table_from_kind(kind)
 

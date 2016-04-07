@@ -18,7 +18,7 @@ class Hpc(ListResource):
         :param cloud: the cloud name
         """
 
-        return cls.cm.refresh(kind='hpc', cloud)
+        return cls.cm.refresh(kind='hpc', category=cloud)
 
     @classmethod
     def list(cls, cloud, live=False, format="table"):
