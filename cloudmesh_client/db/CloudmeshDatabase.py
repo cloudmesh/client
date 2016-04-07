@@ -342,46 +342,80 @@ class CloudmeshDatabase(object):
         return objects
 
     @classmethod
-    def add(cls, o, replace=True):
+    def add(cls, d, replace=True):
+        """
+        o dotdict
 
-        print ("ADD", type(o), o)
+            if o is a dict an object of that type is created. It is checked if another object in the db already exists,
+            if so the attributes of the object will be overwritten with the once in the database
 
-        if o is None:
+            provider, kind, category, name must be set to identify the object
+
+
+        o is in CloudmeshDatabase.Base
+
+            this is an object of a table has been created and is to be added. It is checked if another object in the db
+            already exists. If so the attributes of the existing object will be updated.
+
+
+        """
+
+        print ("ADD", type(d), d)
+
+        if d is None:
             return
 
-        # hack
-        provider = 'openstack'
 
-        if type(o) == dict:
+        if type(d) in [dict, dotdict] :
+
+            o = dotdict(d)
+
             print ("HALLO")
             if "provider" in o:
                 t = cls.table(kind=o["kind"], provider=o["provider"])
+                provider = o["provider"]
             else:
-                t = cls.table(kind=o["kind"], provider="openstack")
+                t = cls.table(kind=o["kind"])
+
+
+
+                provider = t.__provider__
             o["provider"] = provider
+
             print ("TABLE", t)
             print ("OBJ", o)
-            n = t(**o)
-            print ("KKKKK", n)
-            cls.session.add(n)
-            return 
+            element = t(**o)
+
+            print ("KKKKK", element)
+
+        else:
+            element = d
+
+
         if replace:
-            print("JJJJJJ")
+            print("JJJJJJ", type(element), element)
+
+
+
+            element.provider = element.__provider__
+
+
+
             current = cls.find(
                 scope='first',
-                provider=o["provider"],
-                kind=o["kind"],
+                provider=element.provider,
+                kind=element.kind,
                 output='object',
-                name=o["name"]
+                name=element.name
             )
             if current is not None:
-                for key in o.__dict__.keys():
-                    current.__dict__[key] = o.__dict__[key]
-                    current.__dict__['user'] = o["user"]
+                for key in element.__dict__.keys():
+                    current.__dict__[key] = element.__dict__[key]
+                    current.__dict__['user'] = element["user"]
             else:
-                cls.session.add(o)
+                cls.session.add(element)
         else:
-            cls.session.add(o)
+            cls.session.add(element)
         cls.save()
 
 
@@ -458,8 +492,10 @@ class CloudmeshDatabase(object):
         # BUG does not look for user related data
         # user = self.user or Username()
         #
+
+        print ("DELETE", provider, kind, kwargs, type(element))
         if provider is None:
-            cls.get_table_from_kind(kind)
+            t = cls.get_table_from_kind(kind)
 
         if provider is None or kind is None:
             data = {
@@ -542,7 +578,7 @@ class CloudmeshDatabase(object):
                 return
             for element in elements:
                 # pprint(element)
-                self.delete(element)
+                self.session.delete(element)
 
         except Exception as ex:
             Console.error(ex.message, ex)
@@ -575,6 +611,7 @@ class CloudmeshDatabase(object):
                 # get provider for specific cloud
                 provider = CloudProvider(name).provider
 
+
                 print("PPPP", provider)
                 # clear local db records for kind
                 print ("CLEAR1")
@@ -599,7 +636,7 @@ class CloudmeshDatabase(object):
                         element["category"] = name
                         element["user"] = user
                         element["kind"] = kind
-
+                        element["provider"] = provider.cloud_type
                         print ("EEEE", element)
 
                         self.add(element)
