@@ -35,16 +35,11 @@ class VAR(CloudmeshMixin, CloudmeshDatabase.Base):
 
     value = Column(String)
 
-    def __init__(self,
-                 name=None,
-                 value=None,
-                 type="str",
-                 user=None):
-        super(VAR, self).set_defaults(name=name, user=user)
-        self.kind = 'var'
+    def __init__(self, **kwargs):
 
-        self.type = str(type)
-        self.value = str(value)
+        super(VAR, self).set_defaults(**kwargs)
+
+        self.value = str(kwargs.get('value'))
 
 
 class LAUNCHER(CloudmeshMixin, CloudmeshDatabase.Base):
@@ -62,12 +57,9 @@ class LAUNCHER(CloudmeshMixin, CloudmeshDatabase.Base):
 
     parameters = Column(String)  # This is the parameter represented as yaml object
 
-    def __init__(self,
-                 name=None,
-                 user=None,
-                 parameters=None):
+    def __init__(self, kwargs):
         super(LAUNCHER, self).set_defaults(name=name, user=user)
-        self.parameters = parameters
+        self.parameters = kwargs.get('parameters')
 
 
 class KEY(CloudmeshMixin, CloudmeshDatabase.Base):
@@ -83,24 +75,15 @@ class KEY(CloudmeshMixin, CloudmeshDatabase.Base):
     uri = Column(String)
     is_default = Column(String)
 
-    def __init__(self,
-                 name,
-                 value,
-                 uri=None,
-                 source=None,
-                 fingerprint=None,
-                 comment=None,
-                 category=None,
-                 user=None,
-                 is_default="False"):
+    def __init__(self, **kwargs):
         super(KEY, self).set_defaults(name=name, user=user)
 
-        self.value = value
-        self.uri = uri
-        self.comment = comment
-        self.fingerprint = fingerprint
-        self.source = source
-        self.is_default = is_default
+        self.value = kwargs.get("value")
+        self.uri = kwargs.get("uri")
+        self.comment = kwargs.get("comment")
+        self.fingerprint = kwargs.get("fingerprint")
+        self.source = kwargs.get("source")
+        self.is_default = kwargs.get("is_default")
 
 
 class GROUP(CloudmeshMixin, CloudmeshDatabase.Base):
@@ -134,15 +117,13 @@ class RESERVATION(CloudmeshMixin, CloudmeshDatabase.Base):
     start_time = Column(String)  # date, time
     end_time = Column(String)  # date, time
 
-    def __init__(self, user=None, name=None, hosts=None,
-                 start=None, end=None, description=None,
-                 project=None):
-        super(RESERVATION, self).set_defaults(name=name, user=user)
-        self.hosts = hosts
-        self.start_time = start
-        self.end_time = end
-        self.description = description
-        self.project = project
+    def __init__(self, **kwargs):
+        super(RESERVATION, self).set_defaults(**kwargs)
+        self.hosts = kwargs.get("hosts")
+        self.start_time = kwargs.get("start")
+        self.end_time = kwargs.get("end")
+        self.description = kwargs.get("description")
+        self.project = kwargs.get("project")
 
 
 class SECGROUP(CloudmeshMixin, CloudmeshDatabase.Base):
@@ -216,12 +197,7 @@ class BATCHJOB(CloudmeshMixin, CloudmeshDatabase.Base):
     group = Column(String, default="string")
     job_id = Column(String, default="string")
 
-    def __init__(self,
-                 name,
-                 user=None,
-                 category=None,
-                 **kwargs
-                 ):
+    def __init__(self, **kwargs):
         super(BATCHJOB, self).set_defaults(name=name, user=user)
         self.dir = kwargs.get('dir')
         self.nodes = kwargs.get('nodes')

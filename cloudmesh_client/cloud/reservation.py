@@ -38,7 +38,7 @@ class Reservation(ListResource):
             project=None,
             hosts=None,
             description=None,
-            cloud=None):
+            category=None):
         """
 
         :param name: Name of reservation
@@ -51,17 +51,20 @@ class Reservation(ListResource):
         :param cloud: Cloud into which reservation done
         :return:
         """
-        obj_d = cls.cm.db_obj_dict("reservation",
-                                   name=name,
-                                   hosts=hosts,
-                                   start=start,
-                                   end=end,
-                                   description=description,
-                                   cloud=cloud,
-                                   user=user,
-                                   project=project)
-        cls.cm.add_obj(obj_d)
-        cls.cm.save()
+
+        o = {
+            "kind": "reservation",
+            "name": name,
+            "hosts": hosts,
+            "start": start,
+            "end": end,
+            "description": description,
+            "category": category,
+            "user": user,
+            "project": project
+        }
+
+        cls.cm.add(o)
 
     @classmethod
     def delete(cls,
@@ -98,10 +101,10 @@ class Reservation(ListResource):
             args['hosts'] = hosts
 
         # TODO: Improve this logic
-        result = cls.cm.find("RESERVATION", output="object", **args).first()
+        result = cls.cm.find(kind="reservation", output="object", scope='first', **args)
         while result is not None:
             cls.cm.delete(result)
-            result = cls.cm.find("RESERVATION", output="object", **args).first()
+            result = cls.cm.find(kind="reservation", output="object", scope='first', **args)
 
     @classmethod
     def delete_from_file(cls, filename):
@@ -162,9 +165,10 @@ class Reservation(ListResource):
             args['project'] = project
         if hosts is not None:
             args['hosts'] = hosts
+        args["kind"] = "reservation"
 
         # print(args)
-        result = cls.cm.find("RESERVATION", **args)
+        result = cls.cm.find(**args)
         # print("RESULT:- {}".format(result))
         return result
 
@@ -197,5 +201,5 @@ class Reservation(ListResource):
             args['description'] = description
         if cloud is not None:
             args['cloud'] = cloud
-
-        cls.cm.update("RESERVATION", **args)
+        args["kind"] = "reservation"
+        cls.cm.update(**args)
