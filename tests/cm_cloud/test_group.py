@@ -67,8 +67,8 @@ class Test_group:
 
         print("GGGG", group)
 
-        names = ["{user}-001".format(**self.data),
-                 "{user}-002".format(**self.data)]
+        names = ["{prefix}-001".format(**self.data),
+                 "{prefix}-002".format(**self.data)]
         for element in group:
             pprint(element)
             assert element["name"] == "groupA"
@@ -145,9 +145,9 @@ class Test_group:
 
     def test_009(self):
         HEADING("testing cm group remove ")
-        banner("cm group remove {user}-002  --group={group}")
+        banner("cm group remove {prefix}-002  --group={group}")
 
-        result = self.run("cm group remove {user}-002  --group={group} ")
+        result = self.run("cm group remove {prefix}-002  --group={group} ")
         print(result)
         assert "ok" in result
 
