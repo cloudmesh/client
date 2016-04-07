@@ -267,6 +267,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         # TODO: this needs to be move to the provider
         _keys = self._to_dict(self.provider.keypairs.list())
 
+
         for id in _keys:
             key = _keys[id]
 

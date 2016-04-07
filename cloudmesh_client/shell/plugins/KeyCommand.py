@@ -324,7 +324,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     key["user"] = data.name
                     try:
                         o = dict(key)
-                        o['key'] = "AAA"
+                        o['value'] = key["string"]
                         sshdb.add_from_dict(key)
                     except Exception as e:
                         Console.error("The key {keyname} with that finger print already exists".format(**key),
@@ -523,10 +523,9 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                                 key["name"])
 
                         except Exception as e:
-                            print(e)
+                            Console.error("problem")
                             if "already exists" in str(e):
-                                print("key already exists. Skipping "
-                                      "upload. ok.")
+                                print("key already exists. Skipping upload. OK.")
                         if status == 1:
                             print("Problem uploading key {} to {}. failed.".format(key["name"],
                                                                                    cloud))
@@ -534,5 +533,4 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 Console.ok(msg)
 
             except Exception as e:
-                Error.traceback(e)
                 Console.error("Problem adding key to cloud")

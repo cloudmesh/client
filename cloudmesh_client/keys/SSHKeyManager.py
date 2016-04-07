@@ -185,13 +185,14 @@ class SSHKeyManager(object):
         sshdb = SSHKeyDBManager()
         key_from_db = sshdb.find(keyname)
 
+        print ("UUUU", key_from_db)
         if key_from_db is None:
             Console.error("Key with the name {:} not found in database.".format(keyname))
             return 1
 
         print("Adding key {:} to cloud {:} as {:}".format(keyname, cloud, name_on_cloud))
         cloud_provider = CloudProvider(cloud).provider
-        cloud_provider.add_key_to_cloud(name_on_cloud, key_from_db["value"])
+        cloud_provider.add_key_to_cloud(name_on_cloud, key_from_db[0]["value"])
         return 0
 
     def get_key_cloud_maps(self, cloud):
