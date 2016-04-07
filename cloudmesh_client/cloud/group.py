@@ -208,7 +208,8 @@ class Group(ListResource):
         """
 
         # user logged into cloudmesh
-        user = ConfigDict.getUser(category) or cls.cm.user
+        #user = ConfigDict.getUser(category) or cls.cm.user
+        user = cls.cm.user
         category = category or "general"
 
         try:
