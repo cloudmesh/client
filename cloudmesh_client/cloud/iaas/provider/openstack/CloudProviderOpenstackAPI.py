@@ -727,7 +727,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         layout = {
             'flavor': {
                 'order': [
-                    'id',
+                    'cm_id',
                     'name',
                     'user',
                     'ram',
@@ -761,7 +761,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             },
             'image': {
                 'order': [
-                    'id',
+                    'cm_id',
                     'name',
                     'os_image_size',
                     'metadata__description',
@@ -791,7 +791,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             },
             'vm': {
                 'order': [
-                    'id',
+                    'cm_id',
                     'group',
                     'label',
                     'status',
