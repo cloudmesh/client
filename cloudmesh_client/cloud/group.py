@@ -23,7 +23,8 @@ class Group(ListResource):
              "member",
              "user",
              "category",
-             "type"]
+             "type",
+             "species"]
 
     # TODO: implement and extend to user
     @classmethod
@@ -99,7 +100,7 @@ class Group(ListResource):
         """
         try:
             query = {
-                "type": "vm",
+                "species": "vm",
                 "member": vm
             }
 
@@ -196,12 +197,12 @@ class Group(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
-    def add(cls, name=None, type="vm", member=None, category=None):
+    def add(cls, name=None, species="vm", member=None, category=None):
         """
         Add an instance to a new group
             or add it to an existing one
         :param name:
-        :param type:
+        :param species:
         :param member:
         :param cloud:
         :return:
@@ -229,7 +230,8 @@ class Group(ListResource):
                 group = t(name=name,
                           member=member,
                           category="general",
-                          user=user
+                          user=user,
+                          species=species
                           )
                 cls.cm.add(group, replace=False)
                 return
@@ -379,10 +381,10 @@ class Group(ListResource):
 
                 for from_element in _fromGroup:
                     member = from_element["member"]
-                    type = from_element["type"]
+                    species = from_element["species"]
                     category = from_element["category"]
                     print("TTT", _toName)
-                    cls.add(name=_toName, type=type, member=member, category=category)
+                    cls.add(name=_toName, species=species, member=member, category=category)
                 cls.cm.save()
                 Console.ok("Copy from group {} to group {}. ok."
                            .format(_fromName, _toName))

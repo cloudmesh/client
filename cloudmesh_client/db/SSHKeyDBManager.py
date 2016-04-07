@@ -70,13 +70,11 @@ class SSHKeyDBManager(object):
         # if so return warning and return command
 
         key_obj = KEY(
-            keyname,
-            sshkey['string'],
+            name=keyname,
             uri=sshkey['uri'],
             source=sshkey['source'],
             fingerprint=sshkey['fingerprint'],
             comment=sshkey['comment'],
-            # group=None,
             category="general",
             user=user)
 
