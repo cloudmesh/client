@@ -6,6 +6,7 @@ import requests
 from cloudmesh_client.common.Error import Error
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2 import CloudProviderLibcloudEC2
+from cloudmesh_client.shell.console import Console
 
 requests.packages.urllib3.disable_warnings()
 
@@ -17,8 +18,9 @@ class CloudProvider(CloudProviderBase):
         try:
             d = ConfigDict("cloudmesh.yaml")
             if cloudname not in d["cloudmesh"]["clouds"]:
-                raise ValueError("the cloud {} is not defined in the yaml file. failed."
-                                 .format(cloudname))
+                Console.error("the cloud {} is not defined in the yaml file. failed."
+                                 .format(cloudname), traceflag=False)
+                return
 
             cloud_details = d["cloudmesh"]["clouds"][cloudname]
 

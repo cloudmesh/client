@@ -266,7 +266,6 @@ class Group(ListResource):
         :return:
         """
 
-        print("DELETE")
         try:
             # group = cls.get(name=name, category=category)
             args = {}
@@ -275,18 +274,12 @@ class Group(ListResource):
             if category is not None:
                 args["category"] = category
 
-            print("DDD - GROUP", args)
-
             group = cls.cm.find(provider='general', kind="group", scope='all', output="dict", **args)
-            group_object = cls.cm.find(provider='general', kind="group", scope='all', output="object", **args)
-
-            print("A - GROUP", group, group_object)
 
             if group:
                 # Delete VM from cloud before deleting group
 
                 for vm in group:
-                    print("VVVV", vm)
                     server = vm["member"]
 
                     groups = Group.vm_groups(server)
@@ -302,9 +295,7 @@ class Group(ListResource):
 
                 # Delete group record in local db
 
-                print("G - GROUP", group_object)
                 for element in group:
-                    print ("E- GROUP", type(element), element)
                     cls.cm.delete(**element)
                 cls.cm.save()
                 return "Delete. ok."
@@ -324,8 +315,6 @@ class Group(ListResource):
         :param category:
         :return:
         """
-        print("RRRRR")
-
         try:
             # group = cls.get(name=name, category=category)
             args = {
@@ -335,16 +324,11 @@ class Group(ListResource):
             }
 
             # Find an existing group with name & category
-            group = cls.cm.find(kind="group", scope='all', output="object", **args)
-            d = cls.cm.find(kind="group", scope='all', output="dict", **args)
+            group = cls.cm.find(kind="group", scope='all', output="dict", **args)
 
-            pprint(args)
-            pprint(d)
-            print("GGGGG", group)
             if group is not None:
-                for g in group:
-                    cls.cm.delete(g)
-
+                for element in group:
+                    cls.cm.delete(**element)
 
             return "Removed {} from the group {}. ok.".format(member, name)
 
