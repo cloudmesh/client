@@ -111,7 +111,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
 
             else:
 
-                result = Group.get_info(name=name,
+                result = Group.list(name=name,
                                         category=category,
                                         output=output)
 
@@ -121,6 +121,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
                     msg_a = ("No group found with name `{name}` found in the "
                              "category `{category}`.".format(**locals()))
 
+                '''
                     # find alternate
                     result = Group.get(name=name)
 
@@ -132,6 +133,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
                         Console.error(msg_a + msg_b)
                     else:
                         Console.error("No group with name {name} exists.".format(**locals()))
+                '''
 
                 return ""
 

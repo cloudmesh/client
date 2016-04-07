@@ -67,7 +67,7 @@ class Group(ListResource):
         """
         try:
 
-            
+
             query = {
                 "type": "vm",
             }
@@ -92,7 +92,6 @@ class Group(ListResource):
         :param vm: name of the vm
         :return: a list of groups the vm is in
         """
-
         try:
             query = {
                 "type": "vm",
@@ -100,6 +99,9 @@ class Group(ListResource):
             }
 
             d = cls.cm.find(kind="group", scope='all', **query)
+
+            print ("FIND", vm, d)
+
             if d is None:
                 return None
             groups = set()
@@ -111,6 +113,7 @@ class Group(ListResource):
 
     @classmethod
     def list(cls,
+             name=None,
              category=None,
              order=None,
              header=None,
@@ -136,14 +139,23 @@ class Group(ListResource):
             #         'updated_at']
             # order, header = Attributes(cls.__kind__, provider=cls.__provider__)
         try:
+            query = {
+                "provider": cls.__provider__,
+                "kind": cls.__kind__,
+            }
+            if name is not None:
+                query["name"] = name
+
             if category is None:
-                result = cls.cm.all(kind=cls.__kind__)
+                result = cls.cm.find(**query)
             else:
                 print("llll", category, cls.__provider__, cls.__kind__)
-                result = cls.cm.find(provider=cls.__provider__,
-                                     kind=cls.__kind__,
-                                     category=category,
-                                     scope='all')
+
+
+                query["category"] =  category,
+
+                result = cls.cm.find(**query)
+
                 print("rrrr", result)
             if result is None:
                 table = None
