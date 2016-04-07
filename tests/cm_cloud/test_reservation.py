@@ -29,7 +29,8 @@ class Test_reservation:
         "user": "albert",
         "name": "test_name",
         "project": "cloudmesh",
-        "wrong_cloud": "no_cloud"
+        "wrong_cloud": "no_cloud",
+        "category": Default.cloud
     })
 
     def run(self, command):
