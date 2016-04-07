@@ -147,7 +147,8 @@ class Cluster(object):
                     'state': None,
                     'type': None,
                     'computeset': None,
-                    'kind': 'frontend'
+                    'kind': 'frontend',
+                    'admin_state': None
                 }
 
                 for cluster in sorted(r, key=lambda x: x["name"]):
@@ -159,6 +160,7 @@ class Cluster(object):
                     frontend.update(cluster["frontend"])
                     pubip = cluster["frontend"]["pub_ip"]
                     frontend["ip"] = pubip
+                    frontend["admin_state"] = cluster["frontend"]["frontend_state"]
                     result += "Cluster: %s\tFrontend: %s\tIP: %s\n" % \
                                 (cluster["name"],
                                  cluster["frontend"]["name"],
@@ -189,6 +191,8 @@ class Cluster(object):
                             bnode["active_computeset"] = "%s(%s)" % \
                                                     (anode["active_computeset"],
                                                      anode["active_computeset_state"])
+                        if "compute_state" in anode:
+                            bnode["admin_state"] = anode["compute_state"]
                         #anode["ip"] = "; ".join(ips)
                     del bnode["interface"]
                     #
@@ -213,7 +217,8 @@ class Cluster(object):
                                           "cluster",
                                           "memory",
                                           "disksize",
-                                          "active_computeset"
+                                          "active_computeset",
+                                          "admin_state"
                                       ],
                                       header=[
                                           "name",
@@ -225,7 +230,8 @@ class Cluster(object):
                                           "cluster",
                                           "RAM(M)",
                                           "disk(G)",
-                                          "computeset"
+                                          "computeset",
+                                          "admin_state"
                                       ],
                                       output=format,
                                       sort_keys=('cluster','mac'))
@@ -242,7 +248,8 @@ class Cluster(object):
                               "cluster",
                               "memory",
                               "disksize",
-                              "active_computeset"
+                              "active_computeset",
+                              "admin_state"
                           ],
                           header=[
                               "name",
@@ -254,7 +261,8 @@ class Cluster(object):
                               "cluster",
                               "RAM(M)",
                               "disk(G)",
-                              "computeset"
+                              "computeset",
+                              "admin_state"
                           ],
                           output=format,
                           sort_keys=('cluster','mac'))
@@ -272,7 +280,8 @@ class Cluster(object):
                           "cluster",
                           "memory",
                           "disksize",
-                          "active_computeset"
+                          "active_computeset",
+                          "admin_state"
                       ],
                       header=[
                           "name",
@@ -285,7 +294,8 @@ class Cluster(object):
                           "cluster",
                           "RAM(M)",
                           "disk(G)",
-                          "computeset"
+                          "computeset",
+                          "admin_state"
                       ],
                       output=format,
                       sort_keys=('cluster','mac'))
