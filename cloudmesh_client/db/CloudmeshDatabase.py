@@ -377,8 +377,6 @@ class CloudmeshDatabase(object):
             else:
                 t = cls.table(kind=o["kind"])
 
-
-
                 provider = t.__provider__
             o["provider"] = provider
 
@@ -395,10 +393,7 @@ class CloudmeshDatabase(object):
         if replace:
             print("JJJJJJ", type(element), element)
 
-
-
             element.provider = element.__provider__
-
 
 
             current = cls.find(
@@ -418,13 +413,13 @@ class CloudmeshDatabase(object):
             cls.session.add(element)
         cls.save()
 
-
-    def add_obj(self, objects):
+    @classmethod
+    def add_obj(cls, objects):
         for obj in list(objects.values()):
             for key in list(obj.keys()):
-                t = self.table(kind=key)
+                t = cls.table(kind=key)
                 o = t(**obj[key])
-                self.add(o)
+                cls.add(o)
 
     @classmethod
     def filter_by(cls, **kwargs):
@@ -479,11 +474,8 @@ class CloudmeshDatabase(object):
     #
     # DELETE
     #
-
-    def delete(cls,
-               provider=None,
-               kind=None,
-               **kwargs):
+    @classmethod
+    def delete(cls, **kwargs):
         """
         :param kind:
         :return:
@@ -492,7 +484,10 @@ class CloudmeshDatabase(object):
         # BUG does not look for user related data
         # user = self.user or Username()
         #
+        print ("H- delete")
 
+        provider = kwargs.get("provider", None)
+        kind = kwargs.get("kind")
         if provider is None:
             t = cls.get_table_from_kind(kind)
 
@@ -556,18 +551,18 @@ class CloudmeshDatabase(object):
                        update={'label': 'x',
                                attribute: value}
                        )
-
-    def clear(self, kind, category, user=None):
+    @classmethod
+    def clear(cls, kind, category, user=None):
         """
         This method deletes all 'kind' entries
         from the cloudmesh database
         :param category: the category name
         """
         if user is None:
-            user = self.user
+            user = cls.user
 
         try:
-            elements = self.find(kind=kind,
+            elements = cls.find(kind=kind,
                                  output='object',
                                  scope="all",
                                  category=category,
@@ -577,7 +572,7 @@ class CloudmeshDatabase(object):
                 return
             for element in elements:
                 # pprint(element)
-                self.session.delete(element)
+                cls.session.delete(element)
 
         except Exception as ex:
             Console.error(ex.message, ex)
@@ -586,7 +581,8 @@ class CloudmeshDatabase(object):
     # REFRESH
     # ###################################
     # noinspection PyUnusedLocal
-    def refresh(self, kind, name, **kwargs):
+    @classmethod
+    def refresh(cls, kind, name, **kwargs):
         """
         This method refreshes the local database
         with the live cloud details
@@ -603,7 +599,7 @@ class CloudmeshDatabase(object):
 
             print("REFRESH", kind, name)
             print("KWARGS", kwargs)
-            user = self.user
+            user = cls.user
 
             if kind in ["flavor", "image", "vm", "secgroup"]:
 
@@ -614,12 +610,12 @@ class CloudmeshDatabase(object):
                 print("PPPP", provider)
                 # clear local db records for kind
                 print ("CLEAR1")
-                self.clear(kind=kind, category=name)
+                cls.clear(kind=kind, category=name)
 
                 # for secgroup, clear rules as well
                 print("CLEAR2")
                 if kind == "secgroup":
-                    self.clear(kind="secgrouprule", category=name)
+                    cls.clear(kind="secgrouprule", category=name)
 
                 if kind in ["flavor", "image"]:
                     print ("KIND", kind)
@@ -638,8 +634,8 @@ class CloudmeshDatabase(object):
                         element["provider"] = provider.cloud_type
                         print ("EEEE", element)
 
-                        self.add(element)
-                        self.save()
+                        cls.add(element)
+                        cls.save()
 
                     return True
 
@@ -656,7 +652,7 @@ class CloudmeshDatabase(object):
                         element[u"user"] = user
                         vm_name = element["name"]
 
-                        g = self.find_by_attributes("group", member=vm_name)
+                        g = cls.find_by_attributes("group", member=vm_name)
 
                         if g is not None:
                             element[u"group"] = g["name"]
@@ -664,43 +660,43 @@ class CloudmeshDatabase(object):
                             element[u"group"] = "undefined"
 
 
-                        self.add(element)
-                        self.save()
+                        cls.add(element)
+                        cls.save()
                     return True
 
                 elif kind == "secgroup":
                     secgroups = provider.list_secgroup(name)
                     # pprint(secgroups)
                     for secgroup in list(secgroups.values()):
-                        secgroup_db_obj = self.db_obj_dict("secgroup",
-                                                           name=secgroup['name'],
-                                                           uuid=secgroup['id'],
-                                                           category=name,
-                                                           project=secgroup['tenant_id'],
-                                                           user=user
-                                                           )
+                        secgroup_db_obj = cls.db_obj_dict("secgroup",
+                                                          name=secgroup['name'],
+                                                          uuid=secgroup['id'],
+                                                          category=name,
+                                                          project=secgroup['tenant_id'],
+                                                          user=user
+                                                          )
 
                         for rule in secgroup['rules']:
-                            rule_db_obj = self.db_obj_dict("secgrouprule",
-                                                           uuid=rule['id'],
-                                                           name=secgroup['name'],
-                                                           groupid=rule['parent_group_id'],
-                                                           category=name,
-                                                           user=user,
-                                                           project=secgroup['tenant_id'],
-                                                           fromPort=rule['from_port'],
-                                                           toPort=rule['to_port'],
-                                                           protocol=rule['ip_protocol'])
+                            rule_db_obj = cls.db_obj_dict("secgrouprule",
+                                                          uuid=rule['id'],
+                                                          name=secgroup['name'],
+                                                          groupid=rule['parent_group_id'],
+                                                          category=name,
+                                                          user=user,
+                                                          project=secgroup['tenant_id'],
+                                                          fromPort=rule['from_port'],
+                                                          toPort=rule['to_port'],
+                                                          protocol=rule['ip_protocol'])
 
                             if bool(rule['ip_range']) is not False:
                                 rule_db_obj[0]['secgrouprule']['cidr'] = rule['ip_range']['cidr']
 
-                            self.add_obj(rule_db_obj)
-                            self.save()
+                            cls.add_obj(rule_db_obj)
+                            cls.save()
                         # rule-for-loop ends
 
-                        self.add_obj(secgroup_db_obj)
-                        self.save()
+                        cls.add_obj(secgroup_db_obj)
+                        cls.save()
                     return True
 
             elif kind in ["batchjob"]:
@@ -718,8 +714,8 @@ class CloudmeshDatabase(object):
                     job[u'category'] = name
                     job[u'user'] = user
 
-                    self.add(job)
-                    self.save()
+                    cls.add(job)
+                    cls.save()
                 return True
 
             else:
