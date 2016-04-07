@@ -17,9 +17,13 @@ from pprint import pprint
 
 # noinspection PyPep8Naming
 class Key(ListResource):
+
+    cm = CloudmeshDatabase()
+
     @classmethod
     def info(cls, **kwargs):
         raise NotImplementedError()
+
 
     @classmethod
     def list(cls, cloud, live=False, format="table"):
@@ -28,8 +32,12 @@ class Key(ListResource):
         :param cloud: the cloud name
         """
         try:
-
+            print ("FKHJGCFKYTRCK")
             keys = CloudProvider(cloud).provider.list_key(cloud)
+            print ("KKKKK", keys)
+            if keys is None or keys is []:
+
+                return None
 
             (order, header) = CloudProvider(cloud).get_attributes("key")
 
