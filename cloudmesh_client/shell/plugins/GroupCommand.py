@@ -75,6 +75,11 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
                 It is also possible to remove a VM from the group using the
                 remove command, by supplying the ID
 
+            Note:
+
+                The type is internally called for the group species, we may
+                eliminate the species column and just use the type column for it,
+
             Example:
                 default group mygroup
 
@@ -135,7 +140,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
 
             members = Parameter.expand(arguments["NAME"])
             data = dotdict({
-                "type": arguments["--type"] or "vm",
+                "species": arguments["--type"] or "vm",
                 "name": arguments["--group"] or Default.group
             })
             for member in members:

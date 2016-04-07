@@ -133,7 +133,7 @@ class NovaCommand(PluginCommand, CloudPluginCommand):
                     vm_id = fields[index]
 
                     # Add to group
-                    Group.add(name=group, type="vm", member=vm_id, category=cloud)
+                    Group.add(name=group, species="vm", member=vm_id, category=cloud)
             except Exception as ex:
                 Console.error("Error executing Nova command: {}".format(ex))
             return ""
