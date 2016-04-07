@@ -9,6 +9,7 @@ from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.util import path_expand
 from collections import OrderedDict
 import yaml
+from cloudmesh_client.shell.console import Console
 
 
 def custom_print(data_structure, indent, attribute_indent=4):
@@ -342,10 +343,15 @@ class ConfigDict(object):
     @classmethod
     def getUser(cls, cloud):
         try:
-
+            print ("CCCC", cloud)
             config = d = ConfigDict("cloudmesh.yaml")
 
             d = ConfigDict("cloudmesh.yaml")
+
+            #
+            # bug: cloud is none when adding a group
+            #
+
             config = d["cloudmesh"]["clouds"][cloud]
             credentials = config["credentials"]
             cloud_type = config["cm_type"]
@@ -355,10 +361,8 @@ class ConfigDict(object):
             else:
                 raise ValueError("getUser for this cloud type not yet "
                                  "supported: {}".format(cloud))
-
         except Exception as ex:
-            print(ex.message, ex)
-
+            Console.error("problem getting user")
 
 # noinspection PyPep8Naming
 def Username():
