@@ -24,10 +24,10 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
         ::
 
             Usage:
-                group list [--category=CLOUD] [--format=FORMAT] [GROUPNAME]
-                group remove NAME... [--category=CLOUD] [--group=GROUPNAME]
+                group list [GROUPNAME] [--format=FORMAT]
+                group remove NAME... [--group=GROUPNAME]
                 group add NAME... [--type=TYPE] [--group=GROUPNAME]
-                group delete GROUP... [--category=CLOUD]
+                group delete GROUP...
                 group copy FROM TO
                 group merge GROUPA GROUPB MERGEDGROUP
 
@@ -44,7 +44,6 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
                 MERGEDGROUP  name of a group
 
             Options:
-                --category=CLOUD       the name of the category
                 --format=FORMAT     the output format
                 --type=TYPE         the resource type
                 --name=NAME         the name of the group
@@ -57,7 +56,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
                 description
                 Todo: discuss and propose command
 
-                cloudmesh can manage groups of resources and category related
+                cloudmesh can manage groups of resource related
                 objects. As it would be cumbersome to for example delete
                 many virtual machines or delete VMs that are in the same
                 group, but are running in different clouds.
@@ -69,10 +68,6 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
                 Another convenience function is that the group command can
                 use the last used virtual machine. If a vm is started it
                 will be automatically added to the default group if it is set.
-
-                The delete command has an optional category parameter so that
-                deletion of vms of a partial group by cloud can be
-                achieved.
 
                 If finer grained deletion is needed, it can be achieved
                 with the delete command that supports deletion by name
@@ -95,15 +90,14 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
         """
         # pprint(arguments)
 
-        category = arguments["--category"]
 
         if arguments["list"]:
 
-            output = arguments["--format"] or Default.get("format", category) or "table"
+            output = arguments["--format"] or Default.get("format", "general") or "table"
             name = arguments["GROUPNAME"]
             if name is None:
 
-                result = Group.list(output=output, category=category)
+                result = Group.list(output=output)
                 if result:
                     print(result)
                 else:
@@ -112,8 +106,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
             else:
 
                 result = Group.list(name=name,
-                                        category=category,
-                                        output=output)
+                                    output=output)
 
                 if result:
                     print(result)
@@ -143,7 +136,6 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
             members = Parameter.expand(arguments["NAME"])
             data = dotdict({
                 "type": arguments["--type"] or "vm",
-                "category": category,
                 "name": arguments["--group"] or Default.group
             })
             for member in members:
@@ -156,7 +148,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
             groups = Parameter.expand(arguments["GROUP"])
 
             for group in groups:
-                result = Group.delete(group, category)
+                result = Group.delete(group)
 
                 if result:
                     Console.ok(result)
@@ -171,7 +163,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
             group = arguments["--group"] or Default.group
 
             for member in members:
-                result = Group.remove(group, member, category)
+                result = Group.remove(group, member)
 
                 if result:
                     Console.ok(result)
