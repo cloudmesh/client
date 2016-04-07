@@ -67,6 +67,7 @@ class Group(ListResource):
         """
         try:
 
+            
             query = {
                 "type": "vm",
             }
