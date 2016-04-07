@@ -133,7 +133,7 @@ class SSHKeyDBManager(object):
 
         :return: dict from all elements in the table KEY
         """
-        return self.cm.find(kind="key", scope="all", output="dict")
+        return self.cm.find(kind="key", provider="general", scope="all", output="dict")
 
     def dict(self):
         """

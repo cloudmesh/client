@@ -36,11 +36,12 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
            Usage:
              key  -h | --help
              key list --cloud=CLOUD
-             key list [--source=db] [--format=FORMAT]
+             key list --source=db [--format=FORMAT]
              key list --source=yaml [--format=FORMAT]
              key list --source=ssh [--dir=DIR] [--format=FORMAT]
-             key load [--format=FORMAT]
              key list --source=git [--format=FORMAT] [--username=USERNAME]
+             key list
+             key load [--format=FORMAT]
              key add [NAME] [--source=FILENAME]
              key add [NAME] [--git]
              key add [NAME] [--ssh]
@@ -152,21 +153,29 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
         directory = Config.path_expand(arguments["--dir"])
 
+        cloud = arguments["--cloud"] or Default.cloud
+
         if arguments['list']:
             _format = arguments['--format']
             _source = arguments['--source']
             _dir = arguments['--dir']
 
+            if "--source" not in arguments and "--cloud" not in arguments:
+                arguments["--source"] = 'db'
+
+            pprint (arguments)
+
             if arguments['--cloud']:
 
-                cloud = arguments["--cloud"]
-
-                #
-                # get key list from openstack cloud
-                #
-                keys = Key.list(cloud, format=_format)
-                print(keys)
-                return ""
+                    #
+                    # get key list from openstack cloud
+                    #
+                    keys = Key.list(cloud, format=_format)
+                    if keys is None:
+                        Console.ok("The Key list is empty")
+                    else:
+                        print(keys)
+                    return ""
 
             elif arguments['--source'] == 'ssh':
 
@@ -228,11 +237,12 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     return ""
 
             elif arguments['--source'] == 'db':
-
+                print ("RUTYUTRYT")
                 try:
                     sshdb = SSHKeyDBManager()
                     d = sshdb.table_dict()
-                    if d != {}:
+                    print ("HHHHH", d)
+                    if d is not None or d != []:
                         print(_print_dict(d, format=arguments['--format']))
                         msg = "info. OK."
                         Console.ok(msg)
@@ -241,6 +251,8 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 except Exception as e:
                     Error.traceback(e)
                     Console.error("Problem listing keys from database")
+
+
 
         elif arguments['get']:
 
@@ -339,7 +351,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 data.filename = Config.path_expand("~/.ssh/id_rsa.pub")
 
             if str(data.name).lower() in invalid_names:
-                msg = ("Your choice of keyname {username} is insufficient. \n"
+                msg = ("Your choice of keyname {name} is insufficient. \n"
                        "You must be chosing a keyname that is distingct on all clouds. \n"
                        "Possible choices are your gmail name, your XSEDE name, or \n"
                        "some name that is uniqe. "
