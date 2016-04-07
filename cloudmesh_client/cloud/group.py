@@ -275,12 +275,12 @@ class Group(ListResource):
             if category is not None:
                 args["category"] = category
 
-            print("DDD", args)
+            print("DDD - GROUP", args)
 
             group = cls.cm.find(provider='general', kind="group", scope='all', output="dict", **args)
             group_object = cls.cm.find(provider='general', kind="group", scope='all', output="object", **args)
 
-            print("A", group, group_object)
+            print("A - GROUP", group, group_object)
 
             if group:
                 # Delete VM from cloud before deleting group
@@ -302,9 +302,10 @@ class Group(ListResource):
 
                 # Delete group record in local db
 
-                print("G", group_object)
-                for element in group_object:
-                    cls.cm.delete(element)
+                print("G - GROUP", group_object)
+                for element in group:
+                    print ("E- GROUP", type(element), element)
+                    cls.cm.delete(**element)
                 cls.cm.save()
                 return "Delete. ok."
             else:
