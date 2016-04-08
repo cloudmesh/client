@@ -133,8 +133,7 @@ class Test_keys:
 
     def test_005(self):
         HEADING()
-        sshm = SSHKeyManager()
-        print(sshm.get_from_yaml())
+        print(Key.get_from_yaml())
 
     def test_101(self):
         """
