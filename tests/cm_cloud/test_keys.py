@@ -14,8 +14,7 @@ from __future__ import print_function
 from pprint import pprint
 
 import yaml
-from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
-from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
+from cloudmesh_client.cloud.key import Key
 
 from cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI import CloudProviderOpenstackAPI
 from cloudmesh_client.common.ConfigDict import ConfigDict
@@ -65,10 +64,9 @@ class Test_keys:
     def test_001(self):
         HEADING("reading the keys from ~/.ssh")
 
-        mykeys = SSHKeyManager()
-
         banner("ssh keys")
-        mykeys.get_from_dir("~/.ssh")
+        Key.get_from_dir("~/.ssh")
+        mykeys = Key.all(output="dict")
 
         assert len(mykeys) > 0
 
@@ -80,22 +78,21 @@ class Test_keys:
         # git_username = config['cloudmesh']['github']['username']
         git_username = 'laszewsk'
 
-        mykeys = SSHKeyManager()
-
         banner("git hub")
-        mykeys.get_from_git(git_username)
+        Key.get_from_git(git_username)
 
+        mykeys = Key.all(output="dict")
         count1 = len(mykeys)
 
         banner("all")
-        mykeys.get_all(git_username)
+        Key.get_all(git_username)
 
+        mykeys = Key.all(output="dict")
         count2 = len(mykeys)
 
-        # d = mykeys.dict()
-        print(mykeys.table)
+        print(mykeys)
 
-        mykeys.__delitem__('github-0')
+        Key.delete(name='github-0')
         print(mykeys.table)
 
         assert count1 > 0 and count2 > 0
@@ -114,22 +111,22 @@ class Test_keys:
 
     def test_004(self):
         HEADING()
-        sshdb = SSHKeyDBManager()
-        sshdb.delete_all()
-        sshdb.add_from_path("~/.ssh/id_rsa.pub")
 
-        d = sshdb.dict()
+        Key.delete_all()
+        Key.add_from_path("~/.ssh/id_rsa.pub")
+
+        d = Key.dict()
         print(d)
 
         print(Printer.write(d, output="table"))
         assert 'id_rsa.pub' in str(d)
 
-        d = sshdb.find('rsa')
+        d = Key.find('rsa')
         print('find function: ', d)
 
-        sshdb.delete('rsa')
+        Key.delete('rsa')
 
-        d = sshdb.find_all(output='dict')
+        d = Key.find_all(output='dict')
 
         print("table", d)
         assert len(d) == 0
