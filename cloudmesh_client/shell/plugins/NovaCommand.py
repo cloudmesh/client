@@ -60,7 +60,7 @@ class NovaCommand(PluginCommand, CloudPluginCommand):
             Console.error("Default cloud not set!")
             return ""
 
-        group = arguments["--group"] or Default.get_group()
+        group = arguments["--group"] or Default.group
 
         if not group:
             Console.error("Default group not set!")
