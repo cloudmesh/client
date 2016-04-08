@@ -153,7 +153,7 @@ class Test_keys:
 
     def test_101(self):
         """
-        cm key add --name=testkey ~/.ssh/id_rsa.pub
+        cm key add testkey ~/.ssh/id_rsa.pub
         """
         HEADING()
         self.clean_db()
