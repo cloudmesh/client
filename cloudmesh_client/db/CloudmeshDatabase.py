@@ -134,7 +134,9 @@ class CloudmeshDatabase(object):
 
     @classmethod
     def clean(cls):
-        os.system("rm -f {filename}".format(**cls.data))
+        for table in cls.tables:
+            cls.delete(kind=table.__kind__)
+
 
     @classmethod
     def create_tables(cls):
