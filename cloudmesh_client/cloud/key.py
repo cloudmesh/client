@@ -16,6 +16,7 @@ from pprint import pprint
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.default import Default
 from cloudmesh_client.common.menu import menu_return_num
+from cloudmesh_client.common.SSHkey import SSHkey
 
 # noinspection PyPep8Naming
 class Key(ListResource):

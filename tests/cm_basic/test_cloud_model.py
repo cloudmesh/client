@@ -24,6 +24,7 @@ from cloudmesh_client.default import Default
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.util import banner
 
+
 # import cloudmesh_client
 # cloudmesh_client.init()
 
@@ -138,10 +139,24 @@ class Test_cloud_model(object):
         print(vm)
         banner("VM added", c='-')
 
+        self.cm.add(vm)
+
+        banner("Add VM", c='-')
+
+        name = "vm2"
+        uuid = d.id
+
+        vm = VM_OPENSTACK(name=name,
+                          user="test",
+                          category=self.data.cloud,
+                          **d)
+        print(vm)
+        banner("VM added", c='-')
+
         # pprint(vm.__dict__)
         # vm.bla = "bla"
         self.cm.add(vm)
-        self.cm.save()
+        # self.cm.save()
 
         banner("Get VM from Database", c='-')
 
@@ -150,27 +165,30 @@ class Test_cloud_model(object):
         assert len(vms) == 1
         assert vms[0]["name"] == name
 
-
     def test_002(self):
         HEADING("VM DB test")
         result = self.run("make db")
 
         print("ADD TO OS ")
+
+        d = {
+            'user': "test",
+            'category': self.data.cloud
+        }
         for index in range(1, 6):
             name = "vm_" + str(index).zfill(3)
             banner(name)
             print("ADD", name)
             try:
-                vm = VM_OPENSTACK(name=name,
-                                  uuid="uuid_" + str(index),
-                                  user="test",
-                                  category=self.data.cloud)
+                d['name'] = name,
+                d['uuid'] = "uuid_" + str(index),
+                vm = VM_OPENSTACK(**d)
 
-                pprint (vm.__dict__)
+                pprint(vm.__dict__)
             except Exception as e:
                 Console.error("issue adding vm", traceflag=True)
             self.cm.add(vm)
-            print ("VM added. ok")
+            print("VM added. ok")
         print("ADD TO LIBCLOUD ")
         for index in range(6, 11):
             name = "vm_" + str(index).zfill(3)
