@@ -45,10 +45,10 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
              key add [NAME] [--ssh]
              key get NAME
              key default --select
-             key delete (KEYNAME | --select | --all) [--force] [--active]
-             key delete KEYNAME --cloud=CLOUD
-             key upload [KEYNAME] [--cloud=CLOUD]
-             key upload [KEYNAME] --active
+             key delete (NAME | --select | --all) [--force] [--active]
+             key delete NAME --cloud=CLOUD
+             key upload [NAME] [--cloud=CLOUD]
+             key upload [NAME] --active
 
            Manages the keys
 
@@ -137,7 +137,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
             elif format == "yaml":
                 return yaml.dump(d, default_flow_style=False)
             elif format == "table":
-                return Printer.write(d,
+                msg = Printer.write(d,
                                      order=["name",
                                             "comment",
                                             "uri",
@@ -145,6 +145,8 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                                             "source"],
                                      output="table",
                                      sort_keys=True)
+                if msg is None:
+                    Console.error("No keys found.", traceflag=False)
             else:
                 return d
                 # return Printer.write(d,order=['cm_id, name, fingerprint'])
@@ -413,7 +415,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
             key = dotdict({
                 'cloud': arguments["--cloud"],
-                'name': arguments["KEYNAME"]
+                'name': arguments["NAME"]
             })
             try:
                 Key.delete(key.name, key.cloud)
@@ -424,13 +426,13 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments['delete']:
 
-            # key delete (KEYNAME | --select| --all) [--force] [--active]
+            # key delete (NAME | --select| --all) [--force] [--active]
 
             data = dotdict({
                 "on_cloud": arguments["--force"] or False,
                 'all': arguments['--all'] or False,
                 'active': arguments['--active'] or False,
-                'keyname': arguments['KEYNAME'] or False,
+                'name': arguments['NAME'] or False,
                 'clouds': arguments["--cloud"] or Default.cloud
             })
 
@@ -442,10 +444,13 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
             else:
                 data.clouds = [data.clouds]
             remove = []
+
+            if 
             for cloud in data.clouds:
                 if data.all:
 
                     keys = Key.list(cloud, format="dict", live=True)
+
                     for id in keys:
                         key = keys[id]
                         name = key["keypair__name"]
@@ -459,6 +464,10 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     Error.traceback(e)
                     Console.error("Remove key {} from cloud {}.".format(name, cloud), traceflag=False)
 
+            try:
+                Key.delete(data.name)
+            except:
+                pass
             #### delete in db.
 
             msg = "info. OK."
