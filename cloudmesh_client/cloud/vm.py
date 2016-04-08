@@ -129,8 +129,7 @@ class Vm(ListResource):
             for server in kwargs["servers"]:
                 try:
                     vm = cls.cm.find(kind="vm", name=server)
-
-                    cloud = vm["category"]
+                    cloud = vm[0]["category"]
                     cloud_provider = CloudProvider(cloud).provider
                     clouds.add(cloud)
                     cloud_provider.delete_vm(server)
