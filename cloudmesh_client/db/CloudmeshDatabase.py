@@ -642,6 +642,7 @@ class CloudmeshDatabase(object):
 
                 elif kind in ["vm"]:
 
+                    print ("REFRESH VM")
                     # flavors = provider.list_flavor(name)
                     elements = provider.list(kind, name)
 

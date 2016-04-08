@@ -122,7 +122,7 @@ class Test_cloud_model(object):
     def test_001(self):
         HEADING("check the model")
 
-        self.cm.clean()
+        # self.cm.clean()
 
         d = self.d
 
@@ -186,7 +186,6 @@ class Test_cloud_model(object):
                 d['name'] = name,
                 d['uuid'] = "uuid_" + str(index),
                 vm = VM_OPENSTACK(**d)
-
                 pprint(vm.__dict__)
             except Exception as e:
                 Console.error("issue adding vm", traceflag=True)
@@ -207,8 +206,8 @@ class Test_cloud_model(object):
 
         result = self.run("cm refresh off")
         print(result)
-        result = self.run("cm vm list")
-        print(result)
+        #result = self.run("cm vm list")
+        #print(result)
 
     def test_003(self):
         HEADING("find vm tables")
