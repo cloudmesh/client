@@ -320,7 +320,7 @@ class Test_keys:
 
         HEADING()
         result = self.run("cm key add testkey --ssh")
-        result = self.run("cm key delete --all --force")
+        result = self.run("cm key delete --all")
         assert "OK." in result
 
     def test_117(self):
