@@ -241,8 +241,18 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 try:
                     #sshdb = SSHKeyDBManager()
                     d = Key.all(output='dict')
+                    print ("GGGGGGGG", d)
                     if d is not None or d != []:
-                        print(_print_dict(d, format=arguments['--format']))
+
+                        print(Printer.write(d,
+                                            order=["name",
+                                                   "comment",
+                                                   "uri",
+                                                   "fingerprint",
+                                                   "source"],
+                                            output="table"))
+
+                        # print(_print_dict(d, output=arguments['--format']))
                         msg = "info. OK."
                         Console.ok(msg)
                     else:
@@ -501,8 +511,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                             status = Key.add_key_to_cloud(
                                 username,
                                 key["name"],
-                                cloud,
-                                key["name"])
+                                cloud)
 
                         except Exception as e:
                             Console.error("problem")
