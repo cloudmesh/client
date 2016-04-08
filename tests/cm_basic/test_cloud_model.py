@@ -22,7 +22,7 @@ from cloudmesh_client.db import VM_OPENSTACK, VM_LIBCLOUD
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.default import Default
 from cloudmesh_client.shell.console import Console
-
+from cloudmesh_client.common.util import banner
 
 # import cloudmesh_client
 # cloudmesh_client.init()
@@ -158,19 +158,23 @@ class Test_cloud_model(object):
         print("ADD TO OS ")
         for index in range(1, 6):
             name = "vm_" + str(index).zfill(3)
+            banner(name)
             print("ADD", name)
             try:
                 vm = VM_OPENSTACK(name=name,
                                   uuid="uuid_" + str(index),
                                   user="test",
                                   category=self.data.cloud)
+
+                pprint (vm.__dict__)
             except Exception as e:
                 Console.error("issue adding vm", traceflag=True)
-            print("VM", vm.__dict__)
             self.cm.add(vm)
+            print ("VM added. ok")
         print("ADD TO LIBCLOUD ")
         for index in range(6, 11):
             name = "vm_" + str(index).zfill(3)
+            banner(name)
             print("ADD", name)
             vm = VM_LIBCLOUD(name=name,
                              uuid="uuid_" + str(index),
