@@ -258,7 +258,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 if name is None:
                     is_name_provided = False
 
-                    count = Counter.get()
+                    count = Default.get_counter(name=name)
                     prefix = Username()
 
                     if prefix is None or count is None:
@@ -287,7 +287,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     Console.error("Default flavor not set.")
                     return ""
 
-                group = arguments["--group"] or Default.get_group()
+                group = arguments["--group"] or Default.group
 
                 # if default group not set, return error
                 if not group:
@@ -301,7 +301,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 if secgroup is not None:
                     secgroup_list.append(secgroup)
 
-                key = arguments["--key"] or Default.get_key()
+                key = arguments["--key"] or Default.key
                 # if default keypair not set, return error
                 if not key:
                     Console.error("Default key not set.")
@@ -336,7 +336,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     # SHOULD WE NOT DO THIS BY DEFAULT EVEN IF WE SPECIFY THE NAME?
                     if is_name_provided is False:
                         # Incrementing count
-                        Counter.incr()
+                        Default.incr_counter(name)
 
                     # Add to group
                     if vm_id is not None:
@@ -354,7 +354,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["default"]:
             try:
-                count = Counter.get()
+                count = Default.get_counter()
                 prefix = Username()
 
                 if prefix is None or count is None:
@@ -368,7 +368,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     data[attribute] = Default.get(attribute, category=cloud)
 
                 # Retrieving key separately as its in general category.
-                data["key"] = Default.get_key()
+                data["key"] = Default.key
 
                 output_format = arguments["--format"] or "table"
                 print(Printer.attribute(data, output=output_format))
@@ -578,8 +578,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         print(
                             "Floating IP assigned to {:} successfully and it is: {:}".format(
                                 sname, floating_ip))
-                msg = "info. OK."
-                Console.ok(msg)
+                        msg = "info. OK."
+                        Console.ok(msg)
             except Exception as e:
                 # Error.traceback(e)
                 Console.error("Problem assigning floating ips.")
@@ -658,7 +658,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 Console.error("Default cloud not set.")
                 return ""
 
-            key = arguments["--key"] or Default.get_key()
+            key = arguments["--key"] or Default.key
             if not key:
                 Console.error("Default key not set.")
                 return ""
@@ -716,7 +716,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["list"]:
 
-            groups = Group.list(format="dict")
+            # groups = Group.list(output="dict")
 
             if arguments["--all"] or arguments["NAME_OR_ID"] == "all":
                 try:
@@ -729,16 +729,14 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                         print("Listing VMs on Cloud: {:}".format(cloud))
 
-                        vms = Vm.list(cloud=cloud, output_format="dict")
-
                         result = Vm.list(cloud=cloud, output_format=_format)
 
                         if result is not None:
                             print(result)
+                            msg = "info. OK."
+                            Console.ok(msg)
                         else:
                             print("No data found with requested parameters.")
-                    msg = "info. OK."
-                    Console.ok(msg)
                 except Exception as e:
                     # Error.traceback(e)
                     Console.error("Problem listing all instances")
@@ -762,11 +760,10 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                     if result is not None:
                         print(result)
+                        msg = "info. OK."
+                        Console.ok(msg)
                     else:
                         print("No data found with the requested parameters.")
-
-                    msg = "info. OK."
-                    Console.ok(msg)
 
                 except Exception as e:
                     # Error.traceback(e)
@@ -800,7 +797,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                     is_name_provided = False
 
-                    count = Counter.get()
+                    count = Default.get_counter()
                     prefix = Username()
 
                     if prefix is None or count is None:
@@ -818,7 +815,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 if is_name_provided is False:
                     # Incrementing count
-                    Counter.incr()
+                    Default.incr_counter()
 
                 msg = "info. OK."
                 Console.ok(msg)

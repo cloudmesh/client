@@ -365,7 +365,6 @@ class CloudmeshDatabase(object):
         if d is None:
             return
 
-
         if type(d) in [dict, dotdict] :
 
             o = dotdict(d)
@@ -389,12 +388,10 @@ class CloudmeshDatabase(object):
         else:
             element = d
 
-
         if replace:
             print("JJJJJJ", type(element), element)
 
             element.provider = element.__provider__
-
 
             current = cls.find(
                 scope='first',
@@ -406,7 +403,7 @@ class CloudmeshDatabase(object):
             if current is not None:
                 for key in element.__dict__.keys():
                     current.__dict__[key] = element.__dict__[key]
-                    current.__dict__['user'] = element["user"]
+                    current.__dict__['user'] = element.__dict__["user"]
             else:
                 cls.session.add_from_path(element)
         else:
@@ -606,7 +603,6 @@ class CloudmeshDatabase(object):
                 # get provider for specific cloud
                 provider = CloudProvider(name).provider
 
-
                 print("PPPP", provider)
                 # clear local db records for kind
                 print ("CLEAR1")
@@ -623,7 +619,6 @@ class CloudmeshDatabase(object):
                     elements = provider.list(kind, name)
                     print ("AAAAA", elements)
                     print ("NAME", name)
-
 
                     for element in list(elements.values()):
                         element["uuid"] = element['id']
@@ -650,9 +645,11 @@ class CloudmeshDatabase(object):
                         element[u"category"] = name
                         element[u"cloud"] = name
                         element[u"user"] = user
+                        element[u"kind"] = kind
+                        element[u"provider"] = provider.cloud_type
                         vm_name = element["name"]
 
-                        g = cls.find_by_attributes("group", member=vm_name)
+                        g = cls.find(kind="GROUP", member=vm_name)
 
                         if g is not None:
                             element[u"group"] = g["name"]
