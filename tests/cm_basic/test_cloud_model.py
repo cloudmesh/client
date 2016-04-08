@@ -170,7 +170,7 @@ class Test_cloud_model(object):
 
     def test_002(self):
         HEADING("VM DB test")
-        self.cm.clean()
+        # self.cm.clean()
 
         print("ADD TO OS ")
 
@@ -183,8 +183,8 @@ class Test_cloud_model(object):
             banner(name)
             print("ADD", name)
             try:
-                d['name'] = name,
-                d['uuid'] = "uuid_" + str(index),
+                d['name'] = name
+                d['uuid'] = "uuid_" + str(index)
                 vm = VM_OPENSTACK(**d)
                 pprint(vm.__dict__)
             except Exception as e:
