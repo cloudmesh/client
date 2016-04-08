@@ -210,7 +210,6 @@ class Test_cloud_model(object):
         pprint(vms)
         print (len(vms))
         assert len(vms) == 10
-        assert vms[0]["name"] == "vm_001"
 
 
     def test_003(self):
