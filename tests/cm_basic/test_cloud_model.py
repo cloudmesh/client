@@ -121,6 +121,9 @@ class Test_cloud_model(object):
 
     def test_001(self):
         HEADING("check the model")
+
+        self.cm.clean()
+
         d = self.d
 
         banner("VM Data", c='-')
@@ -167,7 +170,7 @@ class Test_cloud_model(object):
 
     def test_002(self):
         HEADING("VM DB test")
-        result = self.run("make db")
+        self.cm.clean()
 
         print("ADD TO OS ")
 
