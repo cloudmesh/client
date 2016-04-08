@@ -68,8 +68,8 @@ class KEY(CloudmeshMixin, CloudmeshDatabase.Base):
     __kind__ = 'key'
     __provider__ = 'general'
 
-    value = Column(String)
     fingerprint = Column(String, unique=True)
+    value = Column(String)
     source = Column(String)
     comment = Column(String)
     uri = Column(String)
