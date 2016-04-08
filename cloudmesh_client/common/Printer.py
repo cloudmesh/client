@@ -8,7 +8,7 @@ from prettytable import PrettyTable
 
 from cloudmesh_client.common.util import convert_from_unicode
 from cloudmesh_client.shell.console import Console
-
+from cloudmesh_client.common.dotdict import dotdict
 
 class Printer(object):
     @classmethod
@@ -19,7 +19,9 @@ class Printer(object):
               sort_keys=True,
               show_none=""
               ):
-        if type(table) == dict:
+        if table is None:
+            return None
+        elif type(table) in [dict, dotdict]:
             return cls.dict(table, order=order, header=header, output=output,
                             sort_keys=sort_keys, show_none=show_none)
 

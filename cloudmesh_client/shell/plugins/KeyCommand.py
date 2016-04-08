@@ -45,10 +45,10 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
              key add [NAME] [--ssh]
              key get NAME
              key default --select
-             key delete (KEYNAME | --select | --all) [--force] [--active]
-             key delete KEYNAME --cloud=CLOUD
-             key upload [KEYNAME] [--cloud=CLOUD]
-             key upload [KEYNAME] --active
+             key delete (NAME | --select | --all)
+             key delete NAME --cloud=CLOUD
+             key upload [NAME] [--cloud=CLOUD]
+             key upload [NAME] --active
 
            Manages the keys
 
@@ -137,7 +137,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
             elif format == "yaml":
                 return yaml.dump(d, default_flow_style=False)
             elif format == "table":
-                return Printer.write(d,
+                msg = Printer.write(d,
                                      order=["name",
                                             "comment",
                                             "uri",
@@ -145,6 +145,8 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                                             "source"],
                                      output="table",
                                      sort_keys=True)
+                if msg is None:
+                    Console.error("No keys found.", traceflag=False)
             else:
                 return d
                 # return Printer.write(d,order=['cm_id, name, fingerprint'])
@@ -161,14 +163,13 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
             if "--source" not in arguments and "--cloud" not in arguments:
                 arguments["--source"] = 'db'
 
-            pprint (arguments)
 
             if arguments['--cloud']:
 
                     #
                     # get key list from openstack cloud
                     #
-                    keys = Key.list(cloud, format=_format)
+                    keys = Key.list(cloud, output=_format)
                     if keys is None:
                         Console.ok("The Key list is empty")
                     else:
@@ -179,11 +180,11 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
                 try:
                     #sshm = SSHKeyManager()
-                    Key.get_from_dir(directory)
+                    d = Key.get_from_dir(directory, store=False)
 
-                    print("SSS", type(Key.__keys__))
-                    d = dict(Key.all())
-                    print(d)
+                    #print("SSS", type(Key.__keys__))
+                    #d = dict(Key.all())
+                    #print(d)
                     print(Printer.write(d,
                                         order=["name",
                                                "comment",
@@ -205,11 +206,11 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
                 try:
                     #sshm = SSHKeyManager()
-                    m = Key.get_from_yaml(load_order=directory)
-                    d = dict(m.__keys__)
+                    d = Key.get_from_yaml(load_order=directory, store=False)
+
                     print(_print_dict(d, format=_format))
                     msg = "info. OK."
-                    Console.ok(msg)
+                    Console.info(msg)
                 except Exception as e:
                     Error.traceback(e)
                     Console.error("Problem listing keys from `{:}`".format(arguments['--source']))
@@ -224,8 +225,9 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
                 #sshm = SSHKeyManager()
                 try:
-                    Key.get_from_git(username)
-                    d = dict(Key.all())
+
+                    d = Key.get_from_git(username, store=False)
+
                     print(_print_dict(d, format=_format))
                     msg = "info. OK."
                     Console.ok(msg)
@@ -235,13 +237,22 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     return ""
 
             elif arguments['--source'] == 'db':
-                print ("RUTYUTRYT")
+
                 try:
                     #sshdb = SSHKeyDBManager()
                     d = Key.all(output='dict')
-                    print ("HHHHH", d)
+                    print ("GGGGGGGG", d)
                     if d is not None or d != []:
-                        print(_print_dict(d, format=arguments['--format']))
+
+                        print(Printer.write(d,
+                                            order=["name",
+                                                   "comment",
+                                                   "uri",
+                                                   "fingerprint",
+                                                   "source"],
+                                            output="table"))
+
+                        # print(_print_dict(d, output=arguments['--format']))
                         msg = "info. OK."
                         Console.ok(msg)
                     else:
@@ -257,7 +268,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
             try:
                 name = arguments['NAME']
                 #sshdb = SSHKeyDBManager()
-                d = Key.table_dict()
+                d = Key.all(output="dict")
 
                 for key in d:
                     if key["name"] == name:
@@ -414,7 +425,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
             key = dotdict({
                 'cloud': arguments["--cloud"],
-                'name': arguments["KEYNAME"]
+                'name': arguments["NAME"]
             })
             try:
                 Key.delete(key.name, key.cloud)
@@ -425,48 +436,33 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments['delete']:
 
-            # key delete (KEYNAME | --select| --all) [--force] [--active]
+            # key delete (NAME | --select| --all)
 
             data = dotdict({
-                "on_cloud": arguments["--force"] or False,
                 'all': arguments['--all'] or False,
-                'active': arguments['--active'] or False,
-                'keyname': arguments['KEYNAME'] or False,
-                'clouds': arguments["--cloud"] or Default.cloud
+                'select': arguments['--select'] or False,
+                'name': arguments['NAME'] or False,
             })
+
 
             pprint(data)
 
-            if data.active or data.all:
-                config = ConfigDict("cloudmesh.yaml")
-                data.clouds = config["cloudmesh"]["active"]
+            if data.all:
+                Key.delete(data.name)
+            elif data.select:
+                key = Key.select()
+                print (key)
 
-            remove = []
-            for cloud in data.clouds:
-                if data.all:
+            else: # name
+                Key.delete(data.name)
 
-                    keys = Key.list(cloud, format="dict", live=True)
-                    for id in keys:
-                        key = keys[id]
-                        name = key["keypair__name"]
-                        remove.append((name, cloud))
-
-            for name, cloud in remove:
-                try:
-                    Key.delete(name, cloud)
-                    Console.ok("Remove key {} from cloud {}.".format(name, cloud))
-                except Exception as e:
-                    Error.traceback(e)
-                    Console.error("Remove key {} from cloud {}.".format(name, cloud), traceflag=False)
-
-            #### delete in db.
 
             msg = "info. OK."
             Console.ok(msg)
 
         elif arguments['upload']:
 
-            pprint(arguments)
+            # pprint(arguments)
 
             try:
                 #
@@ -515,8 +511,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                             status = Key.add_key_to_cloud(
                                 username,
                                 key["name"],
-                                cloud,
-                                key["name"])
+                                cloud)
 
                         except Exception as e:
                             Console.error("problem")

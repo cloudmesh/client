@@ -31,10 +31,11 @@ class Key(ListResource):
         raise NotImplementedError()
 
     @classmethod
-    def get_from_dir(cls, directory=None):
+    def get_from_dir(cls, directory=None, store=True):
         directory = directory or Config.path_expand("~/.ssh")
         files = [file for file in os.listdir(expanduser(Config.path_expand(directory)))
                  if file.lower().endswith(".pub")]
+        d = []
         for file in files:
             location = Config.path_expand("{:}/{:}".format(directory, file))
 
@@ -52,16 +53,20 @@ class Key(ListResource):
             sshkey["kind"] = "key"
             sshkey["source"] = 'file'
 
-            print("UUUU", sshkey)
-
-            cls._add_from_sshkey(
-                dict(sshkey),
-                keyname=sshkey["name"],
-                source=sshkey["source"],
-                uri=sshkey["uri"])
+            # print("UUUU", sshkey)
+            if store:
+                cls._add_from_sshkey(
+                    dict(sshkey),
+                    keyname=sshkey["name"],
+                    source=sshkey["source"],
+                    uri=sshkey["uri"])
+            else:
+                d.append(dict(sshkey))
+        if not store:
+            return d
 
     @classmethod
-    def get_from_git(cls, username):
+    def get_from_git(cls, username, store=True):
         """
 
         :param username: the github username
@@ -71,6 +76,7 @@ class Key(ListResource):
         uri = 'https://github.com/{:}.keys'.format(username)
         content = requests.get(uri).text.strip("\n").split("\n")
 
+        d = []
         print (len(content))
         for key in range(0, len(content)):
             value = content[key]
@@ -93,16 +99,19 @@ class Key(ListResource):
 
             if thekey["comment"] is None:
                 thekey["comment"] = name
-            try:
+            d.append(thekey)
+            if store:
+                try:
 
-                cls.cm.add(thekey)
-            except:
-                Console.error("Key already in db", traceflag=False)
-
+                    cls.cm.add(thekey)
+                except:
+                    Console.error("Key already in db", traceflag=False)
+        if not store:
+            return d
                 # noinspection PyProtectedMember,PyUnreachableCode,PyUnusedLocal
 
     @classmethod
-    def get_from_yaml(cls, filename=None, load_order=None):
+    def get_from_yaml(cls, filename=None, load_order=None, store=True):
         """
         :param filename: name of the yaml file
         :return: a SSHKeyManager (dict of keys)
@@ -124,12 +133,18 @@ class Key(ListResource):
 
         uri = Config.path_expand(os.path.join("~", ".cloudmesh", filename))
 
+
+        print ("IIIII", keylist)
+        d = []
         for key in list(keylist.keys()):
             keyname = key
             value = keylist[key]
             if os.path.isfile(Config.path_expand(value)):
                 path = Config.path_expand(value)
-                Key.add_from_path(path, keyname)
+                if store:
+                    Key.add_from_path(path, keyname)
+                else:
+                    d.append(Key.add_from_path(path, keyname, store=False))
             else:
 
                 keytype, string, comment = SSHkey._parse(value)
@@ -147,11 +162,15 @@ class Key(ListResource):
 
                 if thekey["comment"] is None:
                     thekey["comment"] = keyname
-                try:
-                    cls.cm.add(thekey)
-                except:
-                    Console.error("Key already in db", traceflag=False)
-
+                if store:
+                    try:
+                        cls.cm.add(thekey)
+                    except:
+                        Console.error("Key already in db", traceflag=False)
+                else:
+                    d.append(thekey)
+        if not store:
+            return d
 
 
 
@@ -210,14 +229,37 @@ class Key(ListResource):
         cls.cm.add(thekey)
 
     @classmethod
-    def list(cls, category=None, live=False, format="table"):
+    def add_key_to_cloud(cls, user, keyname, cloud):
+        """
 
-        (order, header) = CloudProvider(cloud).get_attributes("key")
+        :param user:
+        :param keyname:
+        :param cloud:
+        :param name_on_cloud:
+        """
 
-        return Printer.write(keys,
+        key = cls.cm.find(kind="key", name=keyname, scope="first")
+        if key is None:
+            Console.error("Key with the name {:} not found in database.".format(keyname))
+            return
+
+        try:
+            if cloud is not None:
+                print("Adding key {:} to cloud {:}".format(keyname, cloud))
+                cloud_provider = CloudProvider(cloud).provider
+                cloud_provider.add_key_to_cloud(keyname, key["value"])
+        except:
+            Console.error("problem uploading key {} to cloud {}".format(keyname, cloud))
+
+    @classmethod
+    def list(cls, category=None, live=False, output="table"):
+        "this does not work only returns all ceys in the db"
+        (order, header) = CloudProvider(category).get_attributes("key")
+        d = cls.cm.find(kind="key", scope="all", output=output)
+        return Printer.write(d,
                              order=order,
                              header=header,
-                             output=format)
+                             output=output)
 
     @classmethod
     def list_on_cloud(cls, cloud, live=False, format="table"):
@@ -321,7 +363,8 @@ class Key(ListResource):
                       keyname=None,
                       user=None,
                       source=None,
-                      uri=None):
+                      uri=None,
+                      store=True):
         """
         Adds the key to the database based on the path
 
@@ -333,8 +376,11 @@ class Key(ListResource):
 
         sshkey = SSHkey(Config.path_expand(path))
 
-        cls._add_from_sshkey(sshkey.__key__,
+        if store:
+            cls._add_from_sshkey(sshkey.__key__,
                              keyname,
                              user,
                              source=source,
                              uri=uri)
+        else:
+            return sshkey.__key__
