@@ -122,7 +122,7 @@ class Test_cloud_model(object):
     def test_001(self):
         HEADING("check the model")
 
-        # self.cm.clean()
+        self.cm.clean()
 
         d = self.d
 
@@ -170,7 +170,7 @@ class Test_cloud_model(object):
 
     def test_002(self):
         HEADING("VM DB test")
-        # self.cm.clean()
+        self.cm.clean()
 
         print("ADD TO OS ")
 
@@ -205,8 +205,13 @@ class Test_cloud_model(object):
 
         result = self.run("cm refresh off")
         print(result)
-        #result = self.run("cm vm list")
-        #print(result)
+
+        vms = self.cm.find(kind="vm", scope="all", output='dict')
+        pprint(vms)
+        print (len(vms))
+        assert len(vms) == 10
+        assert vms[0]["name"] == "vm_001"
+
 
     def test_003(self):
         HEADING("find vm tables")
