@@ -654,7 +654,7 @@ class CloudmeshDatabase(object):
                         element[u"provider"] = provider.cloud_type
                         vm_name = element["name"]
 
-                        g = cls.find(kind="GROUP", member=vm_name)
+                        g = cls.find(kind="group", member=vm_name)
 
                         if g is not None:
                             element[u"group"] = g["name"]
