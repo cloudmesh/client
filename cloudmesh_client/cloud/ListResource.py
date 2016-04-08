@@ -80,7 +80,7 @@ class ListResource(object):
                 cls.cm.add_obj(o)
             else:
                 o.value = value
-                cls.cm.add(o)
+                cls.cm.add_from_path(o)
                 # cls.cm.update(o)
             cls.cm.save()
         except:

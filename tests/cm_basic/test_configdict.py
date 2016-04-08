@@ -15,7 +15,7 @@ import os
 import shutil
 
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_client.util import HEADING
+from cloudmesh_client.common.util import HEADING
 
 
 # noinspection PyMethodMayBeStatic,PyMethodMayBeStatic,PyMethodMayBeStatic,PyPep8Naming,PyBroadException,PyBroadException

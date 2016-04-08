@@ -1,7 +1,8 @@
 from __future__ import print_function
-import textwrap
+
 import os
 import platform
+import textwrap
 
 try:  # python3
     from urllib.request import urlopen
@@ -11,11 +12,10 @@ except ImportError:  # python2
     from urllib import urlopen
 
 from cloudmesh_client.common.Shell import Shell
-from builtins import input
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict, Config
 from cloudmesh_client.common import Printer
-from cloudmesh_client.util import path_expand
+from cloudmesh_client.common.util import path_expand
 from builtins import input
 
 
@@ -335,7 +335,6 @@ class CloudRegister(object):
                 "image": "None",
             }
         }
-        from pprint import pprint
         config = ConfigDict("cloudmesh.yaml")
         config["cloudmesh"]["clouds"][cloud] = d
         config.save()

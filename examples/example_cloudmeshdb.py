@@ -10,7 +10,7 @@ vms = []
 vms.append(cloudmesh_db.VM('gregor1'))
 vms.append(cloudmesh_db.VM('gregor2'))
 
-cm.add(vms)
+cm.add_from_path(vms)
 cm.save()
 
 # When you query the data back it returns instances of your class:

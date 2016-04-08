@@ -3,10 +3,10 @@ from __future__ import print_function
 
 import json
 
-from prettytable import PrettyTable
 import yaml
-from cloudmesh_client.util import convert_from_unicode
-from pprint import pprint
+from prettytable import PrettyTable
+
+from cloudmesh_client.common.util import convert_from_unicode
 from cloudmesh_client.shell.console import Console
 
 

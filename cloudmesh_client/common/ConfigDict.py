@@ -1,14 +1,14 @@
 from __future__ import print_function
 
-import os.path
 import json
+import os.path
+from collections import OrderedDict
+
+import yaml
 
 from cloudmesh_client.common.BaseConfigDict import BaseConfigDict
 from cloudmesh_client.common.todo import TODO
-
-from cloudmesh_client.util import path_expand
-from collections import OrderedDict
-import yaml
+from cloudmesh_client.common.util import path_expand
 from cloudmesh_client.shell.console import Console
 
 

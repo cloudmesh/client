@@ -12,17 +12,16 @@ nosetests -v tests/cm_basic/test_model.py
 from __future__ import print_function
 
 from pprint import pprint
-from cloudmesh_client.common.FlatDict import FlatDict
-from cloudmesh_client.db import VM_OPENSTACK, VM_LIBCLOUD
-from cloudmesh_client.db import CloudmeshDatabase
 
-from cloudmesh_client.util import banner
-from cloudmesh_client.util import HEADING
-from cloudmesh_client.common.dotdict import dotdict
-from cloudmesh_client.default import Default
+from cloudmesh_client.common.FlatDict import FlatDict
 from cloudmesh_client.common.Shell import Shell
-from cloudmesh_client.shell.console import Console
+from cloudmesh_client.common.dotdict import dotdict
+from cloudmesh_client.common.util import HEADING
+from cloudmesh_client.common.util import banner
+from cloudmesh_client.db import VM_OPENSTACK, VM_LIBCLOUD
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.default import Default
+from cloudmesh_client.shell.console import Console
 
 
 # import cloudmesh_client

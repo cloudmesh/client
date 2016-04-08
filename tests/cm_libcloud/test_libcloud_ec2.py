@@ -19,7 +19,7 @@ from libcloud.compute.providers import get_driver
 from libcloud.compute.types import Provider
 
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_client.util import HEADING
+from cloudmesh_client.common.util import HEADING
 
 
 # noinspection PyPep8Naming

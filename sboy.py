@@ -1,13 +1,11 @@
+from cloudmesh_client.db.model import DEFAULT, GROUP
 from flask import Flask
 from flask.ext.sandboy import Sandboy
-
 from flask.ext.sqlalchemy import SQLAlchemy
-
-from cloudmesh_client.db.model import DEFAULT, GROUP, KEY, RESERVATION
 
 app = Flask(__name__)
 
-from cloudmesh_client.util import path_expand
+from cloudmesh_client.common.util import path_expand
 
 filename = "sqlite:///{}".format(path_expand("~/.cloudmesh/cloudmesh.db"))
 

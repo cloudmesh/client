@@ -8,14 +8,15 @@
 # print (output)
 
 from __future__ import print_function
-import subprocess
+
 import glob
-import json
-import platform
 import os
-from cloudmesh_client.util import path_expand
-import zipfile
 import os.path
+import platform
+import subprocess
+import zipfile
+
+from cloudmesh_client.common.util import path_expand
 
 
 class Shell(object):

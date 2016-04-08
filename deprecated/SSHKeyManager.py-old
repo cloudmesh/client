@@ -220,7 +220,7 @@ class SSHKeyManager(object):
     def delete_key(self, keyname):
 
         sshdb = SSHKeyDBManager()
-        key = sshdb.find(keyname=keyname)
+        key = sshdb.find(name=keyname, output='object')
 
         #
         # TODO: delete key on all clouds

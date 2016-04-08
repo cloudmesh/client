@@ -1,9 +1,9 @@
 import inspect
 import logging
 
-from cloudmesh_client.util import path_expand
-from cloudmesh_client.default import Default
 from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.common.util import path_expand
+from cloudmesh_client.default import Default
 
 # define the logger
 LOGGER = logging.getLogger('LogUtil')

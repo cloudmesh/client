@@ -3,21 +3,21 @@
 from __future__ import print_function
 
 import ast
-from collections import OrderedDict
 import json
 import os
-from pprint import pprint
 import stat
-from string import Template
 import sys
-from cloudmesh_client.common.Error import Error
-
-from cloudmesh_client.locations import config_file
-from cloudmesh_client.logger import LOGGER
-from cloudmesh_client.util import backup_name, path_expand
+from collections import OrderedDict
+from pprint import pprint
+from string import Template
 
 import simplejson
 import yaml
+
+from cloudmesh_client.common.Error import Error
+from cloudmesh_client.common.util import backup_name, path_expand
+from cloudmesh_client.locations import config_file
+from cloudmesh_client.logger import LOGGER
 
 log = LOGGER(__file__)
 package_dir = os.path.dirname(os.path.abspath(__file__))

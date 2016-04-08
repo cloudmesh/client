@@ -1,9 +1,8 @@
-from sm import app, db
-
-from sm.model import register, Model
 from cloudmesh_client.db.model import DEFAULT, GROUP, KEY, RESERVATION
+from sm import app
+from sm.model import register
 
-from cloudmesh_client.util import path_expand
+from cloudmesh_client.common.util import path_expand
 
 filename = "sqlite://{}".format(path_expand("~/.cloudmesh/cloudmesh.db"))
 

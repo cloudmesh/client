@@ -1,9 +1,10 @@
-import textwrap
 import json
 import subprocess
-from cloudmesh_client.util import path_expand
+import textwrap
 
 from jinja2 import Template
+
+from cloudmesh_client.common.util import path_expand
 
 
 class Rack(object):

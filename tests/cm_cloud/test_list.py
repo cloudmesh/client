@@ -10,11 +10,10 @@ nosetests -v tests/test_list.py
 
 """
 
-from cloudmesh_client.util import banner
-from cloudmesh_client.util import HEADING
-
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.dotdict import dotdict
+from cloudmesh_client.common.util import HEADING
+from cloudmesh_client.common.util import banner
 from cloudmesh_client.default import Default
 
 

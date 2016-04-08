@@ -10,10 +10,10 @@ nosetests -v tests/cm_basic/test_tables.py
 
 """
 
-from cloudmesh_client.util import HEADING
+from pprint import pprint
 
 from cloudmesh_client.common.Printer import Printer
-from pprint import pprint
+from cloudmesh_client.common.util import HEADING
 
 
 # noinspection PyPep8Naming

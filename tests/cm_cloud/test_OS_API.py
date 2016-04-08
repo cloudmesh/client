@@ -10,16 +10,16 @@ nosetests -v tests/test_list.py
 
 """
 
-from cloudmesh_client.util import banner
-from cloudmesh_client.util import HEADING
-
-from cloudmesh_client.common.Shell import Shell
-from cloudmesh_client.common.dotdict import dotdict
-from cloudmesh_client.default import Default
+from pprint import pprint
 
 from cloudmesh_client import ConfigDict
 from cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI import CloudProviderOpenstackAPI
-from pprint import pprint
+from cloudmesh_client.common.Shell import Shell
+from cloudmesh_client.common.dotdict import dotdict
+from cloudmesh_client.common.util import HEADING
+from cloudmesh_client.common.util import banner
+from cloudmesh_client.default import Default
+
 
 # noinspection PyPep8Naming
 class Test_osapi:

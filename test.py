@@ -1,13 +1,12 @@
 import os
+from pprint import pprint
+
 from novaclient import exceptions
 from novaclient.client import Client
-from novaclient.v2.quotas import QuotaSetManager
-from novaclient.v2.limits import LimitsManager
-from cloudmesh_client.util import path_expand
+
 from cloudmesh_client.common.ConfigDict import ConfigDict
-import sys
-import json
-from pprint import pprint
+from cloudmesh_client.common.util import path_expand
+
 # from cloudmesh_client.MultiKeyDict import MultiKeyDict
 
 # disable security warning for old certs
