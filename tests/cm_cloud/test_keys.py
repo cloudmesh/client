@@ -160,7 +160,6 @@ class Test_keys:
         result = self.run("cm key add testkey --source=~/.ssh/id_rsa.pub")
         result = self.run("cm key list")
 
-        assert "OK." in result
         assert "testkey" in result
         assert "file:" in result
 
@@ -186,7 +185,6 @@ class Test_keys:
         self.clean_db()
         result = self.run("cm key add testkey --ssh")
         result = self.run("cm key list")
-        assert "OK." in result
         assert "testkey" in result
         assert "ssh" in result
 
@@ -202,7 +200,7 @@ class Test_keys:
 
         assert "testkey" in result
         assert "ssh" in result
-        assert "OK." in result
+
 
     def test_106(self):
         """
@@ -212,7 +210,7 @@ class Test_keys:
         HEADING()
         result = self.run("cm key list --source=db --format=json")
         print(result)
-        assert "OK." in result
+
         assert "{" in result
         assert "testkey" in result
 
@@ -228,9 +226,9 @@ class Test_keys:
         print(result)
         print("--------")
 
-        d = yaml.load(result.split("\n\n")[0])
+        d = yaml.load(str(result))
 
-        assert "OK." in result
+
         assert "testkey" in result
 
     def test_109(self):
@@ -242,7 +240,7 @@ class Test_keys:
         result = self.run("cm key list --source=git")
         print(result)
         assert "_git_" in result
-        assert "OK." in result
+
 
     def test_110(self):
         """
@@ -252,7 +250,7 @@ class Test_keys:
         HEADING()
         result = self.run("cm key list --source=yaml")
         print(result)
-        assert "OK." in result
+        assert ":" in result
 
     def test_111(self):
         """
@@ -262,7 +260,7 @@ class Test_keys:
         HEADING()
         result = self.run("cm key list --source=ssh")
         assert "rsa" in result
-        assert "OK." in result
+
 
     def test_112(self):
         """
@@ -272,7 +270,6 @@ class Test_keys:
         result = self.run("cm key list --source=yaml")
         assert "ssh" in result
         assert "fingerprint" in result
-        assert "OK." in result
 
     def test_113(self):
         """
@@ -282,7 +279,6 @@ class Test_keys:
         HEADING()
         result = self.run("cm key get testkey")
         assert "testkey" in result
-        assert "OK." in result
 
     def test_114(self):
         """
