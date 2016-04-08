@@ -229,10 +229,11 @@ class Vm(ListResource):
                 }
 
                 d = cls.cm.find(kind="group", **query)
-                groups = set()
-                for vm in d:
-                    groups.add(d[vm]['name'])
-                return list(groups)
+                groups_vm = set()
+                if d is not None and len(d) > 0:
+                    for vm in d:
+                        groups_vm.add(d[vm]['name'])
+                return list(groups_vm)
             except Exception as ex:
                 Console.error(ex.message, ex)
 
@@ -250,8 +251,11 @@ class Vm(ListResource):
                 elements = cls.cm.find(kind="vm",
                                        category=kwargs["cloud"])
 
-            for key in elements:
-                element = elements[key]
+            if elements is None or len(elements) == 0:
+                return None
+
+            for elem in elements:
+                element = elem
                 name = element["name"]
                 groups = vm_groups(name)
                 element["group"] = ','.join(groups)
@@ -263,7 +267,7 @@ class Vm(ListResource):
 
             # order = None
             if "name_or_id" in kwargs and kwargs["name_or_id"] is not None:
-                return Printer.attribute(list(elements.values())[0],
+                return Printer.attribute(elements[0],
                                          output=kwargs["output_format"])
             else:
                 return Printer.write(elements,

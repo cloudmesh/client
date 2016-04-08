@@ -578,8 +578,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         print(
                             "Floating IP assigned to {:} successfully and it is: {:}".format(
                                 sname, floating_ip))
-                msg = "info. OK."
-                Console.ok(msg)
+                        msg = "info. OK."
+                        Console.ok(msg)
             except Exception as e:
                 # Error.traceback(e)
                 Console.error("Problem assigning floating ips.")
@@ -716,7 +716,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["list"]:
 
-            groups = Group.list(format="dict")
+            # groups = Group.list(output="dict")
 
             if arguments["--all"] or arguments["NAME_OR_ID"] == "all":
                 try:
@@ -729,16 +729,14 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                         print("Listing VMs on Cloud: {:}".format(cloud))
 
-                        vms = Vm.list(cloud=cloud, output_format="dict")
-
                         result = Vm.list(cloud=cloud, output_format=_format)
 
                         if result is not None:
                             print(result)
+                            msg = "info. OK."
+                            Console.ok(msg)
                         else:
                             print("No data found with requested parameters.")
-                    msg = "info. OK."
-                    Console.ok(msg)
                 except Exception as e:
                     # Error.traceback(e)
                     Console.error("Problem listing all instances")
@@ -762,11 +760,10 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                     if result is not None:
                         print(result)
+                        msg = "info. OK."
+                        Console.ok(msg)
                     else:
                         print("No data found with the requested parameters.")
-
-                    msg = "info. OK."
-                    Console.ok(msg)
 
                 except Exception as e:
                     # Error.traceback(e)
