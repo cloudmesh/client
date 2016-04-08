@@ -258,7 +258,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 if name is None:
                     is_name_provided = False
 
-                    count = Counter.get()
+                    count = Default.get_counter(name=name)
                     prefix = Username()
 
                     if prefix is None or count is None:
@@ -287,7 +287,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     Console.error("Default flavor not set.")
                     return ""
 
-                group = arguments["--group"] or Default.get_group()
+                group = arguments["--group"] or Default.group
 
                 # if default group not set, return error
                 if not group:
@@ -301,7 +301,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 if secgroup is not None:
                     secgroup_list.append(secgroup)
 
-                key = arguments["--key"] or Default.get_key()
+                key = arguments["--key"] or Default.key
                 # if default keypair not set, return error
                 if not key:
                     Console.error("Default key not set.")
@@ -336,7 +336,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     # SHOULD WE NOT DO THIS BY DEFAULT EVEN IF WE SPECIFY THE NAME?
                     if is_name_provided is False:
                         # Incrementing count
-                        Counter.incr()
+                        Default.incr_counter(name)
 
                     # Add to group
                     if vm_id is not None:
@@ -354,7 +354,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["default"]:
             try:
-                count = Counter.get()
+                count = Default.get_counter()
                 prefix = Username()
 
                 if prefix is None or count is None:
@@ -368,7 +368,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     data[attribute] = Default.get(attribute, category=cloud)
 
                 # Retrieving key separately as its in general category.
-                data["key"] = Default.get_key()
+                data["key"] = Default.key
 
                 output_format = arguments["--format"] or "table"
                 print(Printer.attribute(data, output=output_format))
@@ -658,7 +658,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 Console.error("Default cloud not set.")
                 return ""
 
-            key = arguments["--key"] or Default.get_key()
+            key = arguments["--key"] or Default.key
             if not key:
                 Console.error("Default key not set.")
                 return ""
@@ -797,7 +797,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                     is_name_provided = False
 
-                    count = Counter.get()
+                    count = Default.get_counter()
                     prefix = Username()
 
                     if prefix is None or count is None:
@@ -815,7 +815,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 if is_name_provided is False:
                     # Incrementing count
-                    Counter.incr()
+                    Default.incr_counter()
 
                 msg = "info. OK."
                 Console.ok(msg)
