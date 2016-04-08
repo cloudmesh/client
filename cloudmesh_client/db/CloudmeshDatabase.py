@@ -135,7 +135,7 @@ class CloudmeshDatabase(object):
     @classmethod
     def clean(cls):
         for table in cls.tables:
-            cls.delete(kind=table.__kind__)
+            cls.delete(kind=table.__kind__, provider=table.__provider__)
 
 
     @classmethod
