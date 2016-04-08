@@ -405,9 +405,9 @@ class CloudmeshDatabase(object):
                     current.__dict__[key] = element.__dict__[key]
                     current.__dict__['user'] = element.__dict__["user"]
             else:
-                cls.session.add_from_path(element)
+                cls.session.add(element)
         else:
-            cls.session.add_from_path(element)
+            cls.session.add(element)
         cls.save()
 
     @classmethod

@@ -1,7 +1,6 @@
 from __future__ import print_function
 
 from cloudmesh_client.common import Printer
-# from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 import cloudmesh_client
 from cloudmesh_client.common.ConfigDict import ConfigDict
 

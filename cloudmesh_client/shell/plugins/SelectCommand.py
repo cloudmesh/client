@@ -2,7 +2,6 @@ from __future__ import print_function
 
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command
-from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 from cloudmesh_client.common.menu import menu_return_num
 from cloudmesh_client.default import Default
 from cloudmesh_client.cloud.image import Image
