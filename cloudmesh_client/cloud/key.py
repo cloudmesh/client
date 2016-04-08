@@ -61,7 +61,7 @@ class Key(ListResource):
                 uri=sshkey["uri"])
 
     @classmethod
-    def get_from_git(cls, username):
+    def get_from_git(cls, username, store=True):
         """
 
         :param username: the github username
@@ -71,6 +71,7 @@ class Key(ListResource):
         uri = 'https://github.com/{:}.keys'.format(username)
         content = requests.get(uri).text.strip("\n").split("\n")
 
+        d = []
         print (len(content))
         for key in range(0, len(content)):
             value = content[key]
@@ -93,16 +94,19 @@ class Key(ListResource):
 
             if thekey["comment"] is None:
                 thekey["comment"] = name
-            try:
+            d.append(thekey)
+            if store:
+                try:
 
-                cls.cm.add(thekey)
-            except:
-                Console.error("Key already in db", traceflag=False)
-
+                    cls.cm.add(thekey)
+                except:
+                    Console.error("Key already in db", traceflag=False)
+        if not store:
+            return d
                 # noinspection PyProtectedMember,PyUnreachableCode,PyUnusedLocal
 
     @classmethod
-    def get_from_yaml(cls, filename=None, load_order=None):
+    def get_from_yaml(cls, filename=None, load_order=None, store=True):
         """
         :param filename: name of the yaml file
         :return: a SSHKeyManager (dict of keys)
@@ -124,12 +128,18 @@ class Key(ListResource):
 
         uri = Config.path_expand(os.path.join("~", ".cloudmesh", filename))
 
+
+        print ("IIIII", keylist)
+        d = []
         for key in list(keylist.keys()):
             keyname = key
             value = keylist[key]
             if os.path.isfile(Config.path_expand(value)):
                 path = Config.path_expand(value)
-                Key.add_from_path(path, keyname)
+                if store:
+                    Key.add_from_path(path, keyname)
+                else:
+                    d.append(Key.add_from_path(path, keyname, store=False))
             else:
 
                 keytype, string, comment = SSHkey._parse(value)
@@ -147,11 +157,15 @@ class Key(ListResource):
 
                 if thekey["comment"] is None:
                     thekey["comment"] = keyname
-                try:
-                    cls.cm.add(thekey)
-                except:
-                    Console.error("Key already in db", traceflag=False)
-
+                if store:
+                    try:
+                        cls.cm.add(thekey)
+                    except:
+                        Console.error("Key already in db", traceflag=False)
+                else:
+                    d.append(thekey)
+        if not store:
+            return d
 
 
 
@@ -321,7 +335,8 @@ class Key(ListResource):
                       keyname=None,
                       user=None,
                       source=None,
-                      uri=None):
+                      uri=None,
+                      store=True):
         """
         Adds the key to the database based on the path
 
@@ -333,8 +348,11 @@ class Key(ListResource):
 
         sshkey = SSHkey(Config.path_expand(path))
 
-        cls._add_from_sshkey(sshkey.__key__,
+        if store:
+            cls._add_from_sshkey(sshkey.__key__,
                              keyname,
                              user,
                              source=source,
                              uri=uri)
+        else:
+            return sshkey.__key__
