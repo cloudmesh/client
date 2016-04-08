@@ -45,7 +45,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
              key add [NAME] [--ssh]
              key get NAME
              key default --select
-             key delete (NAME | --select | --all) [--force] [--active]
+             key delete (NAME | --select | --all)
              key delete NAME --cloud=CLOUD
              key upload [NAME] [--cloud=CLOUD]
              key upload [NAME] --active
@@ -169,7 +169,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     #
                     # get key list from openstack cloud
                     #
-                    keys = Key.list(cloud, format=_format)
+                    keys = Key.list(cloud, output=_format)
                     if keys is None:
                         Console.ok("The Key list is empty")
                     else:
@@ -426,49 +426,26 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments['delete']:
 
-            # key delete (NAME | --select| --all) [--force] [--active]
+            # key delete (NAME | --select| --all)
 
             data = dotdict({
-                "on_cloud": arguments["--force"] or False,
                 'all': arguments['--all'] or False,
-                'active': arguments['--active'] or False,
+                'select': arguments['--select'] or False,
                 'name': arguments['NAME'] or False,
-                'clouds': arguments["--cloud"] or Default.cloud
             })
+
 
             pprint(data)
 
-            if data.active or data.all:
-                config = ConfigDict("cloudmesh.yaml")
-                data.clouds = config["cloudmesh"]["active"]
-            else:
-                data.clouds = [data.clouds]
-            remove = []
-
-            if 
-            for cloud in data.clouds:
-                if data.all:
-
-                    keys = Key.list(cloud, format="dict", live=True)
-
-                    for id in keys:
-                        key = keys[id]
-                        name = key["keypair__name"]
-                        remove.append((name, cloud))
-
-            for name, cloud in remove:
-                try:
-                    Key.delete(name, cloud)
-                    Console.ok("Remove key {} from cloud {}.".format(name, cloud))
-                except Exception as e:
-                    Error.traceback(e)
-                    Console.error("Remove key {} from cloud {}.".format(name, cloud), traceflag=False)
-
-            try:
+            if data.all:
                 Key.delete(data.name)
-            except:
-                pass
-            #### delete in db.
+            elif data.select:
+                key = Key.select()
+                print (key)
+
+            else: # name
+                Key.delete(data.name)
+
 
             msg = "info. OK."
             Console.ok(msg)

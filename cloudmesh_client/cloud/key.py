@@ -229,14 +229,37 @@ class Key(ListResource):
         cls.cm.add(thekey)
 
     @classmethod
-    def list(cls, category=None, live=False, format="table"):
+    def add_key_to_cloud(cls, user, keyname, cloud):
+        """
 
-        (order, header) = CloudProvider(cloud).get_attributes("key")
+        :param user:
+        :param keyname:
+        :param cloud:
+        :param name_on_cloud:
+        """
 
-        return Printer.write(keys,
+        key = cls.cm.find(kind="key", name=keyname, scope="first")
+        if key is None:
+            Console.error("Key with the name {:} not found in database.".format(keyname))
+            return
+
+        try:
+            if cloud is not None:
+                print("Adding key {:} to cloud {:}".format(keyname, cloud))
+                cloud_provider = CloudProvider(cloud).provider
+                cloud_provider.add_key_to_cloud(keyname, key["value"])
+        except:
+            Console.error("problem uploading key {} to cloud {}".format(keyname, cloud))
+
+    @classmethod
+    def list(cls, category=None, live=False, output="table"):
+        "this does not work only returns all ceys in the db"
+        (order, header) = CloudProvider(category).get_attributes("key")
+        d = cls.cm.find(kind="key", scope="all", output=output)
+        return Printer.write(d,
                              order=order,
                              header=header,
-                             output=format)
+                             output=output)
 
     @classmethod
     def list_on_cloud(cls, cloud, live=False, format="table"):
