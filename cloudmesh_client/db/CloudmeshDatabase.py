@@ -400,6 +400,10 @@ class CloudmeshDatabase(object):
                 output='object',
                 name=element.name
             )
+
+
+            print ("CURRENT", current)
+
             if current is not None:
                 for key in element.__dict__.keys():
                     current.__dict__[key] = element.__dict__[key]
