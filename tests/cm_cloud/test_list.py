@@ -50,34 +50,36 @@ class Test_list:
         HEADING("testing cm list --cloud cloud default")
 
         result = self.run('cm default {key}={value}')
-        result = self.run("cm default list --cloud={cloud}")
+        result = self.run("cm default list")
         assert self.data.key in result
 
-        result = self.run("cm list --cloud={cloud} default")
+        result = self.run("cm list default")
         assert self.data.value in result
 
         # delete the default name
-        result = self.run("cm default delete {key} --cloud={cloud}")
+        result = self.run("cm default delete {key}")
 
         assert "ok." in result
 
         return
 
     def test_002(self):
-        HEADING("testing cm list --cloud cloud --format json default")
+        HEADING("testing cm list --format json default")
 
-        result = self.run("cm default --cloud={cloud} {key}={value}")
+        result = self.run("cm default {key}={value}")
         assert "ok." in result
 
-        result = self.run("cm list --cloud={cloud} --format={format} default")
+        result = self.run("cm list --format={format} default")
         assert self.data.value in result
 
         # delete the default name
-        result = self.run("cm default delete {key} --cloud={cloud}")
+        result = self.run("cm default delete {key}")
         assert "ok." in result
 
         return
 
+    # This test stands invalid as defaults are independent of the cloud and user.
+    """
     def test_003(self):
         HEADING("testing cm list")
         banner("cm list --cloud={wrong_cloud} --user={user} default")
@@ -86,3 +88,13 @@ class Test_list:
         assert "No" in result
 
         return
+    """
+    def test_003(self):
+        HEADING("testing cm list")
+        banner("cm list --cloud={wrong_cloud} --user={user} vm")
+
+        result = self.run("cm list --cloud={wrong_cloud} --user={user} vm")
+        assert "No" in result
+
+        return
+
