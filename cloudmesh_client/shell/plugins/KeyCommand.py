@@ -178,11 +178,11 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
                 try:
                     #sshm = SSHKeyManager()
-                    Key.get_from_dir(directory)
+                    d = Key.get_from_dir(directory, store=False)
 
-                    print("SSS", type(Key.__keys__))
-                    d = dict(Key.all())
-                    print(d)
+                    #print("SSS", type(Key.__keys__))
+                    #d = dict(Key.all())
+                    #print(d)
                     print(Printer.write(d,
                                         order=["name",
                                                "comment",
@@ -439,7 +439,8 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
             if data.active or data.all:
                 config = ConfigDict("cloudmesh.yaml")
                 data.clouds = config["cloudmesh"]["active"]
-
+            else:
+                data.clouds = [data.clouds]
             remove = []
             for cloud in data.clouds:
                 if data.all:
