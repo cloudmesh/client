@@ -369,21 +369,19 @@ class CloudmeshDatabase(object):
 
         if type(d) in [dict, dotdict] :
 
-            o = dotdict(d)
-
             print ("HALLO")
-            if "provider" in o:
-                t = cls.table(kind=o["kind"], provider=o["provider"])
-                provider = o["provider"]
+            if "provider" in d:
+                t = cls.table(kind=d["kind"], provider=d["provider"])
+                provider = d["provider"]
             else:
-                t = cls.table(kind=o["kind"])
+                t = cls.table(kind=d["kind"])
 
                 provider = t.__provider__
-            o["provider"] = provider
+            d["provider"] = provider
 
             print ("TABLE", t)
-            print ("OBJ", o)
-            element = t(**o)
+            print ("OBJ", d)
+            element = t(**d)
 
             print ("KKKKK", element)
 

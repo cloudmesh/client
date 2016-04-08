@@ -17,7 +17,8 @@ import yaml
 from cloudmesh_client.cloud.key import Key
 
 from cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI import CloudProviderOpenstackAPI
-from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client import CloudmeshDatabase
+from cloudmesh_client import ConfigDict
 from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.common.SSHkey import SSHkey
 from cloudmesh_client.common.Shell import Shell
@@ -29,6 +30,9 @@ from cloudmesh_client.default import Default
 
 # noinspection PyMethodMayBeStatic,PyMethodMayBeStatic,PyPep8Naming
 class Test_keys:
+
+    cm = CloudmeshDatabase()
+
     # noinspection PyTypeChecker
     data = dotdict({
         "cloud": Default.cloud,
@@ -55,8 +59,8 @@ class Test_keys:
 
     def clean_db(self):
         """create new db"""
-        command = "make db"
-        result = self.run(command)
+        print ("clean db")
+        self.cm.clean()
         result = self.run("cm default cloud={cloud}")
         result = self.run("cm default cloud")
         assert self.data.cloud in result
@@ -73,10 +77,10 @@ class Test_keys:
     def test_002(self):
         HEADING("reading the keys from github")
 
-        # from cloudmesh_client.common import cloudmesh_yaml
-        # config = ConfigDict(filename=cloudmesh_yaml")
-        # git_username = config['cloudmesh']['github']['username']
-        git_username = 'laszewsk'
+        self.cm.clean()
+
+        config = ConfigDict("cloudmesh.yaml")
+        git_username = config['cloudmesh']['github']['username']
 
         banner("git hub")
         Key.get_from_git(git_username)
@@ -85,7 +89,8 @@ class Test_keys:
         count1 = len(mykeys)
 
         banner("all")
-        Key.get_all(git_username)
+        key= Key.get(git_username, output="dict")
+        print (key)
 
         mykeys = Key.all(output="dict")
         count2 = len(mykeys)
@@ -93,7 +98,11 @@ class Test_keys:
         print(mykeys)
 
         Key.delete(name='github-0')
-        print(mykeys.table)
+
+
+        mykeys = Key.all(output="table")
+
+        print(mykeys)
 
         assert count1 > 0 and count2 > 0
 
@@ -112,24 +121,23 @@ class Test_keys:
     def test_004(self):
         HEADING()
 
-        Key.delete_all()
+        Key.delete()
         Key.add_from_path("~/.ssh/id_rsa.pub")
 
-        d = Key.dict()
+        d = Key.all(output="dict")
         print(d)
 
         print(Printer.write(d, output="table"))
         assert 'id_rsa.pub' in str(d)
 
-        d = Key.find('rsa')
+        d = Key.find(name='rsa')
         print('find function: ', d)
 
-        Key.delete('rsa')
+        Key.delete(name='rsa')
 
-        d = Key.find_all(output='dict')
+        d = Key.all(output="dict")
 
-        print("table", d)
-        assert len(d) == 0
+        assert d is None
 
     def test_005(self):
         HEADING()
@@ -158,7 +166,7 @@ class Test_keys:
         result = self.run("cm key add --git ")
         result = self.run("cm key list")
 
-        username = "{username}_github".format(**self.data)
+        username = "{username}_git".format(**self.data)
 
         assert username in result
 

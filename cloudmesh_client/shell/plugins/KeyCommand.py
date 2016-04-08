@@ -238,7 +238,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 print ("RUTYUTRYT")
                 try:
                     #sshdb = SSHKeyDBManager()
-                    d = Key.table_dict()
+                    d = Key.all(output='dict')
                     print ("HHHHH", d)
                     if d is not None or d != []:
                         print(_print_dict(d, format=arguments['--format']))
@@ -313,11 +313,9 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 Console.error("Problem adding keys to git for user: {username}".format(**data))
                 return ""
 
-            for name in d:
-                key = d[name]
-                if key['key'] is not None:
-                    key["keyname"] = data.name + "_" + name
-                    key["keyname"] = key["keyname"].replace("-", "_")
+            for key in d:
+                if key is not None:
+                    key["name"] = key["name"].replace("-", "_")
                     key["source"] = "git"
                     key["user"] = data.name
                     try:
@@ -325,7 +323,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                         o['value'] = key["string"]
                         Key.add_from_dict(key)
                     except Exception as e:
-                        Console.error("The key {keyname} with that finger print already exists".format(**key),
+                        Console.error("The key {name} with that finger print already exists".format(**key),
                                       traceflag=False)
 
         elif arguments['add'] and not arguments["--git"]:

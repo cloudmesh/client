@@ -17,6 +17,10 @@ from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.default import Default
 from cloudmesh_client.common.menu import menu_return_num
 from cloudmesh_client.common.SSHkey import SSHkey
+import os
+from os.path import expanduser
+import requests
+
 
 # noinspection PyPep8Naming
 class Key(ListResource):
@@ -26,6 +30,184 @@ class Key(ListResource):
     def info(cls, **kwargs):
         raise NotImplementedError()
 
+    @classmethod
+    def get_from_dir(cls, directory=None):
+        directory = directory or Config.path_expand("~/.ssh")
+        files = [file for file in os.listdir(expanduser(Config.path_expand(directory)))
+                 if file.lower().endswith(".pub")]
+        for file in files:
+            location = Config.path_expand("{:}/{:}".format(directory, file))
+
+            sshkey = SSHkey(location).get()
+
+            i = sshkey["comment"]
+            if i is not None:
+                i = i.replace("@", "_")
+                i = i.replace("-", "_")
+                i = i.replace(" ", "_")
+                i = i.replace(".", "_")
+            else:
+                # use base name
+                i = file.replace(".pub", "")
+            sshkey["kind"] = "key"
+            sshkey["source"] = 'file'
+
+            print("UUUU", sshkey)
+
+            cls._add_from_sshkey(
+                dict(sshkey),
+                keyname=sshkey["name"],
+                source=sshkey["source"],
+                uri=sshkey["uri"])
+
+    @classmethod
+    def get_from_git(cls, username):
+        """
+
+        :param username: the github username
+        :return: an array of public keys
+        :rtype: list
+        """
+        uri = 'https://github.com/{:}.keys'.format(username)
+        content = requests.get(uri).text.strip("\n").split("\n")
+
+        print (len(content))
+        for key in range(0, len(content)):
+            value = content[key]
+            thekey = {}
+
+            name = "{}_git_{}".format(username, key)
+
+            thekey = {
+                'uri': uri,
+                'string': value,
+                'fingerprint': SSHkey._fingerprint(value),
+                'name': name,
+                'comment': name,
+                'cm_id': name,
+                'source': 'git',
+                'kind': 'key'
+            }
+
+            thekey["type"], thekey["key"], thekey["comment"] = SSHkey._parse(value)
+
+            if thekey["comment"] is None:
+                thekey["comment"] = name
+            try:
+
+                cls.cm.add(thekey)
+            except:
+                Console.error("Key already in db", traceflag=False)
+
+                # noinspection PyProtectedMember,PyUnreachableCode,PyUnusedLocal
+
+    @classmethod
+    def get_from_yaml(cls, filename=None, load_order=None):
+        """
+        :param filename: name of the yaml file
+        :return: a SSHKeyManager (dict of keys)
+        """
+        config = None
+        if filename is None:
+            # default = Config.path_expand(os.path.join("~", ".cloudmesh", "cloudmesh.yaml"))
+            # config = ConfigDict("cloudmesh.yaml")
+            filename = "cloudmesh.yaml"
+            config = ConfigDict(filename)
+        elif load_order:
+            config = ConfigDict(filename, load_order)
+        else:
+            Console.error("Wrong arguments")
+            return
+        config_keys = config["cloudmesh"]["keys"]
+        default = config_keys["default"]
+        keylist = config_keys["keylist"]
+
+        uri = Config.path_expand(os.path.join("~", ".cloudmesh", filename))
+
+        for key in list(keylist.keys()):
+            keyname = key
+            value = keylist[key]
+            if os.path.isfile(Config.path_expand(value)):
+                path = Config.path_expand(value)
+                Key.add_from_path(path, keyname)
+            else:
+
+                keytype, string, comment = SSHkey._parse(value)
+                thekey = {
+                    'uri': 'yaml://{}'.format(uri),
+                    'string': value,
+                    'fingerprint': SSHkey._fingerprint(value),
+                    'name': keyname,
+                    'comment': comment,
+                    'source': 'git',
+                    'kind': 'key'
+                }
+
+                thekey["type"], thekey["key"], thekey["comment"] = SSHkey._parse(value)
+
+                if thekey["comment"] is None:
+                    thekey["comment"] = keyname
+                try:
+                    cls.cm.add(thekey)
+                except:
+                    Console.error("Key already in db", traceflag=False)
+
+
+
+
+        """
+        take a look into original cloudmesh code, its possible to either specify a key or a filename
+        the original one is able to figure this out and do the rightthing. We may want to add this
+        logic to the SSHkey class, so we can initialize either via filename or key string.
+        It would than figure out the right thing
+
+        cloudmesh:
+          keys:
+            idrsa: ~/.ssh/id_rsa.pub
+
+        cloudmesh:
+        ...
+          keys:
+            default: name of the key
+            keylist:
+              keyname: ~/.ssh/id_rsa.pub
+              keyname: ssh rsa hajfhjldahlfjhdlsak ..... comment
+              github-x: github
+        """
+
+
+    @classmethod
+    def _add_from_sshkey(cls,
+                         sshkey,
+                         keyname=None,
+                         user=None,
+                         source=None,
+                         uri=None):
+
+        user = user or cls.cm.user
+
+        if keyname is None:
+            try:
+                keyname = sshkey['name']
+            except:
+                pass
+        if keyname is None:
+            print("ERROR: keyname is None")
+
+        pprint(sshkey)
+
+        thekey = {
+            "kind": "key",
+            "name": keyname,
+            "uri": sshkey['uri'],
+            "source": sshkey['source'],
+            "fingerprint": sshkey['fingerprint'],
+            "comment": sshkey['comment'],
+            "value": sshkey['string'],
+            "category": "general",
+            "user": user}
+
+        cls.cm.add(thekey)
 
     @classmethod
     def list(cls, category=None, live=False, format="table"):
@@ -36,8 +218,6 @@ class Key(ListResource):
                              order=order,
                              header=header,
                              output=format)
-
-
 
     @classmethod
     def list_on_cloud(cls, cloud, live=False, format="table"):
@@ -70,13 +250,22 @@ class Key(ListResource):
         raise NotImplementedError()
 
     @classmethod
-    def delete(cls, name, cloud=None):
+    def delete(cls, name=None, cloud=None):
         if cloud is not None:
             result = CloudProvider(cloud).provider.delete_key_from_cloud(name)
+        if name is None:
+            cls.cm.delete(kind="key", provider="general")
+        else:
+            cls.cm.delete(name=name, kind="key", provider="general")
 
     @classmethod
     def all(cls, output="dict"):
-        return cls.cm.get(kind="key")
+        return cls.cm.find(kind="key", scope="all", output=output)
+
+
+    @classmethod
+    def find(cls, name=None, output="dict"):
+        return cls.get(name=name, output=output)
 
     @classmethod
     def get(cls, name=None, output="dict"):
@@ -93,7 +282,7 @@ class Key(ListResource):
 
     @classmethod
     def set_default(cls, name):
-       Default.set_key(name)
+        Default.set_key(name)
 
     # deprecated use Default.key
     @classmethod
@@ -103,7 +292,6 @@ class Key(ListResource):
     @classmethod
     def delete_from_cloud(cls, name, cloud=None):
         pass
-
 
     @classmethod
     def _delete_from_db(cls, name=None):
@@ -128,12 +316,12 @@ class Key(ListResource):
     # ADD
     #
     @classmethod
-    def _add_from_path(cls,
-                       path,
-                       keyname=None,
-                       user=None,
-                       source=None,
-                       uri=None):
+    def add_from_path(cls,
+                      path,
+                      keyname=None,
+                      user=None,
+                      source=None,
+                      uri=None):
         """
         Adds the key to the database based on the path
 
@@ -150,39 +338,3 @@ class Key(ListResource):
                              user,
                              source=source,
                              uri=uri)
-
-    @classmethod
-    def _add_from_sshkey(cls,
-                         sshkey,
-                         keyname=None,
-                         user=None,
-                         source=None,
-                         uri=None):
-
-
-        user = user or cls.cm.user
-
-        if keyname is None:
-            try:
-                keyname = sshkey['name']
-            except:
-                pass
-        if keyname is None:
-            print("ERROR: keyname is None")
-
-        print("YYYYY", sshkey)
-
-        thekey = {
-            "name": keyname,
-            "uri": sshkey['uri'],
-            "source": sshkey['source'],
-            "fingerprint": sshkey['fingerprint'],
-            "comment": sshkey['comment'],
-            "value": sshkey['string'],
-            "category": "general",
-            "user": user}
-
-        key_obj = cls.cm.add(key)
-
-        # pprint(key_obj.__dict__)
-        cls._add(key_obj)

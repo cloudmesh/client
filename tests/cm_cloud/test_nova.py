@@ -46,7 +46,7 @@ class Test_nova:
         pass
 
     def test_000(self):
-        HEADING("set the defaoult group")
+        HEADING("set the default group")
         result = self.run("cm default group={group}")
         # assert "{cloud} is set".format(**self.data) in result
 
