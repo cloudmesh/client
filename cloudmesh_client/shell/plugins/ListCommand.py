@@ -3,7 +3,11 @@ from __future__ import print_function
 from cloudmesh_client.cloud.list import List
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
+
 from cloudmesh_client.default import Default
+from cloudmesh_client.cloud.image import Image
+from cloudmesh_client.cloud.flavor import Flavor
+from cloudmesh_client.cloud.vm import Vm
 
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
@@ -46,6 +50,7 @@ class ListCommand(PluginCommand, CloudPluginCommand):
                 $ list --cloud india --format table flavor
                 $ list --cloud india --user albert --tenant fg82 flavor
         """
+
         # pprint(arguments)
 
         # Method to get the kind from args
@@ -104,69 +109,20 @@ class ListCommand(PluginCommand, CloudPluginCommand):
         # reimplement this here
         # possibly introduce List.py
 
+        result = None
         if kind == 'FLAVOR':
-            order = [
-                'cm_cloud',
-                'disk',
-                'ephemeral_disk',
-                'id',
-                'name',
-                'ram',
-                'vcpus'
-            ]
+            result = Flavor.list(cloud, format=output_format)
         elif kind == 'DEFAULT':
-            order = ['user',
-                     'cloud',
-                     'name',
-                     'value',
-                     'created_at',
-                     'updated_at'
-                     ]
+            result = Default.list(order=order, output=output_format)
         elif kind == 'IMAGE':
-            order = [
-                'cm_cloud',
-                'cm_user',
-                'instance_type_ephemeral_gb',
-                'instance_type_flavorid',
-                'instance_type_id',
-                'instance_type_memory_mb',
-                'instance_type_name',
-                'instance_type_root_gb',
-                'instance_type_rxtx_factor',
-                'instance_type_swap',
-                'instance_type_vcpus',
-                'minDisk',
-                'minRam',
-                'name',
-            ]
-            header = [
-                'cloud',
-                'user',
-                'ephemeral_gb',
-                'flavorid',
-                'id',
-                'memory_mb',
-                'flavor',
-                'root_gb',
-                'rxtx_factor',
-                'swap',
-                'vcpus',
-                'minDisk',
-                'minRam',
-                'name',
-            ]
+            result = Image.list(cloud, format=output_format)
+        elif kind == 'VM':
+            result = Vm.list(cloud=cloud, output_format=output_format)
 
-        # Get the result & print it
-        result = List.list(kind,
-                           cloud,
-                           user,
-                           tenant,
-                           order,
-                           header,
-                           output_format)
         if result:
             print(result)
         else:
             Console.error("No {}s found in the database."
                           .format(kind.lower()))
+
         return ""
