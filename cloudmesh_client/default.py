@@ -128,6 +128,7 @@ class Default(object):
             cls.cm.delete(name=name, provider=cls.__provider__, kind=cls.__kind__)
         else:
             cls.cm.delete(name=name, provider=cls.__provider__, kind=cls.__kind__, category=category)
+        return ""
 
     @classmethod
     def clear(cls):
