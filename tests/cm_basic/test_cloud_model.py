@@ -196,10 +196,9 @@ class Test_cloud_model(object):
             name = "vm_" + str(index).zfill(3)
             banner(name)
             print("ADD", name)
-            vm = VM_LIBCLOUD(name=name,
-                             uuid="uuid_" + str(index),
-                             user="test",
-                             category=self.data.cloud)
+            d['name'] = name
+            d['uuid'] = "uuid_" + str(index)
+            vm = VM_LIBCLOUD(**d)
             print("VM", vm.__dict__)
             self.cm.add(vm)
         self.cm.save()
