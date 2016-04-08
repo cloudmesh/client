@@ -145,11 +145,11 @@ class Test_cloud_model(object):
 
         banner("Get VM from Database", c='-')
 
-        # o = self.cm.find(VM_OPENSTACK, name=name)
-        # o = self.cm.find_by_name(VM, name)
-        # pprint(o)
+        vms = self.cm.find(kind="vm", name=name, output='dict')
+        pprint(vms)
+        assert len(vms) == 1
+        assert vms[0]["name"] == name
 
-        assert True
 
     def test_002(self):
         HEADING("VM DB test")
