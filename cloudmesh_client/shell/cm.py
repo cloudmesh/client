@@ -1,27 +1,23 @@
 from __future__ import print_function
 
-import datetime
 import cmd
-import sys
-import string
-import textwrap
+import datetime
 import os
-import shutil
-import re
+import string
+import sys
+import textwrap
 
-import cloudmesh_client
-
-from cloudmesh_client.util import path_expand
-from cloudmesh_client.common.Shell import Shell
-from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.Error import Error
+from cloudmesh_client.common.Shell import Shell
+from cloudmesh_client.common.util import path_expand
+from cloudmesh_client.shell.console import Console
 from cloudmesh_client.var import Var
 
 # noinspection PyPep8
 from cloudmesh_client.default import Default
-from cloudmesh_client.util import get_python
-from cloudmesh_client.util import check_python
+from cloudmesh_client.common.util import get_python
+from cloudmesh_client.common.util import check_python
 import cloudmesh_client
 from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.shell.command import command

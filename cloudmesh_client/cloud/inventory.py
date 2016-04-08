@@ -1,15 +1,17 @@
 from __future__ import print_function
-from cloudmesh_client.common.ConfigDict import ConfigDict
 
-from cloudmesh_client.common.Shell import Shell
-from cloudmesh_client.util import banner
-from cloudmesh_client.common.Printer import Printer
-from cloudmesh_client.shell.console import Console
-import yaml
-import hostlist
-import sys
 import os.path
+import sys
+
+import hostlist
+import yaml
+
 from cloudmesh_client.cloud.ListResource import ListResource
+from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.common.Printer import Printer
+from cloudmesh_client.common.Shell import Shell
+from cloudmesh_client.common.util import banner
+from cloudmesh_client.shell.console import Console
 
 
 class Inventory(ListResource):

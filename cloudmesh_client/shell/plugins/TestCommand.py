@@ -1,21 +1,10 @@
 from __future__ import print_function
 
-from cloudmesh_client.shell.console import Console
-from cloudmesh_client.default import Default
-from cloudmesh_client.common.Printer import Printer
-from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
-from cloudmesh_client.shell.command import command, PluginCommand, CloudPluginCommand
-from cloudmesh_client.common.ConfigDict import ConfigDict
-from pprint import pprint
-from cloudmesh_client.common.dotdict import dotdict
 import os
-import fnmatch
-from cloudmesh_client.util import banner
-from cloudmesh_client.util import HEADING
 
-from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.dotdict import dotdict
-from cloudmesh_client.default import Default
+from cloudmesh_client.common.util import banner
+from cloudmesh_client.shell.command import command, PluginCommand, CloudPluginCommand
 
 
 class TestCommand(PluginCommand, CloudPluginCommand):

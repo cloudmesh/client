@@ -8,7 +8,7 @@ nosetests -v
 
 """
 
-from cloudmesh_client.util import HEADING
+from cloudmesh_client.common.util import HEADING
 
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming

@@ -1,22 +1,20 @@
 from __future__ import print_function
 
+import getpass
+import json
 import os
 import os.path
-import json
-import getpass
-
-from cloudmesh_client.util import yn_choice
-from cloudmesh_client.shell.console import Console
-from cloudmesh_client.shell.command import command
-from cloudmesh_client.common.ConfigDict import Config, ConfigDict
-from cloudmesh_client.cloud.register import CloudRegister, Register
-from cloudmesh_client.common.Printer import Printer
-from cloudmesh_client.util import path_expand
-from cloudmesh_client.common.Error import Error
-
-from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
-
 from builtins import input
+
+from cloudmesh_client.cloud.register import CloudRegister, Register
+from cloudmesh_client.common.ConfigDict import Config, ConfigDict
+from cloudmesh_client.common.Error import Error
+from cloudmesh_client.common.Printer import Printer
+from cloudmesh_client.common.util import path_expand
+from cloudmesh_client.common.util import yn_choice
+from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
+from cloudmesh_client.shell.command import command
+from cloudmesh_client.shell.console import Console
 
 
 # noinspection PyBroadException

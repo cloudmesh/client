@@ -10,12 +10,12 @@ nosetests -v tests/cm_basic/test_default.py
 
 """
 from __future__ import print_function
-from cloudmesh_client.common.Shell import Shell
-from cloudmesh_client.util import HEADING
 
-from cloudmesh_client.default import Default
-from cloudmesh_client.util import banner
+from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.dotdict import dotdict
+from cloudmesh_client.common.util import HEADING
+from cloudmesh_client.common.util import banner
+from cloudmesh_client.default import Default
 
 
 # noinspection PyMethodMayBeStatic,PyMethodMayBeStatic,PyPep8Naming

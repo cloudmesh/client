@@ -1,23 +1,21 @@
-from .db.CloudmeshDatabase import *
-from .db.general.model import *
-from .db.openstack.model import *
-from .db.libcloud.model import *
-from .var import Var
-from .default import Default
-from .common.Printer import Printer
+import os
+import shutil
 
 import cloudmesh_client.version
 from cloudmesh_client.cloud.register import CloudRegister
 from cloudmesh_client.common.ConfigDict import ConfigDict, Config
-from cloudmesh_client.common.todo import TODO
-from cloudmesh_client.util import path_expand
 from cloudmesh_client.common.Shell import Shell
-from cloudmesh_client.shell.console import Console
-
-import os
-import shutil
-
+from cloudmesh_client.common.todo import TODO
+from cloudmesh_client.common.util import path_expand
 from cloudmesh_client.db import CloudmeshDatabase
+from cloudmesh_client.shell.console import Console
+from .common.Printer import Printer
+from .db.CloudmeshDatabase import *
+from .db.general.model import *
+from .db.libcloud.model import *
+from .db.openstack.model import *
+from .default import Default
+from .var import Var
 
 __version__ = cloudmesh_client.version.__version__
 

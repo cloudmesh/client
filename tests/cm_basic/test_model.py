@@ -13,9 +13,9 @@ from __future__ import print_function
 
 from pprint import pprint
 
-from cloudmesh_client.util import HEADING
 from cloudmesh_client import CloudmeshDatabase
 from cloudmesh_client.common.Printer import Printer
+from cloudmesh_client.common.util import HEADING
 
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming

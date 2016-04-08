@@ -10,9 +10,10 @@ nosetests -v tests/cm_basic/test_flatdict.py
 
 """
 
-from cloudmesh_client.util import HEADING
 from pprint import pprint
+
 from cloudmesh_client.common.FlatDict import FlatDict, flatten
+from cloudmesh_client.common.util import HEADING
 
 
 # noinspection PyPep8Naming

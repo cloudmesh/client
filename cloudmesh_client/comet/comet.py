@@ -1,24 +1,26 @@
 from __future__ import print_function
-import os
-import sys
-import signal
-import json
-import time
-from pprint import pprint
-import webbrowser
+
 import getpass
-import random
-import string
 import hashlib
+import json
+import os
+import random
+import signal
+import string
+import sys
+import time
+import webbrowser
 from builtins import input
+from pprint import pprint
 
 import requests
-from requests.auth import HTTPBasicAuth
 from httpsig.requests_auth import HTTPSignatureAuth
-from cloudmesh_client.shell.console import Console
-from cloudmesh_client.common.Shell import Shell
+from requests.auth import HTTPBasicAuth
+
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_client.util import banner
+from cloudmesh_client.common.Shell import Shell
+from cloudmesh_client.common.util import banner
+from cloudmesh_client.shell.console import Console
 
 requests.packages.urllib3.disable_warnings()
 

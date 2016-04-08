@@ -6,8 +6,6 @@ import yaml
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import Config
-from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
-from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.default import Default
@@ -180,11 +178,11 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
             elif arguments['--source'] == 'ssh':
 
                 try:
-                    sshm = SSHKeyManager()
-                    sshm.get_from_dir(directory)
+                    #sshm = SSHKeyManager()
+                    Key.get_from_dir(directory)
 
-                    print("SSS", type(sshm.__keys__))
-                    d = dict(sshm.__keys__)
+                    print("SSS", type(Key.__keys__))
+                    d = dict(Key.all())
                     print(d)
                     print(Printer.write(d,
                                         order=["name",
@@ -206,8 +204,8 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
             elif arguments['--source'] in ['cm', 'cloudmesh', 'yaml']:
 
                 try:
-                    sshm = SSHKeyManager()
-                    m = sshm.get_from_yaml(load_order=directory)
+                    #sshm = SSHKeyManager()
+                    m = Key.get_from_yaml(load_order=directory)
                     d = dict(m.__keys__)
                     print(_print_dict(d, format=_format))
                     msg = "info. OK."
@@ -224,10 +222,10 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     conf = ConfigDict("cloudmesh.yaml")
                     username = conf["cloudmesh.github.username"]
 
-                sshm = SSHKeyManager()
+                #sshm = SSHKeyManager()
                 try:
-                    sshm.get_from_git(username)
-                    d = dict(sshm.__keys__)
+                    Key.get_from_git(username)
+                    d = dict(Key.all())
                     print(_print_dict(d, format=_format))
                     msg = "info. OK."
                     Console.ok(msg)
@@ -239,8 +237,8 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
             elif arguments['--source'] == 'db':
                 print ("RUTYUTRYT")
                 try:
-                    sshdb = SSHKeyDBManager()
-                    d = sshdb.table_dict()
+                    #sshdb = SSHKeyDBManager()
+                    d = Key.table_dict()
                     print ("HHHHH", d)
                     if d is not None or d != []:
                         print(_print_dict(d, format=arguments['--format']))
@@ -258,8 +256,8 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
             try:
                 name = arguments['NAME']
-                sshdb = SSHKeyDBManager()
-                d = sshdb.table_dict()
+                #sshdb = SSHKeyDBManager()
+                d = Key.table_dict()
 
                 for key in d:
                     if key["name"] == name:
@@ -283,7 +281,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
             # return ""
 
             print('git add')
-            sshdb = SSHKeyDBManager()
+            #sshdb = SSHKeyDBManager()
 
             data = dotdict(arguments)
 
@@ -307,9 +305,9 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
             try:
                 Console.msg("Retrieving github ssh keys for user {username}".format(**data))
-                sshm = SSHKeyManager()
-                sshm.get_from_git(data.username)
-                d = dict(sshm.__keys__)
+                #sshm = SSHKeyManager()
+                Key.get_from_git(data.username)
+                d = Key.all()
                 # pprint(d)
             except Exception as e:
                 Console.error("Problem adding keys to git for user: {username}".format(**data))
@@ -325,7 +323,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     try:
                         o = dict(key)
                         o['value'] = key["string"]
-                        sshdb.add_from_dict(key)
+                        Key.add_from_dict(key)
                     except Exception as e:
                         Console.error("The key {keyname} with that finger print already exists".format(**key),
                                       traceflag=False)
@@ -335,7 +333,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
             #     key add [NAME] [--source=FILENAME]
             #     key add [NAME] [--git]
 
-            sshdb = SSHKeyDBManager()
+            #sshdb = SSHKeyDBManager()
 
             data = dotdict()
 
@@ -362,10 +360,10 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 return ""
 
             try:
-                sshdb.add(data.filename,
-                          data.name,
-                          source="ssh",
-                          uri="file://" + data.filename)
+                Key.add_from_path(data.filename,
+                                    data.name,
+                                    source="ssh",
+                                    uri="file://" + data.filename)
                 print("Key {name} successfully added to the database".format(**data))
                 msg = "info. OK."
                 Console.ok(msg)
@@ -383,12 +381,12 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
             if arguments['--select']:
                 keyname = None
                 try:
-                    sshdb = SSHKeyDBManager()
-                    select = sshdb.select()
+                    #sshdb = SSHKeyDBManager()
+                    select = Key.select()
                     if select != 'q':
                         keyname = select.split(':')[0]
                         print("Setting key: {:} as default.".format(keyname))
-                        sshdb.set_default(keyname)
+                        Default.key = keyname
                         msg = "info. OK."
                         Console.ok(msg)
                 except Exception as e:
@@ -397,8 +395,8 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
             else:
                 try:
-                    sshdb = SSHKeyDBManager()
-                    d = sshdb.table_dict()
+                    #sshdb = SSHKeyDBManager()
+                    d = Key.table_dict()
 
                     for i in d:
                         if d[i]["is_default"] == "True":
@@ -507,16 +505,16 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
                 for cloud in clouds:
                     status = 0
-                    sshdb = SSHKeyDBManager()
-                    sshm = SSHKeyManager()
-                    keys = sshdb.find_all()
+                    #sshdb = SSHKeyDBManager()
+                    #sshm = SSHKeyManager()
+                    keys = Key.all()
                     for key in keys:
 
                         print("upload key {} -> {}".format(key["name"],
                                                            cloud))
 
                         try:
-                            status = sshm.add_key_to_cloud(
+                            status = Key.add_key_to_cloud(
                                 username,
                                 key["name"],
                                 cloud,

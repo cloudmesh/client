@@ -14,20 +14,18 @@ from __future__ import print_function
 from pprint import pprint
 
 import yaml
+from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
+from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
 
 from cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI import CloudProviderOpenstackAPI
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.Printer import Printer
+from cloudmesh_client.common.SSHkey import SSHkey
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.dotdict import dotdict
-
+from cloudmesh_client.common.util import HEADING
+from cloudmesh_client.common.util import banner
 from cloudmesh_client.default import Default
-from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
-from cloudmesh_client.keys.SSHkey import SSHkey
-from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
-
-from cloudmesh_client.util import HEADING
-from cloudmesh_client.util import banner
 
 
 # noinspection PyMethodMayBeStatic,PyMethodMayBeStatic,PyPep8Naming
@@ -118,7 +116,7 @@ class Test_keys:
         HEADING()
         sshdb = SSHKeyDBManager()
         sshdb.delete_all()
-        sshdb.add("~/.ssh/id_rsa.pub")
+        sshdb.add_from_path("~/.ssh/id_rsa.pub")
 
         d = sshdb.dict()
         print(d)
@@ -320,7 +318,7 @@ class Test_keys:
 
         cloud = CloudProviderOpenstackAPI(cloudname, cloud_details)
 
-        
+
         d = cloud.list_key(cloudname)
         pprint(d)
 

@@ -1,8 +1,10 @@
 from __future__ import print_function
+
 from pprint import pprint
 
 import requests
-from cloudmesh_client.util import banner
+
+from cloudmesh_client.common.util import banner
 
 r = requests.get('https://api.github.com/repos/cloudmesh/client/issues')
 
