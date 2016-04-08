@@ -161,7 +161,6 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
             if "--source" not in arguments and "--cloud" not in arguments:
                 arguments["--source"] = 'db'
 
-            pprint (arguments)
 
             if arguments['--cloud']:
 
@@ -205,11 +204,11 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
                 try:
                     #sshm = SSHKeyManager()
-                    m = Key.get_from_yaml(load_order=directory)
-                    d = dict(m.__keys__)
+                    d = Key.get_from_yaml(load_order=directory, store=False)
+
                     print(_print_dict(d, format=_format))
                     msg = "info. OK."
-                    Console.ok(msg)
+                    Console.info(msg)
                 except Exception as e:
                     Error.traceback(e)
                     Console.error("Problem listing keys from `{:}`".format(arguments['--source']))
@@ -224,8 +223,9 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
                 #sshm = SSHKeyManager()
                 try:
-                    Key.get_from_git(username)
-                    d = dict(Key.all())
+
+                    d = Key.get_from_git(username, store=False)
+
                     print(_print_dict(d, format=_format))
                     msg = "info. OK."
                     Console.ok(msg)
@@ -235,11 +235,10 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     return ""
 
             elif arguments['--source'] == 'db':
-                print ("RUTYUTRYT")
+
                 try:
                     #sshdb = SSHKeyDBManager()
                     d = Key.all(output='dict')
-                    print ("HHHHH", d)
                     if d is not None or d != []:
                         print(_print_dict(d, format=arguments['--format']))
                         msg = "info. OK."
@@ -257,7 +256,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
             try:
                 name = arguments['NAME']
                 #sshdb = SSHKeyDBManager()
-                d = Key.table_dict()
+                d = Key.all(output="dict")
 
                 for key in d:
                     if key["name"] == name:
@@ -466,7 +465,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments['upload']:
 
-            pprint(arguments)
+            # pprint(arguments)
 
             try:
                 #

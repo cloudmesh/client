@@ -65,8 +65,16 @@ class Test_keys:
         result = self.run("cm default cloud")
         assert self.data.cloud in result
 
+
+    def test_000(self):
+        HEADING("clen")
+        Key.clean()
+
+
     def test_001(self):
         HEADING("reading the keys from ~/.ssh")
+
+
 
         banner("ssh keys")
         Key.get_from_dir("~/.ssh")
@@ -215,6 +223,11 @@ class Test_keys:
 
         HEADING()
         result = self.run("cm key list --source=db --format=yaml")
+
+        print("--------")
+        print(result)
+        print("--------")
+
         d = yaml.load(result.split("\n\n")[0])
 
         assert "OK." in result
@@ -228,7 +241,7 @@ class Test_keys:
         HEADING()
         result = self.run("cm key list --source=git")
         print(result)
-        assert "github-" in result
+        assert "_git_" in result
         assert "OK." in result
 
     def test_110(self):
