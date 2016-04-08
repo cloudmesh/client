@@ -31,7 +31,7 @@ class Key(ListResource):
         raise NotImplementedError()
 
     @classmethod
-    def get_from_dir(cls, directory=None, store=False):
+    def get_from_dir(cls, directory=None, store=True):
         directory = directory or Config.path_expand("~/.ssh")
         files = [file for file in os.listdir(expanduser(Config.path_expand(directory)))
                  if file.lower().endswith(".pub")]
