@@ -68,7 +68,7 @@ class Test_keys:
 
     def test_000(self):
         HEADING("clen")
-        Key.clean()
+        self.cm.clean()
 
 
     def test_001(self):
