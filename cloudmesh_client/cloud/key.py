@@ -31,10 +31,11 @@ class Key(ListResource):
         raise NotImplementedError()
 
     @classmethod
-    def get_from_dir(cls, directory=None):
+    def get_from_dir(cls, directory=None, store=False):
         directory = directory or Config.path_expand("~/.ssh")
         files = [file for file in os.listdir(expanduser(Config.path_expand(directory)))
                  if file.lower().endswith(".pub")]
+        d = []
         for file in files:
             location = Config.path_expand("{:}/{:}".format(directory, file))
 
@@ -52,13 +53,17 @@ class Key(ListResource):
             sshkey["kind"] = "key"
             sshkey["source"] = 'file'
 
-            print("UUUU", sshkey)
-
-            cls._add_from_sshkey(
-                dict(sshkey),
-                keyname=sshkey["name"],
-                source=sshkey["source"],
-                uri=sshkey["uri"])
+            # print("UUUU", sshkey)
+            if store:
+                cls._add_from_sshkey(
+                    dict(sshkey),
+                    keyname=sshkey["name"],
+                    source=sshkey["source"],
+                    uri=sshkey["uri"])
+            else:
+                d.append(dict(sshkey))
+        if not store:
+            return d
 
     @classmethod
     def get_from_git(cls, username, store=True):
