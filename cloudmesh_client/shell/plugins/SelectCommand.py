@@ -8,7 +8,7 @@ from cloudmesh_client.cloud.image import Image
 from cloudmesh_client.cloud.flavor import Flavor
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
-
+from cloudmesh_client.cloud.key import Key
 
 # noinspection PyBroadException,PyBroadException
 class SelectCommand(PluginCommand, CloudPluginCommand):
@@ -120,9 +120,9 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["key"]:
             try:
-                db = SSHKeyDBManager()
+                #db = SSHKeyDBManager()
 
-                key_dict = db.table_dict()
+                key_dict = Key.all(output='dict')
 
                 key_names = list()
                 for key in key_dict.values():
