@@ -937,12 +937,14 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             },
             'key': {
                 'order': [
+                    'category',
                     'keypair__name',
                     "type",
                     "comment",
                     "keypair__fingerprint"
                 ],
                 'header': [
+                    "Category",
                     "Name",
                     "Type",
                     "Comment",

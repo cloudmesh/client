@@ -15,7 +15,7 @@ import os.path
 import platform
 import subprocess
 import zipfile
-
+from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.util import path_expand
 
 
@@ -337,11 +337,16 @@ class Shell(object):
         else:
             print("ERROR: Wrong parameter type", type(arguments))
 
-        result = subprocess.check_output(
-            os_command,
-            stderr=subprocess.STDOUT).rstrip()
-
-        return result.decode()
+        print ("OOO", os_command)
+        try:
+            result = subprocess.check_output(
+                os_command,
+                shell=True,
+                stderr=subprocess.STDOUT)
+        except:
+            Console.error("problem executing subprocess")
+        print ("RRRR", result)
+        return result.strip().decode()
 
     @classmethod
     def mkdir(cls, newdir):

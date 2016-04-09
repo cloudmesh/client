@@ -268,9 +268,9 @@ class Key(ListResource):
         :param cloud: the cloud name
         """
         try:
-            print("FKHJGCFKYTRCK")
             keys = CloudProvider(cloud).provider.list_key(cloud)
-            print("KKKKK", keys)
+            for key in keys:
+                keys[key]["category"] = cloud
             if keys is None or keys is []:
                 return None
 
