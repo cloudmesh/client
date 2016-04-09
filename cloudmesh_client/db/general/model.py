@@ -134,15 +134,11 @@ class SECGROUP(CloudmeshMixin, CloudmeshDatabase.Base):
 
     uuid = Column(String)
 
-    def __init__(self,
-                 name=None,
-                 uuid=None,
-                 user=None,
-                 project=None):
-        super(SECGROUP, self).set_defaults(name=name, user=user)
+    def __init__(self, **kwargs):
+        super(SECGROUP, self).set_defaults(**kwargs)
 
-        self.uuid = uuid
-        self.project = project
+        self.uuid = kwargs.get("uuid")
+        self.project = kwargs.get("project")
 
 
 class SECGROUPRULE(CloudmeshMixin, CloudmeshDatabase.Base):
@@ -159,24 +155,15 @@ class SECGROUPRULE(CloudmeshMixin, CloudmeshDatabase.Base):
     uuid = Column(String)
 
     # noinspection PyPep8Naming
-    def __init__(self,
-                 uuid=None,
-                 name=None,
-                 groupid=None,
-                 user=None,
-                 project=None,
-                 fromPort=None,
-                 toPort=None,
-                 protocol=None,
-                 cidr=None):
-        super(SECGROUPRULE, self).set_defaults(name=name, user=user)
-        self.uuid = uuid
-        self.groupid = groupid
-        self.project = project
-        self.fromPort = fromPort
-        self.toPort = toPort
-        self.protocol = protocol
-        self.cidr = cidr
+    def __init__(self, **kwargs):
+        super(SECGROUPRULE, self).set_defaults(**kwargs)
+        self.uuid = kwargs.get("uuid")
+        self.groupid = kwargs.get("groupid")
+        self.project = kwargs.get("project")
+        self.fromPort = kwargs.get("fromPort")
+        self.toPort = kwargs.get("toPort")
+        self.protocol = kwargs.get("protocol")
+        self.cidr = kwargs.get("cidr")
 
 
 class BATCHJOB(CloudmeshMixin, CloudmeshDatabase.Base):
