@@ -47,6 +47,6 @@ class Test_usage:
         pass
 
     def test_001(self):
-        HEADING("test list")
+        HEADING("cm usage list --cloud={cloud}".format(**self.data))
         result = self.run("cm usage list --cloud={cloud}")
         assert "start" in result
