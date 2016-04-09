@@ -169,7 +169,9 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     #
                     # get key list from openstack cloud
                     #
-                    keys = Key.list(cloud, output=_format)
+                    #keys = Key.list(cloud, output=_format)
+
+                    keys = Key.list_on_cloud(cloud, live=True, format=_format)
                     if keys is None:
                         Console.ok("The Key list is empty")
                     else:
