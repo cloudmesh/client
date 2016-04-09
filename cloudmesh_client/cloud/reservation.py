@@ -102,8 +102,9 @@ class Reservation(ListResource):
 
         # TODO: Improve this logic
         result = cls.cm.find(kind="reservation", provider="general", output="dict", scope='all', **args)
-        for res in result:
-            cls.cm.delete(kind="reservation", provider="general", name=res["name"])
+        if result is not None:
+            for res in result:
+                cls.cm.delete(kind="reservation", provider="general", name=res["name"])
 
     @classmethod
     def delete_from_file(cls, filename):
