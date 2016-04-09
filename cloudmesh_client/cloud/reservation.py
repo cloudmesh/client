@@ -101,10 +101,9 @@ class Reservation(ListResource):
             args['hosts'] = hosts
 
         # TODO: Improve this logic
-        result = cls.cm.find(kind="reservation", output="object", scope='first', **args)
-        while result is not None:
-            cls.cm.delete(result)
-            result = cls.cm.find(kind="reservation", output="object", scope='first', **args)
+        result = cls.cm.find(kind="reservation", provider="general", output="dict", scope='all', **args)
+        for res in result:
+            cls.cm.delete(kind="reservation", provider="general", name=res["name"])
 
     @classmethod
     def delete_from_file(cls, filename):
