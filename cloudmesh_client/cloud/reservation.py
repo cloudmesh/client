@@ -53,6 +53,7 @@ class Reservation(ListResource):
         """
 
         o = {
+            "provider": "general",
             "kind": "reservation",
             "name": name,
             "hosts": hosts,
@@ -183,23 +184,23 @@ class Reservation(ListResource):
                description=None,
                cloud=None):
 
-        args = {}
+        entry = {
+            'start_time': start,
+            'end_time': end,
+            'name': name,
+            'user': user,
+            'project': project,
+            'hosts': hosts,
+            'description': description,
+            'cloud': cloud,
+            "kind": "reservation",
+            "provider": "general"
+        }
 
-        if name is not None:
-            args['name'] = name
-        if start is not None:
-            args['start_time'] = start
-        if end is not None:
-            args['end_time'] = end
-        if user is not None:
-            args['user'] = user
-        if project is not None:
-            args['project'] = project
-        if hosts is not None:
-            args['hosts'] = hosts
-        if description is not None:
-            args['description'] = description
-        if cloud is not None:
-            args['cloud'] = cloud
-        args["kind"] = "reservation"
-        cls.cm.update(**args)
+        update = dict(entry)
+        for key in entry:
+            if entry[key] is None:
+                del update[key]
+
+        print ("ARGS", update)
+        cls.cm.add(entry)
