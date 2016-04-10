@@ -337,15 +337,13 @@ class Shell(object):
         else:
             print("ERROR: Wrong parameter type", type(arguments))
 
-        print ("OOO", os_command)
         try:
             result = subprocess.check_output(
                 os_command,
-                shell=True,
+                # shell=True,
                 stderr=subprocess.STDOUT)
         except:
             Console.error("problem executing subprocess")
-        print ("RRRR", result)
         return result.strip().decode()
 
     @classmethod

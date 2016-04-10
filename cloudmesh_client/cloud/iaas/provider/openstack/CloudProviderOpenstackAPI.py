@@ -740,7 +740,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'os_flv_ext_data',
                     'disk',
                     'category',
-                    'uuid',
                     'updated_at'
                 ],
                 'header': [
@@ -756,7 +755,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'os_flv_ext_data',
                     'Disk',
                     'Cloud',
-                    'UUID',
                     'updated'
                 ]
             },
@@ -768,12 +766,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'metadata__description',
                     'minDisk',
                     'minRam',
-                    'progress',
                     'status',
-                    'updated',
-                    'uuid',
                     'category',
-                    'updated_at'
                 ],
                 'header': [
                     'id',
@@ -782,12 +776,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'description',
                     'minDisk',
                     'minRam',
-                    'progress',
                     'status',
-                    'updated',
-                    'uuid',
                     'cloud',
-                    'updated_at'
                 ]
             },
             'vm': {

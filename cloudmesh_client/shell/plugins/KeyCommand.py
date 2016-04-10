@@ -230,7 +230,14 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
                     d = Key.get_from_git(username, store=False)
 
-                    print(_print_dict(d, format=_format))
+                    print(Printer.write(d,
+                                        order=["name",
+                                               "comment",
+                                               "uri",
+                                               "fingerprint",
+                                               "source"],
+                                        output=_format))
+
                     msg = "info. OK."
                     Console.ok(msg)
                 except Exception as e:
