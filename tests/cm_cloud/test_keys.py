@@ -307,7 +307,7 @@ class Test_keys:
 
         result = self.run("cm key list")
 
-        assert "No keys" in result
+        assert "None" in str(result)
         assert "testkey" not in result
 
     def test_116(self):
