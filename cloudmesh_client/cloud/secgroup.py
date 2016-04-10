@@ -1,7 +1,6 @@
 from __future__ import print_function
 
 import requests
-from pprint import pprint
 
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.Printer import Printer
@@ -16,6 +15,8 @@ requests.packages.urllib3.disable_warnings()
 class SecGroup(ListResource):
     cm = CloudmeshDatabase()
 
+    """
+    NOT USED
     @classmethod
     def convert_list_to_dict(cls, os_result):
         d = {}
@@ -25,6 +26,7 @@ class SecGroup(ListResource):
             d[i]["Name"] = obj.name
             d[i]["Description"] = obj.description
         return d
+    """
 
     # noinspection PyPep8
     @classmethod
@@ -73,7 +75,6 @@ class SecGroup(ListResource):
         & returns the uuid of the created group
         :param label:
         :param cloud:
-        :param tenant:
         :return:
         """
         # Create the security group in given cloud
@@ -101,6 +102,7 @@ class SecGroup(ListResource):
         """
         try:
             elements = cls.cm.find(kind="secgroup",
+                                   scope="all",
                                    category=cloud)
             # pprint(elements)
             (order, header) = CloudProvider(cloud).get_attributes("secgroup")
@@ -164,7 +166,7 @@ class SecGroup(ListResource):
         :param cloud:
         :return:
         """
-        global cm
+
         try:
             args = {
                 "name": name,
@@ -174,21 +176,28 @@ class SecGroup(ListResource):
                 "output": "object",
             }
             secgroup = cls.cm.find(**args)
-            return secgroup
+
+            if secgroup is None:
+                return None
+            else:
+                return secgroup[0]
 
         except Exception as ex:
             Console.error(ex.message, ex)
+            return None
 
     @classmethod
     def add_rule(cls, cloud, secgroup, from_port, to_port, protocol, cidr):
         try:
-            global cm
+
             # Get the nova client object
             cloud_provider = CloudProvider(cloud).provider
 
+            print("SECGROUP", secgroup)
+
             # Create add secgroup rules to the cloud
             args = {
-                'uuid': secgroup["uuid"],
+                'uuid': secgroup.uuid,
                 'protocol': protocol,
                 'from_port': from_port,
                 'to_port': to_port,
@@ -200,10 +209,10 @@ class SecGroup(ListResource):
             ruleObj = {"kind": "secgrouprule",
                        "uuid": str(rule_id),
                        "name": secgroup.name,
-                       "groupid": secgroup["uuid"],
-                       "category": secgroup["category"],
-                       "user": secgroup["user"],
-                       "project": secgroup["project"],
+                       "groupid": secgroup.uuid,
+                       "category": secgroup.category,
+                       "user": secgroup.user,
+                       "project": secgroup.project,
                        "fromPort": from_port,
                        "toPort": to_port,
                        "protocol": protocol,
@@ -236,7 +245,7 @@ class SecGroup(ListResource):
             args = {
                 "groupid": uuid
             }
-            global cm
+
             rule = cls.cm.find(kind="secgrouprule", **args)
 
             # check if rules exist
@@ -279,10 +288,11 @@ class SecGroup(ListResource):
                 "protocol": protocol,
                 "cidr": cidr
             }
-            global cm
 
-            rule = cls.cm.find(kind="secgrouprule", output="object",
-                               **args).first()
+            rule = cls.cm.find(kind="secgrouprule",
+                               output="object",
+                               scope="first",
+                               ** args)
 
             if rule is not None:
                 # get the nova client for cloud
@@ -304,7 +314,7 @@ class SecGroup(ListResource):
     @classmethod
     def delete_all_rules(cls, secgroup):
         try:
-            global cm
+
             args = {
                 "groupid": secgroup["uuid"]
             }

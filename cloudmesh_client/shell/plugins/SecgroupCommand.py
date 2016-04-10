@@ -80,7 +80,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                 return
 
             result = SecGroup.list(cloud=cloud)
-            if result:
+            if result is not None:
                 print(result)
             else:
                 Console.error(
@@ -93,8 +93,8 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
             label = arguments["LABEL"]
 
             # If default not set, terminate
-            if not cloud:
-                Console.error("Default cloud not set!")
+            if cloud is not None:
+                Console.error("Default cloud not set.")
                 return
 
             # Create returns uuid of created sec-group
@@ -207,6 +207,9 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
             sec_group = SecGroup.get(label, cloud)
             if sec_group:
                 # Add rules to the security group
+
+                print ("DDDDDD", sec_group)
+
                 SecGroup.add_rule(cloud=cloud,
                                   secgroup=sec_group,
                                   from_port=from_port,
