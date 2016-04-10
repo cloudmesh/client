@@ -100,8 +100,7 @@ class SecGroup(ListResource):
         :return:
         """
         try:
-            global cm
-            elements = cls.cm.find("secgroup",
+            elements = cls.cm.find(kind="secgroup",
                                    category=cloud)
             # pprint(elements)
             (order, header) = CloudProvider(cloud).get_attributes("secgroup")
@@ -170,10 +169,11 @@ class SecGroup(ListResource):
             args = {
                 "name": name,
                 "category": cloud,
+                'scope': 'fisrt',
+                'kind': "secgroup",
+                "output": "object",
             }
-            secgroup = cls.cm.find("secgroup",
-                                   output="object",
-                                   **args).first()
+            secgroup = cls.cm.find(**args)
             return secgroup
 
         except Exception as ex:
@@ -237,7 +237,7 @@ class SecGroup(ListResource):
                 "groupid": uuid
             }
             global cm
-            rule = cls.cm.find("secgrouprule", **args)
+            rule = cls.cm.find(kind="secgrouprule", **args)
 
             # check if rules exist
             if rule is None:
@@ -281,7 +281,7 @@ class SecGroup(ListResource):
             }
             global cm
 
-            rule = cls.cm.find("secgrouprule", output="object",
+            rule = cls.cm.find(kind="secgrouprule", output="object",
                                **args).first()
 
             if rule is not None:
@@ -308,7 +308,7 @@ class SecGroup(ListResource):
             args = {
                 "groupid": secgroup.uuid
             }
-            rules = cls.cm.find("secgrouprule", output="object", **args)
+            rules = cls.cm.find(kind="secgrouprule", output="object", **args)
 
             if rules is not None:
                 for rule in rules:
