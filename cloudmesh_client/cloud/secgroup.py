@@ -33,16 +33,18 @@ class SecGroup(ListResource):
     def convert_rules_to_dict(cls, os_result):
         d = {}
         for i, obj in enumerate(os_result):
-            d[i] = {}
-            d[i]["IP Protocol"] = obj["ip_protocol"]
-            d[i]["From Port"] = obj["from_port"]
-            d[i]["To Port"] = obj["to_port"]
+
             if obj["ip_range"]["cidr"]:
                 ip_range = obj["ip_range"]["cidr"]
             else:
                 ip_range = "0.0.0.0/0"
-            d[i]["IP Range"] = ip_range
 
+            d[i] = {
+                "IP Protocol": obj["ip_protocol"],
+                "From Port": obj["from_port"],
+                "To Port": obj["to_port"],
+                "IP Range": ip_range
+            }
         return d
 
     @classmethod
@@ -55,18 +57,31 @@ class SecGroup(ListResource):
 
         return cls.cm.refresh('secgroup', cloud)
 
-    # noinspection PyPep8Naming
     @classmethod
-    def remove_subjectAltName_warning(cls, content):
-        result = []
-        for line in content.split("\n"):
-            if "Certificate has no `subjectAltName`" in line:
-                pass
-            elif "SecurityWarning" in line:
-                pass
-            else:
-                result.append(line)
-        return "\n".join(result)
+    def add_rule_to_db(cls, name=None, from_port=None, to_port=None, protocol=None, cidr=None):
+        old_rule = {
+            "category": "general",
+            "kind": "secgrouprule",
+            "name": name
+        }
+
+        cls.cm.delete(**old_rule)
+
+        try:
+            rule = {
+                "category": "general",
+                "kind": "secgrouprule",
+                "name": name,
+                'protocol': protocol,
+                'fromPort': from_port,
+                'toPort': to_port,
+                'cidr': cidr
+            }
+            cls.cm.add(rule)
+        except Exception as ex:
+            Console.error("Problem adding rule")
+
+
 
     @classmethod
     def create(cls, label, cloud=None):
@@ -114,11 +129,11 @@ class SecGroup(ListResource):
             #
             # (order, header) = CloudProvider(cloud).get_attributes("secgroup")
 
-            order= None
-            header=None
+            order = None
+            header = None
 
-            print ("FFF", output)
-            print (cloud)
+            print("FFF", output)
+            print(cloud)
             print(elements)
 
             return Printer.write(elements,
@@ -128,7 +143,6 @@ class SecGroup(ListResource):
 
         except Exception as ex:
             Console.error(ex.message, ex)
-
 
     @classmethod
     def list_rules(cls, uuid=None, output='table'):
@@ -144,14 +158,14 @@ class SecGroup(ListResource):
                 rules = cls.cm.find(kind="secgrouprule")
             else:
                 args = {
-                    "groupid": uuid
+                    "group": uuid
                 }
 
                 rules = cls.cm.find(kind="secgrouprule", **args)
 
             # check if rules exist
             if rules is None:
-                return "No rules for security group [{}] in the database. Try cm secgroup refresh."
+                return "No rules for security group={} in the database. Try cm secgroup refresh.".format(uuid)
 
             # return table
             return (Printer.write(rules,
@@ -212,7 +226,7 @@ class SecGroup(ListResource):
         return ret
 
     @classmethod
-    def get(cls, name, cloud="general"):
+    def get(cls, name=None, cloud="general"):
         """
         This method queries the database to fetch secgroup
         with given name filtered by cloud.
@@ -228,7 +242,7 @@ class SecGroup(ListResource):
                 'kind': "secgroup",
                 "output": "object",
             }
-            if cloud is not None:
+            if cloud is not None and cloud is not 'general':
                 args["category"] = cloud
 
             secgroup = cls.cm.find(**args)
@@ -243,7 +257,7 @@ class SecGroup(ListResource):
             return None
 
     @classmethod
-    def add_rule(cls, cloud, secgroup, from_port, to_port, protocol, cidr):
+    def add_rule(cls, secgroup, from_port, to_port, protocol, cidr):
         try:
 
             # Get the nova client object
@@ -265,7 +279,7 @@ class SecGroup(ListResource):
             ruleObj = {"kind": "secgrouprule",
                        "uuid": str(rule_id),
                        "name": secgroup.name,
-                       "groupid": secgroup.uuid,
+                       "group": secgroup.uuid,
                        "category": secgroup.category,
                        "user": secgroup.user,
                        "project": secgroup.project,
@@ -288,7 +302,6 @@ class SecGroup(ListResource):
                 Console.error(ex.message, ex)
         return
 
-
     @classmethod
     def delete_secgroup(cls, label, cloud):
         try:
@@ -303,7 +316,7 @@ class SecGroup(ListResource):
     def delete_rule(cls, cloud, secgroup, from_port, to_port, protocol, cidr):
         try:
             args = {
-                "groupid": secgroup["uuid"],
+                "group": secgroup["uuid"],
                 "fromPort": from_port,
                 "toPort": to_port,
                 "protocol": protocol,
@@ -313,7 +326,7 @@ class SecGroup(ListResource):
             rule = cls.cm.find(kind="secgrouprule",
                                output="object",
                                scope="first",
-                               ** args)
+                               **args)
 
             if rule is not None:
                 # get the nova client for cloud
@@ -337,7 +350,7 @@ class SecGroup(ListResource):
         try:
 
             args = {
-                "groupid": secgroup["uuid"]
+                "group": secgroup["uuid"]
             }
             rules = cls.cm.find(kind="secgrouprule", output="object", **args)
 
@@ -353,32 +366,6 @@ class SecGroup(ListResource):
             Console.error(ex.message, ex)
 
         return
-
-    @classmethod
-    def toDict(cls, item):
-        """
-        Method converts the item to a dict
-        :param item:
-        :return:
-        """
-        # Convert to dict & print table
-        d = {}
-        # If list, iterate to form dict
-        if isinstance(item, list):
-            for element in item:
-                d[element.id] = {}
-                for key in element.__dict__.keys():
-                    if not key.startswith("_sa"):
-                        d[element.id][key] = str(element.__dict__[key])
-        # Form dict without iterating
-        else:
-            d[item.id] = {}
-            for key in item.__dict__.keys():
-                if not key.startswith("_sa"):
-                    d[item.id][key] = str(item.__dict__[key])
-
-        # return the dict
-        return d
 
 
 if __name__ == '__main__':

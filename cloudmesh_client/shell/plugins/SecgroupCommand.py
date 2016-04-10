@@ -7,6 +7,7 @@ from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 from cloudmesh_client.common.dotdict import dotdict
 from pprint import pprint
 
+
 class SecgroupCommand(PluginCommand, CloudPluginCommand):
     topics = {"secgroup": "security"}
 
@@ -24,10 +25,10 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
             Usage:
                 secgroup list [--cloud=CLOUD] [--format=FORMAT]
                 secgroup list --db [LABEL] [--format=FORMAT]
+                secgroup add LABEL FROMPORT TOPORT PROTOCOL CIDR
                 secgroup create [--cloud=CLOUD] LABEL
                 secgroup delete [--cloud=CLOUD] LABEL
                 secgroup rules-list [--cloud=CLOUD] LABEL
-                secgroup rules-add [--cloud=CLOUD] LABEL FROMPORT TOPORT PROTOCOL CIDR
                 secgroup rules-delete [--cloud=CLOUD] [--all] LABEL [FROMPORT] [TOPORT] [PROTOCOL] [CIDR]
                 secgroup refresh [--cloud=CLOUD]
                 secgroup -h | --help
@@ -69,7 +70,6 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
         arg.FORMAT = arguments["--format"] or 'table'
 
         pprint(arg)
-
 
         # if refresh ON, pull data from cloud to db
         if arg.refresh or Default.refresh:
@@ -115,6 +115,17 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                 Console.error("Problem listing securitygroup cloud={cloud}".format(**data))
             return ""
 
+        elif arguments["add"]:
+
+            try:
+                SecGroup.add_rule_to_db(
+                    name=arg.LABEL,
+                    from_port=arg.FROMPORT,
+                    to_port=arg.TOPORT,
+                    protocol=arg.PROTOCOL,
+                    cidr=arg.CIDR)
+            except:
+                Console.error("Problem adding security group to db")
 
         # Create a security-group
         elif arguments["create"]:
@@ -202,7 +213,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
             if sec_group:
                 # Add rules to the security group
 
-                print ("DDDDDD", sec_group)
+                print("DDDDDD", sec_group)
 
                 SecGroup.add_rule(cloud=arg.cloud,
                                   secgroup=sec_group,

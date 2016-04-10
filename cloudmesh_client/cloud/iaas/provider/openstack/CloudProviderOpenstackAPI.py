@@ -877,6 +877,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             'secgroup': {
                 'order': [
                     'cm_id',
+                    'group',
                     'name',
                     'category',
                     'user',
@@ -885,11 +886,12 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 ],
                 'header': [
                     'id',
-                    'secgroup_name',
-                    'category',
-                    'user',
-                    'tenant_id',
-                    'secgroup_uuid'
+                    'Group'
+                    'Name',
+                    'Category',
+                    'User',
+                    'Tenant',
+                    'Uuid'
                 ]
             },
             'default': {
