@@ -147,7 +147,7 @@ class SECGROUPRULE(CloudmeshMixin, CloudmeshDatabase.Base):
     __kind__ = 'secgrouprule'
     __provider__ = 'general'
 
-    groupid = Column(String)
+    group = Column(String)    # What is this is this name?
     fromPort = Column(String)
     toPort = Column(String)
     protocol = Column(String)
@@ -158,7 +158,7 @@ class SECGROUPRULE(CloudmeshMixin, CloudmeshDatabase.Base):
     def __init__(self, **kwargs):
         super(SECGROUPRULE, self).set_defaults(**kwargs)
         self.uuid = kwargs.get("uuid")
-        self.groupid = kwargs.get("groupid")
+        self.group = kwargs.get("group")  # What is this is this name?
         self.project = kwargs.get("project")
         self.fromPort = kwargs.get("fromPort")
         self.toPort = kwargs.get("toPort")

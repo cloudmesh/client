@@ -680,7 +680,7 @@ class CloudmeshDatabase(object):
                             rule_db_obj = {"kind": "secgrouprule",
                                            "uuid": rule['id'],
                                            "name": secgroup['name'],
-                                           "groupid": rule['parent_group_id'],
+                                           "group": rule['parent_group_id'],
                                            "category": name,
                                            "user": user,
                                            "project": secgroup['tenant_id'],
