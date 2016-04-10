@@ -23,23 +23,21 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
         ::
 
             Usage:
-                secgroup list [--cloud=CLOUD] [--format=FORMAT]
-                secgroup list --db [LABEL] [--format=FORMAT]
-                secgroup add LABEL FROMPORT TOPORT PROTOCOL CIDR
-                secgroup create [--cloud=CLOUD] LABEL
-                secgroup delete [--cloud=CLOUD] LABEL
-                secgroup rules-list [--cloud=CLOUD] LABEL
-                secgroup rules-delete [--cloud=CLOUD] [--all] LABEL [FROMPORT] [TOPORT] [PROTOCOL] [CIDR]
-                secgroup refresh [--cloud=CLOUD]
-                secgroup -h | --help
-                secgroup --version
+                secgroup list
+                secgroup list --cloud=CLOUD... [--format=FORMAT]
+                secgroup list GROUP [RULE] [--format=FORMAT]
+                secgroup add GROUP RULE FROMPORT TOPORT PROTOCOL CIDR
+                secgroup delete GROUP
+                secgroup delete GROUP RULE
+                secgroup upload [GROUP] [--cloud=CLOUD...]
 
             Options:
-                -h                  help message
-                --cloud=CLOUD       Name of the IaaS cloud e.g. india_openstack_grizzly.
+                --cloud=CLOUD       Name of the IaaS cloud e.g. kilo, chameleoon. The clouds are defined in the yaml
+                                    file. If the name "all" is used for the cloud all clouds will be selected.
 
             Arguments:
-                LABEL         The label/name of the security group
+                RULE          The security group rule name
+                GROUP         The label/name of the security group
                 FROMPORT      Staring port of the rule, e.g. 22
                 TOPORT        Ending port of the rule, e.g. 22
                 PROTOCOL      Protocol applied, e.g. TCP,UDP,ICMP
@@ -60,6 +58,32 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                 secgroup rules-delete --cloud=kilo webservice 8080 8088 TCP 129.79.0.0/16
                 secgroup rules-delete --all
 
+            Description:
+
+                Security groups are first assembled in a local database. Once they are defined they can be added to the
+                clouds.
+
+                secgroup list
+                    lists all security groups and rules in the database
+
+                secgroup list --cloud=CLOUD... [--format=FORMAT]
+                    lists the security groups and rules on the specified clouds.
+
+                secgroup list GROUP [RULE] [--format=FORMAT]
+                    lists a given security group. If in addition the RULE is specified it only lists the RULE
+
+                secgroup add GROUP RULE FROMPORT TOPORT PROTOCOL CIDR
+                    adds a security rule with the given group and teh details of the security ruls
+
+                secgroup delete GROUP
+                    deletes all security rules related to the specified group
+
+                secgroup delete GROUP RULE
+                    deletes just the given rule from the group
+
+                secgroup upload [GROUP] [--cloud=CLOUD...]
+                    uploads a given group to the given cloud. if the cloud is not specified the default cloud is used.
+                    If the parameter for cloud is "all" the rules and groups will be uploaded to all active clouds.
 
         """
 
@@ -120,6 +144,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
             try:
                 SecGroup.add_rule_to_db(
                     name=arg.LABEL,
+                    group=arg.GROUP,
                     from_port=arg.FROMPORT,
                     to_port=arg.TOPORT,
                     protocol=arg.PROTOCOL,
