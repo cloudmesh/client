@@ -67,7 +67,10 @@ class Test_limits:
         result = self.run("cm limits list --cloud={wrong_cloud}")
         assert "ERROR" in str(result)
 
-    def test_004(self):
-        HEADING("test limits class with unauthorised access")
-        result = self.run("cm limits list --tenant={tenant}")
-        assert "Not authorized" in str(result)
+#   --tenant=
+#   not allowed on chameleon cloud, so we outcomment.
+#
+#    def test_004(self):
+#        HEADING("test limits class with unauthorised access")
+#        result = self.run("cm limits list --tenant={tenant}")
+#        assert "Not authorized" in str(result)
