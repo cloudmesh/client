@@ -697,7 +697,7 @@ class CloudmeshDatabase(object):
                         # rule-for-loop ends
 
                         cls.add(secgroup_db_obj)
-                        
+
                     return True
 
             elif kind in ["batchjob"]:
