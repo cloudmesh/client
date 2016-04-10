@@ -296,7 +296,7 @@ class SecGroup(ListResource):
             cls.cm.save()
 
             Console.ok("Added rule [{fromPort} | {toPort} | {protocol} | {cidr}] to secgroup [{name}]"
-                       .format(**rule)
+                       .format(**rule))
         except Exception as ex:
             if "This rule already exists" in ex.message:
                 Console.ok("Rule already exists. Added rule.")
