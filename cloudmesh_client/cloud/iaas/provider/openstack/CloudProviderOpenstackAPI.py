@@ -885,7 +885,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'uuid'
                 ],
                 'header': [
-                    'id',
+                    'Id',
                     'Group'
                     'Name',
                     'Category',
