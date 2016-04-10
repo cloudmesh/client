@@ -117,6 +117,7 @@ class SecGroup(ListResource):
         :param cloud:
         :return:
         """
+
         try:
             if cloud is None:
                 elements = cls.cm.find(kind="secgroup",
@@ -144,7 +145,7 @@ class SecGroup(ListResource):
                                  output=output)
 
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error("problem listing secgrooups")
 
     @classmethod
     def list_rules(cls, uuid=None, output='table'):
@@ -256,7 +257,7 @@ class SecGroup(ListResource):
                 return secgroup[0]
 
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error("get secgroup")
             return None
 
     @classmethod
@@ -279,7 +280,7 @@ class SecGroup(ListResource):
             rule_id = cloud_provider.add_secgroup_rule(**args)
 
             # create local db record
-            ruleObj = {"kind": "secgrouprule",
+            rule = {"kind": "secgrouprule",
                        "uuid": str(rule_id),
                        "name": secgroup.name,
                        "group": secgroup.uuid,
@@ -291,12 +292,11 @@ class SecGroup(ListResource):
                        "protocol": protocol,
                        "cidr": cidr}
 
-            cls.cm.add(ruleObj)
+            cls.cm.add(**rule)
             cls.cm.save()
 
-            Console.ok("Added rule [{} | {} | {} | {}] to secgroup [{}]"
-                       .format(from_port, to_port, protocol, cidr,
-                               secgroup.name))
+            Console.ok("Added rule [{fromPort} | {toPort} | {protocol} | {cidr}] to secgroup [{name}]"
+                       .format(**rule)
         except Exception as ex:
             if "This rule already exists" in ex.message:
                 Console.ok("Rule already exists. Added rule.")
@@ -313,7 +313,7 @@ class SecGroup(ListResource):
             result = cloud_provider.delete_secgroup(label)
             return result
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error("delete group")
 
     @classmethod
     def delete_rule(cls, cloud, secgroup, from_port, to_port, protocol, cidr):
@@ -338,13 +338,13 @@ class SecGroup(ListResource):
                 cloud_provider.delete_secgroup_rule(rule.uuid)
                 # delete the local db record
                 cls.cm.delete(rule)
-                return "Rule [{} | {} | {} | {}] deleted" \
-                    .format(from_port, to_port, protocol, cidr)
+                return "Rule [{fromPort} | {toPort} | {protocol} | {cidr}] deleted" \
+                    .format(**args)
             else:
                 return None
 
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error("delete rule")
 
         return
 
@@ -360,13 +360,12 @@ class SecGroup(ListResource):
             if rules is not None:
                 for rule in rules:
                     cls.cm.delete(rule)
-                    Console.ok("Rule [{} | {} | {} | {}] deleted"
-                               .format(rule.fromPort, rule.toPort,
-                                       rule.protocol, rule.cidr))
+                    Console.ok("Rule [{fromPort} | {toPort} | {protocol} | {cidr}] deleted"
+                               .format(**rule))
             else:
                 pass
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error("delete all rules")
 
         return
 
