@@ -137,7 +137,6 @@ class CloudmeshDatabase(object):
         for table in cls.tables:
             cls.delete(kind=table.__kind__, provider=table.__provider__)
 
-
     @classmethod
     def create_tables(cls):
         """
@@ -362,14 +361,14 @@ class CloudmeshDatabase(object):
 
         """
 
-        print ("ADD", type(d), d)
+        print("ADD", type(d), d)
 
         if d is None:
             return
 
-        if type(d) in [dict, dotdict] :
+        if type(d) in [dict, dotdict]:
 
-            print ("HALLO")
+            print("HALLO")
             if "provider" in d:
                 t = cls.table(kind=d["kind"], provider=d["provider"])
                 provider = d["provider"]
@@ -379,11 +378,11 @@ class CloudmeshDatabase(object):
                 provider = t.__provider__
             d["provider"] = provider
 
-            print ("TABLE", t)
-            print ("OBJ", d)
+            print("TABLE", t)
+            print("OBJ", d)
             element = t(**d)
 
-            print ("KKKKK", element)
+            print("KKKKK", element)
 
         else:
             element = d
@@ -401,8 +400,7 @@ class CloudmeshDatabase(object):
                 name=element.name
             )
 
-
-            print ("CURRENT", current)
+            print("CURRENT", current)
 
             if current is not None:
                 for key in element.__dict__.keys():
@@ -485,7 +483,7 @@ class CloudmeshDatabase(object):
         # BUG does not look for user related data
         # user = self.user or Username()
         #
-        print ("H- delete")
+        print("H- delete")
 
         provider = kwargs.get("provider", None)
         kind = kwargs.get("kind")
@@ -552,6 +550,7 @@ class CloudmeshDatabase(object):
                        update={'label': 'x',
                                attribute: value}
                        )
+
     @classmethod
     def clear(cls, kind, category, user=None):
         """
@@ -564,10 +563,10 @@ class CloudmeshDatabase(object):
 
         try:
             elements = cls.find(kind=kind,
-                                 output='object',
-                                 scope="all",
-                                 category=category,
-                                 user=user)
+                                output='object',
+                                scope="all",
+                                category=category,
+                                user=user)
             # pprint(elements)
             if elements is None:
                 return
@@ -609,7 +608,7 @@ class CloudmeshDatabase(object):
 
                 print("PPPP", provider)
                 # clear local db records for kind
-                print ("CLEAR1")
+                print("CLEAR1")
                 cls.clear(kind=kind, category=name)
 
                 # for secgroup, clear rules as well
@@ -618,11 +617,11 @@ class CloudmeshDatabase(object):
                     cls.clear(kind="secgrouprule", category=name)
 
                 if kind in ["flavor", "image"]:
-                    print ("KIND", kind)
+                    print("KIND", kind)
                     # flavors = provider.list_flavor(name)
                     elements = provider.list(kind, name)
-                    print ("AAAAA", elements)
-                    print ("NAME", name)
+                    print("AAAAA", elements)
+                    print("NAME", name)
 
                     for element in list(elements.values()):
                         element["uuid"] = element['id']
@@ -631,7 +630,7 @@ class CloudmeshDatabase(object):
                         element["user"] = user
                         element["kind"] = kind
                         element["provider"] = provider.cloud_type
-                        print ("EEEE", element)
+                        print("EEEE", element)
 
                         cls.add(element)
                         cls.save()
@@ -640,7 +639,7 @@ class CloudmeshDatabase(object):
 
                 elif kind in ["vm"]:
 
-                    print ("REFRESH VM")
+                    print("REFRESH VM")
                     # flavors = provider.list_flavor(name)
                     elements = provider.list(kind, name)
 
@@ -661,7 +660,6 @@ class CloudmeshDatabase(object):
                         else:
                             element[u"group"] = "undefined"
 
-
                         cls.add(element)
                         cls.save()
                     return True
@@ -670,35 +668,36 @@ class CloudmeshDatabase(object):
                     secgroups = provider.list_secgroup(name)
                     # pprint(secgroups)
                     for secgroup in list(secgroups.values()):
-                        secgroup_db_obj = cls.db_obj_dict("secgroup",
-                                                          name=secgroup['name'],
-                                                          uuid=secgroup['id'],
-                                                          category=name,
-                                                          project=secgroup['tenant_id'],
-                                                          user=user
-                                                          )
+                        secgroup_db_obj = {"kind": "secgroup",
+                                           "name": secgroup['name'],
+                                           "uuid": secgroup['id'],
+                                           "category": name,
+                                           "project": secgroup['tenant_id'],
+                                           "user": user
+                                           }
 
                         for rule in secgroup['rules']:
-                            rule_db_obj = cls.db_obj_dict("secgrouprule",
-                                                          uuid=rule['id'],
-                                                          name=secgroup['name'],
-                                                          groupid=rule['parent_group_id'],
-                                                          category=name,
-                                                          user=user,
-                                                          project=secgroup['tenant_id'],
-                                                          fromPort=rule['from_port'],
-                                                          toPort=rule['to_port'],
-                                                          protocol=rule['ip_protocol'])
+                            rule_db_obj = {"kind": "secgrouprule",
+                                           "uuid": rule['id'],
+                                           "name": secgroup['name'],
+                                           "groupid": rule['parent_group_id'],
+                                           "category": name,
+                                           "user": user,
+                                           "project": secgroup['tenant_id'],
+                                           "fromPort": rule['from_port'],
+                                           "toPort": rule['to_port'],
+                                           "protocol": rule['ip_protocol']
+                                           }
 
                             if bool(rule['ip_range']) is not False:
                                 rule_db_obj[0]['secgrouprule']['cidr'] = rule['ip_range']['cidr']
 
-                            cls.add_obj(rule_db_obj)
-                            cls.save()
+                            cls.add(rule_db_obj)
+
                         # rule-for-loop ends
 
-                        cls.add_obj(secgroup_db_obj)
-                        cls.save()
+                        cls.add(secgroup_db_obj)
+                        
                     return True
 
             elif kind in ["batchjob"]:
