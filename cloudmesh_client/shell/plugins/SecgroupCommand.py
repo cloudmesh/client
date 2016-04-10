@@ -66,6 +66,8 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
         if arg.cloud is None:
             arg.cloud = arguments["--cloud"] or Default.cloud
 
+        arg.FORMAT = arguments["--format"] or 'table'
+
         pprint(arg)
 
 
@@ -126,8 +128,8 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
             uuid = SecGroup.create(arg.label, arg.cloud)
 
             if uuid:
-                Console.ok("Created a new security group [{}] with UUID [{}]"
-                           .format(label, uuid))
+                Console.ok("Created a new security group={label} with UUID={uuid}"
+                           .format(**arg))
             else:
                 Console.error("Exiting!")
             return ""
@@ -189,9 +191,6 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
         # add rule to security group
         elif arguments["rules-add"]:
-
-            arg = dotdict(arguments)
-
 
             # If default not set, terminate
             if arg.cloud is None:
