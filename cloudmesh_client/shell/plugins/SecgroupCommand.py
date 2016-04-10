@@ -182,7 +182,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
             sec_group = SecGroup.get(label, cloud)
             if sec_group:
                 # Get the rules
-                result = SecGroup.get_rules(sec_group.uuid)
+                result = SecGroup.get_rules(sec_group["uuid"])
                 print(result)
             else:
                 Console.error(

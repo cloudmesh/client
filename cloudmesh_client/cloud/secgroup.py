@@ -188,7 +188,7 @@ class SecGroup(ListResource):
 
             # Create add secgroup rules to the cloud
             args = {
-                'uuid': secgroup.uuid,
+                'uuid': secgroup["uuid"],
                 'protocol': protocol,
                 'from_port': from_port,
                 'to_port': to_port,
@@ -197,19 +197,19 @@ class SecGroup(ListResource):
             rule_id = cloud_provider.add_secgroup_rule(**args)
 
             # create local db record
-            ruleObj = cls.cm.db_obj_dict("secgrouprule",
-                                         uuid=str(rule_id),
-                                         name=secgroup.name,
-                                         groupid=secgroup.uuid,
-                                         category=secgroup.category,
-                                         user=secgroup.user,
-                                         project=secgroup.project,
-                                         fromPort=from_port,
-                                         toPort=to_port,
-                                         protocol=protocol,
-                                         cidr=cidr)
+            ruleObj = {"kind": "secgrouprule",
+                       "uuid": str(rule_id),
+                       "name": secgroup.name,
+                       "groupid": secgroup["uuid"],
+                       "category": secgroup["category"],
+                       "user": secgroup["user"],
+                       "project": secgroup["project"],
+                       "fromPort": from_port,
+                       "toPort": to_port,
+                       "protocol": protocol,
+                       "cidr": cidr}
 
-            cls.cm.add_obj(ruleObj)
+            cls.cm.add(ruleObj)
             cls.cm.save()
 
             Console.ok("Added rule [{} | {} | {} | {}] to secgroup [{}]"
@@ -273,7 +273,7 @@ class SecGroup(ListResource):
     def delete_rule(cls, cloud, secgroup, from_port, to_port, protocol, cidr):
         try:
             args = {
-                "groupid": secgroup.uuid,
+                "groupid": secgroup["uuid"],
                 "fromPort": from_port,
                 "toPort": to_port,
                 "protocol": protocol,
@@ -306,7 +306,7 @@ class SecGroup(ListResource):
         try:
             global cm
             args = {
-                "groupid": secgroup.uuid
+                "groupid": secgroup["uuid"]
             }
             rules = cls.cm.find(kind="secgrouprule", output="object", **args)
 
