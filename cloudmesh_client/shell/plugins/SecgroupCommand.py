@@ -143,7 +143,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
             try:
                 SecGroup.add_rule_to_db(
-                    name=arg.LABEL,
+                    name=arg.RULE,
                     group=arg.GROUP,
                     from_port=arg.FROMPORT,
                     to_port=arg.TOPORT,
