@@ -876,7 +876,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             },
             'secgroup': {
                 'order': [
-                    'id',
+                    'cm_id',
                     'name',
                     'category',
                     'user',
