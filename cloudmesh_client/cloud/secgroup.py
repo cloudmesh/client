@@ -93,7 +93,7 @@ class SecGroup(ListResource):
         return None
 
     @classmethod
-    def list(cls, cloud="general", format="table"):
+    def list(cls, cloud=None, output="table"):
         """
         This method queries the database to fetch list of secgroups
         filtered by cloud.
@@ -101,16 +101,30 @@ class SecGroup(ListResource):
         :return:
         """
         try:
-            elements = cls.cm.find(kind="secgroup",
-                                   scope="all",
-                                   category=cloud)
+            if cloud is None:
+                elements = cls.cm.find(kind="secgroup",
+                                       scope="all")
+            else:
+                elements = cls.cm.find(kind="secgroup",
+                                       scope="all",
+                                       category=cloud)
             # pprint(elements)
-            (order, header) = CloudProvider(cloud).get_attributes("secgroup")
+            #
+            # BUG this should not depend on cloud, but on "general"
+            #
+            # (order, header) = CloudProvider(cloud).get_attributes("secgroup")
+
+            order= None
+            header=None
+
+            print ("FFF", output)
+            print (cloud)
+            print(elements)
 
             return Printer.write(elements,
                                  order=order,
                                  header=header,
-                                 output=format)
+                                 output=output)
 
         except Exception as ex:
             Console.error(ex.message, ex)
@@ -170,11 +184,13 @@ class SecGroup(ListResource):
         try:
             args = {
                 "name": name,
-                "category": cloud,
                 'scope': 'fisrt',
                 'kind': "secgroup",
                 "output": "object",
             }
+            if cloud is not None:
+                args["category"] = cloud
+
             secgroup = cls.cm.find(**args)
 
             if secgroup is None:
