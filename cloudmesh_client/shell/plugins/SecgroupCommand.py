@@ -105,7 +105,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
         # list all security-groups in cloud
 
-        if arguments["list"] and arguments["--db"]:
+        if arguments["list"]:
 
             if arg.label is None:
                 print(SecGroup.list(output=arg.FORMAT))
@@ -126,18 +126,18 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                             .format(**arg))
                     return ""
 
-        elif arguments["list"]:
+        #elif arguments["list"]:
 
-            try:
-                result = SecGroup.list(cloud=arg.cloud)
-                if result is not None:
-                    print(result)
-                else:
-                    Console.error(
-                        "No Security Groups found in the cloudmesh database!")
-            except:
-                Console.error("Problem listing securitygroup cloud={cloud}".format(**data))
-            return ""
+        #   try:
+        #        result = SecGroup.list(cloud=arg.cloud, output=arg.FORMAT)
+        #        if result is not None:
+        #            print(result)
+        #        else:
+        #            Console.error(
+        #                "No Security Groups found in the cloudmesh database!")
+        #    except:
+        #        Console.error("Problem listing securitygroup cloud={cloud}".format(**data))
+        #    return ""
 
         elif arguments["add"]:
 

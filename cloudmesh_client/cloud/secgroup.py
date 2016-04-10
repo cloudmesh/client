@@ -58,11 +58,12 @@ class SecGroup(ListResource):
         return cls.cm.refresh('secgroup', cloud)
 
     @classmethod
-    def add_rule_to_db(cls, name=None, from_port=None, to_port=None, protocol=None, cidr=None):
+    def add_rule_to_db(cls, group=None, name=None, from_port=None, to_port=None, protocol=None, cidr=None):
         old_rule = {
             "category": "general",
             "kind": "secgrouprule",
-            "name": name
+            "name": name,
+            "group": group
         }
 
         cls.cm.delete(**old_rule)
@@ -71,6 +72,7 @@ class SecGroup(ListResource):
             rule = {
                 "category": "general",
                 "kind": "secgrouprule",
+                "group": group,
                 "name": name,
                 'protocol': protocol,
                 'fromPort': from_port,
@@ -170,6 +172,7 @@ class SecGroup(ListResource):
             # return table
             return (Printer.write(rules,
                                   order=["user",
+                                         "group",
                                          "category",
                                          "name",
                                          "fromPort",
