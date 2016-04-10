@@ -4,7 +4,8 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.default import Default
 from cloudmesh_client.cloud.secgroup import SecGroup
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
-
+from cloudmesh_client.common.dotdict import dotdict
+from pprint import pprint
 
 class SecgroupCommand(PluginCommand, CloudPluginCommand):
     topics = {"secgroup": "security"}
@@ -21,7 +22,8 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
         ::
 
             Usage:
-                secgroup list [--cloud=CLOUD]
+                secgroup list [--cloud=CLOUD] [--format=FORMAT]
+                secgroup list --db [LABEL] [--format=FORMAT]
                 secgroup create [--cloud=CLOUD] LABEL
                 secgroup delete [--cloud=CLOUD] LABEL
                 secgroup rules-list [--cloud=CLOUD] LABEL
@@ -59,33 +61,56 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
 
         """
-        # pprint(arguments)
 
-        cloud = arguments["--cloud"] or Default.cloud
+        arg = dotdict(arguments)
+        if arg.cloud is None:
+            arg.cloud = arguments["--cloud"] or Default.cloud
+
+        pprint(arg)
+
 
         # if refresh ON, pull data from cloud to db
-        if arguments["refresh"] or \
-                Default.refresh:
-            msg = "Refresh secgroup for cloud {:}.".format(cloud)
-            if SecGroup.refresh(cloud):
+        if arg.refresh or Default.refresh:
+            msg = "Refresh secgroup for cloud {:}.".format(arg.cloud)
+            if SecGroup.refresh(arg.cloud):
                 Console.ok("{:} ok".format(msg))
             else:
                 Console.error("{:} failed".format(msg))
 
         # list all security-groups in cloud
-        if arguments["list"]:
-            # If default not set, terminate
-            if not cloud:
-                Console.error("Default cloud not set!")
-                return
 
-            result = SecGroup.list(cloud=cloud)
-            if result is not None:
-                print(result)
+        if arguments["list"] and arguments["--db"]:
+
+            if arg.label is None:
+                print(SecGroup.list(output=arg.FORMAT))
             else:
-                Console.error(
-                    "No Security Groups found in the cloudmesh database!")
+
+                try:
+                    # Get the security group
+                    sec_group = SecGroup.get(arg.label, arg.cloud)
+                    if sec_group:
+                        # Get the rules
+                        result = SecGroup.get_rules(sec_group["uuid"])
+                        print(result)
+                except:
+                    Console.error(
+                        "Security Group with label={label} in cloud={cloud} not found!"
+                            .format(**arg))
+                    return ""
+
+        elif arguments["list"]:
+
+            try:
+                result = SecGroup.list(cloud=arg.cloud)
+                if result is not None:
+                    print(result)
+                else:
+                    Console.error(
+                        "No Security Groups found in the cloudmesh database!")
+            except:
+                Console.error("Problem listing securitygroup cloud={cloud}".format(**data))
             return ""
+
 
         # Create a security-group
         elif arguments["create"]:
@@ -168,54 +193,31 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
             return ""
 
-        # list security group rules
-        elif arguments["rules-list"]:
-            # if no arguments read default
-            label = arguments["LABEL"]
-
-            # If default not set, terminate
-            if not cloud:
-                Console.error("Default cloud not set!")
-                return ""
-
-            # Get the security group
-            sec_group = SecGroup.get(label, cloud)
-            if sec_group:
-                # Get the rules
-                result = SecGroup.get_rules(sec_group["uuid"])
-                print(result)
-            else:
-                Console.error(
-                    "Security Group with label [{}] in cloud [{}] not found!"
-                        .format(label, cloud))
-                return ""
 
         # add rule to security group
         elif arguments["rules-add"]:
-            label = arguments["LABEL"]
-            from_port = arguments["FROMPORT"]
-            to_port = arguments["TOPORT"]
-            protocol = arguments["PROTOCOL"]
-            cidr = arguments["CIDR"]
+
+            arg = dotdict(arguments)
+
 
             # If default not set, terminate
-            if not cloud:
+            if arg.cloud is None:
                 Console.error("Default cloud not set!")
                 return ""
 
             # Get the security group
-            sec_group = SecGroup.get(label, cloud)
+            sec_group = SecGroup.get(arg.label, arg.cloud)
             if sec_group:
                 # Add rules to the security group
 
                 print ("DDDDDD", sec_group)
 
-                SecGroup.add_rule(cloud=cloud,
+                SecGroup.add_rule(cloud=arg.cloud,
                                   secgroup=sec_group,
-                                  from_port=from_port,
-                                  to_port=to_port,
-                                  protocol=protocol,
-                                  cidr=cidr)
+                                  from_port=arg.from_port,
+                                  to_port=arg.to_port,
+                                  protocol=arg.protocol,
+                                  cidr=arg.cidr)
             else:
                 Console.error(
                     "Security Group with label [{}] in cloud [{}] not found!".format(label, cloud))
