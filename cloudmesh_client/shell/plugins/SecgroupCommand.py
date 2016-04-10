@@ -83,6 +83,8 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
             if arg.label is None:
                 print(SecGroup.list(output=arg.FORMAT))
+                print(SecGroup.list_rules(output=arg.FORMAT))
+
             else:
 
                 try:
@@ -90,7 +92,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                     sec_group = SecGroup.get(arg.label, arg.cloud)
                     if sec_group:
                         # Get the rules
-                        result = SecGroup.get_rules(sec_group["uuid"])
+                        result = SecGroup.list_rules(uuid=sec_group["uuid"])
                         print(result)
                 except:
                     Console.error(

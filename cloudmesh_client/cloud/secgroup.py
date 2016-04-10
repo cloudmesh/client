@@ -129,6 +129,46 @@ class SecGroup(ListResource):
         except Exception as ex:
             Console.error(ex.message, ex)
 
+
+    @classmethod
+    def list_rules(cls, uuid=None, output='table'):
+        """
+        This method gets the security group rules
+        from the cloudmesh database
+        :param uuid:
+        :return:
+        """
+
+        try:
+            if uuid is None:
+                rules = cls.cm.find(kind="secgrouprule")
+            else:
+                args = {
+                    "groupid": uuid
+                }
+
+                rules = cls.cm.find(kind="secgrouprule", **args)
+
+            # check if rules exist
+            if rules is None:
+                return "No rules for security group [{}] in the database. Try cm secgroup refresh."
+
+            # return table
+            return (Printer.write(rules,
+                                  order=["user",
+                                         "category",
+                                         "name",
+                                         "fromPort",
+                                         "toPort",
+                                         "protocol",
+                                         "cidr"],
+                                  output=output))
+
+        except Exception as ex:
+            Console.error("Listing Security group rules")
+
+        return None
+
     @classmethod
     def enable_ssh(cls, secgroup_name='default', cloud="general"):
         ret = False
@@ -248,41 +288,6 @@ class SecGroup(ListResource):
                 Console.error(ex.message, ex)
         return
 
-    @classmethod
-    def get_rules(cls, uuid):
-        """
-        This method gets the security group rule
-        from the cloudmesh database
-        :param uuid:
-        :return:
-        """
-
-        try:
-            args = {
-                "groupid": uuid
-            }
-
-            rule = cls.cm.find(kind="secgrouprule", **args)
-
-            # check if rules exist
-            if rule is None:
-                return "No rules for security group [{}] in the database. Try cm secgroup refresh."
-
-            # return table
-            return (Printer.write(rule,
-                                  order=["user",
-                                         "category",
-                                         "name",
-                                         "fromPort",
-                                         "toPort",
-                                         "protocol",
-                                         "cidr"],
-                                  output="table"))
-
-        except Exception as ex:
-            Console.error(ex.message, ex)
-
-        return None
 
     @classmethod
     def delete_secgroup(cls, label, cloud):
