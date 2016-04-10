@@ -116,16 +116,14 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
         # Create a security-group
         elif arguments["create"]:
-            # if no arguments read default
-            label = arguments["LABEL"]
 
             # If default not set, terminate
-            if cloud is not None:
+            if arg.cloud is not None:
                 Console.error("Default cloud not set.")
                 return
 
             # Create returns uuid of created sec-group
-            uuid = SecGroup.create(label, cloud)
+            uuid = SecGroup.create(arg.label, arg.cloud)
 
             if uuid:
                 Console.ok("Created a new security group [{}] with UUID [{}]"
@@ -140,38 +138,31 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
             label = arguments["LABEL"]
 
             # If default not set, terminate
-            if not cloud:
+            if arg.cloud is None:
                 Console.error("Default cloud not set!")
                 return ""
 
-            result = SecGroup.delete_secgroup(label, cloud)
+            result = SecGroup.delete_secgroup(arg.label, arg.cloud)
             if result is not None:
-                Console.ok("Security Group [{}] in cloud [{}] deleted successfully."
-                           .format(label, cloud))
+                Console.ok("Security Group={label} in cloud={cloud} deleted successfully."
+                           .format(**arg))
             else:
-                Console.error("Failed to delete Security Group [{}] in cloud [{}]"
-                              .format(label, cloud))
+                Console.error("Failed to delete Security Group={label} in cloud={cloud}"
+                              .format(**arg))
 
             return ""
 
         # Delete security group rule
         elif arguments["rules-delete"]:
             # if no arguments read default
-            cloud = arguments["--cloud"] or Default.cloud
-
-            label = arguments["LABEL"]
-            from_port = arguments["FROMPORT"]
-            to_port = arguments["TOPORT"]
-            protocol = arguments["PROTOCOL"]
-            cidr = arguments["CIDR"]
 
             # If default not set, terminate
-            if not cloud:
+            if arg.cloud is None:
                 Console.error("Default cloud not set!")
                 return ""
 
             # Get the security group
-            sec_group = SecGroup.get(label, cloud)
+            sec_group = SecGroup.get(arg.label, arg.cloud)
             if sec_group:
 
                 # delete all rules for secgroup
@@ -180,18 +171,18 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                     return ""
 
                 # Get the rules
-                result = SecGroup.delete_rule(cloud=cloud,
+                result = SecGroup.delete_rule(cloud=arg.cloud,
                                               secgroup=sec_group,
-                                              from_port=from_port,
-                                              to_port=to_port,
-                                              protocol=protocol,
-                                              cidr=cidr)
+                                              from_port=arg.from_port,
+                                              to_port=arg.to_port,
+                                              protocol=arg.protocol,
+                                              cidr=arg.cidr)
                 if result:
                     Console.ok(result)
                 else:
                     Console.error(
-                        "Rule [{} | {} | {} | {}] could not be deleted"
-                            .format(from_port, to_port, protocol, cidr))
+                        "Rule [{from_port} | {to_port} | {protocol} | {cidr}] could not be deleted"
+                            .format(**arg))
 
             return ""
 
