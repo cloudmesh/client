@@ -132,24 +132,19 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
         invalid_names = ['tbd', 'none', "", 'id_rsa']
 
         def _print_dict(d, header=None, format='table'):
-            if format == "json":
-                return json.dumps(d, indent=4)
-            elif format == "yaml":
-                return yaml.dump(d, default_flow_style=False)
-            elif format == "table":
-                msg = Printer.write(d,
-                                     order=["name",
-                                            "comment",
-                                            "uri",
-                                            "fingerprint",
-                                            "source"],
-                                     output="table",
-                                     sort_keys=True)
-                if msg is None:
-                    Console.error("No keys found.", traceflag=False)
+            msg = Printer.write(d,
+                                 order=["name",
+                                        "comment",
+                                        "uri",
+                                        "fingerprint",
+                                        "source"],
+                                 output=format,
+                                 sort_keys=True)
+            if msg is None:
+                Console.error("No keys found.", traceflag=False)
+                return None
             else:
-                return d
-                # return Printer.write(d,order=['cm_id, name, fingerprint'])
+                return msg
 
         directory = Config.path_expand(arguments["--dir"])
 
@@ -200,6 +195,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     # print(_print_dict(d, format=_format))
                     msg = "info. OK."
                     Console.ok(msg)
+                    return ""
                 except Exception as e:
                     Error.traceback(e)
                     Console.error("Problem listing keys from ssh")
@@ -210,9 +206,14 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     #sshm = SSHKeyManager()
                     d = Key.get_from_yaml(load_order=directory, store=False)
 
-                    print(_print_dict(d, format=_format))
-                    msg = "info. OK."
-                    Console.info(msg)
+                    print(Printer.write(d,
+                                        order=["name",
+                                               "comment",
+                                               "uri",
+                                               "fingerprint",
+                                               "source"],
+                                        output=_format))
+                    return ""
                 except Exception as e:
                     Error.traceback(e)
                     Console.error("Problem listing keys from `{:}`".format(arguments['--source']))
