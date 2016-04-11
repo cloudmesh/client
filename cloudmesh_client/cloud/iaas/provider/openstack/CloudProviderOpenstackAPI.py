@@ -300,6 +300,35 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
     def list_secgroup(self, cloudname, **kwargs):
         return self._to_dict(self.provider.security_groups.list())
 
+
+    def list_secgroup_rules(self, cloudname):
+
+        groups = self.list_secgroup(cloudname)
+
+        rules = []
+
+        for id in groups:
+            group = groups[id]
+            print("GGGG", group)
+            for rule in group["rules"]:
+                print("RRRR", rule)
+
+                if rule['ip_protocol'] is not None:
+
+                    element = {
+                        'fromPort': rule["from_port"],
+                        'toPort': rule["to_port"],
+                        'group': group["name"],
+                        'protocol': rule['ip_protocol']
+                    }
+
+                    if 'cidr' in rule['ip_range']:
+                        element['ipRange'] = rule['ip_range']['cidr']
+                    else:
+                        element['ip_range'] = None
+                    rules.append(element)
+        return rules
+
     def list_vm(self, cloudname, **kwargs):
         vm_dict = self._to_dict(self.provider.servers.list())
 

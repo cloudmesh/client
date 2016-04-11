@@ -456,9 +456,11 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
 
             pprint(data)
+            # BUG delete all is not properly implemented
 
             if data.all:
-                Key.delete(data.name)
+                Console.TODO("Delete --all is not yet implemented.")
+                # Key.delete()
             elif data.select:
                 key = Key.select()
                 print (key)

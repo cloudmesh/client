@@ -119,6 +119,25 @@ class Console(object):
             print
 
     @staticmethod
+    def TODO(message, prefix=True, traceflag=True):
+        message = message or ""
+        if prefix:
+            text = "TODO: "
+        else:
+            text = ""
+        if Console.color:
+            Console.cprint('FAIL', text, str(message))
+        else:
+            print(Console.msg(text + str(message)))
+
+        trace = traceback.format_exc().strip()
+
+        if traceflag and trace != "None":
+            print
+            print("\n".join(str(trace).splitlines()))
+            print
+
+    @staticmethod
     def info(message):
         message = message or ""
         if Console.color:
@@ -150,6 +169,7 @@ class Console(object):
                prefix +
                message +
                Console.theme['ENDC']))
+
 
 
 #
