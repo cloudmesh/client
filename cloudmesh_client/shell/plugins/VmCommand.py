@@ -262,14 +262,14 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     Console.error("Default cloud not set.")
                     return ""
 
-                image = arguments["--image"] or Default.get("image",
+                image = arguments["--image"] or Default.get(name="image",
                                                             category=cloud)
                 # if default image not set, return error
                 if not image:
                     Console.error("Default image not set.")
                     return ""
 
-                flavor = arguments["--flavor"] or Default.get("flavor",
+                flavor = arguments["--flavor"] or Default.get(name="flavor",
                                                               category=cloud)
                 # if default flavor not set, return error
                 if not flavor:
@@ -284,7 +284,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     Default.set_group(group)
 
                 secgroup = arguments["--secgroup"] or Default.get(
-                    "secgroup", category=cloud)
+                    name="secgroup", category=cloud)
                 # print("SecurityGrp : {:}".format(secgroup))
                 secgroup_list = ["default"]
                 if secgroup is not None:
@@ -354,7 +354,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 data = {"name": vm_name,
                         "cloud": arguments["--cloud"] or Default.cloud}
                 for attribute in ["image", "flavor", "key", "group", "secgroup"]:
-                    data[attribute] = Default.get(attribute, category=cloud)
+                    data[attribute] = Default.get(name=attribute, category=cloud)
 
                 # Retrieving key separately as its in general category.
                 data["key"] = Default.key

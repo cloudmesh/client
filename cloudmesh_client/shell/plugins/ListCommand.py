@@ -73,19 +73,19 @@ class ListCommand(PluginCommand, CloudPluginCommand):
 
         # If format is not specified, read default
         if output_format is None:
-            output_format = Default.get("format") or "table"
+            output_format = Default.get(name="format") or "table"
 
         # If cloud is not specified, get default
         if cloud is None:
-            cloud = Default.get("cloud") or "kilo"
+            cloud = Default.get(name="cloud") or "kilo"
 
         # If user is not specified, get default
         if user is None:
-            user = Default.get("user")
+            user = Default.get(name="user")
 
         # If tenant is not specified, get default
         if tenant is None:
-            tenant = Default.get("tenant")
+            tenant = Default.get(name="tenant")
 
         # Get the kind
         kind = get_kind()

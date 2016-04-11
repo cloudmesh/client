@@ -126,7 +126,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
             Console.msg(batch.info(cluster, format))
 
         elif arguments['delete'] and arguments['all']:
-            group = arguments['--group'] or Default.get('group')
+            group = arguments['--group'] or Default.get(name='group')
             if group is None:
                 Console.error('set default group using: default group=<value> --cloud=general')
                 return
@@ -213,11 +213,11 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
                     Console.error("Could not find experiment {ID} on {CLUSTER}".format(**arguments))
 
         elif arguments["run"]:
-            queue = arguments['--queue'] or Default.get('queue')
+            queue = arguments['--queue'] or Default.get(name='queue')
             # if not queue:
             #    Console.error('set default queue using: default queue=<value>')
             #    return
-            group = arguments['--group'] or Default.get('group')
+            group = arguments['--group'] or Default.get(name='group')
             if group is None:
                 Console.error('set default group using: default group=<value> --cloud=general')
                 return

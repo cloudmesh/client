@@ -11,6 +11,7 @@ from keystoneclient import session
 from novaclient import client
 import requests
 import getpass
+from cloudmesh_client.shell.console import Console
 
 requests.packages.urllib3.disable_warnings()
 
@@ -29,7 +30,7 @@ def set_os_environ(cloudname):
             else:
                 os.environ[key] = value
     except Exception as e:
-        print(e)
+        Console.error("problem setting env")
 
 
 #
@@ -309,9 +310,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
         for id in groups:
             group = groups[id]
-            print("GGGG", group)
             for rule in group["rules"]:
-                print("RRRR", rule)
 
                 if rule['ip_protocol'] is not None:
 
@@ -349,26 +348,19 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
     def delete_secgroup(self, name):
 
-        search_opts = {
-            'name': name,
-        }
-
-        groups = self.provider.security_groups.list(search_opts=search_opts)
-
-
+        groups = self.provider.security_groups.list()
 
         if groups is not None:
             for sec_group in groups:
-                print("DELETE API SECGROUP", sec_group)
 
                 # delete the secgroup in the cloud
-                # if sec_group.name == secgroup_name:
-                #    self.provider.security_groups.delete(sec_group)
+                if sec_group.name == name:
+                    self.provider.security_groups.delete(sec_group)
         else:
             print("Could not find security group [{}] in cloud [{}]"
                   .format(name, self.cloud))
 
-        return "Ok."
+
 
     def delete_secgroup_rule(self, rule_id):
         self.provider.security_group_rules.delete(rule_id)

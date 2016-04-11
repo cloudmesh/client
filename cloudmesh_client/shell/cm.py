@@ -184,18 +184,32 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
         # sys,exit(1)
 
-        value = Default.get('cloud', category='general')
+        # ##################
+        # DEFAULTS
+        #
+
+        #
+        # SET DEFAULT CLOUD
+        #
+        value = Default.get(name='cloud', category='general')
         if value is None:
             clouds = ConfigDict(filename=filename)["cloudmesh"]["clouds"]
             cloud = list(clouds.keys())[0]
             Default.set('cloud', cloud, category='general')
 
-        value = Default.get('default', category='general')
+
+        #
+        # NOT SURE HWTA THIS IS FOR
+        #
+        value = Default.get(name='default', category='general')
         if value is None:
             Default.set('default', 'default', category='general')
 
+        #
+        # SET DEFUALT CLUSTER
+        #
         cluster = 'kilo'  # hardcode a value if not defined
-        value = Default.get('cluster', category='general')
+        value = Default.get(name='cluster', category='general')
         if value is None:
             try:
                 hosts = ssh_config().names()
@@ -208,22 +222,34 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             cluster = value
         Default.set('cluster', cluster, category='general')
 
+        #
+        # SET DEFAULT GROUP
+        #
         group = Default.group
         if group is None:
             Default.set_group("default")
 
+        #
+        # LOAD DEFAULTS FROM YAML
+        #
         Default.load("cloudmesh.yaml")
 
+        #
+        # SET DEFAULT TIMER
+        #
         on = Default.timer
 
-        group = Default.group
-        if group is None:
-            Default.set_group("default")
 
+        #
+        # SET DEFAULT REFRESH
+        #
         r = Default.refresh
         if r is None:
             Default.set_refresh("on")
 
+        #
+        # SET DEFAULT USER
+        #
         user = Default.user
         if user is None:
             user = ConfigDict(filename=filename)["cloudmesh"]["profile"]["username"]

@@ -32,7 +32,7 @@ class LogUtil(object):
 
         # get the log level from database
         log_level = Default.get(
-            key=LogUtil.LOG_LEVEL_KEY,
+            name=LogUtil.LOG_LEVEL_KEY,
             category=LogUtil.category) or LogUtil.DEFAULT_LOG_LEVEL
 
         # Update the cloudmesh config
@@ -80,7 +80,7 @@ class LogUtil(object):
         :param cloudname: The name of the cloud
         :return: the log level
         """
-        log_level = Default.get(key=LogUtil.LOG_LEVEL_KEY,
+        log_level = Default.get(name=LogUtil.LOG_LEVEL_KEY,
                                 category=LogUtil.category)
 
         LOGGER.info("Returning Log Level: " + log_level)

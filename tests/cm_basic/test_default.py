@@ -76,9 +76,9 @@ class Test_default(object):
         print(self.data)
         Default.set_image(name, self.data.cloud)
 
-        print(Default.get(name, self.data.cloud))
+        print(Default.get(name=name, category=self.data.cloud))
 
-        assert Default.get("image", category=self.data.cloud) == name
+        assert Default.get(name="image", category=self.data.cloud) == name
 
     def test_004(self):
         HEADING("set default flavor")
@@ -104,7 +104,7 @@ class Test_default(object):
         value = "myvalue"
         cloud = self.data.cloud
         Default.set(name, value, cloud)
-        assert Default.get(name, cloud) == value
+        assert Default.get(name=name, category=cloud) == value
 
     def test_008(self):
         HEADING("cm default test=testValue --cloud={cloud}"
