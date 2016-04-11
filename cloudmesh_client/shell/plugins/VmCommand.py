@@ -159,35 +159,24 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         """
 
-        def _print_dict(d, header=None, format='table'):
-            if format == "json":
-                return json.dumps(d, indent=4)
-            elif format == "yaml":
-                return pyaml.dump(d)
-            elif format == "table":
-                return Printer.write(d,
-                                     order=["id",
-                                            "name",
-                                            "status"],
-                                     output="table",
-                                     sort_keys=True)
-            else:
-                return d
+        def _print_dict(d, header=None, output='table'):
 
-        def _print_dict_ip(d, header=None, format='table'):
-            if format == "json":
-                return json.dumps(d, indent=4)
-            elif format == "yaml":
-                return pyaml.dump(d)
-            elif format == "table":
-                return Printer.write(d,
-                                     order=["network",
-                                            "version",
-                                            "addr"],
-                                     output="table",
-                                     sort_keys=True)
-            else:
-                return d
+            return Printer.write(d,
+                                 order=["id",
+                                        "name",
+                                        "status"],
+                                 output=output,
+                                 sort_keys=True)
+
+
+        def _print_dict_ip(d, header=None, output='table'):
+
+            return Printer.write(d,
+                                 order=["network",
+                                        "version",
+                                        "addr"],
+                                 output=output,
+                                 sort_keys=True)
 
         """
         def list_vms_on_cloud(cloud="kilo", group=None, format="table"):
@@ -616,7 +605,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     print(
                         "IP Addresses of instance {:} are as follows:-".format(
                             server))
-                    print(_print_dict_ip(ipaddr_dict, format=output_format))
+                    print(_print_dict_ip(ipaddr_dict, output=output_format))
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception as e:
