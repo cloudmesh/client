@@ -141,7 +141,7 @@ class CloudProviderBase(object):
     # #########################
     # SECGROUP
     # #########################
-
+    '''
     def list_secgroup(self, cloudname, **kwargs):
         """
         returns the objects in json format
@@ -155,7 +155,7 @@ class CloudProviderBase(object):
         raise ValueError(
             "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return None
-
+    '''
     # #########################
     # VMS
     # #########################
