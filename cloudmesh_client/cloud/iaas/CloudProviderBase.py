@@ -139,6 +139,24 @@ class CloudProviderBase(object):
         return self.resource("refresh", kind, cloudname, **kwargs)
 
     # #########################
+    # SECGROUP
+    # #########################
+
+    def list_secgroup(self, cloudname, **kwargs):
+        """
+        returns the objects in json format
+        :param cloudname:
+        :return:
+        """
+        """
+        Listing of iamge
+        :return:
+        """
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        return None
+
+    # #########################
     # VMS
     # #########################
 

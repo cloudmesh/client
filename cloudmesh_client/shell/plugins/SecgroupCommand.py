@@ -88,7 +88,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
         """
 
         arg = dotdict(arguments)
-        if arguments["--cloud"] is None:
+        if arguments["--cloud"] is not None:
             is_cloud = True
             arg.cloud = arguments["--cloud"] or Default.cloud
         else:
@@ -123,18 +123,22 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
             else:
                 print ("BBB")
-                try:
-                    # Get the security group
-                    sec_group = SecGroup.get(arg.label, arg.cloud)
-                    if sec_group:
-                        # Get the rules
-                        result = SecGroup.list_rules(uuid=sec_group["uuid"])
-                        print(result)
-                except:
-                    Console.error(
-                        "Security Group with label={label} in cloud={cloud} not found!"
-                            .format(**arg))
-                    return ""
+
+                groups = SecGroup.list(category=arg.cloud)
+
+                print (groups)
+                #try:
+                #    # Get the security group
+                #    sec_group = SecGroup.get(arg.label, arg.cloud)
+                #    if sec_group:
+                #        # Get the rules
+                #        result = SecGroup.list_rules(uuid=sec_group["uuid"])
+                #        print(result)
+                #except:
+                #    Console.error(
+                #        "Security Group with label={label} in cloud={cloud} not found!"
+                #            .format(**arg))
+                return ""
 
         #elif arguments["list"]:
 

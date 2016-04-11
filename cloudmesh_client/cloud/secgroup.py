@@ -143,8 +143,10 @@ class SecGroup(ListResource):
         else:
             # list on cloud
             # TO BE IMPLEMENTED
-            elements = None
+            print ("CAT", category)
+            elements = CloudProvider(category).list_secgroup(category)
 
+            print ("ONCLOUD", elements)
         if elements is None:
             return None
         else:
