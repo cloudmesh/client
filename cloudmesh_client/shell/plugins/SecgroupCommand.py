@@ -139,7 +139,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
         # Delete a security-group
         elif arguments["delete"]:
             # if no arguments read default
-           
+
             # If default not set, terminate
             if arg.cloud is None:
                 Console.TBD("Default cloud in DB not yet implemented")
@@ -147,10 +147,10 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
             else:
                 result = SecGroup.delete_secgroup(name=arg.GROUP, cloud=arg.cloud)
                 if result is not None:
-                    Console.ok("Security Group={label} in cloud={cloud} deleted successfully."
+                    Console.ok("Security Group={GROUP} in cloud={cloud} deleted successfully."
                            .format(**arg))
                 else:
-                    Console.error("Failed to delete Security Group={label} in cloud={cloud}"
+                    Console.error("Failed to delete Security Group={GROUP} in cloud={cloud}"
                               .format(**arg))
 
             return ""
