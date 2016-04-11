@@ -27,8 +27,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                 secgroup list --cloud=CLOUD [--format=FORMAT]
                 secgroup list GROUP [RULE] [--format=FORMAT]
                 secgroup add GROUP RULE FROMPORT TOPORT PROTOCOL CIDR
-                secgroup delete GROUP
-                secgroup delete GROUP RULE
+                secgroup delete GROUP [--cloud=CLOUD]
                 secgroup upload [GROUP] [--cloud=CLOUD]
 
             Options:
@@ -136,40 +135,22 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
             except:
                 Console.error("Problem adding security group to db")
 
-        # Create a security-group
-        elif arguments["create"]:
-
-            # If default not set, terminate
-            if arg.cloud is not None:
-                Console.error("Default cloud not set.")
-                return
-
-            # Create returns uuid of created sec-group
-            uuid = SecGroup.create(arg.label, arg.cloud)
-
-            if uuid:
-                Console.ok("Created a new security group={label} with UUID={uuid}"
-                           .format(**arg))
-            else:
-                Console.error("Exiting!")
-            return ""
 
         # Delete a security-group
         elif arguments["delete"]:
             # if no arguments read default
-            label = arguments["LABEL"]
-
+           
             # If default not set, terminate
             if arg.cloud is None:
-                Console.error("Default cloud not set!")
+                Console.TBD("Default cloud in DB not yet implemented")
                 return ""
-
-            result = SecGroup.delete_secgroup(arg.label, arg.cloud)
-            if result is not None:
-                Console.ok("Security Group={label} in cloud={cloud} deleted successfully."
-                           .format(**arg))
             else:
-                Console.error("Failed to delete Security Group={label} in cloud={cloud}"
+                result = SecGroup.delete_secgroup(name=arg.GROUP, cloud=arg.cloud)
+                if result is not None:
+                    Console.ok("Security Group={label} in cloud={cloud} deleted successfully."
+                           .format(**arg))
+                else:
+                    Console.error("Failed to delete Security Group={label} in cloud={cloud}"
                               .format(**arg))
 
             return ""
@@ -240,3 +221,24 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
             Console.ok('Version: ')
 
         return ""
+
+
+'''
+    # Create a security-group
+    elif arguments["create"]:
+
+        # If default not set, terminate
+        if arg.cloud is not None:
+            Console.error("Default cloud not set.")
+            return
+
+        # Create returns uuid of created sec-group
+        uuid = SecGroup.create(arg.label, arg.cloud)
+
+        if uuid:
+            Console.ok("Created a new security group={label} with UUID={uuid}"
+                       .format(**arg))
+        else:
+            Console.error("Exiting!")
+        return ""
+'''

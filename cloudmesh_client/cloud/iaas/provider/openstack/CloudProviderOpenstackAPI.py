@@ -319,7 +319,9 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                         'fromPort': rule["from_port"],
                         'toPort': rule["to_port"],
                         'group': group["name"],
-                        'protocol': rule['ip_protocol']
+                        'protocol': rule['ip_protocol'],
+                        'ruleid': rule['id'],
+                        'groupid': rule['parent_group_id']
                     }
 
                     if 'cidr' in rule['ip_range']:
@@ -328,6 +330,49 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                         element['ip_range'] = None
                     rules.append(element)
         return rules
+
+
+    def create_secgroup(self, secgroup_name):
+        secgroup = self.provider.security_groups \
+            .create(name=secgroup_name,
+                    description="Security group {}".format(secgroup_name))
+
+        return secgroup
+
+    def add_secgroup_rule(self, **kwargs):
+        rule_id = self.provider.security_group_rules.create(kwargs["uuid"],
+                                                            ip_protocol=kwargs["protocol"],
+                                                            from_port=kwargs["from_port"],
+                                                            to_port=kwargs["to_port"],
+                                                            cidr=kwargs["cidr"])
+        return rule_id
+
+    def delete_secgroup(self, name):
+
+        search_opts = {
+            'name': name,
+        }
+
+        groups = self.provider.security_groups.list(search_opts=search_opts)
+
+
+
+        if groups is not None:
+            for sec_group in groups:
+                print("DELETE API SECGROUP", sec_group)
+
+                # delete the secgroup in the cloud
+                # if sec_group.name == secgroup_name:
+                #    self.provider.security_groups.delete(sec_group)
+        else:
+            print("Could not find security group [{}] in cloud [{}]"
+                  .format(name, self.cloud))
+
+        return "Ok."
+
+    def delete_secgroup_rule(self, rule_id):
+        self.provider.security_group_rules.delete(rule_id)
+        return
 
     def list_vm(self, cloudname, **kwargs):
         vm_dict = self._to_dict(self.provider.servers.list())
@@ -716,41 +761,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             return self.provider.servers.find(name=vm_name,
                                               scope="first")._info
 
-    def create_secgroup(self, secgroup_name):
-        secgroup = self.provider.security_groups \
-            .create(name=secgroup_name,
-                    description="Security group {}".format(secgroup_name))
 
-        return secgroup
-
-    def add_secgroup_rule(self, **kwargs):
-        rule_id = self.provider.security_group_rules.create(kwargs["uuid"],
-                                                            ip_protocol=kwargs["protocol"],
-                                                            from_port=kwargs["from_port"],
-                                                            to_port=kwargs["to_port"],
-                                                            cidr=kwargs["cidr"])
-        return rule_id
-
-    def delete_secgroup(self, secgroup_name):
-        search_opts = {
-            'name': secgroup_name,
-        }
-
-        secgroups = self.provider.security_groups.list(search_opts=search_opts)
-        if secgroups is not None:
-            for sec_group in secgroups:
-                # delete the secgroup in the cloud
-                if sec_group.name == secgroup_name:
-                    self.provider.security_groups.delete(sec_group)
-        else:
-            print("Could not find security group [{}] in cloud [{}]"
-                  .format(secgroup_name, self.cloud))
-
-        return "Ok."
-
-    def delete_secgroup_rule(self, rule_id):
-        self.provider.security_group_rules.delete(rule_id)
-        return
 
     def attributes(self, kind):
 
