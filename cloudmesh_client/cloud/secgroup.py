@@ -9,6 +9,7 @@ from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.LibcloudDict import LibcloudDict
 from cloudmesh_client.common.dotdict import dotdict
+from pprint import pprint
 
 requests.packages.urllib3.disable_warnings()
 
@@ -144,9 +145,9 @@ class SecGroup(ListResource):
             # list on cloud
             # TO BE IMPLEMENTED
             print ("CAT", category)
-            elements = CloudProvider(category).list_secgroup(category)
+            elements = CloudProvider(category).provider.list_secgroup(category)
 
-            print ("ONCLOUD", elements)
+            pprint (elements)
         if elements is None:
             return None
         else:

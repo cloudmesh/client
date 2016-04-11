@@ -112,8 +112,6 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
             if not is_cloud:
 
-                print ("LIST")
-
                 if arg.RULE is None:
                     print(SecGroup.list(group=arg.GROUP, name=arg.RULE, output=arg.FORMAT))
                 else:
@@ -122,9 +120,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                     # print(SecGroup.list_rules(output=arg.FORMAT))
 
             else:
-                print ("BBB", arg.cloud)
-
-                groups = SecGroup.list(category=arg.cloud)
+                groups = SecGroup.list(category=arg.cloud, output=arg.FORMAT)
 
                 print (groups)
                 #try:
