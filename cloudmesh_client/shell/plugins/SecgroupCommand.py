@@ -24,12 +24,12 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
             Usage:
                 secgroup list
-                secgroup list --cloud=CLOUD... [--format=FORMAT]
+                secgroup list --cloud=CLOUD [--format=FORMAT]
                 secgroup list GROUP [RULE] [--format=FORMAT]
                 secgroup add GROUP RULE FROMPORT TOPORT PROTOCOL CIDR
                 secgroup delete GROUP
                 secgroup delete GROUP RULE
-                secgroup upload [GROUP] [--cloud=CLOUD...]
+                secgroup upload [GROUP] [--cloud=CLOUD]
 
             Options:
                 --cloud=CLOUD       Name of the IaaS cloud e.g. kilo, chameleoon. The clouds are defined in the yaml
@@ -122,7 +122,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                     # print(SecGroup.list_rules(output=arg.FORMAT))
 
             else:
-                print ("BBB")
+                print ("BBB", arg.cloud)
 
                 groups = SecGroup.list(category=arg.cloud)
 
