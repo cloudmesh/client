@@ -156,6 +156,13 @@ class CloudProviderBase(object):
             "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return None
     '''
+
+    def list_secgroup_rules(self, cloudname):
+
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        return None
+
     # #########################
     # VMS
     # #########################

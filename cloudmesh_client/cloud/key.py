@@ -293,8 +293,16 @@ class Key(ListResource):
 
     @classmethod
     def delete(cls, name=None, cloud=None):
-        if cloud is not None:
+
+        if cloud is not None and name is not None:
             result = CloudProvider(cloud).provider.delete_key_from_cloud(name)
+        elif cloud is not None and name is None:
+            #
+            # get a list of keys from cloud
+            # loop over all keys and use the provider delete from cloud to delete that key
+
+            Console.error("delete all keys from cloud not yet implemented")
+
         if name is None:
             cls.cm.delete(kind="key", provider="general")
         else:

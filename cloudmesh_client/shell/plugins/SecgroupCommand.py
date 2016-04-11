@@ -6,7 +6,7 @@ from cloudmesh_client.cloud.secgroup import SecGroup
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 from cloudmesh_client.common.dotdict import dotdict
 from pprint import pprint
-
+from cloudmesh_client.common.Printer import Printer
 
 class SecgroupCommand(PluginCommand, CloudPluginCommand):
     topics = {"secgroup": "security"}
@@ -117,37 +117,11 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                 else:
                     print(SecGroup.list(group=arg.GROUP, output=arg.FORMAT))
 
-                    # print(SecGroup.list_rules(output=arg.FORMAT))
-
             else:
-                groups = SecGroup.list(category=arg.cloud, output=arg.FORMAT)
 
-                print (groups)
-                #try:
-                #    # Get the security group
-                #    sec_group = SecGroup.get(arg.label, arg.cloud)
-                #    if sec_group:
-                #        # Get the rules
-                #        result = SecGroup.list_rules(uuid=sec_group["uuid"])
-                #        print(result)
-                #except:
-                #    Console.error(
-                #        "Security Group with label={label} in cloud={cloud} not found!"
-                #            .format(**arg))
-                return ""
+                print(SecGroup.list(category=arg.cloud, output=arg.FORMAT))
 
-        #elif arguments["list"]:
-
-        #   try:
-        #        result = SecGroup.list(cloud=arg.cloud, output=arg.FORMAT)
-        #        if result is not None:
-        #            print(result)
-        #        else:
-        #            Console.error(
-        #                "No Security Groups found in the cloudmesh database!")
-        #    except:
-        #        Console.error("Problem listing securitygroup cloud={cloud}".format(**data))
-        #    return ""
+            return ""
 
         elif arguments["add"]:
 

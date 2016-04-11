@@ -145,9 +145,11 @@ class SecGroup(ListResource):
             # list on cloud
             # TO BE IMPLEMENTED
             print ("CAT", category)
-            elements = CloudProvider(category).provider.list_secgroup(category)
+            elements = CloudProvider(category).provider.list_secgroup_rules(category)
 
-            pprint (elements)
+            print ("RULES", elements)
+
+
         if elements is None:
             return None
         else:
