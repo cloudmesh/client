@@ -8,6 +8,7 @@ from cloudmesh_client.db import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.LibcloudDict import LibcloudDict
+from cloudmesh_client.common.dotdict import dotdict
 
 requests.packages.urllib3.disable_warnings()
 
@@ -83,8 +84,6 @@ class SecGroup(ListResource):
         except Exception as ex:
             Console.error("Problem adding rule")
 
-
-
     @classmethod
     def create(cls, label, cloud=None):
         """
@@ -110,7 +109,12 @@ class SecGroup(ListResource):
         return None
 
     @classmethod
-    def list(cls, cloud=None, output="table"):
+    def list(cls,
+             group=None,
+             name=None,
+             category='general',
+             output='table',
+             scope='all'):
         """
         This method queries the database to fetch list of secgroups
         filtered by cloud.
@@ -118,14 +122,33 @@ class SecGroup(ListResource):
         :return:
         """
 
-        try:
-            if cloud is None:
-                elements = cls.cm.find(kind="secgroup",
-                                       scope="all")
-            else:
-                elements = cls.cm.find(kind="secgroup",
-                                       scope="all",
-                                       category=cloud)
+        query = dotdict({
+            "kind": "secgrouprule",
+            "scope": "all"
+        })
+        if category is "general":
+
+            print ("search db")
+
+            if group is not None:
+                query.group = group
+            if name is not None:
+                query.name = name
+            query.category = category
+
+            print ("query", query)
+            elements = cls.cm.find(**query)
+            print ("elements", elements)
+
+        else:
+            # list on cloud
+            # TO BE IMPLEMENTED
+            elements = None
+
+        if elements is None:
+            return None
+        else:
+
             # pprint(elements)
             #
             # BUG this should not depend on cloud, but on "general"
@@ -136,7 +159,7 @@ class SecGroup(ListResource):
             header = None
 
             print("FFF", output)
-            print(cloud)
+            print(category)
             print(elements)
 
             return Printer.write(elements,
@@ -144,8 +167,6 @@ class SecGroup(ListResource):
                                  header=header,
                                  output=output)
 
-        except Exception as ex:
-            Console.error("problem listing secgrooups")
 
     @classmethod
     def list_rules(cls, uuid=None, output='table'):
@@ -281,16 +302,16 @@ class SecGroup(ListResource):
 
             # create local db record
             rule = {"kind": "secgrouprule",
-                       "uuid": str(rule_id),
-                       "name": secgroup.name,
-                       "group": secgroup.uuid,
-                       "category": secgroup.category,
-                       "user": secgroup.user,
-                       "project": secgroup.project,
-                       "fromPort": from_port,
-                       "toPort": to_port,
-                       "protocol": protocol,
-                       "cidr": cidr}
+                    "uuid": str(rule_id),
+                    "name": secgroup.name,
+                    "group": secgroup.uuid,
+                    "category": secgroup.category,
+                    "user": secgroup.user,
+                    "project": secgroup.project,
+                    "fromPort": from_port,
+                    "toPort": to_port,
+                    "protocol": protocol,
+                    "cidr": cidr}
 
             cls.cm.add(**rule)
             cls.cm.save()

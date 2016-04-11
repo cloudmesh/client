@@ -88,8 +88,11 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
         """
 
         arg = dotdict(arguments)
-        if arg.cloud is None:
+        if arguments["--cloud"] is None:
+            is_cloud = True
             arg.cloud = arguments["--cloud"] or Default.cloud
+        else:
+            is_cloud = False
 
         arg.FORMAT = arguments["--format"] or 'table'
 
@@ -107,12 +110,19 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
         if arguments["list"]:
 
-            if arg.label is None:
-                print(SecGroup.list(output=arg.FORMAT))
-                print(SecGroup.list_rules(output=arg.FORMAT))
+            if not is_cloud:
+
+                print ("LIST")
+
+                if arg.RULE is None:
+                    print(SecGroup.list(group=arg.GROUP, name=arg.RULE, output=arg.FORMAT))
+                else:
+                    print(SecGroup.list(group=arg.GROUP, output=arg.FORMAT))
+
+                    # print(SecGroup.list_rules(output=arg.FORMAT))
 
             else:
-
+                print ("BBB")
                 try:
                     # Get the security group
                     sec_group = SecGroup.get(arg.label, arg.cloud)
