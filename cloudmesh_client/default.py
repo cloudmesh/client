@@ -159,7 +159,7 @@ class Default(object):
         return cls.get(name="flavor", category=cls.cloud)
 
     @readable_classproperty
-    def lastvm(cls):
+    def vm(cls):
         return cls.get(name="vm")
 
     @readable_classproperty

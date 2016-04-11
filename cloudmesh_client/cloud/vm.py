@@ -89,7 +89,7 @@ class Vm(ListResource):
         print("Machine {name} is being booted on {cloud} Cloud...".format(**data))
         cls.refresh(cloud=data.cloud)
 
-        cls.cm.update("vm", name=data.name)
+        # cls.cm.update("vm", name=data.name)
 
         return vm
 
