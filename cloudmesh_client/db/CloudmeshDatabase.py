@@ -529,7 +529,7 @@ class CloudmeshDatabase(object):
         filter = kwargs['filter']
         values = kwargs['update']
 
-        cls.session.query(t).filter_by(**filter).update(values)
+        cls.session.query(t).filter_by(**filter).update(**values)
         cls.save()
 
     @classmethod
@@ -600,7 +600,7 @@ class CloudmeshDatabase(object):
             print("KWARGS", kwargs)
             user = cls.user
 
-            if kind in ["flavor", "image", "vm", "secgroup"]:
+            if kind in ["flavor", "image", "vm"]:
 
                 # get provider for specific cloud
                 provider = CloudProvider(name).provider
@@ -643,6 +643,7 @@ class CloudmeshDatabase(object):
                     elements = provider.list(kind, name)
 
                     for element in list(elements.values()):
+
                         element[u"uuid"] = element['id']
                         element[u'type'] = 'string'
                         element[u"category"] = name
@@ -663,41 +664,6 @@ class CloudmeshDatabase(object):
                         cls.save()
                     return True
 
-                elif kind == "secgroup":
-                    secgroups = provider.list_secgroup(name)
-                    # pprint(secgroups)
-                    for secgroup in list(secgroups.values()):
-                        secgroup_db_obj = {"kind": "secgroup",
-                                           "name": secgroup['name'],
-                                           "uuid": secgroup['id'],
-                                           "category": name,
-                                           "project": secgroup['tenant_id'],
-                                           "user": user
-                                           }
-
-                        for rule in secgroup['rules']:
-                            rule_db_obj = {"kind": "secgrouprule",
-                                           "uuid": rule['id'],
-                                           "name": secgroup['name'],
-                                           "group": rule['parent_group_id'],
-                                           "category": name,
-                                           "user": user,
-                                           "project": secgroup['tenant_id'],
-                                           "fromPort": rule['from_port'],
-                                           "toPort": rule['to_port'],
-                                           "protocol": rule['ip_protocol']
-                                           }
-
-                            if bool(rule['ip_range']) is not False:
-                                rule_db_obj[0]['secgrouprule']['cidr'] = rule['ip_range']['cidr']
-
-                            cls.add(rule_db_obj)
-
-                        # rule-for-loop ends
-
-                        cls.add(secgroup_db_obj)
-
-                    return True
 
             elif kind in ["batchjob"]:
 
