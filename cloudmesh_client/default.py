@@ -89,8 +89,10 @@ class Default(object):
         :return:
         """
 
+        print ("KKKKK", key, value, category)
         try:
-            o = cls.get(name=key)
+            o = cls.get(name=key, category=category)
+            print ("WWWWWWW", o)
             if o is not None:
                 cls.cm.update(kind=cls.__kind__,
                               provider=cls.__provider__,
@@ -103,16 +105,18 @@ class Default(object):
             else:
                 t = cls.cm.table(provider=cls.__provider__, kind=cls.__kind__)
                 o = t(name=key, value=value, type=type, user=user, category=category)
+                print ("UUUUU", o)
                 cls.cm.add(o)
             cls.cm.save()
         except Exception as e:
             Console.error("problem setting key value {}={}".format(key, value))
 
     @classmethod
-    def get(cls, name=None, category='default'):
+    def get(cls, name=None, category='general'):
         o = cls.cm.find(provider="general",
                         kind="default",
                         scope="first",
+                        category=category,
                         name=name)
         if o is None:
             return None
@@ -148,11 +152,11 @@ class Default(object):
 
     @readable_classproperty
     def image(cls):
-        return cls.get(name="image", category=Default.cloud)
+        return cls.get(name="image", category=cls.cloud)
 
     @readable_classproperty
     def flavor(cls):
-        return cls.get(name="flavor", category=Default.cloud)
+        return cls.get(name="flavor", category=cls.cloud)
 
     @readable_classproperty
     def lastvm(cls):
@@ -293,7 +297,7 @@ class Default(object):
         """
         if category is None:
             category = cls.cloud
-        return cls.get("image", category=category)
+        return cls.get(name="image", category=category)
 
     @classmethod
     def set_flavor(cls, value, category):
@@ -380,15 +384,19 @@ class Default(object):
         for cloud in clouds:
 
             db = {
-                "image": cls.get("image", cloud),
-                "flavor": cls.get("flavor", cloud),
+                "image": cls.get(name="image", category=cloud),
+                "flavor": cls.get(name="flavor", category=cloud),
             }
             defaults = clouds[cloud]["default"]
             for attribute in ["image", "flavor"]:
                 value = db[attribute]
                 if attribute in defaults:
                     value = db[attribute] or defaults[attribute]
-                Default.set(attribute, value, category=cloud)
+
+                    empty = cls.get(name=attribute,category=cloud)
+                    if empty is None:
+                        cls.set(attribute, value, category=cloud)
+                print ("AAA", cloud, attribute, value)
 
         # FINDING DEFAUlTS FOR KEYS
         # keys:
@@ -400,6 +408,9 @@ class Default(object):
 
         name_key = cls.key
 
+        #
+        # SET DEFAULT KEYS
+        #
         keys = config["keys"]
         name = keys["default"]
         if name in keys["keylist"]:
@@ -411,4 +422,4 @@ class Default(object):
 
         # Set the key only if there is no existing value in the DB.
         if exist_key is None:
-            Default.set_key(name)
+            cls.set_key(name)

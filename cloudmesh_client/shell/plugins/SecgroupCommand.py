@@ -84,6 +84,14 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                     uploads a given group to the given cloud. if the cloud is not specified the default cloud is used.
                     If the parameter for cloud is "all" the rules and groups will be uploaded to all active clouds.
 
+
+            Example:
+
+                cm secgroup list
+                cm secgroup list --cloud=kilo
+                cm secgroup add  cm-gregor-default web 80 80 tcp  0.0.0.0/0
+                cm secgroup add  cm-gregor-default ssh 22 22 tcp  0.0.0.0/0
+                cm secgroup upload --cloud=kilo
         """
 
         arg = dotdict(arguments)
@@ -155,72 +163,10 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
             return ""
 
-        # Delete security group rule
-        elif arguments["rules-delete"]:
-            # if no arguments read default
+        elif arguments["upload"]:
 
-            # If default not set, terminate
-            if arg.cloud is None:
-                Console.error("Default cloud not set!")
-                return ""
+            SecGroup.upload(cloud=arg.cloud, group=arg.GROUP)
 
-            # Get the security group
-            sec_group = SecGroup.get(arg.label, arg.cloud)
-            if sec_group:
-
-                # delete all rules for secgroup
-                if arguments["--all"]:
-                    SecGroup.delete_all_rules(secgroup=sec_group)
-                    return ""
-
-                # Get the rules
-                result = SecGroup.delete_rule(cloud=arg.cloud,
-                                              secgroup=sec_group,
-                                              from_port=arg.from_port,
-                                              to_port=arg.to_port,
-                                              protocol=arg.protocol,
-                                              cidr=arg.cidr)
-                if result:
-                    Console.ok(result)
-                else:
-                    Console.error(
-                        "Rule [{from_port} | {to_port} | {protocol} | {cidr}] could not be deleted"
-                            .format(**arg))
-
-            return ""
-
-
-        # add rule to security group
-        elif arguments["rules-add"]:
-
-            # If default not set, terminate
-            if arg.cloud is None:
-                Console.error("Default cloud not set!")
-                return ""
-
-            # Get the security group
-            sec_group = SecGroup.get(arg.label, arg.cloud)
-            if sec_group:
-                # Add rules to the security group
-
-                print("DDDDDD", sec_group)
-
-                SecGroup.add_rule(cloud=arg.cloud,
-                                  secgroup=sec_group,
-                                  from_port=arg.from_port,
-                                  to_port=arg.to_port,
-                                  protocol=arg.protocol,
-                                  cidr=arg.cidr)
-            else:
-                Console.error(
-                    "Security Group with label [{}] in cloud [{}] not found!".format(label, cloud))
-                return ""
-
-        # TODO: Add Implementation
-        elif arguments["--version"]:
-            Console.ok('Version: ')
-
-        return ""
 
 
 '''

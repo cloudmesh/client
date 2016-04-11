@@ -393,11 +393,10 @@ class CloudmeshDatabase(object):
             element.provider = element.__provider__
 
             current = cls.find(
-                scope='first',
                 provider=element.provider,
                 kind=element.kind,
-                output='object',
-                name=element.name
+                name=element.name,
+                category=element.category
             )
 
             print("CURRENT", current)

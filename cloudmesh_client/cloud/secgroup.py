@@ -10,7 +10,7 @@ from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.LibcloudDict import LibcloudDict
 from cloudmesh_client.common.dotdict import dotdict
 from pprint import pprint
-
+from cloudmesh_client.common.ConfigDict import ConfigDict
 requests.packages.urllib3.disable_warnings()
 
 
@@ -69,7 +69,6 @@ class SecGroup(ListResource):
         }
 
         cls.cm.delete(**old_rule)
-
         try:
             rule = {
                 "category": "general",
@@ -81,23 +80,53 @@ class SecGroup(ListResource):
                 'toPort': to_port,
                 'cidr': cidr
             }
-            cls.cm.add(rule)
+            cls.cm.add(rule, replace=False)
         except Exception as ex:
             Console.error("Problem adding rule")
 
     @classmethod
-    def create(cls, label, cloud=None):
+    def upload(cls, cloud=None, group=None):
+
+        if cloud is None:
+            clouds = ConfigDict("cloudmesh.yaml")["cloudmesh"]["active"]
+        else:
+            clouds = [cloud]
+        if group is None:
+            rules = cls.list(output='dict')
+            groups = set()
+            for g in rules:
+                r = rules[g]
+                groups.add(r["group"])
+            groups = list(groups)
+        else:
+            groups = [group]
+
+
+        for c in clouds:
+            for g in groups:
+                SecGroup.delete(category=c, group=g)
+                uuid = SecGroup.create(category=c, group=g)
+                for key in rules:
+                    r = rules[key]
+                    if r["group"] == g:
+                        SecGroup.add_rule(c,uuid,r["fromPort"],r["toPort"] , r['protocol'],r['cidr'])
+                # create group
+
+
+
+    @classmethod
+    def create(cls, group=None, category=None):
         """
         Method creates a new security group in database
         & returns the uuid of the created group
-        :param label:
-        :param cloud:
+        :param group:
+        :param category:
         :return:
         """
         # Create the security group in given cloud
         try:
-            cloud_provider = CloudProvider(cloud).provider
-            secgroup = cloud_provider.create_secgroup(label)
+            cloud_provider = CloudProvider(category).provider
+            secgroup = cloud_provider.create_secgroup(group)
             if secgroup:
                 uuid = secgroup.id
                 return uuid
@@ -129,25 +158,17 @@ class SecGroup(ListResource):
         })
         if category is "general":
 
-            print ("search db")
-
             if group is not None:
                 query.group = group
             if name is not None:
                 query.name = name
             query.category = category
 
-            print ("query", query)
             elements = cls.cm.find(**query)
-            print ("elements", elements)
 
         else:
-            # list on cloud
-            # TO BE IMPLEMENTED
-            print ("CAT", category)
             elements = CloudProvider(category).provider.list_secgroup_rules(category)
 
-            print ("RULES", elements)
 
 
         if elements is None:
@@ -162,10 +183,6 @@ class SecGroup(ListResource):
 
             order = None
             header = None
-
-            print("FFF", output)
-            print(category)
-            print(elements)
 
             return Printer.write(elements,
                                  order=order,
@@ -287,17 +304,15 @@ class SecGroup(ListResource):
             return None
 
     @classmethod
-    def add_rule(cls, cloud, secgroup, from_port, to_port, protocol, cidr):
+    def add_rule(cls, cloud, secgroup_uuid, from_port, to_port, protocol, cidr):
         try:
 
             # Get the nova client object
             cloud_provider = CloudProvider(cloud).provider
 
-            print("SECGROUP", secgroup)
-
             # Create add secgroup rules to the cloud
             args = {
-                'uuid': secgroup.uuid,
+                'uuid': secgroup_uuid,
                 'protocol': protocol,
                 'from_port': from_port,
                 'to_port': to_port,
@@ -305,23 +320,20 @@ class SecGroup(ListResource):
             }
             rule_id = cloud_provider.add_secgroup_rule(**args)
 
+
             # create local db record
             rule = {"kind": "secgrouprule",
                     "uuid": str(rule_id),
-                    "name": secgroup.name,
-                    "group": secgroup.uuid,
-                    "category": secgroup.category,
-                    "user": secgroup.user,
-                    "project": secgroup.project,
+                    "category": cloud,
                     "fromPort": from_port,
                     "toPort": to_port,
                     "protocol": protocol,
                     "cidr": cidr}
-
+            """
             cls.cm.add(**rule)
             cls.cm.save()
-
-            Console.ok("Added rule [{fromPort} | {toPort} | {protocol} | {cidr}] to secgroup [{name}]"
+            """
+            Console.ok("Added rule {category} {uuid} {fromPort} {toPort} {protocol} {cidr}"
                        .format(**rule))
         except Exception as ex:
             if "This rule already exists" in ex.message:

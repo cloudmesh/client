@@ -94,7 +94,7 @@ class Test_database:
 
         print(Default.get_counter(name="index"))
 
-        i = Default.get("index")
+        i = Default.get(name="index")
         assert type(i) == int
         assert i == 10
 

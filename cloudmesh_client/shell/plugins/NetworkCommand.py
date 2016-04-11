@@ -449,7 +449,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 arguments["create"]:
 
             group_name = arguments["--group"] or \
-                Default.get("group", category=cloudname)
+                Default.get(name="group", category=cloudname)
 
             # Get the group information
             group = Group.get_info(name=group_name,

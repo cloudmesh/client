@@ -136,7 +136,7 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
             return ""
 
         else:
-            cloud = arguments["--cloud"] or Default.get("cloud", "general") or "general"
+            cloud = arguments["--cloud"] or Default.get(name="cloud", category="general") or "general"
 
         if arguments["list"]:
             output_format = arguments["--format"]
@@ -173,7 +173,7 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
 
         elif arguments["KEY"]:
             key = arguments["KEY"]
-            result = Default.get(key, cloud)
+            result = Default.get(name=key, category=cloud)
             if result is None:
                 Console.error("No default values found")
             else:
