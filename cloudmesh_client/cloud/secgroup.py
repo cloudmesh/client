@@ -287,7 +287,7 @@ class SecGroup(ListResource):
             return None
 
     @classmethod
-    def add_rule(cls, secgroup, from_port, to_port, protocol, cidr):
+    def add_rule(cls, cloud, secgroup, from_port, to_port, protocol, cidr):
         try:
 
             # Get the nova client object
@@ -332,11 +332,43 @@ class SecGroup(ListResource):
         return
 
     @classmethod
-    def delete_secgroup(cls, label, cloud):
+    def delete(cls,
+               category='general',
+               group=None,
+               name=None):
+        # name is anme of the rule
+
+        if category=='general':
+            if name is None and group is not None:
+
+                # delete the entire group
+                cls.cm.delete(kind="secgrouprule", group=group)
+
+            elif name is not None and group is not None:
+                # delete specific rule
+                cls.cm.delete(name=name, kind="secgrouprule", group=group)
+            elif name is None and group is None:
+                # delete all groups
+                cls.cm.delete(kind="secgrouprule")
+
+        else:
+            provider = CloudProvider(category).provider
+
+            # delete on cloud
+            if  group is not None:
+                provider.delete_secgroup(name)
+                # delete the entire group
+            elif group is None:
+                # delete all groups
+                pass
+
+
+    @classmethod
+    def delete_secgroup(cls, name=None, cloud=None):
         try:
             # Find the secgroup from the cloud
             cloud_provider = CloudProvider(cloud).provider
-            result = cloud_provider.delete_secgroup(label)
+            result = cloud_provider.delete_secgroup(name)
             return result
         except Exception as ex:
             Console.error("delete group")
