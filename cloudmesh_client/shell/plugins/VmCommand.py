@@ -296,17 +296,17 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 else:
                     vm_id = Vm.boot(**data)
 
-                    Default.set_vm(value=data.name)
+                    Default.set_vm(value=data["name"])
 
                     if is_name_provided is False:
                         Default.incr_counter("name")
 
                     # Add to group
                     if vm_id is not None:
-                        Group.add(name=data.group,
+                        Group.add(name=data["group"],
                                   species="vm",
-                                  member=data.name,
-                                  category=data.cloud)
+                                  member=data["name"],
+                                  category=data["cloud"])
 
                     msg = "info. OK."
                     Console.ok(msg)

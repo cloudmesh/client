@@ -403,8 +403,8 @@ class CloudmeshDatabase(object):
 
             if current is not None:
                 for key in element.__dict__.keys():
-                    current.__dict__[key] = element.__dict__[key]
-                    current.__dict__['user'] = element.__dict__["user"]
+                    current[0][key] = element.__dict__[key]
+                    current[0]['user'] = element.__dict__["user"]
             else:
                 cls.session.add(element)
         else:
