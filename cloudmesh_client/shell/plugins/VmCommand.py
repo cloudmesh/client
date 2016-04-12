@@ -24,7 +24,7 @@ from builtins import input
 from cloudmesh_client.common.hostlist import Parameter
 from cloudmesh_client.common.Shell import Shell
 from pprint import pprint
-
+from cloudmesh_client.common.dotdict import dotdict
 
 class VmCommand(PluginCommand, CloudPluginCommand):
     topics = {"vm": "cloud"}
@@ -45,8 +45,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 vm refresh [all][--cloud=CLOUD]
                 vm boot [--name=NAME]
                         [--cloud=CLOUD]
-                        [--image=IMAGE_OR_ID]
-                        [--flavor=FLAVOR_OR_ID]
+                        [--image=IMAGE]
+                        [--flavor=FLAVOR]
                         [--group=GROUP]
                         [--secgroup=SECGROUP]
                         [--key=KEY]
@@ -110,10 +110,10 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 --detail         for table print format, a brief version
                                  is used as default, use this flag to print
                                  detailed table
-                --flavor=FLAVOR_OR_ID  give the name or id of the flavor
+                --flavor=FLAVOR  give the name or id of the flavor
                 --group=GROUP          give the group name of server
                 --secgroup=SECGROUP    security group name for the server
-                --image=IMAGE_OR_ID    give the name or id of the image
+                --image=IMAGE    give the name or id of the image
                 --key=KEY        specify a key to use, input a string which
                                  is the full path to the private key file
                 --keypair_name=KEYPAIR_NAME   Name of the openstack keypair to be used to create VM.
@@ -213,6 +213,36 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         # pprint(arguments)
 
+        data = dotdict(arguments)
+
+        data.name = arguments["--name"]
+
+        def get_vm_name(name=None):
+
+            print ("VMNAME", name)
+            if name is None:
+
+                count = Default.get_counter(name='name')
+                prefix = Default.user
+
+                if prefix is None or count is None:
+                    Console.error("Prefix and Count could not be retrieved correctly.")
+                    return
+
+                # BUG THE Z FILL SHOULD BE detected from yaml file
+                name = prefix + "-" + str(count).zfill(3)
+            return name
+
+        data.cloud = arguments["--cloud"] or Default.cloud
+        data.image = arguments["--image"] or Default.get(name="image", category=data.cloud)
+        data.flavor = arguments["--flavor"] or Default.get(name="flavor", category=data.cloud)
+        data.group = arguments["--group"] or Default.group
+        data.secgroup = arguments["--secgroup"] or Default.secgroup
+        data.key = arguments["--key"] or Default.key
+        data.dryrun = arguments["--dryrun"]
+        data.name = arguments["--name"]
+
+
         def _refresh_cloud(cloud):
             try:
                 msg = "Refresh VMs for cloud {:}.".format(cloud)
@@ -241,83 +271,30 @@ class VmCommand(PluginCommand, CloudPluginCommand):
         if arguments["boot"]:
             name = None
             try:
-                name = arguments["--name"]
+
                 is_name_provided = True
 
-                if name is None:
-                    is_name_provided = False
+                data.secgroup_list = ["default"]
+                if data.secgroup is not None:
+                    data.secgroup_list.append(data.secgroup)
 
-                    count = Default.get_counter(name=name)
-                    prefix = Username()
-
-                    if prefix is None or count is None:
-                        Console.error("Prefix and Count could not be retrieved correctly.")
-                        return
-
-                    # BUG THE Z FILL SHOULD BE detected from yaml file
-                    name = prefix + "-" + str(count).zfill(3)
-
-                # if default cloud not set, return error
-                if not cloud:
-                    Console.error("Default cloud not set.")
-                    return ""
-
-                image = arguments["--image"] or Default.get(name="image",
-                                                            category=cloud)
-                # if default image not set, return error
-                if not image:
-                    Console.error("Default image not set.")
-                    return ""
-
-                flavor = arguments["--flavor"] or Default.get(name="flavor",
-                                                              category=cloud)
-                # if default flavor not set, return error
-                if not flavor:
-                    Console.error("Default flavor not set.")
-                    return ""
-
-                group = arguments["--group"] or Default.group
-
-                # if default group not set, return error
-                if not group:
-                    group = "default"
-                    Default.set_group(group)
-
-                secgroup = arguments["--secgroup"] or Default.get(
-                    name="secgroup", category=cloud)
-                # print("SecurityGrp : {:}".format(secgroup))
-                secgroup_list = ["default"]
-                if secgroup is not None:
-                    secgroup_list.append(secgroup)
-
-                key = arguments["--key"] or Default.key
-                # if default keypair not set, return error
-                if not key:
-                    Console.error("Default key not set.")
-                    return ""
+                data = {
+                    "cloud": data.cloud,
+                    "name": get_vm_name(data.Name),
+                    "image": data.image,
+                    "flavor": data.flavor,
+                    "key": data.key,
+                    "secgroup_list": data.secgroup_list,
+                    "group": data.group
+                }
 
                 if arguments["--dryrun"]:
 
-                    data = {
-                        "cloud": cloud,
-                        "name": name,
-                        "image": image,
-                        "flavor": flavor,
-                        "key": key,
-                        "secgroup_list": secgroup_list,
-                        "group": group
-                    }
                     print(Printer.attribute(data, output="table"))
                     msg = "dryrun info. OK."
                     Console.ok(msg)
                 else:
-                    vm_id = Vm.boot(cloud=cloud,
-                                    group=group,
-                                    name=name,
-                                    image=image,
-                                    flavor=flavor,
-                                    key=key,
-                                    secgroup_list=secgroup_list)
+                    vm_id = Vm.boot(**data)
 
                     # Default.set("last_vm_id", vm_id)
                     Default.set_vm(value=name)
@@ -329,10 +306,10 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                     # Add to group
                     if vm_id is not None:
-                        Group.add(name=group,
+                        Group.add(name=data.group,
                                   species="vm",
-                                  member=name,
-                                  category=cloud)
+                                  member=data.name,
+                                  category=data.cloud)
 
                     msg = "info. OK."
                     Console.ok(msg)
@@ -453,7 +430,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 # If names not provided, take the last vm from DB.
                 if servers is None or len(servers) == 0:
-                    last_vm = Vm.get_last_vm(cloud=cloud)
+                    last_vm = Default.vm
                     if last_vm is None:
                         Console.error("No VM records in database. Please run vm refresh.")
                         return ""
@@ -483,7 +460,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 # If names not provided, take the last vm from DB.
                 if servers is None or len(servers) == 0:
-                    last_vm = Vm.get_last_vm(cloud=cloud)
+                    last_vm = Default.vm
                     if last_vm is None:
                         Console.error("No VM records in database. Please run vm refresh.")
                         return ""
@@ -521,7 +498,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
             if servers is None or len(servers) == 0:
 
-                last_vm = Vm.get_last_vm(cloud=cloud)
+                last_vm = Vm.get_vm(cloud=cloud)
                 if last_vm is None:
                     Console.error("No VM records in database. Please run vm refresh.")
                     return ""
@@ -546,7 +523,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
             # If names not provided, take the last vm from DB.
             if vmids is None or len(vmids) == 0:
-                last_vm = Vm.get_last_vm(cloud=cloud)
+                last_vm = Default.vm
                 if last_vm is None:
                     Console.error("No VM records in database. Please run vm refresh.")
                     return ""
@@ -578,7 +555,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
             # If names not provided, take the last vm from DB.
             if vmids is None or len(vmids) == 0:
-                last_vm = Vm.get_last_vm(cloud=cloud)
+                last_vm = Default.vm
                 if last_vm is None:
                     Console.error("No VM records in database. Please run vm refresh.")
                     return ""
@@ -618,7 +595,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
             # If names not provided, take the last vm from DB.
             if vm_names is None or len(vm_names) == 0:
-                last_vm = Vm.get_last_vm(cloud=cloud)
+                last_vm = Default.vm
                 if last_vm is None:
                     Console.error("No VM records in database. Please run vm refresh.")
                     return ""
@@ -765,7 +742,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 # If names not provided, take the last vm from DB.
                 if servers is None or len(servers) == 0:
-                    last_vm = Vm.get_last_vm(cloud=cloud)
+                    last_vm = Default.vm
                     if last_vm is None:
                         Console.error("No VM records in database. Please run vm refresh.")
                         return ""
