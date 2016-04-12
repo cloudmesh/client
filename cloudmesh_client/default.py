@@ -129,10 +129,10 @@ class Default(object):
     @classmethod
     def delete(cls, name, category=None):
         if category is None:
-            cls.cm.delete(name=name, provider=cls.__provider__, kind=cls.__kind__)
+            result = cls.cm.delete(name=name, provider=cls.__provider__, kind=cls.__kind__)
         else:
-            cls.cm.delete(name=name, provider=cls.__provider__, kind=cls.__kind__, category=category)
-        return ""
+            result = cls.cm.delete(name=name, provider=cls.__provider__, kind=cls.__kind__, category=category)
+        return result
 
     @classmethod
     def clear(cls):

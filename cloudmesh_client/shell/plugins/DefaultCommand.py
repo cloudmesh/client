@@ -155,8 +155,8 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
 
             key = arguments["KEY"]
             result = Default.delete(key, cloud)
-            if result is None:
-                Console.error("Key {} not present".format(key))
+            if not result :
+                Console.error("default {} not present".format(key))
             else:
                 Console.ok("Deleted key {} for cloud {}. ok.".format(key,
                                                                      cloud))

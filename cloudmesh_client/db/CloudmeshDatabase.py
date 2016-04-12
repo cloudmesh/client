@@ -483,7 +483,7 @@ class CloudmeshDatabase(object):
         # user = self.user or Username()
         #
         print("H- delete")
-
+        result = False
         provider = kwargs.get("provider", None)
         kind = kwargs.get("kind")
         if provider is None:
@@ -500,10 +500,14 @@ class CloudmeshDatabase(object):
         t = cls.table(provider=provider, kind=kind)
 
         if len(kwargs) == 0:
-            cls.session.query(t).delete()
+            result = cls.session.query(t).delete()
+            print ("RESULT", result)
         else:
-            cls.session.query(t).filter_by(**kwargs).delete()
+            result = cls.session.query(t).filter_by(**kwargs).delete()
+            print("RESULT", result)
         cls.save()
+
+        return result != 0
 
     @classmethod
     def update(cls,
