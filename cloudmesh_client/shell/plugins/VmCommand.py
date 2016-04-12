@@ -219,7 +219,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         def get_vm_name(name=None):
 
-            print ("VMNAME", name)
             if name is None:
 
                 count = Default.get_counter(name='name')

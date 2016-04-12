@@ -63,7 +63,6 @@ class Vm(ListResource):
     def boot(cls, **kwargs):
 
         data = dotdict(kwargs)
-        pprint(data)
 
         for a in ["key", "name", "image", "flavor"]:
             if a not in kwargs:
@@ -79,6 +78,19 @@ class Vm(ListResource):
         else:
             nics = None
 
+        d = {
+            "name": data.name,
+            "image": data.image,
+            "flavor": data.flavor,
+            "key": data.key,
+            "secgroup": kwargs["secgroup_list"],
+            "nics": nics
+        }
+
+        Console.ok("Machine {name} is being booted on cloud {cloud} ...".format(**data))
+
+        print(Printer.attribute(d))
+
         vm = cloud_provider.boot_vm(data.name,
                                     data.image,
                                     data.flavor,
@@ -86,7 +98,6 @@ class Vm(ListResource):
                                     secgroup=kwargs["secgroup_list"],
                                     nics=nics)
 
-        print("Machine {name} is being booted on {cloud} Cloud...".format(**data))
         cls.refresh(cloud=data.cloud)
 
         # cls.cm.update("vm", name=data.name)
@@ -341,7 +352,6 @@ class Vm(ListResource):
         else:
             return list(user_map_entry.values())[0]["username"]
         '''
-
 
     @classmethod
     def get_vm_public_ip(cls, vm_name, cloud):
