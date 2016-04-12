@@ -122,21 +122,6 @@ class RESERVATION(CloudmeshMixin, CloudmeshDatabase.Base):
         self.project = kwargs.get("project")
 
 
-class SECGROUP(CloudmeshMixin, CloudmeshDatabase.Base):
-    __tablename__ = "secgroup"
-
-    __kind__ = 'secgroup'
-    __provider__ = 'general'
-
-    uuid = Column(String)
-
-    def __init__(self, **kwargs):
-        super(SECGROUP, self).set_defaults(**kwargs)
-
-        self.uuid = kwargs.get("uuid")
-        self.project = kwargs.get("project")
-
-
 class SECGROUPRULE(CloudmeshMixin, CloudmeshDatabase.Base):
     __tablename__ = "secgrouprule"
 
