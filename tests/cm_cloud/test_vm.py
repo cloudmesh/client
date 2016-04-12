@@ -23,10 +23,10 @@ class Test_vm:
         "wrong_cloud": "no_cloud",
         "cloud": Default.cloud,
         "group": "test",
-        "image": "TBD",
-        "flavor": "TBD",
-        "vm": "testvm",
-        "vm_rename": "test_renamed_vm"
+        "image": Default.get_image(category=Default.cloud),
+        "flavor": Default.get_flavor(category=Default.cloud),
+        "vm": "{}_testvm".format(Default.user),
+        "vm_rename": "{}_renamed_testvm".format(Default.user),
     })
     data.image = Default.get_image()
     data.flavor = Default.get_flavor()
@@ -55,6 +55,8 @@ class Test_vm:
             result = self.run("cm key upload")
         except Exception as e:
             print(e)
+
+            
 
     def test_001(self):
         HEADING("cm vm boot --name=testvm --cloud=cloud --image=<image_id> --flavor=2 --group=test")
