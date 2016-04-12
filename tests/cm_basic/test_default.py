@@ -23,7 +23,7 @@ class Test_default(object):
     """  """
 
     data = dotdict({
-        "cloud": "mycloud",
+        "cloud": Default.cloud,
         "image": "myimage",
         "flavor": "myflavor"
     })
@@ -141,7 +141,7 @@ class Test_default(object):
         HEADING("cm default delete doesnotexist --cloud={cloud}"
                 .format(**self.data))
         result = self.run("cm default delete doesnotexist --cloud={cloud}")
-        assert "Key doesnotexist not present" in result
+        assert "doesnotexist not present" in str(result)
 
     def test_999(self):
         HEADING("clear the defaults")
