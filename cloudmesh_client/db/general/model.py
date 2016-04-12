@@ -19,8 +19,6 @@ class DEFAULT(CloudmeshMixin, CloudmeshDatabase.Base):
     def __init__(self, **kwargs):
         super(DEFAULT, self).set_defaults(**kwargs)
         self.value = kwargs.get('value', None)
-        print("KWARGS", kwargs)
-        print("DDDDD", self.__dict__)
 
 
 class VAR(CloudmeshMixin, CloudmeshDatabase.Base):
