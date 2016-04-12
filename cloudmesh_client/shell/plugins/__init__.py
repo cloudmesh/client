@@ -37,6 +37,7 @@ from cloudmesh_client.shell.plugins.ClusterCommand import ClusterCommand
 from cloudmesh_client.shell.plugins.TimerCommand import TimerCommand
 from cloudmesh_client.shell.plugins.LoadCommand import LoadCommand
 from cloudmesh_client.shell.plugins.TestCommand import TestCommand
+from cloudmesh_client.shell.plugins.InfoCommand import InfoCommand
 
 # from cloudmesh_client.shell.plugins.LogLevelCommand import LogLevelCommand
 # from cloudmesh_client.shell.plugins.WhoCommand .import WhoCommand
