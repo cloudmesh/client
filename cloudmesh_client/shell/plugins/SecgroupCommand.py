@@ -103,16 +103,6 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
         arg.FORMAT = arguments["--format"] or 'table'
 
-        pprint(arg)
-
-        # if refresh ON, pull data from cloud to db
-        if arg.refresh or Default.refresh:
-            msg = "Refresh secgroup for cloud {:}.".format(arg.cloud)
-            if SecGroup.refresh(arg.cloud):
-                Console.ok("{:} ok".format(msg))
-            else:
-                Console.error("{:} failed".format(msg))
-
         # list all security-groups in cloud
 
         if arguments["list"]:

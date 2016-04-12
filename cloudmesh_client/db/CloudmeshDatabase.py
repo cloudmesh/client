@@ -665,9 +665,9 @@ class CloudmeshDatabase(object):
                     cls.save()
                 return True
 
-            else:
+            elif kind not in ["secgroup"]:
                 Console.error("refresh not supported for this kind: {}".format(kind))
 
         except Exception as ex:
-            Console.error(ex.message)
+            Console.error("Problem with secgroup")
             return False
