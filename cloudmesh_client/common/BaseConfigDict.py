@@ -18,6 +18,7 @@ from cloudmesh_client.common.Error import Error
 from cloudmesh_client.common.util import backup_name, path_expand
 from cloudmesh_client.locations import config_file
 from cloudmesh_client.logger import LOGGER
+from cloudmesh_client.shell.console import Console
 
 log = LOGGER(__file__)
 package_dir = os.path.dirname(os.path.abspath(__file__))
@@ -43,7 +44,7 @@ def check_file_for_tabs(filename, verbose=True):
             location = [
                 i for i in range(len(line)) if line.startswith('\t', i)]
             if verbose:
-                print("Tab found in line", line_no, "and column(s)", location)
+                Console.error("Tab found in line {} and column(s) {}".format(line_no, str(location).replace("[","").replace("]", "")), traceflag=False)
         line_no += 1
     return file_contains_tabs
 
