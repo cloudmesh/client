@@ -89,10 +89,8 @@ class Default(object):
         :return:
         """
 
-        print ("KKKKK", key, value, category)
         try:
             o = cls.get(name=key, category=category)
-            print ("WWWWWWW", o)
             if o is not None:
                 cls.cm.update(kind=cls.__kind__,
                               provider=cls.__provider__,
@@ -105,7 +103,6 @@ class Default(object):
             else:
                 t = cls.cm.table(provider=cls.__provider__, kind=cls.__kind__)
                 o = t(name=key, value=value, type=type, user=user, category=category)
-                print ("UUUUU", o)
                 cls.cm.add(o)
             cls.cm.save()
         except Exception as e:
@@ -409,7 +406,6 @@ class Default(object):
                     empty = cls.get(name=attribute,category=cloud)
                     if empty is None:
                         cls.set(attribute, value, category=cloud)
-                print ("AAA", cloud, attribute, value)
 
         # FINDING DEFAUlTS FOR KEYS
         # keys:
