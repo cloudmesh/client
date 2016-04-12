@@ -167,6 +167,10 @@ class Default(object):
         return cls.get(name="group")
 
     @readable_classproperty
+    def secgroup(cls):
+        return cls.get(name="secgroup")
+
+    @readable_classproperty
     def key(cls):
         return cls.get(name="key")
 
@@ -328,6 +332,15 @@ class Default(object):
         :return:
         """
         cls.set("group", value)
+
+    @classmethod
+    def set_secgroup(cls, value):
+        """
+        sets the default group
+        :param value: the group name
+        :return:
+        """
+        cls.set("secgroup", value)
 
     @classmethod
     def set_key(cls, name):

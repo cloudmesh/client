@@ -342,13 +342,6 @@ class Vm(ListResource):
             return list(user_map_entry.values())[0]["username"]
         '''
 
-    @classmethod
-    def get_last_vm(cls, cloud):
-
-        vm_data = cls.cm.find(kind="vm", scope="first", category=cloud)
-        if vm_data is None or len(vm_data) == 0:
-            raise RuntimeError("VM data not found in database.")
-        return vm_data
 
     @classmethod
     def get_vm_public_ip(cls, vm_name, cloud):
