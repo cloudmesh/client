@@ -17,7 +17,7 @@ class CloudProvider(CloudProviderBase):
 
         try:
             d = ConfigDict("cloudmesh.yaml")
-            print ("CLOUDNAME", cloudname)
+            # print ("CLOUDNAME", cloudname)
             if cloudname not in d["cloudmesh"]["clouds"]:
                 Console.error("the cloud {} is not defined in the yaml file. failed."
                                  .format(cloudname), traceflag=False)
