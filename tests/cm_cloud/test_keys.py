@@ -300,7 +300,6 @@ class Test_keys:
         result = self.run("cm key list")
 
         assert "None" in str(result)
-        assert "{key}".format(**self.data) in result
 
     def test_116(self):
         """
