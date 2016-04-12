@@ -135,7 +135,7 @@ class Test_default(object):
         print(result)
         result = self.run("cm default delete test --cloud={cloud}")
         print("RRR", result)
-        assert "ERROR" in result
+        assert "ERROR" not in str(result)
 
     def test_012(self):
         HEADING("cm default delete doesnotexist --cloud={cloud}"
