@@ -361,14 +361,11 @@ class CloudmeshDatabase(object):
 
         """
 
-        print("ADD", type(d), d)
-
         if d is None:
             return
 
         if type(d) in [dict, dotdict]:
 
-            print("HALLO")
             if "provider" in d:
                 t = cls.table(kind=d["kind"], provider=d["provider"])
                 provider = d["provider"]
@@ -378,17 +375,12 @@ class CloudmeshDatabase(object):
                 provider = t.__provider__
             d["provider"] = provider
 
-            print("TABLE", t)
-            print("OBJ", d)
             element = t(**d)
-
-            print("KKKKK", element)
 
         else:
             element = d
 
         if replace:
-            print("JJJJJJ", type(element), element)
 
             element.provider = element.__provider__
 
@@ -398,8 +390,6 @@ class CloudmeshDatabase(object):
                 name=element.name,
                 category=element.category
             )
-
-            print("CURRENT", current)
 
             if current is not None:
                 for key in element.__dict__.keys():
@@ -482,7 +472,6 @@ class CloudmeshDatabase(object):
         # BUG does not look for user related data
         # user = self.user or Username()
         #
-        print("H- delete")
         result = False
         provider = kwargs.get("provider", None)
         kind = kwargs.get("kind")
@@ -501,10 +490,8 @@ class CloudmeshDatabase(object):
 
         if len(kwargs) == 0:
             result = cls.session.query(t).delete()
-            print ("RESULT", result)
         else:
             result = cls.session.query(t).filter_by(**kwargs).delete()
-            print("RESULT", result)
         cls.save()
 
         return result != 0
@@ -533,8 +520,8 @@ class CloudmeshDatabase(object):
         filter = kwargs['filter']
         values = kwargs['update']
 
-        print ("FILTER", filter)
-        print ("UPDATE", values)
+        print("FILTER", filter)
+        print("UPDATE", values)
 
         cls.session.query(t).filter_by(**filter).update(values)
         cls.save()
@@ -603,8 +590,6 @@ class CloudmeshDatabase(object):
             # get the user
             # TODO: Confirm user
 
-            print("REFRESH", kind, name)
-            print("KWARGS", kwargs)
             user = cls.user
 
             if kind in ["flavor", "image", "vm"]:
@@ -612,22 +597,16 @@ class CloudmeshDatabase(object):
                 # get provider for specific cloud
                 provider = CloudProvider(name).provider
 
-                print("PPPP", provider)
                 # clear local db records for kind
-                print("CLEAR1")
                 cls.clear(kind=kind, category=name)
 
                 # for secgroup, clear rules as well
-                print("CLEAR2")
                 if kind == "secgroup":
                     cls.clear(kind="secgrouprule", category=name)
 
                 if kind in ["flavor", "image"]:
-                    print("KIND", kind)
                     # flavors = provider.list_flavor(name)
                     elements = provider.list(kind, name)
-                    print("AAAAA", elements)
-                    print("NAME", name)
 
                     for element in list(elements.values()):
                         element["uuid"] = element['id']
@@ -636,7 +615,6 @@ class CloudmeshDatabase(object):
                         element["user"] = user
                         element["kind"] = kind
                         element["provider"] = provider.cloud_type
-                        print("EEEE", element)
 
                         cls.add(element)
                         cls.save()
@@ -645,7 +623,6 @@ class CloudmeshDatabase(object):
 
                 elif kind in ["vm"]:
 
-                    print("REFRESH VM")
                     # flavors = provider.list_flavor(name)
                     elements = provider.list(kind, name)
 
