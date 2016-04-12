@@ -447,6 +447,12 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
     def list_usage(self, cloudname, **kwargs):
         raise ValueError("list usage is not supported")
 
+    def list_console(self, name, length=None):
+        server = self.provider.servers.get(name)
+        log = self.provider.servers.get_console_output(length=length)
+
+        return log
+
     def boot_vm(self,
                 name,
                 group=None,

@@ -51,6 +51,10 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         [--secgroup=SECGROUP]
                         [--key=KEY]
                         [--dryrun]
+                vm console [VMNAME]
+                         [--group=GROUP]
+                         [--cloud=CLOUD]
+                         [--force]
                 vm start [NAME]...
                          [--group=GROUP]
                          [--cloud=CLOUD]
@@ -337,6 +341,19 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             except Exception as e:
                 # Error.traceback(e)
                 Console.error("Problem listing defaults")
+
+        elif arguments["console"]:
+            try:
+                name = arguments["VMNAME"] or Default.vm
+                cloud_provider = CloudProvider(cloud).provider
+                vm_list = cloud_provider.list_console(name)
+                print (vm_list)
+                # print("Status of VM {} is {}".format(vm_list[0]["name"], vm_list[0]["status"]))
+                msg = "info. OK."
+                Console.ok(msg)
+            except Exception as e:
+                # Error.traceback(e)
+                Console.error("Problem retrieving status of the VM")
 
         elif arguments["status"]:
             try:
