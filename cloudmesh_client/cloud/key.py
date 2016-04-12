@@ -53,7 +53,6 @@ class Key(ListResource):
             sshkey["kind"] = "key"
             sshkey["source"] = 'file'
 
-            # print("UUUU", sshkey)
             if store:
                 cls._add_from_sshkey(
                     dict(sshkey),
@@ -77,7 +76,7 @@ class Key(ListResource):
         content = requests.get(uri).text.strip("\n").split("\n")
 
         d = []
-        print (len(content))
+
         for key in range(0, len(content)):
             value = content[key]
             thekey = {}
@@ -134,7 +133,6 @@ class Key(ListResource):
         uri = Config.path_expand(os.path.join("~", ".cloudmesh", filename))
 
 
-        print ("IIIII", keylist)
         d = []
         for key in list(keylist.keys()):
             keyname = key
@@ -212,8 +210,6 @@ class Key(ListResource):
                 pass
         if keyname is None:
             print("ERROR: keyname is None")
-
-        pprint(sshkey)
 
         thekey = {
             "kind": "key",
