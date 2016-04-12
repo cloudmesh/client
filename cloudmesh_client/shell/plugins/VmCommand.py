@@ -272,7 +272,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             name = None
             try:
 
-                is_name_provided = True
+                is_name_provided = arguments["--name"] is not None
 
                 data.secgroup_list = ["default"]
                 if data.secgroup is not None:
@@ -280,7 +280,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 data = {
                     "cloud": data.cloud,
-                    "name": get_vm_name(data.Name),
+                    "name": get_vm_name(data.name),
                     "image": data.image,
                     "flavor": data.flavor,
                     "key": data.key,
@@ -296,13 +296,10 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 else:
                     vm_id = Vm.boot(**data)
 
-                    # Default.set("last_vm_id", vm_id)
-                    Default.set_vm(value=name)
+                    Default.set_vm(value=data.name)
 
-                    # SHOULD WE NOT DO THIS BY DEFAULT EVEN IF WE SPECIFY THE NAME?
                     if is_name_provided is False:
-                        # Incrementing count
-                        Default.incr_counter(name)
+                        Default.incr_counter("name")
 
                     # Add to group
                     if vm_id is not None:
