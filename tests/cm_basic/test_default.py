@@ -110,8 +110,6 @@ class Test_default(object):
         HEADING("cm default test=testValue --cloud={cloud}"
                 .format(**self.data))
         result = self.run("cm default test=testValue --cloud={cloud}")
-        print("HHHH", result)
-
         assert "ok." in result
 
     def test_009(self):
@@ -134,7 +132,6 @@ class Test_default(object):
         assert "test" in result
         print(result)
         result = self.run("cm default delete test --cloud={cloud}")
-        print("RRR", result)
         assert "ERROR" not in str(result)
 
     def test_012(self):

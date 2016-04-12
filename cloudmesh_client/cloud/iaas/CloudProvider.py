@@ -17,7 +17,7 @@ class CloudProvider(CloudProviderBase):
 
         try:
             d = ConfigDict("cloudmesh.yaml")
-            print ("CLOUDNAME", cloudname)
+
             if cloudname not in d["cloudmesh"]["clouds"]:
                 Console.error("the cloud {} is not defined in the yaml file. failed."
                                  .format(cloudname), traceflag=False)
@@ -43,7 +43,7 @@ class CloudProvider(CloudProviderBase):
 
             if cloud_details["cm_type"] == "azure":
                 raise ValueError("azure cloud provider yet implemented. failed.")
-                TODO.implement()
+                Console.TODO("Azure provider to be implemented")
 
         except Exception as e:
             Error.traceback(e)

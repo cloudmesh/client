@@ -30,13 +30,14 @@ from cloudmesh_client.default import Default
 
 # noinspection PyMethodMayBeStatic,PyMethodMayBeStatic,PyPep8Naming
 class Test_keys:
-
     cm = CloudmeshDatabase()
 
     # noinspection PyTypeChecker
     data = dotdict({
         "cloud": Default.cloud,
-        "username": ConfigDict("cloudmesh.yaml")["cloudmesh"]["github"]["username"]}
+        "username": ConfigDict("cloudmesh.yaml")["cloudmesh"]["github"]["username"],
+        "key": Default.user
+    }
     )
 
     def run(self, command):
@@ -59,22 +60,18 @@ class Test_keys:
 
     def clean_db(self):
         """create new db"""
-        print ("clean db")
+        print("clean db")
         self.cm.clean()
         result = self.run("cm default cloud={cloud}")
         result = self.run("cm default cloud")
         assert self.data.cloud in result
 
-
     def test_000(self):
         HEADING("clen")
         self.cm.clean()
 
-
     def test_001(self):
         HEADING("reading the keys from ~/.ssh")
-
-
 
         banner("ssh keys")
         Key.get_from_dir("~/.ssh")
@@ -97,8 +94,8 @@ class Test_keys:
         count1 = len(mykeys)
 
         banner("all")
-        key= Key.get(git_username, output="dict")
-        print (key)
+        key = Key.get(git_username, output="dict")
+        print(key)
 
         mykeys = Key.all(output="dict")
         count2 = len(mykeys)
@@ -106,7 +103,6 @@ class Test_keys:
         print(mykeys)
 
         Key.delete(name='github-0')
-
 
         mykeys = Key.all(output="table")
 
@@ -157,10 +153,10 @@ class Test_keys:
         """
         HEADING()
         self.clean_db()
-        result = self.run("cm key add testkey --source=~/.ssh/id_rsa.pub")
+        result = self.run("cm key add {key} --source=~/.ssh/id_rsa.pub")
         result = self.run("cm key list")
 
-        assert "testkey" in result
+        assert "{key}".format(**self.data) in result
         assert "file:" in result
 
     def test_102(self):
@@ -183,9 +179,9 @@ class Test_keys:
         """
         HEADING()
         self.clean_db()
-        result = self.run("cm key add testkey --ssh")
+        result = self.run("cm key add {key} --ssh")
         result = self.run("cm key list")
-        assert "testkey" in result
+        assert "{key}".format(**self.data) in result
         assert "ssh" in result
 
     def test_105(self):
@@ -195,12 +191,11 @@ class Test_keys:
 
         HEADING()
         self.clean_db()
-        result = self.run("cm key add testkey --ssh")
+        result = self.run("cm key add {key} --ssh")
         result = self.run("cm key list --source=db")
 
-        assert "testkey" in result
+        assert "{key}".format(**self.data) in result
         assert "ssh" in result
-
 
     def test_106(self):
         """
@@ -212,7 +207,7 @@ class Test_keys:
         print(result)
 
         assert "{" in result
-        assert "testkey" in result
+        assert "{key}".format(**self.data) in result
 
     def test_107(self):
         """
@@ -226,10 +221,10 @@ class Test_keys:
         print(result)
         print("--------")
 
-        #d = yaml.load(str(result))
+        # d = yaml.load(str(result))
 
 
-        #assert "testkey" in result
+        # assert "testkey" in result
         assert ":" in str(result)
 
     def test_109(self):
@@ -241,7 +236,6 @@ class Test_keys:
         result = self.run("cm key list --source=git")
         print(result)
         assert "_git_" in result
-
 
     def test_110(self):
         """
@@ -262,7 +256,6 @@ class Test_keys:
         result = self.run("cm key list --source=ssh")
         assert "rsa" in result
 
-
     def test_112(self):
         """
         cm key list --source=cloudmesh
@@ -278,8 +271,8 @@ class Test_keys:
         """
 
         HEADING()
-        result = self.run("cm key get testkey")
-        assert "testkey" in result
+        result = self.run("cm key get {key}")
+        assert "{key}".format(**self.data) in result
 
     def test_114(self):
         """
@@ -287,11 +280,11 @@ class Test_keys:
         """
 
         HEADING()
-        result = self.run("cm default key=testkey")
+        result = self.run("cm default key={key}")
         assert "ok." in result
 
         result = self.run("cm default key")
-        assert "testkey" in result
+        assert "{key}".format(**self.data) in result
 
     def test_115(self):
         """
@@ -300,15 +293,15 @@ class Test_keys:
 
         HEADING()
         self.clean_db()
-        result = self.run("cm key add testkey --ssh")
-        result = self.run("cm key delete testkey")
-        assert "testkey" in result
+        result = self.run("cm key add {key} --ssh")
+        result = self.run("cm key delete {key}")
+        assert "{key}".format(**self.data) in result
         assert "OK." in result
 
         result = self.run("cm key list")
 
         assert "None" in str(result)
-        assert "testkey" not in result
+        assert "{key}".format(**self.data) in result
 
     def test_116(self):
         """
@@ -316,15 +309,15 @@ class Test_keys:
         """
 
         HEADING()
-        result = self.run("cm key add testkey --ssh")
+        result = self.run("cm key add {key} --ssh")
         result = self.run("cm key delete --all")
         assert "OK." in result
 
     def test_117(self):
         HEADING()
         self.clean_db()
-        result = self.run("cm key add testkey --ssh")
-        result = self.run("cm key upload testkey")
+        result = self.run("cm key add {key} --ssh")
+        result = self.run("cm key upload {key}")
 
         cloudname = self.data.cloud
         d = ConfigDict("cloudmesh.yaml")
@@ -332,18 +325,15 @@ class Test_keys:
 
         cloud = CloudProviderOpenstackAPI(cloudname, cloud_details)
 
-
         d = cloud.list_key(cloudname)
         pprint(d)
 
         assert len(d) > 0
-        result = self.run("cm key delete testkey --cloud={cloud}")
+        result = self.run("cm key delete {key} --cloud={cloud}")
         assert 'OK' in result
-
 
     def test_117(self):
         HEADING("set key to user defaults")
 
         result = self.run("cm key add {} --ssh".format(Default.user))
         result = self.run("cm default key={}".format(Default.user))
-
