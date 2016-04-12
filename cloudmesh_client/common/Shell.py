@@ -307,7 +307,7 @@ class Shell(object):
         return platform.system().lower()
 
     @classmethod
-    def execute(cls, cmd, arguments=""):
+    def execute(cls, cmd, arguments="", shell=False):
         """Run Shell command
 
         :param cmd: command to run
@@ -338,13 +338,22 @@ class Shell(object):
             print("ERROR: Wrong parameter type", type(arguments))
 
         try:
-            result = subprocess.check_output(
-                os_command,
-                # shell=True,
-                stderr=subprocess.STDOUT)
+            if shell:
+                result = subprocess.check_output(
+                    os_command,
+                    stderr=subprocess.STDOUT,
+                    shell=True)
+            else:
+                result = subprocess.check_output(
+                    os_command,
+                    # shell=True,
+                    stderr=subprocess.STDOUT)
         except:
             Console.error("problem executing subprocess")
-        return result.strip().decode()
+        if result is None:
+            return result
+        else:
+            return result.strip().decode()
 
     @classmethod
     def mkdir(cls, newdir):
