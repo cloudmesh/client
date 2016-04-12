@@ -110,7 +110,7 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         For these keys, the 'cloud' column in db
         will always be 'general'.
         """
-        general_keys = ["cloud", "cluster", "queue", "key", "group", "user"]
+        general_keys = ["cloud", "cluster", "queue", "key", "group", "user", "secgroup"]
 
         """
         If the default cloud has been set (eg. default category=xxx),
@@ -118,8 +118,6 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         will have 'cloud' column in db as the default cloud that was set.
         (eg. image=yyy for category=xxx).
         """
-
-        logger.info(arguments)
 
         if arguments["KEY"] in general_keys:
             cloud = "general"
@@ -154,6 +152,8 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         elif arguments["delete"]:
 
             key = arguments["KEY"]
+            if key in general_keys:
+                cloud = "general"
             result = Default.delete(key, cloud)
             if not result :
                 Console.error("default {} not present".format(key))
@@ -166,13 +166,15 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
             key, value = arguments["KEY"].split("=")
             if key in general_keys:
                 cloud = "general"
-            Default.set(key, value, cloud)
+            Default.set(key, value, category=cloud)
             Console.ok(
                 "set default {}={}. ok.".format(key, value))
             return ""
 
         elif arguments["KEY"]:
             key = arguments["KEY"]
+            if key in general_keys:
+                cloud = "general"
             result = Default.get(name=key, category=cloud)
             if result is None:
                 Console.error("No default values found")
