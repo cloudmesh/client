@@ -339,3 +339,11 @@ class Test_keys:
         assert len(d) > 0
         result = self.run("cm key delete testkey --cloud={cloud}")
         assert 'OK' in result
+
+
+    def test_117(self):
+        HEADING("set key to user defaults")
+
+        result = self.run("cm key add {} --ssh".format(Default.user))
+        result = self.run("cm default key={}".format(Default.user))
+
