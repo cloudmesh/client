@@ -24,6 +24,7 @@ from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.command import PluginCommand
 from cloudmesh_client.common.ssh_config import ssh_config
 import cloudmesh_client.etc
+from cloudmesh_client.cloud.secgroup import SecGroup
 
 import cloudmesh_client.shell.plugins
 from cloudmesh_client.common.StopWatch import StopWatch
@@ -241,6 +242,11 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
 
         #
+        # SET DEFUALT SECGROUP
+        #
+
+
+        #
         # SET DEFAULT REFRESH
         #
         r = Default.refresh
@@ -254,6 +260,14 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         if user is None:
             user = ConfigDict(filename=filename)["cloudmesh"]["profile"]["username"]
             Default.set_user(user)
+
+        r = Default.secgroup
+        if r is None:
+            secgroup = "{}-default".format(Default.user)
+            Default.set_secgroup(secgroup)
+            SecGroup.add_rule_to_db(group=secgroup, name="ssh",from_port="22",to_port="22",protocol="tcp", cidr="0.0.0.0/0")
+            SecGroup.add_rule_to_db(group=secgroup, name="http",from_port="80",to_port="80",protocol="tcp", cidr="0.0.0.0/0")
+            SecGroup.add_rule_to_db(group=secgroup, name="https", from_port="443", to_port="443", protocol="tcp", cidr="0.0.0.0/0")
 
         """
         try:

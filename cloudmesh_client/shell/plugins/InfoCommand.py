@@ -41,6 +41,8 @@ class InfoCommand(PluginCommand, CloudPluginCommand):
             "key": Default.key,
             "user": Default.user,
             "vm": Default.vm,
+            "group": Default.group,
+            "secgroup": Default.secgroup,
             "counter": Default.get_counter(name="name"),
             "image": Default.get_image(category=arg.cloud),
             "flavor": Default.get_flavor(category=arg.cloud)

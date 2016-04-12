@@ -11,6 +11,8 @@ from cloudmesh_client.common.LibcloudDict import LibcloudDict
 from cloudmesh_client.common.dotdict import dotdict
 from pprint import pprint
 from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.default import Default
+
 requests.packages.urllib3.disable_warnings()
 
 
@@ -363,6 +365,10 @@ class SecGroup(ListResource):
                 # delete all groups
                 cls.cm.delete(kind="secgrouprule")
 
+
+            if Default.secgroup == group:
+                Default.set_secgroup(None)
+
         else:
             provider = CloudProvider(category).provider
 
@@ -373,6 +379,8 @@ class SecGroup(ListResource):
             elif group is None:
                 # delete all groups
                 pass
+
+
 
 
     @classmethod
