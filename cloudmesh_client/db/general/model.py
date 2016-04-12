@@ -101,8 +101,6 @@ class GROUP(CloudmeshMixin, CloudmeshDatabase.Base):
         self.category = kwargs.get('category', 'general')
         self.type = 'str'
 
-        print("INIT", kwargs, self.__dict__)
-
 
 class RESERVATION(CloudmeshMixin, CloudmeshDatabase.Base):
     __tablename__ = "reservation"
