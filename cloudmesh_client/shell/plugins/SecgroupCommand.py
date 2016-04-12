@@ -128,8 +128,6 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
                 print(SecGroup.list(category=arg.cloud, output=arg.FORMAT))
 
-            return ""
-
         elif arguments["add"]:
 
             try:
@@ -150,8 +148,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
             # If default not set, terminate
             if arg.cloud is None:
-                Console.TBD("Default cloud in DB not yet implemented")
-                return ""
+                SecGroup.delete(group=arg.GROUP)
             else:
                 result = SecGroup.delete_secgroup(name=arg.GROUP, cloud=arg.cloud)
                 if result is not None:
@@ -161,12 +158,11 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                     Console.error("Failed to delete Security Group={GROUP} in cloud={cloud}"
                               .format(**arg))
 
-            return ""
-
         elif arguments["upload"]:
 
             SecGroup.upload(cloud=arg.cloud, group=arg.GROUP)
 
+        return ""
 
 
 '''
