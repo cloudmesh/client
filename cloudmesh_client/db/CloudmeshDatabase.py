@@ -663,7 +663,7 @@ class CloudmeshDatabase(object):
                         g = cls.find(kind="group", member=vm_name)
 
                         if g is not None:
-                            element[u"group"] = g["name"]
+                            element[u"group"] = g[0]["name"]
                         else:
                             element[u"group"] = "undefined"
 
