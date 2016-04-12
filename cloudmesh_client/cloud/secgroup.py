@@ -346,6 +346,31 @@ class SecGroup(ListResource):
         return
 
     @classmethod
+    def reset_defaults(cls):
+
+        secgroup = "{}-default".format(Default.user)
+        Default.set_secgroup(secgroup)
+
+        SecGroup.add_rule_to_db(group=secgroup,
+                                name="ssh",
+                                from_port="22",
+                                to_port="22",
+                                protocol="tcp",
+                                cidr="0.0.0.0/0")
+        SecGroup.add_rule_to_db(group=secgroup,
+                                name="http",
+                                from_port="80",
+                                to_port="80",
+                                protocol="tcp",
+                                cidr="0.0.0.0/0")
+        SecGroup.add_rule_to_db(group=secgroup,
+                                name="https",
+                                from_port="443",
+                                to_port="443",
+                                protocol="tcp",
+                                cidr="0.0.0.0/0")
+
+    @classmethod
     def delete(cls,
                category='general',
                group=None,
@@ -358,6 +383,7 @@ class SecGroup(ListResource):
                 # delete the entire group
                 cls.cm.delete(kind="secgrouprule", group=group)
 
+
             elif name is not None and group is not None:
                 # delete specific rule
                 cls.cm.delete(name=name, kind="secgrouprule", group=group)
@@ -365,9 +391,8 @@ class SecGroup(ListResource):
                 # delete all groups
                 cls.cm.delete(kind="secgrouprule")
 
-
-            if Default.secgroup == group:
-                Default.set_secgroup(None)
+            if group == Default.secgroup or Default.secgroup is None:
+                cls.reset_defaults()
 
         else:
             provider = CloudProvider(category).provider

@@ -261,8 +261,10 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             user = ConfigDict(filename=filename)["cloudmesh"]["profile"]["username"]
             Default.set_user(user)
 
+
         r = Default.secgroup
-        print ("S", r)
+
+        print ("SECGROUP", r)
         if r is None:
             secgroup = "{}-default".format(Default.user)
             Default.set_secgroup(secgroup)
