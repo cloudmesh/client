@@ -251,7 +251,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 try:
                     #sshdb = SSHKeyDBManager()
                     d = Key.all(output='dict')
-                    print ("GGGGGGGG", d)
+
                     if d is not None or d != []:
 
                         print(Printer.write(d,

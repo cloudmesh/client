@@ -234,7 +234,6 @@ class Test_keys:
 
         HEADING()
         result = self.run("cm key list --source=git")
-        print(result)
         assert "_git_" in result
 
     def test_110(self):
