@@ -260,7 +260,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                                                    "uri",
                                                    "fingerprint",
                                                    "source"],
-                                            output="table"))
+                                            output=_format))
 
                         # print(_print_dict(d, output=arguments['--format']))
                         msg = "info. OK."
