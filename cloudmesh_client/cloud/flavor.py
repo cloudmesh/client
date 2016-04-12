@@ -53,6 +53,3 @@ class Flavor(ListResource):
         return CloudProvider(cloud).details('flavor', cloud, id, format)
 
 
-if __name__ == "__main__":
-    # TODO: add valid flavor here
-    Flavor.details("kilo", "58c9552c-8d93-42c0-9dea-5f48d90a3188")
