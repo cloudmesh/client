@@ -268,7 +268,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         # TODO: this needs to be move to the provider
         _keys = self._to_dict(self.provider.keypairs.list())
 
-
         for id in _keys:
             key = _keys[id]
 
@@ -291,7 +290,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         return d
 
     def list_image(self, cloudname, **kwargs):
-        d =  self._to_dict(self.provider.images.list())
+        d = self._to_dict(self.provider.images.list())
         for e in d:
             o = d[e]
             if 'server__links' in o:
@@ -300,7 +299,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
     def list_secgroup(self, cloudname, **kwargs):
         return self._to_dict(self.provider.security_groups.list())
-
 
     def list_secgroup_rules(self, cloudname):
 
@@ -330,7 +328,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     rules.append(element)
         return rules
 
-
     def create_secgroup(self, secgroup_name):
         secgroup = self.provider.security_groups \
             .create(name=secgroup_name,
@@ -359,8 +356,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         else:
             print("Could not find security group [{}] in cloud [{}]"
                   .format(name, self.cloud))
-
-
 
     def delete_secgroup_rule(self, rule_id):
         self.provider.security_group_rules.delete(rule_id)
@@ -400,7 +395,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             vm_dict[index][u"floating_ip"] = ip_detail_dict[index]["floating_ip"]
             vm_dict[index][u"static_ip"] = ip_detail_dict[index]["static_ip"]
             vm_dict[index][u"security_ groups"] = secgroup_list_dict[index]
-
 
         for e in vm_dict:
             o = vm_dict[e]
@@ -455,6 +449,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
     def boot_vm(self,
                 name,
+                group=None,
                 image=None,
                 flavor=None,
                 cloud="kilo",
@@ -475,13 +470,12 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         :param secgroup: Security group for the instance
         :param meta: A dict of arbitrary key/value metadata to store for this server
         """
-        if image is None:
-            image = self.default_image
-        if flavor is None:
-            flavor = self.default_flavor
+        image = image or self.default_image
+        flavor = flavor or self.default_flavor
 
         image_id = self.get_image_id(image)
         flavor_id = self.get_flavor_id(flavor)
+
 
         # if no nics specified, try to find one in case it's needed
         if nics is None or len(nics) == 0 or (len(nics) == 1 and nics[0]['net-id'] is None):
@@ -497,6 +491,23 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     nic = nic[0]
                     nics = [{"net-id": nic.id}]
                     break
+
+        """
+        create(name, image, flavor, meta=None, files=None, reservation_id=None, min_count=None, max_count=None,
+          security_groups=None, userdata=None, key_name=None, availability_zone=None, block_device_mapping=None,
+          block_device_mapping_v2=None, nics=None, scheduler_hints=None, config_drive=None, disk_config=None,
+          admin_pass=None, access_ip_v4=None, access_ip_v6=None, **kwargs)
+        """
+        d = {
+            "name": name,
+            "image_id": image_id,
+            "flavor_id": flavor_id,
+            "meta": meta,
+            "key_name": key,
+            "security_groups": secgroup,
+            "nics": nics}
+
+        pprint (d)
 
         server = self.provider.servers.create(name,
                                               image_id,
@@ -752,8 +763,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         else:
             return self.provider.servers.find(name=vm_name,
                                               scope="first")._info
-
-
 
     def attributes(self, kind):
 

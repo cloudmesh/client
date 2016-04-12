@@ -13,7 +13,7 @@ from uuid import UUID
 from cloudmesh_client.common.dotdict import dotdict
 from builtins import input
 from pprint import pprint
-
+from cloudmesh_client.default import Default
 
 # noinspection PyPep8Naming
 class Vm(ListResource):
@@ -70,7 +70,7 @@ class Vm(ListResource):
 
         conf = ConfigDict("cloudmesh.yaml")
         data.username = conf["cloudmesh"]["profile"]["username"]
-
+        data.group = data.group or Default.group
         cloud_provider = CloudProvider(data.cloud).provider
 
         if "nics" in data:
@@ -83,20 +83,17 @@ class Vm(ListResource):
             "image": data.image,
             "flavor": data.flavor,
             "key": data.key,
-            "secgroup": kwargs["secgroup_list"],
-            "nics": nics
-        }
+            "secgroup": [data.secgroup],
+            "nics": nics,
+            "meta": {'kind': 'cloudmesh',
+                     'group': '{group}'.format(**data)}
+         }
 
         Console.ok("Machine {name} is being booted on cloud {cloud} ...".format(**data))
 
         print(Printer.attribute(d))
 
-        vm = cloud_provider.boot_vm(data.name,
-                                    data.image,
-                                    data.flavor,
-                                    key=data.key,
-                                    secgroup=kwargs["secgroup_list"],
-                                    nics=nics)
+        vm = cloud_provider.boot_vm(**d)
 
         cls.refresh(cloud=data.cloud)
 

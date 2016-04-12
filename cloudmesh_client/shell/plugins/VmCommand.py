@@ -273,17 +273,13 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 is_name_provided = arguments["--name"] is not None
 
-                data.secgroup_list = ["default"]
-                if data.secgroup is not None:
-                    data.secgroup_list.append(data.secgroup)
-
                 data = {
                     "cloud": data.cloud,
                     "name": get_vm_name(data.name),
                     "image": data.image,
                     "flavor": data.flavor,
                     "key": data.key,
-                    "secgroup_list": data.secgroup_list,
+                    "secgroup": data.secgroup,
                     "group": data.group
                 }
 
