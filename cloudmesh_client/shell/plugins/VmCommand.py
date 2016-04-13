@@ -226,23 +226,23 @@ class VmCommand(PluginCommand, CloudPluginCommand):
         arg.name = arguments["--name"]
         arg.format = arguments["--format"] or 'table'
         arg.refresh = Default.refresh or arguments["--refresh"]
-        arg.count = int(arguments["--n"]) or 1
+        arg.count = int(arguments["--n"] or 1)
         arg.dryrun = arguments["--dryrun"]
 
         if arguments["boot"]:
             is_name_provided = arg.name is not None
 
             for index in range(0, arg.count):
+                vm_details = dotdict({
+                    "cloud": arg.cloud,
+                    "name": get_vm_name(arg.name, index),
+                    "image": arg.image,
+                    "flavor": arg.flavor,
+                    "key": arg.key,
+                    "secgroup": arg.secgroup,
+                    "group": arg.group
+                })
                 try:
-                    vm_details = {
-                        "cloud": arg.cloud,
-                        "name": get_vm_name(arg.name, index),
-                        "image": arg.image,
-                        "flavor": arg.flavor,
-                        "key": arg.key,
-                        "secgroup": arg.secgroup,
-                        "group": arg.group
-                    }
 
                     if arg.dryrun:
                         print(Printer.attribute(vm_details, output=arg.format))
@@ -252,7 +252,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         vm_id = Vm.boot(**vm_details)
 
                         # set name and counter in defaults
-                        Default.set_vm(value=vm_details["name"])
+                        Default.set_vm(value=vm_details.name)
                         if is_name_provided is False:
                             Default.incr_counter("name")
 
@@ -267,8 +267,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         Console.ok(msg)
 
                 except Exception as e:
-                    # Error.traceback(e)
-                    Console.error("Problem booting instance {:}".format(name))
+                    Console.error("Problem booting instance {name}".format(**vm_details))
 
         elif arguments["default"]:
             try:
