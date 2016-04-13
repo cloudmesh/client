@@ -26,6 +26,7 @@ from cloudmesh_client.common.Shell import Shell
 from pprint import pprint
 from cloudmesh_client.common.dotdict import dotdict
 
+
 class VmCommand(PluginCommand, CloudPluginCommand):
     topics = {"vm": "cloud"}
 
@@ -44,6 +45,14 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 vm default [--cloud=CLOUD][--format=FORMAT]
                 vm refresh [all][--cloud=CLOUD]
                 vm boot [--name=NAME]
+                        [--cloud=CLOUD]
+                        [--image=IMAGE]
+                        [--flavor=FLAVOR]
+                        [--group=GROUP]
+                        [--secgroup=SECGROUP]
+                        [--key=KEY]
+                        [--dryrun]
+                vm boot [--n=COUNT]
                         [--cloud=CLOUD]
                         [--image=IMAGE]
                         [--flavor=FLAVOR]
@@ -164,87 +173,21 @@ class VmCommand(PluginCommand, CloudPluginCommand):
         """
 
         def _print_dict(d, header=None, output='table'):
-
-            return Printer.write(d,
-                                 order=["id",
-                                        "name",
-                                        "status"],
-                                 output=output,
-                                 sort_keys=True)
-
+            return Printer.write(d, order=["id", "name", "status"], output=output, sort_keys=True)
 
         def _print_dict_ip(d, header=None, output='table'):
+            return Printer.write(d, order=["network", "version", "addr"], output=output, sort_keys=True)
 
-            return Printer.write(d,
-                                 order=["network",
-                                        "version",
-                                        "addr"],
-                                 output=output,
-                                 sort_keys=True)
-
-        """
-        def list_vms_on_cloud(cloud="kilo", group=None, format="table"):
-
-            Utility reusable function to list vms on the cloud.
-            :param cloud:
-            :param group:
-            :param format:
-            :return:
-
-            _cloud = cloud
-            _group = group
-            _format = format
-
-            cloud_provider = CloudProvider(_cloud).provider
-            servers = cloud_provider.list_vm(_cloud)
-
-
-            server_list = {}
-            index = 0
-            # TODO: Improve the implementation to display more fields if required.
-            for server in servers:
-                server_list[index] = {}
-                server_list[index]["name"] = server.name
-                server_list[index]["id"] = server.id
-                server_list[index]["status"] = server.status
-                index += 1
-
-
-            # TODO: Get this printed in a table
-            print("Print table")
-            Printer.write(servers, output=_format)
-        """
-
-        # pprint(arguments)
-
-        data = dotdict(arguments)
-
-        data.name = arguments["--name"]
-
-        def get_vm_name(name=None):
+        def get_vm_name(name=None, offset=0, fill=3):
 
             if name is None:
-
-                count = Default.get_counter(name='name')
+                count = Default.get_counter(name='name') + offset
                 prefix = Default.user
-
                 if prefix is None or count is None:
                     Console.error("Prefix and Count could not be retrieved correctly.")
                     return
-
-                # BUG THE Z FILL SHOULD BE detected from yaml file
-                name = prefix + "-" + str(count).zfill(3)
+                name = prefix + "-" + str(count).zfill(fill)
             return name
-
-        data.cloud = arguments["--cloud"] or Default.cloud
-        data.image = arguments["--image"] or Default.get(name="image", category=data.cloud)
-        data.flavor = arguments["--flavor"] or Default.get(name="flavor", category=data.cloud)
-        data.group = arguments["--group"] or Default.group
-        data.secgroup = arguments["--secgroup"] or Default.secgroup
-        data.key = arguments["--key"] or Default.key
-        data.dryrun = arguments["--dryrun"]
-        data.name = arguments["--name"]
-
 
         def _refresh_cloud(cloud):
             try:
@@ -254,7 +197,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 else:
                     Console.error("{:} failed".format(msg))
             except Exception as e:
-                # Error.traceback(e)
                 Console.error("Problem running VM refresh")
 
         cloud = arguments["--cloud"] or Default.cloud
@@ -266,53 +208,67 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             all = arguments["all"] or None
 
             if all is None:
+
                 _refresh_cloud(cloud)
             else:
                 for cloud in active_clouds:
                     _refresh_cloud(cloud)
 
+        arg = dotdict(arguments)
+
+        arg.cloud = arguments["--cloud"] or Default.cloud
+        arg.image = arguments["--image"] or Default.get(name="image", category=arg.cloud)
+        arg.flavor = arguments["--flavor"] or Default.get(name="flavor", category=arg.cloud)
+        arg.group = arguments["--group"] or Default.group
+        arg.secgroup = arguments["--secgroup"] or Default.secgroup
+        arg.key = arguments["--key"] or Default.key
+        arg.dryrun = arguments["--dryrun"]
+        arg.name = arguments["--name"]
+        arg.format = arguments["--format"] or 'table'
+        arg.refresh = Default.refresh or arguments["--refresh"]
+        arg.count = int(arguments["--n"]) or 1
+        arg.dryrun = arguments["--dryrun"]
+
         if arguments["boot"]:
-            name = None
-            try:
+            is_name_provided = arg.name is not None
 
-                is_name_provided = arguments["--name"] is not None
+            for index in range(0, arg.count):
+                try:
+                    vm_details = {
+                        "cloud": arg.cloud,
+                        "name": get_vm_name(arg.name, index),
+                        "image": arg.image,
+                        "flavor": arg.flavor,
+                        "key": arg.key,
+                        "secgroup": arg.secgroup,
+                        "group": arg.group
+                    }
 
-                data = {
-                    "cloud": data.cloud,
-                    "name": get_vm_name(data.name),
-                    "image": data.image,
-                    "flavor": data.flavor,
-                    "key": data.key,
-                    "secgroup": data.secgroup,
-                    "group": data.group
-                }
+                    if arg.dryrun:
+                        print(Printer.attribute(vm_details, output=arg.format))
+                        msg = "dryrun info. OK."
+                        Console.ok(msg)
+                    else:
+                        vm_id = Vm.boot(**vm_details)
 
-                if arguments["--dryrun"]:
+                        # set name and counter in defaults
+                        Default.set_vm(value=vm_details["name"])
+                        if is_name_provided is False:
+                            Default.incr_counter("name")
 
-                    print(Printer.attribute(data, output="table"))
-                    msg = "dryrun info. OK."
-                    Console.ok(msg)
-                else:
-                    vm_id = Vm.boot(**data)
+                        # Add to group
+                        if vm_id is not None:
+                            Group.add(name=vm_details.group,
+                                      species="vm",
+                                      member=vm_details.name,
+                                      category=vm_details.cloud)
 
-                    Default.set_vm(value=data["name"])
+                        msg = "info. OK."
+                        Console.ok(msg)
 
-                    if is_name_provided is False:
-                        Default.incr_counter("name")
-
-                    # Add to group
-                    if vm_id is not None:
-                        Group.add(name=data["group"],
-                                  species="vm",
-                                  member=data["name"],
-                                  category=data["cloud"])
-
-                    msg = "info. OK."
-                    Console.ok(msg)
-
-            except Exception as e:
-                # Error.traceback(e)
-                Console.error("Problem booting instance {:}".format(name))
+                except Exception as e:
+                    # Error.traceback(e)
+                    Console.error("Problem booting instance {:}".format(name))
 
         elif arguments["default"]:
             try:
@@ -324,16 +280,17 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     return
 
                 vm_name = prefix + "-" + str(count).zfill(3)
-                data = {"name": vm_name,
-                        "cloud": arguments["--cloud"] or Default.cloud}
-                for attribute in ["image", "flavor", "key", "group", "secgroup"]:
-                    data[attribute] = Default.get(name=attribute, category=cloud)
+                arg = {
+                    "name": vm_name,
+                    "cloud": arguments["--cloud"] or Default.cloud
+                }
+                for attribute in ["image", "flavor"]:
+                    arg[attribute] = Default.get(name=attribute, category=cloud)
+                for attribute in ["key", "group", "secgroup"]:
+                    arg[attribute] = Default.get(name=attribute, category='general')
 
-                # Retrieving key separately as its in general category.
-                data["key"] = Default.key
-
-                output_format = arguments["--format"] or "table"
-                print(Printer.attribute(data, output=output_format))
+                output = arguments["--format"] or "table"
+                print(Printer.attribute(arg, output=output))
                 msg = "info. OK."
                 Console.ok(msg)
                 ValueError("default command not implemented properly. Upon "
@@ -348,10 +305,9 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 vm = dotdict(Vm.list(name=name, category=cloud, output="dict")["dict"])
 
-
                 cloud_provider = CloudProvider(cloud).provider
                 vm_list = cloud_provider.list_console(vm.uuid)
-                print (vm_list)
+                print(vm_list)
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception as e:
@@ -416,7 +372,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         "ping": ping,
                         "login": check
                     }
-                    id = id + 1
+                    id += 1
 
                 pprint(test)
 

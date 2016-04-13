@@ -8,6 +8,7 @@ import libcloud.security
 from cloudmesh_client.common.ConfigDict import Config
 from time import sleep
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.common.hostlist import Parameter
 
 cm = CloudmeshDatabase()
 
