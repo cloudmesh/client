@@ -512,7 +512,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             "security_groups": secgroup,
             "nics": nics}
 
-        pprint (d)
 
         server = self.provider.servers.create(name,
                                               image_id,
