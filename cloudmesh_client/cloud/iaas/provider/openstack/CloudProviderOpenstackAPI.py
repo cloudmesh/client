@@ -449,8 +449,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
     def list_console(self, name, length=None):
         server = self.provider.servers.get(name)
-        log = self.provider.servers.get_console_output(length=length)
-
+        log = server.get_console_output(length=None)
         return log
 
     def boot_vm(self,

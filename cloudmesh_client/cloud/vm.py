@@ -221,6 +221,12 @@ class Vm(ListResource):
         This method lists all VMs of the cloud
         """
 
+        arg = dotdict(kwargs)
+
+        arg.output = arg.output or 'table'
+
+
+        #pprint (kwargs)
         # prevent circular dependency
         def vm_groups(vm):
             """
@@ -245,18 +251,18 @@ class Vm(ListResource):
                 Console.error(ex.message, ex)
 
         try:
-            if "name_or_id" in kwargs and kwargs["name_or_id"] is not None:
-                if cls.isUuid(kwargs["name_or_id"]):
+            if "_or_id" in kwargs and kwargs["name"] is not None:
+                if cls.isUuid(kwargs["name"]):
                     elements = cls.cm.find(kind="vm",
-                                           category=kwargs["cloud"],
-                                           uuid=kwargs["name_or_id"])
+                                           category=kwargs["category"],
+                                           uuid=kwargs["name"])
                 else:
                     elements = cls.cm.find(kind="vm",
-                                           category=kwargs["cloud"],
-                                           label=kwargs["name_or_id"])
+                                           category=kwargs["category"],
+                                           label=kwargs["name"])
             else:
                 elements = cls.cm.find(kind="vm",
-                                       category=kwargs["cloud"])
+                                       category=kwargs["category"])
 
             if elements is None or len(elements) == 0:
                 return None
@@ -270,16 +276,16 @@ class Vm(ListResource):
             # print(elements)
 
             # order = ['id', 'uuid', 'name', 'cloud']
-            (order, header) = CloudProvider(kwargs["cloud"]).get_attributes("vm")
+            (order, header) = CloudProvider(kwargs["category"]).get_attributes("vm")
 
             # order = None
-            if "name_or_id" in kwargs and kwargs["name_or_id"] is not None:
+            if "name" in kwargs and kwargs["name"] is not None:
                 return Printer.attribute(elements[0],
-                                         output=kwargs["output_format"])
+                                         output=arg.output)
             else:
                 return Printer.write(elements,
                                      order=order,
-                                     output=kwargs["output_format"])
+                                     output=arg.output)
         except Exception as ex:
             Console.error(ex.message, ex)
 
@@ -296,21 +302,21 @@ class Vm(ListResource):
     @classmethod
     def status_from_cloud(cls, **kwargs):
         cloud_provider = CloudProvider(kwargs["cloud"]).provider
-        vm = cloud_provider.get_vm(name=kwargs["name_or_id"])
+        vm = cloud_provider.get_vm(name=kwargs["name"])
         return vm["status"]
 
     @classmethod
-    def set_vm_login_user(cls, name_or_id, cloud, username):
-        print(name_or_id, username)
+    def set_vm_login_user(cls, name, cloud, username):
+        print(name, username)
         ValueError("this method is wrong implemented")
 
         '''
-        if cls.isUuid(name_or_id):
-            uuid = name_or_id
+        if cls.isUuid(name):
+            uuid = name
         else:
-            vm_data = cls.cm.find(kind="vm", category=cloud, label=name_or_id)
+            vm_data = cls.cm.find(kind="vm", category=cloud, label=name)
             if vm_data is None or len(vm_data) == 0:
-                raise RuntimeError("VM with label {} not found in database.".format(name_or_id))
+                raise RuntimeError("VM with label {} not found in database.".format(name))
             uuid = list(vm_data.values())[0]["uuid"]
 
         user_map_entry = cls.cm.find(kind="VMUSERMAP", vm_uuid=uuid)
@@ -324,18 +330,18 @@ class Vm(ListResource):
         '''
 
     @classmethod
-    def get_vm_login_user(cls, name_or_id, cloud):
-        print(name_or_id, cloud)
+    def get_vm_login_user(cls, name, cloud):
+        print(name, cloud)
 
         ValueError("this method is wrong implemented")
 
         '''
-        if cls.isUuid(name_or_id):
-            uuid = name_or_id
+        if cls.isUuid(name):
+            uuid = name
         else:
-            vm_data = cls.cm.find(kind="vm", category=cloud, label=name_or_id)
+            vm_data = cls.cm.find(kind="vm", category=cloud, label=name)
             if vm_data is None or len(vm_data) == 0:
-                raise RuntimeError("VM with label {} not found in database.".format(name_or_id))
+                raise RuntimeError("VM with label {} not found in database.".format(name))
             uuid = list(vm_data.values())[0]["uuid"]
 
         # print(uuid)
