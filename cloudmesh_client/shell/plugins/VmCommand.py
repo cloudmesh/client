@@ -345,10 +345,13 @@ class VmCommand(PluginCommand, CloudPluginCommand):
         elif arguments["console"]:
             try:
                 name = arguments["VMNAME"] or Default.vm
+
+                vm = dotdict(Vm.list(name=name, category=cloud, output="dict")["dict"])
+
+
                 cloud_provider = CloudProvider(cloud).provider
-                vm_list = cloud_provider.list_console(name)
+                vm_list = cloud_provider.list_console(vm.uuid)
                 print (vm_list)
-                # print("Status of VM {} is {}".format(vm_list[0]["name"], vm_list[0]["status"]))
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception as e:
