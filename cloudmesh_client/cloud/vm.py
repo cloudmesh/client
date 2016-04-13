@@ -62,40 +62,40 @@ class Vm(ListResource):
     @classmethod
     def boot(cls, **kwargs):
 
-        data = dotdict(kwargs)
+        arg = dotdict(kwargs)
 
         for a in ["key", "name", "image", "flavor"]:
             if a not in kwargs:
                 raise ValueError(a + " not in arguments to vm boot")
 
         conf = ConfigDict("cloudmesh.yaml")
-        data.username = conf["cloudmesh"]["profile"]["username"]
-        data.group = data.group or Default.group
-        cloud_provider = CloudProvider(data.cloud).provider
+        arg.username = conf["cloudmesh"]["profile"]["username"]
+        arg.group = arg.group or Default.group
+        cloud_provider = CloudProvider(arg.cloud).provider
 
-        if "nics" in data:
-            nics = data.nics
+        if "nics" in arg:
+            nics = arg.nics
         else:
             nics = None
 
         d = {
-            "name": data.name,
-            "image": data.image,
-            "flavor": data.flavor,
-            "key": data.key,
-            "secgroup": [data.secgroup],
+            "name": arg.name,
+            "image": arg.image,
+            "flavor": arg.flavor,
+            "key": arg.key,
+            "secgroup": [arg.secgroup],
             "nics": nics,
             "meta": {'kind': 'cloudmesh',
-                     'group': '{group}'.format(**data)}
+                     'group': '{group}'.format(**arg)}
          }
 
-        Console.ok("Machine {name} is being booted on cloud {cloud} ...".format(**data))
+        Console.ok("Machine {name} is being booted on cloud {cloud} ...".format(**arg))
 
         print(Printer.attribute(d))
 
         vm = cloud_provider.boot_vm(**d)
 
-        cls.refresh(cloud=data.cloud)
+        cls.refresh(cloud=arg.cloud)
 
         # cls.cm.update("vm", name=data.name)
 
@@ -103,7 +103,8 @@ class Vm(ListResource):
 
     @classmethod
     def start(cls, **kwargs):
-        cloud_provider = CloudProvider(kwargs["cloud"]).provider
+        arg = dotdict(kwargs)
+        cloud_provider = CloudProvider(arg.cloud).provider
         for server in kwargs["servers"]:
             cloud_provider.start_vm(server)
             print("Machine {:} is being started on {:} Cloud...".format(server, cloud_provider.cloud))
@@ -113,7 +114,8 @@ class Vm(ListResource):
 
     @classmethod
     def stop(cls, **kwargs):
-        cloud_provider = CloudProvider(kwargs["cloud"]).provider
+        arg = dotdict(kwargs)
+        cloud_provider = CloudProvider(arg.cloud).provider
         for server in kwargs["servers"]:
             cloud_provider.stop_vm(server)
             print("Machine {:} is being stopped on {:} Cloud...".format(server, cloud_provider.cloud))
@@ -123,18 +125,18 @@ class Vm(ListResource):
 
     @classmethod
     def delete(cls, **kwargs):
-
-        if "cloud" in kwargs:
-            cloud_provider = CloudProvider(kwargs["cloud"]).provider
+        arg = dotdict(kwargs)
+        if "cloud" in arg:
+            cloud_provider = CloudProvider(arg.cloud).provider
             for server in kwargs["servers"]:
                 cloud_provider.delete_vm(server)
                 print("VM {:} is being deleted on {:} cloud...".format(server, cloud_provider.cloud))
 
-            cls.refresh(cloud=kwargs["cloud"])
+            cls.refresh(cloud=arg.cloud)
         else:
 
             clouds = set()
-            for server in kwargs["servers"]:
+            for server in arg.servers:
                 try:
                     vm = cls.cm.find(kind="vm", name=server)
                     cloud = vm[0]["category"]
@@ -159,25 +161,27 @@ class Vm(ListResource):
     @classmethod
     def rename(cls, **kwargs):
 
+        arg = dotdict(kwargs)
+
         dry_run = False
 
-        if kwargs["is_dry_run"] is not None:
-            dry_run = kwargs["is_dry_run"]
+        if arg.is_dry_run is not None:
+            dry_run = arg.is_dry_run
 
         if dry_run:
             print("Running in dryrun mode...")
 
         cloud_provider = CloudProvider(kwargs["cloud"]).provider
-        new_name = kwargs["new_name"]
-        for server in kwargs["servers"]:
+        new_name = arg.new_name
+        for server in arg.servers:
 
             # Check for vms with duplicate names in DB.
-            vms = cls.get_vms_by_name(name=server, cloud=kwargs["cloud"])
+            vms = cls.get_vms_by_name(name=server, cloud=arg.cloud)
 
             if len(vms) > 1:
                 users_choice = "y"
 
-                if not kwargs["force"]:
+                if not arg.force:
                     print("More than 1 vms found with the same name as {}.".format(server))
                     users_choice = input("Would you like to auto-order the new names? (y/n): ")
 
@@ -209,7 +213,7 @@ class Vm(ListResource):
 
         if not dry_run:
             # Explicit refresh called after VM rename, to update db.
-            cls.refresh(cloud=kwargs["cloud"])
+            cls.refresh(cloud=arg.cloud)
 
     @classmethod
     def info(cls, **kwargs):
@@ -251,18 +255,18 @@ class Vm(ListResource):
                 Console.error(ex.message, ex)
 
         try:
-            if "_or_id" in kwargs and kwargs["name"] is not None:
-                if cls.isUuid(kwargs["name"]):
+            if "_or_id" in arg and arg.name is not None:
+                if cls.isUuid(arg.name):
                     elements = cls.cm.find(kind="vm",
-                                           category=kwargs["category"],
-                                           uuid=kwargs["name"])
+                                           category=arg.category,
+                                           uuid=arg.name)
                 else:
                     elements = cls.cm.find(kind="vm",
-                                           category=kwargs["category"],
-                                           label=kwargs["name"])
+                                           category=arg.category,
+                                           label=arg.name)
             else:
                 elements = cls.cm.find(kind="vm",
-                                       category=kwargs["category"])
+                                       category=arg.category)
 
             if elements is None or len(elements) == 0:
                 return None
@@ -276,10 +280,10 @@ class Vm(ListResource):
             # print(elements)
 
             # order = ['id', 'uuid', 'name', 'cloud']
-            (order, header) = CloudProvider(kwargs["category"]).get_attributes("vm")
+            (order, header) = CloudProvider(arg.category).get_attributes("vm")
 
             # order = None
-            if "name" in kwargs and kwargs["name"] is not None:
+            if "name" in arg and arg.name is not None:
                 return Printer.attribute(elements[0],
                                          output=arg.output)
             else:
