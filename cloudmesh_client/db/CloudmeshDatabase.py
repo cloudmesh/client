@@ -276,9 +276,7 @@ class CloudmeshDatabase(object):
             if output == 'dict':
                 result = dotdict(cls.to_list([result])[0])
         elif output == 'dict':
-            print("EEEE", elements)
             result = cls.to_list(elements)
-            print("qqqq", result)
         return result
 
     @classmethod
@@ -644,8 +642,6 @@ class CloudmeshDatabase(object):
 
                         cls.add(element)
                         cls.save()
-
-                    print("EEE", elements)
 
                     return True
 
