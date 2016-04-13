@@ -605,6 +605,7 @@ class CloudmeshDatabase(object):
                     # flavors = provider.list_flavor(name)
                     elements = provider.list(kind, name)
 
+
                     for element in list(elements.values()):
                         element["uuid"] = element['id']
                         element['type'] = 'string'
@@ -643,6 +644,9 @@ class CloudmeshDatabase(object):
 
                         cls.add(element)
                         cls.save()
+
+                    print("EEE", elements)
+
                     return True
 
 

@@ -726,7 +726,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     return ""
 
                 try:
-                    name_or_id = arguments["NAME_OR_ID"]
+                    name = arguments["NAME_OR_ID"]
                     group = arguments["--group"]
                     _format = arguments["--format"] or "table"
 
@@ -734,7 +734,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     if arguments["--refresh"] or Default.refresh:
                         _refresh(cloud)
 
-                    result = Vm.list(name_or_id=name_or_id, cloud=cloud, output_format=_format)
+                    result = Vm.list(name=name, category=cloud, output_format=_format)
 
                     if result is not None:
                         print(result)

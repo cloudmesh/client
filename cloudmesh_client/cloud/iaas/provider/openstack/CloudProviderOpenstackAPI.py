@@ -588,7 +588,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
     def get_ips(self, name, group=None, force=None):
         """
-        Returns the ip of the instance indicated by name_or_id
+        Returns the ip of the instance indicated by name
         :param name:
         :param group:
         :param force:
@@ -720,21 +720,21 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
     # TODO: define this
     # noinspection PyProtectedMember,PyProtectedMember
-    def get_image_id(self, name_or_id):
+    def get_image_id(self, name):
 
         """
         finds the image based on a query
         TODO: details TBD
         """
-        return self.get_image(name=name_or_id)["id"]
+        return self.get_image(name=name)["id"]
 
-    def get_flavor_id(self, name_or_id):
+    def get_flavor_id(self, name):
 
         """
         finds the image based on a query
         TODO: details TBD
         """
-        return self.get_flavor(id=name_or_id)["id"]
+        return self.get_flavor(id=name)["id"]
 
     def isUuid(self, name):
         try:

@@ -226,9 +226,10 @@ class Vm(ListResource):
         """
 
         arg = dotdict(kwargs)
+        if "name" in arg:
+            arg.name = arg.name
 
         arg.output = arg.output or 'table'
-
 
         #pprint (kwargs)
         # prevent circular dependency
@@ -255,7 +256,7 @@ class Vm(ListResource):
                 Console.error(ex.message, ex)
 
         try:
-            if "_or_id" in arg and arg.name is not None:
+            if "name" in arg and arg.name is not None:
                 if cls.isUuid(arg.name):
                     elements = cls.cm.find(kind="vm",
                                            category=arg.category,

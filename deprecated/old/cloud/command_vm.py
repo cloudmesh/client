@@ -135,12 +135,12 @@ class Command_vm(object):
             Console.error('cloud {:} not found'.format(cloud))
 
     @classmethod
-    def delete(cls, name_or_id, group, cloud, force=False):
+    def delete(cls, name, group, cloud, force=False):
         """
        deletes a VM or a set of VM
 
-       :param name_or_id: name or id of the vm to be deleted
-       :type name_or_id: list of strings
+       :param name: name or id of the vm to be deleted
+       :type name: list of strings
        :param group: the group name of server
        :type group: string
        :param cloud: the cloud name
@@ -247,11 +247,11 @@ class Command_vm(object):
                         if not flag:
                             Console.error("Virtual Machine {:} not found".format(name))
 
-                            # name_or_id is a list of strings. A string is one of:
+                            # name is a list of strings. A string is one of:
                             # sample_[100-9999]. Deletes vm starting at 100 until 9999
                             # sample. Deletes vm named sample
 
-            for i in name_or_id:
+            for i in name:
                 name = i.strip()
                 if name[-1] == ']':  # vm name like sample-[1-10]
                     a = (name.split('[')[1]).split(']')[0].split('-')
@@ -263,26 +263,26 @@ class Command_vm(object):
                     __deleteNode(name)
 
     @classmethod
-    def ip_assign(cls, name_or_id, cloud):
+    def ip_assign(cls, name, cloud):
         """
 
-        :param name_or_id: name or id of the machine
+        :param name: name or id of the machine
         :type name: string
         :param cloud: cloud name
         :type cloud: string
         :return:
         """
-        Console.ok('ip_assign {} {}'.format(name_or_id, cloud))
+        Console.ok('ip_assign {} {}'.format(name, cloud))
         raise NotImplemented("Not implemented yet")
 
     @classmethod
-    def ip_show(cls, name_or_id, group, cloud, output_format, refresh):
+    def ip_show(cls, name, group, cloud, output_format, refresh):
         """
         TODO
         shows the ip of a vm
 
-        :param name_or_id: name or id of the machine
-        :type name_or_id: list?
+        :param name: name or id of the machine
+        :type name: list?
         :param group: the group name of server
         :type group: string
         :param cloud: cloud name
@@ -293,7 +293,7 @@ class Command_vm(object):
         :type refresh: bool?
         :return:
         """
-        Console.ok('ip_show {} {} {} {} {}'.format(name_or_id, group, cloud, output_format, refresh))
+        Console.ok('ip_show {} {} {} {} {}'.format(name, group, cloud, output_format, refresh))
         raise NotImplemented("Not implemented yet")
 
     @classmethod
