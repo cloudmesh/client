@@ -495,16 +495,16 @@ class CloudmeshDatabase(object):
         return result != 0
 
     @classmethod
-    def update(cls,
-               provider=None,
-               kind=None,
-               **kwargs):
+    def update(cls, **kwargs):
         """
 
         :param kind:
         :param kwargs:
         :return:
         """
+        provider = kwargs.get("provider", None)
+        kind = kwargs.get("kind", None)
+
         # bug: user = self.user or Username()
         if provider is not None and kind is not None:
             t = cls.table(provider=provider, kind=kind)
@@ -518,6 +518,8 @@ class CloudmeshDatabase(object):
         filter = kwargs['filter']
         values = kwargs['update']
 
+        print (t, filter, values)
+
         cls.session.query(t).filter_by(**filter).update(values)
         cls.save()
 
@@ -529,14 +531,18 @@ class CloudmeshDatabase(object):
             provider=None,
             kind=None,
             ):
+
+        # print("PPPP", provider, kind, name, attribute, value)
         if provider is None or kind is None:
             o = cls.filter_by(name=name)
+        else:
+            o = dotdict(cls.filter_by(name=name, provider=provider, kind=kind)[0])
 
-            cls.update(kind=o.kind,
-                       provider=o.provider,
+        if o[attribute] != value:
+            cls.update(kind=o["kind"],
+                       provider=o["provider"],
                        filter={'name': name},
-                       update={'label': 'x',
-                               attribute: value}
+                       update={attribute: value}
                        )
 
     @classmethod
@@ -602,7 +608,6 @@ class CloudmeshDatabase(object):
                 if kind in ["flavor", "image"]:
                     # flavors = provider.list_flavor(name)
                     elements = provider.list(kind, name)
-
 
                     for element in list(elements.values()):
                         element["uuid"] = element['id']

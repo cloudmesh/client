@@ -97,3 +97,35 @@ class Test_image:
         print(result)
         assert result == "ubuntu"
 
+    def test_008(self):
+        HEADING("test image get username")
+
+        # this test only works on chameleon
+        if not Default.cloud in ["cm","chameleon"]:
+            assert True
+
+        result = Image.get_username("CC-Ubuntu14.04", Default.cloud)
+        print (result)
+
+        result = Image.get_username("CC-Ubuntu14.04", Default.cloud, guess=True)
+        print(result)
+
+
+    def test_009(self):
+        HEADING("test image get username")
+
+        # this test only works on chameleon
+        if not Default.cloud in ["cm", "chameleon"]:
+            assert True
+
+        login  = Image.get_username("CC-Ubuntu14.04", Default.cloud, guess=True)
+
+        print ("LOGIN", login)
+
+        Image.set_username(name="CC-Ubuntu14.04", cloud=Default.cloud, username=login)
+
+        result  = Image.get_username("CC-Ubuntu14.04", Default.cloud)
+
+
+        print(result)
+

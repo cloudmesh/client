@@ -6,7 +6,9 @@ from cloudmesh_client.db import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 
 from cloudmesh_client.cloud.ListResource import ListResource
+from cloudmesh_client.default import Default
 
+from pprint import pprint
 
 class Image(ListResource):
     cm = CloudmeshDatabase()
@@ -83,3 +85,25 @@ class Image(ListResource):
                 break
 
         return username
+
+    @classmethod
+    def get(cls, name=None, cloud=None):
+        cloud = cloud or Default.cloud
+        name = name or Default.image
+
+        image = cls.cm.find(kind="image", category=cloud, name=name, output='dict', scope='first')
+        return image
+
+    @classmethod
+    def get_username(cls, name, cloud, guess=False):
+        image = cls.get(cloud=cloud, name=name)
+        pprint (image)
+        if guess and image.username in [None, 'undefined']:
+            return cls.guess_username(image.name)
+        return None
+
+    @classmethod
+    def set_username(cls, name=None, cloud=None, username=None):
+        image = cls.get(cloud=cloud, name=name)
+        print ("SET", name, username, cloud, image.provider)
+        cls.cm.set(name, "username", username, provider=image.provider, kind="image")
