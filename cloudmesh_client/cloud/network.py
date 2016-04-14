@@ -228,6 +228,7 @@ class Network(ListResource):
             Console.error(ex.message, ex)
             return
 
+
     @classmethod
     def delete_floating_ip(cls, cloudname, floating_ip_or_id):
         """
@@ -261,7 +262,8 @@ class Network(ListResource):
 
             # Delete the floating ip; returns None if success
             result = cloud_provider.delete_floating_ip(floating_ip_dict["id"])
-            if result is None:
+
+            if not result:
                 return "Floating IP [{}] deleted successfully!" \
                     .format(floating_ip_dict["ip"])
 
