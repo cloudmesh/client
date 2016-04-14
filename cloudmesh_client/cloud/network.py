@@ -8,8 +8,9 @@ from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
-from cloudmesh_client.db import CloudmeshDatabase
+from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
+from pprint import pprint
 from builtins import input
 
 
@@ -288,6 +289,7 @@ class Network(ListResource):
                                                                instance_id=instance_id)
                         # Assign it to the dict
                         floating_ip["instance_name"] = instance_name
+                        floating_ip["cloud"] = cloudname
                     except Exception as ex:
                         Console.error(ex.message)
                         continue
@@ -300,6 +302,37 @@ class Network(ListResource):
             return Printer.write(floating_ips,
                                  order=order,
                                  header=header)
+        except Exception as ex:
+            Console.error(ex.message, ex)
+
+        return
+
+    @classmethod
+    def list_unused_floating_ip(cls, cloudname):
+        """
+        Method to list unused floating ips
+        These floating ips are not associated with any instance
+        :param cloudname:
+        :return: floating ip list
+        """
+        try:
+            # fetch unused floating ips
+            floating_ips = cls.get_unused_floating_ip_list(cloudname)
+
+            # print the output
+            return Printer.write(floating_ips,
+                                 order = [
+                                    "ip",
+                                    "pool",
+                                    "id",
+                                    "cloud"
+                                    ],
+                                 header = [
+                                    "floating_ip",
+                                    "floating_ip_pool",
+                                    "floating_ip_id",
+                                    "cloud"
+                                    ])
         except Exception as ex:
             Console.error(ex.message, ex)
 
@@ -340,6 +373,29 @@ class Network(ListResource):
             return False
 
     @classmethod
+    def get_unused_floating_ip_list(cls, cloudname):
+        """
+        Method to get the unused floating IP list
+        :param cloudname:
+        :return: floating_ips
+        """
+        try:
+            cloud_provider = CloudProvider(cloudname).provider
+            floating_ips = cloud_provider.list_floating_ips()
+            unused_floating_ips = list()
+
+            for floating_ip in list(floating_ips.values()):
+                if floating_ip["fixed_ip"] is None and \
+                                floating_ip["instance_id"] is None:
+                    # add to unused list
+                    floating_ip["cloud"] = cloudname
+                    unused_floating_ips.append(floating_ip)
+
+            return unused_floating_ips
+        except Exception as ex:
+            Console.error(ex.message, ex)
+
+    @classmethod
     def get_floating_ip_list(cls, cloudname):
         """
         Method to get the floating IP list
@@ -371,8 +427,7 @@ class Network(ListResource):
 
         # Get instance_name for vm
         if len(instance_dict) > 0:
-            instance_name = list(instance_dict.values())[0]["name"]
-
+            instance_name = list(instance_dict)[0]["name"]
             return instance_name
 
     @classmethod

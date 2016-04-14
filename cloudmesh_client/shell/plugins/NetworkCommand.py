@@ -40,14 +40,15 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 network disassociate floating [ip] [--cloud=CLOUD] [--group=GROUP]
                                               [--instance=INS_ID_OR_NAME] [FLOATING_IP]
                 network create floating [ip] [--cloud=CLOUD] [--pool=FLOATING_IP_POOL]
-                network delete floating [ip] [--cloud=CLOUD] FLOATING_IP...
+                network delete floating [ip] [--cloud=CLOUD] [--unused] FLOATING_IP...
                 network list floating pool [--cloud=CLOUD]
-                network list floating [ip] [--cloud=CLOUD] [--instance=INS_ID_OR_NAME] [IP_OR_ID]
+                network list floating [ip] [--cloud=CLOUD] [--unused] [--instance=INS_ID_OR_NAME] [IP_OR_ID]
                 network create cluster --group=demo_group
                 network -h | --help
 
             Options:
                 -h                          help message
+                --unused                    unused floating ips
                 --cloud=CLOUD               Name of the IaaS cloud e.g. india_openstack_grizzly.
                 --group=GROUP               Name of the group in Cloudmesh
                 --pool=FLOATING_IP_POOL     Name of Floating IP Pool
@@ -79,6 +80,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 network delete floating --cloud=india 192.1.66.8 192.1.66.9
                 network list floating ip --cloud=india
                 network list floating --cloud=india
+                network list floating --cloud=india --unused
                 network list floating --cloud=india 192.1.66.8
                 network list floating --cloud=india --instance=323c5195-7yy34-4e7b-8581-703abec4b
                 network list floating pool --cloud=india
@@ -408,6 +410,12 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
             ip_or_id = arguments["IP_OR_ID"]
             instance_id = arguments["--instance"]
 
+            # List unused floating addr
+            if arguments["--unused"]:
+                result = Network.list_unused_floating_ip(cloudname=cloudname)
+                Console.msg(result)
+                return ""
+
             # Refresh VM in db
             self.refresh_vm(cloudname)
 
@@ -548,7 +556,6 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
     def refresh_vm(cls, cloudname):
         try:
             msg = "Refreshing database for cloud {:}.".format(cloudname)
-            Console.msg(msg)
             if Vm.refresh(cloud=cloudname) is not None:
                 Console.ok("{:} OK.".format(msg))
             else:
