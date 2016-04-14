@@ -54,10 +54,12 @@ class LAUNCHER(CloudmeshMixin, CloudmeshDatabase.Base):
     __provider__ = 'general'
 
     parameters = Column(String)  # This is the parameter represented as yaml object
+    source = Column(String)
 
     def __init__(self, **kwargs):
         super(LAUNCHER, self).set_defaults(**kwargs)
         self.parameters = kwargs.get('parameters')
+        self.source = kwargs.get('source')
 
 
 class KEY(CloudmeshMixin, CloudmeshDatabase.Base):
