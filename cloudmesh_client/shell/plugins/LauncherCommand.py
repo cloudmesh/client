@@ -1,11 +1,13 @@
 from __future__ import print_function
-from cloudmesh_client.shell.console import Console
+
+from pprint import pprint
+
+from cloudmesh_client.cloud.launcher import Launcher
+from cloudmesh_client.common.dotdict import dotdict
+from cloudmesh_client.default import Default
 from cloudmesh_client.shell.command import command, PluginCommand, \
     CloudPluginCommand, CometPluginCommand
-from cloudmesh_client.default import Default
-from cloudmesh_client.cloud.launcher import Launcher
-from pprint import pprint
-from cloudmesh_client.common.dotdict import dotdict
+from cloudmesh_client.shell.console import Console
 
 class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
     topics = {"launcher": "cloud"}
@@ -23,11 +25,12 @@ class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
 
           Usage:
               launcher list [NAME] [--cloud=CLOUD] [--format=FORMAT] [--all]
+              launcher add NAME SOURCE
               launcher delete [NAME] [--cloud=CLOUD]
+              launcher clear
               launcher run [NAME]
               launcher resume [NAME]
               launcher suspend [NAME]
-              launcher clear
               launcher refresh
               launcher log [NAME]
               launcher status [NAME]
@@ -65,67 +68,46 @@ class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         pprint(arguments)
 
         data = dotdict(arguments)
-
-        c = data.list
-        data.cloud = arguments["--cloud"] or Default.cloud
-
-        print ("CCCC", c, data.NAME, data.cloud)
-
-        print ("Hallo {cloud} is list={list}".format(**data))
-
         cloud = arguments["--cloud"] or Default.cloud
-        launcher = Launcher(kind=None)
+        name = data.NAME
+        # data.cloud = arguments["--cloud"] or Default.cloud
+        # c = data.list
+        # print ("CCCC", c, data.NAME, data.cloud)
+        # print ("Hallo {cloud} is list={list}".format(**data))
+        # launcher = Launcher(kind=None)
 
         if cloud is None:
             Console.error("Default cloud not set")
             return
 
-        if arguments["list"]:
+        result = ""
 
-            print("CLOUD", cloud)
-
-            # result = launcher.list(name=data.name,
-            #                       category=data.cloud,
-            #
-            #output=data.format)
-            # print(result)
-
-        elif arguments["delete"]:
-
-            if arguments['NAME'] is not None:
-                # name = arguments["NAME"]
-                # delete a launcher by name
-                # remember if cloud is specified only delete it on that cloud
-                # result = launcher.delete(name=name, category=cloud)
-                pass
+        if arguments["delete"]:
+            if name is not None:
+                result = Launcher.delete(name=name, category=cloud)
             else:
-                # delete all launchers
-                # remember if cloud is specified only delete it on that cloud
-                pass
-
-            #result = launcher.delete()
-            #print(result)
+                result = Launcher.delete(name=None)
 
         elif arguments["run"]:
-            result = launcher.run()
-            print(result)
+            result = Launcher.run()
+
+        elif arguments["list"]:
+            data.format = arguments.get("--format", "table")
+            result = Launcher.list(name=name, output=data.format, category=cloud)
 
         elif arguments["resume"]:
-            result = launcher.resume()
-            print(result)
+            result = Launcher.resume(name=name)
 
         elif arguments["suspend"]:
-            result = launcher.suspend()
-            print(result)
+            result = Launcher.suspend(name=name)
 
         elif arguments["details"]:
-            result = launcher.details()
-            print(result)
+            result = Launcher.details(name=name)
 
         elif arguments["clear"]:
-            result = launcher.clear()
-            print(result)
+            result = Launcher.clear(name=name)
 
         elif arguments["refresh"]:
-            result = launcher.refresh()
-            print(result)
+            result = Launcher.refresh(name=name)
+
+        print(result)
