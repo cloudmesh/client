@@ -10,6 +10,7 @@ from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.default import Default
 from cloudmesh_client.cloud.network import Network
+from cloudmesh_client.common.hostlist import Parameter
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 from builtins import input
@@ -40,7 +41,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 network disassociate floating [ip] [--cloud=CLOUD] [--group=GROUP]
                                               [--instance=INS_ID_OR_NAME] [FLOATING_IP]
                 network create floating [ip] [--cloud=CLOUD] [--pool=FLOATING_IP_POOL]
-                network delete floating [ip] [--cloud=CLOUD] [--unused] FLOATING_IP...
+                network delete floating [ip] [--cloud=CLOUD] [--unused] [FLOATING_IP]
                 network list floating pool [--cloud=CLOUD]
                 network list floating [ip] [--cloud=CLOUD] [--unused] [--instance=INS_ID_OR_NAME] [IP_OR_ID]
                 network create cluster --group=demo_group
@@ -385,16 +386,24 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
         # Delete a floating ip address
         elif arguments["delete"] \
                 and arguments["floating"]:
-            floating_ips = arguments["FLOATING_IP"]
+
+            # delete all unused floating ips
+            if arguments["--unused"]:
+                unused_floating_ips = Network.get_unused_floating_ip_list(cloudname=cloudname)
+                if unused_floating_ips:
+                    for floating_ip in unused_floating_ips:
+                        self._delete_floating_ip(cloudname=cloudname,
+                                                 floating_ip=floating_ip["id"])
+                else:
+                    Console.msg("No unused floating ips exist at this moment. Ok.")
+                return ""
+
+            # delete specified floating ips
+            floating_ips = Parameter.expand(arguments["FLOATING_IP"])
 
             for floating_ip in floating_ips:
-                result = Network.delete_floating_ip(cloudname=cloudname,
-                                                    floating_ip_or_id=floating_ip)
-
-                if result is not None:
-                    Console.ok(result)
-                else:
-                    Console.error("Failed to delete floating IP address!")
+                self._delete_floating_ip(cloudname=cloudname,
+                                         floating_ip=floating_ip)
 
         # Floating IP Pool List
         elif arguments["list"] \
@@ -563,3 +572,12 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
         except Exception:
             Console.error("Problem running database refresh")
 
+    @classmethod
+    def _delete_floating_ip(cls, cloudname, floating_ip):
+        result = Network.delete_floating_ip(cloudname=cloudname,
+                                            floating_ip_or_id=floating_ip)
+
+        if result is not None:
+            Console.ok(result)
+        else:
+            Console.error("Failed to delete floating IP address!")
