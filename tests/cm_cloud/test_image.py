@@ -15,6 +15,7 @@ from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.common.util import HEADING
 from cloudmesh_client.common.util import banner
 from cloudmesh_client.default import Default
+from cloudmesh_client.cloud.image import Image
 
 
 # noinspection PyPep8Naming
@@ -76,3 +77,23 @@ class Test_image:
         HEADING("test image list ID fail")
         result = self.run("cm image list i --cloud={wrong_cloud}")
         assert "failed" in result
+
+    def test_007(self):
+        HEADING("test image username guess")
+
+        result = Image.guess_username("Ubuntu-image")
+        print(result)
+        assert result == "ubuntu"
+
+        result = Image.guess_username("wily-image")
+        print(result)
+        assert result == "ubuntu"
+
+        result = Image.guess_username("fedora-image")
+        print(result)
+        assert result == "root"
+
+        result = Image.guess_username("image", description="image with wily")
+        print(result)
+        assert result == "ubuntu"
+
