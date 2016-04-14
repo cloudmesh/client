@@ -532,11 +532,12 @@ class CloudmeshDatabase(object):
             kind=None,
             ):
 
-        # print("PPPP", provider, kind, name, attribute, value)
         if provider is None or kind is None:
             o = cls.filter_by(name=name)
         else:
             o = dotdict(cls.filter_by(name=name, provider=provider, kind=kind)[0])
+
+        #    print("PPPP", provider, kind, name, attribute, value, o)
 
         if o[attribute] != value:
             cls.update(kind=o["kind"],

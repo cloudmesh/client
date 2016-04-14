@@ -97,13 +97,11 @@ class Image(ListResource):
     @classmethod
     def get_username(cls, name, cloud, guess=False):
         image = cls.get(cloud=cloud, name=name)
-        pprint (image)
         if guess and image.username in [None, 'undefined']:
             return cls.guess_username(image.name)
-        return None
+        return image.username
 
     @classmethod
     def set_username(cls, name=None, cloud=None, username=None):
         image = cls.get(cloud=cloud, name=name)
-        print ("SET", name, username, cloud, image.provider)
         cls.cm.set(name, "username", username, provider=image.provider, kind="image")
