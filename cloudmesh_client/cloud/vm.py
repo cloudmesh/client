@@ -20,6 +20,24 @@ class Vm(ListResource):
     cm = CloudmeshDatabase()
 
     @classmethod
+    def get(cls, key, category="general"):
+        """
+        returns the value of the first objects matching the key
+        with the given category.
+
+        :param key: The dictionary key
+        :param category: The category
+        :return:
+        """
+
+        o = cls.cm.find(category=category,
+                        kind='vm',
+                        output='dict',
+                        scope='first',
+                        name=key)
+        return o
+
+    @classmethod
     def construct_ip_dict(cls, ip_addr, name="kilo"):
         try:
             d = ConfigDict("cloudmesh.yaml")
@@ -97,6 +115,8 @@ class Vm(ListResource):
 
         cls.refresh(cloud=arg.cloud)
 
+        # update group and key
+        #
         # cls.cm.update("vm", name=data.name)
 
         return vm
@@ -311,7 +331,7 @@ class Vm(ListResource):
         return vm["status"]
 
     @classmethod
-    def set_vm_login_user(cls, name, cloud, username):
+    def set_login_user(cls, name, cloud, username):
         print(name, username)
         ValueError("this method is wrong implemented")
 
@@ -335,7 +355,7 @@ class Vm(ListResource):
         '''
 
     @classmethod
-    def get_vm_login_user(cls, name, cloud):
+    def get_login_user(cls, name, cloud):
         print(name, cloud)
 
         ValueError("this method is wrong implemented")

@@ -49,3 +49,20 @@ class Image(ListResource):
             cls.refresh(cloud)
 
         return CloudProvider(cloud).details('image', cloud, id, format)
+
+    @classmethod
+    def guess_username(cls, vm_name):
+        username = None
+        name = vm_name.lower()
+        if name.startswith("cc-"):
+            username = "cc"
+        elif any(x in name for x in ["ubuntu", "wily", "xenial"]):
+            username = "ubuntu"
+        elif "centos" in name:
+            username = "root"
+        elif "fedora" in name:
+            username = "root"
+        elif "rhel" in name:
+            username = "root"
+
+        return username

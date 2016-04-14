@@ -60,25 +60,25 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         [--secgroup=SECGROUP]
                         [--key=KEY]
                         [--dryrun]
-                vm console [VMNAME]
+                vm console [NAME]
                          [--group=GROUP]
                          [--cloud=CLOUD]
                          [--force]
-                vm start [NAME]...
+                vm start [NAME]
                          [--group=GROUP]
                          [--cloud=CLOUD]
                          [--force]
-                vm stop [NAME]...
+                vm stop [NAME]
                         [--group=GROUP]
                         [--cloud=CLOUD]
                         [--force]
-                vm delete [NAME]...
+                vm delete [NAME]
                           [--group=GROUP]
                           [--cloud=CLOUD]
                           [--force]
-                vm ip assign [NAME]...
+                vm ip assign [NAMES]
                           [--cloud=CLOUD]
-                vm ip show [NAME]...
+                vm ip show [NAME]
                            [--group=GROUP]
                            [--cloud=CLOUD]
                            [--format=FORMAT]
@@ -88,12 +88,12 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                          [--cloud=CLOUD]
                          [--key=KEY]
                          [--command=COMMAND]
-                vm rename [NAME]...
+                vm rename [NAME]
                           [--new=NEWNAME]
                           [--cloud=CLOUD]
                           [--force]
                           [--dryrun]
-                vm list [NAME_OR_ID]
+                vm list [NAME]
                         [--cloud=CLOUD|--all]
                         [--group=GROUP]
                         [--format=FORMAT]
@@ -101,7 +101,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 vm status [--cloud=CLOUD]
                 vm info [--cloud=CLOUD]
                         [--format=FORMAT]
-                vm check NAME...
+                vm check NAME
 
             Arguments:
                 COMMAND        positional arguments, the commands yo"listu want to
@@ -110,7 +110,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                                the server, note that type in -- is suggested before
                                you input the commands
                 NAME           server name. By default it is set to the name of last vm from database.
-                NAME_OR_ID     server name or ID
+                NAMES          server name. By default it is set to the name of last vm from database.
                 KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is
                                not a path to key.
                 NEWNAME        New name of the VM while renaming.
@@ -300,7 +300,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["console"]:
             try:
-                name = arguments["VMNAME"] or Default.vm
+                name = arguments["NAME"] or Default.vm
 
                 vm = dotdict(Vm.list(name=name, category=cloud, output="dict")["dict"])
 
@@ -486,36 +486,27 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 return ""
 
         elif arguments["ip"] and arguments["assign"]:
-            vmids = arguments["NAME"]
+            if arguments["NAMES"] is None:
+                names = [Default.vm]
+            else:
+                names = Parameter.expand(arguments["NAMES"])
 
-            # If names not provided, take the last vm from DB.
-            if vmids is None or len(vmids) == 0:
-                last_vm = Default.vm
-                if last_vm is None:
-                    Console.error("No VM records in database. Please run vm refresh.")
-                    return ""
-                name = last_vm["name"]
-                vmids = list()
-                vmids.append(name)
-
-            # if default cloud not set, return error
-            if not cloud:
-                Console.error("Default cloud not set.")
-                return ""
-            try:
+            for name in names:
+                vm = dotdict(Vm.list(name=name, category=cloud, output="dict")["dict"])
                 cloud_provider = CloudProvider(cloud).provider
-                for sname in vmids:
-                    floating_ip = cloud_provider.create_assign_floating_ip(
-                        sname)
+
+                print("ASSIGNING IP TO", name)
+
+                try:
+                    floating_ip = cloud_provider.create_assign_floating_ip(name)
                     if floating_ip is not None:
                         print(
                             "Floating IP assigned to {:} successfully and it is: {:}".format(
-                                sname, floating_ip))
+                                name, floating_ip))
                         msg = "info. OK."
                         Console.ok(msg)
-            except Exception as e:
-                # Error.traceback(e)
-                Console.error("Problem assigning floating ips.")
+                except Exception as e:
+                    Console.error("Problem assigning floating ips.")
 
         elif arguments["ip"] and arguments["show"]:
             vmids = arguments["NAME"]
@@ -558,54 +549,48 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     "Problem getting ip addresses for instance {:}".format(id))
 
         elif arguments["login"]:
-            vm_names = arguments["NAME"]
 
-            # If names not provided, take the last vm from DB.
-            if vm_names is None or len(vm_names) == 0:
-                last_vm = Default.vm
-                if last_vm is None:
-                    Console.error("No VM records in database. Please run vm refresh.")
-                    return ""
-                name = last_vm["name"]
-            else:
-                name = vm_names[0]
+            query = dotdict({
+                'name': arguments["NAME"] or Default.vm,
+                'user': arguments["--user"]
+            })
 
-            print("Logging in into {:} machine...".format(name))
+            print("Login {user}@{name} ...".format(**query))
 
-            user = arguments["--user"]
+
+            vm = Vm.get(query.name, category=arg.cloud)
+
+            pprint(vm)
+
+            return
 
             # Get user if user argument not specified.
-            if user is None:
-                user_from_db = Vm.get_vm_login_user(name, cloud)
-                # bug
-                # self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
-                user_suggest = user_from_db or getpass.getuser()
-                user = input("Enter the user to login (Default: {}):".format(user_suggest)) or user_suggest
-                Vm.set_vm_login_user(name, cloud, user)
+            if login.user is None:
+                user_from_db = Vm.get_login_user(login.vm, arg.cloud)
+
+                user_suggest = user_from_db or Default.user
+                user = input("Username (Default: {}):".format(user_suggest)) or user_suggest
+                Vm.set_login_user(login.vm, cloud, user)
 
             ip = arguments["--ip"]
             commands = arguments["--command"]
 
-            # if default cloud not set, return error
-            if not cloud:
-                Console.error("Default cloud not set.")
-                return ""
-
-            key = arguments["--key"] or Default.key
-            if not key:
-                Console.error("Default key not set.")
-                return ""
-
             ip_addresses = []
-            if cloud in LibcloudDict.Libcloud_category_list:
-                ip_addresses = Vm.get_vm_public_ip(name, cloud)
-            else:
-                cloud_provider = CloudProvider(cloud).provider
-                # print("Name : {:}".format(name))
-                ip_addr = cloud_provider.get_ips(name)
-                ipaddr_dict = Vm.construct_ip_dict(ip_addr, cloud)
-                for entry in ipaddr_dict:
-                    ip_addresses.append(ipaddr_dict[entry]["addr"])
+
+
+            cloud_provider = CloudProvider(cloud).provider
+            ip_addr = cloud_provider.get_ips(login.vm)
+
+
+
+
+            ipaddr_dict = Vm.construct_ip_dict(ip_addr, cloud)
+            for entry in ipaddr_dict:
+                ip_addresses.append(ipaddr_dict[entry]["addr"])
+
+
+
+
             if len(ip_addresses) > 0:
                 if ip is not None:
                     if ip not in ip_addresses:
@@ -651,7 +636,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
             # groups = Group.list(output="dict")
 
-            if arguments["--all"] or arguments["NAME_OR_ID"] == "all":
+            if arguments["--all"] or arguments["NAME"] == "all":
                 try:
                     _format = arguments["--format"] or "table"
                     d = ConfigDict("cloudmesh.yaml")
@@ -681,7 +666,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     return ""
 
                 try:
-                    name = arguments["NAME_OR_ID"]
+                    name = arguments["NAME"]
                     group = arguments["--group"]
                     _format = arguments["--format"] or "table"
 
