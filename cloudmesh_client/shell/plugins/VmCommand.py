@@ -25,7 +25,7 @@ from cloudmesh_client.common.hostlist import Parameter
 from cloudmesh_client.common.Shell import Shell
 from pprint import pprint
 from cloudmesh_client.common.dotdict import dotdict
-
+from cloudmesh_client.cloud.image import Image
 
 class VmCommand(PluginCommand, CloudPluginCommand):
     topics = {"vm": "cloud"}
@@ -46,6 +46,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 vm refresh [all][--cloud=CLOUD]
                 vm boot [--name=NAME]
                         [--cloud=CLOUD]
+                        [--username=USERNAME]
                         [--image=IMAGE]
                         [--flavor=FLAVOR]
                         [--group=GROUP]
@@ -102,6 +103,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 vm info [--cloud=CLOUD]
                         [--format=FORMAT]
                 vm check NAME
+                vm username NAME USERNAME
 
             Arguments:
                 COMMAND        positional arguments, the commands yo"listu want to
@@ -116,6 +118,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 NEWNAME        New name of the VM while renaming.
 
             Options:
+                --username=USERNAME  the username to login into the vm. If not specified it will be guessed
+                                     from the image name and the cloud
                 --ip=IP          give the public ip of the server
                 --cloud=CLOUD    give a cloud to work on, if not given, selected
                                  or default cloud will be used
@@ -228,6 +232,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
         arg.refresh = Default.refresh or arguments["--refresh"]
         arg.count = int(arguments["--n"] or 1)
         arg.dryrun = arguments["--dryrun"]
+        arg.username = arguments["--username"] or Image.guess_username(arg.image)
 
         if arguments["boot"]:
             is_name_provided = arg.name is not None
@@ -240,8 +245,10 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     "flavor": arg.flavor,
                     "key": arg.key,
                     "secgroup": arg.secgroup,
-                    "group": arg.group
+                    "group": arg.group,
+                    "username": arg.username
                 })
+
                 try:
 
                     if arg.dryrun:
@@ -492,6 +499,9 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 names = Parameter.expand(arguments["NAMES"])
 
             for name in names:
+
+                #ip = Network.get_floatingip(....)
+
                 vm = dotdict(Vm.list(name=name, category=cloud, output="dict")["dict"])
                 cloud_provider = CloudProvider(cloud).provider
 
@@ -507,6 +517,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         Console.ok(msg)
                 except Exception as e:
                     Console.error("Problem assigning floating ips.")
+
 
         elif arguments["ip"] and arguments["show"]:
             vmids = arguments["NAME"]
