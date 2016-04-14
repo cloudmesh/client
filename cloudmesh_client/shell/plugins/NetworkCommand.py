@@ -549,8 +549,8 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
         try:
             msg = "Refreshing database for cloud {:}.".format(cloudname)
             Console.msg(msg)
-            if Vm.refresh(category=cloudname) is not None:
-                Console.ok("Complete.")
+            if Vm.refresh(cloud=cloudname) is not None:
+                Console.ok("{:} OK.".format(msg))
             else:
                 Console.error("{:} failed".format(msg))
         except Exception:
