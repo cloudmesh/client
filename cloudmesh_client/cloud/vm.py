@@ -15,12 +15,21 @@ from builtins import input
 from pprint import pprint
 from cloudmesh_client.default import Default
 
+
 # noinspection PyPep8Naming
 class Vm(ListResource):
     cm = CloudmeshDatabase()
 
     @classmethod
-    def get(cls, key, category="general"):
+    def uuid(cls, name, category=None):
+        vm = cls.get(name, category=category)
+        if vm is None:
+            return None
+
+        return vm.uuid
+
+    @classmethod
+    def get(cls, key, category=None):
         """
         returns the value of the first objects matching the key
         with the given category.
@@ -30,11 +39,18 @@ class Vm(ListResource):
         :return:
         """
 
-        o = cls.cm.find(category=category,
-                        kind='vm',
-                        output='dict',
-                        scope='first',
-                        name=key)
+        if category is None:
+            o = cls.cm.find(kind='vm',
+                            output='dict',
+                            scope='first',
+                            name=key)
+
+        else:
+            o = cls.cm.find(category=category,
+                            kind='vm',
+                            output='dict',
+                            scope='first',
+                            name=key)
         return o
 
     @classmethod
@@ -105,7 +121,7 @@ class Vm(ListResource):
             "nics": nics,
             "meta": {'kind': 'cloudmesh',
                      'group': '{group}'.format(**arg)}
-         }
+        }
 
         Console.ok("Machine {name} is being booted on cloud {cloud} ...".format(**arg))
 
@@ -251,7 +267,7 @@ class Vm(ListResource):
 
         arg.output = arg.output or 'table'
 
-        #pprint (kwargs)
+        # pprint (kwargs)
         # prevent circular dependency
         def vm_groups(vm):
             """
