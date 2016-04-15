@@ -48,8 +48,10 @@ class InfoCommand(PluginCommand, CloudPluginCommand):
             "image": Default.get_image(category=arg.cloud),
             "flavor": Default.get_flavor(category=arg.cloud),
             "refresh": str(Default.refresh),
-            "debug": str(Default.debug)
+            "debug": str(Default.debug),
+            "interactive": str(Default.interactive),
         }
-        order = ["cloud", "key", "user", "vm", "group", "secgroup", "counter", "image", "flavor", "refresh", "debug"]
+        order = ["cloud", "key", "user", "vm", "group", "secgroup",
+                 "counter", "image", "flavor", "refresh", "debug", "interactive"]
         print(Printer.attribute(d, order=order, output=arg.FORMAT, sort_keys=False))
         return ""
