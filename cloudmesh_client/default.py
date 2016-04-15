@@ -189,7 +189,7 @@ class Default(object):
     def refresh(cls):
         value = cls.get(name="refresh")
         print ("JJJJ", type(value), value)
-        return bool(cls.get(name="refresh"))
+        return cls.get(name="refresh")
 
     @readable_classproperty
     def debug(cls):
