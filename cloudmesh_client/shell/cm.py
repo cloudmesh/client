@@ -249,9 +249,10 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         #
         # SET DEFAULT REFRESH
         #
-        r = Default.refresh
-        if r is None:
-            Default.set_refresh("on")
+        # r = Default.refresh
+        # print ("REFRESH", r)
+        # if r is None:
+        #     Default.set_refresh("on")
 
         #
         # SET DEFAULT USER

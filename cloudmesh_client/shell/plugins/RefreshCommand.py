@@ -11,10 +11,10 @@ class RefreshCommand(PluginCommand, CloudPluginCommand):
         self.context = context
         if self.context.debug:
             print("init command refresh")
-        try:
-            value = Default.get_refresh()
-        except:
-            Default.set_refresh("off")
+        #try:
+        #    value = Default.get_refresh()
+        #except:
+        #    Default.set_refresh(True)
 
     # noinspection PyUnusedLocal
     @command
