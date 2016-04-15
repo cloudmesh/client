@@ -114,13 +114,23 @@ class Default(object):
                         kind="default",
                         scope="first",
                         category=category,
-                        name=name)
+                        name=name,
+                        output="dict")
+        print ("OOO", o)
         if o is None:
             return None
 
         if o.type == 'int':
+            print ("INT")
             return int(o.value)
+        elif o.type == 'bool' or o.value in ["True", "False"]:
+            print ("BOOL", o.value, type(o.value))
+
+            result = o.value == "True"
+            print ("BBBBB", result)
+            return str(o.value) in ["True", u"True"]
         else:
+            print("STR", o.value)
             return (o.value)
 
     @classmethod
@@ -177,6 +187,8 @@ class Default(object):
 
     @readable_classproperty
     def refresh(cls):
+        value = cls.get(name="refresh")
+        print ("JJJJ", type(value), value)
         return bool(cls.get(name="refresh"))
 
     @readable_classproperty
