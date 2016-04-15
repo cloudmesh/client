@@ -116,22 +116,17 @@ class Default(object):
                         category=category,
                         name=name,
                         output="dict")
-        print ("OOO", o)
         if o is None:
             return None
 
         if o.type == 'int':
-            print ("INT")
             return int(o.value)
         elif o.type == 'bool':
             return o.value
         elif str(o.value) in ["True", "False"]:
-            print ("BOOL", o.value, type(o.value))
             result = o.value == "True"
-            print ("BBBBB", result)
             return result
         else:
-            print("STR", o.value)
             return (o.value)
 
     @classmethod
@@ -183,18 +178,12 @@ class Default(object):
         return cls.get(name="key")
 
     @readable_classproperty
-    def debug(cls):
-        return bool(cls.get(name="debug"))
-
-    @readable_classproperty
     def refresh(cls):
-        value = cls.get(name="refresh")
-        print ("JJJJ", type(value), value)
         return cls.get(name="refresh")
 
     @readable_classproperty
     def debug(cls):
-        return bool(cls.get(name="debug"))
+        return cls.get(name="debug")
 
     @readable_classproperty
     def cluster(cls):
@@ -386,10 +375,8 @@ class Default(object):
         :return:
         """
         if str(value) in ["on", "True"]:
-            print ("RRR", "TRUE")
             cls.set("refresh", "True")
         else:
-           print("RRR", "FALSE")
            cls.set("refresh", "False")
 
     @classmethod
