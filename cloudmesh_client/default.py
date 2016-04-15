@@ -372,7 +372,12 @@ class Default(object):
         :param value:
         :return:
         """
-        cls.set("refresh", value)
+        if str(value) in ["on", "True"]:
+            print ("RRR", "TRUE")
+            cls.set("refresh", "True")
+        else:
+           print("RRR", "FALSE")
+           cls.set("refresh", "False")
 
     @classmethod
     def set_timer(cls, value):
