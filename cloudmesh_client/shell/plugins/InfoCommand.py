@@ -47,8 +47,8 @@ class InfoCommand(PluginCommand, CloudPluginCommand):
             "counter": Default.get_counter(name="name"),
             "image": Default.get_image(category=arg.cloud),
             "flavor": Default.get_flavor(category=arg.cloud),
-            "refresh": Default.refresh,
-            "debug": Default.debug
+            "refresh": str(Default.refresh),
+            "debug": str(Default.debug)
         }
         order = ["cloud", "key", "user", "vm", "group", "secgroup", "counter", "image", "flavor", "refresh", "debug"]
         print(Printer.attribute(d, order=order, output=arg.FORMAT, sort_keys=False))
