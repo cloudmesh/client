@@ -55,6 +55,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         [--dryrun]
                 vm boot [--n=COUNT]
                         [--cloud=CLOUD]
+                        [--username=USERNAME]
                         [--image=IMAGE]
                         [--flavor=FLAVOR]
                         [--group=GROUP]
@@ -73,13 +74,14 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         [--group=GROUP]
                         [--cloud=CLOUD]
                         [--force]
+                vm terminate [NAME]
+                          [--group=GROUP]
+                          [--cloud=CLOUD]
+                          [--force]
                 vm delete [NAME]
                           [--group=GROUP]
                           [--cloud=CLOUD]
                           [--force]
-                vm purge [NAMES]
-                          [--group=GROUP]
-                          [--cloud=CLOUD]
                 vm ip assign [NAMES]
                           [--cloud=CLOUD]
                 vm ip show [NAME]
@@ -179,597 +181,697 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         """
 
-        def _print_dict(d, header=None, output='table'):
-            return Printer.write(d, order=["id", "name", "status"], output=output, sort_keys=True)
+        # terminate
+        #  issues a termination to the cloud, keeps vm in database
 
-        def _print_dict_ip(d, header=None, output='table'):
-            return Printer.write(d, order=["network", "version", "addr"], output=output, sort_keys=True)
-
-        def get_vm_name(name=None, offset=0, fill=3):
-
-            if name is None:
-                count = Default.get_counter(name='name') + offset
-                prefix = Default.user
-                if prefix is None or count is None:
-                    Console.error("Prefix and Count could not be retrieved correctly.")
-                    return
-                name = prefix + "-" + str(count).zfill(fill)
-            return name
-
-        def _refresh_cloud(cloud):
-            try:
-                msg = "Refresh VMs for cloud {:}.".format(cloud)
-                if Vm.refresh(cloud=cloud):
-                    Console.ok("{:} OK.".format(msg))
-                else:
-                    Console.error("{:} failed".format(msg))
-            except Exception as e:
-                Console.error("Problem running VM refresh")
-
-        cloud = arguments["--cloud"] or Default.cloud
-
-        config = ConfigDict("cloudmesh.yaml")
-        active_clouds = config["cloudmesh"]["active"]
-
-        def _refresh(cloud):
-            all = arguments["all"] or None
-
-            if all is None:
-
-                _refresh_cloud(cloud)
-            else:
-                for cloud in active_clouds:
-                    _refresh_cloud(cloud)
-
-        arg = dotdict(arguments)
-
-        arg.cloud = arguments["--cloud"] or Default.cloud
-        arg.image = arguments["--image"] or Default.get(name="image", category=arg.cloud)
-        arg.flavor = arguments["--flavor"] or Default.get(name="flavor", category=arg.cloud)
-        arg.group = arguments["--group"] or Default.group
-        arg.secgroup = arguments["--secgroup"] or Default.secgroup
-        arg.key = arguments["--key"] or Default.key
-        arg.dryrun = arguments["--dryrun"]
-        arg.name = arguments["--name"]
-        arg.format = arguments["--format"] or 'table'
-        arg.refresh = Default.refresh or arguments["--refresh"]
-        arg.count = int(arguments["--n"] or 1)
-        arg.dryrun = arguments["--dryrun"]
-        arg.username = arguments["--username"] or Image.guess_username(arg.image)
-
-        #
-        # in many cases use NAMES
-        # if arg.NAMES is not None:
-        #   arg.names = Parameter.expand(arg.NAMES)   #  gvonlasz[001-002]  gives ["gvonlasz-001", "gvonlasz-002"]
-        # else:
-        #    arg.names = None
+        # delete
+        #   issues a terminate if not already done
+        #      (remember you do not have to go to cloud if state is already terminated)
+        #   deletes the vm from database
         #
 
-        if arguments["boot"]:
-            is_name_provided = arg.name is not None
-
-            for index in range(0, arg.count):
-                vm_details = dotdict({
-                    "cloud": arg.cloud,
-                    "name": get_vm_name(arg.name, index),
-                    "image": arg.image,
-                    "flavor": arg.flavor,
-                    "key": arg.key,
-                    "secgroup": arg.secgroup,
-                    "group": arg.group,
-                    "username": arg.username
-                })
-
-                try:
-
-                    if arg.dryrun:
-                        print(Printer.attribute(vm_details, output=arg.format))
-                        msg = "dryrun info. OK."
-                        Console.ok(msg)
-                    else:
-                        vm_id = Vm.boot(**vm_details)
-
-                        # set name and counter in defaults
-                        Default.set_vm(value=vm_details.name)
-                        if is_name_provided is False:
-                            Default.incr_counter("name")
-
-                        # Add to group
-                        if vm_id is not None:
-                            Group.add(name=vm_details.group,
-                                      species="vm",
-                                      member=vm_details.name,
-                                      category=vm_details.cloud)
-
-                        msg = "info. OK."
-                        Console.ok(msg)
-
-                except Exception as e:
-                    Console.error("Problem booting instance {name}".format(**vm_details))
-        elif arguments["username"]:
-
-            cloud = arg.cloud
-            username = arg.USERNAME
-            name = arg.NAME
-
-            print (cloud, username)
-
-            Vm.set_login_user(name=name, cloud=cloud, username=username)
-
-        elif arguments["default"]:
-            try:
-                count = Default.get_counter()
-                prefix = Username()
-
-                if prefix is None or count is None:
-                    Console.error("Prefix and Count could not be retrieved correctly.")
-                    return
-
-                vm_name = prefix + "-" + str(count).zfill(3)
-                arg = {
-                    "name": vm_name,
-                    "cloud": arguments["--cloud"] or Default.cloud
-                }
-                for attribute in ["image", "flavor"]:
-                    arg[attribute] = Default.get(name=attribute, category=cloud)
-                for attribute in ["key", "group", "secgroup"]:
-                    arg[attribute] = Default.get(name=attribute, category='general')
-
-                output = arguments["--format"] or "table"
-                print(Printer.attribute(arg, output=output))
-                msg = "info. OK."
-                Console.ok(msg)
-                ValueError("default command not implemented properly. Upon "
-                           "first install the defaults should be read from yaml.")
-            except Exception as e:
-                # Error.traceback(e)
-                Console.error("Problem listing defaults")
-
-        elif arguments["console"]:
-            try:
-                name = arguments["NAME"] or Default.vm
-
-                vm = dotdict(Vm.list(name=name, category=cloud, output="dict")["dict"])
-
-                cloud_provider = CloudProvider(cloud).provider
-                vm_list = cloud_provider.list_console(vm.uuid)
-                print(vm_list)
-                msg = "info. OK."
-                Console.ok(msg)
-            except Exception as e:
-                # Error.traceback(e)
-                Console.error("Problem retrieving status of the VM")
-
-        elif arguments["status"]:
-            try:
-                cloud_provider = CloudProvider(cloud).provider
-                vm_list = cloud_provider.list_vm(cloud)
-                print("Status of VM {} is {}".format(vm_list[0]["name"], vm_list[0]["status"]))
-                msg = "info. OK."
-                Console.ok(msg)
-            except Exception as e:
-                # Error.traceback(e)
-                Console.error("Problem retrieving status of the VM")
-
-        elif arguments["info"]:
-            try:
-                cloud_provider = CloudProvider(cloud).provider
-                vms = cloud_provider.list_vm(cloud)
-                vm = vms[0]
-                output_format = arguments["--format"] or "table"
-                print(Printer.attribute(vm, output=output_format))
-                msg = "info. OK."
-                Console.ok(msg)
-            except Exception as e:
-                # Error.traceback(e)
-                Console.error("Problem retrieving status of the VM")
-
-        elif arguments["check"]:
-
-            test = {}
-            try:
-
-                names = Parameter.expand(arguments["NAME"])
-                id = 0
-                for name in names:
-                    print("Not implemented: {}".format(name))
-                    # TODO: check the status of the vms
-                    status = "active"
-                    # TODO: check if they have a floating ip
-                    # TODO: get ip
-                    floating_ip = "127.0.0.1"
-                    ip = True
-                    # ping
-                    # TODO: ping the machine with the shell command
-                    ping = True
-                    # check if one can login and run a command
-                    check = False
-                    try:
-                        r = Shell.execute("uname", "-a")
-                        # do a real check
-                        check = True
-                    except:
-                        check = False
-                    test[name] = {
-                        "id": id,
-                        "name": name,
-                        "status": status,
-                        "ip": ip,
-                        "ping": ping,
-                        "login": check
-                    }
-                    id += 1
-
-                pprint(test)
-
-                print(Printer.write(test,
-                                    order=["id",
-                                           "name",
-                                           "status",
-                                           "ip",
-                                           "ping",
-                                           "login"],
-                                    output="table",
-                                    sort_keys=True))
-
-                msg = "not yet implemented. failed."
-                Console.error(msg)
-            except Exception as e:
-                # Error.traceback(e)
-                Console.error("Problem retrieving status of the VM")
-
-        elif arguments["start"]:
-            try:
-                servers = arguments["NAME"]
-
-                # If names not provided, take the last vm from DB.
-                if servers is None or len(servers) == 0:
-                    last_vm = Default.vm
-                    if last_vm is None:
-                        Console.error("No VM records in database. Please run vm refresh.")
-                        return ""
-                    name = last_vm["name"]
-                    # print(name)
-                    servers = list()
-                    servers.append(name)
-
-                group = arguments["--group"]
-                force = arguments["--force"]
-
-                # if default cloud not set, return error
-                if not cloud:
-                    Console.error("Default cloud not set.")
-                    return ""
-                Vm.start(cloud=cloud, servers=servers)
-
-                msg = "info. OK."
-                Console.ok(msg)
-            except Exception as e:
-                # Error.traceback(e)
-                Console.error("Problem starting instances")
-
-        elif arguments["stop"]:
-            try:
-                servers = arguments["NAME"]
-
-                # If names not provided, take the last vm from DB.
-                if servers is None or len(servers) == 0:
-                    last_vm = Default.vm
-                    if last_vm is None:
-                        Console.error("No VM records in database. Please run vm refresh.")
-                        return ""
-                    name = last_vm["name"]
-                    # print(name)
-                    servers = list()
-                    servers.append(name)
-
-                group = arguments["--group"]
-                force = arguments["--force"]
-
-                # if default cloud not set, return error
-                if not cloud:
-                    Console.error("Default cloud not set.")
-                    return ""
-
-                Vm.stop(cloud=cloud, servers=servers)
-
-                msg = "info. OK."
-                Console.ok(msg)
-            except Exception as e:
-                # Error.traceback(e)
-                Console.error("Problem stopping instances")
-
-        elif arguments["refresh"]:
-
-            _refresh(cloud)
-
-        elif arguments["delete"]:
-
-            group = arguments["--group"]
-            force = arguments["--force"]
-            cloud = arguments["--cloud"]
-            servers = Parameter.expand(arguments["NAME"])
-
-            if servers is None or len(servers) == 0:
-
-                last_vm = Vm.get_vm(cloud=cloud)
-                if last_vm is None:
-                    Console.error("No VM records in database. Please run vm refresh.")
-                    return ""
-
-                name = last_vm["name"]
-                servers = list()
-                servers.append(name)
-
-            else:
-
-                print(servers)
-
-                for server in servers:
-                    Vm.delete(servers=[server])
-
-                msg = "info. OK."
-                Console.ok(msg)
-                return ""
-
-        elif arguments["ip"] and arguments["assign"]:
-            if arguments["NAMES"] is None:
-                names = [Default.vm]
-            else:
-                names = Parameter.expand(arguments["NAMES"])
-
-            for name in names:
-
-                #ip = Network.get_floatingip(....)
-
-                vm = dotdict(Vm.list(name=name, category=cloud, output="dict")["dict"])
-                cloud_provider = CloudProvider(cloud).provider
-
-                print("ASSIGNING IP TO", name)
-
-                try:
-                    floating_ip = cloud_provider.create_assign_floating_ip(name)
-                    if floating_ip is not None:
-                        print(
-                            "Floating IP assigned to {:} successfully and it is: {:}".format(
-                                name, floating_ip))
-                        msg = "info. OK."
-                        Console.ok(msg)
-                except Exception as e:
-                    Console.error("Problem assigning floating ips.")
-
-
-        elif arguments["ip"] and arguments["show"]:
-            vmids = arguments["NAME"]
-
-            # If names not provided, take the last vm from DB.
-            if vmids is None or len(vmids) == 0:
-                last_vm = Default.vm
-                if last_vm is None:
-                    Console.error("No VM records in database. Please run vm refresh.")
-                    return ""
-                name = last_vm["name"]
-                vmids = list()
-                vmids.append(name)
-
-            group = arguments["--group"]
-            output_format = arguments["--format"] or "table"
-            refresh = arguments["--refresh"]
-
-            # if default cloud not set, return error
-            if not cloud:
-                Console.error("Default cloud not set.")
-                return ""
-
-            try:
-                cloud_provider = CloudProvider(cloud).provider
-                for server in vmids:
-                    ip_addr = cloud_provider.get_ips(server)
-
-                    ipaddr_dict = Vm.construct_ip_dict(ip_addr, cloud)
-
-                    print(
-                        "IP Addresses of instance {:} are as follows:-".format(
-                            server))
-                    print(_print_dict_ip(ipaddr_dict, output=output_format))
-                msg = "info. OK."
-                Console.ok(msg)
-            except Exception as e:
-                # Error.traceback(e)
-                Console.error(
-                    "Problem getting ip addresses for instance {:}".format(id))
-
-        elif arguments["login"]:
-
-            query = dotdict({
-                'name': arguments["NAME"] or Default.vm,
-                'user': arguments["--user"]
-            })
-
-            print("Login {user}@{name} ...".format(**query))
-
-
-            vm = Vm.get(query.name, category=arg.cloud)
-
-            pprint(vm)
-
-            return
-
-            # Get user if user argument not specified.
-            if login.user is None:
-                user_from_db = Vm.get_login_user(login.vm, arg.cloud)
-
-                user_suggest = user_from_db or Default.user
-                user = input("Username (Default: {}):".format(user_suggest)) or user_suggest
-                Vm.set_login_user(login.vm, cloud, user)
-
-            ip = arguments["--ip"]
-            commands = arguments["--command"]
-
-            ip_addresses = []
-
-
-            cloud_provider = CloudProvider(cloud).provider
-            ip_addr = cloud_provider.get_ips(login.vm)
-
-
-
-
-            ipaddr_dict = Vm.construct_ip_dict(ip_addr, cloud)
-            for entry in ipaddr_dict:
-                ip_addresses.append(ipaddr_dict[entry]["addr"])
-
-
-
-
-            if len(ip_addresses) > 0:
-                if ip is not None:
-                    if ip not in ip_addresses:
-                        print(
-                            "ERROR: IP Address specified does not match with the host.")
-                        return ""
+        """
+                vm default [--cloud=CLOUD][--format=FORMAT]
+                vm refresh [all][--cloud=CLOUD]
+                vm boot [--name=NAMES]
+                        [--cloud=CLOUD]
+                        [--username=USERNAME]
+                        [--image=IMAGE]
+                        [--flavor=FLAVOR]
+                        [--group=GROUP]
+                        [--secgroup=SECGROUP]
+                        [--key=KEY]
+                        [--dryrun]
+                vm boot [--n=COUNT]
+                        [--cloud=CLOUD]
+                        [--username=USERNAME]
+                        [--image=IMAGE]
+                        [--flavor=FLAVOR]
+                        [--group=GROUP]
+                        [--secgroup=SECGROUP]
+                        [--key=KEY]
+                        [--dryrun]
+                vm console [NAME]
+                         [--group=GROUP]
+                         [--cloud=CLOUD]
+                         [--force]
+                vm start [NAMES]
+                         [--group=GROUP]
+                         [--cloud=CLOUD]
+                         [--force]
+                vm stop [NAMES]
+                        [--group=GROUP]
+                        [--cloud=CLOUD]
+                        [--force]
+                vm terminate [NAMES]
+                          [--group=GROUP]
+                          [--cloud=CLOUD]
+                          [--force]
+                vm delete [NAMES]
+                          [--group=GROUP]
+                          [--cloud=CLOUD]
+                          [--force]
+                vm ip assign [NAMES]
+                          [--cloud=CLOUD]
+                vm ip show [NAMES]
+                           [--group=GROUP]
+                           [--cloud=CLOUD]
+                           [--format=FORMAT]
+                           [--refresh]
+                vm login [NAME] [--user=USER]
+                         [--ip=IP]
+                         [--cloud=CLOUD]
+                         [--key=KEY]
+                         [--command=COMMAND]
+                vm rename [NAME]         # see bulk rename
+                          [--new=NEWNAME]
+                          [--cloud=CLOUD]
+                          [--force]
+                          [--dryrun]
+                vm list [NAMES]
+                        [--cloud=CLOUD|--all]
+                        [--group=GROUP]
+                        [--format=FORMAT]
+                        [--refresh]
+                vm status [--cloud=CLOUD]
+                vm info [--cloud=CLOUD]
+                        [--format=FORMAT]
+                vm check NAMES
+                vm username USERNAME NAMES [--cloud=CLOUD]
+
+        # bulk rename
+
+        rename abc[0-1] def[3-4]       renames the abc0,abc1 -> def3,def4
+
+        if arguments["rename"]:
+            oldnames = Parameter.expand(arguments["OLDNAME"])
+            newnames = Parameter.expand(arguments["NEWNAME"])
+
+            # check if new names ar not already taken
+            # to be implemented
+
+            if len(oldnames) == len(newnames):
+                for i in range(0, len(oldnames)):
+                    oldname = oldnames[i]
+                    newname = newnames[i]
+                if newname is None or newname == '':
+                    print("New node name cannot be empty")
                 else:
-                    print("Determining IP Address to use with a ping test.")
-                    # This part assumes that the ping is allowed to the machine.
-                    for ipadd in ip_addresses:
-                        print("Checking {:}...".format(ipadd))
-                        try:
-                            socket.gethostbyaddr(ipadd)
-                            # ip will be set if above command is successful.
-                            ip = ipadd
-                        except socket.herror:
-                            print("Cannot reach {:}.".format(ipadd))
+                    print(Cluster.rename_node(clusterid, oldname, newname))
+        '''
 
-                if ip is None:
-                    print("Unable to connect to the machine")
-                    return ""
-                else:
-                    print("IP to be used is: {:}".format(ip))
+def _print_dict(d, header=None, output='table'):
+  return Printer.write(d, order=["id", "name", "status"], output=output, sort_keys=True)
 
-                SecGroup.enable_ssh(cloud=cloud)
+def _print_dict_ip(d, header=None, output='table'):
+  return Printer.write(d, order=["network", "version", "addr"], output=output, sort_keys=True)
 
-                Console.info("Connecting to Instance at IP:" + format(ip))
-                # Constructing the ssh command to connect to the machine.
-                sshcommand = "ssh"
-                if key is not None:
-                    sshcommand += " -i {:}".format(key)
-                sshcommand += " -o StrictHostKeyChecking=no"
-                sshcommand += " {:}@{:}".format(user, ip)
-                if commands is not None:
-                    sshcommand += " \"{:}\"".format(commands)
+def get_vm_name(name=None, offset=0, fill=3):
 
-                # print(sshcommand)
-                os.system(sshcommand)
-            else:
-                Console.error("No Public IPs found for the instance")
+  if name is None:
+      count = Default.get_counter(name='name') + offset
+      prefix = Default.user
+      if prefix is None or count is None:
+          Console.error("Prefix and Count could not be retrieved correctly.")
+          return
+      name = prefix + "-" + str(count).zfill(fill)
+  return name
 
-        elif arguments["list"]:
+def _refresh_cloud(cloud):
+  try:
+      msg = "Refresh VMs for cloud {:}.".format(cloud)
+      if Vm.refresh(cloud=cloud):
+          Console.ok("{:} OK.".format(msg))
+      else:
+          Console.error("{:} failed".format(msg))
+  except Exception as e:
+      Console.error("Problem running VM refresh")
 
-            # groups = Group.list(output="dict")
+cloud = arguments["--cloud"] or Default.cloud
 
-            if arguments["--all"] or arguments["NAME"] == "all":
-                try:
-                    _format = arguments["--format"] or "table"
-                    d = ConfigDict("cloudmesh.yaml")
-                    for cloud in active_clouds:
+config = ConfigDict("cloudmesh.yaml")
+active_clouds = config["cloudmesh"]["active"]
 
-                        if arguments["--refresh"] or Default.refresh:
-                            _refresh(cloud)
+def _refresh(cloud):
+  all = arguments["all"] or None
 
-                        print("Listing VMs on Cloud: {:}".format(cloud))
+  if all is None:
 
-                        result = Vm.list(cloud=cloud, output_format=_format)
+      _refresh_cloud(cloud)
+  else:
+      for cloud in active_clouds:
+          _refresh_cloud(cloud)
 
-                        if result is not None:
-                            print(result)
-                            msg = "info. OK."
-                            Console.ok(msg)
-                        else:
-                            print("No data found with requested parameters.")
-                except Exception as e:
-                    # Error.traceback(e)
-                    Console.error("Problem listing all instances")
-            else:
+arg = dotdict(arguments)
 
-                # if default cloud not set, return error
-                if not cloud:
-                    Console.error("Default cloud not set.")
-                    return ""
+arg.cloud = arguments["--cloud"] or Default.cloud
+arg.image = arguments["--image"] or Default.get(name="image", category=arg.cloud)
+arg.flavor = arguments["--flavor"] or Default.get(name="flavor", category=arg.cloud)
+arg.group = arguments["--group"] or Default.group
+arg.secgroup = arguments["--secgroup"] or Default.secgroup
+arg.key = arguments["--key"] or Default.key
+arg.dryrun = arguments["--dryrun"]
+arg.name = arguments["--name"]
+arg.format = arguments["--format"] or 'table'
+arg.refresh = Default.refresh or arguments["--refresh"]
+arg.count = int(arguments["--n"] or 1)
+arg.dryrun = arguments["--dryrun"]
+arg.username = arguments["--username"] or Image.guess_username(arg.image)
 
-                try:
-                    name = arguments["NAME"]
-                    group = arguments["--group"]
-                    _format = arguments["--format"] or "table"
+#
+# in many cases use NAMES
+# if arg.NAMES is not None:
+#   arg.names = Parameter.expand(arg.NAMES)   #  gvonlasz[001-002]  gives ["gvonlasz-001", "gvonlasz-002"]
+# else:
+#    arg.names = None
+#
 
-                    # list_vms_on_cloud(cloud, group, _format)
-                    if arguments["--refresh"] or Default.refresh:
-                        _refresh(cloud)
+if arguments["boot"]:
+  is_name_provided = arg.name is not None
 
-                    result = Vm.list(name=name, category=cloud, output_format=_format)
+  for index in range(0, arg.count):
+      vm_details = dotdict({
+          "cloud": arg.cloud,
+          "name": get_vm_name(arg.name, index),
+          "image": arg.image,
+          "flavor": arg.flavor,
+          "key": arg.key,
+          "secgroup": arg.secgroup,
+          "group": arg.group,
+          "username": arg.username
+      })
 
-                    if result is not None:
-                        print(result)
-                        msg = "info. OK."
-                        Console.ok(msg)
-                    else:
-                        print("No data found with the requested parameters.")
+      try:
 
-                except Exception as e:
-                    # Error.traceback(e)
-                    Console.error(
-                        "Problem listing instances on cloud {:}".format(cloud))
+          if arg.dryrun:
+              print(Printer.attribute(vm_details, output=arg.format))
+              msg = "dryrun info. OK."
+              Console.ok(msg)
+          else:
+              vm_id = Vm.boot(**vm_details)
 
-        elif arguments["rename"]:
-            try:
-                servers = arguments["NAME"]
+              # set name and counter in defaults
+              Default.set_vm(value=vm_details.name)
+              if is_name_provided is False:
+                  Default.incr_counter("name")
 
-                # If names not provided, take the last vm from DB.
-                if servers is None or len(servers) == 0:
-                    last_vm = Default.vm
-                    if last_vm is None:
-                        Console.error("No VM records in database. Please run vm refresh.")
-                        return ""
-                    name = last_vm["name"]
-                    servers = list()
-                    servers.append(name)
+              # Add to group
+              if vm_id is not None:
+                  Group.add(name=vm_details.group,
+                            species="vm",
+                            member=vm_details.name,
+                            category=vm_details.cloud)
 
-                # if default cloud not set, return error
-                if not cloud:
-                    Console.error("Default cloud not set.")
-                    return ""
+              msg = "info. OK."
+              Console.ok(msg)
 
-                new_name = arguments["--new"]
-                is_name_provided = True
+      except Exception as e:
+          Console.error("Problem booting instance {name}".format(**vm_details))
 
-                # If the new name is not provided, make the new new name in format username-count.
-                if new_name is None or len(new_name) == 0:
+elif arguments["username"]:
 
-                    is_name_provided = False
+  cloud = arg.cloud
+  username = arg.USERNAME
+  name = arg.NAME
 
-                    count = Default.get_counter()
-                    prefix = Username()
+  print (cloud, username)
 
-                    if prefix is None or count is None:
-                        Console.error("Prefix and Count could not be retrieved correctly.")
-                        return
+  Vm.set_login_user(name=name, cloud=cloud, username=username)
 
-                    # BUG THE Z FILL SHOULD BE detected from yaml file
-                    new_name = prefix + "-" + str(count).zfill(3)
+elif arguments["default"]:
+  try:
+      count = Default.get_counter()
+      prefix = Username()
 
-                Vm.rename(cloud=cloud,
-                          servers=servers,
-                          new_name=new_name,
-                          force=arguments["--force"],
-                          is_dry_run=arguments["--dryrun"])
+      if prefix is None or count is None:
+          Console.error("Prefix and Count could not be retrieved correctly.")
+          return
 
-                if is_name_provided is False:
-                    # Incrementing count
-                    Default.incr_counter()
+      vm_name = prefix + "-" + str(count).zfill(3)
+      arg = {
+          "name": vm_name,
+          "cloud": arguments["--cloud"] or Default.cloud
+      }
+      for attribute in ["image", "flavor"]:
+          arg[attribute] = Default.get(name=attribute, category=cloud)
+      for attribute in ["key", "group", "secgroup"]:
+          arg[attribute] = Default.get(name=attribute, category='general')
 
-                msg = "info. OK."
-                Console.ok(msg)
-            except Exception as e:
-                # Error.traceback(e)
-                Console.error("Problem deleting instances")
+      output = arguments["--format"] or "table"
+      print(Printer.attribute(arg, output=output))
+      msg = "info. OK."
+      Console.ok(msg)
+      ValueError("default command not implemented properly. Upon "
+                 "first install the defaults should be read from yaml.")
+  except Exception as e:
+      # Error.traceback(e)
+      Console.error("Problem listing defaults")
 
-        return ""
+elif arguments["console"]:
+  try:
+      name = arguments["NAME"] or Default.vm
+
+      vm = dotdict(Vm.list(name=name, category=cloud, output="dict")["dict"])
+
+      cloud_provider = CloudProvider(cloud).provider
+      vm_list = cloud_provider.list_console(vm.uuid)
+      print(vm_list)
+      msg = "info. OK."
+      Console.ok(msg)
+  except Exception as e:
+      # Error.traceback(e)
+      Console.error("Problem retrieving status of the VM")
+
+elif arguments["status"]:
+  try:
+      cloud_provider = CloudProvider(cloud).provider
+      vm_list = cloud_provider.list_vm(cloud)
+      print("Status of VM {} is {}".format(vm_list[0]["name"], vm_list[0]["status"]))
+      msg = "info. OK."
+      Console.ok(msg)
+  except Exception as e:
+      # Error.traceback(e)
+      Console.error("Problem retrieving status of the VM")
+
+elif arguments["info"]:
+  try:
+      cloud_provider = CloudProvider(cloud).provider
+      vms = cloud_provider.list_vm(cloud)
+      vm = vms[0]
+      output_format = arguments["--format"] or "table"
+      print(Printer.attribute(vm, output=output_format))
+      msg = "info. OK."
+      Console.ok(msg)
+  except Exception as e:
+      # Error.traceback(e)
+      Console.error("Problem retrieving status of the VM")
+
+elif arguments["check"]:
+
+  test = {}
+  try:
+
+      names = Parameter.expand(arguments["NAME"])
+      id = 0
+      for name in names:
+          print("Not implemented: {}".format(name))
+          # TODO: check the status of the vms
+          status = "active"
+          # TODO: check if they have a floating ip
+          # TODO: get ip
+          floating_ip = "127.0.0.1"
+          ip = True
+          # ping
+          # TODO: ping the machine with the shell command
+          ping = True
+          # check if one can login and run a command
+          check = False
+          try:
+              r = Shell.execute("uname", "-a")
+              # do a real check
+              check = True
+          except:
+              check = False
+          test[name] = {
+              "id": id,
+              "name": name,
+              "status": status,
+              "ip": ip,
+              "ping": ping,
+              "login": check
+          }
+          id += 1
+
+      pprint(test)
+
+      print(Printer.write(test,
+                          order=["id",
+                                 "name",
+                                 "status",
+                                 "ip",
+                                 "ping",
+                                 "login"],
+                          output="table",
+                          sort_keys=True))
+
+      msg = "not yet implemented. failed."
+      Console.error(msg)
+  except Exception as e:
+      # Error.traceback(e)
+      Console.error("Problem retrieving status of the VM")
+
+elif arguments["start"]:
+  try:
+      servers = arguments["NAME"]
+
+      # If names not provided, take the last vm from DB.
+      if servers is None or len(servers) == 0:
+          last_vm = Default.vm
+          if last_vm is None:
+              Console.error("No VM records in database. Please run vm refresh.")
+              return ""
+          name = last_vm["name"]
+          # print(name)
+          servers = list()
+          servers.append(name)
+
+      group = arguments["--group"]
+      force = arguments["--force"]
+
+      # if default cloud not set, return error
+      if not cloud:
+          Console.error("Default cloud not set.")
+          return ""
+      Vm.start(cloud=cloud, servers=servers)
+
+      msg = "info. OK."
+      Console.ok(msg)
+  except Exception as e:
+      # Error.traceback(e)
+      Console.error("Problem starting instances")
+
+elif arguments["stop"]:
+  try:
+      servers = arguments["NAME"]
+
+      # If names not provided, take the last vm from DB.
+      if servers is None or len(servers) == 0:
+          last_vm = Default.vm
+          if last_vm is None:
+              Console.error("No VM records in database. Please run vm refresh.")
+              return ""
+          name = last_vm["name"]
+          # print(name)
+          servers = list()
+          servers.append(name)
+
+      group = arguments["--group"]
+      force = arguments["--force"]
+
+      # if default cloud not set, return error
+      if not cloud:
+          Console.error("Default cloud not set.")
+          return ""
+
+      Vm.stop(cloud=cloud, servers=servers)
+
+      msg = "info. OK."
+      Console.ok(msg)
+  except Exception as e:
+      # Error.traceback(e)
+      Console.error("Problem stopping instances")
+
+elif arguments["refresh"]:
+
+  _refresh(cloud)
+
+elif arguments["delete"]:
+
+  group = arguments["--group"]
+  force = arguments["--force"]
+  cloud = arguments["--cloud"]
+  servers = Parameter.expand(arguments["NAME"])
+
+  if servers is None or len(servers) == 0:
+
+      last_vm = Vm.get_vm(cloud=cloud)
+      if last_vm is None:
+          Console.error("No VM records in database. Please run vm refresh.")
+          return ""
+
+      name = last_vm["name"]
+      servers = list()
+      servers.append(name)
+
+  else:
+
+      print(servers)
+
+      for server in servers:
+          Vm.delete(servers=[server])
+
+      msg = "info. OK."
+      Console.ok(msg)
+      return ""
+
+elif arguments["ip"] and arguments["assign"]:
+  if arguments["NAMES"] is None:
+      names = [Default.vm]
+  else:
+      names = Parameter.expand(arguments["NAMES"])
+
+  for name in names:
+
+      #ip = Network.get_floatingip(....)
+
+      vm = dotdict(Vm.list(name=name, category=cloud, output="dict")["dict"])
+      cloud_provider = CloudProvider(cloud).provider
+
+      print("ASSIGNING IP TO", name)
+
+      try:
+          floating_ip = cloud_provider.create_assign_floating_ip(name)
+          if floating_ip is not None:
+              print(
+                  "Floating IP assigned to {:} successfully and it is: {:}".format(
+                      name, floating_ip))
+              msg = "info. OK."
+              Console.ok(msg)
+      except Exception as e:
+          Console.error("Problem assigning floating ips.")
+
+
+elif arguments["ip"] and arguments["show"]:
+  vmids = arguments["NAME"]
+
+  # If names not provided, take the last vm from DB.
+  if vmids is None or len(vmids) == 0:
+      last_vm = Default.vm
+      if last_vm is None:
+          Console.error("No VM records in database. Please run vm refresh.")
+          return ""
+      name = last_vm["name"]
+      vmids = list()
+      vmids.append(name)
+
+  group = arguments["--group"]
+  output_format = arguments["--format"] or "table"
+  refresh = arguments["--refresh"]
+
+  # if default cloud not set, return error
+  if not cloud:
+      Console.error("Default cloud not set.")
+      return ""
+
+  try:
+      cloud_provider = CloudProvider(cloud).provider
+      for server in vmids:
+          ip_addr = cloud_provider.get_ips(server)
+
+          ipaddr_dict = Vm.construct_ip_dict(ip_addr, cloud)
+
+          print(
+              "IP Addresses of instance {:} are as follows:-".format(
+                  server))
+          print(_print_dict_ip(ipaddr_dict, output=output_format))
+      msg = "info. OK."
+      Console.ok(msg)
+  except Exception as e:
+      # Error.traceback(e)
+      Console.error(
+          "Problem getting ip addresses for instance {:}".format(id))
+
+elif arguments["login"]:
+
+  query = dotdict({
+      'name': arguments["NAME"] or Default.vm,
+      'user': arguments["--user"]
+  })
+
+  print("Login {user}@{name} ...".format(**query))
+
+
+  vm = Vm.get(query.name, category=arg.cloud)
+
+  pprint(vm)
+
+  return
+
+  # Get user if user argument not specified.
+  if login.user is None:
+      user_from_db = Vm.get_login_user(login.vm, arg.cloud)
+
+      user_suggest = user_from_db or Default.user
+      user = input("Username (Default: {}):".format(user_suggest)) or user_suggest
+      Vm.set_login_user(login.vm, cloud, user)
+
+  ip = arguments["--ip"]
+  commands = arguments["--command"]
+
+  ip_addresses = []
+
+
+  cloud_provider = CloudProvider(cloud).provider
+  ip_addr = cloud_provider.get_ips(login.vm)
+
+
+
+
+  ipaddr_dict = Vm.construct_ip_dict(ip_addr, cloud)
+  for entry in ipaddr_dict:
+      ip_addresses.append(ipaddr_dict[entry]["addr"])
+
+
+
+
+  if len(ip_addresses) > 0:
+      if ip is not None:
+          if ip not in ip_addresses:
+              print(
+                  "ERROR: IP Address specified does not match with the host.")
+              return ""
+      else:
+          print("Determining IP Address to use with a ping test.")
+          # This part assumes that the ping is allowed to the machine.
+          for ipadd in ip_addresses:
+              print("Checking {:}...".format(ipadd))
+              try:
+                  socket.gethostbyaddr(ipadd)
+                  # ip will be set if above command is successful.
+                  ip = ipadd
+              except socket.herror:
+                  print("Cannot reach {:}.".format(ipadd))
+
+      if ip is None:
+          print("Unable to connect to the machine")
+          return ""
+      else:
+          print("IP to be used is: {:}".format(ip))
+
+      SecGroup.enable_ssh(cloud=cloud)
+
+      Console.info("Connecting to Instance at IP:" + format(ip))
+      # Constructing the ssh command to connect to the machine.
+      sshcommand = "ssh"
+      if key is not None:
+          sshcommand += " -i {:}".format(key)
+      sshcommand += " -o StrictHostKeyChecking=no"
+      sshcommand += " {:}@{:}".format(user, ip)
+      if commands is not None:
+          sshcommand += " \"{:}\"".format(commands)
+
+      # print(sshcommand)
+      os.system(sshcommand)
+  else:
+      Console.error("No Public IPs found for the instance")
+
+elif arguments["list"]:
+
+  # groups = Group.list(output="dict")
+
+  if arguments["--all"] or arguments["NAME"] == "all":
+      try:
+          _format = arguments["--format"] or "table"
+          d = ConfigDict("cloudmesh.yaml")
+          for cloud in active_clouds:
+
+              if arguments["--refresh"] or Default.refresh:
+                  _refresh(cloud)
+
+              print("Listing VMs on Cloud: {:}".format(cloud))
+
+              result = Vm.list(cloud=cloud, output_format=_format)
+
+              if result is not None:
+                  print(result)
+                  msg = "info. OK."
+                  Console.ok(msg)
+              else:
+                  print("No data found with requested parameters.")
+      except Exception as e:
+          # Error.traceback(e)
+          Console.error("Problem listing all instances")
+  else:
+
+      # if default cloud not set, return error
+      if not cloud:
+          Console.error("Default cloud not set.")
+          return ""
+
+      try:
+          name = arguments["NAME"]
+          group = arguments["--group"]
+          _format = arguments["--format"] or "table"
+
+          # list_vms_on_cloud(cloud, group, _format)
+          if arguments["--refresh"] or Default.refresh:
+              _refresh(cloud)
+
+          result = Vm.list(name=name, category=cloud, output_format=_format)
+
+          if result is not None:
+              print(result)
+              msg = "info. OK."
+              Console.ok(msg)
+          else:
+              print("No data found with the requested parameters.")
+
+      except Exception as e:
+          # Error.traceback(e)
+          Console.error(
+              "Problem listing instances on cloud {:}".format(cloud))
+
+elif arguments["rename"]:
+  try:
+      servers = arguments["NAME"]
+
+      # If names not provided, take the last vm from DB.
+      if servers is None or len(servers) == 0:
+          last_vm = Default.vm
+          if last_vm is None:
+              Console.error("No VM records in database. Please run vm refresh.")
+              return ""
+          name = last_vm["name"]
+          servers = list()
+          servers.append(name)
+
+      # if default cloud not set, return error
+      if not cloud:
+          Console.error("Default cloud not set.")
+          return ""
+
+      new_name = arguments["--new"]
+      is_name_provided = True
+
+      # If the new name is not provided, make the new new name in format username-count.
+      if new_name is None or len(new_name) == 0:
+
+          is_name_provided = False
+
+          count = Default.get_counter()
+          prefix = Username()
+
+          if prefix is None or count is None:
+              Console.error("Prefix and Count could not be retrieved correctly.")
+              return
+
+          # BUG THE Z FILL SHOULD BE detected from yaml file
+          new_name = prefix + "-" + str(count).zfill(3)
+
+      Vm.rename(cloud=cloud,
+                servers=servers,
+                new_name=new_name,
+                force=arguments["--force"],
+                is_dry_run=arguments["--dryrun"])
+
+      if is_name_provided is False:
+          # Incrementing count
+          Default.incr_counter()
+
+      msg = "info. OK."
+      Console.ok(msg)
+  except Exception as e:
+      # Error.traceback(e)
+      Console.error("Problem deleting instances")
+
+return ""
