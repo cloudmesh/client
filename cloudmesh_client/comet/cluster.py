@@ -21,7 +21,7 @@ class Cluster(object):
     SECS_PER_DAY = 60*60*24
     STUCK_COMPUTESETS = ["submitted", "ending"]
     FINISHED_COMPUTESETS = ["completed", "failed"]
-    ACTIVE_COMPUTESETS = ["running", "running", "submitted", "created"]
+    ACTIVE_COMPUTESETS = ["running", "submitted", "created"]
     PENDING_COMPUTESETS = ["queued", "submitted", "created"]
     @staticmethod
     def simple_list(id=None, format="table"):
@@ -128,6 +128,19 @@ class Cluster(object):
                         stuck_computesets[cluster][node["name"]] = \
                             "{}({})".format (id, computeset["state"])
         '''
+        #
+        # getting account/allocation for each computeset
+        # to display in the cluster view
+        computeset_account = {}
+        stuck_computesets = {}
+        computesets = Comet.get_computeset()
+        if computesets:
+            for computeset in computesets:
+                id = computeset["id"]
+                account = computeset["account"]
+                if id not in computeset_account:
+                    computeset_account[id] = account
+
         if r is not None:
             if format == "rest":
                 result = r
@@ -186,11 +199,16 @@ class Cluster(object):
                             bnode["mac"] = ";".join(macs)
                         if "active_computeset_state" in anode and \
                                     anode["active_computeset"] is not None and \
-                                    anode["active_computeset_state"] is not None and \
-                                    anode["active_computeset_state"] != 'running':
-                            bnode["active_computeset"] = "%s(%s)" % \
+                                    anode["active_computeset_state"] is not None:
+                            if anode["active_computeset_state"] != 'running':
+                                bnode["active_computeset"] = "%s(%s)" % \
                                                     (anode["active_computeset"],
                                                      anode["active_computeset_state"])
+                            else:
+                                if anode["active_computeset"] in computeset_account:
+                                    bnode["allocation"] = \
+                                        computeset_account[anode["active_computeset"]]
+
                         if "compute_state" in anode:
                             bnode["admin_state"] = anode["compute_state"]
                         #anode["ip"] = "; ".join(ips)
@@ -218,6 +236,7 @@ class Cluster(object):
                                           "memory",
                                           "disksize",
                                           "active_computeset",
+                                          "allocation",
                                           "admin_state"
                                       ],
                                       header=[
@@ -231,6 +250,7 @@ class Cluster(object):
                                           "RAM(M)",
                                           "disk(G)",
                                           "computeset",
+                                          "allocation",
                                           "admin_state"
                                       ],
                                       output=format,
@@ -249,6 +269,7 @@ class Cluster(object):
                               "memory",
                               "disksize",
                               "active_computeset",
+                              "allocation",
                               "admin_state"
                           ],
                           header=[
@@ -262,6 +283,7 @@ class Cluster(object):
                               "RAM(M)",
                               "disk(G)",
                               "computeset",
+                              "allocation",
                               "admin_state"
                           ],
                           output=format,
@@ -281,6 +303,7 @@ class Cluster(object):
                           "memory",
                           "disksize",
                           "active_computeset",
+                          "allocation",
                           "admin_state"
                       ],
                       header=[
@@ -295,6 +318,7 @@ class Cluster(object):
                           "RAM(M)",
                           "disk(G)",
                           "computeset",
+                          "allocation",
                           "admin_state"
                       ],
                       output=format,
