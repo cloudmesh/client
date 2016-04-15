@@ -598,14 +598,13 @@ class CloudmeshDatabase(object):
                 provider = CloudProvider(name).provider
 
                 # clear local db records for kind
-                if kind in ["image", "flavor"]:
+                if kind in ["flavor"]:
                     cls.clear(kind=kind, category=name)
 
-                if kind in ["flavor", "image"]:
+                if kind in ["flavor", "image", "vm"]:
                     # flavors = provider.list_flavor(name)
 
                     current_elements = cls.find(category=name, kind=kind, output='dict')
-
 
                     print ("CURRENT ELEMENTS", type(current_elements), current_elements)
 
@@ -619,9 +618,13 @@ class CloudmeshDatabase(object):
                         element["kind"] = kind
                         element["provider"] = provider.cloud_type
                         if current_elements is not None and name in current_elements:
-                            element["username"] = current_elements[name]["username"]
+                            if "username" in current_elements:
+                                element["username"] = current_elements[name]["username"]
+                        #
+                        # issue may also be here: add should overwrite if object with name exists and use the new fields from above
+                        # also update time needs to be set with same format as used in the table/cloudmeshmixin
+                        #
                         cls.add(element)
-                        cls.save()
 
                     return True
 
@@ -635,7 +638,7 @@ class CloudmeshDatabase(object):
                         element[u"uuid"] = element['id']
                         element[u'type'] = 'string'
                         element[u"category"] = name
-                        element[u"cloud"] = name
+                        # element[u"cloud"] = name
                         element[u"user"] = user
                         element[u"kind"] = kind
                         element[u"provider"] = provider.cloud_type

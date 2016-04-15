@@ -77,6 +77,9 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                           [--group=GROUP]
                           [--cloud=CLOUD]
                           [--force]
+                vm purge [NAMES]
+                          [--group=GROUP]
+                          [--cloud=CLOUD]
                 vm ip assign [NAMES]
                           [--cloud=CLOUD]
                 vm ip show [NAME]
@@ -233,6 +236,14 @@ class VmCommand(PluginCommand, CloudPluginCommand):
         arg.count = int(arguments["--n"] or 1)
         arg.dryrun = arguments["--dryrun"]
         arg.username = arguments["--username"] or Image.guess_username(arg.image)
+
+        #
+        # in many cases use NAMES
+        # if arg.NAMES is not None:
+        #   arg.names = Parameter.expand(arg.NAMES)   #  gvonlasz[001-002]  gives ["gvonlasz-001", "gvonlasz-002"]
+        # else:
+        #    arg.names = None
+        #
 
         if arguments["boot"]:
             is_name_provided = arg.name is not None

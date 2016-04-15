@@ -146,6 +146,10 @@ class Default(object):
         cls.cm.delete(provider=cls.__provider__, kind=cls.__kind__)
 
     @readable_classproperty
+    def interactive(cls):
+        return cls.get(name="interactive")
+
+    @readable_classproperty
     def index(cls):
         return cls.get(name="index")
 
@@ -378,6 +382,18 @@ class Default(object):
             cls.set("refresh", "True")
         else:
            cls.set("refresh", "False")
+
+    @classmethod
+    def set_interactive(cls, value):
+        """
+        sets the default for all clouds to refresh
+        :param value:
+        :return:
+        """
+        if str(value) in ["on", "True"]:
+            cls.set("interactive", "True")
+        else:
+           cls.set("interactive", "False")
 
     @classmethod
     def set_timer(cls, value):
