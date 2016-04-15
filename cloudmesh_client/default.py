@@ -123,12 +123,13 @@ class Default(object):
         if o.type == 'int':
             print ("INT")
             return int(o.value)
-        elif o.type == 'bool' or o.value in ["True", "False"]:
+        elif o.type == 'bool':
+            return o.value
+        elif str(o.value) in ["True", "False"]:
             print ("BOOL", o.value, type(o.value))
-
             result = o.value == "True"
             print ("BBBBB", result)
-            return str(o.value) in ["True", u"True"]
+            return result
         else:
             print("STR", o.value)
             return (o.value)
