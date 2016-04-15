@@ -829,28 +829,30 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 'order': [
                     'cm_id',
                     'group',
-                    'label',
+                    'name',
                     'status',
                     'static_ip',
                     'floating_ip',
+                    'username',
                     'key',
                     'project',
-                    'user',
                     'category',
-                    'updated_at'
+                    'updated_at',
+                    'user'
                 ],
                 'header': [
                     'id',
                     'group',
-                    'label',
+                    'name',
                     'status',
                     'static_ip',
                     'floating_ip',
+                    'username',
                     'key',
                     'project',
-                    'user',
                     'cloud',
-                    'updated_at'
+                    'updated_at',
+                    'user'
                 ]
             },
             'floating_ip': {

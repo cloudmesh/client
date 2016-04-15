@@ -7,6 +7,7 @@ class IMAGE_OPENSTACK(CloudmeshMixin, CloudmeshDatabase.Base):
     __tablename__ = "image_openstack"
     __kind__ = 'image'
     __provider__ = "openstack"
+    __megefields__ = ["username"]
 
     uuid = Column(String)
     status = Column(String)
@@ -128,6 +129,7 @@ class VM_OPENSTACK(CloudmeshMixin, CloudmeshDatabase.Base):
     __tablename__ = "vm_openstack"
     __kind__ = 'vm'
     __provider__ = "openstack"
+    __megefields__ = ["username"]
 
     username = Column(String)
     uuid = Column(String)
