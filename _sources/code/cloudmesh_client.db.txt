@@ -1,6 +1,13 @@
 cloudmesh_client.db package
 ===========================
 
+Subpackages
+-----------
+
+.. toctree::
+
+    cloudmesh_client.db.libcloud
+
 Submodules
 ----------
 

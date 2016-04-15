@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.comet.comet &mdash; cloudmesh_client 3.1.2 documentation</title>
+  <title>cloudmesh_client.comet.comet &mdash; cloudmesh_client 3.1.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.2 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1.2
+                3.1.0
               </div>
             
           
@@ -432,8 +432,8 @@
     <span class="c1"># To make GET calls for synchronous or asynchronous API</span>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.get"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Comet</span><span class="o">.</span><span class="n">http</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+<div class="viewcode-block" id="Comet.get"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Comet</span><span class="o">.</span><span class="n">http</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
                           <span class="n">allow_redirects</span><span class="o">=</span><span class="n">allow_redirects</span><span class="p">)</span></div>
 
     <span class="nd">@staticmethod</span>
@@ -478,8 +478,12 @@
                 <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
                                  <span class="n">allow_redirects</span><span class="o">=</span><span class="n">allow_redirects</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="n">cacert</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
-                                 <span class="n">allow_redirects</span><span class="o">=</span><span class="n">allow_redirects</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="n">cacert</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+                                     <span class="n">allow_redirects</span><span class="o">=</span><span class="n">allow_redirects</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="n">cacert</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+                                     <span class="n">allow_redirects</span><span class="o">=</span><span class="n">allow_redirects</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="n">cacert</span><span class="p">)</span>
 
             <span class="c1"># print (&quot;KKK --- DEBUGGING HTTP CALL&quot;)</span>
             <span class="c1"># pprint (r)</span>
@@ -554,9 +558,18 @@
                                  <span class="n">allow_redirects</span><span class="o">=</span><span class="n">allow_redirects</span><span class="p">,</span>
                                  <span class="n">verify</span><span class="o">=</span><span class="n">cacert</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="n">Comet</span><span class="o">.</span><span class="n">api_auth</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
-                                 <span class="n">allow_redirects</span><span class="o">=</span><span class="n">allow_redirects</span><span class="p">,</span>
-                                 <span class="n">verify</span><span class="o">=</span><span class="n">cacert</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="c1"># print (url)</span>
+                    <span class="c1"># print (data)</span>
+                    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="n">Comet</span><span class="o">.</span><span class="n">api_auth</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+                                     <span class="n">params</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+                                     <span class="n">allow_redirects</span><span class="o">=</span><span class="n">allow_redirects</span><span class="p">,</span>
+                                     <span class="n">verify</span><span class="o">=</span><span class="n">cacert</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="n">Comet</span><span class="o">.</span><span class="n">api_auth</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+                                     <span class="n">allow_redirects</span><span class="o">=</span><span class="n">allow_redirects</span><span class="p">,</span>
+                                     <span class="n">verify</span><span class="o">=</span><span class="n">cacert</span><span class="p">)</span>
+
             <span class="n">ret</span> <span class="o">=</span> <span class="bp">None</span>
 
             <span class="c1"># print (&quot;KKK&quot;, r.status_code)</span>
@@ -618,11 +631,17 @@
         <span class="k">return</span> <span class="n">ret</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.get_computeset"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.get_computeset">[docs]</a>    <span class="k">def</span> <span class="nf">get_computeset</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="n">geturl</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;computeset/&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">id</span><span class="p">:</span>
+<div class="viewcode-block" id="Comet.get_computeset"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.get_computeset">[docs]</a>    <span class="k">def</span> <span class="nf">get_computeset</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="c1"># print (id, state)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">id</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">state</span><span class="p">:</span>
+                <span class="n">state</span> <span class="o">=</span> <span class="s1">&#39;running&#39;</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="n">state</span><span class="p">}</span>
+            <span class="n">geturl</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;computeset/&quot;</span><span class="p">)</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">geturl</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
             <span class="n">geturl</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;computeset/{}/&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">geturl</span><span class="p">)</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">geturl</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">r</span></div>
 
     <span class="nd">@staticmethod</span>
@@ -716,7 +735,7 @@
         <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
         <span class="n">cometConf</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh.comet&quot;</span><span class="p">]</span>
         <span class="n">defaultUser</span> <span class="o">=</span> <span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">]</span>
-        <span class="n">user</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Comet Nucleus Usename [</span><span class="si">%s</span><span class="s2">]: &quot;</span> \
+        <span class="n">user</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Comet nucleus username [</span><span class="si">%s</span><span class="s2">]: &quot;</span> \
                          <span class="o">%</span> <span class="n">defaultUser</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="p">:</span>
             <span class="n">user</span> <span class="o">=</span> <span class="n">defaultUser</span>
@@ -899,7 +918,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'3.1.2',
+            VERSION:'3.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

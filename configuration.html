@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Configuration &mdash; cloudmesh_client 3.1.2 documentation</title>
+  <title>Configuration &mdash; cloudmesh_client 3.1.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.2 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="index.html"/>
         <link rel="up" title="Setup" href="setup.html"/>
         <link rel="next" title="User Manual" href="commands/index.html"/>
         <link rel="prev" title="Installation" href="installation.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                3.1.2
+                3.1.0
               </div>
             
           
@@ -199,27 +199,22 @@
            <div itemprop="articleBody">
             
   <div class="section" id="configuration">
-<span id="id1"></span><h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
 <p>During the installation of cloudmesh it will automatically generate
 a configuration file in the directory:</p>
 <blockquote>
 <div>~/.cloudmesh/cloudmesh.yaml</div></blockquote>
 <p>If this file is missing, you can run the command:</p>
 <blockquote>
-<div>cm help</div></blockquote>
-<p>to automatically generate it from defaults.</p>
+<div>cm help to automatically generate it from defaults.</div></blockquote>
 <p>The file will be a template and it can either be modified with your
 favorite editor, or if you are at Indiana University and want to use the
 kilo cloud you can use the command</p>
 <blockquote>
 <div>cm remote register</div></blockquote>
-<p>This will add the appropriate information into the yaml file.</p>
-<p>However, you must make sure that the the project you have at Indiana
-University is activated. A simple project request via the futuresystems.org
-portal is not sufficient. THe request muct be send via e-mail to <a class="reference external" href="mailto:laszewski&#37;&#52;&#48;gmail&#46;com">laszewski<span>&#64;</span>gmail<span>&#46;</span>com</a>
-by the project lead or project manager. Please note that restrictions may apply as we
-will serve first the IU community.</p>
-<p>The file will be looking as follows. You will have several options to
+<p>This will add the appropriate information into the yaml file.
+The file will be looking as follows.
+You will have several options to
 modify the file as explained bellow</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>meta:
     yaml_version: 3.0
@@ -451,23 +446,22 @@ cloudmesh:
 <p>You can modify the file by hand and replace the <code class="docutils literal"><span class="pre">TBD</span></code> values
 according to your information about your cloud. You can add new clouds
 or delete the once that you do not want.</p>
-<p>Please make sure to <strong>not</strong> modify the original file in the code ore the
-lib at <cite>cloudmesh_client/etc/cloudmesh.yaml</cite>/ THe file you want to modify is located in
-<cite>$HOME/.cloudmesh/cloudmesh.yaml</cite></p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">Just as private keys should be kept private so does
-the cloudmesh.yaml file. Please, make sure the file
-is properly protected as it contains sensitive information.</p>
+<p>Just as private keys should be kept private so does
+the cloudmesh.yaml
+file. Please, make sure the file is protected as it contains</p>
+<blockquote class="last">
+<div>sensitive information.</div></blockquote>
 </div>
 <div class="section" id="get-registration-from-indiana-university">
 <h2>Get Registration from Indiana University<a class="headerlink" href="#get-registration-from-indiana-university" title="Permalink to this headline">¶</a></h2>
 <p>In case you have an account on <a class="reference external" href="http::/portal.futuresystems.org">http::/portal.futuresystems.org</a> the
 integration can be done automatically for you with the account
 information available to you as previously explained.</p>
-<p>The best way is to configure first your ssh client to conveniently
-log into india the machine where you can find the configuration information.
-To do so, please edit the following file</p>
+<p>The best way is to configure first your ssh client to conveniently log into india the machine where you can
+find the configuration information. To do so, please edit the
+following file</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>~/./ssh/config
 </pre></div>
 </div>
@@ -483,12 +477,6 @@ verify that you have access to india with a command such as:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>ssh india uname -a
 </pre></div>
 </div>
-<p>Next test if you have cloud access. This is easily done by doing:</p>
-<blockquote>
-<div>ssh india cat .cloudmesh/clouds/india/kilo/openrc.sh</div></blockquote>
-<p>IF this file does not exist you do not have access to the kilo cloud yet
-and you need to get in contact with <a class="reference external" href="mailto:laszewski&#37;&#52;&#48;gmail&#46;com">laszewski<span>&#64;</span>gmail<span>&#46;</span>com</a>. Once you have
-access you can proceed.</p>
 <p>Next register the FutureSystems clouds into your cloudmesh yaml file with
 the command:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>cm register remote
@@ -521,10 +509,6 @@ take a closer look at the manual pages. This includes command such as</p>
 </div>
 <div class="section" id="registartion-of-ec2-clouds-with-the-zip-file">
 <h2>Registartion of EC2 clouds with the zip file<a class="headerlink" href="#registartion-of-ec2-clouds-with-the-zip-file" title="Permalink to this headline">¶</a></h2>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">the ec2 provider is not yet operational</p>
-</div>
 <p>In case you have an openstack cloud that exports an ec2 zip file you can register
 such a cloud by first downloading the zip file to your computer and than issuing
 the command:</p>
@@ -781,36 +765,35 @@ different name</p>
 <h2>Registration of CloudLab Openstack Cloud<a class="headerlink" href="#registration-of-cloudlab-openstack-cloud" title="Permalink to this headline">¶</a></h2>
 <div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
-<p class="last">not yet tested but should work.</p>
+<p class="last">not yet tested but should work. add cloud registration here</p>
 </div>
 </div>
 <div class="section" id="registration-of-aws-cloud">
 <h2>Registration of AWS Cloud<a class="headerlink" href="#registration-of-aws-cloud" title="Permalink to this headline">¶</a></h2>
 <div class="admonition-todo admonition" id="index-1">
 <p class="first admonition-title">Todo</p>
-<p class="last">not yet supported but used to be so we work on it ASAP. We have a prototype through the
-EC2 provider that we have not yet tested.</p>
+<p class="last">not yet supported but used to be so we work on it ASAP. add cloud registration here</p>
 </div>
 </div>
 <div class="section" id="registration-of-azure-cloud">
 <h2>Registration of Azure Cloud<a class="headerlink" href="#registration-of-azure-cloud" title="Permalink to this headline">¶</a></h2>
 <div class="admonition-todo admonition" id="index-2">
 <p class="first admonition-title">Todo</p>
-<p class="last">not yet supported but used to be so we work on it ASAP.</p>
+<p class="last">not yet supported but used to be so we work on it ASAP. add cloud registration here</p>
 </div>
 </div>
 <div class="section" id="registration-of-devcloud">
 <h2>Registration of devcloud<a class="headerlink" href="#registration-of-devcloud" title="Permalink to this headline">¶</a></h2>
 <div class="admonition-todo admonition" id="index-3">
 <p class="first admonition-title">Todo</p>
-<p class="last">not tested, but should work as is regular openstack.</p>
+<p class="last">not tested, but should work as is regular openstack. add cloud registration here</p>
 </div>
 </div>
 <div class="section" id="registration-of-a-libcloud-available-cloud">
 <h2>Registration of a libcloud available cloud<a class="headerlink" href="#registration-of-a-libcloud-available-cloud" title="Permalink to this headline">¶</a></h2>
 <div class="admonition-todo admonition" id="index-4">
 <p class="first admonition-title">Todo</p>
-<p class="last">not yet supported.</p>
+<p class="last">not yet supported. add cloud registration here</p>
 </div>
 </div>
 </div>
@@ -855,7 +838,7 @@ EC2 provider that we have not yet tested.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'3.1.2',
+            VERSION:'3.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

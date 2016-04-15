@@ -1,5 +1,3 @@
-.. _configuration:
-
 Configuration
 =============
 
@@ -10,9 +8,7 @@ a configuration file in the directory:
 
 If this file is missing, you can run the command:
 
-    cm help
-
-to automatically generate it from defaults.
+    cm help to automatically generate it from defaults.
 
 The file will be a template and it can either be modified with your
 favorite editor, or if you are at Indiana University and want to use the
@@ -21,14 +17,8 @@ kilo cloud you can use the command
     cm remote register
 
 This will add the appropriate information into the yaml file.
-
-However, you must make sure that the the project you have at Indiana
-University is activated. A simple project request via the futuresystems.org
-portal is not sufficient. THe request muct be send via e-mail to laszewski@gmail.com
-by the project lead or project manager. Please note that restrictions may apply as we
-will serve first the IU community.
-
-The file will be looking as follows. You will have several options to
+The file will be looking as follows.
+You will have several options to
 modify the file as explained bellow
 
 .. literalinclude:: ../../cloudmesh_client/etc/cloudmesh.yaml
@@ -37,14 +27,10 @@ You can modify the file by hand and replace the ``TBD`` values
 according to your information about your cloud. You can add new clouds
 or delete the once that you do not want.
 
-Please make sure to **not** modify the original file in the code ore the
-lib at `cloudmesh_client/etc/cloudmesh.yaml`/ THe file you want to modify is located in
-`$HOME/.cloudmesh/cloudmesh.yaml`
-
-
 .. warning:: Just as private keys should be kept private so does
-             the cloudmesh.yaml file. Please, make sure the file
-             is properly protected as it contains sensitive information.
+             the cloudmesh.yaml
+             file. Please, make sure the file is protected as it contains
+	         sensitive information.
 
 
 Get Registration from Indiana University
@@ -55,9 +41,9 @@ integration can be done automatically for you with the account
 information available to you as previously explained.
 
 
-The best way is to configure first your ssh client to conveniently
-log into india the machine where you can find the configuration information.
-To do so, please edit the following file
+The best way is to configure first your ssh client to conveniently log into india the machine where you can
+find the configuration information. To do so, please edit the
+following file 
 
 ::
 
@@ -76,14 +62,6 @@ registration with futuresystems.org. Once you have done this please
 verify that you have access to india with a command such as::
 
   ssh india uname -a
-
-Next test if you have cloud access. This is easily done by doing:
-
-  ssh india cat .cloudmesh/clouds/india/kilo/openrc.sh
-
-IF this file does not exist you do not have access to the kilo cloud yet
-and you need to get in contact with laszewski@gmail.com. Once you have
-access you can proceed.
 
 Next register the FutureSystems clouds into your cloudmesh yaml file with
 the command::
@@ -119,8 +97,6 @@ To list the `cloudmesh.yaml` file::
 
 Registartion of EC2 clouds with the zip file
 ---------------------------------------------
-
-.. warning:: the ec2 provider is not yet operational
 
 In case you have an openstack cloud that exports an ec2 zip file you can register
 such a cloud by first downloading the zip file to your computer and than issuing
@@ -405,26 +381,25 @@ Here is what we found out and did
 Registration of CloudLab Openstack Cloud
 --------------------------------------
 
-.. todo:: not yet tested but should work.
+.. todo:: not yet tested but should work. add cloud registration here
 
 Registration of AWS Cloud
 --------------------------------------
 
-.. todo:: not yet supported but used to be so we work on it ASAP. We have a prototype through the
-          EC2 provider that we have not yet tested.
+.. todo:: not yet supported but used to be so we work on it ASAP. add cloud registration here
 
 Registration of Azure Cloud
 --------------------------------------
 
-.. todo:: not yet supported but used to be so we work on it ASAP.
+.. todo:: not yet supported but used to be so we work on it ASAP. add cloud registration here
 
 Registration of devcloud
 --------------------------------------
 
-.. todo:: not tested, but should work as is regular openstack.
+.. todo:: not tested, but should work as is regular openstack. add cloud registration here
 
 Registration of a libcloud available cloud
 --------------------------------------
 
-.. todo:: not yet supported.
+.. todo:: not yet supported. add cloud registration here
 

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.common package &mdash; cloudmesh_client 3.1.2 documentation</title>
+  <title>cloudmesh_client.common package &mdash; cloudmesh_client 3.1.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client package" href="cloudmesh_client.html"/>
         <link rel="next" title="cloudmesh_client.db package" href="cloudmesh_client.db.html"/>
         <link rel="prev" title="cloudmesh_client.comet package" href="cloudmesh_client.comet.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                3.1.2
+                3.1.0
               </div>
             
           
@@ -130,14 +130,12 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.DictDB">cloudmesh_client.common.DictDB module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.Error">cloudmesh_client.common.Error module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.FlatDict">cloudmesh_client.common.FlatDict module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cloudmesh-client-common-gitinfo-module">cloudmesh_client.common.GitInfo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.LibcloudDict">cloudmesh_client.common.LibcloudDict module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.LogUtil">cloudmesh_client.common.LogUtil module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.Printer">cloudmesh_client.common.Printer module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.Shell">cloudmesh_client.common.Shell module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.StopWatch">cloudmesh_client.common.StopWatch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.TableParser">cloudmesh_client.common.TableParser module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.dotdict">cloudmesh_client.common.dotdict module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.hostlist">cloudmesh_client.common.hostlist module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.menu">cloudmesh_client.common.menu module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.ssh_config">cloudmesh_client.common.ssh_config module</a></li>
@@ -922,9 +920,6 @@ at time of initialization.</p>
 <dd></dd></dl>
 
 </div>
-<div class="section" id="cloudmesh-client-common-gitinfo-module">
-<h2>cloudmesh_client.common.GitInfo module<a class="headerlink" href="#cloudmesh-client-common-gitinfo-module" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="module-cloudmesh_client.common.LibcloudDict">
 <span id="cloudmesh-client-common-libclouddict-module"></span><h2>cloudmesh_client.common.LibcloudDict module<a class="headerlink" href="#module-cloudmesh_client.common.LibcloudDict" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -1220,7 +1215,7 @@ This specify the column(s) in the table for sorting.</li>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.common.Shell.Shell.command">
-<code class="descname">command</code><em class="property"> = {'windows': {}, 'darwin': {}, 'linux': {}}</em><a class="headerlink" href="#cloudmesh_client.common.Shell.Shell.command" title="Permalink to this definition">¶</a></dt>
+<code class="descname">command</code><em class="property"> = {'linux': {}, 'windows': {}, 'darwin': {}}</em><a class="headerlink" href="#cloudmesh_client.common.Shell.Shell.command" title="Permalink to this definition">¶</a></dt>
 <dd><p>big question for badi and others</p>
 <p>how do we now define dynamically functions based on a list that we want to support</p>
 <p>what we want is where args are multiple unlimited parameters to the function</p>
@@ -1645,16 +1640,6 @@ for c in commands:</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-cloudmesh_client.common.dotdict">
-<span id="cloudmesh-client-common-dotdict-module"></span><h2>cloudmesh_client.common.dotdict module<a class="headerlink" href="#module-cloudmesh_client.common.dotdict" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="cloudmesh_client.common.dotdict.dotdict">
-<em class="property">class </em><code class="descclassname">cloudmesh_client.common.dotdict.</code><code class="descname">dotdict</code><a class="reference internal" href="../_modules/cloudmesh_client/common/dotdict.html#dotdict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.dotdict.dotdict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">dict</span></code></p>
-<p>dot.notation access to dictionary attributes</p>
-</dd></dl>
-
-</div>
 <div class="section" id="module-cloudmesh_client.common.hostlist">
 <span id="cloudmesh-client-common-hostlist-module"></span><h2>cloudmesh_client.common.hostlist module<a class="headerlink" href="#module-cloudmesh_client.common.hostlist" title="Permalink to this headline">¶</a></h2>
 <p>Handle hostlist expressions.</p>
@@ -1667,7 +1652,7 @@ compatibility with pdsh/dshbak/SLURM et al.</p>
 <dl class="exception">
 <dt id="cloudmesh_client.common.hostlist.BadHostlist">
 <em class="property">exception </em><code class="descclassname">cloudmesh_client.common.hostlist.</code><code class="descname">BadHostlist</code><a class="reference internal" href="../_modules/cloudmesh_client/common/hostlist.html#BadHostlist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.hostlist.BadHostlist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
 </dd></dl>
 
 <dl class="class">
@@ -1676,7 +1661,7 @@ compatibility with pdsh/dshbak/SLURM et al.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="classmethod">
 <dt id="cloudmesh_client.common.hostlist.Parameter.expand">
-<em class="property">classmethod </em><code class="descname">expand</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/hostlist.html#Parameter.expand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.hostlist.Parameter.expand" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">expand</code><span class="sig-paren">(</span><em>parameter</em>, <em>allow_duplicates=False</em>, <em>sort=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/hostlist.html#Parameter.expand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.hostlist.Parameter.expand" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1994,7 +1979,7 @@ digit or arithmetic e.g. +5 or -3 can be used</dd>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'3.1.2',
+            VERSION:'3.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

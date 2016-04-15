@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2 &mdash; cloudmesh_client 3.1.2 documentation</title>
+  <title>cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2 &mdash; cloudmesh_client 3.1.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.2 documentation" href="../../../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../../../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1.2
+                3.1.0
               </div>
             
           
@@ -186,7 +186,6 @@
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud</span> <span class="kn">import</span> <span class="n">CloudProviderLibcloud</span>
 
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
 
 <div class="viewcode-block" id="CloudProviderLibcloudEC2"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.libcloud.html#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2.CloudProviderLibcloudEC2">[docs]</a><span class="k">class</span> <span class="nc">CloudProviderLibcloudEC2</span><span class="p">(</span><span class="n">CloudProviderLibcloud</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloud_name</span><span class="p">,</span> <span class="n">cloud_details</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
@@ -199,47 +198,50 @@
 
 <div class="viewcode-block" id="CloudProviderLibcloudEC2.initialize"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.libcloud.html#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2.CloudProviderLibcloudEC2.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
 
-        <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Initializing libcloud-ec2 for &quot;</span> <span class="o">+</span> <span class="n">cloudname</span><span class="p">)</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;Initializing libcloud-ec2 for &quot;</span> <span class="o">+</span> <span class="n">cloudname</span><span class="p">)</span>
         <span class="n">cls</span> <span class="o">=</span> <span class="n">get_driver</span><span class="p">(</span><span class="n">Provider</span><span class="o">.</span><span class="n">EC2_US_EAST</span><span class="p">)</span>
 
         <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">][</span><span class="n">cloudname</span><span class="p">]</span>
-        <span class="n">credentials</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;credentials&quot;</span><span class="p">]</span>
-        <span class="n">cm_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;cm_type&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cloud_details</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">][</span><span class="n">cloudname</span><span class="p">]</span>
+        <span class="n">credentials</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cloud_details</span><span class="p">[</span><span class="s2">&quot;credentials&quot;</span><span class="p">]</span>
+        <span class="n">auth_url</span> <span class="o">=</span> <span class="n">credentials</span><span class="p">[</span><span class="s2">&quot;EC2_URL&quot;</span><span class="p">]</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;Auth url is &quot;</span> <span class="o">+</span> <span class="n">auth_url</span><span class="p">)</span>
+        <span class="n">searchobj</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">r&#39;^http[s]?://(.+):([0-9]+)/([a-zA-Z/]*)&#39;</span><span class="p">,</span>
+                             <span class="n">auth_url</span><span class="p">,</span>
+                             <span class="n">re</span><span class="o">.</span><span class="n">M</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">host</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">if</span> <span class="n">searchobj</span><span class="p">:</span>
+            <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;searchObj.group() : &quot;</span><span class="p">,</span> <span class="n">searchobj</span><span class="o">.</span><span class="n">group</span><span class="p">())</span>
+            <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;host : &quot;</span><span class="p">,</span> <span class="n">searchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">host</span> <span class="o">=</span> <span class="n">searchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;port : &quot;</span><span class="p">,</span> <span class="n">searchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+            <span class="n">port</span> <span class="o">=</span> <span class="n">searchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;path : &quot;</span><span class="p">,</span> <span class="n">searchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">searchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># TODO: better error description.</span>
+            <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;Nothing found. failed.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># if libcloudname == &quot;ec2&quot; :</span>
+        <span class="c1"># url_split=auth_url.split(&quot;/:&quot;)</span>
 
         <span class="n">ec2_access_key</span> <span class="o">=</span> <span class="n">credentials</span><span class="p">[</span><span class="s1">&#39;EC2_ACCESS_KEY&#39;</span><span class="p">]</span>
         <span class="n">ec2_secret_key</span> <span class="o">=</span> <span class="n">credentials</span><span class="p">[</span><span class="s1">&#39;EC2_SECRET_KEY&#39;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">cloudname</span> <span class="o">==</span> <span class="s2">&quot;aws&quot;</span><span class="p">:</span>
-            <span class="n">auth_url</span> <span class="o">=</span> <span class="n">credentials</span><span class="p">[</span><span class="s2">&quot;EC2_URL&quot;</span><span class="p">]</span>
-            <span class="n">searchobj</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">r&#39;^http[s]?://(.+):([0-9]+)/([a-zA-Z/]*)&#39;</span><span class="p">,</span>
-                                 <span class="n">auth_url</span><span class="p">,</span>
-                                 <span class="n">re</span><span class="o">.</span><span class="n">M</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="bp">None</span>
-            <span class="n">host</span> <span class="o">=</span> <span class="bp">None</span>
-            <span class="n">port</span> <span class="o">=</span> <span class="bp">None</span>
-            <span class="k">if</span> <span class="n">searchobj</span><span class="p">:</span>
-                <span class="n">host</span> <span class="o">=</span> <span class="n">searchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-                <span class="n">port</span> <span class="o">=</span> <span class="n">searchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-                <span class="n">path</span> <span class="o">=</span> <span class="n">searchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="c1"># ec2_auth_url=</span>
 
-                <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;url : &quot;</span> <span class="o">+</span> <span class="n">searchobj</span><span class="o">.</span><span class="n">group</span><span class="p">())</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;host: &quot;</span> <span class="o">+</span> <span class="n">host</span><span class="p">)</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;port: &quot;</span> <span class="o">+</span> <span class="n">port</span><span class="p">)</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;path: &quot;</span> <span class="o">+</span> <span class="n">path</span><span class="p">)</span>
+        <span class="n">extra_args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;path&#39;</span><span class="p">:</span> <span class="n">path</span><span class="p">}</span>
 
-                <span class="n">extra_args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;path&#39;</span><span class="p">:</span> <span class="n">path</span><span class="p">}</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Authentication url incorrect: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">auth_url</span><span class="p">))</span>
+        <span class="c1"># TODO: do something if the host is None</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="n">ec2_access_key</span><span class="p">,</span>
-                                <span class="n">ec2_secret_key</span><span class="p">,</span>
-                                <span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span>
-                                <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span>
-                                <span class="o">**</span><span class="n">extra_args</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;AWS INIT&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="n">ec2_access_key</span><span class="p">,</span> <span class="n">ec2_secret_key</span><span class="p">)</span></div></div>
-
+        <span class="c1"># AWS needs two values for authentication</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="n">ec2_access_key</span><span class="p">,</span>
+                            <span class="n">ec2_secret_key</span><span class="p">,</span>
+                            <span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span>
+                            <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span>
+                            <span class="o">**</span><span class="n">extra_args</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>
@@ -272,7 +274,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../../../',
-            VERSION:'3.1.2',
+            VERSION:'3.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

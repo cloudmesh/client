@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Comet Virtual Cluster &mdash; cloudmesh_client 3.1.2 documentation</title>
+  <title>Comet Virtual Cluster &mdash; cloudmesh_client 3.1.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Reservation Command" href="command_reservation.html"/>
         <link rel="prev" title="Hpc Command" href="command_hpc.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                3.1.2
+                3.1.0
               </div>
             
           
@@ -296,10 +296,11 @@ All you have to do after the installation is to call cloudmesh client once.</p>
 </pre></div>
 </div>
 <p>Next you can initiate the configuration file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm comet init_apiauth
+<div class="highlight-python"><div class="highlight"><pre><span></span>cm comet init
 </pre></div>
 </div>
-<p>Follow the prompt and provide your username and password. Once you are
+<p>Follow the prompt to configure and select endpoint, and initialize the
+auth settings by provide your username and password. Once you are
 successfully authenticated it will retrieve the api key and secret and
 configure the cloudmesh.yaml with proper api auth information. Then you
 will be able to use the commands to manage your comet virtual cluster.</p>
@@ -322,7 +323,10 @@ list):</p>
 <pre class="highlight"><span class="prompt1">cm comet cluster</span>
 </pre><p>List a cluster by name (we use here vc2 as example):</p>
 <pre class="highlight"><span class="prompt1">cm comet cluster vc2</span>
-</pre><p>List all defined computesets:</p>
+</pre><p>Cluster listing view also supports other output format, e.g. json, csv, etc.:</p>
+<pre class="highlight"><span class="prompt1">cm comet cluster vc2 --format<span class="o">=</span>csv</span>
+</pre><p>This can be useful for scripting.</p>
+<p>List all defined computesets:</p>
 <pre class="highlight"><span class="prompt1">cm comet computeset</span>
 </pre><p>List one computeset:</p>
 <pre class="highlight"><span class="prompt1">cm comet computeset 63</span>
@@ -336,41 +340,53 @@ list):</p>
 </pre><p>You can also reboot/reset/shutdown the fronend using the same
 syntax, e.g., to reboot:</p>
 <pre class="highlight"><span class="prompt1">cm comet power reboot vc2</span>
-</pre></div>
-<div class="section" id="power-management-of-compute-nodes">
-<h3>Power management of compute nodes:<a class="headerlink" href="#power-management-of-compute-nodes" title="Permalink to this headline">¶</a></h3>
-<p>Power on a set of compute nodes in cluster vc2:</p>
-<pre class="highlight"><span class="prompt1">cm comet power on vc2 vm-vc2-<span class="o">[</span>0-3<span class="o">]</span></span>
-</pre><p>This will request the nodes for a default period of time - 2 hours.</p>
+</pre><p>Please note running frontend node itself would not charge you any allocations.</p>
+</div>
+<div class="section" id="resource-allocation-and-tear-down">
+<h3>Resource allocation and tear down:<a class="headerlink" href="#resource-allocation-and-tear-down" title="Permalink to this headline">¶</a></h3>
+<p>The requested cluster/VMs has to be started by requesting physical allocations. This
+will charge your allocation based on nodes you requested and the walltime.</p>
+<p>Start a set of compute nodes in cluster vc2:</p>
+<pre class="highlight"><span class="prompt1">cm comet start vc2 vm-vc2-<span class="o">[</span>0-3<span class="o">]</span></span>
+</pre><p>This will request the nodes for a default period of time and power on them</p>
 <p>To request for a longer time period, use &#8211;walltime parameter.
 E.g., 100m (100 minutes), 6h (6 hours), 2d (2 days) , 1w (1 week):</p>
-<pre class="highlight"><span class="prompt1">cm comet power on vc2 vm-vc2-<span class="o">[</span>0-3<span class="o">]</span> --walltime<span class="o">=</span>6h</span>
+<pre class="highlight"><span class="prompt1">cm comet start vc2 vm-vc2-<span class="o">[</span>0-3<span class="o">]</span> --walltime<span class="o">=</span>6h</span>
 </pre><p>The above will put the request under the one allocation associated with the cluster.
 If your cluster have more than one allocations, use &#8211;allocation
 parameter:</p>
-<pre class="highlight"><span class="prompt1">cm comet power on vc2 vm-vc2-<span class="o">[</span>0-3<span class="o">]</span> --allocation<span class="o">=</span>YOUR_ALLOCATION</span>
+<pre class="highlight"><span class="prompt1">cm comet start vc2 vm-vc2-<span class="o">[</span>0-3<span class="o">]</span> --allocation<span class="o">=</span>YOUR_ALLOCATION</span>
 </pre><p>If you have more allocations, but does not specify via CLI, you will see a list of
 allocations to choose from to use.</p>
-<p>You can also power on N arbitrary nodes, if there is enough resource:</p>
-<pre class="highlight"><span class="prompt1">cm comet power on vc2 --count<span class="o">=</span>4</span>
+<p>You can also request a group of N nodes, if there is enough resource:</p>
+<pre class="highlight"><span class="prompt1">cm comet start vc2 --count<span class="o">=</span>4</span>
 </pre><p>The comet system will find 4 available nodes from the specified cluster and start them
 as one computeset.</p>
-<p>You can power off and back on individual nodes of an active
-computeset. E.g.:</p>
-<pre class="highlight"><span class="prompt1">cm comet power off vc2 vm-vc2-<span class="o">[</span>0,1<span class="o">]</span></span>
-</pre><p>and then:</p>
-<pre class="highlight"><span class="prompt1">cm comet power on vc2 vm-vc2-0</span>
-</pre><p>Or power off the whole computeset by specifying the computeset id:</p>
-<pre class="highlight"><span class="prompt1">cm comet power off vc2 123</span>
-</pre><p>or by specifying the hosts:</p>
-<pre class="highlight"><span class="prompt1">cm comet power off vc2 vm-vc2-<span class="o">[</span>0-3<span class="o">]</span></span>
-</pre><p>Please note if you powered off all nodes from an active computeset, the computeset
-itself will be removed as well (changed to &#8216;completed&#8217; status)</p>
-<p>You can also power on one single node as a computeset:</p>
-<pre class="highlight"><span class="prompt1">cm comet power on vc2 vm-vc2-<span class="o">[</span>7<span class="o">]</span></span>
+<p>You can also start a single-node computeset:</p>
+<pre class="highlight"><span class="prompt1">cm comet start vc2 vm-vc2-<span class="o">[</span>7<span class="o">]</span></span>
 </pre><p>or simply:</p>
-<pre class="highlight"><span class="prompt1">cm comet power on vc2 vm-vc2-7</span>
-</pre></div>
+<pre class="highlight"><span class="prompt1">cm comet start vc2 vm-vc2-7</span>
+</pre><p>To power down all running nodes from an active computeset and also free the allocated
+resources:</p>
+<pre class="highlight"><span class="prompt1">cm comet terminate 123</span>
+</pre><p>This will gracefully shutdown the nodes in the group identified by computeset 123,
+and also free the unused allocations. A computeset will be teared down automatically
+when it reaches its requested walltime</p>
+</div>
+<div class="section" id="power-management-of-compute-nodes">
+<h3>Power management of compute nodes:<a class="headerlink" href="#power-management-of-compute-nodes" title="Permalink to this headline">¶</a></h3>
+<p>You can power off and back on individual nodes from a cluster,
+without affecting other running nodes in the computesets. E.g.:</p>
+<pre class="highlight"><span class="prompt1">cm comet power off vc2 vm-vc2-<span class="o">[</span>0-7<span class="o">]</span></span>
+</pre><p>and then:</p>
+<pre class="highlight"><span class="prompt1">cm comet power on vc2 vm-vc2-<span class="o">[</span>0-7<span class="o">]</span></span>
+</pre><p>or shutdown gracefully a group of nodes:</p>
+<pre class="highlight"><span class="prompt1">cm comet power shutdown vc2 vm-vc2-<span class="o">[</span>0-3<span class="o">]</span></span>
+</pre><p>Please note even if you powered off all nodes from an active computeset, the computeset
+itself, and the associated physical resource, is still active and can only be accessed
+exclusively by you till the requested walltime is reached. During this time you can freely
+power the nodes back on and off.</p>
+</div>
 <div class="section" id="getting-console-access">
 <h3>Getting Console access<a class="headerlink" href="#getting-console-access" title="Permalink to this headline">¶</a></h3>
 <p>Get console of the frontend:</p>
@@ -385,30 +401,32 @@ access it via other means.</p>
 <div class="section" id="system-image-management">
 <h3>System image management<a class="headerlink" href="#system-image-management" title="Permalink to this headline">¶</a></h3>
 <p>Get the list of images that are available to you:</p>
-<pre class="highlight"><span class="prompt1">cm comet image list</span>
+<pre class="highlight"><span class="prompt1">cm comet iso list</span>
 </pre><p>Upload an image to the public shared folder:</p>
-<pre class="highlight"><span class="prompt1">cm comet image upload /path/to/your/image.iso</span>
+<pre class="highlight"><span class="prompt1">cm comet iso upload /path/to/your/image.iso</span>
 </pre><p>Or with a specified new image name:</p>
-<pre class="highlight"><span class="prompt1">cm comet image upload /path/to/your/image.iso --imagename<span class="o">=</span>newimagename.iso</span>
+<pre class="highlight"><span class="prompt1">cm comet iso upload /path/to/your/image.iso --imagename<span class="o">=</span>newimagename.iso</span>
 </pre><p>Attach an image to the frontend:</p>
-<pre class="highlight"><span class="prompt1">cm comet image attach newimagename.iso vc2</span>
+<pre class="highlight"><span class="prompt1">cm comet iso attach newimagename.iso vc2</span>
 </pre><p>Or to a compute node:</p>
-<pre class="highlight"><span class="prompt1">cm comet image attach newimagename.iso vc2 vm-vc2-0</span>
+<pre class="highlight"><span class="prompt1">cm comet iso attach newimagename.iso vc2 vm-vc2-0</span>
 </pre><p>To detach the attached iso image from frontend node:</p>
-<pre class="highlight"><span class="prompt1">cm comet image detach vc2</span>
+<pre class="highlight"><span class="prompt1">cm comet iso detach vc2</span>
 </pre><p>Or from a compute node:</p>
-<pre class="highlight"><span class="prompt1">cm comet image detach vc2 vm-vc2-0</span>
+<pre class="highlight"><span class="prompt1">cm comet iso detach vc2 vm-vc2-0</span>
 </pre><p>Image attaching/detaching also works on compute nodes in bulk:</p>
-<pre class="highlight"><span class="prompt1">cm comet image attach newimagename.iso vc2 vm-vc2-<span class="o">[</span>0-4<span class="o">]</span></span>
-</pre><pre class="highlight"><span class="prompt1">cm comet image detach vc2 vm-vc2-<span class="o">[</span>0-4<span class="o">]</span></span>
+<pre class="highlight"><span class="prompt1">cm comet iso attach newimagename.iso vc2 vm-vc2-<span class="o">[</span>0-4<span class="o">]</span></span>
+</pre><pre class="highlight"><span class="prompt1">cm comet iso detach vc2 vm-vc2-<span class="o">[</span>0-4<span class="o">]</span></span>
 </pre><p>Please note image attaching/detaching will only take effect after you hard reboot
 the node (power off and then power on).</p>
 </div>
 <div class="section" id="other-commands">
 <h3>Other commands:<a class="headerlink" href="#other-commands" title="Permalink to this headline">¶</a></h3>
-<p>You can also rename a compute node:</p>
+<p>You can also rename a compute node, or a list of nodes in batch:</p>
 <pre class="highlight"><span class="prompt1">cm comet node rename vc2 vm-vc2-0 mynode0</span>
-</pre></div>
+</pre><pre class="highlight"><span class="prompt1">cm comet node rename vc2 vm-vc2-<span class="o">[</span>0-7<span class="o">]</span> newname-<span class="o">[</span>0-7<span class="o">]</span></span>
+</pre><p>Please use hostlist format to specify the list of OLDNAMES AND NEWNAMES</p>
+</div>
 </div>
 <div class="section" id="how-to-get-a-virtual-cluster">
 <h2>How to get a virtual cluster?<a class="headerlink" href="#how-to-get-a-virtual-cluster" title="Permalink to this headline">¶</a></h2>
@@ -434,19 +452,19 @@ you can start a virtual cluster immediately.</p>
 </li>
 <li><p class="first">Please note that it will be up to you to provide an apropriate iso image.
 A small number of sample images are provided and you can list tehm with</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm comet image list
+<div class="highlight-python"><div class="highlight"><pre><span></span>cm comet iso list
 </pre></div>
 </div>
 </li>
 <li><p class="first">Next you need to attach an image to your compute nodes (we assume you
 have 3 nodes called vm-vc2-0, vm-vc2-1, vm-vc2-2</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm image attach imagename.iso vc2 vm-vc2-[0-3]
+<div class="highlight-python"><div class="highlight"><pre><span></span>cm comet iso attach imagename.iso vc2 vm-vc2-[0-3]
 </pre></div>
 </div>
 <p>Please note that the name of the cluster (vc2) will be different for you</p>
 </li>
 <li><p class="first">Now you can just power on and boot the node with:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm comet power on vc2 vm-vc2-[0-3]
+<div class="highlight-python"><div class="highlight"><pre><span></span>cm comet start vc2 vm-vc2-[0-3]
 </pre></div>
 </div>
 </li>
@@ -527,7 +545,7 @@ We will get back to you ASAP hopefully within one business day.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'3.1.2',
+            VERSION:'3.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

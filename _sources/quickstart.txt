@@ -3,16 +3,12 @@ Quickstart
 
 .. warning:: This quickstart quide assumes that you have prepared your
 	     system according to the steps documented in the Section
-	     :ref:`preparation`. We also strongly recommend you read the
-	     sections :ref:`installation` and :ref:`configuration`.
+	     :ref:`preparation`.
 		  
 
 Setup
 ------
-
-.. warning:: At this time do not use the pip install as we have not yet uploaded the newest
-             version to pypi. Instead, plase use the source install discussed in our manual
-
+	     
 The setup of cloudmesh client is quite simple and can be done with::
 
     pip install cloudmesh_client
@@ -97,18 +93,15 @@ To list the images/flavors use the following:
 
 .. prompt:: cm, cm>
 
-	     image list
-	     flavor list
+	     list image
+	     list flavor
 
-To set default flavor and image use from the image list that you obtained through
-image list and image flavor commands. Also asure that the flavor of the image is not to
-small. Some imageges may not work in m1.tiny.
-Please asure proper spelling of the image name:
+To set default flavor and image use:
 
 .. prompt:: cm, cm>
 
-	     default image=Ubuntu-14.04-64
-	     default flavor=m1.small
+	     default image=Ubuntu 14.04
+	     default flavor=m1.tiny
 
 You also need to set your default group. If you already have a group
 created you can use that or else you can specify a new group name.
@@ -132,13 +125,6 @@ to the key database. To do so, use:
 
 	     key add --ssh --name=id_rsa
 
-This command is also available as simple abbreviation with:
-
-.. prompt:: cm, cm>
-
-	     key load
-
-
 You can list the keys in the key database by using:
 
 .. prompt:: cm, cm>
@@ -157,7 +143,7 @@ Then, to upload this key to the cloud (your default cloud) use:
 
 .. prompt:: cm, cm>
 
-	     key upload
+	     key upload albert_ssh_key
 
 Virtual Machines
 ----------------------------------
@@ -235,17 +221,24 @@ Listing VMs will now show you this floating ip:
 	| 47 | 8af4177f-... | albert-001 | ACTIVE | 10.0.2.37 | 152.25.6.101 | id_rsa   | fg478   | albert | kilo  |
 	+----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+
 
+Next, you need to set your login key to be able to ssh to the VM.
+This will be the path to the private key (id_rsa) corresponding to
+the public key we uploaded to the cloud:
+
+.. prompt:: cm, cm>
+
+	     default login_key=~/.ssh/id_rsa
+
 Logging into the cloud is now as simple as:
 
 .. prompt:: cm, cm>
 
 	     vm login albert-001
 
-This should get you through to the ssh session to the VM. It will ask you for the username to login. If you used an
-ubuntu umage the username will typically be 'ubuntu', for others it may be 'root'.
+This should get you through to the ssh session to the VM.
+Congratulations! You have now learnt how to start a new VM and log into a VM.
 
-
-To delete a VM, you use the vm name:
+To delete a VM, you use:
 
 .. prompt:: cm, cm>
 
@@ -254,7 +247,7 @@ To delete a VM, you use the vm name:
 HPC
 -----
 
-In order to use the HPC experiment management functionality, you must
+IN order to use the HPC experiment management functionality, you must
 register the queuing system in the yaml file and register the login
 node in the .ssh/config file. If you are using india and have used the
 clouds before, you may have already done this.

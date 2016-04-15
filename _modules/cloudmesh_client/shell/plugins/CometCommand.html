@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins.CometCommand &mdash; cloudmesh_client 3.1.2 documentation</title>
+  <title>cloudmesh_client.shell.plugins.CometCommand &mdash; cloudmesh_client 3.1.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.2 documentation" href="../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1.2
+                3.1.0
               </div>
             
           
@@ -216,7 +216,7 @@
 <span class="sd">               comet iso upload [--isoname=ISONAME] PATHISOFILE</span>
 <span class="sd">               comet iso attach ISONAME CLUSTERID [COMPUTENODEIDS]</span>
 <span class="sd">               comet iso detach CLUSTERID [COMPUTENODEIDS]</span>
-<span class="sd">               comet node rename CLUSTERID OLDNAME NEWNAME</span>
+<span class="sd">               comet node rename CLUSTERID OLDNAMES NEWNAMES</span>
 
 <span class="sd">            Options:</span>
 <span class="sd">                --format=FORMAT         Format is either table, json, yaml,</span>
@@ -255,6 +255,10 @@
 <span class="sd">                                e.g., vm-vc1-0</span>
 <span class="sd">                ISONAME         Name of an iso image at remote server</span>
 <span class="sd">                PATHISOFILE     The full path to the iso image file to be uploaded</span>
+<span class="sd">                OLDNAMES        The list of current node names to be renamed, in hostlist</span>
+<span class="sd">                                format. A single host is also acceptable.</span>
+<span class="sd">                NEWNAMES        The list of new names to rename to, in hostlist format.</span>
+<span class="sd">                                A single host is also acceptable.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># back up of all the proposed commands/options</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -670,34 +674,79 @@
                 <span class="n">computenodeids</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;COMPUTENODEIDS&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
                 <span class="k">print</span> <span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">detach_iso</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">computenodeids</span><span class="p">))</span>
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">]:</span>
+            <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            if arguments[&quot;rename&quot;]:</span>
+<span class="sd">                clusterid = arguments[&quot;CLUSTERID&quot;]</span>
+<span class="sd">                oldname = arguments[&quot;OLDNAME&quot;]</span>
+<span class="sd">                newname = arguments[&quot;NEWNAME&quot;]</span>
+<span class="sd">                if newname is None or newname == &#39;&#39;:</span>
+<span class="sd">                    print (&quot;New node name cannot be empty&quot;)</span>
+<span class="sd">                else:</span>
+<span class="sd">                    print (Cluster.rename_node(clusterid, oldname, newname))</span>
+
+<span class="sd">            &#39;&#39;&#39;</span>
+            <span class="c1"># bulk rename</span>
+
             <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;rename&quot;</span><span class="p">]:</span>
                 <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CLUSTERID&quot;</span><span class="p">]</span>
-                <span class="n">oldname</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;OLDNAME&quot;</span><span class="p">]</span>
-                <span class="n">newname</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NEWNAME&quot;</span><span class="p">]</span>
-                <span class="k">if</span> <span class="n">newname</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">newname</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-                    <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;New node name cannot be empty&quot;</span><span class="p">)</span>
+                <span class="n">oldnames</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;OLDNAMES&quot;</span><span class="p">])</span>
+                <span class="n">newnames</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NEWNAMES&quot;</span><span class="p">])</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">oldnames</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">newnames</span><span class="p">):</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Length of OLDNAMES and NEWNAMES have to be the same&quot;</span><span class="p">,</span>
+                                  <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="k">print</span> <span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">rename_node</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">oldname</span><span class="p">,</span> <span class="n">newname</span><span class="p">))</span>
-
-            <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            # bulk rename</span>
-
-<span class="sd">            if arguments[&quot;rename&quot;]:</span>
-<span class="sd">               oldnames = Parameter.expand(arguments[&quot;OLDNAME&quot;])</span>
-<span class="sd">               newnames = Parameter.expand(arguments[&quot;NEWNAME&quot;])</span>
-
-<span class="sd">               # check if new names ar not already taken</span>
-<span class="sd">               # to be implemented</span>
-
-<span class="sd">               if len(oldnames) == len(newnames):</span>
-<span class="sd">                   for i in range(0,len(oldnames)):</span>
-<span class="sd">                       oldname = oldnames[i]</span>
-<span class="sd">                       newname = newnames[i]</span>
-<span class="sd">                   if newname is None or newname == &#39;&#39;:</span>
-<span class="sd">                       print (&quot;New node name cannot be empty&quot;)</span>
-<span class="sd">                   else:</span>
-<span class="sd">                       print (Cluster.rename_node(clusterid, oldname, newname))</span>
-<span class="sd">            &#39;&#39;&#39;</span>
+                    <span class="k">for</span> <span class="n">newname</span> <span class="ow">in</span> <span class="n">newnames</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">newname</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Newname cannot be empty string&quot;</span><span class="p">,</span>
+                                          <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+                    <span class="n">cluster_data</span> <span class="o">=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;rest&quot;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cluster_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">computes</span> <span class="o">=</span> <span class="n">cluster_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;computes&quot;</span><span class="p">]</span>
+                        <span class="n">nodenames</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">computes</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error obtaining the cluster information&quot;</span><span class="p">,</span>
+                                      <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+                    <span class="c1"># check if new names ar not already taken</span>
+                    <span class="c1"># to be implemented</span>
+                    <span class="c1"># print (oldnames)</span>
+                    <span class="c1"># print (newnames)</span>
+                    <span class="c1"># print (nodenames)</span>
+                    <span class="n">oldset</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">oldnames</span><span class="p">)</span>
+                    <span class="n">newset</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">newnames</span><span class="p">)</span>
+                    <span class="n">currentset</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">nodenames</span><span class="p">)</span>
+                    <span class="c1"># at least one OLDNAME does not exist</span>
+                    <span class="k">if</span>  <span class="ow">not</span> <span class="n">oldset</span> <span class="o">&lt;=</span> <span class="n">currentset</span><span class="p">:</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Not all OLDNAMES are valid&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># those unchanged nodes</span>
+                        <span class="n">keptset</span> <span class="o">=</span> <span class="n">currentset</span> <span class="o">-</span> <span class="n">oldset</span>
+                        <span class="c1"># duplication between name of unchanged nodes and</span>
+                        <span class="c1"># the requested NEWNAMES</span>
+                        <span class="k">if</span> <span class="n">keptset</span> <span class="o">&amp;</span> <span class="n">newset</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">():</span>
+                            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Not proceeding as otherwise introducing &quot;</span>\
+                                          <span class="s2">&quot;duplicated names&quot;</span><span class="p">,</span>
+                                          <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">oldnames</span><span class="p">)):</span>
+                                <span class="n">oldname</span> <span class="o">=</span> <span class="n">oldnames</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                                <span class="n">newname</span> <span class="o">=</span> <span class="n">newnames</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                                <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> -&gt; </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">oldname</span><span class="p">,</span> <span class="n">newname</span><span class="p">))</span>
+                            <span class="n">confirm</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Confirm batch renaming (Y/y to confirm, &quot;</span>\
+                                            <span class="s2">&quot;any other key to abort):&quot;</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">confirm</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+                                <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;Conducting batch renaming&quot;</span><span class="p">)</span>
+                                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">oldnames</span><span class="p">)):</span>
+                                    <span class="n">oldname</span> <span class="o">=</span> <span class="n">oldnames</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                                    <span class="n">newname</span> <span class="o">=</span> <span class="n">newnames</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                                    <span class="k">print</span> <span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">rename_node</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span>
+                                                               <span class="n">oldname</span><span class="p">,</span>
+                                                               <span class="n">newname</span><span class="p">))</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;Action aborted!&quot;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
 </pre></div>
@@ -732,7 +781,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'3.1.2',
+            VERSION:'3.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

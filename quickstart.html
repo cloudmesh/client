@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quickstart &mdash; cloudmesh_client 3.1.2 documentation</title>
+  <title>Quickstart &mdash; cloudmesh_client 3.1.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.2 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="index.html"/>
         <link rel="next" title="Reference Card" href="reference_card.html"/>
         <link rel="prev" title="Introduction" href="introduction.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                3.1.2
+                3.1.0
               </div>
             
           
@@ -183,16 +183,10 @@
 <p class="first admonition-title">Warning</p>
 <p class="last">This quickstart quide assumes that you have prepared your
 system according to the steps documented in the Section
-<a class="reference internal" href="system.html#preparation"><span>Preparation</span></a>. We also strongly recommend you read the
-sections <a class="reference internal" href="installation.html#installation"><span>Installation</span></a> and <a class="reference internal" href="configuration.html#configuration"><span>Configuration</span></a>.</p>
+<a class="reference internal" href="system.html#preparation"><span>Preparation</span></a>.</p>
 </div>
 <div class="section" id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">At this time do not use the pip install as we have not yet uploaded the newest
-version to pypi. Instead, plase use the source install discussed in our manual</p>
-</div>
 <p>The setup of cloudmesh client is quite simple and can be done with:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>pip install cloudmesh_client
 </pre></div>
@@ -244,14 +238,11 @@ create an entry for a cloud named kilo.</p>
 <pre class="highlight"><span class="prompt1">image refresh</span>
 <span class="prompt1">flavor refresh</span>
 </pre><p>To list the images/flavors use the following:</p>
-<pre class="highlight"><span class="prompt1">image list</span>
-<span class="prompt1">flavor list</span>
-</pre><p>To set default flavor and image use from the image list that you obtained through
-image list and image flavor commands. Also asure that the flavor of the image is not to
-small. Some imageges may not work in m1.tiny.
-Please asure proper spelling of the image name:</p>
-<pre class="highlight"><span class="prompt1">default image=Ubuntu-14.04-64</span>
-<span class="prompt1">default flavor=m1.small</span>
+<pre class="highlight"><span class="prompt1">list image</span>
+<span class="prompt1">list flavor</span>
+</pre><p>To set default flavor and image use:</p>
+<pre class="highlight"><span class="prompt1">default image=Ubuntu 14.04</span>
+<span class="prompt1">default flavor=m1.tiny</span>
 </pre><p>You also need to set your default group. If you already have a group
 created you can use that or else you can specify a new group name.</p>
 <pre class="highlight"><span class="prompt1">default group=test-group</span>
@@ -265,8 +256,6 @@ in the ~/.ssh/ directory.</p>
 <p>First step (in the process of uploading key to cloud), is to add this key
 to the key database. To do so, use:</p>
 <pre class="highlight"><span class="prompt1">key add --ssh --name=id_rsa</span>
-</pre><p>This command is also available as simple abbreviation with:</p>
-<pre class="highlight"><span class="prompt1">key load</span>
 </pre><p>You can list the keys in the key database by using:</p>
 <pre class="highlight"><span class="prompt1">key list</span>
 </pre><p>The output would look something like:</p>
@@ -278,7 +267,7 @@ to the key database. To do so, use:</p>
 </pre></div>
 </div>
 <p>Then, to upload this key to the cloud (your default cloud) use:</p>
-<pre class="highlight"><span class="prompt1">key upload</span>
+<pre class="highlight"><span class="prompt1">key upload albert_ssh_key</span>
 </pre></div>
 <div class="section" id="virtual-machines">
 <h2>Virtual Machines<a class="headerlink" href="#virtual-machines" title="Permalink to this headline">¶</a></h2>
@@ -330,16 +319,20 @@ a public IP (also called floating IP).</p>
 +----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+
 </pre></div>
 </div>
-<p>Logging into the cloud is now as simple as:</p>
+<p>Next, you need to set your login key to be able to ssh to the VM.
+This will be the path to the private key (id_rsa) corresponding to
+the public key we uploaded to the cloud:</p>
+<pre class="highlight"><span class="prompt1">default login_key=~/.ssh/id_rsa</span>
+</pre><p>Logging into the cloud is now as simple as:</p>
 <pre class="highlight"><span class="prompt1">vm login albert-001</span>
-</pre><p>This should get you through to the ssh session to the VM. It will ask you for the username to login. If you used an
-ubuntu umage the username will typically be &#8216;ubuntu&#8217;, for others it may be &#8216;root&#8217;.</p>
-<p>To delete a VM, you use the vm name:</p>
+</pre><p>This should get you through to the ssh session to the VM.
+Congratulations! You have now learnt how to start a new VM and log into a VM.</p>
+<p>To delete a VM, you use:</p>
 <pre class="highlight"><span class="prompt1">vm delete albert-001</span>
 </pre></div>
 <div class="section" id="hpc">
 <h2>HPC<a class="headerlink" href="#hpc" title="Permalink to this headline">¶</a></h2>
-<p>In order to use the HPC experiment management functionality, you must
+<p>IN order to use the HPC experiment management functionality, you must
 register the queuing system in the yaml file and register the login
 node in the .ssh/config file. If you are using india and have used the
 clouds before, you may have already done this.</p>
@@ -395,7 +388,7 @@ system further to for example list the output</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'3.1.2',
+            VERSION:'3.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

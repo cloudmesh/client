@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.db package &mdash; cloudmesh_client 3.1.2 documentation</title>
+  <title>cloudmesh_client.db package &mdash; cloudmesh_client 3.1.0 documentation</title>
   
 
   
@@ -30,9 +30,9 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client package" href="cloudmesh_client.html"/>
-        <link rel="next" title="cloudmesh_client.etc package" href="cloudmesh_client.etc.html"/>
+        <link rel="next" title="cloudmesh_client.db.libcloud package" href="cloudmesh_client.db.libcloud.html"/>
         <link rel="prev" title="cloudmesh_client.common package" href="cloudmesh_client.common.html"/> 
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                3.1.2
+                3.1.0
               </div>
             
           
@@ -125,6 +125,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.comet.html">cloudmesh_client.comet package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="">cloudmesh_client.db package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.db.CloudmeshDatabase">cloudmesh_client.db.CloudmeshDatabase module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cloudmesh-client-db-sshkeydbmanager-module">cloudmesh_client.db.SSHKeyDBManager module</a></li>
@@ -204,6 +205,19 @@
             
   <div class="section" id="cloudmesh-client-db-package">
 <h1>cloudmesh_client.db package<a class="headerlink" href="#cloudmesh-client-db-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cloudmesh_client.db.libcloud.html">cloudmesh_client.db.libcloud package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.db.libcloud.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.db.libcloud.html#module-cloudmesh_client.db.libcloud.model">cloudmesh_client.db.libcloud.model module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.db.libcloud.html#module-cloudmesh_client.db.libcloud">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
@@ -229,11 +243,6 @@
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.attributes">
-<code class="descname">attributes</code><span class="sig-paren">(</span><em>kind</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/CloudmeshDatabase.html#CloudmeshDatabase.attributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.attributes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.clear">
 <code class="descname">clear</code><span class="sig-paren">(</span><em>kind</em>, <em>category</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/CloudmeshDatabase.html#CloudmeshDatabase.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method deletes all &#8216;kind&#8217; entries
@@ -244,11 +253,6 @@ from the cloudmesh database
 <dl class="method">
 <dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.close">
 <code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/CloudmeshDatabase.html#CloudmeshDatabase.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.close" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.cloud_to_kind_mapper">
-<code class="descname">cloud_to_kind_mapper</code><span class="sig-paren">(</span><em>cloud</em>, <em>kind</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/CloudmeshDatabase.html#CloudmeshDatabase.cloud_to_kind_mapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.cloud_to_kind_mapper" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -382,25 +386,6 @@ objects.
 </dd></dl>
 
 <dl class="method">
-<dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.find_by_attributes">
-<code class="descname">find_by_attributes</code><span class="sig-paren">(</span><em>kind</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/CloudmeshDatabase.html#CloudmeshDatabase.find_by_attributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.find_by_attributes" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>find an object by name in the given table.</dt>
-<dd>If multiple objects have the same name, the first one is returned.</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> &#8211; the name</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the object</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
 <dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.find_by_name">
 <code class="descname">find_by_name</code><span class="sig-paren">(</span><em>kind</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/CloudmeshDatabase.html#CloudmeshDatabase.find_by_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.find_by_name" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
@@ -418,11 +403,6 @@ objects.
 </tbody>
 </table>
 </dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.first">
-<code class="descname">first</code><span class="sig-paren">(</span><em>result</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/CloudmeshDatabase.html#CloudmeshDatabase.first"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.first" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="method">
 <dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.get">
@@ -561,11 +541,6 @@ with the live cloud details
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="cloudmesh_client.db.model.BATCHJOB.cloud">
-<code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.BATCHJOB.cloud" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="cloudmesh_client.db.model.BATCHJOB.cluster">
 <code class="descname">cluster</code><a class="headerlink" href="#cloudmesh_client.db.model.BATCHJOB.cluster" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -673,11 +648,6 @@ with the live cloud details
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="cloudmesh_client.db.model.COUNTER.cloud">
-<code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.COUNTER.cloud" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="cloudmesh_client.db.model.COUNTER.created_at">
 <code class="descname">created_at</code><a class="headerlink" href="#cloudmesh_client.db.model.COUNTER.created_at" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -739,13 +709,8 @@ with the live cloud details
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="cloudmesh_client.db.model.CloudmeshMixin.cloud">
-<code class="descname">cloud</code><em class="property"> = Column(None, String(), table=None, default=ColumnDefault('undefined'))</em><a class="headerlink" href="#cloudmesh_client.db.model.CloudmeshMixin.cloud" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="cloudmesh_client.db.model.CloudmeshMixin.created_at">
-<code class="descname">created_at</code><em class="property"> = Column(None, String(), table=None, default=ColumnDefault('2016-03-22 17:16:58'))</em><a class="headerlink" href="#cloudmesh_client.db.model.CloudmeshMixin.created_at" title="Permalink to this definition">¶</a></dt>
+<code class="descname">created_at</code><em class="property"> = Column(None, String(), table=None, default=ColumnDefault('2016-04-15 10:48:25'))</em><a class="headerlink" href="#cloudmesh_client.db.model.CloudmeshMixin.created_at" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -775,7 +740,7 @@ with the live cloud details
 
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.CloudmeshMixin.updated_at">
-<code class="descname">updated_at</code><em class="property"> = Column(None, String(), table=None, onupdate=ColumnDefault('2016-03-22 17:16:58'), default=ColumnDefault('2016-03-22 17:16:58'))</em><a class="headerlink" href="#cloudmesh_client.db.model.CloudmeshMixin.updated_at" title="Permalink to this definition">¶</a></dt>
+<code class="descname">updated_at</code><em class="property"> = Column(None, String(), table=None, onupdate=ColumnDefault('2016-04-15 10:48:25'), default=ColumnDefault('2016-04-15 10:48:25'))</em><a class="headerlink" href="#cloudmesh_client.db.model.CloudmeshMixin.updated_at" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -795,11 +760,6 @@ with the live cloud details
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.DEFAULT.category">
 <code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.model.DEFAULT.category" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.DEFAULT.cloud">
-<code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.DEFAULT.cloud" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -861,11 +821,6 @@ with the live cloud details
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.FLAVOR.category">
 <code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.model.FLAVOR.category" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.FLAVOR.cloud">
-<code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.FLAVOR.cloud" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -962,16 +917,11 @@ self[key] = value</div></blockquote>
 
 <dl class="class">
 <dt id="cloudmesh_client.db.model.GROUP">
-<em class="property">class </em><code class="descclassname">cloudmesh_client.db.model.</code><code class="descname">GROUP</code><span class="sig-paren">(</span><em>name</em>, <em>member</em>, <em>type='vm'</em>, <em>category=None</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/model.html#GROUP"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.model.GROUP" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cloudmesh_client.db.model.</code><code class="descname">GROUP</code><span class="sig-paren">(</span><em>name</em>, <em>value</em>, <em>type='vm'</em>, <em>category=None</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/model.html#GROUP"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.model.GROUP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.GROUP.category">
 <code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.model.GROUP.category" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.GROUP.cloud">
-<code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.GROUP.cloud" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -992,11 +942,6 @@ self[key] = value</div></blockquote>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.GROUP.label">
 <code class="descname">label</code><a class="headerlink" href="#cloudmesh_client.db.model.GROUP.label" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.GROUP.member">
-<code class="descname">member</code><a class="headerlink" href="#cloudmesh_client.db.model.GROUP.member" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1024,6 +969,11 @@ self[key] = value</div></blockquote>
 <code class="descname">user</code><a class="headerlink" href="#cloudmesh_client.db.model.GROUP.user" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt id="cloudmesh_client.db.model.GROUP.value">
+<code class="descname">value</code><a class="headerlink" href="#cloudmesh_client.db.model.GROUP.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -1033,11 +983,6 @@ self[key] = value</div></blockquote>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.IMAGE.category">
 <code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.model.IMAGE.category" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.IMAGE.cloud">
-<code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.IMAGE.cloud" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1237,11 +1182,6 @@ self[key] = value</div></blockquote>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="cloudmesh_client.db.model.KEY.cloud">
-<code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.KEY.cloud" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="cloudmesh_client.db.model.KEY.comment">
 <code class="descname">comment</code><a class="headerlink" href="#cloudmesh_client.db.model.KEY.comment" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1323,11 +1263,6 @@ self[key] = value</div></blockquote>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="cloudmesh_client.db.model.KEYCLOUDMAP.cloud">
-<code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.KEYCLOUDMAP.cloud" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="cloudmesh_client.db.model.KEYCLOUDMAP.cloud_name">
 <code class="descname">cloud_name</code><a class="headerlink" href="#cloudmesh_client.db.model.KEYCLOUDMAP.cloud_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1397,11 +1332,6 @@ self[key] = value</div></blockquote>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="cloudmesh_client.db.model.LAUNCHER.cloud">
-<code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.LAUNCHER.cloud" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="cloudmesh_client.db.model.LAUNCHER.created_at">
 <code class="descname">created_at</code><a class="headerlink" href="#cloudmesh_client.db.model.LAUNCHER.created_at" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1459,380 +1389,12 @@ self[key] = value</div></blockquote>
 </dd></dl>
 
 <dl class="class">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_FLAVOR">
-<em class="property">class </em><code class="descclassname">cloudmesh_client.db.model.</code><code class="descname">LIBCLOUD_FLAVOR</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/model.html#LIBCLOUD_FLAVOR"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_FLAVOR" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_FLAVOR.bandwidth">
-<code class="descname">bandwidth</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_FLAVOR.bandwidth" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_FLAVOR.category">
-<code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_FLAVOR.category" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_FLAVOR.cloud">
-<code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_FLAVOR.cloud" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_FLAVOR.cpu">
-<code class="descname">cpu</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_FLAVOR.cpu" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_FLAVOR.created_at">
-<code class="descname">created_at</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_FLAVOR.created_at" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_FLAVOR.disk">
-<code class="descname">disk</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_FLAVOR.disk" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_FLAVOR.flavor_id">
-<code class="descname">flavor_id</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_FLAVOR.flavor_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_FLAVOR.id">
-<code class="descname">id</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_FLAVOR.id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_FLAVOR.kind">
-<code class="descname">kind</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_FLAVOR.kind" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_FLAVOR.label">
-<code class="descname">label</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_FLAVOR.label" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_FLAVOR.name">
-<code class="descname">name</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_FLAVOR.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_FLAVOR.price">
-<code class="descname">price</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_FLAVOR.price" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_FLAVOR.project">
-<code class="descname">project</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_FLAVOR.project" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_FLAVOR.ram">
-<code class="descname">ram</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_FLAVOR.ram" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_FLAVOR.updated_at">
-<code class="descname">updated_at</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_FLAVOR.updated_at" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_FLAVOR.user">
-<code class="descname">user</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_FLAVOR.user" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_FLAVOR.uuid">
-<code class="descname">uuid</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_FLAVOR.uuid" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE">
-<em class="property">class </em><code class="descclassname">cloudmesh_client.db.model.</code><code class="descname">LIBCLOUD_IMAGE</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/model.html#LIBCLOUD_IMAGE"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.architecture">
-<code class="descname">architecture</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.architecture" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.category">
-<code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.category" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.cloud">
-<code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.cloud" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.created">
-<code class="descname">created</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.created" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.created_at">
-<code class="descname">created_at</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.created_at" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.description">
-<code class="descname">description</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.hypervisor">
-<code class="descname">hypervisor</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.hypervisor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.id">
-<code class="descname">id</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.image_id">
-<code class="descname">image_id</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.image_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.image_location">
-<code class="descname">image_location</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.image_location" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.image_type">
-<code class="descname">image_type</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.image_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.is_public">
-<code class="descname">is_public</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.is_public" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.kernel_id">
-<code class="descname">kernel_id</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.kernel_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.kind">
-<code class="descname">kind</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.kind" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.label">
-<code class="descname">label</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.label" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.name">
-<code class="descname">name</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.owner_alias">
-<code class="descname">owner_alias</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.owner_alias" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.owner_id">
-<code class="descname">owner_id</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.owner_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.platform">
-<code class="descname">platform</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.platform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.project">
-<code class="descname">project</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.project" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.ramdisk_id">
-<code class="descname">ramdisk_id</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.ramdisk_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.state">
-<code class="descname">state</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.state" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.status">
-<code class="descname">status</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.status" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.updated">
-<code class="descname">updated</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.updated" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.updated_at">
-<code class="descname">updated_at</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.updated_at" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.user">
-<code class="descname">user</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.user" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.uuid">
-<code class="descname">uuid</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.uuid" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_IMAGE.virtualization_type">
-<code class="descname">virtualization_type</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_IMAGE.virtualization_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM">
-<em class="property">class </em><code class="descclassname">cloudmesh_client.db.model.</code><code class="descname">LIBCLOUD_VM</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/model.html#LIBCLOUD_VM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.availability">
-<code class="descname">availability</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.availability" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.category">
-<code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.category" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.cloud">
-<code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.cloud" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.created_at">
-<code class="descname">created_at</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.created_at" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.id">
-<code class="descname">id</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.image_id">
-<code class="descname">image_id</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.image_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.image_name">
-<code class="descname">image_name</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.image_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.instance_id">
-<code class="descname">instance_id</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.instance_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.instance_type">
-<code class="descname">instance_type</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.instance_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.key_name">
-<code class="descname">key_name</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.key_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.kind">
-<code class="descname">kind</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.kind" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.label">
-<code class="descname">label</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.label" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.name">
-<code class="descname">name</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.private_dns">
-<code class="descname">private_dns</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.private_dns" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.private_ips">
-<code class="descname">private_ips</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.private_ips" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.project">
-<code class="descname">project</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.project" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.public_ips">
-<code class="descname">public_ips</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.public_ips" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.root_device_name">
-<code class="descname">root_device_name</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.root_device_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.root_device_type">
-<code class="descname">root_device_type</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.root_device_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.state">
-<code class="descname">state</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.state" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.status">
-<code class="descname">status</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.status" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.updated_at">
-<code class="descname">updated_at</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.updated_at" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.user">
-<code class="descname">user</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.user" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.LIBCLOUD_VM.uuid">
-<code class="descname">uuid</code><a class="headerlink" href="#cloudmesh_client.db.model.LIBCLOUD_VM.uuid" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
 <dt id="cloudmesh_client.db.model.RESERVATION">
 <em class="property">class </em><code class="descclassname">cloudmesh_client.db.model.</code><code class="descname">RESERVATION</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/model.html#RESERVATION"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.model.RESERVATION" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.RESERVATION.category">
 <code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.model.RESERVATION.category" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.RESERVATION.cloud">
-<code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.RESERVATION.cloud" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1907,11 +1469,6 @@ self[key] = value</div></blockquote>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="cloudmesh_client.db.model.SECGROUP.cloud">
-<code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.SECGROUP.cloud" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="cloudmesh_client.db.model.SECGROUP.created_at">
 <code class="descname">created_at</code><a class="headerlink" href="#cloudmesh_client.db.model.SECGROUP.created_at" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1970,11 +1527,6 @@ self[key] = value</div></blockquote>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.SECGROUPRULE.cidr">
 <code class="descname">cidr</code><a class="headerlink" href="#cloudmesh_client.db.model.SECGROUPRULE.cidr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.SECGROUPRULE.cloud">
-<code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.SECGROUPRULE.cloud" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2055,11 +1607,6 @@ self[key] = value</div></blockquote>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="cloudmesh_client.db.model.VAR.cloud">
-<code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.VAR.cloud" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="cloudmesh_client.db.model.VAR.created_at">
 <code class="descname">created_at</code><a class="headerlink" href="#cloudmesh_client.db.model.VAR.created_at" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -2133,11 +1680,6 @@ self[key] = value</div></blockquote>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.VM.category">
 <code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.model.VM.category" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.VM.cloud">
-<code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.VM.cloud" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2312,11 +1854,6 @@ self[key] = value</dd>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="cloudmesh_client.db.model.VMUSERMAP.cloud">
-<code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.VMUSERMAP.cloud" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="cloudmesh_client.db.model.VMUSERMAP.created_at">
 <code class="descname">created_at</code><a class="headerlink" href="#cloudmesh_client.db.model.VMUSERMAP.created_at" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -2438,7 +1975,7 @@ In case the table does not exist an exception is thrown</td>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cloudmesh_client.etc.html" class="btn btn-neutral float-right" title="cloudmesh_client.etc package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cloudmesh_client.db.libcloud.html" class="btn btn-neutral float-right" title="cloudmesh_client.db.libcloud package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="cloudmesh_client.common.html" class="btn btn-neutral" title="cloudmesh_client.common package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -2471,7 +2008,7 @@ In case the table does not exist an exception is thrown</td>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'3.1.2',
+            VERSION:'3.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

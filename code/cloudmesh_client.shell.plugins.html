@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins package &mdash; cloudmesh_client 3.1.2 documentation</title>
+  <title>cloudmesh_client.shell.plugins package &mdash; cloudmesh_client 3.1.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client.shell package" href="cloudmesh_client.shell.html"/>
         <link rel="next" title="cloudmesh_client.system package" href="cloudmesh_client.system.html"/>
         <link rel="prev" title="cloudmesh_client.shell package" href="cloudmesh_client.shell.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                3.1.2
+                3.1.0
               </div>
             
           
@@ -503,7 +503,7 @@ Examples:
    comet iso upload [--isoname=ISONAME] PATHISOFILE
    comet iso attach ISONAME CLUSTERID [COMPUTENODEIDS]
    comet iso detach CLUSTERID [COMPUTENODEIDS]
-   comet node rename CLUSTERID OLDNAME NEWNAME
+   comet node rename CLUSTERID OLDNAMES NEWNAMES
 
 Options:
     --format=FORMAT         Format is either table, json, yaml,
@@ -542,6 +542,10 @@ Arguments:
                     e.g., vm-vc1-0
     ISONAME         Name of an iso image at remote server
     PATHISOFILE     The full path to the iso image file to be uploaded
+    OLDNAMES        The list of current node names to be renamed, in hostlist
+                    format. A single host is also acceptable.
+    NEWNAMES        The list of new names to rename to, in hostlist format.
+                    A single host is also acceptable.
 </pre></div>
 </div>
 </dd></dl>
@@ -719,10 +723,10 @@ Examples:
 <dt id="cloudmesh_client.shell.plugins.GroupCommand.GroupCommand.do_group">
 <code class="descname">do_group</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.GroupCommand.GroupCommand.do_group" title="Permalink to this definition">¶</a></dt>
 <dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
-    group list [--category=CLOUD] [--format=FORMAT] [GROUPNAME]
-    group remove NAME... [--category=CLOUD] --group=GROUPNAME
-    group add NAME... [--type=TYPE] [--category=CLOUD] [--group=GROUPNAME]
-    group delete GROUP... [--category=CLOUD]
+    group add NAME [--type=TYPE] [--category=CLOUD] --id=IDs
+    group list [--category=CLOUD] [--format=FORMAT] [NAME]
+    group delete NAME [--category=CLOUD]
+    group remove [--category=CLOUD] --name=NAME --id=ID
     group copy FROM TO
     group merge GROUPA GROUPB MERGEDGROUP
 
@@ -730,8 +734,7 @@ manage the groups
 
 Arguments:
 
-    NAME         name of object to be added
-    GROUP        name of a group
+    NAME         name of a group
     FROM         name of a group
     TO           name of a group
     GROUPA       name of a group
@@ -1620,7 +1623,7 @@ Examples:
 <dl class="exception">
 <dt id="cloudmesh_client.shell.plugins.PyCommand.EmbeddedConsoleExit">
 <em class="property">exception </em><code class="descclassname">cloudmesh_client.shell.plugins.PyCommand.</code><code class="descname">EmbeddedConsoleExit</code><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/PyCommand.html#EmbeddedConsoleExit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.PyCommand.EmbeddedConsoleExit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">exceptions.SystemExit</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">SystemExit</span></code></p>
 </dd></dl>
 
 <dl class="class">
@@ -2288,7 +2291,7 @@ Options:
 
 <dl class="attribute">
 <dt id="cloudmesh_client.shell.plugins.SyncCommand.SyncCommand.topics">
-<code class="descname">topics</code><em class="property"> = {'rsync': 'system', 'sync': 'system'}</em><a class="headerlink" href="#cloudmesh_client.shell.plugins.SyncCommand.SyncCommand.topics" title="Permalink to this definition">¶</a></dt>
+<code class="descname">topics</code><em class="property"> = {'sync': 'system', 'rsync': 'system'}</em><a class="headerlink" href="#cloudmesh_client.shell.plugins.SyncCommand.SyncCommand.topics" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2395,7 +2398,7 @@ toggled.</p>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands.topics">
-<code class="descname">topics</code><em class="property"> = {'clear': 'shell', 'puase': 'shell', 'banner': 'shell', 'echo': 'shell'}</em><a class="headerlink" href="#cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands.topics" title="Permalink to this definition">¶</a></dt>
+<code class="descname">topics</code><em class="property"> = {'banner': 'shell', 'puase': 'shell', 'clear': 'shell', 'echo': 'shell'}</em><a class="headerlink" href="#cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands.topics" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2501,7 +2504,7 @@ Examples:
 <code class="descname">do_vm</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.VmCommand.VmCommand.do_vm" title="Permalink to this definition">¶</a></dt>
 <dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     vm default [--cloud=CLOUD][--format=FORMAT]
-    vm refresh [all][--cloud=CLOUD]
+    vm refresh [--cloud=CLOUD]
     vm boot [--name=NAME]
             [--cloud=CLOUD]
             [--image=IMAGE_OR_ID]
@@ -2537,8 +2540,6 @@ Examples:
     vm rename [NAME]...
               [--new=NEWNAME]
               [--cloud=CLOUD]
-              [--force]
-              [--dryrun]
     vm list [NAME_OR_ID]
             [--cloud=CLOUD|--all]
             [--group=GROUP]
@@ -2547,18 +2548,16 @@ Examples:
     vm status [--cloud=CLOUD]
     vm info [--cloud=CLOUD]
             [--format=FORMAT]
-    vm check NAME...
 
 Arguments:
-    COMMAND        positional arguments, the commands yo&quot;listu want to
+    COMMAND        positional arguments, the commands you want to
                    execute on the server(e.g. ls -a) separated by &#39;;&#39;,
                    you will get a return of executing result instead of login to
                    the server, note that type in -- is suggested before
                    you input the commands
     NAME           server name. By default it is set to the name of last vm from database.
     NAME_OR_ID     server name or ID
-    KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is
-                   not a path to key.
+    KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is not a path to key.
     NEWNAME        New name of the VM while renaming.
 
 Options:
@@ -2580,7 +2579,7 @@ Options:
     --user=USER      give the user name of the server that you want
                      to use to login
     --name=NAME      give the name of the virtual machine
-    --force          rename/ delete vms without user&#39;s confirmation
+    --force          delete vms without user&#39;s confirmation
     --command=COMMAND
                      specify the commands to be executed
     --new=NEWNAME    Specify the new name for a VM while renaming.
@@ -2695,7 +2694,7 @@ Tip:
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'3.1.2',
+            VERSION:'3.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

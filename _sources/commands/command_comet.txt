@@ -119,9 +119,10 @@ This will automatically generate a template configuration file at::
 
 Next you can initiate the configuration file::
 
-    cm comet init_apiauth
+    cm comet init
 
-Follow the prompt and provide your username and password. Once you are
+Follow the prompt to configure and select endpoint, and initialize the
+auth settings by provide your username and password. Once you are
 successfully authenticated it will retrieve the api key and secret and
 configure the cloudmesh.yaml with proper api auth information. Then you
 will be able to use the commands to manage your comet virtual cluster.
@@ -153,6 +154,14 @@ List a cluster by name (we use here vc2 as example):
 .. prompt:: bash
   
   cm comet cluster vc2
+
+Cluster listing view also supports other output format, e.g. json, csv, etc.:
+
+.. prompt:: bash
+
+  cm comet cluster vc2 --format=csv
+
+This can be useful for scripting.
     
 List all defined computesets:
 
@@ -187,23 +196,27 @@ syntax, e.g., to reboot:
 
     cm comet power reboot vc2
 
-Power management of compute nodes:
-~~~~
+Please note running frontend node itself would not charge you any allocations.
 
-Power on a set of compute nodes in cluster vc2:
+Resource allocation and tear down:
+~~~~
+The requested cluster/VMs has to be started by requesting physical allocations. This
+will charge your allocation based on nodes you requested and the walltime.
+
+Start a set of compute nodes in cluster vc2:
 
 .. prompt:: bash
   
-    cm comet power on vc2 vm-vc2-[0-3]
+    cm comet start vc2 vm-vc2-[0-3]
     
-This will request the nodes for a default period of time - 2 hours.
+This will request the nodes for a default period of time and power on them
 
 To request for a longer time period, use --walltime parameter. 
 E.g., 100m (100 minutes), 6h (6 hours), 2d (2 days) , 1w (1 week):
 
 .. prompt:: bash
 
-    cm comet power on vc2 vm-vc2-[0-3] --walltime=6h
+    cm comet start vc2 vm-vc2-[0-3] --walltime=6h
 
 The above will put the request under the one allocation associated with the cluster.
 If your cluster have more than one allocations, use --allocation
@@ -211,59 +224,69 @@ parameter:
 
 .. prompt:: bash
 
-    cm comet power on vc2 vm-vc2-[0-3] --allocation=YOUR_ALLOCATION
+    cm comet start vc2 vm-vc2-[0-3] --allocation=YOUR_ALLOCATION
 
 If you have more allocations, but does not specify via CLI, you will see a list of 
 allocations to choose from to use.
 
-You can also power on N arbitrary nodes, if there is enough resource:
+You can also request a group of N nodes, if there is enough resource:
 
 .. prompt:: bash
 
-    cm comet power on vc2 --count=4
+    cm comet start vc2 --count=4
 
 The comet system will find 4 available nodes from the specified cluster and start them 
 as one computeset.
 
-You can power off and back on individual nodes of an active
-computeset. E.g.:
+You can also start a single-node computeset:
 
 .. prompt:: bash
 
-    cm comet power off vc2 vm-vc2-[0,1]
-
-and then:
-
-.. prompt:: bash
-
-    cm comet power on vc2 vm-vc2-0
-
-Or power off the whole computeset by specifying the computeset id:
-
-.. prompt:: bash
-
-    cm comet power off vc2 123
-
-or by specifying the hosts:
-
-.. prompt:: bash
-
-    cm comet power off vc2 vm-vc2-[0-3]
-
-Please note if you powered off all nodes from an active computeset, the computeset 
-itself will be removed as well (changed to 'completed' status)
-
-You can also power on one single node as a computeset:
-
-.. prompt:: bash
-  
-    cm comet power on vc2 vm-vc2-[7]
+    cm comet start vc2 vm-vc2-[7]
 
 or simply:
 
 .. prompt:: bash
 
-    cm comet power on vc2 vm-vc2-7
+    cm comet start vc2 vm-vc2-7
+
+To power down all running nodes from an active computeset and also free the allocated
+resources:
+
+.. prompt:: bash
+
+    cm comet terminate 123
+
+This will gracefully shutdown the nodes in the group identified by computeset 123,
+and also free the unused allocations. A computeset will be teared down automatically
+when it reaches its requested walltime
+
+Power management of compute nodes:
+~~~~
+
+You can power off and back on individual nodes from a cluster, 
+without affecting other running nodes in the computesets. E.g.:
+
+.. prompt:: bash
+
+    cm comet power off vc2 vm-vc2-[0-7]
+
+and then:
+
+.. prompt:: bash
+
+    cm comet power on vc2 vm-vc2-[0-7]
+
+or shutdown gracefully a group of nodes:
+
+.. prompt:: bash
+
+    cm comet power shutdown vc2 vm-vc2-[0-3]
+
+Please note even if you powered off all nodes from an active computeset, the computeset 
+itself, and the associated physical resource, is still active and can only be accessed
+exclusively by you till the requested walltime is reached. During this time you can freely
+power the nodes back on and off.
 
 Getting Console access
 ~~~~
@@ -290,64 +313,71 @@ Get the list of images that are available to you:
 
 .. prompt:: bash
 
-    cm comet image list
+    cm comet iso list
 
 Upload an image to the public shared folder:
 
 .. prompt:: bash
 
-    cm comet image upload /path/to/your/image.iso
+    cm comet iso upload /path/to/your/image.iso
 
 Or with a specified new image name:
 
 .. prompt:: bash
 
-    cm comet image upload /path/to/your/image.iso --imagename=newimagename.iso
+    cm comet iso upload /path/to/your/image.iso --imagename=newimagename.iso
 
 Attach an image to the frontend:
 
 .. prompt:: bash
 
-    cm comet image attach newimagename.iso vc2
+    cm comet iso attach newimagename.iso vc2
 
 Or to a compute node:
 
 .. prompt:: bash
 
-    cm comet image attach newimagename.iso vc2 vm-vc2-0
+    cm comet iso attach newimagename.iso vc2 vm-vc2-0
 
 To detach the attached iso image from frontend node:
 
 .. prompt:: bash
 
-    cm comet image detach vc2
+    cm comet iso detach vc2
 
 Or from a compute node:
 
 .. prompt:: bash
 
-    cm comet image detach vc2 vm-vc2-0
+    cm comet iso detach vc2 vm-vc2-0
 
 Image attaching/detaching also works on compute nodes in bulk:
 
 .. prompt:: bash
 
-    cm comet image attach newimagename.iso vc2 vm-vc2-[0-4]
+    cm comet iso attach newimagename.iso vc2 vm-vc2-[0-4]
 
 .. prompt:: bash
 
-    cm comet image detach vc2 vm-vc2-[0-4]
+    cm comet iso detach vc2 vm-vc2-[0-4]
 
 Please note image attaching/detaching will only take effect after you hard reboot 
 the node (power off and then power on).
 
 Other commands:
 ~~~~
-You can also rename a compute node:
+You can also rename a compute node, or a list of nodes in batch:
 
 .. prompt:: bash
 
     cm comet node rename vc2 vm-vc2-0 mynode0
+
+.. prompt:: bash
+
+    cm comet node rename vc2 vm-vc2-[0-7] newname-[0-7]
+
+Please use hostlist format to specify the list of OLDNAMES AND NEWNAMES
+
 
 How to get a virtual cluster?
 ------------------------------
@@ -375,18 +405,18 @@ How to get a virtual cluster?
 4. Please note that it will be up to you to provide an apropriate iso image.
    A small number of sample images are provided and you can list tehm with ::
 
-     cm comet image list
+     cm comet iso list
 
 5. Next you need to attach an image to your compute nodes (we assume you
    have 3 nodes called vm-vc2-0, vm-vc2-1, vm-vc2-2 ::
 
-        cm image attach imagename.iso vc2 vm-vc2-[0-3]
+        cm comet iso attach imagename.iso vc2 vm-vc2-[0-3]
 
    Please note that the name of the cluster (vc2) will be different for you
 
 6. Now you can just power on and boot the node with::
 
-    cm comet power on vc2 vm-vc2-[0-3]
+    cm comet start vc2 vm-vc2-[0-3]
 
 7. To see the console of a node you can use for an individual node (here the
  node 0)::
