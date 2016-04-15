@@ -8,7 +8,9 @@ class IMAGE_LIBCLOUD(CloudmeshMixin, CloudmeshDatabase.Base):
 
     __kind__ = 'image'
     __provider__ = "libcloud"
+    __megefields__ = ["username"]
 
+    username = Column(String)
     uuid = Column(String)
     status = Column(String)
     updated = Column(String)
@@ -82,7 +84,9 @@ class VM_LIBCLOUD(CloudmeshMixin, CloudmeshDatabase.Base):
 
     __kind__ = 'vm'
     __provider__ = "libcloud"
+    __megefields__ = ["username"]
 
+    username = Column(String)
     uuid = Column(String)
     state = Column(String)
     public_ips = Column(String)

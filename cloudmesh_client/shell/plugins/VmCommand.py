@@ -103,7 +103,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 vm info [--cloud=CLOUD]
                         [--format=FORMAT]
                 vm check NAME
-                vm username NAME USERNAME
+                vm username USERNAME NAME [--cloud=CLOUD]
 
             Arguments:
                 COMMAND        positional arguments, the commands yo"listu want to
@@ -275,6 +275,15 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 except Exception as e:
                     Console.error("Problem booting instance {name}".format(**vm_details))
+        elif arguments["username"]:
+
+            cloud = arg.cloud
+            username = arg.USERNAME
+            name = arg.NAME
+
+            print (cloud, username)
+
+            Vm.set_login_user(name=name, cloud=cloud, username=username)
 
         elif arguments["default"]:
             try:

@@ -7,6 +7,7 @@ from cloudmesh_client.default import Default
 from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.common.dotdict import dotdict
 
+
 class InfoCommand(PluginCommand, CloudPluginCommand):
     topics = {"info": "cloud"}
 
@@ -45,10 +46,10 @@ class InfoCommand(PluginCommand, CloudPluginCommand):
             "secgroup": Default.secgroup,
             "counter": Default.get_counter(name="name"),
             "image": Default.get_image(category=arg.cloud),
-            "flavor": Default.get_flavor(category=arg.cloud)
+            "flavor": Default.get_flavor(category=arg.cloud),
+            "refresh": Default.refresh,
+            "debug": Default.debug
         }
-
-        print(Printer.attribute(d,
-                            output=arg.FORMAT))
+        order = ["cloud", "key", "user", "vm", "group", "secgroup", "counter", "image", "flavor", "refresh", "debug"]
+        print(Printer.attribute(d, order=order, output=arg.FORMAT, sort_keys=False))
         return ""
-

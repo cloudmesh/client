@@ -26,8 +26,6 @@ class CloudmeshMixin(object):
     provider = Column(String, default="undefined")
 
     cm_id = Column(Integer, primary_key=True)
-    # created_at = Column(DateTime, default=datetime.now)
-    # updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
     created_at = Column(String,
                         default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     updated_at = Column(String,
@@ -600,14 +598,17 @@ class CloudmeshDatabase(object):
                 provider = CloudProvider(name).provider
 
                 # clear local db records for kind
-                cls.clear(kind=kind, category=name)
-
-                # for secgroup, clear rules as well
-                if kind == "secgroup":
-                    cls.clear(kind="secgrouprule", category=name)
+                if kind in ["image", "flavor"]:
+                    cls.clear(kind=kind, category=name)
 
                 if kind in ["flavor", "image"]:
                     # flavors = provider.list_flavor(name)
+
+                    current_elements = cls.find(category=name, kind=kind, output='dict')
+
+
+                    print ("CURRENT ELEMENTS", type(current_elements), current_elements)
+
                     elements = provider.list(kind, name)
 
                     for element in list(elements.values()):
@@ -617,7 +618,8 @@ class CloudmeshDatabase(object):
                         element["user"] = user
                         element["kind"] = kind
                         element["provider"] = provider.cloud_type
-
+                        if current_elements is not None and name in current_elements:
+                            element["username"] = current_elements[name]["username"]
                         cls.add(element)
                         cls.save()
 

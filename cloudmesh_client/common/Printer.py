@@ -245,16 +245,19 @@ class Printer(object):
     def attribute(cls,
                   d,
                   header=None,
+                  order=None,
                   sort_keys=True,
                   output="table"):
         if header is None:
             header = ["Attribute", "Value"]
         if output == "table":
             x = PrettyTable(header)
-            if sort_keys:
-                sorted_list = sorted(list(d))
+            if order is not None:
+                sorted_list = order
             else:
                 sorted_list = list(d)
+            if sort_keys:
+                sorted_list = sorted(d)
 
             for key in sorted_list:
                 x.add_row([key, d[key] or ""])
