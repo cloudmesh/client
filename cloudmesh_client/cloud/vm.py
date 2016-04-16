@@ -13,6 +13,7 @@ from uuid import UUID
 from cloudmesh_client.common.dotdict import dotdict
 from builtins import input
 from pprint import pprint
+from cloudmesh_client.cloud.network import Network
 from cloudmesh_client.default import Default
 
 
@@ -165,6 +166,14 @@ class Vm(ListResource):
         if "cloud" in arg:
             cloud_provider = CloudProvider(arg.cloud).provider
             for server in kwargs["servers"]:
+                # If server has a floating ip associated, release it
+                server_dict = Network.get_instance_dict(cloudname=arg.cloud,
+                                                        instance_id=server)
+                floating_ip = server_dict["floating_ip"]
+                if floating_ip is not None:
+                    Network.disassociate_floating_ip(cloudname=arg.cloud,
+                                                     instance_name=server,
+                                                     floating_ip=floating_ip)
                 cloud_provider.delete_vm(server)
                 print("VM {:} is being deleted on {:} cloud...".format(server, cloud_provider.cloud))
 

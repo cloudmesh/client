@@ -180,8 +180,11 @@ class Network(ListResource):
             cloud_provider = CloudProvider(cloudname).provider
             # Find the server instance
             server = cloud_provider.provider.servers.find(name=instance_name)
-            # Add the floating ip to the instance
+            # Remove the floating ip from the instance
             server.remove_floating_ip(floating_ip)
+            # Release the floating ip to the pool
+            cls.delete_floating_ip(cloudname=cloudname,
+                                   floating_ip_or_id=floating_ip)
             return "Success."
         except Exception as ex:
             Console.error(ex.message, ex)
