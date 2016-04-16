@@ -317,7 +317,7 @@ class CloudmeshDatabase(object):
                     result.extend(part)
             elif provider is None:
                 for t in cls.tables:
-                    print ("CCCC", t.__kind__, t.__provider__, kwargs)
+                    # print ("CCCC", t.__kind__, t.__provider__, kwargs)
                     if (t.__kind__ == kind):
                         part = cls.session.query(t).filter_by(**kwargs)
                         if output == 'dict':
