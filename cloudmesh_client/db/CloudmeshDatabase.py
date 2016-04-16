@@ -517,7 +517,7 @@ class CloudmeshDatabase(object):
         filter = kwargs['filter']
         values = kwargs['update']
 
-        print (t, filter, values)
+        # print (t, filter, values)
 
         cls.session.query(t).filter_by(**filter).update(values)
         cls.save()
