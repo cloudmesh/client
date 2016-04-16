@@ -154,24 +154,39 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             Description:
                 commands used to boot, start or delete servers of a cloud
 
-                vm default [options...]     Displays default parameters that are set for VM boot.
-                vm boot [options...]        Boots servers on a cloud, user may specify
-                                            flavor, image .etc, otherwise default values
-                                            will be used, see how to set default values
-                                            of a cloud: cloud help
-                vm start [options...]       Starts a suspended or stopped vm instance.
-                vm stop [options...]        Stops a vm instance .
-                vm delete [options...]      delete servers of a cloud, user may delete
-                                            a server by its name or id, delete servers
-                                            of a group or servers of a cloud, give prefix
-                                            and/or range to find servers by their names.
-                                            Or user may specify more options to narrow
-                                            the search
-                vm floating_ip_assign [options...]   assign a public ip to a VM of a cloud
-                vm ip show [options...]     show the ips of VMs
-                vm login [options...]       login to a server or execute commands on it
-                vm list [options...]        same as command "list vm", please refer to it
-                vm status [options...]      Retrieves status of last VM booted on cloud and displays it.
+                vm default [options...]
+                    Displays default parameters that are set for vm boot either on the
+                    default cloud or the specified cloud.
+
+                vm boot [options...]
+                    Boots servers on a cloud, user may specify flavor, image .etc, otherwise default values
+                    will be used, see how to set default values of a cloud: cloud help
+
+                vm start [options...]
+                    Starts a suspended or stopped vm instance.
+
+                vm stop [options...]
+                    Stops a vm instance .
+
+                vm delete [options...]
+                    Delete servers of a cloud, user may delete a server by its name or id, delete servers
+                    of a group or servers of a cloud, give prefix and/or range to find servers by their names.
+                    Or user may specify more options to narrow the search
+
+                vm floating_ip_assign [options...]
+                    assign a public ip to a VM of a cloud
+
+                vm ip show [options...]
+                    show the ips of VMs
+
+                vm login [options...]
+                    login to a server or execute commands on it
+
+                vm list [options...]
+                    same as command "list vm", please refer to it
+
+                vm status [options...]
+                    Retrieves status of last VM booted on cloud and displays it.
 
             Tip:
                 give the VM name, but in a hostlist style, which is very
