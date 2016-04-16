@@ -347,28 +347,24 @@ class Vm(ListResource):
         return vm["status"]
 
     @classmethod
-    def set_login_user(cls, name, cloud, username):
-        print(name, username)
-        ValueError("this method is wrong implemented")
+    def set_login_user(cls, name=None, cloud=None, username=None):
+        print(name, cloud, username)
+        print("this method is wrong implemented")
 
-        '''
-        if cls.isUuid(name):
-            uuid = name
+        # cls.cm.set(name, "username", username, kind="vm", scope="first")
+
+        vm = cls.cm.find(kind="vm", category=cloud, name=name, scope="first")
+        pprint (vm)
+        if vm is None:
+            Console.error("VM could not be found", traceflag=False)
+            return
         else:
-            vm_data = cls.cm.find(kind="vm", category=cloud, label=name)
-            if vm_data is None or len(vm_data) == 0:
-                raise RuntimeError("VM with label {} not found in database.".format(name))
-            uuid = list(vm_data.values())[0]["uuid"]
 
-        user_map_entry = cls.cm.find(kind="VMUSERMAP", vm_uuid=uuid)
-
-        if user_map_entry is None or len(user_map_entry) == 0:
-            user_map_dict = cls.cm.db_obj_dict("VMUSERMAP", vm_uuid=uuid, username=username)
-            cls.cm.add_obj(user_map_dict)
-            cls.cm.save()
-        else:
-            cls.cm.update_vm_username(vm_uuid=uuid, username=username)
-        '''
+            cls.cm.update(kind="vm",
+                          provider=vm["provider"],
+                          filter={'name': name},
+                          update={"username": username}
+                          )
 
     @classmethod
     def get_login_user(cls, name, cloud):
