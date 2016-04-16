@@ -228,7 +228,6 @@ class Network(ListResource):
             Console.error(ex.message, ex)
             return
 
-
     @classmethod
     def delete_floating_ip(cls, cloudname, floating_ip_or_id):
         """
@@ -281,7 +280,7 @@ class Network(ListResource):
         try:
             floating_ips = cls.get_floating_ip_list(cloudname)
 
-            for floating_ip in list(floating_ips):
+            for floating_ip in list(floating_ips.values()):
                 # Get instance_id associated with instance
                 instance_id = floating_ip["instance_id"]
 
@@ -323,18 +322,18 @@ class Network(ListResource):
 
             # print the output
             return Printer.write(floating_ips,
-                                 order = [
-                                    "ip",
-                                    "pool",
-                                    "id",
-                                    "cloud"
-                                    ],
-                                 header = [
-                                    "floating_ip",
-                                    "floating_ip_pool",
-                                    "floating_ip_id",
-                                    "cloud"
-                                    ])
+                                 order=[
+                                     "ip",
+                                     "pool",
+                                     "id",
+                                     "cloud"
+                                 ],
+                                 header=[
+                                     "floating_ip",
+                                     "floating_ip_pool",
+                                     "floating_ip_id",
+                                     "cloud"
+                                 ])
         except Exception as ex:
             Console.error(ex.message, ex)
 
@@ -470,6 +469,54 @@ class Network(ListResource):
             return None
         else:
             return list(instance_dict)[0]
+
+    @classmethod
+    def find_assign_floating_ip(cls, cloudname, instance_id):
+        instance_dict = cls.get_instance_dict(cloudname=cloudname,
+                                              instance_id=instance_id)
+        # Instance not found
+        if instance_dict is None:
+            Console.error("Instance [{}] not found in the cloudmesh database!"
+                          .format(instance_id))
+            return None
+
+        instance_name = instance_dict["name"]
+
+        # Get an unused ip from pool if exist and associate
+        unused_floating_ips = cls.get_unused_floating_ip_list(cloudname=cloudname)
+
+        if unused_floating_ips:
+            floating_ip = unused_floating_ips[0]["ip"]
+            result = cls.assign_floating_ip(cloudname=cloudname,
+                                            instance_id=instance_id,
+                                            floating_ip=floating_ip)
+            if result is None:
+                Console.error("Failed to associate floating IP [{}] to instance [{}]."
+                          .format(floating_ip, instance_name))
+                return None
+        else:
+            # create a new ip and associate
+            floating_ip = Network.create_assign_floating_ip(cloudname=cloudname,
+                                                            instance_name=instance_name)
+
+        return floating_ip
+
+    @classmethod
+    def assign_floating_ip(cls, cloudname, instance_id, floating_ip):
+        # find instance in db
+        instance_dict = cls.get_instance_dict(cloudname=cloudname,
+                                              instance_id=instance_id)
+        # Instance not found
+        if instance_dict is None:
+            Console.error("Instance [{}] not found in the cloudmesh database!"
+                          .format(instance_id))
+            return None
+
+        instance_name = instance_dict["name"]
+        result = cls.associate_floating_ip(cloudname=cloudname,
+                                           instance_name=instance_name,
+                                           floating_ip=floating_ip)
+        return result
 
     @classmethod
     def isUuid(cls, argument):
