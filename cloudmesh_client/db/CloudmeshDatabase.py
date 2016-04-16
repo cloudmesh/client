@@ -317,6 +317,7 @@ class CloudmeshDatabase(object):
                     result.extend(part)
             elif provider is None:
                 for t in cls.tables:
+                    print ("CCCC", t.__kind__, t.__provider__)
                     if (t.__kind__ == kind):
                         part = cls.session.query(t).filter_by(**kwargs)
                         if output == 'dict':
@@ -528,21 +529,28 @@ class CloudmeshDatabase(object):
             value,
             provider=None,
             kind=None,
+            scope="all"
             ):
 
-        if provider is None or kind is None:
+        if provider is None or kind is None or scope == "all":
             o = cls.filter_by(name=name)
-        else:
-            o = dotdict(cls.filter_by(name=name, provider=provider, kind=kind)[0])
-
-        #    print("PPPP", provider, kind, name, attribute, value, o)
-
-        if o[attribute] != value:
             cls.update(kind=o["kind"],
                        provider=o["provider"],
                        filter={'name': name},
                        update={attribute: value}
                        )
+        else:
+            o = dotdict(cls.filter_by(name=name, provider=provider, kind=kind)[0])
+            print("PPPP", provider, kind, name, attribute, value, o)
+
+            if o[attribute] != value:
+                cls.update(kind=o["kind"],
+                           provider=o["provider"],
+                           filter={'name': name},
+                           update={attribute: value}
+                           )
+
+
 
     @classmethod
     def clear(cls, kind, category, user=None):
