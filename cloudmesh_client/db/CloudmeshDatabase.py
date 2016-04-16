@@ -605,65 +605,31 @@ class CloudmeshDatabase(object):
                 # get provider for specific cloud
                 provider = CloudProvider(name).provider
 
-                # clear local db records for kind
-                if kind in ["flavor"]:
-                    cls.clear(kind=kind, category=name)
+                current_elements = cls.find(category=name, kind=kind, output='dict')
 
-                if kind in ["flavor", "image", "vm"]:
-                    # flavors = provider.list_flavor(name)
+                cls.clear(kind=kind, category=name)
 
-                    current_elements = cls.find(category=name, kind=kind, output='dict')
+                elements = provider.list(kind, name)
 
-                    print ("CURRENT ELEMENTS", type(current_elements), current_elements)
+                for element in list(elements.values()):
+                    element["uuid"] = element['id']
+                    element['type'] = 'string'
+                    element["category"] = name
+                    element["user"] = user
+                    element["kind"] = kind
+                    element["provider"] = provider.cloud_type
+                    if current_elements is not None and len(current_elements) > 0:
+                        for cur_elem in current_elements:
+                            if cur_elem["name"] == element["name"] and "username" in cur_elem and cur_elem["username"] is not None:
+                                element["username"] = cur_elem["username"]
+                                break
+                    #
+                    # issue may also be here: add should overwrite if object with name exists and use the new fields from above
+                    # also update time needs to be set with same format as used in the table/cloudmeshmixin
+                    #
+                    cls.add(element)
 
-                    elements = provider.list(kind, name)
-
-                    for element in list(elements.values()):
-                        element["uuid"] = element['id']
-                        element['type'] = 'string'
-                        element["category"] = name
-                        element["user"] = user
-                        element["kind"] = kind
-                        element["provider"] = provider.cloud_type
-                        if current_elements is not None and name in current_elements:
-                            if "username" in current_elements:
-                                element["username"] = current_elements[name]["username"]
-                        #
-                        # issue may also be here: add should overwrite if object with name exists and use the new fields from above
-                        # also update time needs to be set with same format as used in the table/cloudmeshmixin
-                        #
-                        cls.add(element)
-
-                    return True
-
-                elif kind in ["vm"]:
-
-                    # flavors = provider.list_flavor(name)
-                    elements = provider.list(kind, name)
-
-                    for element in list(elements.values()):
-
-                        element[u"uuid"] = element['id']
-                        element[u'type'] = 'string'
-                        element[u"category"] = name
-                        # element[u"cloud"] = name
-                        element[u"user"] = user
-                        element[u"kind"] = kind
-                        element[u"provider"] = provider.cloud_type
-                        vm_name = element["name"]
-
-                        g = cls.find(kind="group", member=vm_name)
-
-                        if g is not None:
-                            element[u"group"] = g[0]["name"]
-                        else:
-                            element[u"group"] = "undefined"
-
-                        cls.add(element)
-                        cls.save()
-
-                    return True
-
+                return True
 
             elif kind in ["batchjob"]:
 
