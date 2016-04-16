@@ -386,6 +386,11 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     else:
                         vm_id = Vm.boot(**vm_details)
 
+                        if vm_id is None:
+                            msg = "info. failed."
+                            Console.error(msg, traceflag=False)
+                            return ""
+                        
                         # set name and counter in defaults
                         Default.set_vm(value=vm_details.name)
                         if is_name_provided is False:

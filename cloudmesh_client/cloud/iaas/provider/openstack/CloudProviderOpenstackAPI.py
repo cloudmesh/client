@@ -511,17 +511,26 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             "key_name": key,
             "security_groups": secgroup,
             "nics": nics}
-
-
-        server = self.provider.servers.create(name,
+        id = None
+        try:
+            server = self.provider.servers.create(name,
                                               image_id,
                                               flavor_id,
                                               meta=meta,
                                               key_name=key,
                                               security_groups=secgroup,
                                               nics=nics)
-        # return the server id
-        id = server.__dict__["id"]
+            # return the server id
+            id = server.__dict__["id"]
+            return id
+        except Exception as e:
+            if "Invalid key_name provided." in str(e):
+                Console.error("Invalid key provided. "
+                              "Is the key loaded, the default key set properly and uploaded to the cloud?",
+                              traceflag=False)
+            else:
+                Console.error("Problem booting the vm")
+
         return id
 
     def delete_vm(self, name, group=None, force=None):
