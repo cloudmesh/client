@@ -496,7 +496,7 @@ class Network(ListResource):
                 return None
         else:
             # create a new ip and associate
-            floating_ip = Network.create_assign_floating_ip(cloudname=cloudname,
+            floating_ip = cls.create_assign_floating_ip(cloudname=cloudname,
                                                             instance_name=instance_name)
 
         return floating_ip
