@@ -348,13 +348,11 @@ class Vm(ListResource):
 
     @classmethod
     def set_login_user(cls, name=None, cloud=None, username=None):
-        print(name, cloud, username)
 
         # cls.cm.set(name, "username", username, kind="vm", scope="first")
 
         vm = Vm.get(name, category=cloud)
 
-        pprint (vm)
         if vm is None:
             Console.error("VM could not be found", traceflag=False)
             return
