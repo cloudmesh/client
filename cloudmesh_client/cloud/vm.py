@@ -349,17 +349,16 @@ class Vm(ListResource):
     @classmethod
     def set_login_user(cls, name=None, cloud=None, username=None):
         print(name, cloud, username)
-        print("this method is wrong implemented")
 
         # cls.cm.set(name, "username", username, kind="vm", scope="first")
 
-        vm = cls.cm.find(kind="vm", category=cloud, name=name, scope="first")
+        vm = Vm.get(name, category=cloud)
+
         pprint (vm)
         if vm is None:
             Console.error("VM could not be found", traceflag=False)
             return
         else:
-
             cls.cm.update(kind="vm",
                           provider=vm["provider"],
                           filter={'name': name},

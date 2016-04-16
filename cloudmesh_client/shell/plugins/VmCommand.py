@@ -409,7 +409,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
           username = arg.USERNAME
           name = arg.NAME
 
-          print (cloud, username)
+          print ("ARG", name, cloud, username)
+          pprint(arg)
 
           Vm.set_login_user(name=name, cloud=cloud, username=username)
 
@@ -705,6 +706,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
           print("Login {user}@{name} ...".format(**query))
 
+          Vm.set_login_user(name=name, cloud=cloud, username=username)
 
           vm = Vm.get(query.name, category=arg.cloud)
 
@@ -718,7 +720,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
               user_suggest = user_from_db or Default.user
               user = input("Username (Default: {}):".format(user_suggest)) or user_suggest
-              Vm.set_login_user(login.vm, cloud, user)
+
+              Vm.set_login_user(name=name, cloud=cloud, username=username)
 
           ip = arguments["--ip"]
           commands = arguments["--command"]
