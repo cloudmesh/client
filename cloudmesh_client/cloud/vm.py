@@ -128,8 +128,8 @@ class Vm(ListResource):
         print(Printer.attribute(d))
 
         vm = cloud_provider.boot_vm(**d)
-
-        cls.refresh(cloud=arg.cloud)
+        if vm is not None:
+            cls.refresh(cloud=arg.cloud)
 
         # update group and key
         #
