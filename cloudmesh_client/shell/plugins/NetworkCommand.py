@@ -160,22 +160,11 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                     # Create and assign a floating IP
                     for item in group:
                         instance_id = group[item]["value"]
-                        # Get the instance dict
-                        instance_dict = Network.get_instance_dict(cloudname=cloudname,
-                                                                  instance_id=instance_id)
-                        # Instance not found
-                        if instance_dict is None:
-                            Console.error("Instance [{}] not found in the cloudmesh database!"
-                                          .format(instance_id))
-                            return ""
-
-                        # Get the instance name
-                        instance_name = instance_dict["name"]
-                        floating_ip = Network.create_assign_floating_ip(cloudname=cloudname,
-                                                                        instance_name=instance_name)
+                        floating_ip = Network.find_assign_floating_ip(cloudname=cloudname,
+                                                                      instance_id=instance_id)
                         if floating_ip is not None:
                             Console.ok("Created and assigned Floating IP [{}] to instance [{}]."
-                                       .format(floating_ip, instance_name))
+                                       .format(floating_ip, instance_id))
                             # Refresh VM in db
                             self.refresh_vm(cloudname)
                 else:
@@ -190,31 +179,11 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 Generate one from the pool, and assign to vm
                 and return
                 """
-                instance_dict = Network.get_instance_dict(cloudname=cloudname,
-                                                          instance_id=instance_id)
-                # Instance not found
-                if instance_dict is None:
-                    Console.error("Instance [{}] not found in the cloudmesh database!"
-                                  .format(instance_id))
-                    return ""
-
-                instance_name = instance_dict["name"]
-
-                # Get an unused ip from pool if exist and associate
-                unused_floating_ips = Network.get_unused_floating_ip_list(cloudname=cloudname)
-
-                if unused_floating_ips:
-                    floating_ip = unused_floating_ips[0]["ip"]
-                    self._assign_floating_ip(cloudname=cloudname,
-                                             instance_id=instance_id,
-                                             floating_ip=floating_ip)
-                else:
-                    # create a new ip and associate
-                    floating_ip = Network.create_assign_floating_ip(cloudname=cloudname,
-                                                                    instance_name=instance_name)
-                    if floating_ip is not None:
-                        Console.ok("Created and assigned Floating IP [{}] to instance [{}]."
-                                   .format(floating_ip, instance_name))
+                floating_ip = Network.find_assign_floating_ip(cloudname=cloudname,
+                                                              instance_id=instance_id)
+                if floating_ip is not None:
+                    Console.ok("Associated floating IP [{}] to instance [{}]."
+                               .format(floating_ip, instance_id))
 
             # instance-id & floating-ip supplied
             elif instance_id is not None:
@@ -223,9 +192,9 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 Associate the IP to the instance
                 and return
                 """
-                self._assign_floating_ip(cloudname=cloudname,
-                                         instance_id=instance_id,
-                                         floating_ip=floating_ip[0])
+                Network.find_assign_floating_ip(cloudname=cloudname,
+                                                instance_id=instance_id,
+                                                floating_ip=floating_ip[0])
 
             # Invalid parameters
             else:
