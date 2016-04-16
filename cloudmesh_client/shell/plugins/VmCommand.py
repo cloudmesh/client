@@ -10,6 +10,7 @@ from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.vm import Vm
 from cloudmesh_client.cloud.secgroup import SecGroup
+from cloudmesh_client.cloud.network import Network
 from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.cloud.counter import Counter
 from cloudmesh_client.default import Default
@@ -390,7 +391,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                             msg = "info. failed."
                             Console.error(msg, traceflag=False)
                             return ""
-                        
+
                         # set name and counter in defaults
                         Default.set_vm(value=vm_details.name)
                         if is_name_provided is False:
@@ -658,7 +659,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 print("ASSIGNING IP TO", name)
 
                 try:
-                    floating_ip = cloud_provider.create_assign_floating_ip(name)
+                    floating_ip = Network.find_assign_floating_ip(cloudname=cloud,
+                                                                  instance_id=name)
                     if floating_ip is not None:
                         print(
                             "Floating IP assigned to {:} successfully and it is: {:}".format(
