@@ -67,25 +67,25 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                          [--group=GROUP]
                          [--cloud=CLOUD]
                          [--force]
-                vm start [NAME]
+                vm start [NAMES]
                          [--group=GROUP]
                          [--cloud=CLOUD]
                          [--force]
-                vm stop [NAME]
+                vm stop [NAMES]
                         [--group=GROUP]
                         [--cloud=CLOUD]
                         [--force]
-                vm terminate [NAME]
+                vm terminate [NAMES]
                           [--group=GROUP]
                           [--cloud=CLOUD]
                           [--force]
-                vm delete [NAME]
+                vm delete [NAMES]
                           [--group=GROUP]
                           [--cloud=CLOUD]
                           [--force]
                 vm ip assign [NAMES]
                           [--cloud=CLOUD]
-                vm ip show [NAME]
+                vm ip show [NAMES]
                            [--group=GROUP]
                            [--cloud=CLOUD]
                            [--format=FORMAT]
@@ -390,7 +390,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                             msg = "info. failed."
                             Console.error(msg, traceflag=False)
                             return ""
-                        
+
                         # set name and counter in defaults
                         Default.set_vm(value=vm_details.name)
                         if is_name_provided is False:
@@ -550,10 +550,10 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["start"]:
             try:
-                servers = arguments["NAME"]
+                servers = Parameter.expand(arguments["NAMES"])
 
                 # If names not provided, take the last vm from DB.
-                if servers is None or len(servers) == 0:
+                if len(servers) == 0:
                     last_vm = Default.vm
                     if last_vm is None:
                         Console.error("No VM records in database. Please run vm refresh.")
@@ -570,6 +570,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 if not cloud:
                     Console.error("Default cloud not set.")
                     return ""
+
                 Vm.start(cloud=cloud, servers=servers)
 
                 msg = "info. OK."
@@ -580,7 +581,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["stop"]:
             try:
-                servers = arguments["NAME"]
+                servers = Parameter.expand(arguments["NAMES"])
 
                 # If names not provided, take the last vm from DB.
                 if servers is None or len(servers) == 0:
@@ -618,9 +619,9 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             group = arguments["--group"]
             force = arguments["--force"]
             cloud = arguments["--cloud"]
-            servers = Parameter.expand(arguments["NAME"])
+            servers = Parameter.expand(arguments["NAMES"])
 
-            if servers is None or len(servers) == 0:
+            if names is None or len(servers) == 0:
 
                 last_vm = Vm.get_vm(cloud=cloud)
                 if last_vm is None:
@@ -670,17 +671,22 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
 
         elif arguments["ip"] and arguments["show"]:
-            vmids = arguments["NAME"]
+            if arguments["NAMES"] is None:
+                names = [Default.vm]
+            else:
+                names = Parameter.expand(arguments["NAMES"])
+
 
             # If names not provided, take the last vm from DB.
-            if vmids is None or len(vmids) == 0:
+            
+            if names is None or len(names) == 0:
                 last_vm = Default.vm
                 if last_vm is None:
                     Console.error("No VM records in database. Please run vm refresh.")
                     return ""
                 name = last_vm["name"]
-                vmids = list()
-                vmids.append(name)
+                names = list()
+                names.append(name)
 
             group = arguments["--group"]
             output_format = arguments["--format"] or "table"
@@ -693,7 +699,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
             try:
                 cloud_provider = CloudProvider(cloud).provider
-                for server in vmids:
+                for server in names:
                     ip_addr = cloud_provider.get_ips(server)
 
                     ipaddr_dict = Vm.construct_ip_dict(ip_addr, cloud)
