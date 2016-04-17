@@ -91,7 +91,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                            [--cloud=CLOUD]
                            [--format=FORMAT]
                            [--refresh]
-                vm login [NAME] [--user=USER]
+                vm login [NAME] [--username=USER]
                          [--ip=IP]
                          [--cloud=CLOUD]
                          [--key=KEY]
@@ -721,25 +721,26 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
             query = dotdict({
                 'name': arguments["NAME"] or Default.vm,
-                'user': arguments["--user"]
+                'useruser': arguments["--username"],
+                'cloud': arg.cloud
             })
 
-            print("Login {user}@{name} ...".format(**query))
+            print("Login {username}@{name} ...".format(**query))
 
-            Vm.set_login_user(name=name, cloud=cloud, username=username)
+            Vm.set_login_user(name=query.name, cloud=query.cloud, username=query.username)
 
-            vm = Vm.get(query.name, category=arg.cloud)
+            vm = Vm.get(query.name, category=query.cloud)
 
             pprint(vm)
 
             return
 
             # Get user if user argument not specified.
-            if login.user is None:
-                user_from_db = Vm.get_login_user(login.vm, arg.cloud)
+            if vm.username is None:
+                user_from_db = Vm.get_login_user(vm.name, vm.cloud)
 
                 user_suggest = user_from_db or Default.user
-                user = input("Username (Default: {}):".format(user_suggest)) or user_suggest
+                username = input("Username (Default: {}):".format(user_suggest)) or user_suggest
 
                 Vm.set_login_user(name=name, cloud=cloud, username=username)
 
@@ -749,7 +750,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             ip_addresses = []
 
             cloud_provider = CloudProvider(cloud).provider
-            ip_addr = cloud_provider.get_ips(login.vm)
+            ip_addr = cloud_provider.get_ips(vm.name)
 
             ipaddr_dict = Vm.construct_ip_dict(ip_addr, cloud)
             for entry in ipaddr_dict:
@@ -779,6 +780,9 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 else:
                     print("IP to be used is: {:}".format(ip))
 
+                #
+                # TODO: is thsi correctly implemented
+                #
                 SecGroup.enable_ssh(cloud=cloud)
 
                 Console.info("Connecting to Instance at IP:" + format(ip))
