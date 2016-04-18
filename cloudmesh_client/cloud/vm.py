@@ -208,57 +208,43 @@ class Vm(ListResource):
 
         arg = dotdict(kwargs)
 
-        dry_run = False
-
-        if arg.is_dry_run is not None:
-            dry_run = arg.is_dry_run
-
-        if dry_run:
-            print("Running in dryrun mode...")
-
         cloud_provider = CloudProvider(kwargs["cloud"]).provider
-        new_name = arg.new_name
-        for server in arg.servers:
 
-            # Check for vms with duplicate names in DB.
-            vms = cls.get_vms_by_name(name=server, cloud=arg.cloud)
+        # Check for vms with duplicate names in DB.
+        vms = cls.get_vms_by_name(name=arg.oldname, category=arg.cloud)
 
-            if len(vms) > 1:
-                users_choice = "y"
+        if len(vms) > 1:
+            users_choice = "y"
 
-                if not arg.force:
-                    print("More than 1 vms found with the same name as {}.".format(server))
-                    users_choice = input("Would you like to auto-order the new names? (y/n): ")
+            if not arg.force:
+                print("More than 1 vms found with the same name as {}.".format(server))
+                users_choice = input("Would you like to auto-order the new names? (y/n): ")
 
-                if users_choice.strip() == "y":
-                    count = 1
-                    for index in vms:
-                        count_new_name = "{0}{1}".format(new_name, count)
-                        # print(vms[index])
+            if users_choice.strip() == "y":
+                count = 1
+                for index in vms:
+                    count_new_name = "{0}{1}".format(arg.newname, count)
+                    # print(vms[index])
 
-                        if not dry_run:
-                            cloud_provider.rename_vm(vms[index]["uuid"], count_new_name)
+                    cloud_provider.rename_vm(vms[index]["uuid"], count_new_name)
 
-                        print("Machine {0} with UUID {1} renamed to {2} on {3} cloud".format(vms[index]["name"],
-                                                                                             vms[index]["uuid"],
-                                                                                             count_new_name,
-                                                                                             cloud_provider.cloud))
-                        count += 1
-                elif users_choice.strip() == "n":
-                    if not dry_run:
-                        cloud_provider.rename_vm(server, new_name)
-                    print("Machine {0} renamed to {1} on {2} Cloud...".format(server, new_name, cloud_provider.cloud))
-                else:
-                    Console.error("Invalid Choice.")
-                    return
-            else:
-                if not dry_run:
-                    cloud_provider.rename_vm(server, new_name)
+                    print("Machine {0} with UUID {1} renamed to {2} on {3} cloud".format(vms[index]["name"],
+                                                                                         vms[index]["uuid"],
+                                                                                         count_new_name,
+                                                                                         cloud_provider.cloud))
+                    count += 1
+            elif users_choice.strip() == "n":
+                cloud_provider.rename_vm(server, new_name)
                 print("Machine {0} renamed to {1} on {2} Cloud...".format(server, new_name, cloud_provider.cloud))
+            else:
+                Console.error("Invalid Choice.")
+                return
+        else:
+            cloud_provider.rename_vm(server, new_name)
+            print("Machine {0} renamed to {1} on {2} Cloud...".format(server, new_name, cloud_provider.cloud))
 
-        if not dry_run:
-            # Explicit refresh called after VM rename, to update db.
-            cls.refresh(cloud=arg.cloud)
+        # Explicit refresh called after VM rename, to update db.
+        cls.refresh(cloud=arg.cloud)
 
     @classmethod
     def info(cls, **kwargs):
