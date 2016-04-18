@@ -724,7 +724,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             if arg.NAMES is not None:
                 arg.names = Parameter.expand(arguments["NAMES"])
             else:
-                arg.names = []
+                arg.names = ["all"]
 
             _format = arguments["--format"] or "table"
 
@@ -766,7 +766,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         (order, header) = CloudProvider(cloud).get_attributes("vm")
                         print (Printer.write(result,
                                              order=order,
-                                             output=arg.output)
+                                             output=_format)
                               )
                     else:
                         print("No data found with requested parameters.")
