@@ -104,11 +104,15 @@ class Test_image:
         if not Default.cloud in ["cm","chameleon"]:
             assert True
 
+        result = self.run("cm image list --refresh")
+
         result = Image.get_username("CC-Ubuntu14.04", Default.cloud)
         print (result)
+        assert "undefined" in result
 
         result = Image.get_username("CC-Ubuntu14.04", Default.cloud, guess=True)
         print(result)
+        assert "cc" in result
 
 
     def test_009(self):
