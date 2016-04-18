@@ -58,8 +58,8 @@ class Test_vm:
 
 
     def test_000(self):
+        HEADING("key upload")
         command= "cm key add --ssh"
-        HEADING(command)
         result = self.run(command)
 
     def test_001(self):
@@ -91,7 +91,7 @@ class Test_vm:
         assert "OK." in result
 
     def test_006(self):
-        HEADING("cm vm ip_show testvm --cloud=cloud")
+        HEADING("cm vm ip show testvm --cloud=cloud")
         result = self.run("cm vm ip show {vm} --cloud={cloud}")
         assert "OK." in result
 
