@@ -282,7 +282,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
         arg.refresh = Default.refresh or arguments["--refresh"]
         arg.count = int(arguments["--n"] or 1)
         arg.dryrun = arguments["--dryrun"]
-        arg.username = arguments["--username"] or Image.guess_username(arg.image)
 
         #
         # in many cases use NAMES
@@ -293,6 +292,9 @@ class VmCommand(PluginCommand, CloudPluginCommand):
         #
 
         if arguments["boot"]:
+
+            arg.username = arguments["--username"] or Image.guess_username(arg.image)
+
             is_name_provided = arg.name is not None
 
             for index in range(0, arg.count):
@@ -340,6 +342,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     Console.error("Problem booting instance {name}".format(**vm_details))
 
         elif arguments["username"]:
+
+            arg.username = arguments["--username"] or Image.guess_username(arg.image)
 
             cloud = arg.cloud
             username = arg.USERNAME
@@ -623,6 +627,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 Console.error("Problem getting ip addresses for instance")
 
         elif arguments["login"]:
+
+            arg.username = arguments["--username"] or Image.guess_username(arg.image)
 
             query = dotdict({
                 'name': arguments["NAME"] or Default.vm,
