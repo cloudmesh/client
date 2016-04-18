@@ -277,7 +277,7 @@ class Network(ListResource):
             return
 
     @classmethod
-    def list_floating_ip(cls, cloudname):
+    def list_floating_ip(cls, cloudname, output='table'):
         """
         Method to list floating ips
         :param cloudname:
@@ -308,7 +308,8 @@ class Network(ListResource):
 
             return Printer.write(floating_ips,
                                  order=order,
-                                 header=header)
+                                 header=header,
+                                 output=output)
         except Exception as ex:
             Console.error(ex.message, ex)
 

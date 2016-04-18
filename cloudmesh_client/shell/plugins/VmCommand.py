@@ -27,6 +27,7 @@ from cloudmesh_client.common.Shell import Shell
 from pprint import pprint
 from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.cloud.image import Image
+from cloudmesh_client.cloud.ip import Ip
 
 
 class VmCommand(PluginCommand, CloudPluginCommand):
@@ -622,7 +623,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             cloud = arguments["--cloud"]
             servers = Parameter.expand(arguments["NAMES"])
 
-            if names is None or len(servers) == 0:
+            if servers is None or len(servers) == 0:
 
                 last_vm = Vm.get_vm(cloud=cloud)
                 if last_vm is None:
@@ -674,38 +675,25 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["ip"] and arguments["show"]:
             if arguments["NAMES"] is None:
-                names = [Default.vm]
+                if str(Default.vm) in ['None', 'undefined']:
+                    Console.error("The default vm is not set.")
+                    return ""
+                else:
+                    names = [Default.vm]
             else:
                 names = Parameter.expand(arguments["NAMES"])
-
-
-            # If names not provided, take the last vm from DB.
-            
-            if names is None or len(names) == 0:
-                last_vm = Default.vm
-                if last_vm is None:
-                    Console.error("No VM records in database. Please run vm refresh.")
-                    return ""
-                name = last_vm["name"]
-                names = list()
-                names.append(name)
 
             group = arguments["--group"]
             output_format = arguments["--format"] or "table"
             refresh = arguments["--refresh"]
 
-            # if default cloud not set, return error
-            if not cloud:
-                Console.error("Default cloud not set.")
-                return ""
-
             try:
 
-                ips = Network.list_floating_ip(arg.cloud)
+                ips = Ip.list(cloud=arg.cloud, output=output_format, names=names)
 
 
 
-                print ("GGG", ips)
+                print ("GGG", output_format, ips)
 
                 '''
                 for server in names:
