@@ -244,8 +244,8 @@ class Key(ListResource):
                 print("Adding key {:} to cloud {:}".format(keyname, cloud))
                 cloud_provider = CloudProvider(cloud).provider
                 cloud_provider.add_key_to_cloud(keyname, key["value"])
-        except:
-            Console.error("problem uploading key {} to cloud {}".format(keyname, cloud))
+        except Exception as e:
+            Console.error("problem uploading key {} to cloud {}: {}".format(keyname, cloud, e.message), traceflag=False)
 
     @classmethod
     def list(cls, category=None, live=False, output="table"):

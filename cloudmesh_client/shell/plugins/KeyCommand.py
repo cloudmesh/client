@@ -504,7 +504,6 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 else:
                     clouds.append(cloud)
 
-                print("CCC", cloud, clouds)
                 #
                 # get keyname
                 #
@@ -532,8 +531,6 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                         if status == 1:
                             print("Problem uploading key {} to {}. failed.".format(key["name"],
                                                                                    cloud))
-                msg = "info. OK."
-                Console.ok(msg)
 
             except Exception as e:
                 Console.error("Problem adding key to cloud")
