@@ -234,14 +234,14 @@ class Vm(ListResource):
                                                                                          cloud_provider.cloud))
                     count += 1
             elif users_choice.strip() == "n":
-                cloud_provider.rename_vm(server, new_name)
-                print("Machine {0} renamed to {1} on {2} Cloud...".format(server, new_name, cloud_provider.cloud))
+                cloud_provider.rename_vm(arg.oldname, arg.newname)
+                print("Machine {0} renamed to {1} on {2} Cloud...".format(arg.oldname, arg.newname, cloud_provider.cloud))
             else:
                 Console.error("Invalid Choice.")
                 return
         else:
-            cloud_provider.rename_vm(server, new_name)
-            print("Machine {0} renamed to {1} on {2} Cloud...".format(server, new_name, cloud_provider.cloud))
+            cloud_provider.rename_vm(arg.oldname, arg.newname)
+            print("Machine {0} renamed to {1} on {2} Cloud...".format(arg.oldname, arg.newname, cloud_provider.cloud))
 
         # Explicit refresh called after VM rename, to update db.
         cls.refresh(cloud=arg.cloud)
