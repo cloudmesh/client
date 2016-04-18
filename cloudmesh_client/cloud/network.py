@@ -19,7 +19,7 @@ class Network(ListResource):
     cm = CloudmeshDatabase()
 
     @classmethod
-    def get_fixed_ip(cls, cloudname, fixed_ip_addr):
+    def get_fixed_ip(cls, cloudname, fixed_ip_addr, output='table'):
         """
         Method retrieves fixed ip info
         :param cloudname:
@@ -34,14 +34,15 @@ class Network(ListResource):
                                      header=[
                                          "name",
                                          "value"
-                                     ])
+                                     ],
+                                     output=output)
         except Exception as ex:
             Console.error(ex.message, ex)
 
         return
 
     @classmethod
-    def get_floating_ip(cls, cloudname, floating_ip_or_id):
+    def get_floating_ip(cls, cloudname, floating_ip_or_id, output='table'):
         """
         Method to get floating ip info
         :param cloudname:
@@ -91,7 +92,8 @@ class Network(ListResource):
                                      header=[
                                          "name",
                                          "value"
-                                     ])
+                                     ],
+                                     output=output)
         except Exception:
             # auto detect floating-ip-id
             floating_ips = cls.get_floating_ip_list(cloudname)
@@ -108,7 +110,8 @@ class Network(ListResource):
                                                  header=[
                                                      "name",
                                                      "value"
-                                                 ])
+                                                 ],
+                                                 output=output)
                         # Console.error(ex.message)
         return
 
@@ -312,7 +315,7 @@ class Network(ListResource):
         return
 
     @classmethod
-    def list_unused_floating_ip(cls, cloudname):
+    def list_unused_floating_ip(cls, cloudname, output='table'):
         """
         Method to list unused floating ips
         These floating ips are not associated with any instance
@@ -336,7 +339,8 @@ class Network(ListResource):
                                      "floating_ip_pool",
                                      "floating_ip_id",
                                      "cloud"
-                                 ])
+                                 ],
+                                 output=output)
         except Exception as ex:
             Console.error(ex.message, ex)
 
