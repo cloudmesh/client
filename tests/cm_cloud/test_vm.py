@@ -91,7 +91,8 @@ class Test_vm:
         assert "OK." in result
 
     def test_006(self):
-        HEADING("cm vm ip show {vm} --cloud={cloud}".format(self.data))
+        from pprint import pprint; pprint(self.data)
+        HEADING("cm vm ip show {vm} --cloud={cloud}".format(**self.data))
         result = self.run("cm vm ip show {vm} --cloud={cloud}")
         assert "OK." in result
 
