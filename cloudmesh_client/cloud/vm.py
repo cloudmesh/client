@@ -166,6 +166,9 @@ class Vm(ListResource):
         if "cloud" in arg:
             cloud_provider = CloudProvider(arg.cloud).provider
             for server in kwargs["servers"]:
+
+                vm = cls.cm.find(name=server, kind="vm", cloud=arg.cloud)
+
                 # If server has a floating ip associated, release it
                 server_dict = Network.get_instance_dict(cloudname=arg.cloud,
                                                         instance_id=server)
@@ -175,6 +178,7 @@ class Vm(ListResource):
                                                      instance_name=server,
                                                      floating_ip=floating_ip)
                 cloud_provider.delete_vm(server)
+                cls.cm.set(server, "status", "deleted", kind="vm", scope="first")
                 print("VM {:} is being deleted on {:} cloud...".format(server, cloud_provider.cloud))
 
             cls.refresh(cloud=arg.cloud)
@@ -188,6 +192,7 @@ class Vm(ListResource):
                     cloud_provider = CloudProvider(cloud).provider
                     clouds.add(cloud)
                     cloud_provider.delete_vm(server)
+                    cls.cm.set(server, "status", "deleted", kind="vm", scope="first")
                     print("VM {:} is being deleted on {:} cloud...".format(server, cloud))
                 except:
                     print("VM {:} can not be found.".format(server))
