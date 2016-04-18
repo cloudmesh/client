@@ -106,6 +106,7 @@ class Test_image:
 
         result = self.run("cm image list --refresh")
 
+        Image.set_username(name="CC-Ubuntu14.04", cloud=Default.cloud, username="undefined")
         result = Image.get_username("CC-Ubuntu14.04", Default.cloud)
         print (result)
         assert "undefined" in result
