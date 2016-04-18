@@ -57,6 +57,10 @@ class Test_vm:
             print(e)
 
 
+    def test_000(self):
+        command= "cm key add --ssh"
+        HEADING(command)
+        result = self.run(command)
 
     def test_001(self):
         HEADING("cm vm boot --name=testvm --cloud=cloud --image=<image_id> --flavor=2 --group=test")
