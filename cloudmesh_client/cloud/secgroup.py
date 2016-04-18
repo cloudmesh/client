@@ -183,7 +183,7 @@ class SecGroup(ListResource):
             #
             # (order, header) = CloudProvider(cloud).get_attributes("secgroup")
 
-            order = None
+            order = ['name', 'group', 'fromPort', 'toPort', 'cidr', 'protocol']
             header = None
 
             return Printer.write(elements,
