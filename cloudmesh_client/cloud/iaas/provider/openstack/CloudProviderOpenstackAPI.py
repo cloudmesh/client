@@ -864,6 +864,18 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'user'
                 ]
             },
+            'ip': {
+                'order': [
+                    'name',
+                    'static_ip',
+                    'floating_ip',
+                ],
+                'header': [
+                    'name',
+                    'static_ip',
+                    'floating_ip',
+                ]
+            },
             'floating_ip': {
                 'order': [
                     "instance_name",
