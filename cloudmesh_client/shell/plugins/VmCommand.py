@@ -739,7 +739,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     print("Listing VMs on Cloud: {:}".format(cloud))
 
 
-                    vms = Vm.list(category=cloud, output="list")
+                    vms = Vm.list(category=cloud, output="dict")
 
                     print ("XXX", vms)
 
