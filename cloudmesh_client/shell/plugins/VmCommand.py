@@ -778,7 +778,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     for i in range(0, len(oldnames)):
                         oldname = oldnames[i]
                         newname = newnames[i]
-                        if arguements["--dryrun"]:
+                        if arguments["--dryrun"]:
                             Console.ok("Rename {} to {}".format(oldname, newname))
                         else:
                             Vm.rename(cloud=cloud,

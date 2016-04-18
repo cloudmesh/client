@@ -100,8 +100,8 @@ class Test_vm:
         assert "{vm}".format(**self.data) in result
 
     def test_007(self):
-        HEADING("cm vm rename {vm} --new={vm_rename} --cloud={cloud} ".format(**self.data))
-        result = self.run("cm vm rename {vm} --new={vm_rename} --cloud={cloud}")
+        HEADING("cm vm rename {vm} {vm_rename} --cloud={cloud} ".format(**self.data))
+        result = self.run("cm vm rename {vm} {vm_rename} --cloud={cloud}")
         assert "OK." in result
 
     def test_008(self):
