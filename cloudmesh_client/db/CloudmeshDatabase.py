@@ -39,7 +39,8 @@ class CloudmeshMixin(object):
     def set_defaults(self, **kwargs):
         # self.user = kwargs.get('user', CloudmeshDatabase.user)
         # TODO: for now hardcode user
-        self.user = 'gvonlasz'
+        #self.user = Default.user#'gvonlasz'
+        self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
         self.name = kwargs.get('name', 'undefined')
         self.label = kwargs.get('name', 'undefined')
         self.category = kwargs.get('category', 'undefined')
