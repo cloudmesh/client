@@ -741,7 +741,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                     vms = Vm.list(category=cloud, output="raw")
 
-                    print ("XXX", type(vms), vms)
+                    # print ("XXX", type(vms), vms)
 
                     if vms is None:
                         break
