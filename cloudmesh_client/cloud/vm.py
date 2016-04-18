@@ -211,7 +211,7 @@ class Vm(ListResource):
         cloud_provider = CloudProvider(kwargs["cloud"]).provider
 
         # Check for vms with duplicate names in DB.
-        vms = cls.get_vms_by_name(name=arg.oldname, category=arg.cloud)
+        vms = cls.get_vms_by_name(name=arg.oldname, cloud=arg.cloud)
 
         if len(vms) > 1:
             users_choice = "y"
