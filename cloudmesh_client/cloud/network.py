@@ -37,7 +37,7 @@ class Network(ListResource):
                                      ],
                                      output=output)
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
         return
 
@@ -128,7 +128,8 @@ class Network(ListResource):
             cloud_provider.reserve_fixed_ip(fixed_ip_addr=fixed_ip_addr)
             return "Success."
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
+
 
         return
 
@@ -145,9 +146,8 @@ class Network(ListResource):
             cloud_provider.unreserve_fixed_ip(fixed_ip_addr=fixed_ip_addr)
             return "Success."
         except Exception as ex:
-            Console.error(ex.message, ex)
-
-        return
+            Console.error(ex.message)
+            return ex
 
     @classmethod
     def associate_floating_ip(cls, cloudname, instance_name, floating_ip):
@@ -166,8 +166,11 @@ class Network(ListResource):
             server.add_floating_ip(floating_ip)
             return "Success."
         except Exception as ex:
-            Console.error(ex.message, ex)
-            return
+            if "already has a floating" in ex.message:
+                Console.error("VM has already floating ip", traceflag=False)
+            else:
+                Console.error(ex.message)
+                return ex
         pass
 
     @classmethod
@@ -190,8 +193,8 @@ class Network(ListResource):
                                    floating_ip_or_id=floating_ip)
             return "Success."
         except Exception as ex:
-            Console.error(ex.message, ex)
-            return
+            Console.error(ex.message)
+            return ex
         pass
 
     @classmethod
@@ -208,7 +211,7 @@ class Network(ListResource):
             floating_ip = cloud_provider.create_assign_floating_ip(instance_name)
             return floating_ip
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
             return
 
     @classmethod
@@ -231,7 +234,7 @@ class Network(ListResource):
             floating_ip = cloud_provider.create_floating_ip(float_pool=floating_pool)
             return floating_ip
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
             return
 
     @classmethod
@@ -273,7 +276,7 @@ class Network(ListResource):
                     .format(floating_ip_dict["ip"])
 
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
             return
 
     @classmethod
@@ -311,7 +314,7 @@ class Network(ListResource):
                                  header=header,
                                  output=output)
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
         return
 
@@ -343,7 +346,7 @@ class Network(ListResource):
                                  ],
                                  output=output)
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
         return
 
@@ -365,7 +368,7 @@ class Network(ListResource):
                                  header=header)
 
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
         pass
 
     @classmethod
@@ -402,7 +405,7 @@ class Network(ListResource):
 
             return unused_floating_ips
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
     @classmethod
     def get_floating_ip_list(cls, cloudname):
@@ -416,7 +419,7 @@ class Network(ListResource):
             floating_ips = cloud_provider.list_floating_ips()
             return floating_ips
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
     @classmethod
     def find_instance_name(cls, **kwargs):
@@ -499,8 +502,8 @@ class Network(ListResource):
                                             instance_id=instance_id,
                                             floating_ip=floating_ip)
             if result is None:
-                Console.error("Failed to associate floating IP [{}] to instance [{}]."
-                          .format(floating_ip, instance_name))
+                Console.error("IP {} could not be assigned to VM {} "
+                          .format( floating_ip, instance_name))
                 return None
         else:
             # create a new ip and associate

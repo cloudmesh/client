@@ -588,22 +588,26 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 # ip = Network.get_floatingip(....)
 
                 vm = dotdict(Vm.list(name=name, category=cloud, output="dict")["dict"])
-                cloud_provider = CloudProvider(cloud).provider
 
-                print("ASSIGNING IP TO", name)
+                if vm.floating_ip is None:
 
-                try:
-                    floating_ip = Network.find_assign_floating_ip(cloudname=cloud,
-                                                                  instance_id=name)
-                    if floating_ip is not None:
-                        print(
-                            "Floating IP assigned to {:} successfully and it is: {:}".format(
-                                name, floating_ip))
-                        msg = "info. OK."
-                        Console.ok(msg)
-                except Exception as e:
-                    Console.error("Problem assigning floating ips.")
+                    Console.ok("Assign IP to {}".format(name))
 
+                    try:
+                        floating_ip = Network.find_assign_floating_ip(cloudname=cloud,
+                                                                      instance_id=name)
+                        if floating_ip is not None:
+                            print(
+                                "Floating IP assigned to {:} is {:}".format(
+                                    name, floating_ip))
+                            msg = "info. OK."
+                            Console.ok(msg)
+                    except Exception as e:
+
+                        Console.error("Problem assigning floating ips.", traceflag=True)
+
+                else:
+                    Console.error("VM {} already has a floating ip: {}".format(name, vm.floating_ip))
 
         elif arguments["ip"] and arguments["show"]:
             if arguments["NAMES"] is None:
