@@ -36,8 +36,6 @@ class Ip(ListResource):
                     if element["name"] in names:
                         result.append(element)
 
-            pprint(result)
-
             (order, header) = CloudProvider(cloud).get_attributes("ip")
 
             return Printer.write(result,

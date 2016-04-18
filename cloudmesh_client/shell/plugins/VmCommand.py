@@ -690,31 +690,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             try:
 
                 ips = Ip.list(cloud=arg.cloud, output=output_format, names=names)
-
-
-
-                print ("GGG", output_format, ips)
-
-                '''
-                for server in names:
-
-
-
-
-
-                    ip_addr = cloud_provider.get_ips(server)
-                    print ("IP", ip_addr, cloud)
-
-                    ipaddr_dict = Vm.construct_ip_dict(ip_addr, cloud)
-                    print ("IP DICT", ipaddr_dict)
-
-                    print(
-                        "IP Addresses of instance {:} are as follows:-".format(
-                            server))
-                    print(_print_dict_ip(ipaddr_dict, output=output_format))
-                msg = "info. OK."
-                Console.ok(msg)
-                '''
+                print (ips)
             except Exception as e:
                 Console.error("Problem getting ip addresses for instance")
 
