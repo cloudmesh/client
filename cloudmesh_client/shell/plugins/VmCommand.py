@@ -99,7 +99,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                          [--command=COMMAND]
                 vm rename [OLDNAMES] [NEWNAMES] [--force] [--dryrun]
                 vm list [NAMES]
-                        [--cloud=CLOUD]
+                        [--cloud=CLOUDS|--active]
                         [--group=GROUP]
                         [--format=FORMAT]
                         [--refresh]
@@ -728,10 +728,18 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
             _format = arguments["--format"] or "table"
 
+            if arguments["--active"]:
+                clouds = active_clouds
+            else:
+                if arguments["--cloud"]:
+                    clouds = Parameter.expand(arguments["--cloud"])
+                else:
+                    clouds = [Default.cloud]
+
             try:
 
                 d = ConfigDict("cloudmesh.yaml")
-                for cloud in active_clouds:
+                for cloud in clouds:
 
                     if arg.refresh:
                         _refresh(cloud)
