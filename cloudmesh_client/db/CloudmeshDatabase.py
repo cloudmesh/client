@@ -105,7 +105,8 @@ class CloudmeshDatabase(object):
     Base = declarative_base()
     session = None
     tables = None
-    user = "gvonlasz"
+    #user = "gvonlasz"
+    user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
 
     def __init__(self):
         self.__dict__ = self.__shared_state
