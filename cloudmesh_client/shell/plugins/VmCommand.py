@@ -98,8 +98,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                          [--key=KEY]
                          [--command=COMMAND]
                 vm rename [OLDNAMES] [NEWNAMES] [--force] [--dryrun]
-                vm list [NAME]
-                        [--cloud=CLOUD|--all]
+                vm list [NAMES]
+                        [--cloud=CLOUD]
                         [--group=GROUP]
                         [--format=FORMAT]
                         [--refresh]
@@ -110,7 +110,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 vm username USERNAME [NAMES] [--cloud=CLOUD]
 
             Arguments:
-                COMMAND        positional arguments, the commands yo"listu want to
+                COMMAND        positional arguments, the commands you want to
                                execute on the server(e.g. ls -a) separated by ';',
                                you will get a return of executing result instead of login to
                                the server, note that type in -- is suggested before
@@ -146,7 +146,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 --force          rename/ delete vms without user's confirmation
                 --command=COMMAND
                                  specify the commands to be executed
-
 
 
             Description:
@@ -710,57 +709,64 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
             # groups = Group.list(output="dict")
 
-            if arguments["--all"] or arguments["NAME"] == "all":
-                try:
-                    _format = arguments["--format"] or "table"
-                    d = ConfigDict("cloudmesh.yaml")
-                    for cloud in active_clouds:
+            arg = dotdict(arguments)
+            arg.names = arguments["NAMES"]
 
-                        if arguments["--refresh"] or Default.refresh:
-                            _refresh(cloud)
-
-                        print("Listing VMs on Cloud: {:}".format(cloud))
-
-                        result = Vm.list(cloud=cloud, output_format=_format)
-
-                        if result is not None:
-                            print(result)
-                            msg = "info. OK."
-                            Console.ok(msg)
-                        else:
-                            print("No data found with requested parameters.")
-                except Exception as e:
-                    # Error.traceback(e)
-                    Console.error("Problem listing all instances")
+            arg.group = arguments["--group"]
+            if arg.group is None:
+                arg.group = [None]
             else:
+                arg.group = Parameter.expand(arguments["--group"])
 
-                # if default cloud not set, return error
-                if not cloud:
-                    Console.error("Default cloud not set.")
-                    return ""
 
-                try:
-                    name = arguments["NAME"]
-                    group = arguments["--group"]
-                    _format = arguments["--format"] or "table"
+            arg.refresh =  arguments["--refresh"] or Default.refresh
 
-                    # list_vms_on_cloud(cloud, group, _format)
-                    if arguments["--refresh"] or Default.refresh:
+            if arg.NAMES is not None:
+                arg.names = Parameter.expand(arguments["NAMES"])
+            else:
+                arg.names = [None]
+
+            _format = arguments["--format"] or "table"
+
+            try:
+
+                d = ConfigDict("cloudmesh.yaml")
+                for cloud in active_clouds:
+
+                    if arg.refresh:
                         _refresh(cloud)
 
-                    result = Vm.list(name=name, category=cloud, output_format=_format)
+                    print("Listing VMs on Cloud: {:}".format(cloud))
 
-                    if result is not None:
+
+                    vms = Vm.list(cloud=cloud, output=_format)
+
+                    if vms is None:
+                        break
+                        
+                    result = []
+                    if "all" in arg.names:
+                        if result is None:
+                            result = []
+                        else:
+                            result = vms
+                    elif arg.group is not None:
+                        for vm in vms:
+                            if vm.group in arg.group:
+                                result.append(vm)
+                    elif arg.names is not None:
+                        for vm in vms:
+                            if vm.name in arg.names:
+                                result.append(vm)
+
+                    if len(result) > 0:
                         print(result)
-                        msg = "info. OK."
-                        Console.ok(msg)
                     else:
-                        print("No data found with the requested parameters.")
+                        print("No data found with requested parameters.")
+            except Exception as e:
+                # Error.traceback(e)
+                Console.error("Problem listing all instances")
 
-                except Exception as e:
-                    # Error.traceback(e)
-                    Console.error(
-                        "Problem listing instances on cloud {:}".format(cloud))
 
         elif arguments["rename"]:
             try:
