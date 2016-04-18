@@ -116,8 +116,10 @@ class NovaCommand(PluginCommand, CloudPluginCommand):
                     args = args[0].split()
 
                 result = Shell.execute("nova", args)
+
+
                 print (result)
-                print(Nova.remove_subjectAltName_warning(result))
+                # print(Nova.remove_subjectAltName_warning(result))
 
                 """
                 If request for nova boot,

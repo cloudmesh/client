@@ -632,23 +632,32 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["login"]:
 
-            arg.username = arguments["--username"] or Image.guess_username(arg.image)
+
+            if arg.username is None:
+                Console.error("Could not guess the username of the vm")
+                return
 
             query = dotdict({
                 'name': arguments["NAME"] or Default.vm,
-                'useruser': arguments["--username"],
+                'username': arg.username,
                 'cloud': arg.cloud
             })
 
-            print("Login {username}@{name} ...".format(**query))
 
-            Vm.set_login_user(name=query.name, cloud=query.cloud, username=query.username)
+            arg.username = arguments["--username"] or Image.guess_username(arg.image)
+
+
+            pprint (query)
+
+            print("Login {username}@{name} ...".format(**query))
 
             vm = Vm.get(query.name, category=query.cloud)
 
-            pprint(vm)
+            Vm.set_login_user(name=query.name, cloud=query.cloud, username=query.username)
 
-            return
+
+            #pprint(vm)
+
 
             # Get user if user argument not specified.
             if vm.username is None:
@@ -657,7 +666,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 user_suggest = user_from_db or Default.user
                 username = input("Username (Default: {}):".format(user_suggest)) or user_suggest
 
-                Vm.set_login_user(name=name, cloud=cloud, username=username)
+            Vm.set_login_user(name=name, cloud=cloud, username=username)
 
             ip = arguments["--ip"]
             commands = arguments["--command"]
@@ -772,11 +781,11 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                             result = vms
                     elif arg.group is not None and len(arg.group)>0:
                         for vm in vms:
-                            if vm.group in arg.group:
+                            if vm["group"] in arg.group:
                                 result.append(vm)
                     elif arg.names is not None and len(arg.names)>0:
                         for vm in vms:
-                            if vm.name in arg.names:
+                            if vm["name"] in arg.names:
                                 result.append(vm)
 
                     if len(result) > 0:
