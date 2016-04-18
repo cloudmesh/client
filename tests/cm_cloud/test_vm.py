@@ -108,3 +108,15 @@ class Test_vm:
         HEADING("cm vm delete {vm_rename} --cloud={cloud} ".format(**self.data))
         result = self.run("cm vm delete {vm_rename} --cloud={cloud}")
         assert "OK." in result
+
+
+    def test_009(self):
+        from pprint import pprint;
+        pprint(self.data)
+        HEADING("cm vm ip assign {vm} --cloud={cloud}".format(**self.data))
+        result = self.run("cm vm list --refresh --cloud={cloud}")
+
+        result = self.run("cm vm ip show {vm} --cloud={cloud}")
+        assert "name" in result
+        assert "{vm}".format(**self.data) in result
+

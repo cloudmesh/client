@@ -97,10 +97,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                          [--cloud=CLOUD]
                          [--key=KEY]
                          [--command=COMMAND]
-                vm rename [OLDNAMES]
-                          [NEWNAMES]
-                          [--force]
-                          [--dryrun]
+                vm rename [OLDNAMES] [NEWNAMES] [--force] [--dryrun]
                 vm list [NAME]
                         [--cloud=CLOUD|--all]
                         [--group=GROUP]
@@ -198,6 +195,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         """
 
+        """
+
         # terminate
         #  issues a termination to the cloud, keeps vm in database
 
@@ -207,74 +206,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
         #   deletes the vm from database
         #
 
-        """
-                vm default [--cloud=CLOUD][--format=FORMAT]
-                vm refresh [all][--cloud=CLOUD]
-                vm boot [--name=NAMES]
-                        [--cloud=CLOUD]
-                        [--username=USERNAME]
-                        [--image=IMAGE]
-                        [--flavor=FLAVOR]
-                        [--group=GROUP]
-                        [--secgroup=SECGROUP]
-                        [--key=KEY]
-                        [--dryrun]
-                vm boot [--n=COUNT]
-                        [--cloud=CLOUD]
-                        [--username=USERNAME]
-                        [--image=IMAGE]
-                        [--flavor=FLAVOR]
-                        [--group=GROUP]
-                        [--secgroup=SECGROUP]
-                        [--key=KEY]
-                        [--dryrun]
-                vm console [NAME]
-                         [--group=GROUP]
-                         [--cloud=CLOUD]
-                         [--force]
-                vm start [NAMES]
-                         [--group=GROUP]
-                         [--cloud=CLOUD]
-                         [--force]
-                vm stop [NAMES]
-                        [--group=GROUP]
-                        [--cloud=CLOUD]
-                        [--force]
-                vm terminate [NAMES]
-                          [--group=GROUP]
-                          [--cloud=CLOUD]
-                          [--force]
-                vm delete [NAMES]
-                          [--group=GROUP]
-                          [--cloud=CLOUD]
-                          [--force]
-                vm ip assign [NAMES]
-                          [--cloud=CLOUD]
-                vm ip show [NAMES]
-                           [--group=GROUP]
-                           [--cloud=CLOUD]
-                           [--format=FORMAT]
-                           [--refresh]
-                vm login [NAME] [--user=USER]
-                         [--ip=IP]
-                         [--cloud=CLOUD]
-                         [--key=KEY]
-                         [--command=COMMAND]
-                vm rename [NAME]         # see bulk rename
-                          [--new=NEWNAME]
-                          [--cloud=CLOUD]
-                          [--force]
-                          [--dryrun]
-                vm list [NAMES]
-                        [--cloud=CLOUD|--all]
-                        [--group=GROUP]
-                        [--format=FORMAT]
-                        [--refresh]
-                vm status [--cloud=CLOUD]
-                vm info [--cloud=CLOUD]
-                        [--format=FORMAT]
-                vm check NAMES
-                vm username USERNAME NAMES [--cloud=CLOUD]
 
         # bulk rename
 
