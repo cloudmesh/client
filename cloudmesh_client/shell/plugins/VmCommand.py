@@ -739,9 +739,9 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     print("Listing VMs on Cloud: {:}".format(cloud))
 
 
-                    vms = Vm.list(category=cloud, output="dict")
+                    vms = Vm.list(category=cloud, output="raw")
 
-                    print ("XXX", vms)
+                    print ("XXX", type(vms), vms)
 
                     if vms is None:
                         break
