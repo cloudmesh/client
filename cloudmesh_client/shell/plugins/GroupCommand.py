@@ -25,9 +25,9 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
 
             Usage:
                 group list [GROUPNAME] [--format=FORMAT]
-                group remove NAME... [--group=GROUPNAME]
-                group add NAME... [--type=TYPE] [--group=GROUPNAME]
-                group delete GROUP...
+                group remove NAMES [--group=GROUPNAME]
+                group add NAMES [--type=TYPE] [--group=GROUPNAME]
+                group delete GROUPS
                 group copy FROM TO
                 group merge GROUPA GROUPB MERGEDGROUP
 
@@ -35,8 +35,8 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
 
             Arguments:
 
-                NAME         name of object to be added
-                GROUP        name of a group
+                NAMES        names of object to be added
+                GROUPS       names of a groups
                 FROM         name of a group
                 TO           name of a group
                 GROUPA       name of a group
@@ -138,19 +138,23 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
         elif arguments["add"]:
             # group add NAME... [--type=TYPE] [--category=CLOUD] [--group=GROUP]
 
-            members = Parameter.expand(arguments["NAME"])
+            print ("AAA", arguments["NAMES"])
+            members = Parameter.expand(arguments["NAMES"])
+            print ("MMMM", members)
             data = dotdict({
                 "species": arguments["--type"] or "vm",
                 "name": arguments["--group"] or Default.group
             })
+            print ("DDD", data)
             for member in members:
                 data.member = member
+                pprint(data)
                 Group.add(**data)
 
             return ""
 
         elif arguments["delete"]:
-            groups = Parameter.expand(arguments["GROUP"])
+            groups = Parameter.expand(arguments["GROUPS"])
 
             for group in groups:
                 result = Group.delete(group)
@@ -163,7 +167,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
             return ""
 
         elif arguments["remove"]:
-            members = Parameter.expand(arguments["NAME"])
+            members = Parameter.expand(arguments["NAMES"])
 
             group = arguments["--group"] or Default.group
 

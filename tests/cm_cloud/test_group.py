@@ -48,6 +48,13 @@ class Test_group:
     def tearDown(self):
         pass
 
+
+    def test_000(self):
+        HEADING("testing cm group list")
+
+        c = "cm group list"
+        self.run(c)
+
     def test_001(self):
         HEADING("testing cm group add ")
 
@@ -75,7 +82,7 @@ class Test_group:
             assert element["name"] == "groupA"
             assert element["species"] == "vm"
             assert element["member"] in names
-        return
+
 
     def test_003(self):
         HEADING("testing cm group copy groupA groupB")
@@ -85,7 +92,6 @@ class Test_group:
         result = self.run(command)
         assert "groupB" in result
 
-        return
 
     def test_004(self):
         HEADING("testing cm group merge groupA groupB groupC")
@@ -93,7 +99,6 @@ class Test_group:
 
         result = self.run(command)
         assert "ok." in result
-        return
 
     def test_005(self):
         HEADING("testing cm group list  groupA")
@@ -101,7 +106,6 @@ class Test_group:
 
         result = self.run(command)
         assert "groupA" in str(result)
-        return
 
     def test_006(self):
         HEADING("testing cm group list  --format=json groupA")
@@ -117,7 +121,6 @@ class Test_group:
 
         result = self.run(command)
         assert "groupA" in result
-        return
 
     def test_008(self):
         HEADING("testing cm group add with default cloud")
@@ -142,8 +145,6 @@ class Test_group:
 
         assert "groupX" in result
 
-        return
-
     def test_009(self):
         HEADING("testing cm group remove ")
         banner("cm group remove {prefix}-002  --group={group}")
@@ -154,8 +155,6 @@ class Test_group:
 
         result = self.run("cm group list {group}")
         assert "test-002" not in result
-
-        return
 
     def test_010(self):
         HEADING("testing cm group delete ")
@@ -171,8 +170,6 @@ class Test_group:
         result = self.run(command)
 
         assert "ok." in result
-
-        return
 
     def test_011(self):
 
@@ -244,8 +241,6 @@ class Test_group:
 
         assert 'group_y' not in result
         assert 'vm_3' in result
-
-        return
 
     def test_012(self):
         HEADING("list non existing group")
