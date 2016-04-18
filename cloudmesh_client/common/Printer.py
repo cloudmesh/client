@@ -19,7 +19,9 @@ class Printer(object):
               sort_keys=True,
               show_none=""
               ):
-        if table is None:
+        if output=="raw":
+            return table
+        elif table is None:
             return None
         elif type(table) in [dict, dotdict]:
             return cls.dict(table, order=order, header=header, output=output,
