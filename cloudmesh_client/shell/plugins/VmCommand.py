@@ -119,7 +119,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 NAMES          server name. By default it is set to the name of last vm from database.
                 KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is
                                not a path to key.
-                NEWNAME        New name of the VM while renaming.
+                NEWNAMES       New names of the VM while renaming.
+                OLDNAMES       Old names of the VM while renaming.
 
             Options:
                 --username=USERNAME  the username to login into the vm. If not specified it will be guessed
@@ -145,8 +146,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 --force          rename/ delete vms without user's confirmation
                 --command=COMMAND
                                  specify the commands to be executed
-                --new=NEWNAME    Specify the new name for a VM while renaming.
-                                 By default, this will be set to <username>-<count> format.
 
 
 
