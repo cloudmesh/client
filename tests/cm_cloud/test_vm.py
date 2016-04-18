@@ -93,8 +93,11 @@ class Test_vm:
     def test_006(self):
         from pprint import pprint; pprint(self.data)
         HEADING("cm vm ip show {vm} --cloud={cloud}".format(**self.data))
+        result = self.run("cm vm list --refresh --cloud={cloud}")
+
         result = self.run("cm vm ip show {vm} --cloud={cloud}")
-        assert "OK." in result
+        assert "name" in result
+        assert "{vm}".format(**self.data) in result
 
     def test_007(self):
         HEADING("cm vm rename {vm} --new={vm_rename} --cloud={cloud} ".format(**self.data))
