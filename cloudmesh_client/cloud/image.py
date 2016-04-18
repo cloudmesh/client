@@ -104,4 +104,5 @@ class Image(ListResource):
     @classmethod
     def set_username(cls, name=None, cloud=None, username=None):
         image = cls.get(cloud=cloud, name=name)
-        cls.cm.set(name, "username", username, provider=image.provider, kind="image")
+
+        cls.cm.set(name, "username", username, provider=image.provider, kind="image", scope="first")
