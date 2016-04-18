@@ -714,7 +714,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
             arg.group = arguments["--group"]
             if arg.group is None:
-                arg.group = [None]
+                arg.group = []
             else:
                 arg.group = Parameter.expand(arguments["--group"])
 
@@ -724,7 +724,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             if arg.NAMES is not None:
                 arg.names = Parameter.expand(arguments["NAMES"])
             else:
-                arg.names = [None]
+                arg.names = []
 
             _format = arguments["--format"] or "table"
 
@@ -739,7 +739,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     print("Listing VMs on Cloud: {:}".format(cloud))
 
 
-                    vms = Vm.list(category=cloud, output=_format)
+                    vms = Vm.list(category=cloud, output="list")
 
                     print ("XXX", vms)
 
@@ -752,17 +752,22 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                             result = []
                         else:
                             result = vms
-                    elif arg.group is not None:
+                    elif arg.group is not None and len(arg.group)>0:
                         for vm in vms:
                             if vm.group in arg.group:
                                 result.append(vm)
-                    elif arg.names is not None:
+                    elif arg.names is not None and len(arg.names)>0:
                         for vm in vms:
                             if vm.name in arg.names:
                                 result.append(vm)
 
                     if len(result) > 0:
-                        print(result)
+                        #print(result)
+                        (order, header) = CloudProvider(cloud).get_attributes("vm")
+                        print (Printer.write(result,
+                                             order=order,
+                                             output=arg.output)
+                              )
                     else:
                         print("No data found with requested parameters.")
             except Exception as e:
