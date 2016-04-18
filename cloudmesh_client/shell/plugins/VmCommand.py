@@ -97,9 +97,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                          [--cloud=CLOUD]
                          [--key=KEY]
                          [--command=COMMAND]
-                vm rename [NAME]
-                          [--new=NEWNAME]
-                          [--cloud=CLOUD]
+                vm rename [OLDNAMES]
+                          [NEWNAMES]
                           [--force]
                           [--dryrun]
                 vm list [NAME]
@@ -835,53 +834,29 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["rename"]:
             try:
-                servers = arguments["NAME"]
+                oldnames = Parameter.expand(arguments["OLDNAMES"])
+                newnames = Parameter.expand(arguments["NEWNAMES"])
+                force = arguments["--force"]
 
-                # If names not provided, take the last vm from DB.
-                if servers is None or len(servers) == 0:
-                    last_vm = Default.vm
-                    if last_vm is None:
-                        Console.error("No VM records in database. Please run vm refresh.")
-                        return ""
-                    name = last_vm["name"]
-                    servers = list()
-                    servers.append(name)
-
-                # if default cloud not set, return error
-                if not cloud:
-                    Console.error("Default cloud not set.")
-                    return ""
-
-                new_name = arguments["--new"]
-                is_name_provided = True
-
-                # If the new name is not provided, make the new new name in format username-count.
-                if new_name is None or len(new_name) == 0:
-
-                    is_name_provided = False
-
-                    count = Default.get_counter()
-                    prefix = Username()
-
-                    if prefix is None or count is None:
-                        Console.error("Prefix and Count could not be retrieved correctly.")
-                        return
-
-                    # BUG THE Z FILL SHOULD BE detected from yaml file
-                    new_name = prefix + "-" + str(count).zfill(3)
-
-                Vm.rename(cloud=cloud,
-                          servers=servers,
-                          new_name=new_name,
-                          force=arguments["--force"],
-                          is_dry_run=arguments["--dryrun"])
-
-                if is_name_provided is False:
-                    # Incrementing count
-                    Default.incr_counter()
-
-                msg = "info. OK."
-                Console.ok(msg)
+                if oldnames is None or newnames is None:
+                    Console.error("Wrong VMs specified for rename", traceflag=False)
+                elif len(oldnames) != len(newnames):
+                    Console.error("The number of VMs to be renamed is wrong",
+                                  traceflat=False)
+                else:
+                    for i in range(0, len(oldnames)):
+                        oldname = oldnames[i]
+                        newname = newnames[i]
+                        if arguements["--dryrun"]:
+                            Console.ok("Rename {} to {}".format(oldname, newname))
+                        else:
+                            Vm.rename(cloud=cloud,
+                                      oldname=oldname,
+                                      newname=newname,
+                                      force=force
+                                      )
+                    msg = "info. OK."
+                    Console.ok(msg)
             except Exception as e:
                 # Error.traceback(e)
                 Console.error("Problem deleting instances")
