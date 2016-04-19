@@ -66,11 +66,11 @@ class Test_keys:
         result = self.run("cm default cloud")
         assert self.data.cloud in result
 
-    def test_000(self):
+    def test_001(self):
         HEADING("clen")
         self.cm.clean()
 
-    def test_001(self):
+    def test_002(self):
         HEADING("reading the keys from ~/.ssh")
 
         banner("ssh keys")
@@ -79,7 +79,7 @@ class Test_keys:
 
         assert len(mykeys) > 0
 
-    def test_002(self):
+    def test_003(self):
         HEADING("reading the keys from github")
 
         self.cm.clean()
@@ -110,7 +110,7 @@ class Test_keys:
 
         assert count1 > 0 and count2 > 0
 
-    def test_003(self):
+    def test_004(self):
         HEADING("testing properties in SSHKey")
 
         sshkey = SSHkey("~/.ssh/id_rsa.pub")
@@ -122,7 +122,7 @@ class Test_keys:
         print(sshkey.type)
         assert True
 
-    def test_004(self):
+    def test_005(self):
         HEADING()
 
         Key.delete()
@@ -143,9 +143,6 @@ class Test_keys:
 
         assert d is None
 
-    def test_005(self):
-        HEADING()
-        print(Key.get_from_yaml())
 
     def test_006(self):
         """
@@ -335,3 +332,8 @@ class Test_keys:
 
         result = self.run("cm key add {} --ssh".format(Default.user))
         result = self.run("cm default key={}".format(Default.user))
+
+
+    # def test_023(self):
+    #    HEADING()
+    #    print(Key.get_from_yaml())
