@@ -923,6 +923,7 @@ class CloudmeshDatabase(object):
             # TODO: Confirm user
 
             user = cls.user
+            purge = kwargs.get("purge", True)
 
             if kind in ["flavor", "image", "vm"]:
 
@@ -938,27 +939,27 @@ class CloudmeshDatabase(object):
 
                     # pprint(current_elements)
 
-                    if purge:
-                        cls.clear(kind=kind, category=name)
+                if purge:
+                    cls.clear(kind=kind, category=name)
 
-                    elements = provider.list(kind, name)
-                    print (elements)
-                    for element in list(elements.values()):
-                        element["uuid"] = element['id']
-                        element['type'] = 'string'
-                        element["category"] = name
+                elements = provider.list(kind, name)
 
-                        element["user"] = user
-                        element["kind"] = kind
-                        element["provider"] = provider.cloud_type
-                        if current_elements is not None:
-                            for index in current_elements:
-                                current = current_elements[index]
-                                for attribute in ["username", "image", "flavor", "group"]:
-                                    if attribute in current and current[attribute] is not None:
-                                        element[attribute] = current[attribute]
-                        # print ("CCC", index, element["name"], element["flavor"])
-                        cls.add(element)
+                for element in list(elements.values()):
+                    element["uuid"] = element['id']
+                    element['type'] = 'string'
+                    element["category"] = name
+
+                    element["user"] = user
+                    element["kind"] = kind
+                    element["provider"] = provider.cloud_type
+                    if current_elements is not None:
+                        for index in current_elements:
+                            current = current_elements[index]
+                            for attribute in ["username", "image", "flavor", "group"]:
+                                if attribute in current and current[attribute] is not None:
+                                    element[attribute] = current[attribute]
+                    # print ("CCC", index, element["name"], element["flavor"])
+                    cls.add(element)
 
                 return True
 
