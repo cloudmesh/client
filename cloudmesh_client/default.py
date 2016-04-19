@@ -472,7 +472,10 @@ class Default(object):
             if exist_key is None:
                 cls.set_key(name)
         else:
-            if cls.key is None and cls.user is not None:
+            if cls.key is not None and cls.user is not None:
+                pass
+            elif cls.key is None and cls.user is not None:
                 cls.key = cls.user
             else:
+                print ("JJJ", cls.key, cls.user)
                 Console.error("Please define a key first, e.g.: cm key add --ssh")
