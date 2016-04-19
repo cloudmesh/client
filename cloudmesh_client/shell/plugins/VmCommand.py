@@ -596,7 +596,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 print(servers)
 
                 for server in servers:
-                    Vm.delete(servers=[server])
+                    Vm.delete(servers=[server], force=arguments["--force"])
 
                 msg = "info. OK."
                 Console.ok(msg)
