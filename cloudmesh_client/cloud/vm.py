@@ -183,7 +183,11 @@ class Vm(ListResource):
                                                      instance_name=server,
                                                      floating_ip=floating_ip)
                 cloud_provider.delete_vm(server)
-                cls.cm.set(server, "status", "deleted", kind="vm", scope="first")
+                if Default.purge:
+                    cls.cm.delete(kind="vm", provider=arg.cloud, name=server)  # delete the record from db
+                else:
+                    cls.cm.set(server, "status", "deleted", kind="vm", scope="first")
+
                 print("VM {:} is being deleted on {:} cloud...".format(server, cloud_provider.cloud))
 
             cls.refresh(cloud=arg.cloud)
@@ -197,7 +201,11 @@ class Vm(ListResource):
                     cloud_provider = CloudProvider(cloud).provider
                     clouds.add(cloud)
                     cloud_provider.delete_vm(server)
-                    cls.cm.set(server, "status", "deleted", kind="vm", scope="first")
+                    if Default.purge:
+                        cls.cm.delete(kind="vm", provider=arg.cloud, name=server)
+                    else:
+                        cls.cm.set(server, "status", "deleted", kind="vm", scope="first")
+
                     print("VM {:} is being deleted on {:} cloud...".format(server, cloud))
                 except:
                     print("VM {:} can not be found.".format(server))

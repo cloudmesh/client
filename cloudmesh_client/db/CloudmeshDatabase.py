@@ -939,8 +939,8 @@ class CloudmeshDatabase(object):
 
                     # pprint(current_elements)
 
-                if purge:
-                    cls.clear(kind=kind, category=name)
+                # if purge:
+                #     cls.clear(kind=kind, category=name)
 
                 elements = provider.list(kind, name)
 
