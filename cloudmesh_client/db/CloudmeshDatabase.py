@@ -603,6 +603,17 @@ class CloudmeshDatabase(object):
 
         objects = result
 
+        '''
+        if len(objects) == 0 and scope == "first":
+            objects = None
+        elif len(objects) != 0:
+            if scope == "first":
+                if output == 'dict':
+                    objects = dotdict(result[0])
+                else:
+                    objects = result[0]
+        '''
+
         if len(objects) == 0:
             return None
         elif scope == "first":
@@ -659,13 +670,21 @@ class CloudmeshDatabase(object):
                 provider=element.provider,
                 kind=element.kind,
                 name=element.name,
-                category=element.category
+                category=element.category,
+                scope="first" # this ensures the returned result is object/dict, not list
             )
-
             if current is not None:
                 for key in element.__dict__.keys():
-                    current[0][key] = element.__dict__[key]
-                    current[0]['user'] = element.__dict__["user"]
+                    # update based on the keys that exist in the db model
+                    if key in current:
+                        current[key] = element.__dict__[key]
+                current['user'] = element.__dict__["user"]
+
+                # update on the db
+                cls.update(provider=current["provider"],
+                           kind=current["kind"],
+                           filter={"name":current["name"]},
+                           update=current)
             else:
                 cls.session.add(element)
         else:
@@ -913,31 +932,33 @@ class CloudmeshDatabase(object):
                 elements = cls.find(category=name, kind=kind, output='dict')
 
                 current_elements = {}
-                for element in elements:
-                    current_elements[element["name"]] = element
+                if elements:
+                    for element in elements:
+                        current_elements[element["name"]] = element
 
-                # pprint(current_elements)
+                    # pprint(current_elements)
 
-                # cls.clear(kind=kind, category=name)
+                    if purge:
+                        cls.clear(kind=kind, category=name)
 
-                elements = provider.list(kind, name)
+                    elements = provider.list(kind, name)
+                    print (elements)
+                    for element in list(elements.values()):
+                        element["uuid"] = element['id']
+                        element['type'] = 'string'
+                        element["category"] = name
 
-                for element in list(elements.values()):
-                    element["uuid"] = element['id']
-                    element['type'] = 'string'
-                    element["category"] = name
-
-                    element["user"] = user
-                    element["kind"] = kind
-                    element["provider"] = provider.cloud_type
-                    if current_elements is not None:
-                        for index in current_elements:
-                            current = current_elements[index]
-                            for attribute in ["username", "image", "flavor", "group"]:
-                                if attribute in current and current[attribute] is not None:
-                                    element[attribute] = current[attribute]
-                    print ("CCC", index, element["name"], element["flavor"])
-                    cls.add(element)
+                        element["user"] = user
+                        element["kind"] = kind
+                        element["provider"] = provider.cloud_type
+                        if current_elements is not None:
+                            for index in current_elements:
+                                current = current_elements[index]
+                                for attribute in ["username", "image", "flavor", "group"]:
+                                    if attribute in current and current[attribute] is not None:
+                                        element[attribute] = current[attribute]
+                        # print ("CCC", index, element["name"], element["flavor"])
+                        cls.add(element)
 
                 return True
 

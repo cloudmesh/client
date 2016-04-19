@@ -76,7 +76,7 @@ class FlavorCommand(PluginCommand, CloudPluginCommand):
                 counter += 1
 
             if result is None:
-                Console.error("No image(s) found. Failed.")
+                Console.error("No flavor(s) found. Failed.")
             else:
                 print(result)
             return ""
