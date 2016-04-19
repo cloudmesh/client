@@ -658,43 +658,53 @@ class VmCommand(PluginCommand, CloudPluginCommand):
         elif arguments["login"]:
 
 
-            if arg.username is None:
-                Console.error("Could not guess the username of the vm")
-                return
+            chameleon = "chameleon" in ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"][arg.cloud]["cm_host"]
 
-            query = dotdict({
+            if chameleon:
+                arg.username = "cc"
+            else:
+
+                if arg.username is None:
+                    Console.error("Could not guess the username of the vm")
+                    return
+                arg.username = arguments["--username"] or Image.guess_username(arg.image)
+
+            data = dotdict({
                 'name': arguments["NAME"] or Default.vm,
                 'username': arg.username,
                 'cloud': arg.cloud
             })
 
 
-            arg.username = arguments["--username"] or Image.guess_username(arg.image)
 
 
-            pprint (query)
+            pprint (data)
 
-            print("Login {username}@{name} ...".format(**query))
+            print("Login {username}@{name} ...".format(**data))
 
-            vm = Vm.get(query.name, category=query.cloud)
+            vm = Vm.get(data.name, category=data.cloud)
 
-            Vm.set_login_user(name=query.name, cloud=query.cloud, username=query.username)
+            Vm.set_login_user(name=data.name, cloud=data.cloud, username=data.username)
+
+            data.floating_ip = vm.floating_ip
+            data.key = Default.key
+
+            print(Printer.attribute(data))
 
 
-            #pprint(vm)
-
-
-            # Get user if user argument not specified.
+            '''
             if vm.username is None:
                 user_from_db = Vm.get_login_user(vm.name, vm.cloud)
 
                 user_suggest = user_from_db or Default.user
                 username = input("Username (Default: {}):".format(user_suggest)) or user_suggest
 
-            Vm.set_login_user(name=name, cloud=cloud, username=username)
+            Vm.set_login_user(name=data.name, cloud=cloud, username=data.username)
+            '''
 
             ip = arguments["--ip"]
             commands = arguments["--command"]
+
 
             ip_addresses = []
 
@@ -737,10 +747,10 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 Console.info("Connecting to Instance at IP:" + format(ip))
                 # Constructing the ssh command to connect to the machine.
                 sshcommand = "ssh"
-                if key is not None:
-                    sshcommand += " -i {:}".format(key)
+                if arg.key is not None:
+                    sshcommand += " -i {:}".format(arg.key)
                 sshcommand += " -o StrictHostKeyChecking=no"
-                sshcommand += " {:}@{:}".format(user, ip)
+                sshcommand += " {:}@{:}".format(data.username, ip)
                 if commands is not None:
                     sshcommand += " \"{:}\"".format(commands)
 

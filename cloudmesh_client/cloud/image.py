@@ -53,16 +53,17 @@ class Image(ListResource):
         return CloudProvider(cloud).details('image', cloud, id, format)
 
     @classmethod
-    def guess_username(cls, vm_name, description=None):
+    def guess_username(cls, vm_name, cloud=None, description=None):
         username = None
 
         names = [vm_name]
         if description is not None:
             names.append(description)
 
+        chameleon = cloud == "chameleon"
         for name in names:
             name = name.lower()
-            if name.startswith("cc-"):
+            if name.startswith("cc-") or chameleon:
                 username = "cc"
                 break
             elif any(x in name for x in ["ubuntu", "wily", "xenial"]):
