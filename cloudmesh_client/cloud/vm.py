@@ -113,7 +113,7 @@ class Vm(ListResource):
         else:
             nics = None
 
-        d = {
+        d = dotdict({
             "name": arg.name,
             "image": arg.image,
             "flavor": arg.flavor,
@@ -122,7 +122,7 @@ class Vm(ListResource):
             "nics": nics,
             "meta": {'kind': 'cloudmesh',
                      'group': '{group}'.format(**arg)}
-        }
+        })
 
         Console.ok("Machine {name} is being booted on cloud {cloud} ...".format(**arg))
 
@@ -131,6 +131,11 @@ class Vm(ListResource):
         vm = cloud_provider.boot_vm(**d)
         if vm is not None:
             cls.refresh(cloud=arg.cloud)
+
+            cls.cm.set(d.name, "key", d.key, scope="first", kind="vm")
+            cls.cm.set(d.name, "image", d.image, scope="first", kind="vm")
+            cls.cm.set(d.name, "flavor", d.flavor, scope="first", kind="vm")
+            cls.cm.set(d.name, "group", arg.group, scope="first", kind="vm")
 
         # update group and key
         #
@@ -240,7 +245,8 @@ class Vm(ListResource):
                     count += 1
             elif users_choice.strip() == "n":
                 cloud_provider.rename_vm(arg.oldname, arg.newname)
-                print("Machine {0} renamed to {1} on {2} Cloud...".format(arg.oldname, arg.newname, cloud_provider.cloud))
+                print(
+                    "Machine {0} renamed to {1} on {2} Cloud...".format(arg.oldname, arg.newname, cloud_provider.cloud))
             else:
                 Console.error("Invalid Choice.")
                 return
