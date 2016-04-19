@@ -147,7 +147,7 @@ class Test_keys:
         HEADING()
         print(Key.get_from_yaml())
 
-    def test_101(self):
+    def test_006(self):
         """
         cm key add testkey ~/.ssh/id_rsa.pub
         """
@@ -159,7 +159,7 @@ class Test_keys:
         assert "{key}".format(**self.data) in result
         assert "file:" in result
 
-    def test_102(self):
+    def test_007(self):
         """
         cm key add --git --name=testkey ~/.ssh/id_rsa.pub
         """
@@ -173,7 +173,7 @@ class Test_keys:
 
         assert username in result
 
-    def test_103(self):
+    def test_008(self):
         """
         key add --ssh --name=testkey
         """
@@ -184,7 +184,7 @@ class Test_keys:
         assert "{key}".format(**self.data) in result
         assert "ssh" in result
 
-    def test_105(self):
+    def test_009(self):
         """
         cm key list --source=db
         """
@@ -197,7 +197,7 @@ class Test_keys:
         assert "{key}".format(**self.data) in result
         assert "ssh" in result
 
-    def test_106(self):
+    def test_010(self):
         """
         cm key list --source=db --format=json
         """
@@ -209,7 +209,7 @@ class Test_keys:
         assert "{" in result
         assert "{key}".format(**self.data) in result
 
-    def test_107(self):
+    def test_011(self):
         """
         cm key list --source=db --format=yaml
         """
@@ -227,7 +227,7 @@ class Test_keys:
         # assert "testkey" in result
         assert ":" in str(result)
 
-    def test_109(self):
+    def test_012(self):
         """
         cm key list --source=git
         """
@@ -236,7 +236,7 @@ class Test_keys:
         result = self.run("cm key list --source=git")
         assert "_git_" in result
 
-    def test_110(self):
+    def test_013(self):
         """
         cm key list --source=cloudmesh
         """
@@ -246,7 +246,7 @@ class Test_keys:
         print(result)
         assert ":" in result
 
-    def test_111(self):
+    def test_014(self):
         """
         cm key list --source=ssh
         """
@@ -255,7 +255,7 @@ class Test_keys:
         result = self.run("cm key list --source=ssh")
         assert "rsa" in result
 
-    def test_112(self):
+    def test_015(self):
         """
         cm key list --source=cloudmesh
         """
@@ -264,7 +264,7 @@ class Test_keys:
         assert "ssh" in result
         assert "fingerprint" in result
 
-    def test_113(self):
+    def test_017(self):
         """
         cm key get testkey
         """
@@ -273,7 +273,7 @@ class Test_keys:
         result = self.run("cm key get {key}")
         assert "{key}".format(**self.data) in result
 
-    def test_114(self):
+    def test_018(self):
         """
         cm key default testkey
         """
@@ -285,7 +285,7 @@ class Test_keys:
         result = self.run("cm default key")
         assert "{key}".format(**self.data) in result
 
-    def test_115(self):
+    def test_019(self):
         """
         cm key delete testkey
         """
@@ -301,7 +301,7 @@ class Test_keys:
 
         assert "None" in str(result)
 
-    def test_116(self):
+    def test_020(self):
         """
         cm key delete --all
         """
@@ -311,7 +311,7 @@ class Test_keys:
         result = self.run("cm key delete --all")
         assert "OK." in result
 
-    def test_117(self):
+    def test_021(self):
         HEADING()
         self.clean_db()
         result = self.run("cm key add {key} --ssh")
@@ -330,7 +330,7 @@ class Test_keys:
         result = self.run("cm key delete {key} --cloud={cloud}")
         assert 'OK' in result
 
-    def test_117(self):
+    def test_022(self):
         HEADING("set key to user defaults")
 
         result = self.run("cm key add {} --ssh".format(Default.user))
