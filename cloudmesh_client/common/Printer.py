@@ -262,7 +262,19 @@ class Printer(object):
                 sorted_list = sorted(d)
 
             for key in sorted_list:
-                x.add_row([key, d[key] or ""])
+                if type(d[key]) == dict:
+                    values = d[key]
+                    x.add_row([key, "+"])
+                    for e in values:
+                       x.add_row(["  -", "{}: {}".format(e, values[e])])
+                elif type(d[key]) == list:
+                    values = list(d[key])
+                    x.add_row([key, "+"])
+                    for e in values:
+                        x.add_row(["  -", e])
+                else:
+                    x.add_row([key, d[key] or ""])
+
             x.align = "l"
             return x
         else:

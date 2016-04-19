@@ -109,6 +109,14 @@ class Test_vm:
         result = self.run("cm vm delete {vm_rename} --cloud={cloud}")
         assert "OK." in result
 
+    def test_009(self):
+        HEADING("testing purgeing a vm")
+        result = self.run("cm key add --ssh")
+        result = self.run("cm info")
+        result = self.run("cm vm boot")
+        result = self.run("cm vm list")
+        result = self.run("cm vm delete last")
+        result = self.run("cm vm list")
 
     '''
     def test_009(self):
