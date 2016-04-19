@@ -351,6 +351,7 @@ class SecGroup(ListResource):
         secgroup = "{}-default".format(Default.user)
         Default.set_secgroup(secgroup)
 
+        # nova secgroup-add-rule default icmp -1 -1 0.0.0.0/0
         SecGroup.add_rule_to_db(group=secgroup,
                                 name="ssh",
                                 from_port="22",
@@ -368,6 +369,12 @@ class SecGroup(ListResource):
                                 from_port="443",
                                 to_port="443",
                                 protocol="tcp",
+                                cidr="0.0.0.0/0")
+        SecGroup.add_rule_to_db(group=secgroup,
+                                name="icmp",
+                                from_port="-1",
+                                to_port="-1",
+                                protocol="icmp",
                                 cidr="0.0.0.0/0")
 
     @classmethod

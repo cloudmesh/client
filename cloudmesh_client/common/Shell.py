@@ -48,7 +48,7 @@ class Shell(object):
 
     or do something more simple
 
-    ls = cls.execute('cmd', args...)   # i think that is what badi does
+    ls = cls.execute('cmd', args...)
 
     '''
 
@@ -149,8 +149,8 @@ class Shell(object):
         return cls.execute('nova', args)
 
     @classmethod
-    def ping(cls, *args):
-        return cls.execute('ping', args)
+    def ping(cls, host=None, count=1):
+        return cls.execute('ping', "-c {} {}".format(count, host))
 
     @classmethod
     def pwd(cls, *args):

@@ -65,6 +65,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         [--secgroup=SECGROUP]
                         [--key=KEY]
                         [--dryrun]
+                vm ping [NAME] [N]
                 vm console [NAME]
                          [--group=GROUP]
                          [--cloud=CLOUD]
@@ -388,6 +389,30 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             except Exception as e:
                 # Error.traceback(e)
                 Console.error("Problem listing defaults")
+
+        elif arguments["ping"]:
+            try:
+                if arguments["NAME"] is None and arguments["N"] is None:
+                    name = arguments["NAME"] or Default.vm
+                    n = arguments["N"] or 1
+                elif arguments["NAME"].isdigit():
+                    n = arguments["NAME"]
+                    name = Default.vm
+                else:
+                    name = arguments["NAME"] or Default.vm
+                    n = arguments["N"] or 1
+
+                print ("Ping:", name, str(n))
+
+                vm = dotdict(Vm.list(name=name, category=cloud, output="dict")["dict"])
+
+                ip = vm.floating_ip
+
+                result = Shell.ping(host=ip, count=n)
+                print (result)
+
+            except Exception as e:
+                Console.error(e.message)
 
         elif arguments["console"]:
             try:
