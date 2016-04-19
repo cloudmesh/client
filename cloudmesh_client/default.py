@@ -458,15 +458,21 @@ class Default(object):
         #
         # SET DEFAULT KEYS
         #
-        keys = config["keys"]
-        name = keys["default"]
-        if name in keys["keylist"]:
-            value = name_key or keys["keylist"][name]
-            # key_db.add(value, keyname=name)
+        if "keys" in config:
+            keys = config["keys"]
+            name = keys["default"]
+            if name in keys["keylist"]:
+                value = name_key or keys["keylist"][name]
+                # key_db.add(value, keyname=name)
 
-        # Check if the key is already set
-        exist_key = cls.key
+            # Check if the key is already set
+            exist_key = cls.key
 
-        # Set the key only if there is no existing value in the DB.
-        if exist_key is None:
-            cls.set_key(name)
+            # Set the key only if there is no existing value in the DB.
+            if exist_key is None:
+                cls.set_key(name)
+        else:
+            if cls.key is None and cls.user is not None:
+                cls.key = cls.user
+            else:
+                Console.error("Please define a key first, e.g.: cm key add --ssh")

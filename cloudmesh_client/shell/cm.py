@@ -25,6 +25,7 @@ from cloudmesh_client.shell.command import PluginCommand
 from cloudmesh_client.common.ssh_config import ssh_config
 import cloudmesh_client.etc
 from cloudmesh_client.cloud.secgroup import SecGroup
+from cloudmesh_client.cloud.key import Key
 
 import cloudmesh_client.shell.plugins
 from cloudmesh_client.common.StopWatch import StopWatch
@@ -234,6 +235,11 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         # LOAD DEFAULTS FROM YAML
         #
         Default.load("cloudmesh.yaml")
+
+        try:
+            d = Key.get_from_dir("~/.ssh", store=False)
+        except Exception as e:
+            Console.error(e.message)
 
         #
         # SET DEFAULT TIMER
