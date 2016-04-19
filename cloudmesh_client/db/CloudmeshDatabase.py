@@ -136,6 +136,8 @@ class CloudmeshDatabase(object):
 
             user = cls.user
 
+            purge = kwargs.get("purge", True)
+
             if kind in ["flavor", "image", "vm"]:
 
                 # get provider for specific cloud
@@ -150,7 +152,8 @@ class CloudmeshDatabase(object):
 
                 # pprint(current_elements)
 
-                # cls.clear(kind=kind, category=name)
+                if purge:
+                    cls.clear(kind=kind, category=name)
 
                 elements = provider.list(kind, name)
                 #
