@@ -85,12 +85,12 @@ class Test_vm:
         result = self.run("cm vm list {vm} --cloud={cloud}")
         assert "Listing VMs on Cloud: {cloud}".format(**self.data) in result
 
-    def test_004(self):
+    def test_005(self):
         HEADING("cm vm status --cloud={cloud}".format(**self.data))
         result = self.run("cm vm status --cloud={cloud}")
         assert "OK." in result
 
-    def test_005(self):
+    def test_006(self):
         from pprint import pprint; pprint(self.data)
         HEADING("cm vm ip show {vm} --cloud={cloud}".format(**self.data))
         result = self.run("cm vm list --refresh --cloud={cloud}")
@@ -99,12 +99,12 @@ class Test_vm:
         assert "name" in result
         assert "{vm}".format(**self.data) in result
 
-    def test_006(self):
+    def test_007(self):
         HEADING("cm vm rename {vm} {vm_rename}".format(**self.data))
         result = self.run("cm vm rename {vm} {vm_rename}")
         assert "OK." in result
 
-    def test_007(self):
+    def test_008(self):
         HEADING("cm vm delete {vm_rename} --cloud={cloud} ".format(**self.data))
         result = self.run("cm vm delete {vm_rename} --cloud={cloud}")
         assert "OK." in result
