@@ -143,7 +143,6 @@ class Test_keys:
 
         assert d is None
 
-
     def test_006(self):
         """
         cm key add testkey ~/.ssh/id_rsa.pub
@@ -254,15 +253,6 @@ class Test_keys:
 
     def test_015(self):
         """
-        cm key list --source=cloudmesh
-        """
-        HEADING()
-        result = self.run("cm key list --source=yaml")
-        assert "ssh" in result
-        assert "fingerprint" in result
-
-    def test_017(self):
-        """
         cm key get testkey
         """
 
@@ -270,7 +260,7 @@ class Test_keys:
         result = self.run("cm key get {key}")
         assert "{key}".format(**self.data) in result
 
-    def test_018(self):
+    def test_016(self):
         """
         cm key default testkey
         """
@@ -282,7 +272,7 @@ class Test_keys:
         result = self.run("cm default key")
         assert "{key}".format(**self.data) in result
 
-    def test_019(self):
+    def test_017(self):
         """
         cm key delete testkey
         """
@@ -298,7 +288,7 @@ class Test_keys:
 
         assert "None" in str(result)
 
-    def test_020(self):
+    def test_018(self):
         """
         cm key delete --all
         """
@@ -308,7 +298,7 @@ class Test_keys:
         result = self.run("cm key delete --all")
         assert "OK." in result
 
-    def test_021(self):
+    def test_019(self):
         HEADING()
         self.clean_db()
         result = self.run("cm key add {key} --ssh")
@@ -327,13 +317,23 @@ class Test_keys:
         result = self.run("cm key delete {key} --cloud={cloud}")
         assert 'OK' in result
 
-    def test_022(self):
+    def test_020(self):
         HEADING("set key to user defaults")
 
         result = self.run("cm key add {} --ssh".format(Default.user))
         result = self.run("cm default key={}".format(Default.user))
 
 
-    # def test_023(self):
+
+    # def test_021(self):
     #    HEADING()
     #    print(Key.get_from_yaml())
+
+    # def test_022(self):
+    #    """
+    #    cm key list --source=cloudmesh
+    #    """
+    #    HEADING()
+    #    result = self.run("cm key list --source=yaml")
+    #    assert "ssh" in result
+    #    assert "fingerprint" in result
