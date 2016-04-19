@@ -39,7 +39,7 @@ class CloudmeshMixin(object):
     def set_defaults(self, **kwargs):
         # self.user = kwargs.get('user', CloudmeshDatabase.user)
         # TODO: for now hardcode user
-        #self.user = Default.user#'gvonlasz'
+        # self.user = Default.user#'gvonlasz'
         self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
         self.name = kwargs.get('name', 'undefined')
         self.label = kwargs.get('name', 'undefined')
@@ -105,7 +105,7 @@ class CloudmeshDatabase(object):
     Base = declarative_base()
     session = None
     tables = None
-    #user = "gvonlasz"
+    # user = "gvonlasz"
     user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
 
     def __init__(self):
@@ -277,6 +277,8 @@ class CloudmeshDatabase(object):
                 result = dotdict(cls.to_list([result])[0])
         elif output == 'dict':
             result = cls.to_list(elements)
+        elif output == 'namedict':
+            result = cls.to_dict(elements)
         return result
 
     @classmethod
@@ -458,6 +460,24 @@ class CloudmeshDatabase(object):
                 result.append(values)
         return result
 
+    @classmethod
+    def to_dict(cls, obj, key="name"):
+        """
+        convert the object to dict
+
+        :param obj:
+        :return:
+        """
+        result = dict()
+        for u in obj:
+            if u is not None:
+                values = {}
+                for attribute in list(u.__dict__.keys()):
+                    if not attribute.startswith("_sa"):
+                        values[attribute] = u.__dict__[attribute]
+                result[values[key]] = values
+        return result
+
     #
     # DELETE
     #
@@ -534,14 +554,20 @@ class CloudmeshDatabase(object):
             scope="all"
             ):
 
-        if provider is None or kind is None or scope == "all":
-            o = cls.filter_by(name=name)
-            cls.update(kind=o["kind"],
-                       provider=o["provider"],
-                       filter={'name': name},
-                       update={attribute: value}
-                       )
-        else:
+        if scope == "first" and provider is None:
+            elements = cls.filter_by(name=name, kind=kind)[0]
+            pprint(elements)
+
+            o = dotdict(elements)
+            print("PPPP", kind, name, attribute, value, o)
+
+            if o[attribute] != value:
+                cls.update(kind=o["kind"],
+                           provider=o["provider"],
+                           filter={'name': name},
+                           update={attribute: value}
+                           )
+        elif scope == "first":
             o = dotdict(cls.filter_by(name=name, provider=provider, kind=kind)[0])
             print("PPPP", provider, kind, name, attribute, value, o)
 
@@ -551,8 +577,15 @@ class CloudmeshDatabase(object):
                            filter={'name': name},
                            update={attribute: value}
                            )
-
-
+        elif provider is None or kind is None or scope == "all":
+            o = cls.filter_by(name=name)
+            cls.update(kind=o["kind"],
+                       provider=o["provider"],
+                       filter={'name': name},
+                       update={attribute: value}
+                       )
+        else:
+            Console.error("Problem setting attributes")
 
     @classmethod
     def clear(cls, kind, category, user=None):
@@ -607,9 +640,15 @@ class CloudmeshDatabase(object):
                 # get provider for specific cloud
                 provider = CloudProvider(name).provider
 
-                current_elements = cls.find(category=name, kind=kind, output='dict')
+                elements = cls.find(category=name, kind=kind, output='dict')
 
-                cls.clear(kind=kind, category=name)
+                current_elements = {}
+                for element in elements:
+                    current_elements[element["name"]] = element
+
+                # pprint(current_elements)
+
+                # cls.clear(kind=kind, category=name)
 
                 elements = provider.list(kind, name)
 
@@ -617,18 +656,17 @@ class CloudmeshDatabase(object):
                     element["uuid"] = element['id']
                     element['type'] = 'string'
                     element["category"] = name
+
                     element["user"] = user
                     element["kind"] = kind
                     element["provider"] = provider.cloud_type
-                    if current_elements is not None and len(current_elements) > 0:
-                        for cur_elem in current_elements:
-                            if cur_elem["name"] == element["name"] and "username" in cur_elem and cur_elem["username"] is not None:
-                                element["username"] = cur_elem["username"]
-                                break
-                    #
-                    # issue may also be here: add should overwrite if object with name exists and use the new fields from above
-                    # also update time needs to be set with same format as used in the table/cloudmeshmixin
-                    #
+                    if current_elements is not None:
+                        for index in current_elements:
+                            current = current_elements[index]
+                            for attribute in ["username", "image", "flavor", "group"]:
+                                if attribute in current and current[attribute] is not None:
+                                    element[attribute] = current[attribute]
+                    print ("CCC", index, element["name"], element["flavor"])
                     cls.add(element)
 
                 return True
