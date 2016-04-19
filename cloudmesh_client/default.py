@@ -377,15 +377,6 @@ class Default(object):
         cls.set("debug", value)
 
     @classmethod
-    def set_purge(cls, value):
-        """
-        enables debugging
-        :param value: True/False
-        :return:
-        """
-        cls.set("purge", value)
-
-    @classmethod
     def set_refresh(cls, value):
         """
         sets the default for all clouds to refresh
@@ -396,6 +387,18 @@ class Default(object):
             cls.set("refresh", "True")
         else:
            cls.set("refresh", "False")
+
+    @classmethod
+    def set_purge(cls, value):
+        """
+        sets the default for all clouds to refresh
+        :param value:
+        :return:
+        """
+        if str(value) in ["on", "True"]:
+            cls.set("purge", "True")
+        else:
+            cls.set("purge", "False")
 
     @classmethod
     def set_interactive(cls, value):
