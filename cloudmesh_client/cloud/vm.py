@@ -75,12 +75,12 @@ class Vm(ListResource):
 
             # Handle EC2 Specific Output
             if cloud_details["cm_type"] == "ec2":
-                print("ec2 ip dict yet to be implemented")
+                Console.TODO("ec2 ip dict yet to be implemented")
                 TODO.implement()
 
             # Handle Azure Specific Output
             if cloud_details["cm_type"] == "azure":
-                print("azure ip dict yet to be implemented")
+                Console.TODO("azure ip dict yet to be implemented")
                 TODO.implement()
 
         except Exception as e:
@@ -121,7 +121,11 @@ class Vm(ListResource):
             "secgroup": [arg.secgroup],
             "nics": nics,
             "meta": {'kind': 'cloudmesh',
-                     'group': '{group}'.format(**arg)}
+                     'group': arg.group,
+                     'image': arg.image,
+                     'flavor': arg.flavor,
+                     'key': arg.key,
+                    }
         })
 
         Console.ok("Machine {name} is being booted on cloud {cloud} ...".format(**arg))
@@ -149,7 +153,7 @@ class Vm(ListResource):
         cloud_provider = CloudProvider(arg.cloud).provider
         for server in kwargs["servers"]:
             cloud_provider.start_vm(server)
-            print("Machine {:} is being started on {:} Cloud...".format(server, cloud_provider.cloud))
+            Console.ok("Machine {:} is being started on {:} Cloud...".format(server, cloud_provider.cloud))
 
             # Explicit refresh called after VM start, to update db.
             # cls.refresh(cloud=kwargs["cloud"])
@@ -160,7 +164,7 @@ class Vm(ListResource):
         cloud_provider = CloudProvider(arg.cloud).provider
         for server in kwargs["servers"]:
             cloud_provider.stop_vm(server)
-            print("Machine {:} is being stopped on {:} Cloud...".format(server, cloud_provider.cloud))
+            Console.ok("Machine {:} is being stopped on {:} Cloud...".format(server, cloud_provider.cloud))
 
             # Explicit refresh called after VM stop, to update db.
             # cls.refresh(cloud=kwargs["cloud"])
@@ -171,12 +175,10 @@ class Vm(ListResource):
 
         force = kwargs.get("force", Default.purge)
 
-        print ("FORCE", force)
 
         if "cloud" in arg:
             cloud_provider = CloudProvider(arg.cloud).provider
             for server in kwargs["servers"]:
-                print ("SSS", server)
                 vm = cls.cm.find(name=server, kind="vm", cloud=arg.cloud)[0]
 
                 provider = vm["provider"]
@@ -199,7 +201,7 @@ class Vm(ListResource):
                 else:
                     cls.cm.set(server, "status", "deleted", kind="vm", scope="first")
 
-                print("VM {:} is being deleted on {:} cloud...".format(server, cloud_provider.cloud))
+                Console.ok("VM {:} is being deleted on {:} cloud...".format(server, cloud_provider.cloud))
 
             cls.refresh(cloud=arg.cloud)
         else:
@@ -207,7 +209,6 @@ class Vm(ListResource):
             clouds = set()
             for server in arg.servers:
                 try:
-                    print ("UUU", server, arg.cloud, arg.category)
                     vm = cls.cm.find(kind="vm", name=server)[0]
                     cloud = vm["category"]
                     provider = vm["provider"]
@@ -222,9 +223,9 @@ class Vm(ListResource):
                     else:
                         cls.cm.set(server, "status", "deleted", kind="vm", scope="first")
 
-                    print("VM {:} is being deleted on {:} cloud...".format(server, cloud))
+                    Console.ok("VM {:} is being deleted on {:} cloud...".format(server, cloud))
                 except:
-                    print("VM {:} can not be found.".format(server))
+                    Console.error("VM {:} can not be found.".format(server), traceflag=False)
 
             for cloud in clouds:
                 cls.refresh(cloud=cloud)
@@ -397,7 +398,7 @@ class Vm(ListResource):
     def get_login_user(cls, name, cloud):
         print(name, cloud)
 
-        ValueError("this method is wrong implemented")
+        Console.error("this method is wrong implemented")
 
         '''
         if cls.isUuid(name):

@@ -580,27 +580,17 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             cloud = arguments["--cloud"]
             servers = Parameter.expand(arguments["NAMES"])
 
-            if servers is None or len(servers) == 0:
+            if servers == ['last']:
+                servers == [Default.vm]
 
-                last_vm = Vm.get_vm(cloud=cloud)
-                if last_vm is None:
-                    Console.error("No VM records in database. Please run vm refresh.")
-                    return ""
+            print(servers)
 
-                name = last_vm["name"]
-                servers = list()
-                servers.append(name)
+            for server in servers:
+                Vm.delete(servers=[server], force=force)
 
-            else:
-
-                print(servers)
-
-                for server in servers:
-                    Vm.delete(servers=[server], force=force)
-
-                msg = "info. OK."
-                Console.ok(msg)
-                return ""
+            msg = "info. OK."
+            Console.ok(msg)
+            return ""
 
         elif arguments["ip"] and arguments["assign"]:
             if arguments["NAMES"] is None:
