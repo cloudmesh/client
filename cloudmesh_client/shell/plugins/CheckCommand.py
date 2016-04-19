@@ -40,6 +40,7 @@ class CheckCommand(PluginCommand, CloudPluginCommand):
 
         print(locals())
 
+        Console.TODO("This command is not implemented yet", traceflag=False)
         Console.ok("{:} ok".format(cloud))
 
         return ""

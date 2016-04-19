@@ -111,11 +111,9 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                Retrieves the key indicated by the NAME parameter from database
                and prints its fingerprint.
 
-           key default [NAME]
+           key default --select
 
-                Used to set a key from the key-list as the default key
-                if NAME is given. Otherwise print the current default
-                key
+                Select the default key interactively
 
            key delete NAME
 
