@@ -118,6 +118,273 @@ class CloudmeshDatabase(object):
             self.create_tables()
             self.start()
 
+    @classmethod
+    def refresh_new(cls, kind, name, **kwargs):
+        """
+        This method refreshes the local database
+        with the live cloud details
+        :param kind:
+        :param name:
+        :param kwargs:
+        :return:
+        """
+
+        try:
+            # print(cloudname)
+            # get the user
+            # TODO: Confirm user
+
+            user = cls.user
+
+            if kind in ["flavor", "image", "vm"]:
+
+                # get provider for specific cloud
+                provider = CloudProvider(name).provider
+
+                current_elements = cls.find_new(category=name, kind=kind, output='dict', key='name')
+
+                #returns the following:
+                #current_elements = {}
+                #for element in elements:
+                #    current_elements[element["name"]] = element
+
+                # pprint(current_elements)
+
+                # cls.clear(kind=kind, category=name)
+
+                elements = provider.list(kind, name)
+                #
+                # image, flavor, username, group, ...
+                #
+
+                for element in list(elements.values()):
+                    element["uuid"] = element['id']
+                    element['type'] = 'string'
+                    element["category"] = name
+
+                    element["user"] = user
+                    element["kind"] = kind
+                    element["provider"] = provider.cloud_type
+                    if current_elements is not None:
+                        for index in current_elements:
+                            current = current_elements[index]
+                            for attribute in ["username", "image", "flavor", "group"]:
+                                if attribute in current and current[attribute] is not None:
+                                    element[attribute] = current[attribute]
+                    print("CCC", index, element["name"], element["flavor"])
+                    cls.add(element)
+
+                return True
+
+            elif kind in ["batchjob"]:
+
+                # provider = BatchProvider(name).provider
+                # provider = BatchProvider(name)
+
+                from cloudmesh_client.cloud.hpc.BatchProvider import BatchProvider
+                provider = BatchProvider(name)
+
+                vms = provider.list_job(name)
+                for job in list(vms.values()):
+                    job[u'uuid'] = job['id']
+                    job[u'type'] = 'string'
+                    job[u'category'] = name
+                    job[u'user'] = user
+
+                    cls.add(job)
+                    cls.save()
+                return True
+
+            elif kind not in ["secgroup"]:
+                Console.error("refresh not supported for this kind: {}".format(kind))
+
+        except Exception as ex:
+            Console.error("Problem with secgroup")
+            return False
+
+    @classmethod
+    def find_new(cls, **kwargs):
+        """
+        This method returns either
+        a) an array of objects from the database in dict format, that match a particular kind.
+           If the kind is not specified vm is used. one of the arguments must be scope="all"
+        b) a single entry that matches the first occurance of the query specified by kwargs,
+           such as name="vm_001"
+
+        :param kwargs: the arguments to be matched, scope defines if all or just the first value
+               is returned. first is default.
+        :return: a list of objects, if scope is first a single object in dotdict format is returned
+        """
+
+        """
+
+        parameters:
+            output="dict"
+            key="name"
+
+        output:
+            name1:    element["name"]
+              attribute
+              ...
+            name2:
+               ....
+
+        parameters:
+            output="dict"
+            key="id"
+
+        output:
+            "0":  index in the list of elements
+              attribute
+              ...
+            "1":
+               ....
+
+        parameters:
+            output="list"
+            key="id"
+
+        output:
+            [element0, element1, element2] each of which is a dot dict
+
+        other things
+            scope = "first" -> one elemnet only as dotdict  (not an list)
+            scope = "all" -> any of the above but each element is a dotdict returns either list or dict
+
+
+        find -> list
+
+        to_dict(list, key="name")
+
+        to_dict(find(...), key="name") - dict of dotdicts  <-- or None if we do not find
+
+        ??? too complex to implement, find(...).dict(key="name") - dict of dotdicts
+
+
+        Default.purge = True  -> when delete vm it deletes vm from db, if not keep the vm
+
+        Vm.names -> list names of all vms in db
+
+            if newvmname in Vm.names:
+                error vm already exists
+
+        cls.replace
+
+        cls.add -> cls.upsert
+             just keep add for now but introduce new upser that just calls current add?
+             or do refactor on add and replaces with upsert
+
+        """
+
+
+
+        scope = kwargs.pop("scope", "all")
+        output = kwargs.pop("output", "dict")
+
+        table = kwargs.pop("table", None)
+
+        result = []
+
+        if table is not None:
+            part = cls.session.query(table).filter_by(**kwargs)
+            result.extend(cls.to_list(part))
+
+        else:
+            category = kwargs.get("category", None)
+            provider = kwargs.get("provider", None)
+            kind = kwargs.get("kind", None)
+
+            if provider is not None and kind is not None:
+
+                t = cls.table(provider, kind)
+                part = cls.session.query(t).filter_by(**kwargs)
+                if output == 'dict':
+                    result.extend(cls.to_list(part))
+                else:
+                    result.extend(part)
+            elif provider is None:
+                for t in cls.tables:
+                    # print ("CCCC", t.__kind__, t.__provider__, kwargs)
+                    if (t.__kind__ == kind):
+                        part = cls.session.query(t).filter_by(**kwargs)
+                        if output == 'dict':
+                            result.extend(cls.to_list(part))
+                        else:
+                            result.extend(part)
+            else:
+                Console.error("nothing searched {}".format(kwargs))
+
+        objects = result
+
+        if len(objects) == 0:
+            return None
+        elif scope == "first":
+            if output == 'dict':
+                objects = dotdict(result[0])
+            else:
+                objects = result[0]
+
+        return objects
+
+    @classmethod
+    def add_new(cls, d, replace=True):
+        """
+        o dotdict
+
+            if o is a dict an object of that type is created. It is checked if another object in the db already exists,
+            if so the attributes of the object will be overwritten with the once in the database
+
+            provider, kind, category, name must be set to identify the object
+
+
+        o is in CloudmeshDatabase.Base
+
+            this is an object of a table has been created and is to be added. It is checked if another object in the db
+            already exists. If so the attributes of the existing object will be updated.
+
+
+        """
+
+        if d is None:
+            return
+
+        if type(d) in [dict, dotdict]:
+
+            if "provider" in d:
+                t = cls.table(kind=d["kind"], provider=d["provider"])
+                provider = d["provider"]
+            else:
+                t = cls.table(kind=d["kind"])
+
+                provider = t.__provider__
+            d["provider"] = provider
+
+            element = t(**d)
+
+        else:
+            element = d
+
+        if replace:
+
+            element.provider = element.__provider__
+
+            current = cls.find(
+                provider=element.provider,
+                kind=element.kind,
+                name=element.name,
+                category=element.category
+            )
+
+            if current is not None:
+                for key in element.__dict__.keys():
+                    current[0][key] = element.__dict__[key]
+                    current[0]['user'] = element.__dict__["user"]
+            else:
+                cls.session.add(element)
+        else:
+            cls.session.add(element)
+        cls.save()
+
     #
     # MODEL
     #

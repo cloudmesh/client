@@ -157,6 +157,7 @@ class Default(object):
     def cloud(cls):
         return cls.get(name="cloud")
 
+
     @readable_classproperty
     def image(cls):
         return cls.get(name="image", category=cls.cloud)
@@ -267,6 +268,10 @@ class Default(object):
         """
         cls.set("user", value)
 
+    @readable_classproperty
+    def purge(cls):
+        return cls.get(name="purge")
+
     @classmethod
     def set_cloud(cls, value):
         """
@@ -370,6 +375,15 @@ class Default(object):
         :return:
         """
         cls.set("debug", value)
+
+    @classmethod
+    def set_purge(cls, value):
+        """
+        enables debugging
+        :param value: True/False
+        :return:
+        """
+        cls.set("purge", value)
 
     @classmethod
     def set_refresh(cls, value):
