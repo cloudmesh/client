@@ -171,14 +171,17 @@ class Vm(ListResource):
 
         force = kwargs.get("force", Default.purge)
 
+        print ("FORCE", force)
+
         if "cloud" in arg:
             cloud_provider = CloudProvider(arg.cloud).provider
             for server in kwargs["servers"]:
+                print ("SSS", server)
+                vm = cls.cm.find(name=server, kind="vm", cloud=arg.cloud)[0]
 
-                vm = cls.cm.find(name=server, kind="vm", cloud=arg.cloud)
+                provider = vm["provider"]
+                cloud = vm["category"]
 
-                provider = vm[0]["provider"]
-                
                 # If server has a floating ip associated, release it
                 server_dict = Network.get_instance_dict(cloudname=arg.cloud,
                                                         instance_id=server)
@@ -191,7 +194,8 @@ class Vm(ListResource):
                 if force:
                     cls.cm.delete(kind="vm",
                                   provider=provider,
-                                  category=arg.cloud, name=server)  # delete the record from db
+                                  category=cloud,
+                                  name=server)  # delete the record from db
                 else:
                     cls.cm.set(server, "status", "deleted", kind="vm", scope="first")
 
@@ -203,16 +207,18 @@ class Vm(ListResource):
             clouds = set()
             for server in arg.servers:
                 try:
-                    vm = cls.cm.find(kind="vm", name=server)
-                    cloud = vm[0]["category"]
-                    provider = vm[0]["provider"]
+                    print ("UUU", server, arg.cloud, arg.category)
+                    vm = cls.cm.find(kind="vm", name=server)[0]
+                    cloud = vm["category"]
+                    provider = vm["provider"]
                     cloud_provider = CloudProvider(cloud).provider
                     clouds.add(cloud)
                     cloud_provider.delete_vm(server)
                     if force:
                         cls.cm.delete(kind="vm",
                                       provider=provider,
-                                      category=arg.cloud, name=server)
+                                      category=cloud,
+                                      name=server)
                     else:
                         cls.cm.set(server, "status", "deleted", kind="vm", scope="first")
 
