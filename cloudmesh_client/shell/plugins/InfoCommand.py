@@ -50,8 +50,10 @@ class InfoCommand(PluginCommand, CloudPluginCommand):
             "refresh": str(Default.refresh),
             "debug": str(Default.debug),
             "interactive": str(Default.interactive),
+            "purge": str(Default.purge),
+
         }
         order = ["cloud", "key", "user", "vm", "group", "secgroup",
-                 "counter", "image", "flavor", "refresh", "debug", "interactive"]
+                 "counter", "image", "flavor", "refresh", "debug", "interactive", "purge"]
         print(Printer.attribute(d, order=order, output=arg.FORMAT, sort_keys=False))
         return ""
