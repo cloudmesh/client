@@ -789,7 +789,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 'order': [
                     'cm_id',
                     'name',
-                    'user',
+                    #'user',
                     'ram',
                     'os_flv_disabled',
                     'vcpus',
@@ -804,7 +804,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 'header': [
                     'Id',
                     'Name',
-                    'User',
+                    #'User',
                     'RAM',
                     'Disabled',
                     'vCPUs',
