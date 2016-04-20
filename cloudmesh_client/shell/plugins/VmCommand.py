@@ -298,6 +298,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
             is_name_provided = arg.name is not None
 
+            arg.user = Default.user
+
             for index in range(0, arg.count):
                 vm_details = dotdict({
                     "cloud": arg.cloud,
@@ -307,7 +309,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     "key": arg.key,
                     "secgroup": arg.secgroup,
                     "group": arg.group,
-                    "username": arg.username
+                    "username": arg.username,
+                    "user": arg.user
                 })
 
                 try:
@@ -318,6 +321,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         Console.ok(msg)
                     else:
                         vm_id = Vm.boot(**vm_details)
+                        print ("ID", vm_id)
 
                         if vm_id is None:
                             msg = "info. failed."
