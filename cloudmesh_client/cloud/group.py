@@ -155,9 +155,6 @@ class Group(ListResource):
 
             result = cls.cm.find(**query)
 
-
-            print("rrrr", result)
-
             if result is None:
                 table = None
             else:
