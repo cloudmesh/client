@@ -29,4 +29,4 @@ class Attributes(ListResource):
             (order, header) = CloudProvider(cloud).get_attributes(kind)
             return order, header
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)

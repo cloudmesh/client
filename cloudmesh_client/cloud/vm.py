@@ -320,7 +320,7 @@ class Vm(ListResource):
                         groups_vm.add(d[vm]['name'])
                 return list(groups_vm)
             except Exception as ex:
-                Console.error(ex.message, ex)
+                Console.error(ex.message)
 
         try:
             if "name" in arg and arg.name is not None:
@@ -359,7 +359,7 @@ class Vm(ListResource):
                                      order=order,
                                      output=arg.output)
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
     @classmethod
     def clear(cls, **kwargs):

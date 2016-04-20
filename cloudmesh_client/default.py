@@ -71,8 +71,9 @@ class Default(object):
             table = Printer.write(result,
                                   output='table')
             return table
-        except:
-            Console.error("Error creating list")
+        except Exception as e:
+            Console.error("Error creating list", traceflag=False)
+            Console.error(e.message)
             return None
 
     #
@@ -106,7 +107,7 @@ class Default(object):
                 cls.cm.add(o)
             cls.cm.save()
         except Exception as e:
-            Console.error("problem setting key value {}={}".format(key, value))
+            Console.error("problem setting key value {}={}".format(key, value), traceflag=False)
 
     @classmethod
     def get(cls, name=None, category='general'):
@@ -221,7 +222,7 @@ class Default(object):
                      'critical']:
             cls.set("loglevel", level)
         else:
-            Console.error("unkown logging level. Setting to debug.")
+            Console.error("unkown logging level. Setting to debug.", traceflag=False)
             cls.set("loglevel", 'debug')
 
     # ###################################
@@ -485,5 +486,4 @@ class Default(object):
             elif cls.key is None and cls.user is not None:
                 cls.key = cls.user
             else:
-                print ("JJJ", cls.key, cls.user)
-                Console.error("Please define a key first, e.g.: cm key add --ssh")
+                Console.error("Please define a key first, e.g.: cm key add --ssh", traceflag=False)

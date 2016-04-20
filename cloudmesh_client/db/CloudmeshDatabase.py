@@ -901,7 +901,7 @@ class CloudmeshDatabase(object):
                 cls.session.delete(element)
 
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
     # ###################################
     # REFRESH

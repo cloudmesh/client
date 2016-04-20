@@ -50,7 +50,7 @@ class List(object):
                 return None
 
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
     #
     # TODO: don't we have not already a conversion method
