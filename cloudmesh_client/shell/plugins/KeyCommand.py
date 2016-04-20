@@ -358,7 +358,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
             # get name
             #
             conf = ConfigDict("cloudmesh.yaml")
-            data.username = conf["cloudmesh.profile.username"]
+            data.username = conf["cloudmesh.profile.user"]
             data.name = arguments['NAME'] or data.username
 
             data.filename = arguments['--source']
@@ -371,7 +371,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                        "Possible choices are your gmail name, your XSEDE name, or \n"
                        "some name that is uniqe. "
                        "Best is also to set this name in \n"
-                       "cloudmesh.profile.username as "
+                       "cloudmesh.profile.user as "
                        "part of your \n~/cloudmesh/cloudmesh.yaml file.")
                 Console.error(msg.format(**data), traceflag=False)
                 return ""
