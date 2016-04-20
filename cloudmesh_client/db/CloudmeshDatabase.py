@@ -849,7 +849,7 @@ class CloudmeshDatabase(object):
             pprint(elements)
 
             o = dotdict(elements)
-            print("PPPP", kind, name, attribute, value, o)
+            # print("PPPP", kind, name, attribute, value, o)
 
             if o[attribute] != value:
                 cls.update(kind=o["kind"],
@@ -859,7 +859,7 @@ class CloudmeshDatabase(object):
                            )
         elif scope == "first":
             o = dotdict(cls.filter_by(name=name, provider=provider, kind=kind)[0])
-            print("PPPP", provider, kind, name, attribute, value, o)
+            # print("PPPP", provider, kind, name, attribute, value, o)
 
             if o[attribute] != value:
                 cls.update(kind=o["kind"],
