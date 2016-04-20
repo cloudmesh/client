@@ -188,7 +188,11 @@ class Default(object):
 
     @readable_classproperty
     def debug(cls):
-        return cls.get(name="debug")
+        value = cls.get(name="debug")
+        if value is None:
+            cls.set_debug(True)
+            return True
+        return value
 
     @readable_classproperty
     def cluster(cls):
@@ -374,7 +378,11 @@ class Default(object):
         :param value: True/False
         :return:
         """
-        cls.set("debug", value)
+        Console.set_debug(value)
+        if str(value) in ["on", "True"]:
+            cls.set("debug", "True")
+        else:
+           cls.set("debug", "False")
 
     @classmethod
     def set_refresh(cls, value):

@@ -111,7 +111,7 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         will always be 'general'.
         """
         general_keys = ["cloud", "cluster", "queue", "key", "group", "user", "secgroup", "vm",
-                        "refresh", "debug", "interactive"]
+                        "refresh", "debug", "interactive", "purge"]
 
         """
         If the default cloud has been set (eg. default category=xxx),
@@ -167,7 +167,10 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
             key, value = arguments["KEY"].split("=")
             if key in general_keys:
                 cloud = "general"
-            Default.set(key, value, category=cloud)
+            if key in "debug":
+                Default.set_debug(value)
+            else:
+                Default.set(key, value, category=cloud)
             Console.ok(
                 "set default {}={}. ok.".format(key, value))
             return ""

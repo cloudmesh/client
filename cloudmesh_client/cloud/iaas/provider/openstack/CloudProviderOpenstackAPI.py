@@ -481,7 +481,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         image_id = self.get_image_id(image)
         flavor_id = self.get_flavor_id(flavor)
 
-
         # if no nics specified, try to find one in case it's needed
         if nics is None or len(nics) == 0 or (len(nics) == 1 and nics[0]['net-id'] is None):
             # get net-id based on tenant network name, and other possible
@@ -514,12 +513,12 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         id = None
         try:
             server = self.provider.servers.create(name,
-                                              image_id,
-                                              flavor_id,
-                                              meta=meta,
-                                              key_name=key,
-                                              security_groups=secgroup,
-                                              nics=nics)
+                                                  image_id,
+                                                  flavor_id,
+                                                  meta=meta,
+                                                  key_name=key,
+                                                  security_groups=secgroup,
+                                                  nics=nics)
             # return the server id
             id = server.__dict__["id"]
             return id
@@ -529,7 +528,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                               "Is the key loaded, the default key set properly and uploaded to the cloud?",
                               traceflag=False)
             else:
-                Console.error("Problem booting the vm")
+                Console.error("Problem starting vm", traceflag=False)
+                Console.error(e.message)
 
         return id
 
