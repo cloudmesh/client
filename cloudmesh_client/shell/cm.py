@@ -195,25 +195,32 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         #
         # SET DEFAULT CLOUD
         #
+
         value = Default.get(name='cloud', category='general')
+
         if value is None:
-            clouds = ConfigDict(filename=filename)["cloudmesh"]["clouds"]
-            cloud = list(clouds.keys())[0]
+
+            config = ConfigDict(filename=filename)["cloudmesh"]
+            if 'active' in config:
+                cloud = config["active"][0]
+            else:
+                clouds = config["clouds"]
+                cloud = list(clouds.keys())[0]
             Default.set('cloud', cloud, category='general')
 
 
         #
-        # NOT SURE HWTA THIS IS FOR
+        # NOT SURE WHAT THIS IS FOR
         #
         value = Default.get(name='default', category='general')
         if value is None:
             Default.set('default', 'default', category='general')
 
         #
-        # SET DEFUALT CLUSTER
+        # SET DEFAULT CLUSTER
         #
         cluster = ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["active"][0]
-        print ("GGG", cluster)
+
         value = Default.get(name='cluster', category='general')
         if value is None:
             try:
