@@ -179,37 +179,38 @@ class Vm(ListResource):
         if "cloud" in arg:
             cloud_provider = CloudProvider(arg.cloud).provider
             for server in kwargs["servers"]:
-                vm = cls.cm.find(name=server, kind="vm", cloud=arg.cloud)[0]
+                vm = cls.cm.find(name=server, kind="vm", cloud=arg.cloud, scope="first")
+                if vm:
+                    provider = vm["provider"]
+                    cloud = vm["category"]
 
-                provider = vm["provider"]
-                cloud = vm["category"]
+                    # If server has a floating ip associated, release it
+                    server_dict = Network.get_instance_dict(cloudname=arg.cloud,
+                                                            instance_id=server)
+                    floating_ip = server_dict["floating_ip"]
+                    if floating_ip is not None:
+                        Network.disassociate_floating_ip(cloudname=arg.cloud,
+                                                         instance_name=server,
+                                                         floating_ip=floating_ip)
+                    cloud_provider.delete_vm(server)
+                    if force:
+                        cls.cm.delete(kind="vm",
+                                      provider=provider,
+                                      category=cloud,
+                                      name=server)  # delete the record from db
+                    else:
+                        cls.cm.set(server, "status", "deleted", kind="vm", scope="first")
 
-                # If server has a floating ip associated, release it
-                server_dict = Network.get_instance_dict(cloudname=arg.cloud,
-                                                        instance_id=server)
-                floating_ip = server_dict["floating_ip"]
-                if floating_ip is not None:
-                    Network.disassociate_floating_ip(cloudname=arg.cloud,
-                                                     instance_name=server,
-                                                     floating_ip=floating_ip)
-                cloud_provider.delete_vm(server)
-                if force:
-                    cls.cm.delete(kind="vm",
-                                  provider=provider,
-                                  category=cloud,
-                                  name=server)  # delete the record from db
+                    Console.ok("VM {:} is being deleted on {:} cloud...".format(server, cloud_provider.cloud))
                 else:
-                    cls.cm.set(server, "status", "deleted", kind="vm", scope="first")
-
-                Console.ok("VM {:} is being deleted on {:} cloud...".format(server, cloud_provider.cloud))
-
-            cls.refresh(cloud=arg.cloud)
+                    Console.error("VM {:} can not be found.".format(server), traceflag=False)
         else:
 
             clouds = set()
             for server in arg.servers:
-                try:
-                    vm = cls.cm.find(kind="vm", name=server)[0]
+
+                vm = cls.cm.find(kind="vm", name=server, scope="first")
+                if vm:
                     cloud = vm["category"]
                     provider = vm["provider"]
                     cloud_provider = CloudProvider(cloud).provider
@@ -224,11 +225,9 @@ class Vm(ListResource):
                         cls.cm.set(server, "status", "deleted", kind="vm", scope="first")
 
                     Console.ok("VM {:} is being deleted on {:} cloud...".format(server, cloud))
-                except:
+                else:
                     Console.error("VM {:} can not be found.".format(server), traceflag=False)
 
-            for cloud in clouds:
-                cls.refresh(cloud=cloud)
 
     @classmethod
     def get_vms_by_name(cls, name, cloud):
