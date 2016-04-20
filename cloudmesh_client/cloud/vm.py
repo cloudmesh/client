@@ -145,7 +145,6 @@ class Vm(ListResource):
             cls.cm.set(d.name, "key", d.key, scope="first", kind="vm")
             cls.cm.set(d.name, "image", d.image, scope="first", kind="vm")
             cls.cm.set(d.name, "flavor", d.flavor, scope="first", kind="vm")
-            print ("GGGG", arg.group, d.name)
             cls.cm.set(d.name, "group", arg.group, scope="first", kind="vm")
             cls.cm.set(d.name, "user", arg.user, scope="first", kind="vm")
 

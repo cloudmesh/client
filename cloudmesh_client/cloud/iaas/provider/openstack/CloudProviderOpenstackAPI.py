@@ -891,8 +891,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     "ip",
                     "pool",
                     "fixed_ip",
-                    "id",
-                    "instance_id",
+                    # "id",
+                    # "instance_id",
                     'cloud'
                 ],
                 'header': [
@@ -900,8 +900,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     "floating_ip",
                     "floating_ip_pool",
                     "fixed_ip",
-                    "floating_ip_id",
-                    "instance_id",
+                    # "floating_ip_id",
+                    # "instance_id",
                     'cloud'
                 ],
             },
