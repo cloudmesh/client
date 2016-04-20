@@ -202,10 +202,13 @@ class Vm(ListResource):
                                       provider=provider,
                                       category=cloud,
                                       name=server)  # delete the record from db
+                        Console.ok("VM record {:} is being deleted from the local database..." \
+                                   .format(server))
+
                     else:
                         cls.cm.set(server, "status", "deleted", kind="vm", scope="first")
 
-                    Console.ok("VM {:} is being deleted on {:} cloud...".format(server, cloud_provider.cloud))
+                    # Console.ok("VM {:} is being deleted on {:} cloud...".format(server, cloud_provider.cloud))
                 else:
                     Console.error("VM {:} can not be found.".format(server), traceflag=False)
         else:
@@ -225,10 +228,13 @@ class Vm(ListResource):
                                       provider=provider,
                                       category=cloud,
                                       name=server)
+                        Console.ok("VM record {:} is being deleted from the local database..." \
+                                   .format(server))
+
                     else:
                         cls.cm.set(server, "status", "deleted", kind="vm", scope="first")
 
-                    Console.ok("VM {:} is being deleted on {:} cloud...".format(server, cloud))
+                    # Console.ok("VM {:} is being deleted on {:} cloud...".format(server, cloud))
                 else:
                     Console.error("VM {:} can not be found.".format(server), traceflag=False)
 
