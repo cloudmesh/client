@@ -16,7 +16,7 @@ from cloudmesh_client.common.util import HEADING
 from cloudmesh_client.common.util import banner
 from cloudmesh_client.default import Default
 from cloudmesh_client.cloud.image import Image
-
+from pprint import pprint
 
 # noinspection PyPep8Naming
 class Test_image:
@@ -108,11 +108,14 @@ class Test_image:
 
         Image.set_username(name="CC-Ubuntu14.04", cloud=Default.cloud, username="undefined")
         result = Image.get_username("CC-Ubuntu14.04", Default.cloud)
-        print (result)
+        print ('Username:', result)
         assert "undefined" in result
 
+        Image.set_username(name="CC-Ubuntu14.04", cloud=Default.cloud, username=None)
         result = Image.get_username("CC-Ubuntu14.04", Default.cloud, guess=True)
-        print(result)
+        print("Username:", result)
+
+
         assert "cc" in result
 
 
