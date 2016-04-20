@@ -85,8 +85,8 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
           Description:
 
               register info
-                  It looks out for the cloudmesh.yaml file in the current
-                  directory, and then in ~/.cloudmesh
+                  lists the clouds specified in the cloudmesh.yaml
+                  file in the current directory, and then in ~/.cloudmesh
 
               register list [--yaml=FILENAME] [--name] [--info]
                   lists the clouds specified in the cloudmesh.yaml file. If
@@ -374,7 +374,8 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
             cloud = arguments['CLOUD']
 
             if cloud is None:
-                clouds = ["kilo"]
+                clouds =  [ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["active"][0]]
+
             else:
                 clouds = [cloud]
 
@@ -387,8 +388,6 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                 name = config["cloudmesh.clouds.kilo.credentials.OS_USERNAME"]
                 config["cloudmesh"]["profile"]["user"] = name
                 config.save()
-            else:
-                print("KKK")
             return ""
 
         elif arguments['ec2']:
@@ -397,7 +396,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
             zipfile = arguments['EC2ZIP']
 
             if cloud is None:
-                clouds = ["kilo"]
+                clouds = [ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["active"][0]]
             else:
                 clouds = [cloud]
 
@@ -427,7 +426,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
 
             cloud = arguments['CLOUD']
             if cloud is None:
-                clouds = ["kilo"]
+                clouds = [ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["active"][0]]
             else:
                 clouds = [cloud]
 

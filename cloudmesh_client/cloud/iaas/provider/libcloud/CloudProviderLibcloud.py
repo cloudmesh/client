@@ -299,7 +299,7 @@ class CloudProviderLibcloud(CloudProviderBase):
                 name,
                 image=None,
                 flavor=None,
-                cloud="kilo",
+                cloud=None,
                 key=None,
                 secgroup=None,
                 meta=None,
@@ -319,6 +319,10 @@ class CloudProviderLibcloud(CloudProviderBase):
         :param meta: A dict of arbitrary key/value metadata to store for this server
         """
         pprint("BOOTING UP THE VM")
+        if cloud is None:
+            Console.error("Cloud is not specified")
+            return
+
         auth = NodeAuthPassword('mysecretpassword')
         # self.provider.create_node("test_node", auth=auth)
         if image is not None:

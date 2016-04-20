@@ -8,6 +8,7 @@ from cloudmesh_client.default import Default
 from cloudmesh_client.cloud.image import Image
 from cloudmesh_client.cloud.flavor import Flavor
 from cloudmesh_client.cloud.vm import Vm
+from cloudmesh_client.common.ConfigDict import ConfigDict
 
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
@@ -77,7 +78,8 @@ class ListCommand(PluginCommand, CloudPluginCommand):
 
         # If cloud is not specified, get default
         if cloud is None:
-            cloud = Default.get(name="cloud") or "kilo"
+            cloud = Default.get(name="cloud") or ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["active"][0]
+
 
         # If user is not specified, get default
         if user is None:
