@@ -321,7 +321,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         Console.ok(msg)
                     else:
                         vm_id = Vm.boot(**vm_details)
-                        print ("ID", vm_id)
 
                         if vm_id is None:
                             msg = "info. failed."
@@ -608,6 +607,9 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 vm = dotdict(Vm.list(name=name, category=cloud, output="dict")["dict"])
 
+                print ("FFFF", vm.floating_ip)
+                pprint(vm)
+
                 if vm.floating_ip is None:
 
                     Console.ok("Assign IP to {}".format(name))
@@ -615,6 +617,10 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     try:
                         floating_ip = Network.find_assign_floating_ip(cloudname=cloud,
                                                                       instance_id=name)
+
+                        Vm.refresh(cloud=cloud)
+                        print ("OOOO", floating_ip)
+
                         if floating_ip is not None:
                             print(
                                 "Floating IP assigned to {:} is {:}".format(
@@ -627,6 +633,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 else:
                     Console.error("VM {} already has a floating ip: {}".format(name, vm.floating_ip))
+
 
         elif arguments["ip"] and arguments["show"]:
             if arguments["NAMES"] is None:
