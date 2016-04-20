@@ -104,7 +104,7 @@ class Vm(ListResource):
                 raise ValueError(a + " not in arguments to vm boot")
 
         conf = ConfigDict("cloudmesh.yaml")
-        arg.username = conf["cloudmesh"]["profile"]["username"]
+        arg.username = conf["cloudmesh"]["profile"]["user"]
         arg.group = arg.group or Default.group
         cloud_provider = CloudProvider(arg.cloud).provider
 

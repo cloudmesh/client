@@ -98,7 +98,7 @@ class Image(ListResource):
     @classmethod
     def get_username(cls, name, cloud, guess=False):
         image = cls.get(cloud=cloud, name=name)
-        if guess and image.username in [None, 'undefined']:
+        if guess and image.username is None:
             return cls.guess_username(image.name)
         return image.username
 

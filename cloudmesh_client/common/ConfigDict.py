@@ -367,10 +367,10 @@ class ConfigDict(object):
 def Username():
     d = ConfigDict("cloudmesh.yaml")
 
-    if "username" not in d["cloudmesh"]["profile"]:
+    if "user" not in d["cloudmesh"]["profile"]:
         raise RuntimeError("Profile username is not set in yaml file.")
 
-    user = d["cloudmesh"]["profile"]["username"]
+    user = d["cloudmesh"]["profile"]["user"]
     return user
 
 

@@ -433,10 +433,10 @@ group
 Command - group::
 
     Usage:
-        group list [--category=CLOUD] [--format=FORMAT] [GROUPNAME]
-        group remove NAME... [--category=CLOUD] --group=GROUPNAME
-        group add NAME... [--type=TYPE] [--category=CLOUD] [--group=GROUPNAME]
-        group delete GROUP... [--category=CLOUD]
+        group list [GROUPNAME] [--format=FORMAT]
+        group remove NAMES [--group=GROUPNAME]
+        group add NAMES [--type=TYPE] [--group=GROUPNAME]
+        group delete GROUPS
         group copy FROM TO
         group merge GROUPA GROUPB MERGEDGROUP
 
@@ -444,8 +444,8 @@ Command - group::
 
     Arguments:
 
-        NAME         name of object to be added
-        GROUP        name of a group
+        NAMES        names of object to be added
+        GROUPS       names of a groups
         FROM         name of a group
         TO           name of a group
         GROUPA       name of a group
@@ -453,7 +453,6 @@ Command - group::
         MERGEDGROUP  name of a group
 
     Options:
-        --category=CLOUD       the name of the category
         --format=FORMAT     the output format
         --type=TYPE         the resource type
         --name=NAME         the name of the group
@@ -466,7 +465,7 @@ Command - group::
         description
         Todo: discuss and propose command
 
-        cloudmesh can manage groups of resources and category related
+        cloudmesh can manage groups of resource related
         objects. As it would be cumbersome to for example delete
         many virtual machines or delete VMs that are in the same
         group, but are running in different clouds.
@@ -479,15 +478,16 @@ Command - group::
         use the last used virtual machine. If a vm is started it
         will be automatically added to the default group if it is set.
 
-        The delete command has an optional category parameter so that
-        deletion of vms of a partial group by cloud can be
-        achieved.
-
         If finer grained deletion is needed, it can be achieved
         with the delete command that supports deletion by name
 
         It is also possible to remove a VM from the group using the
         remove command, by supplying the ID
+
+    Note:
+
+        The type is internally called for the group species, we may
+        eliminate the species column and just use the type column for it,
 
     Example:
         default group mygroup
@@ -640,6 +640,21 @@ Command - image::
         cm image list 58c9552c-8d93-42c0-9dea-5f48d90a3188 --refresh
 
 
+info
+----------------------------------------------------------------------
+Command - info::
+
+    Usage:
+        info [--cloud=CLOUD] [--format=FORMAT]
+
+    Options:
+       --format=FORMAT  the output format [default: table]
+       --cloud=CLOUD    the cloud name
+
+    Examples:
+        cm info
+
+
 inventory
 ----------------------------------------------------------------------
 Command - inventory::
@@ -733,20 +748,21 @@ Command - key::
     Usage:
       key  -h | --help
       key list --cloud=CLOUD
-      key list [--source=db] [--format=FORMAT]
+      key list --source=db [--format=FORMAT]
       key list --source=yaml [--format=FORMAT]
       key list --source=ssh [--dir=DIR] [--format=FORMAT]
-      key load [--format=FORMAT]
       key list --source=git [--format=FORMAT] [--username=USERNAME]
+      key list
+      key load [--format=FORMAT]
       key add [NAME] [--source=FILENAME]
       key add [NAME] [--git]
       key add [NAME] [--ssh]
       key get NAME
-      key default [KEYNAME | --select]
-      key delete (KEYNAME | --select | --all) [--force] [--active]
-      key delete KEYNAME --cloud=CLOUD
-      key upload [KEYNAME] [--cloud=CLOUD]
-      key upload [KEYNAME] --active
+      key default --select
+      key delete (NAME | --select | --all)
+      key delete NAME --cloud=CLOUD
+      key upload [NAME] [--cloud=CLOUD]
+      key upload [NAME] --active
 
     Manages the keys
 
@@ -809,11 +825,9 @@ Command - key::
         Retrieves the key indicated by the NAME parameter from database
         and prints its fingerprint.
 
-    key default [NAME]
+    key default --select
 
-         Used to set a key from the key-list as the default key
-         if NAME is given. Otherwise print the current default
-         key
+         Select the default key interactively
 
     key delete NAME
 
@@ -830,14 +844,16 @@ launcher
 Command - launcher::
 
       Usage:
-          launcher list [--cloud=CLOUD] [--format=FORMAT] [--all]
-          launcher delete KEY [--cloud=CLOUD]
-          launcher run
-          launcher resume
-          launcher suspend
-          launcher details
+          launcher list [NAME] [--cloud=CLOUD] [--format=FORMAT] [--all]
+          launcher add NAME SOURCE
+          launcher delete [NAME] [--cloud=CLOUD]
           launcher clear
+          launcher run [NAME]
+          launcher resume [NAME]
+          launcher suspend [NAME]
           launcher refresh
+          launcher log [NAME]
+          launcher status [NAME]
 
       Arguments:
 
@@ -998,14 +1014,15 @@ Command - network::
         network disassociate floating [ip] [--cloud=CLOUD] [--group=GROUP]
                                       [--instance=INS_ID_OR_NAME] [FLOATING_IP]
         network create floating [ip] [--cloud=CLOUD] [--pool=FLOATING_IP_POOL]
-        network delete floating [ip] [--cloud=CLOUD] FLOATING_IP...
+        network delete floating [ip] [--cloud=CLOUD] [--unused] [FLOATING_IP]
         network list floating pool [--cloud=CLOUD]
-        network list floating [ip] [--cloud=CLOUD] [--instance=INS_ID_OR_NAME] [IP_OR_ID]
+        network list floating [ip] [--cloud=CLOUD] [--unused] [--instance=INS_ID_OR_NAME] [IP_OR_ID]
         network create cluster --group=demo_group
         network -h | --help
 
     Options:
         -h                          help message
+        --unused                    unused floating ips
         --cloud=CLOUD               Name of the IaaS cloud e.g. india_openstack_grizzly.
         --group=GROUP               Name of the group in Cloudmesh
         --pool=FLOATING_IP_POOL     Name of Floating IP Pool
@@ -1037,6 +1054,7 @@ Command - network::
         network delete floating --cloud=india 192.1.66.8 192.1.66.9
         network list floating ip --cloud=india
         network list floating --cloud=india
+        network list floating --cloud=india --unused
         network list floating --cloud=india 192.1.66.8
         network list floating --cloud=india --instance=323c5195-7yy34-4e7b-8581-703abec4b
         network list floating pool --cloud=india
@@ -1183,7 +1201,7 @@ Command - refresh::
     Usage:
         refresh on
         refresh off
-        refresh list
+        refresh [list]
 
         switches on and off the refresh for clouds
 
@@ -1420,22 +1438,20 @@ secgroup
 Command - secgroup::
 
     Usage:
-        secgroup list [--cloud=CLOUD]
-        secgroup create [--cloud=CLOUD] LABEL
-        secgroup delete [--cloud=CLOUD] LABEL
-        secgroup rules-list [--cloud=CLOUD] LABEL
-        secgroup rules-add [--cloud=CLOUD] LABEL FROMPORT TOPORT PROTOCOL CIDR
-        secgroup rules-delete [--cloud=CLOUD] [--all] LABEL [FROMPORT] [TOPORT] [PROTOCOL] [CIDR]
-        secgroup refresh [--cloud=CLOUD]
-        secgroup -h | --help
-        secgroup --version
+        secgroup list
+        secgroup list --cloud=CLOUD [--format=FORMAT]
+        secgroup list GROUP [RULE] [--format=FORMAT]
+        secgroup add GROUP RULE FROMPORT TOPORT PROTOCOL CIDR
+        secgroup delete GROUP [--cloud=CLOUD]
+        secgroup upload [GROUP] [--cloud=CLOUD]
 
     Options:
-        -h                  help message
-        --cloud=CLOUD       Name of the IaaS cloud e.g. india_openstack_grizzly.
+        --cloud=CLOUD       Name of the IaaS cloud e.g. kilo, chameleoon. The clouds are defined in the yaml
+                            file. If the name "all" is used for the cloud all clouds will be selected.
 
     Arguments:
-        LABEL         The label/name of the security group
+        RULE          The security group rule name
+        GROUP         The label/name of the security group
         FROMPORT      Staring port of the rule, e.g. 22
         TOPORT        Ending port of the rule, e.g. 22
         PROTOCOL      Protocol applied, e.g. TCP,UDP,ICMP
@@ -1456,7 +1472,41 @@ Command - secgroup::
         secgroup rules-delete --cloud=kilo webservice 8080 8088 TCP 129.79.0.0/16
         secgroup rules-delete --all
 
+    Description:
 
+        Security groups are first assembled in a local database. Once they are defined they can be added to the
+        clouds.
+
+        secgroup list
+            lists all security groups and rules in the database
+
+        secgroup list --cloud=CLOUD... [--format=FORMAT]
+            lists the security groups and rules on the specified clouds.
+
+        secgroup list GROUP [RULE] [--format=FORMAT]
+            lists a given security group. If in addition the RULE is specified it only lists the RULE
+
+        secgroup add GROUP RULE FROMPORT TOPORT PROTOCOL CIDR
+            adds a security rule with the given group and teh details of the security ruls
+
+        secgroup delete GROUP
+            deletes all security rules related to the specified group
+
+        secgroup delete GROUP RULE
+            deletes just the given rule from the group
+
+        secgroup upload [GROUP] [--cloud=CLOUD...]
+            uploads a given group to the given cloud. if the cloud is not specified the default cloud is used.
+            If the parameter for cloud is "all" the rules and groups will be uploaded to all active clouds.
+
+
+    Example:
+
+        cm secgroup list
+        cm secgroup list --cloud=kilo
+        cm secgroup add  cm-gregor-default web 80 80 tcp  0.0.0.0/0
+        cm secgroup add  cm-gregor-default ssh 22 22 tcp  0.0.0.0/0
+        cm secgroup upload --cloud=kilo
 
 select
 ----------------------------------------------------------------------
@@ -1612,6 +1662,33 @@ Command - sync::
         --cloud=CLOUD   Sync with cloud
 
 
+test
+----------------------------------------------------------------------
+Command - test::
+
+    Usage:
+       test list
+       test [TEST] [NUMBER] [--test=TESTER]
+
+    This is an internal command and is ment for developers. If executed, in the source directory,
+    it will execute the specified series of tests in the tests directory.
+    managing the admins test test test test
+
+    Arguments:
+      TEST     the name of the test directory
+      NUMBER   the number of a specific test
+
+    Options:
+      --test=TESTER   nosetests or py.test. [default: nosetests -v --nocapture]
+
+    Examples:
+        cm test var
+            finds the first test that contains var and than executes all tests in it
+
+        cm test var 4
+            finds the first test that contains var and than executes the test with number 004
+
+
 timer
 ----------------------------------------------------------------------
 Command - timer::
@@ -1730,64 +1807,83 @@ Command - vm::
         vm refresh [all][--cloud=CLOUD]
         vm boot [--name=NAME]
                 [--cloud=CLOUD]
-                [--image=IMAGE_OR_ID]
-                [--flavor=FLAVOR_OR_ID]
+                [--username=USERNAME]
+                [--image=IMAGE]
+                [--flavor=FLAVOR]
                 [--group=GROUP]
                 [--secgroup=SECGROUP]
                 [--key=KEY]
                 [--dryrun]
-        vm start [NAME]...
+        vm boot [--n=COUNT]
+                [--cloud=CLOUD]
+                [--username=USERNAME]
+                [--image=IMAGE]
+                [--flavor=FLAVOR]
+                [--group=GROUP]
+                [--secgroup=SECGROUP]
+                [--key=KEY]
+                [--dryrun]
+        vm ping [NAME] [N]
+        vm console [NAME]
                  [--group=GROUP]
                  [--cloud=CLOUD]
                  [--force]
-        vm stop [NAME]...
+        vm start [NAMES]
+                 [--group=GROUP]
+                 [--cloud=CLOUD]
+                 [--force]
+        vm stop [NAMES]
                 [--group=GROUP]
                 [--cloud=CLOUD]
                 [--force]
-        vm delete [NAME]...
+        vm terminate [NAMES]
                   [--group=GROUP]
                   [--cloud=CLOUD]
                   [--force]
-        vm ip assign [NAME]...
+        vm delete [NAMES]
+                  [--group=GROUP]
                   [--cloud=CLOUD]
-        vm ip show [NAME]...
+                  [--force]
+        vm ip assign [NAMES]
+                  [--cloud=CLOUD]
+        vm ip show [NAMES]
                    [--group=GROUP]
                    [--cloud=CLOUD]
                    [--format=FORMAT]
                    [--refresh]
-        vm login [NAME] [--user=USER]
+        vm login [NAME] [--username=USER]
                  [--ip=IP]
                  [--cloud=CLOUD]
                  [--key=KEY]
                  [--command=COMMAND]
-        vm rename [NAME]...
-                  [--new=NEWNAME]
-                  [--cloud=CLOUD]
-                  [--force]
-                  [--dryrun]
-        vm list [NAME_OR_ID]
-                [--cloud=CLOUD|--all]
+        vm rename [OLDNAMES] [NEWNAMES] [--force] [--dryrun]
+        vm list [NAMES]
+                [--cloud=CLOUDS|--active]
                 [--group=GROUP]
                 [--format=FORMAT]
                 [--refresh]
         vm status [--cloud=CLOUD]
         vm info [--cloud=CLOUD]
                 [--format=FORMAT]
-        vm check NAME...
+        vm check NAME
+        vm username USERNAME [NAMES] [--cloud=CLOUD]
 
     Arguments:
-        COMMAND        positional arguments, the commands yo"listu want to
+        COMMAND        positional arguments, the commands you want to
                        execute on the server(e.g. ls -a) separated by ';',
                        you will get a return of executing result instead of login to
                        the server, note that type in -- is suggested before
                        you input the commands
         NAME           server name. By default it is set to the name of last vm from database.
-        NAME_OR_ID     server name or ID
+        NAMES          server name. By default it is set to the name of last vm from database.
         KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is
                        not a path to key.
-        NEWNAME        New name of the VM while renaming.
+        NEWNAMES       New names of the VM while renaming.
+        OLDNAMES       Old names of the VM while renaming.
 
     Options:
+        --username=USERNAME  the username to login into the vm. If not specified it will be guessed
+                             from the image name and the cloud
         --ip=IP          give the public ip of the server
         --cloud=CLOUD    give a cloud to work on, if not given, selected
                          or default cloud will be used
@@ -1795,10 +1891,10 @@ Command - vm::
         --detail         for table print format, a brief version
                          is used as default, use this flag to print
                          detailed table
-        --flavor=FLAVOR_OR_ID  give the name or id of the flavor
+        --flavor=FLAVOR  give the name or id of the flavor
         --group=GROUP          give the group name of server
         --secgroup=SECGROUP    security group name for the server
-        --image=IMAGE_OR_ID    give the name or id of the image
+        --image=IMAGE    give the name or id of the image
         --key=KEY        specify a key to use, input a string which
                          is the full path to the private key file
         --keypair_name=KEYPAIR_NAME   Name of the openstack keypair to be used to create VM.
@@ -1809,32 +1905,44 @@ Command - vm::
         --force          rename/ delete vms without user's confirmation
         --command=COMMAND
                          specify the commands to be executed
-        --new=NEWNAME    Specify the new name for a VM while renaming.
-                         By default, this will be set to <username>-<count> format.
-
 
 
     Description:
         commands used to boot, start or delete servers of a cloud
 
-        vm default [options...]     Displays default parameters that are set for VM boot.
-        vm boot [options...]        Boots servers on a cloud, user may specify
-                                    flavor, image .etc, otherwise default values
-                                    will be used, see how to set default values
-                                    of a cloud: cloud help
-        vm start [options...]       Starts a suspended or stopped vm instance.
-        vm stop [options...]        Stops a vm instance .
-        vm delete [options...]      delete servers of a cloud, user may delete
-                                    a server by its name or id, delete servers
-                                    of a group or servers of a cloud, give prefix
-                                    and/or range to find servers by their names.
-                                    Or user may specify more options to narrow
-                                    the search
-        vm floating_ip_assign [options...]   assign a public ip to a VM of a cloud
-        vm ip show [options...]     show the ips of VMs
-        vm login [options...]       login to a server or execute commands on it
-        vm list [options...]        same as command "list vm", please refer to it
-        vm status [options...]      Retrieves status of last VM booted on cloud and displays it.
+        vm default [options...]
+            Displays default parameters that are set for vm boot either on the
+            default cloud or the specified cloud.
+
+        vm boot [options...]
+            Boots servers on a cloud, user may specify flavor, image .etc, otherwise default values
+            will be used, see how to set default values of a cloud: cloud help
+
+        vm start [options...]
+            Starts a suspended or stopped vm instance.
+
+        vm stop [options...]
+            Stops a vm instance .
+
+        vm delete [options...]
+            Delete servers of a cloud, user may delete a server by its name or id, delete servers
+            of a group or servers of a cloud, give prefix and/or range to find servers by their names.
+            Or user may specify more options to narrow the search
+
+        vm floating_ip_assign [options...]
+            assign a public ip to a VM of a cloud
+
+        vm ip show [options...]
+            show the ips of VMs
+
+        vm login [options...]
+            login to a server or execute commands on it
+
+        vm list [options...]
+            same as command "list vm", please refer to it
+
+        vm status [options...]
+            Retrieves status of last VM booted on cloud and displays it.
 
     Tip:
         give the VM name, but in a hostlist style, which is very

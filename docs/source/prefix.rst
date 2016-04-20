@@ -1,13 +1,13 @@
 Prefix
 ======
 
-Cloudmesh client is a simple client to enable access to multiple cloud
+Cloudmesh client is a client to enable easy access to multiple cloud
 environments form a command shell and commandline. It is grown out of
-the need to simplify access to multiple clouds for researchers and
-students easily. In contrast to our earlier versions of cloudmesh it
-explicitly separates the code to only target client code. Due to this
-simplification it is also possible to install the client code not only
-on Linux, OSX, but also Windows. We have tested the installation on
+the need to access multiple clouds for researchers and students easily
+while reducing the entry barrier. In contrast to our earlier versions
+of cloudmesh it explicitly separates the code to only target client code.
+Due to this simplification it is also possible to install the client code
+not only on Linux, OSX, but also Windows. We have tested the installation on
 Windows 10.
 
 If you like to contribute or like to participate in the further
@@ -15,22 +15,17 @@ development, please contact Gregor von Laszewski at
 laszewski@gmail.com.
 
 
-Repositories
+Repository
 ------------
 
 * Documentation: http://cloudmesh.github.io/client  
 * Code:
 
-  * https://github.com/cloudmesh/base.git  
   * https://github.com/cloudmesh/client.git
     
 * Issues: https://github.com/cloudmesh/client/issues
 * Milestones: https://github.com/cloudmesh/client/milestones
 * Contributors: https://github.com/cloudmesh/client/graphs/contributors
-
-As we have so far a tight integrated group, we are typically not
-forking the repository, but cloning it directly. Members are than able
-to work on the clones. We may change this in case we see need for forks.
 
 
 Automated Builds and Reports
@@ -72,7 +67,7 @@ Authors
 Conventions
 ------------
 
-We will be using some simple conventions in this documentation. To
+We use some simple conventions in this documentation. To
 indicate a command to be executed on the terminal we use `$` at the
 beginning of the line:
 
@@ -112,8 +107,8 @@ they can be read from it into variables within cloudmesh scripts:
 	    var username=cloudmesh.profile.username
 	    var project=cloudmesh.clouds.$cloud.credentials.OS_TENANT_NAME
 
-Please note that these values could be specific to a cloud as
-indicated by the example for the project in the above project is
+Please note that these values could be specific to a particular cloud. As
+shown by the example for the project in the above project is
 dependent on the specific cloud which can be easily integrated in the
 cloudmesh variables while using a `$` followed by the variable name.
 
@@ -123,14 +118,13 @@ Feature Requests
 
 Please e-mail feature requests and bugs to laszewski@gmail.com.
 
-
 We will manage them through github as part of issues and milestones:
 
 * Issues: https://github.com/cloudmesh/client/issues
 * Milestones: https://github.com/cloudmesh/client/milestones
 
-Questions unrelated to cloudmesh but relate to futuresystems such as
-network issues and outages are best send through the form at
+Questions unrelated to cloudmesh but relate to futuresystems
+are best send through the form at
 
 * https://portal.futuresystems.org/help
 

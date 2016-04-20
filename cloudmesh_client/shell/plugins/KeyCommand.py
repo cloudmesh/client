@@ -479,7 +479,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 # get username
                 #
                 conf = ConfigDict("cloudmesh.yaml")
-                username = conf["cloudmesh"]["profile"]["username"]
+                username = conf["cloudmesh"]["profile"]["user"]
                 if username in ['None', 'TBD']:
                     username = None
 
