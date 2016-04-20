@@ -43,7 +43,7 @@ class Hpc(ListResource):
                                  header=header,
                                  output=format)
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
     @classmethod
     def details(cls, cloud, id, live=False, format="table"):

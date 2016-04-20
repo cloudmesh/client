@@ -433,4 +433,4 @@ class CloudProviderBase(object):
                 return None
 
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)

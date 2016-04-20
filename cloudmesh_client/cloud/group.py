@@ -57,7 +57,7 @@ class Group(ListResource):
                 names.add(vm['name'])
             return list(names)
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
     @classmethod
     def get_vms(cls, name):
@@ -89,7 +89,7 @@ class Group(ListResource):
                 names.add(vm['member'])
             return list(names)
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
     @classmethod
     def vm_groups(cls, vm):
@@ -115,7 +115,7 @@ class Group(ListResource):
                 groups.add(vm['name'])
             return list(groups)
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
     @classmethod
     def list(cls,
@@ -164,8 +164,9 @@ class Group(ListResource):
                 table = Printer.write(result,
                                       output='table')
             return table
-        except:
-            Console.error("Error creating list")
+        except Exception as e:
+            Console.error("Error creating list", traceflag=False)
+            Console.error(e.message)
             return None
 
     @classmethod
@@ -194,7 +195,7 @@ class Group(ListResource):
                                  order=cls.order,
                                  output=output)
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
     @classmethod
     def add(cls, name=None, species="vm", member=None, category=None):
@@ -237,7 +238,7 @@ class Group(ListResource):
                 return
 
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
         return
 
@@ -270,7 +271,7 @@ class Group(ListResource):
             return group
 
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
     @classmethod
     def delete(cls, name=None):
@@ -304,7 +305,8 @@ class Group(ListResource):
                             Vm.delete(name=server, servers=[server])
                         except Exception as e:
                             Console.error("Failed to delete VM {}, error: {}"
-                                          .format(vm, e))
+                                          .format(vm, e), traceflag=False)
+                            Console.error(e.message)
                             continue
 
                 # Delete group record in local db
@@ -317,7 +319,7 @@ class Group(ListResource):
                 return None
 
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
     @classmethod
     def remove(cls, name, member):
@@ -348,7 +350,7 @@ class Group(ListResource):
             return "Removed {} from the group {}. ok.".format(member, name)
 
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
         return None
 
@@ -392,11 +394,11 @@ class Group(ListResource):
             else:
                 Console.error(
                     "Group [{}] does not exist in the cloudmesh database!"
-                        .format(_fromName))
+                        .format(_fromName), traceflag=False)
                 return None
 
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
     @classmethod
     def merge(cls, group_a, group_b, merged_group):

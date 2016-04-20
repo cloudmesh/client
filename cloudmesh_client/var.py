@@ -52,8 +52,9 @@ class Var(object):
             return (Printer.write(result,
                                   order=order,
                                   output=output))
-        except:
-            Console.error("Error creating list")
+        except Exception as e:
+            Console.error("Error creating list", traceflag=False)
+            Console.error(e.message)
             return None
 
     #
@@ -84,7 +85,8 @@ class Var(object):
                 cls.cm.add(o)
             cls.cm.save()
         except Exception as e:
-            Console.error("problem setting key value {}={}".format(key, value))
+            Console.error("problem setting key value {}={}".format(key, value), traceflag=False)
+            Console.error(e.message)
 
     @classmethod
     def get(cls, name=None, output='dict', scope='first'):

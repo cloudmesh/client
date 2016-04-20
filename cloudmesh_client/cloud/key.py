@@ -277,7 +277,7 @@ class Key(ListResource):
                                  header=header,
                                  output=format)
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
     @classmethod
     def clear(cls, **kwargs):

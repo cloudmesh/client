@@ -43,7 +43,7 @@ class Ip(ListResource):
                                  header=header,
                                  output=output)
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
 
 
