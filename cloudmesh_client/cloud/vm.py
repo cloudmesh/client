@@ -118,6 +118,7 @@ class Vm(ListResource):
             nics = None
 
         d = dotdict({
+            "cloud": arg.cloud,
             "name": arg.name,
             "image": arg.image,
             "flavor": arg.flavor,
@@ -129,6 +130,7 @@ class Vm(ListResource):
                      'image': arg.image,
                      'flavor': arg.flavor,
                      'key': arg.key,
+                     'category': arg.cloud
                     }
         })
 
