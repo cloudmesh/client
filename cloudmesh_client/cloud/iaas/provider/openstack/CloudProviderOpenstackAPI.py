@@ -457,7 +457,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 group=None,
                 image=None,
                 flavor=None,
-                cloud="kilo",
+                cloud=None,
                 key=None,
                 secgroup=None,
                 meta=None,
@@ -475,6 +475,11 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         :param secgroup: Security group for the instance
         :param meta: A dict of arbitrary key/value metadata to store for this server
         """
+
+        if cloud is None:
+            Console.error("Cloud is not specified")
+            return None
+
         image = image or self.default_image
         flavor = flavor or self.default_flavor
 

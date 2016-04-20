@@ -55,7 +55,11 @@ class Vm(ListResource):
         return o
 
     @classmethod
-    def construct_ip_dict(cls, ip_addr, name="kilo"):
+    def construct_ip_dict(cls, ip_addr, name=None):
+        # TODO kilo cloud as defualt should be avoided
+        if name is None:
+            Console.error("cloud name not set")
+            return None
         try:
             d = ConfigDict("cloudmesh.yaml")
             cloud_details = d["cloudmesh"]["clouds"][name]

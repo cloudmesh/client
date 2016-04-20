@@ -212,7 +212,8 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         #
         # SET DEFUALT CLUSTER
         #
-        cluster = 'kilo'  # hardcode a value if not defined
+        cluster = ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["active"][0]
+        print ("GGG", cluster)
         value = Default.get(name='cluster', category='general')
         if value is None:
             try:
