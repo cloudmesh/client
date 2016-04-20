@@ -2,6 +2,23 @@ from __future__ import print_function
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase, CloudmeshMixin
 from sqlalchemy import Column, Date, Integer, String
 
+class WORKFLOW(CloudmeshMixin, CloudmeshDatabase.Base):
+    """table to store default values
+
+    if the category is "global" it is meant to be a global variable
+
+    todo: check if its global or general
+    """
+    __tablename__ = "workflow"
+    __kind__ = 'workflow'
+    __provider__ = 'general'
+
+    status = Column(String)
+    location = Column(String)
+    
+    def __init__(self, **kwargs):
+        super(DEFAULT, self).set_defaults(**kwargs)
+        self.status = kwargs.status('value', 'defined')
 
 class DEFAULT(CloudmeshMixin, CloudmeshDatabase.Base):
     """table to store default values
