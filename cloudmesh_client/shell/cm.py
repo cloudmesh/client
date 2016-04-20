@@ -267,7 +267,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         #
         user = Default.user
         if user is None:
-            user = ConfigDict(filename=filename)["cloudmesh"]["profile"]["username"]
+            user = ConfigDict(filename=filename)["cloudmesh"]["profile"]["user"]
             Default.set_user(user)
 
 

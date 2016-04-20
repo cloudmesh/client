@@ -563,5 +563,5 @@ class CloudRegister(object):
         :return:
         """
         config = ConfigDict("cloudmesh.yaml")
-        config['cloudmesh']['profile']['username'] = username
+        config['cloudmesh']['profile']['user'] = username
         config.save()

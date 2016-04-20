@@ -118,7 +118,7 @@ class SSHkey(object):
         :param keytype: if 'file' the key is read form the file specified in key.
                         if 'string' the key is passed as a string in key
         """
-        keystring = "undefined"
+        keystring = None
         if keytype.lower() == "file":
             try:
                 keystring = open(key, "r").read()

@@ -7,7 +7,7 @@ class IMAGE_OPENSTACK(CloudmeshMixin, CloudmeshDatabase.Base):
     __tablename__ = "image_openstack"
     __kind__ = 'image'
     __provider__ = "openstack"
-    __megefields__ = ["username"]
+    __mergefields__ = ["username"]
 
     uuid = Column(String)
     status = Column(String)
@@ -43,7 +43,7 @@ class IMAGE_OPENSTACK(CloudmeshMixin, CloudmeshDatabase.Base):
     def __init__(self, **kwargs):
         super(IMAGE_OPENSTACK, self).set_defaults(**kwargs)
 
-        self.username = kwargs.get("username", 'undefined')
+        self.username = kwargs.get("username", None)
         self.uuid = kwargs.get('uuid')
         self.status = kwargs.get('status')
         self.updated = kwargs.get('updated')
@@ -129,7 +129,7 @@ class VM_OPENSTACK(CloudmeshMixin, CloudmeshDatabase.Base):
     __tablename__ = "vm_openstack"
     __kind__ = 'vm'
     __provider__ = "openstack"
-    __megefields__ = ["username"]
+    __mergefields__ = ["username"]
 
     username = Column(String)
     uuid = Column(String)
@@ -165,7 +165,7 @@ class VM_OPENSTACK(CloudmeshMixin, CloudmeshDatabase.Base):
         super(VM_OPENSTACK, self).set_defaults(**kwargs)
 
         self.uuid = kwargs.get("uuid", None)
-        self.username = kwargs.get("username", 'undefined')
+        self.username = kwargs.get("username", None)
         self.diskConfig = kwargs.get("OS-DCF:diskConfig", None)
         self.availability_zone = kwargs.get("OS-EXT-AZ:availability_zone", None)
         self.power_state = kwargs.get("OS-EXT-STS:power_state", None)

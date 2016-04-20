@@ -626,7 +626,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["ip"] and arguments["show"]:
             if arguments["NAMES"] is None:
-                if str(Default.vm) in ['None', 'undefined']:
+                if str(Default.vm) in ['None', None]:
                     Console.error("The default vm is not set.")
                     return ""
                 else:

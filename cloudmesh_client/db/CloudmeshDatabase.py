@@ -19,11 +19,11 @@ from cloudmesh_client.shell.console import Console
 class CloudmeshMixin(object):
     __mapper_args__ = {'always_refresh': True}
 
-    category = Column(String, default="undefined")
-    kind = Column(String, default="undefined")
-    type = Column(String, default="undefined")
+    category = Column(String, default=None)
+    kind = Column(String, default=None)
+    type = Column(String, default=None)
 
-    provider = Column(String, default="undefined")
+    provider = Column(String, default=None)
 
     cm_id = Column(Integer, primary_key=True)
     created_at = Column(String,
@@ -31,19 +31,19 @@ class CloudmeshMixin(object):
     updated_at = Column(String,
                         default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                         onupdate=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-    label = Column(String, default="undefined")
-    name = Column(String, default="undefined")
-    user = Column(String, default="undefined")
-    project = Column(String, default="undefined")
+    label = Column(String, default=None)
+    name = Column(String, default=None)
+    user = Column(String, default=None)
+    project = Column(String, default=None)
 
     def set_defaults(self, **kwargs):
         # self.user = kwargs.get('user', CloudmeshDatabase.user)
         # TODO: for now hardcode user
         # self.user = Default.user#'gvonlasz'
         self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
-        self.name = kwargs.get('name', 'undefined')
-        self.label = kwargs.get('name', 'undefined')
-        self.category = kwargs.get('category', 'undefined')
+        self.name = kwargs.get('name', None)
+        self.label = kwargs.get('name', None)
+        self.category = kwargs.get('category', None)
         self.type = kwargs.get('type', 'str')
         self.kind = self.__kind__
         self.provider = self.__provider__
