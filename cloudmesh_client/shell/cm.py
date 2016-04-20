@@ -176,6 +176,8 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         # use the first cloud in cloudmesh.yaml as default
         #
 
+        Console.set_debug(Default.debug)
+
         filename = path_expand("~/.cloudmesh/cloudmesh.yaml")
         # moved to import cloudmesh_client
 

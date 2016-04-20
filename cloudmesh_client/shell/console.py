@@ -40,6 +40,7 @@ class Console(object):
     """
 
     color = True
+    debug = True
 
     theme_color = {
         'HEADER': Fore.MAGENTA,
@@ -75,6 +76,10 @@ class Console(object):
 
     theme = theme_color
 
+    @classmethod
+    def set_debug(cls, on=True):
+        cls.debug = on
+
     @staticmethod
     def set_theme(color=True):
         if color:
@@ -99,21 +104,20 @@ class Console(object):
         message = message or ""
         print(message)
 
-    @staticmethod
-    def error(message, prefix=True, traceflag=True):
+    @classmethod
+    def error(cls, message, prefix=True, traceflag=True):
         message = message or ""
         if prefix:
             text = "ERROR: "
         else:
             text = ""
-        if Console.color:
-            Console.cprint('FAIL', text, str(message))
+        if cls.color:
+            cls.cprint('FAIL', text, str(message))
         else:
-            print(Console.msg(text + str(message)))
+            print(cls.msg(text + str(message)))
 
-        trace = traceback.format_exc().strip()
-
-        if traceflag and trace != "None":
+        if traceflag and cls.debug:
+            trace = traceback.format_exc().strip()
             print
             print("\n".join(str(trace).splitlines()))
             print

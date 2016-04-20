@@ -343,7 +343,6 @@ class ConfigDict(object):
     @classmethod
     def getUser(cls, cloud):
         try:
-            print ("CCCC", cloud)
             config = d = ConfigDict("cloudmesh.yaml")
 
             d = ConfigDict("cloudmesh.yaml")
