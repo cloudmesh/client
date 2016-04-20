@@ -9,6 +9,7 @@ or
 nosetests -v tests/test_image.py
 
 """
+from __future__ import print_function
 
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.dotdict import dotdict
