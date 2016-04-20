@@ -37,7 +37,7 @@ class VMName(object):
             digit or arithmetic e.g. +5 or -3 can be used
 
         """
-        user = user or ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
+        user = user or ConfigDict("cloudmesh.yaml")["cloudmesh.profile.user"]
         prefix = prefix or user
         if type(idx) is not int:
             idx = int(idx)

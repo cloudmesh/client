@@ -40,7 +40,7 @@ class CloudmeshMixin(object):
         # self.user = kwargs.get('user', CloudmeshDatabase.user)
         # TODO: for now hardcode user
         # self.user = Default.user#'gvonlasz'
-        self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
+        self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.user"]
         self.name = kwargs.get('name', None)
         self.label = kwargs.get('name', None)
         self.category = kwargs.get('category', None)
@@ -73,13 +73,13 @@ class CloudmeshDatabase(object):
         self.__dict__ = self.__shared_state
 
         if self.initialized is None:
-            self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
+            self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.user"]
             self.filename = Config.path_expand(os.path.join("~", ".cloudmesh", "cloudmesh.db"))
             self.engine = create_engine('sqlite:///{}'.format(self.filename), echo=False)
             self.data = {"filename": self.filename}
 
             if user is None:
-                self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
+                self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.user"]
             else:
                 self.user = user
             CloudmeshDatabase.create()
@@ -106,13 +106,13 @@ class CloudmeshDatabase(object):
     session = None
     tables = None
     # user = "gvonlasz"
-    user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
+    user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.user"]
 
     def __init__(self):
         self.__dict__ = self.__shared_state
 
         if self.initialized is None:
-            self.user = ConfigDict(filename="cloudmesh.yaml")["cloudmesh.profile.username"]
+            self.user = ConfigDict(filename="cloudmesh.yaml")["cloudmesh.profile.user"]
             self.filename = Config.path_expand(os.path.join("~", ".cloudmesh", "cloudmesh.db"))
             self.create()
             self.create_tables()

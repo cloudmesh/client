@@ -383,7 +383,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                 export(cloud, "table")
 
             config = ConfigDict("cloudmesh.yaml")
-            if config["cloudmesh.profile.username"] == "TBD":
+            if config["cloudmesh.profile.user"] == "TBD":
                 name = config["cloudmesh.clouds.kilo.credentials.OS_USERNAME"]
                 config["cloudmesh"]["profile"]["user"] = name
                 config.save()
