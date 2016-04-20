@@ -36,11 +36,13 @@ class CloudmeshMixin(object):
     user = Column(String, default=None)
     project = Column(String, default=None)
 
+    def set_user(self):
+        self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.user"]
+
     def set_defaults(self, **kwargs):
         # self.user = kwargs.get('user', CloudmeshDatabase.user)
         # TODO: for now hardcode user
         # self.user = Default.user#'gvonlasz'
-        self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.user"]
         self.name = kwargs.get('name', None)
         self.label = kwargs.get('name', None)
         self.category = kwargs.get('category', None)
@@ -106,17 +108,18 @@ class CloudmeshDatabase(object):
     session = None
     tables = None
     # user = "gvonlasz"
-    user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.user"]
+    # user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.user"]
+    user = None
 
     def __init__(self):
         self.__dict__ = self.__shared_state
 
         if self.initialized is None:
-            self.user = ConfigDict(filename="cloudmesh.yaml")["cloudmesh.profile.user"]
             self.filename = Config.path_expand(os.path.join("~", ".cloudmesh", "cloudmesh.db"))
             self.create()
             self.create_tables()
             self.start()
+            self.user = ConfigDict(filename="cloudmesh.yaml")["cloudmesh.profile.user"]
 
     @classmethod
     def refresh_new(cls, kind, name, **kwargs):
@@ -134,7 +137,7 @@ class CloudmeshDatabase(object):
             # get the user
             # TODO: Confirm user
 
-            user = cls.user
+            # user = cls.user
 
             purge = kwargs.get("purge", True)
 
@@ -165,7 +168,7 @@ class CloudmeshDatabase(object):
                     element['type'] = 'string'
                     element["category"] = name
 
-                    element["user"] = user
+                    # element["user"] = user
                     element["kind"] = kind
                     element["provider"] = provider.cloud_type
                     if current_elements is not None:
@@ -192,7 +195,7 @@ class CloudmeshDatabase(object):
                     job[u'uuid'] = job['id']
                     job[u'type'] = 'string'
                     job[u'category'] = name
-                    job[u'user'] = user
+                    # job[u'user'] = user
 
                     cls.add(job)
                     cls.save()
@@ -381,7 +384,7 @@ class CloudmeshDatabase(object):
             if current is not None:
                 for key in element.__dict__.keys():
                     current[0][key] = element.__dict__[key]
-                    current[0]['user'] = element.__dict__["user"]
+                    # current[0]['user'] = element.__dict__["user"]
             else:
                 cls.session.add(element)
         else:
@@ -678,7 +681,7 @@ class CloudmeshDatabase(object):
                     # update based on the keys that exist in the db model
                     if key in current:
                         current[key] = element.__dict__[key]
-                current['user'] = element.__dict__["user"]
+                # current['user'] = element.__dict__["user"]
 
                 # update on the db
                 cls.update(provider=current["provider"],
@@ -846,7 +849,7 @@ class CloudmeshDatabase(object):
 
         if scope == "first" and provider is None:
             elements = cls.filter_by(name=name, kind=kind)[0]
-            pprint(elements)
+            # pprint(elements)
 
             o = dotdict(elements)
             # print("PPPP", kind, name, attribute, value, o)
@@ -884,8 +887,8 @@ class CloudmeshDatabase(object):
         from the cloudmesh database
         :param category: the category name
         """
-        if user is None:
-            user = cls.user
+        # if user is None:
+        #    user = cls.user
 
         try:
             elements = cls.find(kind=kind,
@@ -923,7 +926,7 @@ class CloudmeshDatabase(object):
             # get the user
             # TODO: Confirm user
 
-            user = cls.user
+            # user = cls.user
             purge = kwargs.get("purge", True)
 
             if kind in ["flavor", "image", "vm"]:
@@ -950,7 +953,7 @@ class CloudmeshDatabase(object):
                     element['type'] = 'string'
                     element["category"] = name
 
-                    element["user"] = user
+                    # element["user"] = user
                     element["kind"] = kind
                     element["provider"] = provider.cloud_type
                     if current_elements is not None:
@@ -977,7 +980,7 @@ class CloudmeshDatabase(object):
                     job[u'uuid'] = job['id']
                     job[u'type'] = 'string'
                     job[u'category'] = name
-                    job[u'user'] = user
+                    # job[u'user'] = user
 
                     cls.add(job)
                     cls.save()

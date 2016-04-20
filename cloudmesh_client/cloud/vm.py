@@ -145,7 +145,9 @@ class Vm(ListResource):
             cls.cm.set(d.name, "key", d.key, scope="first", kind="vm")
             cls.cm.set(d.name, "image", d.image, scope="first", kind="vm")
             cls.cm.set(d.name, "flavor", d.flavor, scope="first", kind="vm")
+            print ("GGGG", arg.group, d.name)
             cls.cm.set(d.name, "group", arg.group, scope="first", kind="vm")
+            cls.cm.set(d.name, "user", arg.user, scope="first", kind="vm")
 
         # update group and key
         #
@@ -320,18 +322,23 @@ class Vm(ListResource):
 
             try:
                 query = {
-                    "type": "vm",
-                    "member": vm
+                    'kind': "group",
+                    'provider': 'general',
+                    "species": "vm",
+                    "member": vm,
+                    "scope": 'all',
+                    "output": 'dict'
                 }
 
-                d = cls.cm.find(kind="group", **query)
+                d = cls.cm.find(**query)
                 groups_vm = set()
                 if d is not None and len(d) > 0:
                     for vm in d:
-                        groups_vm.add(d[vm]['name'])
+                        groups_vm.add(vm['name'])
                 return list(groups_vm)
             except Exception as ex:
                 Console.error(ex.message)
+            return []
 
         try:
             if "name" in arg and arg.name is not None:

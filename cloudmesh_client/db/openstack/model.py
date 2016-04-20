@@ -183,6 +183,7 @@ class VM_OPENSTACK(CloudmeshMixin, CloudmeshDatabase.Base):
         self.hostId = kwargs.get("hostId", None)
         self.image__id = kwargs.get("image__id", None)
         self.key = kwargs.get("key", None)
+        self.group = kwargs.get("group", None)
 
         # self.volumes_attached = kwargs.get("volumes_attached", None) or None
         # self.progress = kwargs.get("progress", None)
@@ -195,3 +196,4 @@ class VM_OPENSTACK(CloudmeshMixin, CloudmeshDatabase.Base):
         self.updated = kwargs.get("updated", None)
         self.user_id = kwargs.get("user_id", None)
         self.status = kwargs.get("status", "defined")
+        # self.set_user()
