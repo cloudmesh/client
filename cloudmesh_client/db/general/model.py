@@ -15,7 +15,7 @@ class WORKFLOW(CloudmeshMixin, CloudmeshDatabase.Base):
 
     status = Column(String)
     location = Column(String)
-    
+
     def __init__(self, **kwargs):
         super(DEFAULT, self).set_defaults(**kwargs)
         self.status = kwargs.status('value', 'defined')
