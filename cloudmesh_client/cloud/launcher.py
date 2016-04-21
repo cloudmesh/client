@@ -7,6 +7,7 @@ from cloudmesh_client.db import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.cloud.ListResource import ListResource
 
+# change test gergor
 # noinspection PyUnusedLocal
 class Launcher(ListResource):
 
