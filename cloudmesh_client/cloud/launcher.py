@@ -59,11 +59,11 @@ class LauncherShell(LauncherProvider):
 
 
 # noinspection PyPep8Naming
-def Launcher(kind):
+class Launcher:
 
 
     #if kind.lower() in ["sh", "shell"]:
     #    return LauncherShell()
     #else:
-        Console.TBD("not yet implemented")
-        return "not yet implemented"
+        # Console.TBD("not yet implemented")
+        # return "not yet implemented"
