@@ -6,6 +6,7 @@ from cloudmesh_client.default import Default
 from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.common.hostlist import Parameter
 
+
 class VcCommand(PluginCommand, CloudPluginCommand):
     topics = {"vc": "cloud"}
 
@@ -22,8 +23,8 @@ class VcCommand(PluginCommand, CloudPluginCommand):
 
             Usage:
                 vc key add KEYFILE NAMES [--username=USERNAME]
-                vc key distribute NAMES
-                vc key list NAMES [--usort] [--format=FORMAT]
+                vc key distribute NAMES [--username=USERNAME]
+                vc key list NAMES [--usort] [--username=USERNAME] [--format=FORMAT]
 
                 This lists out the vcs present for a cloud
 
@@ -68,17 +69,23 @@ class VcCommand(PluginCommand, CloudPluginCommand):
         else:
             arg.names = None
 
-
         if arg.add:
 
-            print ("vc key add KEYFILE NAMES --username=USERNAME")
+            print("vc key add KEYFILE NAMES --username=USERNAME")
+
+            print(arg.username)
+            print(arg.names)
+            print(arg.KEYFILE)
+
             Console.TODO("not yet implemented")
             return ""
 
         elif arg.distribute:
 
+            print("vc key distribute NAMES --username=USERNAME")
+            print(arg.names)
+            print(arg.username)
 
-            print ("vc key distribute NAMES")
             Console.TODO("not yet implemented")
             return ""
 
@@ -86,8 +93,10 @@ class VcCommand(PluginCommand, CloudPluginCommand):
 
             print("vc key list NAMES [--usort] [--format=FORMAT]")
 
-            print (arg.names)
-            result = Vc.list(names=arg.names) # dont forget format and sort
+            print(arg.names)
+            print(arg.username)
+            print(arg.format)
+            print(arg.usort)
+            result = Vc.list(names=arg.names)  # dont forget format and sort
             Console.TODO("not yet implemented")
             return ""
-
