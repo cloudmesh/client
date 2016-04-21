@@ -219,6 +219,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         #
         # SET DEFAULT CLUSTER
         #
+        '''
         cluster = ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["active"][0]
 
         value = Default.get(name='cluster', category='general')
@@ -233,6 +234,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         else:
             cluster = value
         Default.set('cluster', cluster, category='general')
+        '''
 
         #
         # SET DEFAULT GROUP

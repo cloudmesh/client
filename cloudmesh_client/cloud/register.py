@@ -18,6 +18,7 @@ from cloudmesh_client.common import Printer
 from cloudmesh_client.common.util import path_expand
 from builtins import input
 
+
 class Register(object):
     @classmethod
     def entry(cls, name):
@@ -76,7 +77,7 @@ class CloudRegister(object):
                 "version":
                     config["cloudmesh"]["clouds"][key]["cm_type_version"] or "",
                 # "active": "*" if key in config["cloudmesh"]["active"] else "",
-                "active":  config["cloudmesh"]["active"].index(key) +  1 if key in  config["cloudmesh"]["active"] else "",
+                "active": config["cloudmesh"]["active"].index(key) + 1 if key in config["cloudmesh"]["active"] else "",
                 "default": "*" if key == cloud else ""
             }
         return Printer.Printer.write(d,

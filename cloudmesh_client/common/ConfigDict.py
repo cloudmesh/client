@@ -3,13 +3,15 @@ from __future__ import print_function
 import json
 import os.path
 from collections import OrderedDict
-
+import sys
+import sys
 import yaml
 
 from cloudmesh_client.common.BaseConfigDict import BaseConfigDict
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.common.util import path_expand
 from cloudmesh_client.shell.console import Console
+from cloudmesh_client.common.util import backup_name
 
 
 def custom_print(data_structure, indent, attribute_indent=4):
@@ -68,7 +70,7 @@ def dprint(OD, mode='dict', s="", indent=' ' * 4, level=0):
             level += 1
             s += (level - 1) * indent + kv_tpl % (k, ST + dprint(OD[k], mode=mode,
                                                                  indent=indent, level=level) + (
-                                                  level - 1) * indent + END)
+                                                      level - 1) * indent + END)
             level -= 1
         else:
             s += level * indent + kv_tpl % (k, fstr(OD[k]))
@@ -149,6 +151,9 @@ class Config(object):
 
 
 class ConfigDict(object):
+
+    versions = ['4.1']
+
     def __init__(self,
                  filename,
                  load_order=None,
@@ -195,8 +200,13 @@ class ConfigDict(object):
         :return:
         """
         self.data = BaseConfigDict(filename=Config.path_expand(filename))
+        version = str(self.data["meta"]["version"])
+        if version not in self.versions:
+            Console.error("The yaml file version must be {}".format(', '.join(self.versions)))
+            sys.exit(1)
+            # return self.data
 
-    def write(self, filename=None, output="dict"):
+    def write(self, filename=None, output="dict", attribute_indent=4):
         """
         This method writes the dict into various outout formats. This includes a dict,
         json, and yaml
@@ -362,6 +372,7 @@ class ConfigDict(object):
                                  "supported: {}".format(cloud))
         except Exception as ex:
             Console.error("problem getting user")
+
 
 # noinspection PyPep8Naming
 def Username():
