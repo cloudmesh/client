@@ -25,7 +25,7 @@ class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         ::
 
           Usage:
-              launcher list [NAMES] [--cloud=CLOUD] [--format=FORMAT]
+              launcher list [NAMES] [--cloud=CLOUD] [--format=FORMAT] [--source=db|dir]
               launcher add NAME SOURCE
               launcher delete [NAMES] [--cloud=CLOUD]
               launcher clear
@@ -76,6 +76,7 @@ class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         if arg.name == ['all']:
             arg.names = None
         arg.output = arguments['--format'] or 'table'
+        arg.output = arguments['--source'] or 'db'
         pprint (arg)
         
         # arg.cloud = arguments["--cloud"] or Default.cloud
