@@ -30,7 +30,8 @@ class Test_register:
         "flavor": "TBD",
         "image": "TBD",
         "wrong_cloud": "no_cloud",
-        "cert": "~/.cloudmesh/clouds/india/{cloud}/cacert.pem"
+        "cert": "~/.cloudmesh/clouds/india/{cloud}/cacert.pem",
+        "yaml": "cloudmesh1.yaml"
     })
     data.image = Default.get_image()
     data.flavor = Default.get_flavor()
@@ -55,18 +56,18 @@ class Test_register:
 
     def test_001(self):
         
-        HEADING("testing cm register india")
+        HEADING("cm register remote {cloud}".format(**self.data))
         # os.sytem("yes | cm register india")
         result = self.run("cm register remote {cloud}")
         print(result)
         #result = Shell.cm("register", "india", "--force")
         assert "{cloud}".format(**self.data) in result
         assert "OS_AUTH_URL" in result
-
+        assert "https://kilo.futuresystems.org:5000/v3" in result
 
     def test_002(self):
-        HEADING("testing cm register random1 --force")
-        result = self.run ("cm register remote random1")
+        HEADING("testing cm register random1")
+        result = self.run ("cm register remote doesnotexist")
         assert "ERROR: executing" in result
 
     def test_003(self):
@@ -74,47 +75,43 @@ class Test_register:
         result = self.run ("cm register list")
         assert "{cloud}".format(**self.data) in result
 
-    def test_004(self):
-        HEADING("testing cm register CLOUD CERT")
-        result = self.run ("cm register remote {cloud}")
-        assert "https://kilo.futuresystems.org:5000/v3" in result
 
-    def test_005(self):
+    def test_004(self):
         HEADING("testing cm register info")
         result = self.run("cm register info")
         assert "exists" in result
 
-    def test_006(self):
+    def test_005(self):
         HEADING("testing cm register cat")
         result = self.run("cm register cat")
         assert "yaml_version:" in result
 
+    def test_006(self):
+        HEADING("testing cm register cat --yaml={yaml}".format(**self.data))
+        result = self.run("cm register cat --yaml={yaml}")
+        assert "ERROR: executing command" in result
+
     def test_007(self):
-        HEADING("testing cm register cat --yaml=cloudmesh1.yaml")
-        result = self.run("cm register cat --yaml=cloudmesh1.yaml")
+        HEADING("testing cm register edit --yaml=cloudmesh_doesnotexist.yaml")
+        result = self.run("cm register edit --yaml=cloudmesh_doesnotexit.yaml")
         assert "ERROR: executing command" in result
 
     def test_008(self):
-        HEADING("testing cm register edit --yaml=cloudmesh1.yaml")
-        result = self.run("cm register edit --yaml=cloudmesh1.yaml")
-        assert "ERROR: executing command" in result
-
-    def test_009(self):
         HEADING("testing cm register list ssh")
         result = self.run("cm register list ssh")
         assert "kilo" in result
 
-    def test_010(self):
-        HEADING("testing cm register rc india")
+    def test_009(self):
+        HEADING("testing cm register remote")
         result = self.run("cm register remote")
         assert "Reading rc file from" in result
 
-    def test_011(self):
-        HEADING("testing cm register json india")
+    def test_010(self):
+        HEADING("cm register json {cloud}".format(**self.data))
         result = self.run ("cm register json {cloud}")
         assert "openstack" in result
 
-    def test_012(self):
+    def test_011(self):
         HEADING("testing cm register json hadoop")
         result = self.run ("cm register json hadoop")
         assert "Cloud hadoop is not described in cloudmesh.yaml" in result
