@@ -8,7 +8,7 @@ from cloudmesh_client.common.hostlist import Parameter
 from cloudmesh_client.common.dotdict import dotdict
 
 class WorkflowCommand(PluginCommand, CloudPluginCommand):
-    topics = {"workflow": "cloud"}
+    topics = {"workflow": "todo"}
 
     def __init__(self, context):
         self.context = context

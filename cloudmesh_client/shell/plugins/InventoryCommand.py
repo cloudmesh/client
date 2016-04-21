@@ -11,7 +11,7 @@ from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 # noinspection PyBroadException
 class InventoryCommand(PluginCommand, CloudPluginCommand):
-    topics = {"inventory": "system"}
+    topics = {"inventory": "todo"}
 
     def __init__(self, context):
         self.context = context

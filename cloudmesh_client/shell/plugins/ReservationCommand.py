@@ -18,7 +18,7 @@ from cloudmesh_client.common.Error import Error
 
 
 class ReservationCommand(PluginCommand, CloudPluginCommand):
-    topics = {"reservation": "notimplemented"}
+    topics = {"reservation": "todo"}
 
     def __init__(self, context):
         # super(self.__class__, self).__init__()
