@@ -18,7 +18,6 @@ from cloudmesh_client.common import Printer
 from cloudmesh_client.common.util import path_expand
 from builtins import input
 
-
 class Register(object):
     @classmethod
     def entry(cls, name):
@@ -55,7 +54,7 @@ class CloudRegister(object):
             return None
 
     @classmethod
-    def list(cls, filename, info=False, output='table'):
+    def list(cls, filename, cloud, info=False, output='table'):
         """
         lists clouds from cloudmesh.yaml file
 
@@ -75,14 +74,18 @@ class CloudRegister(object):
                 "cloud": key,
                 "iaas": config["cloudmesh"]["clouds"][key]["cm_type"],
                 "version":
-                    config["cloudmesh"]["clouds"][key][
-                        "cm_type_version"] or "N/A"
+                    config["cloudmesh"]["clouds"][key]["cm_type_version"] or "",
+                # "active": "*" if key in config["cloudmesh"]["active"] else "",
+                "active":  config["cloudmesh"]["active"].index(key) +  1 if key in  config["cloudmesh"]["active"] else "",
+                "default": "*" if key == cloud else ""
             }
         return Printer.Printer.write(d,
                                      order=['id',
+                                            'default',
                                             'cloud',
                                             'iaas',
-                                            'version'],
+                                            'version',
+                                            'active'],
                                      output=output)
 
     @classmethod

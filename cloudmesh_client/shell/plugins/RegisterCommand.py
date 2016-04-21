@@ -15,7 +15,7 @@ from cloudmesh_client.common.util import yn_choice
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
-
+from cloudmesh_client.default import Default
 
 # noinspection PyBroadException
 class RegisterCommand(PluginCommand, CloudPluginCommand):
@@ -193,6 +193,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                 Console.ok("The yaml file contains the following templates:")
 
                 d = CloudRegister.list(filename,
+                                       Default.cloud,
                                        info=False,
                                        output="table")
                 print(d)
