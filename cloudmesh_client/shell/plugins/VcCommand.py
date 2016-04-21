@@ -22,11 +22,10 @@ class VcCommand(PluginCommand, CloudPluginCommand):
         ::
 
             Usage:
-                vc key add KEYFILE NAMES [--username=USERNAME]
-                vc key distribute NAMES [--username=USERNAME]
-                vc key list NAMES [--usort] [--username=USERNAME] [--format=FORMAT]
-
-                This lists out the vcs present for a cloud
+                vc key add KEYFILE NAMES [--username=USERNAME] [--proxy=PROXY]
+                vc key distribute NAMES [--username=USERNAME] [--proxy=PROXY]
+                vc key list NAMES [--usort] [--username=USERNAME] [--proxy=PROXY] [--format=FORMAT]
+                vc key proxy NAMES [--username=USERNAME] [--proxy=PROXY]
 
             Options:
                --format=FORMAT  the output format [default: table]
@@ -55,7 +54,23 @@ class VcCommand(PluginCommand, CloudPluginCommand):
                     the key once, but lists in the host column the list of all host on
                     which the key is stored
 
+                Proxy server
 
+                    vc key proxy NAMES
+                        sometimes you may not have enough floating IPs so it is possible to dedicate one machine
+                        as a proxy server that has such a floating ip. The way this is done is that you need to set
+                        up ssh tunnels via the proxy server in your  .ssh/config file. The command will print a
+                        template that you could include in your .ssh/config file to gain easily access to your other
+                        machines without floating ip. For example it will generate for a given PROXY host and USERNAME
+                        the following
+
+                        Host vm1
+                            User  USERNAME
+                            Hostname PROXY
+                            ProxyCommand  ssh 10.1.1.2 nc %h %p
+                            ForwardX11 yes
+
+                        Note: this is just a draft and will be improved upon discussion with the team
 
         """
 
