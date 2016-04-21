@@ -99,7 +99,7 @@ class Test_register:
     def test_008(self):
         HEADING("testing cm register list ssh")
         result = self.run("cm register list ssh")
-        assert "kilo" in result
+        assert "| host" in result
 
     def test_009(self):
         HEADING("testing cm register remote")
