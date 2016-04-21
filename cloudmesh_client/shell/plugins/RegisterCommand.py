@@ -43,10 +43,9 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
               register list [--yaml=FILENAME][--info][--format=FORMAT]
               register cat [--yaml=FILENAME]
               register edit [--yaml=FILENAME]
-              register profile [--username=USERNAME]
+              register user [USERNAME]
               register cloud [CLOUD] [--force]
               register remote [CLOUD] [--force]
-              register yaml ENTRY
               register export HOST [--password] [--format=FORMAT]
               register source HOST
               register merge FILEPATH
@@ -56,6 +55,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
               register json HOST
               register env [--provider=PROVIDER]
               register ec2 CLOUD EC2ZIP
+              register ENTRY
 
           managing the registered clouds in the cloudmesh.yaml file.
           It looks for it in the current directory, and than in
@@ -469,13 +469,13 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                 export(cloud, "table")
             return ""
 
-        elif arguments['profile']:
-            username = arguments["--username"] or getpass.getuser()
+        elif arguments['user']:
+            username = arguments["USERNAME"] or getpass.getuser()
             CloudRegister.set_username(username)
             Console.ok("Setting profile user to {} in the yaml file.".format(username))
             return ""
 
-        elif arguments['yaml']:
+        elif arguments['ENTRY'] is not None:
             name = arguments['ENTRY']
             Register.entry(name)
             return ""

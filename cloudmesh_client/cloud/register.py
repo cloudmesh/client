@@ -17,32 +17,45 @@ from cloudmesh_client.common.ConfigDict import ConfigDict, Config
 from cloudmesh_client.common import Printer
 from cloudmesh_client.common.util import path_expand
 from builtins import input
-
+import cloudmesh_client
+from pprint import pprint
+import sys
+from cloudmesh_client.common.util import banner
 
 class Register(object):
     @classmethod
     def entry(cls, name):
-        return ValueError("not implemented yet")
 
-        '''
-        etc_yaml = ConfigDict("cloudmesh.yaml", etc=True)
+        banner("Register {}".format(name))
 
+        name = str(name)
+        etc_config = ConfigDict("cloudmesh.yaml", etc=True)
         config = ConfigDict("cloudmesh.yaml")
 
-        etc_data = etc_yaml[name]
-        yaml_data = config[name]
+        clouds = config["cloudmesh.clouds"]
+        clusters = config["cloudmesh.hpc.clusters"]
 
-        # recursive walk yaml fields
-        chanaged = False
-        for entry in etc_data:
-            old_value = value
-            if value of entry == "TBD"
-                print "ENTER": entryname, yaml_Data of entry
-                new_value = input
-                if old_value != new_value
-                    changed = True or changed
-        if changed wirte data to yaml file
-        '''
+        if name in clouds:
+            name = "cloudmesh.clouds.{}.credentials".format(name)
+        elif name in clusters:
+            name = "cloudmesh.hpc.clusters.{}.credentials".format(name)
+        elif not name.startswith("cloudmesh."):
+            name = "cloudmesh." + name
+
+        try:
+            etc = etc_config[name]
+            yaml = config[name]
+
+            # walk yaml
+            for key in etc:
+                if etc[key] == "TBD":
+                    result = input("Enter {:} ({:}): ".format(key, yaml[key]))
+                    if result != '':
+                        yaml[key] = result
+
+            config.save()
+        except Exception as e:
+            Console.error("Could not find {} in the yaml file".format(name), traceflag=False)
 
 
 class CloudRegister(object):

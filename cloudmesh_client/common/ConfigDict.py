@@ -151,7 +151,6 @@ class Config(object):
 
 
 class ConfigDict(object):
-
     versions = ['4.1']
 
     def __init__(self,
@@ -171,11 +170,14 @@ class ConfigDict(object):
         :return: an instance of ConfigDict
         :rtype: ConfigDict
         """
+
         self.data = None
 
         if etc:
-            load_order = [cloudmesh_client.etc.__file_]
-        elif load_order is None:
+            import cloudmesh_client.etc
+            load_order = [os.path.dirname(cloudmesh_client.etc.__file__)]
+
+        if load_order is None:
             self.load_order = [".", os.path.join("~", ".cloudmesh")]
         else:
             self.load_order = load_order
