@@ -57,46 +57,21 @@ for ln in fo:
 class Vc(ListResource):
     cm = CloudmeshDatabase()
 
-    @classmethod
-    def refresh(cls, cloud):
-        """
-        This method would refresh the vc list by first clearing
-        the database, then inserting new data
-        :param cloud: the cloud name
-        """
 
-        return cls.cm.refresh('vc', cloud)
+    '''
+    vc key list NAMES [--usort]
+    '''
 
     @classmethod
-    def list(cls, cloud, live=False, format="table"):
+    def list(cls, names, usort=False, format="table"):
         """
         This method lists all vcs of the cloud
         :param cloud: the cloud name
         """
 
-        try:
+        Console.error("NOT YET IMPLEMENTED")
+        return None
 
-            if live:
-                cls.refresh(cloud)
 
-            elements = cls.cm.find(kind="vc", category=cloud)
-
-            # pprint(elements)
-
-            (order, header) = CloudProvider(cloud).get_attributes("vc")
-
-            return Printer.write(elements,
-                                 order=order,
-                                 header=header,
-                                 output=format)
-        except Exception as ex:
-            Console.error(ex.message)
-
-    @classmethod
-    def details(cls, cloud, id, live=False, format="table"):
-        if live:
-            cls.refresh(cloud)
-
-        return CloudProvider(cloud).details('vc', cloud, id, format)
 
 
