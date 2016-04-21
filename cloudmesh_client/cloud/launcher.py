@@ -4,6 +4,7 @@ import subprocess
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.shell.console import Console
 
+# change
 # noinspection PyUnusedLocal
 class LauncherProvider(ListResource):
     def info(self, **kwargs):
@@ -59,11 +60,11 @@ class LauncherShell(LauncherProvider):
 
 
 # noinspection PyPep8Naming
-class Launcher:
+def Launcher(kind):
 
 
     #if kind.lower() in ["sh", "shell"]:
     #    return LauncherShell()
     #else:
-        # Console.TBD("not yet implemented")
-        # return "not yet implemented"
+        Console.TBD("not yet implemented")
+        return "not yet implemented"
