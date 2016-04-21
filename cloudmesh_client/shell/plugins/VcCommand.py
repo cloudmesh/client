@@ -8,7 +8,7 @@ from cloudmesh_client.common.hostlist import Parameter
 
 
 class VcCommand(PluginCommand, CloudPluginCommand):
-    topics = {"vc": "cloud"}
+    topics = {"vc": "todo"}
 
     def __init__(self, context):
         self.context = context
