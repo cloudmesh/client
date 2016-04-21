@@ -99,8 +99,8 @@ class CloudRegister(object):
         for line in lines:
             if "Host " in line:
                 host = line.strip().replace("Host ", "", 1).replace(" ", "")
-                hosts.append(host)
-
+                dhost = {"host": host}
+                hosts.append(dhost)
         return hosts
 
     @classmethod
