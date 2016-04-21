@@ -5,7 +5,7 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.default import Default
 from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.common.hostlist import Parameter
-
+from pprint import pprint
 
 class VcCommand(PluginCommand, CloudPluginCommand):
     topics = {"vc": "todo"}
@@ -78,11 +78,15 @@ class VcCommand(PluginCommand, CloudPluginCommand):
         arg.usort = arguments["--usort"]
         arg.format = arguments["--format"]
         arg.username = arguments["--username"]
+        arg.proxy = arguments["--proxy"]
 
         if arg.NAMES is not None:
             arg.names = Parameter.expand(arg.NAMES)
         else:
             arg.names = None
+
+
+        pprint (arg)
 
         if arg.add:
 
@@ -91,6 +95,8 @@ class VcCommand(PluginCommand, CloudPluginCommand):
             print(arg.username)
             print(arg.names)
             print(arg.KEYFILE)
+            print(arg.proxy)
+
 
             Console.TODO("not yet implemented")
             return ""
@@ -100,6 +106,7 @@ class VcCommand(PluginCommand, CloudPluginCommand):
             print("vc key distribute NAMES --username=USERNAME")
             print(arg.names)
             print(arg.username)
+            print(arg.proxy)
 
             Console.TODO("not yet implemented")
             return ""
@@ -112,6 +119,21 @@ class VcCommand(PluginCommand, CloudPluginCommand):
             print(arg.username)
             print(arg.format)
             print(arg.usort)
+            print(arg.proxy)
+            result = Vc.list(names=arg.names)  # dont forget format and sort
+            Console.TODO("not yet implemented")
+            return ""
+
+        elif arg.proxy:
+
+            print("vc key proxy NAMES [--username=USERNAME] [--proxy=PROXY]")
+
+            print(arg.names)
+            print(arg.username)
+            print(arg.format)
+            print(arg.usort)
+            print(arg.proxy)
+
             result = Vc.list(names=arg.names)  # dont forget format and sort
             Console.TODO("not yet implemented")
             return ""
