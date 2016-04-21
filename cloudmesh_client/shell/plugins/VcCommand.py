@@ -61,8 +61,8 @@ class VcCommand(PluginCommand, CloudPluginCommand):
                         as a proxy server that has such a floating ip. The way this is done is that you need to set
                         up ssh tunnels via the proxy server in your  .ssh/config file. The command will print a
                         template that you could include in your .ssh/config file to gain easily access to your other
-                        machines without floating ip. For example it will generate for a given PROXY host and USERNAME
-                        the following
+                        machines without floating ip. For example it will generate the following for a given PROXY host,
+                        USERNAME, and vm1 is the name of the first vm in NAMES
 
                         Host vm1
                             User  USERNAME
