@@ -22,6 +22,11 @@ Automated Builds
 | libcloud | |lib-status|    | |lib-docs|    |
 +----------+-----------------+---------------+
 
+Current TODO
+-------------
+
+* https://github.com/cloudmesh/client/blob/dev/TODO.md
+
 Features
 --------
 
