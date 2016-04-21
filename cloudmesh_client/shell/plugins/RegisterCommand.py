@@ -374,7 +374,8 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
             cloud = arguments['CLOUD']
 
             if cloud is None:
-                clouds =  [ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["active"][0]]
+                #clouds =  [ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["active"][0]]
+                clouds = ["kilo"]  # hardcode to kilo for now
 
             else:
                 clouds = [cloud]
