@@ -7,10 +7,10 @@ nosetests -v --nocapture tests/test_register.py
 or
 
 nosetests -v tests/test_register.py
+"""
 
-
-from cloudmesh_client.util import banner
-from cloudmesh_client.util import HEADING
+from cloudmesh_client.common.util import banner
+from cloudmesh_client.common.util import HEADING
 
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.dotdict import dotdict
@@ -18,11 +18,13 @@ from cloudmesh_client.default import Default
 
 class Test_register:
     """
-# tests
-# for india only
-"""
+    # tests
+    # for india only
+    """
     data = dotdict({
-        "cloud": Default.cloud,
+        # "cloud": Default.cloud,
+        # only retrieving for india kilo
+        "cloud": "kilo",
         "group": "test",
         "vm": "testvm",
         "flavor": "TBD",
@@ -55,7 +57,7 @@ class Test_register:
         
         HEADING("testing cm register india")
         # os.sytem("yes | cm register india")
-        result = self.run("cm register {cloud}")
+        result = self.run("cm register remote {cloud}")
         print(result)
         #result = Shell.cm("register", "india", "--force")
         assert "{cloud}".format(**self.data) in result
@@ -64,7 +66,7 @@ class Test_register:
 
     def test_002(self):
         HEADING("testing cm register random1 --force")
-        result = self.run ("cm register random1")
+        result = self.run ("cm register remote random1")
         assert "ERROR: executing" in result
 
     def test_003(self):
@@ -74,7 +76,7 @@ class Test_register:
 
     def test_004(self):
         HEADING("testing cm register CLOUD CERT")
-        result = self.run ("cm register {cloud}")
+        result = self.run ("cm register remote {cloud}")
         assert "https://kilo.futuresystems.org:5000/v3" in result
 
     def test_005(self):
@@ -100,7 +102,7 @@ class Test_register:
     def test_009(self):
         HEADING("testing cm register list ssh")
         result = self.run("cm register list ssh")
-        assert "india" in result
+        assert "kilo" in result
 
     def test_010(self):
         HEADING("testing cm register rc india")
@@ -116,4 +118,3 @@ class Test_register:
         HEADING("testing cm register json hadoop")
         result = self.run ("cm register json hadoop")
         assert "Cloud hadoop is not described in cloudmesh.yaml" in result
-"""
