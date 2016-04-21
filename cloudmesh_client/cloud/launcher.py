@@ -4,7 +4,7 @@ import subprocess
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.shell.console import Console
 
-# change
+# change test gergor
 # noinspection PyUnusedLocal
 class LauncherProvider(ListResource):
     def info(self, **kwargs):
