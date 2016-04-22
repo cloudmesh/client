@@ -36,7 +36,7 @@ class QuotaCommand(PluginCommand, CloudPluginCommand):
 
         """
         if arguments["list"]:
-            cloud = arguments["--cloud"] or Default.get_cloud()
+            cloud = arguments["--cloud"] or Default.cloud
 
             if not cloud:
                 Console.error("Default cloud doesn't exist")

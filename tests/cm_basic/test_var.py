@@ -11,10 +11,10 @@ nosetests -v tests/cm_basic/test_var.py
 
 """
 from cloudmesh_client.common.Shell import Shell
-from cloudmesh_client.util import HEADING
+from cloudmesh_client.common.util import HEADING
 
 from cloudmesh_client.var import Var
-import sys
+
 
 def run(command):
     print(command)
@@ -26,7 +26,8 @@ def run(command):
     return result
 
 
-class Test_var():
+# noinspection PyMethodMayBeStatic,PyPep8Naming
+class Test_var(object):
     """
 
     """
@@ -35,14 +36,10 @@ class Test_var():
         pass
 
     def test_001(self):
-        """
-        delete defaults
-        :return:
-        """
-        HEADING()
+        HEADING(" delete defaults")
         Var.clear()
-        print (Var.list())
-        assert Var.list() == None
+        print(Var.list())
+        assert Var.list() is None
 
     def _check(self, content):
         result = Var.list()
@@ -50,65 +47,48 @@ class Test_var():
         assert content in str(result)
 
     def test_002(self):
-        """
-        set default variable
-        :return:
-        """
-        HEADING()
+        HEADING("set default variable")
         name = "myvar"
         value = "myvalue"
         Var.set(name, value)
-        print (Var.list())
-        assert Var.get(name) == value
+        print(Var.list())
         self._check(value)
 
     def test_003(self):
-        """
-        delete default variable
-        :return:
-        """
-        HEADING()
+        HEADING("delete default variable")
         Var.clear()
         name = "deleteme"
         value = "myvalue"
         Var.set(name, value)
-        print (Var.list())
+        print(Var.list())
         Var.delete(name)
-        print (Var.list())
+        print(Var.list())
         self._check("None")
 
-
     def test_004(self):
-        HEADING()
+        HEADING("assign a variable")
         command = "cm var myvar=myvalue"
         result = run(command)
         result = run("cm var list")
         assert "myvalue" in result
 
     def test_005(self):
-        HEADING()
+        HEADING("print a variable")
         command = "cm banner $myvar"
         result = run(command)
         assert "myvalue" in result
 
     def test_999(self):
-        """
-        clear the defaults
-        :return:
-        """
-        HEADING()
+        HEADING("clear the defaults")
 
         Var.clear()
-        Var.list()
-        assert True
+        result = Var.list()
+        print(result)
+        assert result is None
 
     '''
     def test_002(self):
-        """
-        tries to start a vm with an invalid image
-        :return:
-        """
-        HEADING()
+        HEADING("tries to start a vm with an invalid image")
 
         result = run ("cm vm start --cloud=india --flavor=m1.medium --image=futuresystems/linux>windows")
 

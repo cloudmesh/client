@@ -68,7 +68,7 @@ class command_search(object):
                 _order = order.split(',')
             else:
                 _order = None
-            output = models.dict_printer(result, order=_order, header=None, output="table", sort_keys=True)
+            output = models.Printer.write(result, order=_order, header=None, output="table", sort_keys=True)
             print(output)
         else:
             print("Nothing found")

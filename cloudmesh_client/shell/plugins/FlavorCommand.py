@@ -39,15 +39,15 @@ class FlavorCommand(PluginCommand, CloudPluginCommand):
 
         """
 
-        cloud = arguments["--cloud"] or Default.get_cloud()
+        cloud = arguments["--cloud"] or Default.cloud
         if cloud is None:
             Console.error("Default cloud doesn't exist")
             return
 
         if arguments["-v"]:
-            print ("Cloud: {}".format(cloud))
+            print("Cloud: {}".format(cloud))
 
-        if arguments["refresh"] or Default.refresh():
+        if arguments["refresh"] or Default.refresh:
             msg = "Refresh flavor for cloud {:}.".format(cloud)
             if Flavor.refresh(cloud):
                 Console.ok("{:} ok".format(msg))
@@ -76,7 +76,7 @@ class FlavorCommand(PluginCommand, CloudPluginCommand):
                 counter += 1
 
             if result is None:
-                Console.error("No image(s) found. Failed.")
+                Console.error("No flavor(s) found. Failed.")
             else:
                 print(result)
             return ""

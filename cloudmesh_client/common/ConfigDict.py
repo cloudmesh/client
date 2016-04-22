@@ -1,14 +1,18 @@
 from __future__ import print_function
 
-import os.path
 import json
+import os.path
+from collections import OrderedDict
+import sys
+import yaml
+import shutil
 
+from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.BaseConfigDict import BaseConfigDict
 from cloudmesh_client.common.todo import TODO
-
-from cloudmesh_client.util import path_expand
-from collections import OrderedDict
-import yaml
+from cloudmesh_client.common.util import path_expand
+from cloudmesh_client.shell.console import Console
+from cloudmesh_client.common.util import backup_name
 
 
 def custom_print(data_structure, indent, attribute_indent=4):
@@ -29,6 +33,7 @@ def ordered_dump(data, stream=None, Dumper=yaml.Dumper, **kwds):
     :param stream: the stream
     :param Dumper: the dumper such as yaml.SafeDumper
     """
+
     class OrderedDumper(Dumper):
         pass
 
@@ -36,6 +41,7 @@ def ordered_dump(data, stream=None, Dumper=yaml.Dumper, **kwds):
         return dumper.represent_mapping(
             yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
             data.items())
+
     OrderedDumper.add_representer(OrderedDict, _dict_representer)
     return yaml.dump(data, stream, OrderedDumper, **kwds)
 
@@ -64,7 +70,8 @@ def dprint(OD, mode='dict', s="", indent=' ' * 4, level=0):
         if type(OD[k]) in [dict, OrderedDict]:
             level += 1
             s += (level - 1) * indent + kv_tpl % (k, ST + dprint(OD[k], mode=mode,
-                                                                 indent=indent, level=level) + (level - 1) * indent + END)
+                                                                 indent=indent, level=level) + (
+                                                      level - 1) * indent + END)
             level -= 1
         else:
             s += level * indent + kv_tpl % (k, fstr(OD[k]))
@@ -145,6 +152,8 @@ class Config(object):
 
 
 class ConfigDict(object):
+    versions = ['4.1']
+
     def __init__(self,
                  filename,
                  load_order=None,
@@ -162,11 +171,14 @@ class ConfigDict(object):
         :return: an instance of ConfigDict
         :rtype: ConfigDict
         """
+
         self.data = None
 
         if etc:
-            load_order=[cloudmesh_client.etc.__file_]
-        elif load_order is None:
+            import cloudmesh_client.etc
+            load_order = [os.path.dirname(cloudmesh_client.etc.__file__)]
+
+        if load_order is None:
             self.load_order = [".", os.path.join("~", ".cloudmesh")]
         else:
             self.load_order = load_order
@@ -180,8 +192,8 @@ class ConfigDict(object):
                 self.load(name)
                 self.filename = name
                 return
-        raise Exception("could not find file {:} in {:}"
-                        .format(filename, self.load_order))
+        # Create default yaml file
+        raise ValueError("Could not find file {:} in {:}".format(filename, self.load_order))
 
     def load(self, filename):
         """
@@ -191,8 +203,13 @@ class ConfigDict(object):
         :return:
         """
         self.data = BaseConfigDict(filename=Config.path_expand(filename))
+        version = str(self.data["meta"]["version"])
+        if version not in self.versions:
+            Console.error("The yaml file version must be {}".format(', '.join(self.versions)))
+            sys.exit(1)
+            # return self.data
 
-    def write(self, filename=None, output="dict"):
+    def write(self, filename=None, output="dict", attribute_indent=4):
         """
         This method writes the dict into various outout formats. This includes a dict,
         json, and yaml
@@ -205,7 +222,7 @@ class ConfigDict(object):
         else:
             location = self['meta']['location']
 
-        # with open('data.yml', 'w') as outfile:
+            # with open('data.yml', 'w') as outfile:
             #    outfile.write( yaml.dump(data, default_flow_style=True) )
 
         # Make a backup
@@ -339,10 +356,14 @@ class ConfigDict(object):
     @classmethod
     def getUser(cls, cloud):
         try:
-
             config = d = ConfigDict("cloudmesh.yaml")
 
             d = ConfigDict("cloudmesh.yaml")
+
+            #
+            # bug: cloud is none when adding a group
+            #
+
             config = d["cloudmesh"]["clouds"][cloud]
             credentials = config["credentials"]
             cloud_type = config["cm_type"]
@@ -352,19 +373,18 @@ class ConfigDict(object):
             else:
                 raise ValueError("getUser for this cloud type not yet "
                                  "supported: {}".format(cloud))
-
         except Exception as ex:
-            print(ex.message, ex)
+            Console.error("problem getting user")
 
 
 # noinspection PyPep8Naming
 def Username():
     d = ConfigDict("cloudmesh.yaml")
 
-    if "username" not in d["cloudmesh"]["profile"]:
+    if "user" not in d["cloudmesh"]["profile"]:
         raise RuntimeError("Profile username is not set in yaml file.")
 
-    user = d["cloudmesh"]["profile"]["username"]
+    user = d["cloudmesh"]["profile"]["user"]
     return user
 
 

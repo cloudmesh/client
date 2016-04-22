@@ -6,7 +6,6 @@ from cloudmesh_client.shell.command import command, PluginCommand, \
 from cloudmesh_client.default import Default
 from cloudmesh_client.common.LogUtil import LogUtil
 
-
 logger = LogUtil.get_logger()
 
 
@@ -111,7 +110,8 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         For these keys, the 'cloud' column in db
         will always be 'general'.
         """
-        general_keys = ["cloud", "cluster", "queue"]
+        general_keys = ["cloud", "cluster", "queue", "key", "group", "user", "secgroup", "vm",
+                        "refresh", "debug", "interactive", "purge"]
 
         """
         If the default cloud has been set (eg. default category=xxx),
@@ -119,8 +119,6 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         will have 'cloud' column in db as the default cloud that was set.
         (eg. image=yyy for category=xxx).
         """
-
-        logger.info(arguments)
 
         if arguments["KEY"] in general_keys:
             cloud = "general"
@@ -130,20 +128,21 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
             arguments["list"] = True
             order = ['name', 'value']
             output_format = arguments["--format"]
-            result = Default.list(category=cloud, order=order,
-                                  format=output_format)
-            print (result)
+            result = Default.list(category=cloud,
+                                  order=order,
+                                  output=output_format)
+            print(result)
             return ""
 
         else:
-            cloud = arguments["--cloud"] or Default.get("cloud", "general") or "general"
+            cloud = arguments["--cloud"] or Default.get(name="cloud", category="general") or "general"
 
         if arguments["list"]:
             output_format = arguments["--format"]
 
             if arguments['--all'] or arguments["--cloud"] is None:
                 cloud = None
-            result = Default.list(category=cloud, format=output_format)
+            result = Default.list(category=cloud, output=output_format)
 
             if result is None:
                 Console.error("No default values found")
@@ -154,9 +153,11 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         elif arguments["delete"]:
 
             key = arguments["KEY"]
+            if key in general_keys:
+                cloud = "general"
             result = Default.delete(key, cloud)
-            if result is None:
-                Console.error("Key {} not present".format(key))
+            if not result :
+                Console.error("default {} not present".format(key))
             else:
                 Console.ok("Deleted key {} for cloud {}. ok.".format(key,
                                                                      cloud))
@@ -166,14 +167,19 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
             key, value = arguments["KEY"].split("=")
             if key in general_keys:
                 cloud = "general"
-            Default.set(key, value, cloud)
+            if key in "debug":
+                Default.set_debug(value)
+            else:
+                Default.set(key, value, category=cloud)
             Console.ok(
-                "set in defaults {}={}. ok.".format(key, value))
+                "set default {}={}. ok.".format(key, value))
             return ""
 
         elif arguments["KEY"]:
             key = arguments["KEY"]
-            result = Default.get(key, cloud)
+            if key in general_keys:
+                cloud = "general"
+            result = Default.get(name=key, category=cloud)
             if result is None:
                 Console.error("No default values found")
             else:

@@ -36,7 +36,7 @@ class Limits(object):
             return result
         else:
             d = Limits.convert_to_dict(result)
-            return dict_printer(d, order=['Name',
+            return Printer.write(d, order=['Name',
                                                  'Used',
                                                  'Max'],
                                        output=format)

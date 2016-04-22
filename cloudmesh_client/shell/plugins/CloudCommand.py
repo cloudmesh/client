@@ -2,9 +2,11 @@ from __future__ import print_function
 
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.default import Default
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.command import command, PluginCommand, CloudPluginCommand
+from cloudmesh_client.common.ConfigDict import ConfigDict
+from pprint import pprint
 
 
 class CloudCommand(PluginCommand, CloudPluginCommand):
@@ -74,9 +76,8 @@ class CloudCommand(PluginCommand, CloudPluginCommand):
           See also:
              register
         """
-        # pprint(arguments)
 
-        cloudname = arguments["--cloud"] or Default.get_cloud()
+        cloudname = arguments["--cloud"] or Default.cloud
 
         if arguments["logon"]:
             cloudname = arguments["CLOUD"]
@@ -105,7 +106,24 @@ class CloudCommand(PluginCommand, CloudPluginCommand):
         elif arguments["list"]:
             provider = CloudProvider(cloudname).provider
             clouds = provider.list_clouds()
+            default = Default.cloud
+            active = ConfigDict("cloudmesh.yaml")["cloudmesh"]["active"]
+            key = Default.get_key()
+
+            def yes(state):
+                if state:
+                    return "*"
+                else:
+                    return " "
+
+            for index in clouds:
+                cloud = clouds[index]
+                cloud["active"] = yes(cloud["cloud"] in active)
+                cloud["default"] = yes(cloud["cloud"] == default)
+                cloud["key"] = key
+                cloud["id"] = index
+
             (order, header) = CloudProvider(cloudname).get_attributes("clouds")
 
-            Console.msg(dict_printer(clouds, order=order, header=header))
-        pass
+            Console.msg(Printer.write(clouds, order=order, header=header))
+        return ""

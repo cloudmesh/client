@@ -5,7 +5,6 @@ import json
 
 
 class ssh_config(object):
-
     def __init__(self, filename=None):
         if filename is not None:
             # load
@@ -34,7 +33,7 @@ class ssh_config(object):
         """list the hosts defined in the ssh config file"""
         with open(self.filename) as f:
             content = f.readlines()
-        content = [" ".join(x.split()) .strip('\n').lstrip().split(' ', 1) for x in content] 
+        content = [" ".join(x.split()).strip('\n').lstrip().split(' ', 1) for x in content]
         # removes duplicated spaces, and splits in two fields, removes leading spaces
         hosts = {}
         host = "NA"
@@ -53,7 +52,7 @@ class ssh_config(object):
                     # there would be no 'Host india' line.
                     if host in hosts:
                         hosts[host][attribute] = value
-                    # pass
+                        # pass
         self.hosts = hosts
 
     def list(self):
@@ -61,7 +60,7 @@ class ssh_config(object):
 
     def __str__(self):
         return json.dumps(self.hosts, indent=4)
-        
+
     def status(self):
         """executes a test with the given ssh config if a login is possible"""
 
@@ -76,7 +75,7 @@ class ssh_config(object):
         else:
             r = '\n'.join(Shell.ssh(name, command).split()[-1:])
         return r
-    
+
     def local(self, command):
         return self.execute("localhost", command)
 
@@ -86,18 +85,19 @@ class ssh_config(object):
         else:
             return None
 
+
 if __name__ == "__main__":
     hosts = ssh_config()
-    print (hosts.list())
-    print (hosts)
+    print(hosts.list())
+    print(hosts)
 
     # hosts.login("india")
 
     r = hosts.execute("india", "hostname")
-    print (r)
+    print(r)
 
     r = hosts.execute("localhost", "hostname")
-    print (r)
+    print(r)
 
     r = hosts.local("hostname")
-    print (r)
+    print(r)

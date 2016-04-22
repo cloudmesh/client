@@ -5,7 +5,6 @@ from cloudmesh_client.shell.command import command, PluginCommand, \
 
 # noinspection PyPep8Naming
 class cm_shell_status(PluginCommand, ShellPluginCommand):
-
     topics = {"status": "cloud"}
 
     def __init__(self, context):
@@ -39,8 +38,8 @@ class cm_shell_status(PluginCommand, ShellPluginCommand):
         # pprint(arguments)
 
         if arguments['db']:
-            print ('status db')
+            print('status db')
         elif arguments['CLOUDS']:
-            print ('status CLOUDS...')
+            print('status CLOUDS...')
         else:
-            print ('status')
+            print('status')

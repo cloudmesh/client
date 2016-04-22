@@ -1,12 +1,12 @@
 meta:
-    yaml_version: 3.0
+    version: 4.1
     kind: clouds
 cloudmesh:
     profile:
         firstname: TBD
         lastname: TBD
         email: TBD
-        username: TBD
+        user: TBD
     github:
         username: TBD
     portal:
@@ -213,10 +213,6 @@ cloudmesh:
                 flavor: ExtraSmall
                 image: b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-14_04_2-LTS-amd64-server-20150610-en-us-30GB
                 location: East US
-    keys:
-        default: id_rsa
-        keylist:
-          id_rsa: ~/.ssh/id_rsa.pub
     system:
         data: ~/.cloudmesh/cloudmesh_inventory.yaml
         console_color: true

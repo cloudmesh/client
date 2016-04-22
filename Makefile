@@ -24,7 +24,7 @@ d:
 	cm hpc run uname --cluster=india
 
 db:
-	rm ~/.cloudmesh/cloudmesh.db
+	rm -f ~/.cloudmesh/cloudmesh.db
 	cm default list
 
 test:

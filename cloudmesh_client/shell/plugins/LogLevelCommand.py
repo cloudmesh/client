@@ -52,7 +52,7 @@ class LogLevelCommand(PluginCommand, CloudPluginCommand, ShellPluginCommand):
         """
         # pprint(arguments)
 
-        cloud = arguments["--cloud"] or Default.get_cloud()
+        cloud = arguments["--cloud"] or Default.cloud
         LOGGER.info("Cloud: " + cloud + ", Arguments: " + str(arguments))
 
         if arguments["set"]:
@@ -64,14 +64,14 @@ class LogLevelCommand(PluginCommand, CloudPluginCommand, ShellPluginCommand):
                 if response is not None:
                     Console.ok(response)
             except Exception as ex:
-                Console.error(ex.message, ex)
+                Console.error(ex.message)
 
         elif arguments["get"]:
             try:
                 log_level = LogUtil.get_level(cloudname=cloud)
                 Console.ok("Current Log Level = " + log_level + ". Ok.")
             except Exception as ex:
-                Console.error(ex.message, ex)
+                Console.error(ex.message)
 
         elif arguments["save"]:
             LogUtil.save(cloudname=cloud)

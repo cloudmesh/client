@@ -10,10 +10,13 @@ nosetests -v tests/cm_basic/test_flatdict.py
 
 """
 
-from cloudmesh_client.util import HEADING
 from pprint import pprint
-from cloudmesh_client.common.FlatDict import FlatDict, flatten
 
+from cloudmesh_client.common.FlatDict import FlatDict, flatten
+from cloudmesh_client.common.util import HEADING
+
+
+# noinspection PyPep8Naming
 class Test_pass:
     def setup(self):
         self.d = {
@@ -76,17 +79,18 @@ class Test_pass:
         }
         pass
 
+    # noinspection PyPep8Naming
     def tearDown(self):
         pass
 
-    def test_001_flatten(self):
-        HEADING()
+    def test_001(self):
+        HEADING("flatten")
         f = flatten(self.d)
-        pprint (f)
+        pprint(f)
         assert f['extra__minDisk'] == 40
 
-    def test_002_FlatDict(self):
-        HEADING()
+    def test_002(self):
+        HEADING("FlatDict")
 
         f = FlatDict(self.d)
         pprint(f.dict)
@@ -99,4 +103,3 @@ class Test_pass:
         f.user = 'GREGOR'
         assert f.user == 'GREGOR'
         assert f['extra__minDisk'] == 40
-

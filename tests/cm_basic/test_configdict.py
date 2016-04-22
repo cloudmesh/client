@@ -10,14 +10,16 @@ nosetests -v tests/cm_basic/test_configdict.py
 
 """
 from __future__ import print_function
-from cloudmesh_client.util import HEADING
-from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_client.common.Shell import Shell
-import shutil
+
 import os
+import shutil
 
+from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.common.util import HEADING
+
+
+# noinspection PyMethodMayBeStatic,PyMethodMayBeStatic,PyMethodMayBeStatic,PyPep8Naming,PyBroadException,PyBroadException
 class Test_configdict:
-
     root_path = os.path.abspath(os.sep)
     cwd_path = os.getcwd()
 
@@ -28,16 +30,17 @@ class Test_configdict:
         self.tmp_dir = os.path.join(self.root_path, "tmp")
         pass
 
+    # noinspection PyPep8Naming
     def tearDown(self):
         pass
 
     def test_001_read(self):
-        """test if cloudmesh.yaml is loaded"""
-        HEADING()
+        HEADING("test if cloudmesh.yaml is loaded")
         d = ConfigDict("cloudmesh.yaml",
                        verbose=True)
 
-        assert d["cloudmesh"]["profile"]["firstname"] == "TBD"
+        assert d["cloudmesh"]["profile"]["firstname"] != ""
+        assert len(d["cloudmesh"]["clouds"]) > 0
 
         try:
             d = ConfigDict("cloudmesh.yam",
@@ -48,9 +51,8 @@ class Test_configdict:
             assert str(e).startswith("could not find")
 
     def test_002_set(self):
-        """testing to set a value in the dict"""
-        HEADING()
-        shutil.copy(self.etc_yaml,self.tmp_yaml)
+        HEADING("testing to set a value in the dict")
+        shutil.copy(self.etc_yaml, self.tmp_yaml)
         d = ConfigDict("cloudmesh.yaml",
                        load_order=[self.tmp_dir],
                        verbose=True)
@@ -62,25 +64,23 @@ class Test_configdict:
                        verbose=True)
         assert d["cloudmesh"]["profile"]["firstname"] == "Gregor"
 
-
     def test_003_json(self):
-        """test if json is produced"""
-        HEADING()
+        HEADING("test if json is produced")
         d = ConfigDict("cloudmesh.yaml",
                        verbose=True)
 
         assert d.json.startswith('{')
 
         try:
-            assert  not isinstance(d.json, str)
-            print ("json should be string")
+            assert not isinstance(d.json, str)
+            print("json should be string")
             assert False
         except Exception as e:
             assert isinstance(d.json, str)
 
     def test_004_yaml(self):
-        """test if yaml is produced"""
-        HEADING()
+
+        HEADING("test if yaml is produced")
         d = ConfigDict("cloudmesh.yaml",
                        verbose=True)
         result = d.yaml
@@ -88,16 +88,15 @@ class Test_configdict:
         try:
             assert result.startswith("meta")
         except Exception as e:
-            print ("not valid yaml file.")
+            print("not valid yaml file.")
             assert False
-
-
 
 
 """	def main():
     d = ConfigDict("cmd3.yaml")
     print (d, end='')
-    d.info()
+    print(Printer.write(self.cm.info()))
+
 
     print (d["meta"])
     print (d["meta.kind"])

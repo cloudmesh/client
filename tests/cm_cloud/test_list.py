@@ -9,22 +9,29 @@ or
 nosetests -v tests/test_list.py
 
 """
-import os
 
 from cloudmesh_client.common.Shell import Shell
-from cloudmesh_client.util import HEADING
-from cloudmesh_client.util import banner
-from cloudmesh_client.cloud.list import List
+from cloudmesh_client.common.dotdict import dotdict
+from cloudmesh_client.common.util import HEADING
+from cloudmesh_client.common.util import banner
+from cloudmesh_client.default import Default
 
 
+# noinspection PyPep8Naming
 class Test_list:
-
-    def D(self, line):
-        return (line.format(**self.data))
+    data = dotdict({
+        "cloud": Default.cloud,
+        "format": "json",
+        "user": "fake",
+        "wrong_cloud": "no_cloud",
+        "key": "my_default_key",
+        "value": "my_default_value"
+    })
 
     def run(self, command):
         command = command.format(**self.data)
-        banner(command, c='-')
+        banner(command, c="-")
+        print(command)
         parameter = command.split(" ")
         shell_command = parameter[0]
         args = parameter[1:]
@@ -33,57 +40,61 @@ class Test_list:
         return str(result)
 
     def setup(self):
+        pass
 
-            self.data = {
-                "cloud": "kilo",
-                "default": "mydefault",
-                "value": "hallo"
-        }
-
+    # noinspection PyPep8Naming
     def tearDown(self):
         pass
 
     def test_001(self):
-        """testing cm list --cloud kilo default"""
-        HEADING()
+        HEADING("testing cm list --cloud cloud default")
 
-        result = self.run('cm default {default}=hallo')
-        # set default
-        result = self.run("cm default list --cloud={cloud}")
-        assert self.D("{default}") in result
+        result = self.run('cm default {key}={value}')
+        result = self.run("cm default list")
+        assert self.data.key in result
 
-        result = self.run("cm list --cloud={cloud} default")
-        assert self.D("{value}") in result
+        result = self.run("cm list default")
+        assert self.data.value in result
 
         # delete the default name
-        result = self.run("cm default delete {default} --cloud={cloud}")
+        result = self.run("cm default delete {key}")
 
         assert "ok." in result
 
         return
 
     def test_002(self):
-        """testing cm list --cloud kilo --format json default"""
-        HEADING()
+        HEADING("testing cm list --format json default")
 
-        result = self.run("cm default --cloud={cloud} {default}={value}")
+        result = self.run("cm default {key}={value}")
         assert "ok." in result
 
-        result = self.run("cm list --cloud={cloud} --format=json default")
-        assert "hallo" in result
+        result = self.run("cm list --format={format} default")
+        assert self.data.value in result
 
         # delete the default name
-        result = self.run("cm default delete {default} --cloud={cloud}")
+        result = self.run("cm default delete {key}")
         assert "ok." in result
 
         return
 
+    # This test stands invalid as defaults are independent of the cloud and user.
+    """
     def test_003(self):
-        """testing cm list --cloud trial --user fake default"""
-        HEADING()
-        banner("cm list --cloud=trial --user=fake default")
+        HEADING("testing cm list")
+        banner("cm list --cloud={wrong_cloud} --user={user} default")
 
-        result = self.run("cm list --cloud=trial --user=fake default")
+        result = self.run("cm list --cloud={wrong_cloud} --user={user} default")
         assert "No" in result
 
         return
+    """
+    def test_003(self):
+        HEADING("testing cm list")
+        banner("cm list --cloud={wrong_cloud} --user={user} vm")
+
+        result = self.run("cm list --cloud={wrong_cloud} --user={user} vm")
+        assert "No" in result
+
+        return
+

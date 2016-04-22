@@ -11,10 +11,10 @@ class RefreshCommand(PluginCommand, CloudPluginCommand):
         self.context = context
         if self.context.debug:
             print("init command refresh")
-        try:
-            value = Default.get_refresh()
-        except:
-            Default.set_refresh("off")
+        #try:
+        #    value = Default.get_refresh()
+        #except:
+        #    Default.set_refresh(True)
 
     # noinspection PyUnusedLocal
     @command
@@ -25,19 +25,23 @@ class RefreshCommand(PluginCommand, CloudPluginCommand):
             Usage:
                 refresh on
                 refresh off
-                refresh list
+                refresh [list]
 
                 switches on and off the refresh for clouds
 
         """
         if arguments["on"]:
-            Default.set_refresh("on")
+            Default.set_refresh(True)
             Console.ok("Switch refresh on")
         elif arguments["off"]:
-            Default.set_refresh("off")
+            Default.set_refresh(False)
             Console.ok("Switch refresh off")
-        elif arguments["list"]:
-            refresh = Default.get_refresh()
-            Console.ok("Automatic cloud refresh is switched {}".format(refresh))
+        else:
+            refresh = Default.refresh
+            if refresh:
+                msg = "on"
+            else:
+                msg = "off"
+            Console.ok("Automatic cloud refresh is switched {}".format(msg))
 
         return ""

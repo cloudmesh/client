@@ -1,15 +1,17 @@
 from __future__ import print_function
-from cloudmesh_client.common.ConfigDict import ConfigDict
 
-from cloudmesh_client.common.Shell import Shell
-from cloudmesh_client.util import banner
-from cloudmesh_client.common.Printer import dict_printer
-from cloudmesh_client.shell.console import Console
-import yaml
-import hostlist
-import sys
 import os.path
+import sys
+
+import hostlist
+import yaml
+
 from cloudmesh_client.cloud.ListResource import ListResource
+from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.common.Printer import Printer
+from cloudmesh_client.common.Shell import Shell
+from cloudmesh_client.common.util import banner
+from cloudmesh_client.shell.console import Console
 
 
 class Inventory(ListResource):
@@ -26,9 +28,9 @@ class Inventory(ListResource):
             config = ConfigDict(filename=self.config_filename)
         except Exception as e:
             Console.error("Problem reading the yaml file {:}".format(
-                self.config_filename))
-            Console.error("Please check if the file exists or is empty")
-            print (e)
+                self.config_filename), traceflag=False)
+            Console.error("Please check if the file exists or is empty", traceflag=False)
+            Console.error(e.message)
 
         banner("")
 
@@ -75,7 +77,7 @@ class Inventory(ListResource):
     def add(self, **kwargs):
 
         if "host" not in kwargs:
-            print ("ERROR no id specified")
+            print("ERROR no id specified")
             sys.exit(1)
 
         hosts = hostlist.expand_hostlist(kwargs['host'])
@@ -96,10 +98,10 @@ class Inventory(ListResource):
     def list(self, format='dict', sort_keys=True, order=None):
         if order is None:
             order = self.order
-        return dict_printer(self.data,
-                            order=order,
-                            output=format,
-                            sort_keys=sort_keys)
+        return Printer.write(self.data,
+                             order=order,
+                             output=format,
+                             sort_keys=sort_keys)
 
     def _str(self, data, with_empty=False):
         print
@@ -107,7 +109,7 @@ class Inventory(ListResource):
             if self.data[key] is '' or self.data[key] is None:
                 pass
             else:
-                print (self.data[key])
+                print(self.data[key])
 
 
 # noinspection PyBroadException,PyPep8Naming

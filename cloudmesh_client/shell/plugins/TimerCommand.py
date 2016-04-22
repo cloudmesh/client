@@ -5,7 +5,6 @@ from cloudmesh_client.default import Default
 
 
 class TimerCommand(PluginCommand, CloudPluginCommand):
-
     topics = {"timer": "shell"}
 
     def __init__(self, context):
@@ -15,10 +14,10 @@ class TimerCommand(PluginCommand, CloudPluginCommand):
                 print("init command timer")
         except:
             self.context.timer = False
-        # try:
-        #    value = Default.get_timer()
-        # except:
-        #    Default.set_timer("off")
+            # try:
+            #    value = Default.get_timer()
+            # except:
+            #    Default.set_timer("off")
 
     @command
     def do_timer(self, args, arguments):
@@ -72,7 +71,7 @@ class TimerCommand(PluginCommand, CloudPluginCommand):
 
             name = arguments("NAME")
             if name is None:
-                print (self.watch)
+                print(self.watch)
             else:
                 value = self.watch.get(name)
                 Console.ok("Timer ({}): {}".format(name, value))
@@ -88,6 +87,3 @@ class TimerCommand(PluginCommand, CloudPluginCommand):
             name = arguments("NAME")
             self.watch.reset(name)
             Console.ok("Reset timer", name)
-
-
-

@@ -9,10 +9,9 @@ from cloudmesh_client.cloud.ListResource import ListResource
 
 
 class Reservation(ListResource):
-    def __init__(self, user=None):
-        self.db = CloudmeshDatabase.CloudmeshDatabase(user)
+    cm = CloudmeshDatabase()
 
-    def info(self, user=None, project=None):
+    def info(cls, user=None, project=None):
         """
         prints if the user has access to the reservation an on which host.
 
@@ -22,7 +21,7 @@ class Reservation(ListResource):
         """
         TODO.implement()
 
-    def add_from_file(self, filename):
+    def add_from_file(cls, filename):
         """
 
         :param filename:
@@ -30,7 +29,8 @@ class Reservation(ListResource):
         """
         TODO.implement()
 
-    def add(self,
+    @classmethod
+    def add(cls,
             name,
             start,
             end,
@@ -38,7 +38,7 @@ class Reservation(ListResource):
             project=None,
             hosts=None,
             description=None,
-            cloud=None):
+            category=None):
         """
 
         :param name: Name of reservation
@@ -51,19 +51,24 @@ class Reservation(ListResource):
         :param cloud: Cloud into which reservation done
         :return:
         """
-        obj_d = self.db.db_obj_dict("reservation",
-                                    name=name,
-                                    hosts=hosts,
-                                    start=start,
-                                    end=end,
-                                    description=description,
-                                    cloud=cloud,
-                                    user=user,
-                                    project=project)
-        self.db.add_obj(obj_d)
-        self.db.save()
 
-    def delete(self,
+        o = {
+            "provider": "general",
+            "kind": "reservation",
+            "name": name,
+            "hosts": hosts,
+            "start": start,
+            "end": end,
+            "description": description,
+            "category": category,
+            "user": user,
+            "project": project
+        }
+
+        cls.cm.add(o)
+
+    @classmethod
+    def delete(cls,
                name=None,
                start=None,
                end=None,
@@ -97,12 +102,13 @@ class Reservation(ListResource):
             args['hosts'] = hosts
 
         # TODO: Improve this logic
-        result = self.db.find("RESERVATION", output="object", **args).first()
-        while result is not None:
-            self.db.delete(result)
-            result = self.db.find("RESERVATION", output="object", **args).first()
+        result = cls.cm.find(kind="reservation", provider="general", output="dict", scope='all', **args)
+        if result is not None:
+            for res in result:
+                cls.cm.delete(kind="reservation", provider="general", name=res["name"])
 
-    def delete_from_file(self, filename):
+    @classmethod
+    def delete_from_file(cls, filename):
         """
 
         :param filename:
@@ -110,19 +116,24 @@ class Reservation(ListResource):
         """
         TODO.implement()
 
-    def suspend(self, names=None):
+    @classmethod
+    def suspend(cls, names=None):
         TODO.implement()
 
-    def clear(self, names=None):
+    @classmethod
+    def clear(cls, names=None):
         TODO.implement()
 
-    def refresh(self, names=None):
+    @classmethod
+    def refresh(cls, names=None):
         TODO.implement()
 
-    def resume(self, names=None):
+    @classmethod
+    def resume(cls, names=None):
         TODO.implement()
 
-    def list(self,
+    @classmethod
+    def list(cls,
              name=None,
              start=None,
              end=None,
@@ -140,6 +151,7 @@ class Reservation(ListResource):
         :param hosts: Hosts reserved
         :return:
         """
+
         args = {}
 
         if name is not None:
@@ -154,13 +166,15 @@ class Reservation(ListResource):
             args['project'] = project
         if hosts is not None:
             args['hosts'] = hosts
+        args["kind"] = "reservation"
 
         # print(args)
-        result = self.db.find("RESERVATION", **args)
+        result = cls.cm.find(**args)
         # print("RESULT:- {}".format(result))
         return result
 
-    def update(self,
+    @classmethod
+    def update(cls,
                name,
                start,
                end,
@@ -170,23 +184,23 @@ class Reservation(ListResource):
                description=None,
                cloud=None):
 
-        args = {}
+        entry = {
+            'start_time': start,
+            'end_time': end,
+            'name': name,
+            'user': user,
+            'project': project,
+            'hosts': hosts,
+            'description': description,
+            'cloud': cloud,
+            "kind": "reservation",
+            "provider": "general"
+        }
 
-        if name is not None:
-            args['name'] = name
-        if start is not None:
-            args['start_time'] = start
-        if end is not None:
-            args['end_time'] = end
-        if user is not None:
-            args['user'] = user
-        if project is not None:
-            args['project'] = project
-        if hosts is not None:
-            args['hosts'] = hosts
-        if description is not None:
-            args['description'] = description
-        if cloud is not None:
-            args['cloud'] = cloud
+        update = dict(entry)
+        for key in entry:
+            if entry[key] is None:
+                del update[key]
 
-        self.db.update("RESERVATION", **args)
+        print ("ARGS", update)
+        cls.cm.add(entry)

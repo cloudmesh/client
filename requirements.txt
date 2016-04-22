@@ -1,4 +1,4 @@
-pbr >=1.6
+pbr >1.6
 apache-libcloud
 nose
 pytest
@@ -24,3 +24,4 @@ cloudmesh_timestring
 pycrypto
 httpsig
 jsonschema
+humanize

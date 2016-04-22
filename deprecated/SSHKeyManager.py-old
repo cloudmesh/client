@@ -8,7 +8,7 @@ import requests
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.common.menu import menu_return_num
 from cloudmesh_client.keys.SSHkey import SSHkey
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
@@ -33,12 +33,12 @@ class SSHKeyManager(object):
     @property
     def table(self):
         d = dict(self.__keys__)
-        return (dict_printer(d,
-                             order=["comment",
-                                    "uri",
-                                    "fingerprint"],
-                             output="table",
-                             sort_keys=True))
+        return (Printer.write(d,
+                              order=["comment",
+                                     "uri",
+                                     "fingerprint"],
+                              output="table",
+                              sort_keys=True))
 
     def __delitem__(self, key):
         del self.__keys__[key]
@@ -135,6 +135,10 @@ class SSHKeyManager(object):
 
             sshkey = SSHkey(location)
             i = sshkey.comment
+            i = i.replace("@", "_")
+            i = i.replace("-", "_")
+            i = i.replace(" ", "_")
+            i = i.replace(".", "_")
             self.__keys__[i] = sshkey.__key__
 
     # noinspection PyProtectedMember
@@ -181,16 +185,14 @@ class SSHKeyManager(object):
         sshdb = SSHKeyDBManager()
         key_from_db = sshdb.find(keyname)
 
+        print ("UUUU", key_from_db)
         if key_from_db is None:
             Console.error("Key with the name {:} not found in database.".format(keyname))
             return 1
 
-        # Add map entry
-        sshdb.add_key_cloud_map_entry(user, keyname, cloud, name_on_cloud)
-
         print("Adding key {:} to cloud {:} as {:}".format(keyname, cloud, name_on_cloud))
         cloud_provider = CloudProvider(cloud).provider
-        cloud_provider.add_key_to_cloud(name_on_cloud, key_from_db["value"])
+        cloud_provider.add_key_to_cloud(name_on_cloud, key_from_db[0]["value"])
         return 0
 
     def get_key_cloud_maps(self, cloud):
@@ -198,9 +200,9 @@ class SSHKeyManager(object):
         sshdb = SSHKeyDBManager()
         return sshdb.get_key_cloud_maps()
 
-    def delete_key_on_cloud(self, cloud, name_on_cloud):
+    def delete_key_on_cloud(self, cloud, name):
         cloud_provider = CloudProvider(cloud).provider
-        cloud_provider.delete_key_from_cloud(name_on_cloud)
+        cloud_provider.delete_key_from_cloud(name)
 
     def delete_all_keys(self):
 
@@ -213,40 +215,22 @@ class SSHKeyManager(object):
         sshdb = SSHKeyDBManager()
         keys = sshdb.find_all()
 
-        # Checking and deleting cloud mappings as well as cloud keys.
-        for key in list(keys.values()):
-            keymap = sshdb.get_key_cloud_map_entry(key["name"])
-            for map in list(keymap.values()):
-                if delete_on_cloud:
-                    self.delete_key_on_cloud(map["cloud_name"], map["key_name_on_cloud"])
-            sshdb.delete_key_cloud_map_entry(key["name"])
-
         sshdb.delete_all()
 
     def delete_key(self, keyname):
 
         sshdb = SSHKeyDBManager()
-        key = sshdb.find(keyname=keyname)
+        key = sshdb.find(name=keyname, output='object')
 
-        # Checking and deleting cloud mappings as well as cloud keys.
-        keymap = sshdb.get_key_cloud_map_entry(key["name"])
-        if keymap is not None and len(keymap) != 0:
-            if self.delete_on_cloud_question:
-                delete_on_cloud = yn_choice(
-                    "Do you want to delete the corresponding key on cloud if present?", default='y')
-            else:
-                delete_on_cloud = self.delete_on_cloud
-
-            for map in list(keymap.values()):
-                if delete_on_cloud:
-                    self.delete_key_on_cloud(map["cloud_name"], map["key_name_on_cloud"])
-            sshdb.delete_key_cloud_map_entry(key["name"])
+        #
+        # TODO: delete key on all clouds
+        #
 
         sshdb.delete(keyname)
 
 
 if __name__ == "__main__":
-    print ("HALLO")
+    print("HALLO")
     from cloudmesh_client.util import banner
 
     mykeys = SSHKeyManager()

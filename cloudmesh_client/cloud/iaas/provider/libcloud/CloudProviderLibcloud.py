@@ -11,40 +11,49 @@ from libcloud.compute.base import NodeAuthPassword, NodeAuthSSHKey
 from libcloud.compute.types import Provider
 from libcloud.compute.providers import get_driver
 import libcloud.security
+from cloudmesh_client.shell.console import Console
 
 
 class CloudProviderLibcloud(CloudProviderBase):
-
     debug = True
 
     def _print(self, o):
         if self.debug:
 
-            pprint (o)
+            pprint(o)
             for element in o:
-                pprint (element.__dict__)
+                pprint(element.__dict__)
 
     def __init__(self, cloud_name, cloud_details, user=None, flat=True):
         super(CloudProviderLibcloud, self).__init__(cloud_name, user=user)
         self.flat = flat
         self.cloud_type = "libcloud"
-        self.kind = ["image"]
+        self.kind = ["image", "flavor", "vm", "key"]
+        self.dbobject = ["libcloud_image", "libcloud_flavor", "libcloud_vm", "key"]
+
         self.default_image = None
         self.default_flavor = None
         self.cloud = None
-        self.cloud_details = None
+        self.config = None
         self.provider = None
 
+    def _list(self, f, cloudname, **kwargs):
+        nodes = self.provider.f()
+        self._print(nodes)
+        d = self._to_dict(nodes)
+        return d
+
     def list_key(self, cloudname, **kwargs):
-        pprint("In list_key")
-        print (self.provider)
+        print("In list_key")
+        print(self.provider)
         keys = self.provider.list_key_pairs()
-        print (keys)
+        print(keys)
         self._print(keys)
         keys_dict = self._to_dict(keys)
         return keys_dict
 
     def list_vm(self, cloudname, **kwargs):
+        # return self.list(self.provider.list_nodes, cloudnames, kwargs)
         pprint("In list_vm")
         nodes = self.provider.list_nodes()
         self._print(nodes)
@@ -52,19 +61,22 @@ class CloudProviderLibcloud(CloudProviderBase):
         return vm_dict
 
     def list_image(self, cloudname, **kwargs):
-        pprint("In list_images of libcloud")
+        # return self.list(self.provider.list_images, cloudnames, kwargs)
+        print("In list_images of libcloud")
         images = self.provider.list_images()
         self._print(images)
         image_dict = self._to_dict(images)
         return image_dict
 
     def list_flavor(self, cloudname, **kwargs):
-        pprint("In list_flavor of libcloud")
+        # return self.list(self.provider.list_sizes, cloudnames, kwargs)
+        print("In list_flavor of libcloud")
         sizes = self.provider.list_sizes()
         self._print(sizes)
         sizes_dict = self._to_dict(sizes)
         return sizes_dict
 
+    # TODO: deprecated
     def list_size(self, cloudname, **kwargs):
         pprint("In list_sizes of libcloud")
         sizes = self.provider.list_sizes()
@@ -77,16 +89,11 @@ class CloudProviderLibcloud(CloudProviderBase):
         result_type = ""
         if len(libcloud_result) > 0:
             name = libcloud_result[0].__class__.__name__
-            print ("RRRR", name)
-            if  name == "Node":
-                result_type = "Node"
-                pprint("Node type object received")
-            elif name == "NodeImage":
-                result_type = "NodeImage"
-                pprint("NodeImage type object received")
-            elif name == "NodeSize":
-                result_type = "NodeSize"
-                pprint("NodeSize type object received")
+            print("RRRR", name)
+
+            if name in ["Node", "NodeImage", "NodeSize"]:
+                result_type = name
+                Console.info("{} type object received".format(name))
         # pprint(libcloud_result[0])
 
         for index, obj in enumerate(libcloud_result):
@@ -96,13 +103,195 @@ class CloudProviderLibcloud(CloudProviderBase):
                 d[index] = dict(LibcloudDict.handle_vm_image_details(obj))
             elif result_type == "NodeSize":
                 d[index] = dict(LibcloudDict.handle_vm_size_details(obj))
-            # pprint("Index:"+str(index))
+                # pprint("Index:"+str(index))
         return d
 
     def attributes(self, kind):
-
-        order = None
-        header = None
+        layout = {
+            'flavor': {
+                'order': [
+                    'id',
+                    'name',
+                    'user',
+                    'cpu',
+                    'ram',
+                    'bandwidth',
+                    'price',
+                    'category',
+                    'uuid',
+                    'updated_at'
+                ],
+                'header': [
+                    'Id',
+                    'Name',
+                    'User',
+                    'cpu',
+                    'RAM',
+                    'bandwidth',
+                    'price',
+                    'Cloud',
+                    'UUID',
+                    'Updated'
+                ]
+            },
+            'image': {
+                'order': [
+                    'id',
+                    'name',
+                    'category',
+                    'image_type',
+                    'state',
+                    'uuid',
+                    'updated_at',
+                    'owner_id'
+                ],
+                'header': [
+                    'id',
+                    'name',
+                    'cloud',
+                    'image_type',
+                    'state',
+                    'uuid',
+                    'updated_at',
+                    'owner_id'
+                ]
+            },
+            'vm': {
+                'order': [
+                    'id',
+                    'uuid',
+                    'label',
+                    'status',
+                    'public_ips',
+                    'private_ips',
+                    'image_name',
+                    'key',
+                    'availability',
+                    'instance_type',
+                    'user',
+                    'category',
+                    'updated_at'
+                ],
+                'header': [
+                    'id',
+                    'uuid',
+                    'label',
+                    'status',
+                    'public_ips',
+                    'private_ips',
+                    'image_name',
+                    'key',
+                    'availability',
+                    'instance_type',
+                    'user',
+                    'cloud',
+                    'updated'
+                ]
+            },
+            'floating_ip': {
+                'order': [
+                    "instance_name",
+                    "ip",
+                    "pool",
+                    "fixed_ip",
+                    "id",
+                    "instance_id",
+                    'cloud',
+                    'updated'
+                ],
+                'header': [
+                    "instance_name",
+                    "floating_ip",
+                    "floating_ip_pool",
+                    "fixed_ip",
+                    "floating_ip_id",
+                    "instance_id",
+                    'cloud',
+                    'updated'
+                ],
+            },
+            'floating_ip_pool': {
+                'order': [
+                    "name"
+                ],
+                'header': [
+                    "floating_ip_pool"
+                ],
+            },
+            'clouds': {
+                'order': [
+                    "cloud",
+                    "status"
+                ],
+                'header': [
+                    "cloud",
+                    "status"
+                ],
+            },
+            'limits': {
+                'order': [
+                    'Name',
+                    'Value'
+                ],
+                'header': [
+                    'Name',
+                    'Value'
+                ]
+            },
+            'quota': {
+                'order': [
+                    'Quota',
+                    'Limit'
+                ],
+                'header': [
+                    'Quota',
+                    'Limit'
+                ]
+            },
+            'secgroup': {
+                'order': [
+                    'id',
+                    'name',
+                    'category',
+                    'user',
+                    'project',
+                    'uuid'
+                ],
+                'header': [
+                    'id',
+                    'secgroup_name',
+                    'category',
+                    'user',
+                    'tenant_id',
+                    'secgroup_uuid'
+                ]
+            },
+            'default': {
+                'order': [
+                    'user',
+                    'cloud',
+                    'name',
+                    'value',
+                    'created_at',
+                    'updated_at'
+                ],
+                'header': [
+                    'user',
+                    'cloud',
+                    'name',
+                    'value',
+                    'created',
+                    'updated'
+                ],
+            }
+        }
+        # TODO: bug, this only returns some og the attributes, but not all
+        if kind in ["vm", "image", "flavor"]:
+            order = layout[kind]['order']
+            header = layout[kind]['header']
+        else:
+            order = None
+            header = None
 
         return order, header
 
@@ -110,7 +299,7 @@ class CloudProviderLibcloud(CloudProviderBase):
                 name,
                 image=None,
                 flavor=None,
-                cloud="kilo",
+                cloud=None,
                 key=None,
                 secgroup=None,
                 meta=None,
@@ -130,30 +319,49 @@ class CloudProviderLibcloud(CloudProviderBase):
         :param meta: A dict of arbitrary key/value metadata to store for this server
         """
         pprint("BOOTING UP THE VM")
+        if cloud is None:
+            Console.error("Cloud is not specified")
+            return
+
         auth = NodeAuthPassword('mysecretpassword')
         # self.provider.create_node("test_node", auth=auth)
-        if image:
+        if image is not None:
+            image = self.get_image_by_id(image)
             pprint("Image Id")
             pprint(image)
-            image = self.get_image_by_id(image)
         else:
-            pprint("valid Image Id not found")
+            Console.error("Image Id not found")
 
-        if flavor:
+        if flavor is not None:
             flavor = self.get_size_by_id(flavor)
-
-            if flavor:
-                pprint("FLAVOR::")
-                pprint(flavor)
+            pprint("FLAVOR::")
+            pprint(flavor)
         else:
-            pprint("valid Flavor Id not found")
+            Console.error("valid Flavor Id not found")
         # flavor = self.provider.list_sizes()[2]
         # location = self.provider.list_locations()[0]
         # pprint(self.provider.features['create_node'])
         # create_args = dict()
         # create_args['image'] = image
 
-        self.provider.create_node(name=name, ex_iamprofile=name, image=image, size=flavor)
+        # Console.info("Demo start a VM:")
+        # Console.info("Image selected :"+image.name)
+        # Console.info("Flavor selected :"+flavor.name)
+        # Console.info("Key :")
+        # pprint(key)
+        self.provider.create_node(name=name, image=image, size=flavor, ex_keyname=key)
+
+    def add_key_to_cloud(self, name, public_key):
+        """
+        Method to add key to libcloud based clouds, typically a keypair for AWS EC2.
+        :param name: Name of the keypair.
+        :param public_key: public key string.
+        :return:
+        """
+
+        keypair = self.provider.import_key_pair_from_string(name, key_material=public_key)
+        Console.info("Uploading the key to libcloud. ok.")
+        return keypair
 
     def get_image_by_id(self, image_id):
         image_list = self.provider.list_images()
@@ -170,3 +378,26 @@ class CloudProviderLibcloud(CloudProviderBase):
                 return size
         raise ValueError("flavor id not found")
         # return None
+
+    def create_sec_group(self, cloud, secgroup_name='default'):
+        try:
+            self.provider.ex_create_security_group(secgroup_name, "Default Security Group")
+        except Exception as e:
+            Console.info("create_sec_group exception." + e.args[0])
+
+    def enable_ssh(self, cloud, secgroup_name='default'):
+        if cloud == "aws":
+            params = {'Action': 'AuthorizeSecurityGroupIngress',
+                      'GroupName': secgroup_name,
+                      'IpProtocol': 'tcp',
+                      'FromPort': '22',
+                      'ToPort': '22',
+                      'CidrIp': '0.0.0.0/0'}
+            try:
+                self.provider.connection.request(self.provider.path, params=params).object
+                Console.info("Permission added.ok")
+            except Exception as e:
+                if e.args[0].find("InvalidPermission.Duplicate") == -1:
+                    Console.info("Permission already exists.ok")
+        else:
+            Console.error("Enable SSH not implemented for others")

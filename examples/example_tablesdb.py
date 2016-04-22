@@ -1,3 +1,4 @@
+from __future__ import print_function
 
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.ConfigDict import Config
@@ -5,10 +6,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import cloudmesh_client.common.tables as tables
-from cloudmesh_client.db.models import VM,FLAVOR,DEFAULT,IMAGE
+from cloudmesh_client.db.models import VM, FLAVOR, DEFAULT, IMAGE
 import cloudmesh_client.db.models
 import cloudmesh_client.db.models as models
-from __future__ import print_function
 
 filename = Config.path_expand("~/test/db.db")
 endpoint = 'sqlite:///{:}'.format(filename)
@@ -20,7 +20,7 @@ session = Session()
 
 r = session.query(VM).all()
 for obj in r:
-    print (obj.name)
+    print(obj.name)
 
 result = dict()
 for u in r:
@@ -31,5 +31,5 @@ for u in r:
             values[key] = u.__dict__[key]
     result[_id] = values
 
-output = models.dict_printer(result, order=None, header=None, output="dict", sort_keys=True)
+output = models.Printer.write(result, order=None, header=None, output="dict", sort_keys=True)
 print(output)

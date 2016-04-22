@@ -4,6 +4,346 @@ Changelog
 %%version%% (unreleased)
 ------------------------
 
+- 3.1.2. [Gregor von Laszewski]
+
+- Version 3.1.2. [Gregor von Laszewski]
+
+3.1.2 (2016-03-18)
+------------------
+
+- 3.1.1. [Gregor von Laszewski]
+
+- Version 3.1.1. [Gregor von Laszewski]
+
+3.1.1 (2016-03-16)
+------------------
+
+Changes
+~~~~~~~
+
+- Dev fix msg for setting defaults. [Gregor von Laszewski]
+
+- Dev fix msg for setting defaults. [Gregor von Laszewski]
+
+- Dev image name and size name. [Gregor von Laszewski]
+
+Other
+~~~~~
+
+- Update TODO.md. [Gregor von Laszewski]
+
+- Update TODO.md. [Gregor von Laszewski]
+
+- Rename TODO to TODO.md. [Gregor von Laszewski]
+
+- Added cloud attribute to the model. [Gregor von Laszewski]
+
+- Saftey. [Gregor von Laszewski]
+
+- 3.1.0. [Gregor von Laszewski]
+
+- Version 3.1.0. [Gregor von Laszewski]
+
+3.1.0 (2016-03-09)
+------------------
+
+- Generalizing credential parameters passing for keystone v3 api. Tested
+  on india kilo and jetstream. [fugangwang]
+
+
+- Comet: nodes/computesets power on/off restructured. [fugangwang]
+
+- Comet: Support 'ALL' for computeset state filter and assign that for
+  displaying individual computeset. [fugangwang]
+
+- Comet: Displaying computeset info for nodes stuck in inactive state.
+  [fugangwang]
+
+- Comet: better sorting display. [fugangwang]
+
+- Update dual python version for developers. [Gregor von Laszewski]
+
+- 3.0.3. [Gregor von Laszewski]
+
+- Version 3.0.3. [Gregor von Laszewski]
+
+- Update todo.rst. [Gregor von Laszewski]
+
+- Create todo.rst. [Gregor von Laszewski]
+
+3.0.3 (2016-03-05)
+------------------
+
+- 3.0.2. [Gregor von Laszewski]
+
+- Version 3.0.2. [Gregor von Laszewski]
+
+3.0.2 (2016-03-05)
+------------------
+
+- 3.0.1. [Gregor von Laszewski]
+
+- Version 3.0.1. [Gregor von Laszewski]
+
+3.0.1 (2016-03-05)
+------------------
+
+- 3.0.0. [Gregor von Laszewski]
+
+- Version 3.0.0. [Gregor von Laszewski]
+
+3.0.0 (2016-03-04)
+------------------
+
+Changes
+~~~~~~~
+
+- Changes to exception catch format to the new format. [Supreeth S]
+
+- Changed to iteritems() to items() for dict. [Supreeth S]
+
+Fix
+~~~
+
+- Hackathon: Changed the SSHKeyManager to have list for values. [Thanmai
+  Bindi]
+
+- Hackathon: 2to3 fix SSHKeyManager, cm, ghost. [Gourav Shenoy]
+
+- Hackathon: changed cloudmeshDatabase to have the changes of list for
+  values. [Thanmai Bindi]
+
+- Hackathon: 2to3 fix ssh_config & CloudmeshDatabase. [Gourav Shenoy]
+
+- Hackathon: updated CloudProviderBase. [Thanmai Bindi]
+
+- Hackathon: updated list references in vm. [Thanmai Bindi]
+
+- Hackathon: updated network.py. [Thanmai Bindi]
+
+- Hackathon: 2to3 fix keys issue. [Gourav Shenoy]
+
+- Hackathon: 2to3 fix keys BatchProviderSLURM.py. [Gourav Shenoy]
+
+- Hackathon: 2to3 fix keys register.py. [Gourav Shenoy]
+
+- Hackathon: 2to3 fix keys in list. [Gourav Shenoy]
+
+- Hackathon: 2to3 keys in group. [Gourav Shenoy]
+
+- Hackathon: 2to3 fix. [Gourav Shenoy]
+
+Other
+~~~~~
+
+- HACKATHON: integer division. [fugangwang]
+
+- HACKATHON: bytes ans string fixing for HPC. [fugangwang]
+
+- HACKATHON: fixing dict and making code more readable. [fugangwang]
+
+
+- HACKATHON: conflict. [fugangwang]
+
+- HACKATHON: Nonetype cannot be compared, and the frontend of virtual
+  cluster has the 'cluster' field as None. [fugangwang]
+
+- HACKATHON: Fixing more dict related issues. [fugangwang]
+
+- HACKATHON: fixing more raw_input. [fugangwang]
+
+- Improved sorting of dict_table printer. Updating the api docs.
+  [fugangwang]
+
+- Comet: Improving cluster display (more fields; multiple lines for
+  multiple macs; sorting) [fugangwang]
+
+- Comet: Removing failed computeset from default display. [fugangwang]
+
+- Comet: Supporting multiple service endpoints. [fugangwang]
+
+- Comet: Changed time format when displaying computeset, based on
+  Trevor's request. [fugangwang]
+
+- Comet: use iso instead of image to avoid the possible confusing with
+  disk image concept. [fugangwang]
+
+- Comet: Fixing a typo. [fugangwang]
+
+- HACKATHON: fixing another dict size changing during runtime.
+  [fugangwang]
+
+- HACKATHON: dict cannot change size during runtime. [fugangwang]
+
+- HACKATHON: dict comparison not supported in python 3. [fugangwang]
+
+- HACKATHON: Instruction for raw_input() and a few fixing. [fugangwang]
+
+- HACKATHON: file() instruction and one fixing. [fugangwang]
+
+- HACKATHON: fixing one dict key list issue. [fugangwang]
+
+- HACKATHON: fixing one exception. [fugangwang]
+
+- HACKATHON: Adding compatibility instruction for dict operations.
+  [fugangwang]
+
+- HACKATHON: python 2 and 3 compatibility cheat sheet. [fugangwang]
+
+  Laszewski]
+
+- Using the travis config from the current head of master as otherwise
+  the merging conflicts. [fugangwang]
+
+- Comet: removing IP display due to API change. [fugangwang]
+
+- Comet: Some old computesets may not have all the fields. [fugangwang]
+
+- Comet: updating docs. [fugangwang]
+
+- Comet: Retrieving and setting apikey and secret. [fugangwang]
+
+- Comet: displaying and filtering computesets based on fields.
+  [fugangwang]
+
+- Update .travis.yml. [Gregor von Laszewski]
+
+- 2.2.1. [Gregor von Laszewski]
+
+- Version 2.2.1. [Gregor von Laszewski]
+
+2.2.1 (2016-02-20)
+------------------
+
+- 2.2.0. [Gregor von Laszewski]
+
+- Version 2.2.0. [Gregor von Laszewski]
+
+2.2.0 (2016-02-20)
+------------------
+
+- Update .travis.yml. [Gregor von Laszewski]
+
+- 2.1.3. [Gregor von Laszewski]
+
+- Version 2.1.3. [Gregor von Laszewski]
+
+- Update README.rst. [Gregor von Laszewski]
+
+- Update README.rst. [Gregor von Laszewski]
+
+- Update README.rst. [Gregor von Laszewski]
+
+- Update .travis.yml. [Gregor von Laszewski]
+
+- Update README.rst. [Gregor von Laszewski]
+
+- Update README.rst. [Gregor von Laszewski]
+
+- Update README.rst. [Gregor von Laszewski]
+
+- Update README.rst. [Gregor von Laszewski]
+
+- Update README.rst. [Gregor von Laszewski]
+
+2.1.3 (2016-02-18)
+------------------
+
+Changes
+~~~~~~~
+
+
+Other
+~~~~~
+
+- Comet: updating documentation. [fugangwang]
+
+- Comet: clarifying in the usage that one single compute node is
+  acceptable too when computenodes is expected. [fugangwang]
+
+- Comet: supporting bulk image attaching/detaching via hostlist.
+  [fugangwang]
+
+- Comet: updating documentation. [fugangwang]
+
+- Comet: removing one special char. [fugangwang]
+
+- Comet: updating documents to show examples of starting N nodes and
+  renaming a compute node. [fugangwang]
+
+- Comet: adding support of ranaming a compute node; and booting N nodes.
+  [fugangwang]
+
+- 2.1.1. [Gregor von Laszewski]
+
+- Version 2.1.1. [Gregor von Laszewski]
+
+- 2.1.2. [Gregor von Laszewski]
+
+- Version 2.1.2. [Gregor von Laszewski]
+
+2.1.2 (2016-02-15)
+------------------
+
+Changes
+~~~~~~~
+
+- New: authors. [Gregor von Laszewski]
+
+Other
+~~~~~
+
+- Restructures dockerfile (closes #150) [Badi' Abdul-Wahid]
+
+- Addes libz-dev for documentation (closes #151) [Badi' Abdul-Wahid]
+
+- Fixes six version (closes #149) [Badi' Abdul-Wahid]
+
+- Fixes requests version (closes #148) [Badi' Abdul-Wahid]
+
+- Add the local directory instead of cloning again. [Badi' Abdul-Wahid]
+
+- Adds missing dependency: libjpeg-dev (closes #146) [Badi' Abdul-Wahid]
+
+- Comet: updating quick guide. [fugangwang]
+
+- Comet: image operations fixed and tested. [fugangwang]
+
+2.1.1 (2016-02-15)
+------------------
+
+Changes
+~~~~~~~
+
+  error in travis. [Gregor von Laszewski]
+
+Other
+~~~~~
+
+- Update cm.py. [arpiagariu]
+
+  added code to method def var_finder(self, line, c='$'):
+
+- Uploading image and attach/detach to node. [fugangwang]
+
+- 2.1.0. [Gregor von Laszewski]
+
+- Version 2.1.0. [Gregor von Laszewski]
+
+2.1.0 (2016-02-11)
+------------------
+
+- 2.0.4. [Gregor von Laszewski]
+
+- Version 2.0.4. [Gregor von Laszewski]
+
+- 2.0.5. [Gregor von Laszewski]
+
+- Version 2.0.5. [Gregor von Laszewski]
+
+2.0.5 (2016-02-11)
+------------------
+
 - Comet: more cleaning up of code and debug messages. [fugangwang]
 
 - Comet: cleaning up code/docs based on currently implemented features.
