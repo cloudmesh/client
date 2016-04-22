@@ -4,9 +4,10 @@ import json
 import os.path
 from collections import OrderedDict
 import sys
-import sys
 import yaml
+import shutil
 
+from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.BaseConfigDict import BaseConfigDict
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.common.util import path_expand
@@ -191,8 +192,8 @@ class ConfigDict(object):
                 self.load(name)
                 self.filename = name
                 return
-        raise Exception("could not find file {:} in {:}"
-                        .format(filename, self.load_order))
+        # Create default yaml file
+        raise ValueError("Could not find file {:} in {:}".format(filename, self.load_order))
 
     def load(self, filename):
         """
