@@ -39,7 +39,8 @@ class Test_configdict:
         d = ConfigDict("cloudmesh.yaml",
                        verbose=True)
 
-        assert d["cloudmesh"]["profile"]["firstname"] == "TBD"
+        assert d["cloudmesh"]["profile"]["firstname"] != ""
+        assert len(d["cloudmesh"]["clouds"]) > 0
 
         try:
             d = ConfigDict("cloudmesh.yam",
