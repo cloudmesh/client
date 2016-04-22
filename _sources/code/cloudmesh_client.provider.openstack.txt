@@ -1,0 +1,22 @@
+cloudmesh_client.provider.openstack package
+===========================================
+
+Submodules
+----------
+
+cloudmesh_client.provider.openstack.attributes module
+-----------------------------------------------------
+
+.. automodule:: cloudmesh_client.provider.openstack.attributes
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: cloudmesh_client.provider.openstack
+    :members:
+    :undoc-members:
+    :show-inheritance:

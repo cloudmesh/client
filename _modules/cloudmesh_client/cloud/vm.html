@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.vm &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>cloudmesh_client.cloud.vm &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -178,12 +178,16 @@
 <span class="c1"># add imports for other cloud providers in future</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.ListResource</span> <span class="kn">import</span> <span class="n">ListResource</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">dict_printer</span><span class="p">,</span> <span class="n">attribute_printer</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.db.CloudmeshDatabase</span> <span class="kn">import</span> <span class="n">CloudmeshDatabase</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">Printer</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.db</span> <span class="kn">import</span> <span class="n">CloudmeshDatabase</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.CloudProvider</span> <span class="kn">import</span> <span class="n">CloudProvider</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.Error</span> <span class="kn">import</span> <span class="n">Error</span>
-
 <span class="kn">from</span> <span class="nn">uuid</span> <span class="kn">import</span> <span class="n">UUID</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.dotdict</span> <span class="kn">import</span> <span class="n">dotdict</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">input</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.network</span> <span class="kn">import</span> <span class="n">Network</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
 
 
 <span class="c1"># noinspection PyPep8Naming</span>
@@ -191,7 +195,44 @@
     <span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">()</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Vm.construct_ip_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.construct_ip_dict">[docs]</a>    <span class="k">def</span> <span class="nf">construct_ip_dict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">ip_addr</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;kilo&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="Vm.uuid"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.uuid">[docs]</a>    <span class="k">def</span> <span class="nf">uuid</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="n">vm</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">vm</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+
+        <span class="k">return</span> <span class="n">vm</span><span class="o">.</span><span class="n">uuid</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Vm.get"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns the value of the first objects matching the key</span>
+<span class="sd">        with the given category.</span>
+
+<span class="sd">        :param key: The dictionary key</span>
+<span class="sd">        :param category: The category</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">category</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">o</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;vm&#39;</span><span class="p">,</span>
+                            <span class="n">output</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">,</span>
+                            <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">,</span>
+                            <span class="n">name</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">o</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">,</span>
+                            <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;vm&#39;</span><span class="p">,</span>
+                            <span class="n">output</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">,</span>
+                            <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">,</span>
+                            <span class="n">name</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">o</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Vm.construct_ip_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.construct_ip_dict">[docs]</a>    <span class="k">def</span> <span class="nf">construct_ip_dict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">ip_addr</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="c1"># TODO kilo cloud as defualt should be avoided</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;cloud name not set&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">None</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
             <span class="n">cloud_details</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">][</span><span class="n">name</span><span class="p">]</span>
@@ -211,12 +252,12 @@
 
             <span class="c1"># Handle EC2 Specific Output</span>
             <span class="k">if</span> <span class="n">cloud_details</span><span class="p">[</span><span class="s2">&quot;cm_type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ec2&quot;</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ec2 ip dict yet to be implemented&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">TODO</span><span class="p">(</span><span class="s2">&quot;ec2 ip dict yet to be implemented&quot;</span><span class="p">)</span>
                 <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span>
 
             <span class="c1"># Handle Azure Specific Output</span>
             <span class="k">if</span> <span class="n">cloud_details</span><span class="p">[</span><span class="s2">&quot;cm_type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;azure&quot;</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;azure ip dict yet to be implemented&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">TODO</span><span class="p">(</span><span class="s2">&quot;azure ip dict yet to be implemented&quot;</span><span class="p">)</span>
                 <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -233,83 +274,198 @@
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Vm.boot"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.boot">[docs]</a>    <span class="k">def</span> <span class="nf">boot</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
-        <span class="n">key_name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;key_name&quot;</span><span class="p">]</span>
-        <span class="n">cloud_name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">]</span>
+        <span class="n">arg</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;flavor&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">a</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="s2">&quot; not in arguments to vm boot&quot;</span><span class="p">)</span>
 
         <span class="n">conf</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
-        <span class="n">username</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;profile&quot;</span><span class="p">][</span><span class="s2">&quot;username&quot;</span><span class="p">]</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;profile&quot;</span><span class="p">][</span><span class="s2">&quot;user&quot;</span><span class="p">]</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">group</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">group</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">group</span>
+        <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
 
-        <span class="n">keycloudmap</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get_key_cloud_mapping</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">key_name</span><span class="p">,</span> <span class="n">cloud_name</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">keycloudmap</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">keycloudmap</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;No key cloud mapping found for user {:}, key name {:} and cloud {:} in database.&quot;</span>
-                               <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">key_name</span><span class="p">,</span> <span class="n">cloud_name</span><span class="p">))</span>
-
-        <span class="c1"># print(&quot;Keycloudmap = {:}&quot;.format(keycloudmap))</span>
-        <span class="n">key_name_on_cloud</span> <span class="o">=</span> <span class="n">keycloudmap</span><span class="p">[</span><span class="s2">&quot;key_name_on_cloud&quot;</span><span class="p">]</span>
-
-        <span class="c1"># print(&quot;Booting with key_name_on_cloud as &quot; + key_name_on_cloud)</span>
-
-        <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud_name</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
-
-        <span class="k">if</span> <span class="s2">&quot;nics&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">vm</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">boot_vm</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span>
-                                        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">],</span>
-                                        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;flavor&quot;</span><span class="p">],</span>
-                                        <span class="n">key</span><span class="o">=</span><span class="n">key_name_on_cloud</span><span class="p">,</span>
-                                        <span class="n">secgroup</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;secgroup_list&quot;</span><span class="p">],</span>
-                                        <span class="n">nics</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;nics&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="s2">&quot;nics&quot;</span> <span class="ow">in</span> <span class="n">arg</span><span class="p">:</span>
+            <span class="n">nics</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">nics</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">vm</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">boot_vm</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span>
-                                        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">],</span>
-                                        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;flavor&quot;</span><span class="p">],</span>
-                                        <span class="n">key</span><span class="o">=</span><span class="n">key_name_on_cloud</span><span class="p">,</span>
-                                        <span class="n">secgroup</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;secgroup_list&quot;</span><span class="p">],</span>
-                                        <span class="n">nics</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+            <span class="n">nics</span> <span class="o">=</span> <span class="bp">None</span>
 
-        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Machine {:} is being booted on {:} Cloud...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">cloud</span><span class="p">))</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">({</span>
+            <span class="s2">&quot;cloud&quot;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">image</span><span class="p">,</span>
+            <span class="s2">&quot;flavor&quot;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">flavor</span><span class="p">,</span>
+            <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">key</span><span class="p">,</span>
+            <span class="s2">&quot;secgroup&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">arg</span><span class="o">.</span><span class="n">secgroup</span><span class="p">],</span>
+            <span class="s2">&quot;nics&quot;</span><span class="p">:</span> <span class="n">nics</span><span class="p">,</span>
+            <span class="s2">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;kind&#39;</span><span class="p">:</span> <span class="s1">&#39;cloudmesh&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;group&#39;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">group</span><span class="p">,</span>
+                     <span class="s1">&#39;image&#39;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">image</span><span class="p">,</span>
+                     <span class="s1">&#39;flavor&#39;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">flavor</span><span class="p">,</span>
+                     <span class="s1">&#39;key&#39;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">key</span><span class="p">,</span>
+                     <span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">cloud</span>
+                    <span class="p">}</span>
+        <span class="p">})</span>
+
+        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Machine {name} is being booted on cloud {cloud} ...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">arg</span><span class="p">))</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
+
+        <span class="n">vm</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">boot_vm</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">vm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span>
+
+            <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">)</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">)</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">flavor</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">)</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">arg</span><span class="o">.</span><span class="n">group</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">)</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="n">arg</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">)</span>
+
+        <span class="c1"># update group and key</span>
+        <span class="c1">#</span>
+        <span class="c1"># cls.cm.update(&quot;vm&quot;, name=data.name)</span>
+
         <span class="k">return</span> <span class="n">vm</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Vm.start"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">provider</span>
+        <span class="n">arg</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
         <span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;servers&quot;</span><span class="p">]:</span>
             <span class="n">cloud_provider</span><span class="o">.</span><span class="n">start_vm</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Machine {:} is being started on {:} Cloud...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">cloud</span><span class="p">))</span></div>
+            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Machine {:} is being started on {:} Cloud...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">cloud</span><span class="p">))</span></div>
 
             <span class="c1"># Explicit refresh called after VM start, to update db.</span>
             <span class="c1"># cls.refresh(cloud=kwargs[&quot;cloud&quot;])</span>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Vm.stop"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">provider</span>
+        <span class="n">arg</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
         <span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;servers&quot;</span><span class="p">]:</span>
             <span class="n">cloud_provider</span><span class="o">.</span><span class="n">stop_vm</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Machine {:} is being stopped on {:} Cloud...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">cloud</span><span class="p">))</span></div>
+            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Machine {:} is being stopped on {:} Cloud...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">cloud</span><span class="p">))</span></div>
 
             <span class="c1"># Explicit refresh called after VM stop, to update db.</span>
             <span class="c1"># cls.refresh(cloud=kwargs[&quot;cloud&quot;])</span>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Vm.delete"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">provider</span>
-        <span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;servers&quot;</span><span class="p">]:</span>
-            <span class="n">cloud_provider</span><span class="o">.</span><span class="n">delete_vm</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Machine {:} is being deleted on {:} Cloud...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">cloud</span><span class="p">))</span>
+        <span class="n">arg</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
 
-            <span class="c1"># Explicit refresh called after VM delete, to update db.</span>
-            <span class="n">cls</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">])</span></div>
+        <span class="n">force</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;force&quot;</span><span class="p">,</span> <span class="n">Default</span><span class="o">.</span><span class="n">purge</span><span class="p">)</span>
+
+
+        <span class="k">if</span> <span class="s2">&quot;cloud&quot;</span> <span class="ow">in</span> <span class="n">arg</span><span class="p">:</span>
+            <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
+            <span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;servers&quot;</span><span class="p">]:</span>
+                <span class="n">vm</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">server</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">vm</span><span class="p">:</span>
+                    <span class="n">provider</span> <span class="o">=</span> <span class="n">vm</span><span class="p">[</span><span class="s2">&quot;provider&quot;</span><span class="p">]</span>
+                    <span class="n">cloud</span> <span class="o">=</span> <span class="n">vm</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span>
+
+                    <span class="c1"># If server has a floating ip associated, release it</span>
+                    <span class="n">server_dict</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">get_instance_dict</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span>
+                                                            <span class="n">instance_id</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
+                    <span class="n">floating_ip</span> <span class="o">=</span> <span class="n">server_dict</span><span class="p">[</span><span class="s2">&quot;floating_ip&quot;</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">floating_ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                        <span class="n">Network</span><span class="o">.</span><span class="n">disassociate_floating_ip</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span>
+                                                         <span class="n">instance_name</span><span class="o">=</span><span class="n">server</span><span class="p">,</span>
+                                                         <span class="n">floating_ip</span><span class="o">=</span><span class="n">floating_ip</span><span class="p">)</span>
+                    <span class="n">cloud_provider</span><span class="o">.</span><span class="n">delete_vm</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">force</span><span class="p">:</span>
+                        <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span>
+                                      <span class="n">provider</span><span class="o">=</span><span class="n">provider</span><span class="p">,</span>
+                                      <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span>
+                                      <span class="n">name</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>  <span class="c1"># delete the record from db</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;VM record {:} is being deleted from the local database...&quot;</span> \
+                                   <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">server</span><span class="p">))</span>
+
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">,</span> <span class="s2">&quot;deleted&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">)</span>
+
+                    <span class="c1"># Console.ok(&quot;VM {:} is being deleted on {:} cloud...&quot;.format(server, cloud_provider.cloud))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;VM {:} can not be found.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">server</span><span class="p">),</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="n">clouds</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">arg</span><span class="o">.</span><span class="n">servers</span><span class="p">:</span>
+
+                <span class="n">vm</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">server</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">vm</span><span class="p">:</span>
+                    <span class="n">cloud</span> <span class="o">=</span> <span class="n">vm</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span>
+                    <span class="n">provider</span> <span class="o">=</span> <span class="n">vm</span><span class="p">[</span><span class="s2">&quot;provider&quot;</span><span class="p">]</span>
+                    <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
+                    <span class="n">clouds</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
+                    <span class="n">cloud_provider</span><span class="o">.</span><span class="n">delete_vm</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">force</span><span class="p">:</span>
+                        <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span>
+                                      <span class="n">provider</span><span class="o">=</span><span class="n">provider</span><span class="p">,</span>
+                                      <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span>
+                                      <span class="n">name</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;VM record {:} is being deleted from the local database...&quot;</span> \
+                                   <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">server</span><span class="p">))</span>
+
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">,</span> <span class="s2">&quot;deleted&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">)</span>
+
+                    <span class="c1"># Console.ok(&quot;VM {:} is being deleted on {:} cloud...&quot;.format(server, cloud))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;VM {:} can not be found.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">server</span><span class="p">),</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span></div>
+
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Vm.get_vms_by_name"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.get_vms_by_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_vms_by_name</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
+
+        <span class="n">vm_data</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">vm_data</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">vm_data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;VM data not found in database.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">vm_data</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Vm.rename"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.rename">[docs]</a>    <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">provider</span>
-        <span class="n">new_name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;new_name&quot;</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;servers&quot;</span><span class="p">]:</span>
-            <span class="n">cloud_provider</span><span class="o">.</span><span class="n">rename_vm</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">new_name</span><span class="p">)</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Machine {:} renamed to {:} on {:} Cloud...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">new_name</span><span class="p">,</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">cloud</span><span class="p">))</span>
 
-            <span class="c1"># Explicit refresh called after VM delete, to update db.</span>
-            <span class="n">cls</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">])</span></div>
+        <span class="n">arg</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">provider</span>
+
+        <span class="c1"># Check for vms with duplicate names in DB.</span>
+        <span class="n">vms</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_vms_by_name</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">oldname</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vms</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">users_choice</span> <span class="o">=</span> <span class="s2">&quot;y&quot;</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">arg</span><span class="o">.</span><span class="n">force</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;More than 1 vms found with the same name as {}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">server</span><span class="p">))</span>
+                <span class="n">users_choice</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Would you like to auto-order the new names? (y/n): &quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">users_choice</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>
+                <span class="n">count</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">vms</span><span class="p">:</span>
+                    <span class="n">count_new_name</span> <span class="o">=</span> <span class="s2">&quot;{0}{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">newname</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
+                    <span class="c1"># print(vms[index])</span>
+
+                    <span class="n">cloud_provider</span><span class="o">.</span><span class="n">rename_vm</span><span class="p">(</span><span class="n">vms</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">&quot;uuid&quot;</span><span class="p">],</span> <span class="n">count_new_name</span><span class="p">)</span>
+
+                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Machine {0} with UUID {1} renamed to {2} on {3} cloud&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vms</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">&quot;name&quot;</span><span class="p">],</span>
+                                                                                         <span class="n">vms</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">&quot;uuid&quot;</span><span class="p">],</span>
+                                                                                         <span class="n">count_new_name</span><span class="p">,</span>
+                                                                                         <span class="n">cloud_provider</span><span class="o">.</span><span class="n">cloud</span><span class="p">))</span>
+                    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">users_choice</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;n&quot;</span><span class="p">:</span>
+                <span class="n">cloud_provider</span><span class="o">.</span><span class="n">rename_vm</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">oldname</span><span class="p">,</span> <span class="n">arg</span><span class="o">.</span><span class="n">newname</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span>
+                    <span class="s2">&quot;Machine {0} renamed to {1} on {2} Cloud...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">oldname</span><span class="p">,</span> <span class="n">arg</span><span class="o">.</span><span class="n">newname</span><span class="p">,</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">cloud</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Invalid Choice.&quot;</span><span class="p">)</span>
+                <span class="k">return</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cloud_provider</span><span class="o">.</span><span class="n">rename_vm</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">oldname</span><span class="p">,</span> <span class="n">arg</span><span class="o">.</span><span class="n">newname</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Machine {0} renamed to {1} on {2} Cloud...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">oldname</span><span class="p">,</span> <span class="n">arg</span><span class="o">.</span><span class="n">newname</span><span class="p">,</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">cloud</span><span class="p">))</span>
+
+        <span class="c1"># Explicit refresh called after VM rename, to update db.</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Vm.info"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -321,35 +477,79 @@
 <span class="sd">        This method lists all VMs of the cloud</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
+        <span class="n">arg</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;name&quot;</span> <span class="ow">in</span> <span class="n">arg</span><span class="p">:</span>
+            <span class="n">arg</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="n">arg</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">output</span> <span class="ow">or</span> <span class="s1">&#39;table&#39;</span>
+
+        <span class="c1"># pprint (kwargs)</span>
+        <span class="c1"># prevent circular dependency</span>
+        <span class="k">def</span> <span class="nf">vm_groups</span><span class="p">(</span><span class="n">vm</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">            :param vm: name of the vm</span>
+<span class="sd">            :return: a list of groups the vm is in</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">&#39;kind&#39;</span><span class="p">:</span> <span class="s2">&quot;group&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;provider&#39;</span><span class="p">:</span> <span class="s1">&#39;general&#39;</span><span class="p">,</span>
+                    <span class="s2">&quot;species&quot;</span><span class="p">:</span> <span class="s2">&quot;vm&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;member&quot;</span><span class="p">:</span> <span class="n">vm</span><span class="p">,</span>
+                    <span class="s2">&quot;scope&quot;</span><span class="p">:</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span>
+                    <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="s1">&#39;dict&#39;</span>
+                <span class="p">}</span>
+
+                <span class="n">d</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="o">**</span><span class="n">query</span><span class="p">)</span>
+                <span class="n">groups_vm</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">d</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">vm</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                        <span class="n">groups_vm</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">vm</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+                <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">groups_vm</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s2">&quot;name_or_id&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;name_or_id&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">isUuid</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;name_or_id&quot;</span><span class="p">]):</span>
-                    <span class="n">elements</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span>
-                                           <span class="n">category</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">],</span>
-                                           <span class="n">uuid</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;name_or_id&quot;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="s2">&quot;name&quot;</span> <span class="ow">in</span> <span class="n">arg</span> <span class="ow">and</span> <span class="n">arg</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">isUuid</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
+                    <span class="n">elements</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span>
+                                           <span class="n">category</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">category</span><span class="p">,</span>
+                                           <span class="n">uuid</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">elements</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span>
-                                           <span class="n">category</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">],</span>
-                                           <span class="n">label</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;name_or_id&quot;</span><span class="p">])</span>
+                    <span class="n">elements</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span>
+                                           <span class="n">category</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">category</span><span class="p">,</span>
+                                           <span class="n">label</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">elements</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span>
-                                       <span class="n">category</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">])</span>
+                <span class="n">elements</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span>
+                                       <span class="n">category</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">category</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">elements</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">None</span>
+
+            <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
+                <span class="n">element</span> <span class="o">=</span> <span class="n">elem</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">element</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+                <span class="n">groups</span> <span class="o">=</span> <span class="n">vm_groups</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">element</span><span class="p">[</span><span class="s2">&quot;group&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span>
 
             <span class="c1"># print(elements)</span>
 
             <span class="c1"># order = [&#39;id&#39;, &#39;uuid&#39;, &#39;name&#39;, &#39;cloud&#39;]</span>
-            <span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">header</span><span class="p">)</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">get_attributes</span><span class="p">(</span><span class="s2">&quot;vm&quot;</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">header</span><span class="p">)</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">category</span><span class="p">)</span><span class="o">.</span><span class="n">get_attributes</span><span class="p">(</span><span class="s2">&quot;vm&quot;</span><span class="p">)</span>
 
             <span class="c1"># order = None</span>
-            <span class="k">if</span> <span class="s2">&quot;name_or_id&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;name_or_id&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">attribute_printer</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">elements</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">],</span>
-                                         <span class="n">output</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;output_format&quot;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="s2">&quot;name&quot;</span> <span class="ow">in</span> <span class="n">arg</span> <span class="ow">and</span> <span class="n">arg</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Printer</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                         <span class="n">output</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">dict_printer</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span>
-                                    <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
-                                    <span class="n">output</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;output_format&quot;</span><span class="p">])</span>
+                <span class="k">return</span> <span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span>
+                                     <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
+                                     <span class="n">output</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Vm.clear"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -358,62 +558,75 @@
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Vm.refresh"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="c1"># print(&quot;Inside refresh&quot;)</span>
+
         <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">])</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Vm.status_from_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.status_from_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">status_from_cloud</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">provider</span>
-        <span class="n">vm</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">get_vm</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;name_or_id&quot;</span><span class="p">])</span>
+        <span class="n">vm</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">get_vm</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">vm</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Vm.set_vm_login_user"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.set_vm_login_user">[docs]</a>    <span class="k">def</span> <span class="nf">set_vm_login_user</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name_or_id</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+<div class="viewcode-block" id="Vm.set_login_user"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.set_login_user">[docs]</a>    <span class="k">def</span> <span class="nf">set_login_user</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
 
-        <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">isUuid</span><span class="p">(</span><span class="n">name_or_id</span><span class="p">):</span>
-            <span class="n">uuid</span> <span class="o">=</span> <span class="n">name_or_id</span>
+        <span class="c1"># cls.cm.set(name, &quot;username&quot;, username, kind=&quot;vm&quot;, scope=&quot;first&quot;)</span>
+
+        <span class="n">vm</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">vm</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;VM could not be found&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+            <span class="k">return</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">vm_data</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">name_or_id</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">vm_data</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">vm_data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;VM with label {} not found in database.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name_or_id</span><span class="p">))</span>
-            <span class="n">uuid</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">vm_data</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
-
-        <span class="n">user_map_entry</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;VMUSERMAP&quot;</span><span class="p">,</span> <span class="n">vm_uuid</span><span class="o">=</span><span class="n">uuid</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">user_map_entry</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">user_map_entry</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">user_map_dict</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">db_obj_dict</span><span class="p">(</span><span class="s2">&quot;VMUSERMAP&quot;</span><span class="p">,</span> <span class="n">vm_uuid</span><span class="o">=</span><span class="n">uuid</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">)</span>
-            <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">add_obj</span><span class="p">(</span><span class="n">user_map_dict</span><span class="p">)</span>
-            <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">update_vm_username</span><span class="p">(</span><span class="n">vm_uuid</span><span class="o">=</span><span class="n">uuid</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">)</span></div>
+            <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span>
+                          <span class="n">provider</span><span class="o">=</span><span class="n">vm</span><span class="p">[</span><span class="s2">&quot;provider&quot;</span><span class="p">],</span>
+                          <span class="nb">filter</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">},</span>
+                          <span class="n">update</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="n">username</span><span class="p">}</span>
+                          <span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Vm.get_vm_login_user"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.get_vm_login_user">[docs]</a>    <span class="k">def</span> <span class="nf">get_vm_login_user</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name_or_id</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
+<div class="viewcode-block" id="Vm.get_login_user"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.get_login_user">[docs]</a>    <span class="k">def</span> <span class="nf">get_login_user</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">isUuid</span><span class="p">(</span><span class="n">name_or_id</span><span class="p">):</span>
-            <span class="n">uuid</span> <span class="o">=</span> <span class="n">name_or_id</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">vm_data</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">name_or_id</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">vm_data</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">vm_data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;VM with label {} not found in database.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name_or_id</span><span class="p">))</span>
-            <span class="n">uuid</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">vm_data</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;this method is wrong implemented&quot;</span><span class="p">)</span>
 
-        <span class="c1"># print(uuid)</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        if cls.isUuid(name):</span>
+<span class="sd">            uuid = name</span>
+<span class="sd">        else:</span>
+<span class="sd">            vm_data = cls.cm.find(kind=&quot;vm&quot;, category=cloud, label=name)</span>
+<span class="sd">            if vm_data is None or len(vm_data) == 0:</span>
+<span class="sd">                raise RuntimeError(&quot;VM with label {} not found in database.&quot;.format(name))</span>
+<span class="sd">            uuid = list(vm_data.values())[0][&quot;uuid&quot;]</span>
 
-        <span class="n">user_map_entry</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;VMUSERMAP&quot;</span><span class="p">,</span> <span class="n">vm_uuid</span><span class="o">=</span><span class="n">uuid</span><span class="p">)</span>
+<span class="sd">        # print(uuid)</span>
 
-        <span class="c1"># print(user_map_entry)</span>
+<span class="sd">        user_map_entry = cls.cm.find(&quot;VMUSERMAP&quot;, vm_uuid=uuid)</span>
 
-        <span class="k">if</span> <span class="n">user_map_entry</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">user_map_entry</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">user_map_entry</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;username&quot;</span><span class="p">]</span></div>
+<span class="sd">        # print(user_map_entry)</span>
+
+<span class="sd">        if user_map_entry is None or len(user_map_entry) == 0:</span>
+<span class="sd">            return None</span>
+<span class="sd">        else:</span>
+<span class="sd">            return list(user_map_entry.values())[0][&quot;username&quot;]</span>
+<span class="sd">        &#39;&#39;&#39;</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Vm.get_last_vm"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.get_last_vm">[docs]</a>    <span class="k">def</span> <span class="nf">get_last_vm</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
-        <span class="n">vm_data</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">vm_data</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">vm_data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;VM data not found in database.&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">vm_data</span></div></div>
+<div class="viewcode-block" id="Vm.get_vm_public_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.get_vm_public_ip">[docs]</a>    <span class="k">def</span> <span class="nf">get_vm_public_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">vm_name</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param vm_name: Name of the VM instance whose Public IP has to be retrieved from the DB</span>
+<span class="sd">        :param cloud: Libcloud supported Cloud provider name</span>
+<span class="sd">        :return: Public IP as a list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">public_ip_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">vms</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_vms_by_name</span><span class="p">(</span><span class="n">vm_name</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="n">vms</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">keys</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">public_ip</span> <span class="o">=</span> <span class="n">vms</span><span class="p">[</span><span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s2">&quot;public_ips&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">public_ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">public_ip</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                <span class="n">public_ip_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">public_ip</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">public_ip_list</span></div></div>
 </pre></div>
 
            </div>
@@ -446,7 +659,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

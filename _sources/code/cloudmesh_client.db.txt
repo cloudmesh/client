@@ -6,7 +6,10 @@ Subpackages
 
 .. toctree::
 
+    cloudmesh_client.db.azure
+    cloudmesh_client.db.general
     cloudmesh_client.db.libcloud
+    cloudmesh_client.db.openstack
 
 Submodules
 ----------
@@ -15,22 +18,6 @@ cloudmesh_client.db.CloudmeshDatabase module
 --------------------------------------------
 
 .. automodule:: cloudmesh_client.db.CloudmeshDatabase
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-cloudmesh_client.db.SSHKeyDBManager module
-------------------------------------------
-
-.. automodule:: cloudmesh_client.db.SSHKeyDBManager
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-cloudmesh_client.db.model module
---------------------------------
-
-.. automodule:: cloudmesh_client.db.model
     :members:
     :undoc-members:
     :show-inheritance:

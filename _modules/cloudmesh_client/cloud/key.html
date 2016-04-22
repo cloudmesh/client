@@ -1,0 +1,623 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.cloud.key &mdash; cloudmesh_client 4.1.5 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../../../index.html"/>
+        <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../prefix.html">Prefix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../comet.html">Comet Virtual Cluster</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hackathon.html#python-guidelines">Python Guidelines</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+          <li><a href="../../cloudmesh_client.html">cloudmesh_client</a> &raquo;</li>
+      
+    <li>cloudmesh_client.cloud.key</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cloudmesh_client.cloud.key</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.todo</span> <span class="kn">import</span> <span class="n">TODO</span>
+<span class="c1"># add imports for other cloud providers in future</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.ListResource</span> <span class="kn">import</span> <span class="n">ListResource</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">Printer</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.db</span> <span class="kn">import</span> <span class="n">CloudmeshDatabase</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.CloudProvider</span> <span class="kn">import</span> <span class="n">CloudProvider</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Error</span> <span class="kn">import</span> <span class="n">Error</span>
+<span class="kn">from</span> <span class="nn">uuid</span> <span class="kn">import</span> <span class="n">UUID</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.dotdict</span> <span class="kn">import</span> <span class="n">dotdict</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">input</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.menu</span> <span class="kn">import</span> <span class="n">menu_return_num</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.SSHkey</span> <span class="kn">import</span> <span class="n">SSHkey</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">expanduser</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+
+<span class="c1"># noinspection PyPep8Naming</span>
+<div class="viewcode-block" id="Key"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key">[docs]</a><span class="k">class</span> <span class="nc">Key</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">()</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Key.info"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Key.get_from_dir"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.get_from_dir">[docs]</a>    <span class="k">def</span> <span class="nf">get_from_dir</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">store</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="n">directory</span> <span class="o">=</span> <span class="n">directory</span> <span class="ow">or</span> <span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="s2">&quot;~/.ssh&quot;</span><span class="p">)</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="nb">file</span> <span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">expanduser</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="n">directory</span><span class="p">)))</span>
+                 <span class="k">if</span> <span class="nb">file</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.pub&quot;</span><span class="p">)]</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="n">location</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="s2">&quot;{:}/{:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="nb">file</span><span class="p">))</span>
+
+            <span class="n">sshkey</span> <span class="o">=</span> <span class="n">SSHkey</span><span class="p">(</span><span class="n">location</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+            <span class="n">i</span> <span class="o">=</span> <span class="n">sshkey</span><span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># use base name</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="nb">file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.pub&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">sshkey</span><span class="p">[</span><span class="s2">&quot;kind&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;key&quot;</span>
+            <span class="n">sshkey</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;file&#39;</span>
+
+            <span class="k">if</span> <span class="n">store</span><span class="p">:</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">_add_from_sshkey</span><span class="p">(</span>
+                    <span class="nb">dict</span><span class="p">(</span><span class="n">sshkey</span><span class="p">),</span>
+                    <span class="n">keyname</span><span class="o">=</span><span class="n">sshkey</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span>
+                    <span class="n">source</span><span class="o">=</span><span class="n">sshkey</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">],</span>
+                    <span class="n">uri</span><span class="o">=</span><span class="n">sshkey</span><span class="p">[</span><span class="s2">&quot;uri&quot;</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">d</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">sshkey</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">store</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">d</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Key.get_from_git"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.get_from_git">[docs]</a>    <span class="k">def</span> <span class="nf">get_from_git</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">store</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param username: the github username</span>
+<span class="sd">        :return: an array of public keys</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">uri</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/{:}.keys&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">d</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">content</span><span class="p">)):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">content</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="n">thekey</span> <span class="o">=</span> <span class="p">{}</span>
+
+            <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;{}_git_{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+
+            <span class="n">thekey</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;uri&#39;</span><span class="p">:</span> <span class="n">uri</span><span class="p">,</span>
+                <span class="s1">&#39;string&#39;</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span>
+                <span class="s1">&#39;fingerprint&#39;</span><span class="p">:</span> <span class="n">SSHkey</span><span class="o">.</span><span class="n">_fingerprint</span><span class="p">(</span><span class="n">value</span><span class="p">),</span>
+                <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+                <span class="s1">&#39;comment&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+                <span class="s1">&#39;cm_id&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+                <span class="s1">&#39;source&#39;</span><span class="p">:</span> <span class="s1">&#39;git&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;kind&#39;</span><span class="p">:</span> <span class="s1">&#39;key&#39;</span>
+            <span class="p">}</span>
+
+            <span class="n">thekey</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">],</span> <span class="n">thekey</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">],</span> <span class="n">thekey</span><span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">SSHkey</span><span class="o">.</span><span class="n">_parse</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">thekey</span><span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">thekey</span><span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+            <span class="n">d</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">thekey</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">store</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+
+                    <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">thekey</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Key already in db&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">store</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">d</span></div>
+                <span class="c1"># noinspection PyProtectedMember,PyUnreachableCode,PyUnusedLocal</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Key.get_from_yaml"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.get_from_yaml">[docs]</a>    <span class="k">def</span> <span class="nf">get_from_yaml</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">load_order</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">store</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param filename: name of the yaml file</span>
+<span class="sd">        :return: a SSHKeyManager (dict of keys)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="c1"># default = Config.path_expand(os.path.join(&quot;~&quot;, &quot;.cloudmesh&quot;, &quot;cloudmesh.yaml&quot;))</span>
+            <span class="c1"># config = ConfigDict(&quot;cloudmesh.yaml&quot;)</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;cloudmesh.yaml&quot;</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">load_order</span><span class="p">:</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">load_order</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Wrong arguments&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="n">config_keys</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;keys&quot;</span><span class="p">]</span>
+        <span class="n">default</span> <span class="o">=</span> <span class="n">config_keys</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]</span>
+        <span class="n">keylist</span> <span class="o">=</span> <span class="n">config_keys</span><span class="p">[</span><span class="s2">&quot;keylist&quot;</span><span class="p">]</span>
+
+        <span class="n">uri</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">,</span> <span class="s2">&quot;.cloudmesh&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
+
+
+        <span class="n">d</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">keylist</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="n">keyname</span> <span class="o">=</span> <span class="n">key</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">keylist</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="n">value</span><span class="p">)):</span>
+                <span class="n">path</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">store</span><span class="p">:</span>
+                    <span class="n">Key</span><span class="o">.</span><span class="n">add_from_path</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">keyname</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">d</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Key</span><span class="o">.</span><span class="n">add_from_path</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">keyname</span><span class="p">,</span> <span class="n">store</span><span class="o">=</span><span class="bp">False</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+
+                <span class="n">keytype</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="n">SSHkey</span><span class="o">.</span><span class="n">_parse</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="n">thekey</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">&#39;uri&#39;</span><span class="p">:</span> <span class="s1">&#39;yaml://{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">uri</span><span class="p">),</span>
+                    <span class="s1">&#39;string&#39;</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span>
+                    <span class="s1">&#39;fingerprint&#39;</span><span class="p">:</span> <span class="n">SSHkey</span><span class="o">.</span><span class="n">_fingerprint</span><span class="p">(</span><span class="n">value</span><span class="p">),</span>
+                    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">keyname</span><span class="p">,</span>
+                    <span class="s1">&#39;comment&#39;</span><span class="p">:</span> <span class="n">comment</span><span class="p">,</span>
+                    <span class="s1">&#39;source&#39;</span><span class="p">:</span> <span class="s1">&#39;git&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;kind&#39;</span><span class="p">:</span> <span class="s1">&#39;key&#39;</span>
+                <span class="p">}</span>
+
+                <span class="n">thekey</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">],</span> <span class="n">thekey</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">],</span> <span class="n">thekey</span><span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">SSHkey</span><span class="o">.</span><span class="n">_parse</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">thekey</span><span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">thekey</span><span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">keyname</span>
+                <span class="k">if</span> <span class="n">store</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">thekey</span><span class="p">)</span>
+                    <span class="k">except</span><span class="p">:</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Key already in db&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">d</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">thekey</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">store</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">d</span>
+
+
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        take a look into original cloudmesh code, its possible to either specify a key or a filename</span>
+<span class="sd">        the original one is able to figure this out and do the rightthing. We may want to add this</span>
+<span class="sd">        logic to the SSHkey class, so we can initialize either via filename or key string.</span>
+<span class="sd">        It would than figure out the right thing</span>
+
+<span class="sd">        cloudmesh:</span>
+<span class="sd">          keys:</span>
+<span class="sd">            idrsa: ~/.ssh/id_rsa.pub</span>
+
+<span class="sd">        cloudmesh:</span>
+<span class="sd">        ...</span>
+<span class="sd">          keys:</span>
+<span class="sd">            default: name of the key</span>
+<span class="sd">            keylist:</span>
+<span class="sd">              keyname: ~/.ssh/id_rsa.pub</span>
+<span class="sd">              keyname: ssh rsa hajfhjldahlfjhdlsak ..... comment</span>
+<span class="sd">              github-x: github</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_add_from_sshkey</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span>
+                         <span class="n">sshkey</span><span class="p">,</span>
+                         <span class="n">keyname</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                         <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                         <span class="n">source</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                         <span class="n">uri</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+        <span class="n">user</span> <span class="o">=</span> <span class="n">user</span> <span class="ow">or</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">user</span>
+
+        <span class="k">if</span> <span class="n">keyname</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">keyname</span> <span class="o">=</span> <span class="n">sshkey</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">if</span> <span class="n">keyname</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ERROR: keyname is None&quot;</span><span class="p">)</span>
+
+        <span class="n">thekey</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;key&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">keyname</span><span class="p">,</span>
+            <span class="s2">&quot;uri&quot;</span><span class="p">:</span> <span class="n">sshkey</span><span class="p">[</span><span class="s1">&#39;uri&#39;</span><span class="p">],</span>
+            <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">sshkey</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">],</span>
+            <span class="s2">&quot;fingerprint&quot;</span><span class="p">:</span> <span class="n">sshkey</span><span class="p">[</span><span class="s1">&#39;fingerprint&#39;</span><span class="p">],</span>
+            <span class="s2">&quot;comment&quot;</span><span class="p">:</span> <span class="n">sshkey</span><span class="p">[</span><span class="s1">&#39;comment&#39;</span><span class="p">],</span>
+            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">sshkey</span><span class="p">[</span><span class="s1">&#39;string&#39;</span><span class="p">],</span>
+            <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;general&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="n">user</span><span class="p">}</span>
+
+        <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">thekey</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Key.add_key_to_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.add_key_to_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">add_key_to_cloud</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">keyname</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param user:</span>
+<span class="sd">        :param keyname:</span>
+<span class="sd">        :param cloud:</span>
+<span class="sd">        :param name_on_cloud:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">key</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">keyname</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Key with the name {:} not found in database.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyname</span><span class="p">))</span>
+            <span class="k">return</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Adding key {:} to cloud {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyname</span><span class="p">,</span> <span class="n">cloud</span><span class="p">))</span>
+                <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
+                <span class="n">cloud_provider</span><span class="o">.</span><span class="n">add_key_to_cloud</span><span class="p">(</span><span class="n">keyname</span><span class="p">,</span> <span class="n">key</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;problem uploading key {} to cloud {}: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyname</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">),</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Key.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">live</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
+        <span class="s2">&quot;this does not work only returns all ceys in the db&quot;</span>
+        <span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">header</span><span class="p">)</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">category</span><span class="p">)</span><span class="o">.</span><span class="n">get_attributes</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
+                             <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
+                             <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
+                             <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Key.list_on_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.list_on_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">list_on_cloud</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">live</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method lists all flavors of the cloud</span>
+<span class="sd">        :param cloud: the cloud name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">keys</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">list_key</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+                <span class="n">keys</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cloud</span>
+            <span class="k">if</span> <span class="n">keys</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">keys</span> <span class="ow">is</span> <span class="p">[]:</span>
+                <span class="k">return</span> <span class="bp">None</span>
+
+            <span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">header</span><span class="p">)</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">get_attributes</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span>
+                                 <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
+                                 <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
+                                 <span class="n">output</span><span class="o">=</span><span class="n">format</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Key.clear"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Key.refresh"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Key.delete"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">delete_key_from_cloud</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="c1">#</span>
+            <span class="c1"># get a list of keys from cloud</span>
+            <span class="c1"># loop over all keys and use the provider delete from cloud to delete that key</span>
+
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;delete all keys from cloud not yet implemented&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Key.all"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">)</span></div>
+
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Key.find"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.find">[docs]</a>    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Key.get"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finds the key on the database by name</span>
+
+<span class="sd">        :param name: name of the key to be found</span>
+<span class="sd">        :return: Query object of the search</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Key.set_default"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.set_default">[docs]</a>    <span class="k">def</span> <span class="nf">set_default</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="n">Default</span><span class="o">.</span><span class="n">set_key</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+
+    <span class="c1"># deprecated use Default.key</span>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Key.get_default"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.get_default">[docs]</a>    <span class="k">def</span> <span class="nf">get_default</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Default</span><span class="o">.</span><span class="n">key</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Key.delete_from_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.delete_from_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">delete_from_cloud</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_delete_from_db</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;key&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Key.select"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="s1">&#39;{}: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;fingerprint&#39;</span><span class="p">])</span>
+            <span class="n">options</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="n">menu_return_num</span><span class="p">(</span><span class="s1">&#39;KEYS&#39;</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">num</span> <span class="o">!=</span> <span class="s1">&#39;q&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">options</span><span class="p">[</span><span class="n">num</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">num</span></div>
+
+    <span class="c1">#</span>
+    <span class="c1"># ADD</span>
+    <span class="c1">#</span>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Key.add_from_path"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.add_from_path">[docs]</a>    <span class="k">def</span> <span class="nf">add_from_path</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span>
+                      <span class="n">path</span><span class="p">,</span>
+                      <span class="n">keyname</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                      <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                      <span class="n">source</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                      <span class="n">uri</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                      <span class="n">store</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds the key to the database based on the path</span>
+
+<span class="sd">        :param keyname: name of the key or path to the key</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">user</span> <span class="o">=</span> <span class="n">user</span> <span class="ow">or</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">user</span>
+
+        <span class="n">sshkey</span> <span class="o">=</span> <span class="n">SSHkey</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">store</span><span class="p">:</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">_add_from_sshkey</span><span class="p">(</span><span class="n">sshkey</span><span class="o">.</span><span class="n">__key__</span><span class="p">,</span>
+                             <span class="n">keyname</span><span class="p">,</span>
+                             <span class="n">user</span><span class="p">,</span>
+                             <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
+                             <span class="n">uri</span><span class="o">=</span><span class="n">uri</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">sshkey</span><span class="o">.</span><span class="n">__key__</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'4.1.5',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

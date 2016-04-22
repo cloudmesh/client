@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.locations &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>cloudmesh_client.locations &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -171,9 +171,10 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.locations</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">cloudmesh_client.util</span> <span class="kn">import</span> <span class="n">path_expand</span>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="kn">import</span> <span class="n">Shell</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.util</span> <span class="kn">import</span> <span class="n">path_expand</span>
 
 <span class="n">__config_dir_prefix__</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">,</span> <span class="s2">&quot;.cloudmesh&quot;</span><span class="p">)</span>
 
@@ -240,7 +241,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Configuration &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>Configuration &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="index.html"/>
         <link rel="up" title="Setup" href="setup.html"/>
         <link rel="next" title="User Manual" href="commands/index.html"/>
         <link rel="prev" title="Installation" href="installation.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -99,7 +99,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="setup.html">Setup</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="system.html">Preparation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Configuration</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#get-registration-from-indiana-university">Get Registration from Indiana University</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#registration-of-other-clouds">Registration of other clouds</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#registartion-of-ec2-clouds-with-the-zip-file">Registartion of EC2 clouds with the zip file</a></li>
@@ -199,292 +199,300 @@
            <div itemprop="articleBody">
             
   <div class="section" id="configuration">
-<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
 <p>During the installation of cloudmesh it will automatically generate
 a configuration file in the directory:</p>
 <blockquote>
 <div>~/.cloudmesh/cloudmesh.yaml</div></blockquote>
 <p>If this file is missing, you can run the command:</p>
 <blockquote>
-<div>cm help to automatically generate it from defaults.</div></blockquote>
+<div>cm help</div></blockquote>
+<p>to automatically generate it from defaults.</p>
 <p>The file will be a template and it can either be modified with your
 favorite editor, or if you are at Indiana University and want to use the
 kilo cloud you can use the command</p>
 <blockquote>
 <div>cm remote register</div></blockquote>
-<p>This will add the appropriate information into the yaml file.
-The file will be looking as follows.
-You will have several options to
+<p>This will add the appropriate information into the yaml file.</p>
+<p>However, you must make sure that the the project you have at Indiana
+University is activated. A simple project request via the futuresystems.org
+portal is not sufficient. THe request muct be send via e-mail to <a class="reference external" href="mailto:laszewski&#37;&#52;&#48;gmail&#46;com">laszewski<span>&#64;</span>gmail<span>&#46;</span>com</a>
+by the project lead or project manager. Please note that restrictions may apply as we
+will serve first the IU community.</p>
+<p>The file will be looking as follows. You will have several options to
 modify the file as explained bellow</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>meta:
-    yaml_version: 3.0
-    kind: clouds
-cloudmesh:
-    profile:
-        firstname: TBD
-        lastname: TBD
-        email: TBD
-        username: TBD
-    github:
-        username: TBD
-    portal:
-        location: TBD
-        browser: firefox
-    comet:
-        username: TBD
-        active: dev
-        endpoints:
-            dev:
-                nucleus_base_url: https://comet-nucleus.sdsc.edu/nucleus
-                api_version: v1
-                auth_provider: apikey
-                userpass:
-                  username: TBD
-                  password: TBD
-                apikey:
-                  api_key: TBD
-                  api_secret: TBD
-            production:
-                nucleus_base_url: TBD
-                api_version: v1
-                auth_provider: apikey
-                userpass:
-                  username: TBD
-                  password: TBD
-                apikey:
-                  api_key: TBD
-                  api_secret: TBD
-    hpc:
-        experiment:
-           name: gregor-00000
-        active:
-        - comet
-        - juliet
-        clusters:
-            india:
-                cm_heading: India HPC CLuster
-                cm_host: india
-                cm_label: indiahpc
-                cm_type: slurm
-                cm_type_version: 14.11.9
-                credentials:
-                    username: TBD
-                    project: None
-                default:
-                    queue: delta
-                    experiment_dir: /N/u/{username}/experiment
-                    prefix: {username}
-            comet:
-                cm_heading: Comet HPC CLuster
-                cm_host: comet
-                cm_label: comethpc
-                cm_type: slurm
-                cm_type_version: 14.11.9
-                credentials:
-                    username: TBD
-                    project: None
-                default:
-                    queue: debug
-                    experiment_dir: /home/{username}/experiment
-                    prefix: {username}
-    active:
-        - kilo
-    clouds:
-        kilo:
-            cm_heading: India OpenStack, Kilo
-            cm_host: india
-            cm_label: kilo
-            cm_type: openstack
-            cm_type_version: kilo
-            cm_openrc: ~/.cloudmesh/clouds/india/kilo/openrc.sh
-            credentials:
-                OS_AUTH_URL: https://kilo.futuresystems.org:5000/v3
-                OS_PASSWORD: TBD
-                OS_TENANT_NAME: TBD
-                OS_USERNAME: TBD
-                OS_PROJECT_DOMAIN_ID: default
-                OS_USER_DOMAIN_ID: default
-                OS_PROJECT_NAME: TBD
-                OS_IMAGE_API_VERSION: 2
-                OS_VOLUME_API_VERSION: 2
-            default:
-                flavor: m1.small
-                image: Ubuntu-14.04-64
-        chameleon:
-            cm_heading: Chameleon
-            cm_host: chameleoncloud.org
-            cm_label: chameleon
-            cm_type: openstack
-            cm_type_version: kilo
-            credentials:
-                OS_AUTH_URL: https://openstack.tacc.chameleoncloud.org:5000/v2.0
-                OS_PASSWORD: TBD
-                OS_TENANT_NAME: TBD
-                OS_TENANT_ID: TBD
-                OS_PROJECT_NAME: TBD
-                OS_USERNAME: TBD
-                OS_VERSION: kilo
-                OS_REGION_NAME: RegionOne
-            default:
-                flavor: m1.small
-                image: Ubuntu-Server-14.04-LTS
-        jetstream:
-            cm_heading: Jetstream
-            cm_host: http://jetstream-cloud.org/
-            cm_label: jetstream
-            cm_type: openstack
-            cm_type_version: kilo
-            credentials:
-              OS_PROJECT_DOMAIN_NAME: tacc
-              OS_USER_DOMAIN_NAME: tacc
-              OS_PROJECT_NAME: TBD
-              OS_TENANT_NAME: TBD
-              OS_USERNAME: TBD
-              OS_PASSWORD: TBD
-              OS_AUTH_URL: https://jblb.jetstream-cloud.org:35357/v3
-              OS_IDENTITY_API_VERSION: 3
-              OS_VERSION: kilo
-            default:
-                flavor: m1.small
-                image: Ubuntu-Server-14.04-LTS
-        cybera-c:
-          cm_heading: Cybera Calgary OpenStack
-          cm_host: cybera
-          cm_label: cybera-c
-          cm_type: openstack
-          cm_type_version: kilo
-          credentials:
-            OS_AUTH_URL: TBD
-            OS_TENANT_ID: TBD
-            OS_TENANT_NAME: TBD
-            OS_PROJECT_NAME: TBD
-            OS_USERNAME: TBD
-            OS_PASSWORD: TBD
-            OS_REGION_NAME: Calgary
-          default:
-            flavor: m1.small
-            image: Ubuntu 14.04
-        cybera-e:
-          cm_heading: Cybera Edmonton OpenStack
-          cm_host: cybera
-          cm_label: kilo
-          cm_type: openstack
-          cm_type_version: kilo
-          credentials:
-            OS_AUTH_URL: https://keystone-yyc.cloud.cybera.ca:5000/v2.0
-            OS_TENANT_ID: TBD
-            OS_TENANT_NAME: TBD
-            OS_PROJECT_NAME: TBD
-            OS_USERNAME: TBD
-            OS_PASSWORD: TBD
-            OS_REGION_NAME: Edmonton
-          default:
-            flavor: m1.small
-            image: Ubuntu 14.04
-        aws:
-            cm_heading: Amazon Cloud, AWS
-            cm_host: aws.amazon.com
-            cm_label: aws
-            cm_type: ec2
-            cm_type_version: null
-            credentials:
-                EC2_ACCESS_KEY: TBD
-                EC2_SECRET_KEY: TBD
-                keyname: TBD
-                userid: TBD
-            default:
-                flavor: t1.micro
-                image: ami-d85e75b0
-                location: us-east-1
-        chameleon-ec2:
-            cm_heading: Chameleon, EC2
-            cm_host: chameleoncloud.org
-            cm_label: chameleon_ec2
-            cm_type: ec2
-            cm_type_version: ec2
-            credentials:
-                EC2_ACCESS_KEY: TBD
-                EC2_SECRET_KEY: TBD
-                keyname: TBD_not_used
-                userid: TBD_not_used
-                EC2_URL: https://openstack.tacc.chameleoncloud.org:8773/services/Cloud
-                EC2_USER_ID: TBD
-                EC2_PRIVATE_KEY: ~/.cloudmesh/clouds/chameleon/TBD/pk.pem
-                EC2_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cert.pem
-                NOVA_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cacert.pem
-                EUCALYPTUS_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cacert.pem
-            default:
-                flavor: m1.small
-                image: Ubuntu-Server-14.04-LTS
-        azure:
-            cm_heading: Microsoft Azure Virtual Machines
-            cm_host: windowsazure.com
-            cm_label: azure
-            cm_type: azure
-            cm_type_version: null
-            credentials:
-                managementcertfile: TBD
-                servicecertfile: TBD
-                subscriptionid: TBD
-                thumbprint: TBD
-            default:
-                flavor: ExtraSmall
-                image: b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-14_04_2-LTS-amd64-server-20150610-en-us-30GB
-                location: East US
-    keys:
-        default: id_rsa
-        keylist:
-          id_rsa: ~/.ssh/id_rsa.pub
-    system:
-        data: ~/.cloudmesh/cloudmesh_inventory.yaml
-        console_color: true
-    logging:
-        file: ~/.cloudmesh/cloudmesh.log
-        level: DEBUG
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">meta</span><span class="p">:</span>
+    <span class="n">version</span><span class="p">:</span> <span class="mf">4.1</span>
+    <span class="n">kind</span><span class="p">:</span> <span class="n">clouds</span>
+<span class="n">cloudmesh</span><span class="p">:</span>
+    <span class="n">profile</span><span class="p">:</span>
+        <span class="n">firstname</span><span class="p">:</span> <span class="n">TBD</span>
+        <span class="n">lastname</span><span class="p">:</span> <span class="n">TBD</span>
+        <span class="n">email</span><span class="p">:</span> <span class="n">TBD</span>
+        <span class="n">user</span><span class="p">:</span> <span class="n">TBD</span>
+    <span class="n">github</span><span class="p">:</span>
+        <span class="n">username</span><span class="p">:</span> <span class="n">TBD</span>
+    <span class="n">portal</span><span class="p">:</span>
+        <span class="n">location</span><span class="p">:</span> <span class="n">TBD</span>
+        <span class="n">browser</span><span class="p">:</span> <span class="n">firefox</span>
+    <span class="n">comet</span><span class="p">:</span>
+        <span class="n">username</span><span class="p">:</span> <span class="n">TBD</span>
+        <span class="n">active</span><span class="p">:</span> <span class="n">dev</span>
+        <span class="n">endpoints</span><span class="p">:</span>
+            <span class="n">dev</span><span class="p">:</span>
+                <span class="n">nucleus_base_url</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">comet</span><span class="o">-</span><span class="n">nucleus</span><span class="o">.</span><span class="n">sdsc</span><span class="o">.</span><span class="n">edu</span><span class="o">/</span><span class="n">nucleus</span>
+                <span class="n">api_version</span><span class="p">:</span> <span class="n">v1</span>
+                <span class="n">auth_provider</span><span class="p">:</span> <span class="n">apikey</span>
+                <span class="n">userpass</span><span class="p">:</span>
+                  <span class="n">username</span><span class="p">:</span> <span class="n">TBD</span>
+                  <span class="n">password</span><span class="p">:</span> <span class="n">TBD</span>
+                <span class="n">apikey</span><span class="p">:</span>
+                  <span class="n">api_key</span><span class="p">:</span> <span class="n">TBD</span>
+                  <span class="n">api_secret</span><span class="p">:</span> <span class="n">TBD</span>
+            <span class="n">production</span><span class="p">:</span>
+                <span class="n">nucleus_base_url</span><span class="p">:</span> <span class="n">TBD</span>
+                <span class="n">api_version</span><span class="p">:</span> <span class="n">v1</span>
+                <span class="n">auth_provider</span><span class="p">:</span> <span class="n">apikey</span>
+                <span class="n">userpass</span><span class="p">:</span>
+                  <span class="n">username</span><span class="p">:</span> <span class="n">TBD</span>
+                  <span class="n">password</span><span class="p">:</span> <span class="n">TBD</span>
+                <span class="n">apikey</span><span class="p">:</span>
+                  <span class="n">api_key</span><span class="p">:</span> <span class="n">TBD</span>
+                  <span class="n">api_secret</span><span class="p">:</span> <span class="n">TBD</span>
+    <span class="n">hpc</span><span class="p">:</span>
+        <span class="n">experiment</span><span class="p">:</span>
+           <span class="n">name</span><span class="p">:</span> <span class="n">gregor</span><span class="o">-</span><span class="mi">00000</span>
+        <span class="n">active</span><span class="p">:</span>
+        <span class="o">-</span> <span class="n">comet</span>
+        <span class="o">-</span> <span class="n">juliet</span>
+        <span class="n">clusters</span><span class="p">:</span>
+            <span class="n">india</span><span class="p">:</span>
+                <span class="n">cm_heading</span><span class="p">:</span> <span class="n">India</span> <span class="n">HPC</span> <span class="n">CLuster</span>
+                <span class="n">cm_host</span><span class="p">:</span> <span class="n">india</span>
+                <span class="n">cm_label</span><span class="p">:</span> <span class="n">indiahpc</span>
+                <span class="n">cm_type</span><span class="p">:</span> <span class="n">slurm</span>
+                <span class="n">cm_type_version</span><span class="p">:</span> <span class="mf">14.11</span><span class="o">.</span><span class="mi">9</span>
+                <span class="n">credentials</span><span class="p">:</span>
+                    <span class="n">username</span><span class="p">:</span> <span class="n">TBD</span>
+                    <span class="n">project</span><span class="p">:</span> <span class="kc">None</span>
+                <span class="n">default</span><span class="p">:</span>
+                    <span class="n">queue</span><span class="p">:</span> <span class="n">delta</span>
+                    <span class="n">experiment_dir</span><span class="p">:</span> <span class="o">/</span><span class="n">N</span><span class="o">/</span><span class="n">u</span><span class="o">/</span><span class="p">{</span><span class="n">username</span><span class="p">}</span><span class="o">/</span><span class="n">experiment</span>
+                    <span class="n">prefix</span><span class="p">:</span> <span class="p">{</span><span class="n">username</span><span class="p">}</span>
+            <span class="n">comet</span><span class="p">:</span>
+                <span class="n">cm_heading</span><span class="p">:</span> <span class="n">Comet</span> <span class="n">HPC</span> <span class="n">CLuster</span>
+                <span class="n">cm_host</span><span class="p">:</span> <span class="n">comet</span>
+                <span class="n">cm_label</span><span class="p">:</span> <span class="n">comethpc</span>
+                <span class="n">cm_type</span><span class="p">:</span> <span class="n">slurm</span>
+                <span class="n">cm_type_version</span><span class="p">:</span> <span class="mf">14.11</span><span class="o">.</span><span class="mi">9</span>
+                <span class="n">credentials</span><span class="p">:</span>
+                    <span class="n">username</span><span class="p">:</span> <span class="n">TBD</span>
+                    <span class="n">project</span><span class="p">:</span> <span class="kc">None</span>
+                <span class="n">default</span><span class="p">:</span>
+                    <span class="n">queue</span><span class="p">:</span> <span class="n">debug</span>
+                    <span class="n">experiment_dir</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="p">{</span><span class="n">username</span><span class="p">}</span><span class="o">/</span><span class="n">experiment</span>
+                    <span class="n">prefix</span><span class="p">:</span> <span class="p">{</span><span class="n">username</span><span class="p">}</span>
+    <span class="n">active</span><span class="p">:</span>
+        <span class="o">-</span> <span class="n">kilo</span>
+    <span class="n">clouds</span><span class="p">:</span>
+        <span class="n">kilo</span><span class="p">:</span>
+            <span class="n">cm_heading</span><span class="p">:</span> <span class="n">India</span> <span class="n">OpenStack</span><span class="p">,</span> <span class="n">Kilo</span>
+            <span class="n">cm_host</span><span class="p">:</span> <span class="n">india</span>
+            <span class="n">cm_label</span><span class="p">:</span> <span class="n">kilo</span>
+            <span class="n">cm_type</span><span class="p">:</span> <span class="n">openstack</span>
+            <span class="n">cm_type_version</span><span class="p">:</span> <span class="n">kilo</span>
+            <span class="n">cm_openrc</span><span class="p">:</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">clouds</span><span class="o">/</span><span class="n">india</span><span class="o">/</span><span class="n">kilo</span><span class="o">/</span><span class="n">openrc</span><span class="o">.</span><span class="n">sh</span>
+            <span class="n">credentials</span><span class="p">:</span>
+                <span class="n">OS_AUTH_URL</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">kilo</span><span class="o">.</span><span class="n">futuresystems</span><span class="o">.</span><span class="n">org</span><span class="p">:</span><span class="mi">5000</span><span class="o">/</span><span class="n">v3</span>
+                <span class="n">OS_PASSWORD</span><span class="p">:</span> <span class="n">TBD</span>
+                <span class="n">OS_TENANT_NAME</span><span class="p">:</span> <span class="n">TBD</span>
+                <span class="n">OS_USERNAME</span><span class="p">:</span> <span class="n">TBD</span>
+                <span class="n">OS_PROJECT_DOMAIN_ID</span><span class="p">:</span> <span class="n">default</span>
+                <span class="n">OS_USER_DOMAIN_ID</span><span class="p">:</span> <span class="n">default</span>
+                <span class="n">OS_PROJECT_NAME</span><span class="p">:</span> <span class="n">TBD</span>
+                <span class="n">OS_IMAGE_API_VERSION</span><span class="p">:</span> <span class="mi">2</span>
+                <span class="n">OS_VOLUME_API_VERSION</span><span class="p">:</span> <span class="mi">2</span>
+            <span class="n">default</span><span class="p">:</span>
+                <span class="n">flavor</span><span class="p">:</span> <span class="n">m1</span><span class="o">.</span><span class="n">small</span>
+                <span class="n">image</span><span class="p">:</span> <span class="n">Ubuntu</span><span class="o">-</span><span class="mf">14.04</span><span class="o">-</span><span class="mi">64</span>
+        <span class="n">chameleon</span><span class="p">:</span>
+            <span class="n">cm_heading</span><span class="p">:</span> <span class="n">Chameleon</span>
+            <span class="n">cm_host</span><span class="p">:</span> <span class="n">chameleoncloud</span><span class="o">.</span><span class="n">org</span>
+            <span class="n">cm_label</span><span class="p">:</span> <span class="n">chameleon</span>
+            <span class="n">cm_type</span><span class="p">:</span> <span class="n">openstack</span>
+            <span class="n">cm_type_version</span><span class="p">:</span> <span class="n">kilo</span>
+            <span class="n">credentials</span><span class="p">:</span>
+                <span class="n">OS_AUTH_URL</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">openstack</span><span class="o">.</span><span class="n">tacc</span><span class="o">.</span><span class="n">chameleoncloud</span><span class="o">.</span><span class="n">org</span><span class="p">:</span><span class="mi">5000</span><span class="o">/</span><span class="n">v2</span><span class="o">.</span><span class="mi">0</span>
+                <span class="n">OS_PASSWORD</span><span class="p">:</span> <span class="n">TBD</span>
+                <span class="n">OS_TENANT_NAME</span><span class="p">:</span> <span class="n">TBD</span>
+                <span class="n">OS_TENANT_ID</span><span class="p">:</span> <span class="n">TBD</span>
+                <span class="n">OS_PROJECT_NAME</span><span class="p">:</span> <span class="n">TBD</span>
+                <span class="n">OS_USERNAME</span><span class="p">:</span> <span class="n">TBD</span>
+                <span class="n">OS_VERSION</span><span class="p">:</span> <span class="n">kilo</span>
+                <span class="n">OS_REGION_NAME</span><span class="p">:</span> <span class="n">RegionOne</span>
+            <span class="n">default</span><span class="p">:</span>
+                <span class="n">flavor</span><span class="p">:</span> <span class="n">m1</span><span class="o">.</span><span class="n">small</span>
+                <span class="n">image</span><span class="p">:</span> <span class="n">Ubuntu</span><span class="o">-</span><span class="n">Server</span><span class="o">-</span><span class="mf">14.04</span><span class="o">-</span><span class="n">LTS</span>
+        <span class="n">jetstream</span><span class="p">:</span>
+            <span class="n">cm_heading</span><span class="p">:</span> <span class="n">Jetstream</span>
+            <span class="n">cm_host</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">jetstream</span><span class="o">-</span><span class="n">cloud</span><span class="o">.</span><span class="n">org</span><span class="o">/</span>
+            <span class="n">cm_label</span><span class="p">:</span> <span class="n">jetstream</span>
+            <span class="n">cm_type</span><span class="p">:</span> <span class="n">openstack</span>
+            <span class="n">cm_type_version</span><span class="p">:</span> <span class="n">kilo</span>
+            <span class="n">credentials</span><span class="p">:</span>
+              <span class="n">OS_PROJECT_DOMAIN_NAME</span><span class="p">:</span> <span class="n">tacc</span>
+              <span class="n">OS_USER_DOMAIN_NAME</span><span class="p">:</span> <span class="n">tacc</span>
+              <span class="n">OS_PROJECT_NAME</span><span class="p">:</span> <span class="n">TBD</span>
+              <span class="n">OS_TENANT_NAME</span><span class="p">:</span> <span class="n">TBD</span>
+              <span class="n">OS_USERNAME</span><span class="p">:</span> <span class="n">TBD</span>
+              <span class="n">OS_PASSWORD</span><span class="p">:</span> <span class="n">TBD</span>
+              <span class="n">OS_AUTH_URL</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">jblb</span><span class="o">.</span><span class="n">jetstream</span><span class="o">-</span><span class="n">cloud</span><span class="o">.</span><span class="n">org</span><span class="p">:</span><span class="mi">35357</span><span class="o">/</span><span class="n">v3</span>
+              <span class="n">OS_IDENTITY_API_VERSION</span><span class="p">:</span> <span class="mi">3</span>
+              <span class="n">OS_VERSION</span><span class="p">:</span> <span class="n">kilo</span>
+            <span class="n">default</span><span class="p">:</span>
+                <span class="n">flavor</span><span class="p">:</span> <span class="n">m1</span><span class="o">.</span><span class="n">small</span>
+                <span class="n">image</span><span class="p">:</span> <span class="n">Ubuntu</span><span class="o">-</span><span class="n">Server</span><span class="o">-</span><span class="mf">14.04</span><span class="o">-</span><span class="n">LTS</span>
+        <span class="n">cybera</span><span class="o">-</span><span class="n">c</span><span class="p">:</span>
+          <span class="n">cm_heading</span><span class="p">:</span> <span class="n">Cybera</span> <span class="n">Calgary</span> <span class="n">OpenStack</span>
+          <span class="n">cm_host</span><span class="p">:</span> <span class="n">cybera</span>
+          <span class="n">cm_label</span><span class="p">:</span> <span class="n">cybera</span><span class="o">-</span><span class="n">c</span>
+          <span class="n">cm_type</span><span class="p">:</span> <span class="n">openstack</span>
+          <span class="n">cm_type_version</span><span class="p">:</span> <span class="n">kilo</span>
+          <span class="n">credentials</span><span class="p">:</span>
+            <span class="n">OS_AUTH_URL</span><span class="p">:</span> <span class="n">TBD</span>
+            <span class="n">OS_TENANT_ID</span><span class="p">:</span> <span class="n">TBD</span>
+            <span class="n">OS_TENANT_NAME</span><span class="p">:</span> <span class="n">TBD</span>
+            <span class="n">OS_PROJECT_NAME</span><span class="p">:</span> <span class="n">TBD</span>
+            <span class="n">OS_USERNAME</span><span class="p">:</span> <span class="n">TBD</span>
+            <span class="n">OS_PASSWORD</span><span class="p">:</span> <span class="n">TBD</span>
+            <span class="n">OS_REGION_NAME</span><span class="p">:</span> <span class="n">Calgary</span>
+          <span class="n">default</span><span class="p">:</span>
+            <span class="n">flavor</span><span class="p">:</span> <span class="n">m1</span><span class="o">.</span><span class="n">small</span>
+            <span class="n">image</span><span class="p">:</span> <span class="n">Ubuntu</span> <span class="mf">14.04</span>
+        <span class="n">cybera</span><span class="o">-</span><span class="n">e</span><span class="p">:</span>
+          <span class="n">cm_heading</span><span class="p">:</span> <span class="n">Cybera</span> <span class="n">Edmonton</span> <span class="n">OpenStack</span>
+          <span class="n">cm_host</span><span class="p">:</span> <span class="n">cybera</span>
+          <span class="n">cm_label</span><span class="p">:</span> <span class="n">kilo</span>
+          <span class="n">cm_type</span><span class="p">:</span> <span class="n">openstack</span>
+          <span class="n">cm_type_version</span><span class="p">:</span> <span class="n">kilo</span>
+          <span class="n">credentials</span><span class="p">:</span>
+            <span class="n">OS_AUTH_URL</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">keystone</span><span class="o">-</span><span class="n">yyc</span><span class="o">.</span><span class="n">cloud</span><span class="o">.</span><span class="n">cybera</span><span class="o">.</span><span class="n">ca</span><span class="p">:</span><span class="mi">5000</span><span class="o">/</span><span class="n">v2</span><span class="o">.</span><span class="mi">0</span>
+            <span class="n">OS_TENANT_ID</span><span class="p">:</span> <span class="n">TBD</span>
+            <span class="n">OS_TENANT_NAME</span><span class="p">:</span> <span class="n">TBD</span>
+            <span class="n">OS_PROJECT_NAME</span><span class="p">:</span> <span class="n">TBD</span>
+            <span class="n">OS_USERNAME</span><span class="p">:</span> <span class="n">TBD</span>
+            <span class="n">OS_PASSWORD</span><span class="p">:</span> <span class="n">TBD</span>
+            <span class="n">OS_REGION_NAME</span><span class="p">:</span> <span class="n">Edmonton</span>
+          <span class="n">default</span><span class="p">:</span>
+            <span class="n">flavor</span><span class="p">:</span> <span class="n">m1</span><span class="o">.</span><span class="n">small</span>
+            <span class="n">image</span><span class="p">:</span> <span class="n">Ubuntu</span> <span class="mf">14.04</span>
+        <span class="n">aws</span><span class="p">:</span>
+            <span class="n">cm_heading</span><span class="p">:</span> <span class="n">Amazon</span> <span class="n">Cloud</span><span class="p">,</span> <span class="n">AWS</span>
+            <span class="n">cm_host</span><span class="p">:</span> <span class="n">aws</span><span class="o">.</span><span class="n">amazon</span><span class="o">.</span><span class="n">com</span>
+            <span class="n">cm_label</span><span class="p">:</span> <span class="n">aws</span>
+            <span class="n">cm_type</span><span class="p">:</span> <span class="n">ec2</span>
+            <span class="n">cm_type_version</span><span class="p">:</span> <span class="n">null</span>
+            <span class="n">credentials</span><span class="p">:</span>
+                <span class="n">EC2_ACCESS_KEY</span><span class="p">:</span> <span class="n">TBD</span>
+                <span class="n">EC2_SECRET_KEY</span><span class="p">:</span> <span class="n">TBD</span>
+                <span class="n">keyname</span><span class="p">:</span> <span class="n">TBD</span>
+                <span class="n">userid</span><span class="p">:</span> <span class="n">TBD</span>
+            <span class="n">default</span><span class="p">:</span>
+                <span class="n">flavor</span><span class="p">:</span> <span class="n">t1</span><span class="o">.</span><span class="n">micro</span>
+                <span class="n">image</span><span class="p">:</span> <span class="n">ami</span><span class="o">-</span><span class="n">d85e75b0</span>
+                <span class="n">location</span><span class="p">:</span> <span class="n">us</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mi">1</span>
+        <span class="n">chameleon</span><span class="o">-</span><span class="n">ec2</span><span class="p">:</span>
+            <span class="n">cm_heading</span><span class="p">:</span> <span class="n">Chameleon</span><span class="p">,</span> <span class="n">EC2</span>
+            <span class="n">cm_host</span><span class="p">:</span> <span class="n">chameleoncloud</span><span class="o">.</span><span class="n">org</span>
+            <span class="n">cm_label</span><span class="p">:</span> <span class="n">chameleon_ec2</span>
+            <span class="n">cm_type</span><span class="p">:</span> <span class="n">ec2</span>
+            <span class="n">cm_type_version</span><span class="p">:</span> <span class="n">ec2</span>
+            <span class="n">credentials</span><span class="p">:</span>
+                <span class="n">EC2_ACCESS_KEY</span><span class="p">:</span> <span class="n">TBD</span>
+                <span class="n">EC2_SECRET_KEY</span><span class="p">:</span> <span class="n">TBD</span>
+                <span class="n">keyname</span><span class="p">:</span> <span class="n">TBD_not_used</span>
+                <span class="n">userid</span><span class="p">:</span> <span class="n">TBD_not_used</span>
+                <span class="n">EC2_URL</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">openstack</span><span class="o">.</span><span class="n">tacc</span><span class="o">.</span><span class="n">chameleoncloud</span><span class="o">.</span><span class="n">org</span><span class="p">:</span><span class="mi">8773</span><span class="o">/</span><span class="n">services</span><span class="o">/</span><span class="n">Cloud</span>
+                <span class="n">EC2_USER_ID</span><span class="p">:</span> <span class="n">TBD</span>
+                <span class="n">EC2_PRIVATE_KEY</span><span class="p">:</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">clouds</span><span class="o">/</span><span class="n">chameleon</span><span class="o">/</span><span class="n">TBD</span><span class="o">/</span><span class="n">pk</span><span class="o">.</span><span class="n">pem</span>
+                <span class="n">EC2_CERT</span><span class="p">:</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">clouds</span><span class="o">/</span><span class="n">chameleon</span><span class="o">/</span><span class="n">TBD</span><span class="o">/</span><span class="n">cert</span><span class="o">.</span><span class="n">pem</span>
+                <span class="n">NOVA_CERT</span><span class="p">:</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">clouds</span><span class="o">/</span><span class="n">chameleon</span><span class="o">/</span><span class="n">TBD</span><span class="o">/</span><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>
+                <span class="n">EUCALYPTUS_CERT</span><span class="p">:</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">clouds</span><span class="o">/</span><span class="n">chameleon</span><span class="o">/</span><span class="n">TBD</span><span class="o">/</span><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>
+            <span class="n">default</span><span class="p">:</span>
+                <span class="n">flavor</span><span class="p">:</span> <span class="n">m1</span><span class="o">.</span><span class="n">small</span>
+                <span class="n">image</span><span class="p">:</span> <span class="n">Ubuntu</span><span class="o">-</span><span class="n">Server</span><span class="o">-</span><span class="mf">14.04</span><span class="o">-</span><span class="n">LTS</span>
+        <span class="n">azure</span><span class="p">:</span>
+            <span class="n">cm_heading</span><span class="p">:</span> <span class="n">Microsoft</span> <span class="n">Azure</span> <span class="n">Virtual</span> <span class="n">Machines</span>
+            <span class="n">cm_host</span><span class="p">:</span> <span class="n">windowsazure</span><span class="o">.</span><span class="n">com</span>
+            <span class="n">cm_label</span><span class="p">:</span> <span class="n">azure</span>
+            <span class="n">cm_type</span><span class="p">:</span> <span class="n">azure</span>
+            <span class="n">cm_type_version</span><span class="p">:</span> <span class="n">null</span>
+            <span class="n">credentials</span><span class="p">:</span>
+                <span class="n">managementcertfile</span><span class="p">:</span> <span class="n">TBD</span>
+                <span class="n">servicecertfile</span><span class="p">:</span> <span class="n">TBD</span>
+                <span class="n">subscriptionid</span><span class="p">:</span> <span class="n">TBD</span>
+                <span class="n">thumbprint</span><span class="p">:</span> <span class="n">TBD</span>
+            <span class="n">default</span><span class="p">:</span>
+                <span class="n">flavor</span><span class="p">:</span> <span class="n">ExtraSmall</span>
+                <span class="n">image</span><span class="p">:</span> <span class="n">b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu</span><span class="o">-</span><span class="mi">14</span><span class="n">_04_2</span><span class="o">-</span><span class="n">LTS</span><span class="o">-</span><span class="n">amd64</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="mi">20150610</span><span class="o">-</span><span class="n">en</span><span class="o">-</span><span class="n">us</span><span class="o">-</span><span class="mi">30</span><span class="n">GB</span>
+                <span class="n">location</span><span class="p">:</span> <span class="n">East</span> <span class="n">US</span>
+    <span class="n">system</span><span class="p">:</span>
+        <span class="n">data</span><span class="p">:</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">cloudmesh_inventory</span><span class="o">.</span><span class="n">yaml</span>
+        <span class="n">console_color</span><span class="p">:</span> <span class="n">true</span>
+    <span class="n">logging</span><span class="p">:</span>
+        <span class="n">file</span><span class="p">:</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">cloudmesh</span><span class="o">.</span><span class="n">log</span>
+        <span class="n">level</span><span class="p">:</span> <span class="n">DEBUG</span>
 </pre></div>
 </div>
 <p>You can modify the file by hand and replace the <code class="docutils literal"><span class="pre">TBD</span></code> values
 according to your information about your cloud. You can add new clouds
 or delete the once that you do not want.</p>
+<p>Please make sure to <strong>not</strong> modify the original file in the code ore the
+lib at <cite>cloudmesh_client/etc/cloudmesh.yaml</cite>/ THe file you want to modify is located in
+<cite>$HOME/.cloudmesh/cloudmesh.yaml</cite></p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p>Just as private keys should be kept private so does
-the cloudmesh.yaml
-file. Please, make sure the file is protected as it contains</p>
-<blockquote class="last">
-<div>sensitive information.</div></blockquote>
+<p class="last">Just as private keys should be kept private so does
+the cloudmesh.yaml file. Please, make sure the file
+is properly protected as it contains sensitive information.</p>
 </div>
 <div class="section" id="get-registration-from-indiana-university">
 <h2>Get Registration from Indiana University<a class="headerlink" href="#get-registration-from-indiana-university" title="Permalink to this headline">¶</a></h2>
 <p>In case you have an account on <a class="reference external" href="http::/portal.futuresystems.org">http::/portal.futuresystems.org</a> the
 integration can be done automatically for you with the account
 information available to you as previously explained.</p>
-<p>The best way is to configure first your ssh client to conveniently log into india the machine where you can
-find the configuration information. To do so, please edit the
-following file</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>~/./ssh/config
+<p>The best way is to configure first your ssh client to conveniently
+log into india the machine where you can find the configuration information.
+To do so, please edit the following file</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">~/./</span><span class="n">ssh</span><span class="o">/</span><span class="n">config</span>
 </pre></div>
 </div>
 <p>and add the following lines to it</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>Host india
-    User: albert
-    Hostname: india.futuresystems.org
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Host</span> <span class="n">india</span>
+    <span class="n">User</span><span class="p">:</span> <span class="n">albert</span>
+    <span class="n">Hostname</span><span class="p">:</span> <span class="n">india</span><span class="o">.</span><span class="n">futuresystems</span><span class="o">.</span><span class="n">org</span>
 </pre></div>
 </div>
 <p>please replace albert with your portal name that you have used for
 registration with futuresystems.org. Once you have done this please
 verify that you have access to india with a command such as:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>ssh india uname -a
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="n">india</span> <span class="n">uname</span> <span class="o">-</span><span class="n">a</span>
 </pre></div>
 </div>
+<p>Next test if you have cloud access. This is easily done by doing:</p>
+<blockquote>
+<div>ssh india cat .cloudmesh/clouds/india/kilo/openrc.sh</div></blockquote>
+<p>IF this file does not exist you do not have access to the kilo cloud yet
+and you need to get in contact with <a class="reference external" href="mailto:laszewski&#37;&#52;&#48;gmail&#46;com">laszewski<span>&#64;</span>gmail<span>&#46;</span>com</a>. Once you have
+access you can proceed.</p>
 <p>Next register the FutureSystems clouds into your cloudmesh yaml file with
 the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm register remote
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">register</span> <span class="n">remote</span>
 </pre></div>
 </div>
 <p>This will update your cloudmesh.yaml file with the information retrieved
 from india. While retrieving the information on india from the file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>~/.cloudmesh/clouds/india/kilo/openrc.sh
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">clouds</span><span class="o">/</span><span class="n">india</span><span class="o">/</span><span class="n">kilo</span><span class="o">/</span><span class="n">openrc</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
 <p>Make sure you add a valid tenant to the yaml file. More information
@@ -495,24 +503,28 @@ about using india can be found at <a class="reference external" href="http://por
 <p>The register command is quite powerful and useful and we encourage you to
 take a closer look at the manual pages. This includes command such as</p>
 <p>To find out more about the registration command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm register help
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">register</span> <span class="n">help</span>
 </pre></div>
 </div>
 <p>To edit the yaml file with the editor defined by the Shell variable <cite>$EDITOR</cite>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>register edit
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">register</span> <span class="n">edit</span>
 </pre></div>
 </div>
 <p>To list the <cite>cloudmesh.yaml</cite> file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>register list
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">register</span> <span class="nb">list</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="registartion-of-ec2-clouds-with-the-zip-file">
 <h2>Registartion of EC2 clouds with the zip file<a class="headerlink" href="#registartion-of-ec2-clouds-with-the-zip-file" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">the ec2 provider is not yet operational</p>
+</div>
 <p>In case you have an openstack cloud that exports an ec2 zip file you can register
 such a cloud by first downloading the zip file to your computer and than issuing
 the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm register ec2 mycloud filename.zip
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">register</span> <span class="n">ec2</span> <span class="n">mycloud</span> <span class="n">filename</span><span class="o">.</span><span class="n">zip</span>
 </pre></div>
 </div>
 <p>where <cite>filename.zip</cite> is the location of the zip file and <cite>mycloud</cite> is the name
@@ -547,20 +559,20 @@ edit the file:</p>
 <blockquote>
 <div>~/.cloudmesh/cloudmesh.yaml</div></blockquote>
 <p>Edit the follwoing lines:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>OS_PASSWORD: TBD
-OS_TENANT_NAME: TBD
-OS_TENANT_ID: TBD
-OS_PROJECT_NAME: TBD
-OS_USERNAME: TBD
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">OS_PASSWORD</span><span class="p">:</span> <span class="n">TBD</span>
+<span class="n">OS_TENANT_NAME</span><span class="p">:</span> <span class="n">TBD</span>
+<span class="n">OS_TENANT_ID</span><span class="p">:</span> <span class="n">TBD</span>
+<span class="n">OS_PROJECT_NAME</span><span class="p">:</span> <span class="n">TBD</span>
+<span class="n">OS_USERNAME</span><span class="p">:</span> <span class="n">TBD</span>
 </pre></div>
 </div>
 <p>Let us assume you have the username <cite>albert</cite> and the project id
 <cite>FG-101</cite>, Than the lines need to be changed to:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>OS_PASSWORD: &lt;your user password&gt;
-OS_TENANT_NAME: FG-101
-OS_TENANT_ID: FG-101
-OS_PROJECT_NAME: FG-101
-OS_USERNAME: albert
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">OS_PASSWORD</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span> <span class="n">user</span> <span class="n">password</span><span class="o">&gt;</span>
+<span class="n">OS_TENANT_NAME</span><span class="p">:</span> <span class="n">FG</span><span class="o">-</span><span class="mi">101</span>
+<span class="n">OS_TENANT_ID</span><span class="p">:</span> <span class="n">FG</span><span class="o">-</span><span class="mi">101</span>
+<span class="n">OS_PROJECT_NAME</span><span class="p">:</span> <span class="n">FG</span><span class="o">-</span><span class="mi">101</span>
+<span class="n">OS_USERNAME</span><span class="p">:</span> <span class="n">albert</span>
 </pre></div>
 </div>
 <p>You can find this information also in the openrc.sh file which you can
@@ -580,7 +592,7 @@ packaged as a zip file. This file can be found at</p>
 </ul>
 <p>Let us assume you have the username albert and
 the project FG-101. Than the zip file will be called:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">FG</span><span class="o">-</span><span class="mi">101</span><span class="o">-</span><span class="n">x509</span><span class="o">.</span><span class="n">zip</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">FG</span><span class="o">-</span><span class="mi">101</span><span class="o">-</span><span class="n">x509</span><span class="o">.</span><span class="n">zip</span>
 </pre></div>
 </div>
 <p>Let us set some environment variables to make the configuration
@@ -598,7 +610,7 @@ browser downloaded the zip file and you have uncompressed it)</p>
 <span class="prompt1">cp <span class="nv">$C_PROJECT</span> ~/.cloudmesh/clouds/cybera/<span class="nv">$C_PROJECT</span></span>
 <span class="prompt1">ls ~/.cloudmesh/clouds/cybera/<span class="nv">$C_PROJECT</span></span>
 </pre><p>The directory should include the files:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>
 <span class="n">cert</span><span class="o">.</span><span class="n">pem</span>
 <span class="n">ec2rc</span><span class="o">.</span><span class="n">sh</span>
 <span class="n">pk</span><span class="o">.</span><span class="n">pem</span>
@@ -607,22 +619,22 @@ browser downloaded the zip file and you have uncompressed it)</p>
 <p>Take a look at the ec2rc.sh file</p>
 <pre class="highlight"><span class="prompt1">cat ~/.cloudmesh/clouds/cybera/<span class="nv">$C_PROJECT</span>/ec2rc.sh</span>
 </pre><p>Now you can edit the cloudmesh yaml file at:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>~/.cloudmesh/cloudmesh.yaml
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">cloudmesh</span><span class="o">.</span><span class="n">yaml</span>
 </pre></div>
 </div>
 <p>locate the cybera-ec2 entry and change the TBD values with the
 values you see in the ec2rc.sh file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>EC2_ACCESS_KEY: &lt;find the value in the ec2rc.sh file&gt;
-EC2_SECRET_KEY: &lt;find the value in the ec2rc.sh file&gt;
-EC2_USER_ID: &lt;find the value in the ec2rc.sh file&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">EC2_ACCESS_KEY</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">find</span> <span class="n">the</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">ec2rc</span><span class="o">.</span><span class="n">sh</span> <span class="n">file</span><span class="o">&gt;</span>
+<span class="n">EC2_SECRET_KEY</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">find</span> <span class="n">the</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">ec2rc</span><span class="o">.</span><span class="n">sh</span> <span class="n">file</span><span class="o">&gt;</span>
+<span class="n">EC2_USER_ID</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">find</span> <span class="n">the</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">ec2rc</span><span class="o">.</span><span class="n">sh</span> <span class="n">file</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>For the following lines in the cloudmesh file, please replace the TBD
 values with the cybera project ID that you use for this cloud:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>EC2_PRIVATE_KEY: ~/.cloudmesh/clouds/cybera/TBD/pk.pem
-EC2_CERT: ~/.cloudmesh/clouds/cybera/TBD/cert.pem
-NOVA_CERT: ~/.cloudmesh/clouds/cybera/TBD/cacert.pem
-EUCALYPTUS_CERT: ~/.cloudmesh/clouds/cybera/TBD/cacert.pem
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">EC2_PRIVATE_KEY</span><span class="p">:</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">clouds</span><span class="o">/</span><span class="n">cybera</span><span class="o">/</span><span class="n">TBD</span><span class="o">/</span><span class="n">pk</span><span class="o">.</span><span class="n">pem</span>
+<span class="n">EC2_CERT</span><span class="p">:</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">clouds</span><span class="o">/</span><span class="n">cybera</span><span class="o">/</span><span class="n">TBD</span><span class="o">/</span><span class="n">cert</span><span class="o">.</span><span class="n">pem</span>
+<span class="n">NOVA_CERT</span><span class="p">:</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">clouds</span><span class="o">/</span><span class="n">cybera</span><span class="o">/</span><span class="n">TBD</span><span class="o">/</span><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>
+<span class="n">EUCALYPTUS_CERT</span><span class="p">:</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">clouds</span><span class="o">/</span><span class="n">cybera</span><span class="o">/</span><span class="n">TBD</span><span class="o">/</span><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>
 </pre></div>
 </div>
 </div>
@@ -646,20 +658,20 @@ edit the file:</p>
 <blockquote>
 <div>~/.cloudmesh/cloudmesh.yaml</div></blockquote>
 <p>Edit the follwoing lines:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>OS_PASSWORD: TBD
-OS_TENANT_NAME: TBD
-OS_TENANT_ID: TBD
-OS_PROJECT_NAME: TBD
-OS_USERNAME: TBD
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">OS_PASSWORD</span><span class="p">:</span> <span class="n">TBD</span>
+<span class="n">OS_TENANT_NAME</span><span class="p">:</span> <span class="n">TBD</span>
+<span class="n">OS_TENANT_ID</span><span class="p">:</span> <span class="n">TBD</span>
+<span class="n">OS_PROJECT_NAME</span><span class="p">:</span> <span class="n">TBD</span>
+<span class="n">OS_USERNAME</span><span class="p">:</span> <span class="n">TBD</span>
 </pre></div>
 </div>
 <p>Let us assume you have the username <cite>albert</cite> and the project id
 <cite>FG-101</cite>, Than the lines need to be changed to:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>OS_PASSWORD: &lt;your user password&gt;
-OS_TENANT_NAME: FG-101
-OS_TENANT_ID: FG-101
-OS_PROJECT_NAME: FG-101
-OS_USERNAME: albert
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">OS_PASSWORD</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span> <span class="n">user</span> <span class="n">password</span><span class="o">&gt;</span>
+<span class="n">OS_TENANT_NAME</span><span class="p">:</span> <span class="n">FG</span><span class="o">-</span><span class="mi">101</span>
+<span class="n">OS_TENANT_ID</span><span class="p">:</span> <span class="n">FG</span><span class="o">-</span><span class="mi">101</span>
+<span class="n">OS_PROJECT_NAME</span><span class="p">:</span> <span class="n">FG</span><span class="o">-</span><span class="mi">101</span>
+<span class="n">OS_USERNAME</span><span class="p">:</span> <span class="n">albert</span>
 </pre></div>
 </div>
 <p>You can find this information also in the openrc.sh file which you can
@@ -679,7 +691,7 @@ packaged as a zip file. This file can be found at</p>
 </ul>
 <p>Let us assume you have the username albert and
 the project FG-101. Than the zip file will be called:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">FG</span><span class="o">-</span><span class="mi">101</span><span class="o">-</span><span class="n">x509</span><span class="o">.</span><span class="n">zip</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">FG</span><span class="o">-</span><span class="mi">101</span><span class="o">-</span><span class="n">x509</span><span class="o">.</span><span class="n">zip</span>
 </pre></div>
 </div>
 <p>Let us set some environment variables to make the configuration
@@ -693,7 +705,7 @@ browser downloaded the zip file and you have uncompressed it)</p>
 <span class="prompt1">cp <span class="nv">$C_PROJECT</span> ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_PROJECT</span></span>
 <span class="prompt1">ls ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_PROJECT</span></span>
 </pre><p>The directory should include the files:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>
 <span class="n">cert</span><span class="o">.</span><span class="n">pem</span>
 <span class="n">ec2rc</span><span class="o">.</span><span class="n">sh</span>
 <span class="n">pk</span><span class="o">.</span><span class="n">pem</span>
@@ -702,22 +714,22 @@ browser downloaded the zip file and you have uncompressed it)</p>
 <p>Take a look at the ec2rc.sh file</p>
 <pre class="highlight"><span class="prompt1">cat ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_PROJECT</span>/ec2rc.sh</span>
 </pre><p>Now you can edit the cloudmesh yaml file at:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>~/.cloudmesh/cloudmesh.yaml
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">cloudmesh</span><span class="o">.</span><span class="n">yaml</span>
 </pre></div>
 </div>
 <p>locate the chameleon-ec2 entry and change the TBD values with the
 values you see in the ec2rc.sh file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>EC2_ACCESS_KEY: &lt;find the value in the ec2rc.sh file&gt;
-EC2_SECRET_KEY: &lt;find the value in the ec2rc.sh file&gt;
-EC2_USER_ID: &lt;find the value in the ec2rc.sh file&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">EC2_ACCESS_KEY</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">find</span> <span class="n">the</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">ec2rc</span><span class="o">.</span><span class="n">sh</span> <span class="n">file</span><span class="o">&gt;</span>
+<span class="n">EC2_SECRET_KEY</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">find</span> <span class="n">the</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">ec2rc</span><span class="o">.</span><span class="n">sh</span> <span class="n">file</span><span class="o">&gt;</span>
+<span class="n">EC2_USER_ID</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">find</span> <span class="n">the</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">ec2rc</span><span class="o">.</span><span class="n">sh</span> <span class="n">file</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>For the following lines in the cloudmesh file, please replace the TBD
 values with the chameleon project ID that you use for this cloud:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>EC2_PRIVATE_KEY: ~/.cloudmesh/clouds/chameleon/TBD/pk.pem
-EC2_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cert.pem
-NOVA_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cacert.pem
-EUCALYPTUS_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cacert.pem
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">EC2_PRIVATE_KEY</span><span class="p">:</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">clouds</span><span class="o">/</span><span class="n">chameleon</span><span class="o">/</span><span class="n">TBD</span><span class="o">/</span><span class="n">pk</span><span class="o">.</span><span class="n">pem</span>
+<span class="n">EC2_CERT</span><span class="p">:</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">clouds</span><span class="o">/</span><span class="n">chameleon</span><span class="o">/</span><span class="n">TBD</span><span class="o">/</span><span class="n">cert</span><span class="o">.</span><span class="n">pem</span>
+<span class="n">NOVA_CERT</span><span class="p">:</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">clouds</span><span class="o">/</span><span class="n">chameleon</span><span class="o">/</span><span class="n">TBD</span><span class="o">/</span><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>
+<span class="n">EUCALYPTUS_CERT</span><span class="p">:</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">clouds</span><span class="o">/</span><span class="n">chameleon</span><span class="o">/</span><span class="n">TBD</span><span class="o">/</span><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>
 </pre></div>
 </div>
 </div>
@@ -765,35 +777,36 @@ different name</p>
 <h2>Registration of CloudLab Openstack Cloud<a class="headerlink" href="#registration-of-cloudlab-openstack-cloud" title="Permalink to this headline">¶</a></h2>
 <div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
-<p class="last">not yet tested but should work. add cloud registration here</p>
+<p class="last">not yet tested but should work.</p>
 </div>
 </div>
 <div class="section" id="registration-of-aws-cloud">
 <h2>Registration of AWS Cloud<a class="headerlink" href="#registration-of-aws-cloud" title="Permalink to this headline">¶</a></h2>
 <div class="admonition-todo admonition" id="index-1">
 <p class="first admonition-title">Todo</p>
-<p class="last">not yet supported but used to be so we work on it ASAP. add cloud registration here</p>
+<p class="last">not yet supported but used to be so we work on it ASAP. We have a prototype through the
+EC2 provider that we have not yet tested.</p>
 </div>
 </div>
 <div class="section" id="registration-of-azure-cloud">
 <h2>Registration of Azure Cloud<a class="headerlink" href="#registration-of-azure-cloud" title="Permalink to this headline">¶</a></h2>
 <div class="admonition-todo admonition" id="index-2">
 <p class="first admonition-title">Todo</p>
-<p class="last">not yet supported but used to be so we work on it ASAP. add cloud registration here</p>
+<p class="last">not yet supported but used to be so we work on it ASAP.</p>
 </div>
 </div>
 <div class="section" id="registration-of-devcloud">
 <h2>Registration of devcloud<a class="headerlink" href="#registration-of-devcloud" title="Permalink to this headline">¶</a></h2>
 <div class="admonition-todo admonition" id="index-3">
 <p class="first admonition-title">Todo</p>
-<p class="last">not tested, but should work as is regular openstack. add cloud registration here</p>
+<p class="last">not tested, but should work as is regular openstack.</p>
 </div>
 </div>
 <div class="section" id="registration-of-a-libcloud-available-cloud">
 <h2>Registration of a libcloud available cloud<a class="headerlink" href="#registration-of-a-libcloud-available-cloud" title="Permalink to this headline">¶</a></h2>
 <div class="admonition-todo admonition" id="index-4">
 <p class="first admonition-title">Todo</p>
-<p class="last">not yet supported. add cloud registration here</p>
+<p class="last">not yet supported.</p>
 </div>
 </div>
 </div>
@@ -838,7 +851,7 @@ different name</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

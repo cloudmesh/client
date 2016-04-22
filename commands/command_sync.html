@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Sync Command &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>Sync Command &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Limits Command" href="command_limits.html"/>
         <link rel="prev" title="Network Command" href="command_network.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -111,7 +111,7 @@
 <li class="toctree-l3"><a class="reference internal" href="command_image.html">Image Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_network.html">Network Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="">Sync Command</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Sync Command</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#sync-file-on-local-machine-with-remote-machine-on-cloud">Sync file on local machine with remote machine on cloud</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#sync-file-from-remote-machine-on-cloud-to-local-machine">Sync file from remote machine on cloud to local machine</a></li>
 </ul>
@@ -210,7 +210,7 @@ send data from local machine to remote host.</p>
 <div class="section" id="sync-file-on-local-machine-with-remote-machine-on-cloud">
 <h2>Sync file on local machine with remote machine on cloud<a class="headerlink" href="#sync-file-on-local-machine-with-remote-machine-on-cloud" title="Permalink to this headline">¶</a></h2>
 <p>To sync a file from local machine to remote use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm sync put ubuntu_file.txt sync_dir
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm sync put ubuntu_file.txt sync_dir
   Please enter putty private key(ppk) file path: ~/.ssh/id_rsa_ppk.ppk
   Passphrase for key &quot;imported-openssh-key&quot;:
   ubuntu_file.txt           | 0 kB |   0.0 kB/s | ETA: 00:00:00 | 100%
@@ -221,7 +221,7 @@ send data from local machine to remote host.</p>
 <div class="section" id="sync-file-from-remote-machine-on-cloud-to-local-machine">
 <h2>Sync file from remote machine on cloud to local machine<a class="headerlink" href="#sync-file-from-remote-machine-on-cloud-to-local-machine" title="Permalink to this headline">¶</a></h2>
 <p>To sync a file from remote machine to local use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm sync get sync_dir/* ./cm_sync/
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm sync get sync_dir/* ./cm_sync/
   Please enter putty private key(ppk) file path: ~/.ssh/id_rsa_ppk.ppk
   Passphrase for key &quot;imported-openssh-key&quot;:
   my_text.txt               | 0 kB |   0.0 kB/s | ETA: 00:00:00 | 100%
@@ -274,7 +274,7 @@ send data from local machine to remote host.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

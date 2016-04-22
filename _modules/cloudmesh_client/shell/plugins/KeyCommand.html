@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins.KeyCommand &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>cloudmesh_client.shell.plugins.KeyCommand &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -179,17 +179,18 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">Config</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.keys.SSHKeyManager</span> <span class="kn">import</span> <span class="n">SSHKeyManager</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.db.SSHKeyDBManager</span> <span class="kn">import</span> <span class="n">SSHKeyDBManager</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">dict_printer</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">Printer</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.Error</span> <span class="kn">import</span> <span class="n">Error</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.key</span> <span class="kn">import</span> <span class="n">Key</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.dotdict</span> <span class="kn">import</span> <span class="n">dotdict</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 
 
 <div class="viewcode-block" id="KeyCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.KeyCommand.KeyCommand">[docs]</a><span class="k">class</span> <span class="nc">KeyCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
-
     <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;security&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
@@ -205,24 +206,29 @@
 
 <span class="sd">           Usage:</span>
 <span class="sd">             key  -h | --help</span>
-<span class="sd">             key list [--source=db] [--format=FORMAT]</span>
-<span class="sd">             key list --source=cloudmesh [--format=FORMAT]</span>
+<span class="sd">             key list --cloud=CLOUD</span>
+<span class="sd">             key list --source=db [--format=FORMAT]</span>
+<span class="sd">             key list --source=yaml [--format=FORMAT]</span>
 <span class="sd">             key list --source=ssh [--dir=DIR] [--format=FORMAT]</span>
-<span class="sd">             key load [--format=FORMAT]</span>
 <span class="sd">             key list --source=git [--format=FORMAT] [--username=USERNAME]</span>
-<span class="sd">             key add --git [--name=KEYNAME] FILENAME</span>
-<span class="sd">             key add --ssh [--name=KEYNAME]</span>
-<span class="sd">             key add [--name=KEYNAME] FILENAME</span>
+<span class="sd">             key list</span>
+<span class="sd">             key load [--format=FORMAT]</span>
+<span class="sd">             key add [NAME] [--source=FILENAME]</span>
+<span class="sd">             key add [NAME] [--git]</span>
+<span class="sd">             key add [NAME] [--ssh]</span>
 <span class="sd">             key get NAME</span>
-<span class="sd">             key default [KEYNAME | --select]</span>
-<span class="sd">             key delete (KEYNAME | --select | --all) [--force]</span>
-<span class="sd">             key upload [KEYNAME] [--cloud=CLOUD]</span>
-<span class="sd">             key map [--cloud=CLOUD]</span>
+<span class="sd">             key default --select</span>
+<span class="sd">             key delete (NAME | --select | --all)</span>
+<span class="sd">             key delete NAME --cloud=CLOUD</span>
+<span class="sd">             key upload [NAME] [--cloud=CLOUD]</span>
+<span class="sd">             key upload [NAME] --active</span>
 
 <span class="sd">           Manages the keys</span>
 
 <span class="sd">           Arguments:</span>
 
+<span class="sd">             CLOUD          The cloud</span>
+<span class="sd">             NAME           The name of the key.</span>
 <span class="sd">             SOURCE         db, ssh, all</span>
 <span class="sd">             KEYNAME        The name of a key. For key upload it defaults to the default key name.</span>
 <span class="sd">             FORMAT         The format of the output (table, json, yaml)</span>
@@ -253,14 +259,14 @@
 <span class="sd">              lists all keys in the directory. If the directory is not</span>
 <span class="sd">              specified the default will be ~/.ssh</span>
 
-<span class="sd">           key list --source=cloudmesh  [--dir=DIR] [--format=FORMAT]</span>
+<span class="sd">           key list --source=yaml  [--dir=DIR] [--format=FORMAT]</span>
 
 <span class="sd">              lists all keys in cloudmesh.yaml file in the specified directory.</span>
 <span class="sd">               dir is by default ~/.cloudmesh</span>
 
 <span class="sd">           key list [--format=FORMAT]</span>
 
-<span class="sd">               list the keys in teh giiven format: json, yaml,</span>
+<span class="sd">               list the keys in the giiven format: json, yaml,</span>
 <span class="sd">               table. table is default</span>
 
 <span class="sd">           key list</span>
@@ -278,11 +284,9 @@
 <span class="sd">               Retrieves the key indicated by the NAME parameter from database</span>
 <span class="sd">               and prints its fingerprint.</span>
 
-<span class="sd">           key default [NAME]</span>
+<span class="sd">           key default --select</span>
 
-<span class="sd">                Used to set a key from the key-list as the default key</span>
-<span class="sd">                if NAME is given. Otherwise print the current default</span>
-<span class="sd">                key</span>
+<span class="sd">                Select the default key interactively</span>
 
 <span class="sd">           key delete NAME</span>
 
@@ -296,53 +300,91 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># pprint(arguments)</span>
 
+        <span class="n">invalid_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tbd&#39;</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s1">&#39;id_rsa&#39;</span><span class="p">]</span>
+
         <span class="k">def</span> <span class="nf">_print_dict</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">format</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">format</span> <span class="o">==</span> <span class="s2">&quot;yaml&quot;</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">default_flow_style</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">format</span> <span class="o">==</span> <span class="s2">&quot;table&quot;</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">dict_printer</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
-                                    <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span>
-                                           <span class="s2">&quot;comment&quot;</span><span class="p">,</span>
-                                           <span class="s2">&quot;uri&quot;</span><span class="p">,</span>
-                                           <span class="s2">&quot;fingerprint&quot;</span><span class="p">,</span>
-                                           <span class="s2">&quot;source&quot;</span><span class="p">],</span>
-                                    <span class="n">output</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">,</span>
-                                    <span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
+                                 <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;comment&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;uri&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;fingerprint&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;source&quot;</span><span class="p">],</span>
+                                 <span class="n">output</span><span class="o">=</span><span class="n">format</span><span class="p">,</span>
+                                 <span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">msg</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No keys found.&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                <span class="k">return</span> <span class="bp">None</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">d</span>
-                <span class="c1"># return dict_printer(d,order=[&#39;cm_id, name, fingerprint&#39;])</span>
+                <span class="k">return</span> <span class="n">msg</span>
 
         <span class="n">directory</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--dir&quot;</span><span class="p">])</span>
+
+        <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">cloud</span>
 
         <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;list&#39;</span><span class="p">]:</span>
             <span class="n">_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--format&#39;</span><span class="p">]</span>
             <span class="n">_source</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--source&#39;</span><span class="p">]</span>
             <span class="n">_dir</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--dir&#39;</span><span class="p">]</span>
 
-            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--source&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ssh&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;--source&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">arguments</span> <span class="ow">and</span> <span class="s2">&quot;--cloud&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">:</span>
+                <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--source&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;db&#39;</span>
+
+
+            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--cloud&#39;</span><span class="p">]:</span>
+
+                    <span class="c1">#</span>
+                    <span class="c1"># get key list from openstack cloud</span>
+                    <span class="c1">#</span>
+                    <span class="c1">#keys = Key.list(cloud, output=_format)</span>
+
+                    <span class="n">keys</span> <span class="o">=</span> <span class="n">Key</span><span class="o">.</span><span class="n">list_on_cloud</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="n">live</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">_format</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">keys</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;The Key list is empty&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">print</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--source&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ssh&#39;</span><span class="p">:</span>
 
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">sshm</span> <span class="o">=</span> <span class="n">SSHKeyManager</span><span class="p">()</span>
-                    <span class="n">sshm</span><span class="o">.</span><span class="n">get_from_dir</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
-                    <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">sshm</span><span class="o">.</span><span class="n">__keys__</span><span class="p">)</span>
-                    <span class="k">print</span><span class="p">(</span><span class="n">_print_dict</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">_format</span><span class="p">))</span>
+                    <span class="c1">#sshm = SSHKeyManager()</span>
+                    <span class="n">d</span> <span class="o">=</span> <span class="n">Key</span><span class="o">.</span><span class="n">get_from_dir</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">store</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+                    <span class="c1">#print(&quot;SSS&quot;, type(Key.__keys__))</span>
+                    <span class="c1">#d = dict(Key.all())</span>
+                    <span class="c1">#print(d)</span>
+                    <span class="k">print</span><span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
+                                        <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span>
+                                               <span class="s2">&quot;comment&quot;</span><span class="p">,</span>
+                                               <span class="s2">&quot;uri&quot;</span><span class="p">,</span>
+                                               <span class="s2">&quot;fingerprint&quot;</span><span class="p">,</span>
+                                               <span class="s2">&quot;source&quot;</span><span class="p">],</span>
+                                        <span class="n">output</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">))</span>
+
+                    <span class="c1"># d = dict(sshm.__keys__)</span>
+
+                    <span class="c1"># print(_print_dict(d, format=_format))</span>
                     <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
                     <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
                 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                     <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
                     <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem listing keys from ssh&quot;</span><span class="p">)</span>
 
-            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--source&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cm&#39;</span><span class="p">,</span> <span class="s1">&#39;cloudmesh&#39;</span><span class="p">]:</span>
+            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--source&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;cm&#39;</span><span class="p">,</span> <span class="s1">&#39;cloudmesh&#39;</span><span class="p">,</span> <span class="s1">&#39;yaml&#39;</span><span class="p">]:</span>
 
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">sshm</span> <span class="o">=</span> <span class="n">SSHKeyManager</span><span class="p">()</span>
-                    <span class="n">m</span> <span class="o">=</span> <span class="n">sshm</span><span class="o">.</span><span class="n">get_from_yaml</span><span class="p">(</span><span class="n">load_order</span><span class="o">=</span><span class="n">directory</span><span class="p">)</span>
-                    <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">__keys__</span><span class="p">)</span>
-                    <span class="k">print</span><span class="p">(</span><span class="n">_print_dict</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">_format</span><span class="p">))</span>
-                    <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                    <span class="c1">#sshm = SSHKeyManager()</span>
+                    <span class="n">d</span> <span class="o">=</span> <span class="n">Key</span><span class="o">.</span><span class="n">get_from_yaml</span><span class="p">(</span><span class="n">load_order</span><span class="o">=</span><span class="n">directory</span><span class="p">,</span> <span class="n">store</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+                    <span class="k">print</span><span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
+                                        <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span>
+                                               <span class="s2">&quot;comment&quot;</span><span class="p">,</span>
+                                               <span class="s2">&quot;uri&quot;</span><span class="p">,</span>
+                                               <span class="s2">&quot;fingerprint&quot;</span><span class="p">,</span>
+                                               <span class="s2">&quot;source&quot;</span><span class="p">],</span>
+                                        <span class="n">output</span><span class="o">=</span><span class="n">_format</span><span class="p">))</span>
+                    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
                 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                     <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
                     <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem listing keys from `{:}`&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--source&#39;</span><span class="p">]))</span>
@@ -355,11 +397,19 @@
                     <span class="n">conf</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
                     <span class="n">username</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;cloudmesh.github.username&quot;</span><span class="p">]</span>
 
-                <span class="n">sshm</span> <span class="o">=</span> <span class="n">SSHKeyManager</span><span class="p">()</span>
+                <span class="c1">#sshm = SSHKeyManager()</span>
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">sshm</span><span class="o">.</span><span class="n">get_from_git</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
-                    <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">sshm</span><span class="o">.</span><span class="n">__keys__</span><span class="p">)</span>
-                    <span class="k">print</span><span class="p">(</span><span class="n">_print_dict</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">_format</span><span class="p">))</span>
+
+                    <span class="n">d</span> <span class="o">=</span> <span class="n">Key</span><span class="o">.</span><span class="n">get_from_git</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">store</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+                    <span class="k">print</span><span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
+                                        <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span>
+                                               <span class="s2">&quot;comment&quot;</span><span class="p">,</span>
+                                               <span class="s2">&quot;uri&quot;</span><span class="p">,</span>
+                                               <span class="s2">&quot;fingerprint&quot;</span><span class="p">,</span>
+                                               <span class="s2">&quot;source&quot;</span><span class="p">],</span>
+                                        <span class="n">output</span><span class="o">=</span><span class="n">_format</span><span class="p">))</span>
+
                     <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
                     <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -370,10 +420,20 @@
             <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--source&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;db&#39;</span><span class="p">:</span>
 
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">sshdb</span> <span class="o">=</span> <span class="n">SSHKeyDBManager</span><span class="p">()</span>
-                    <span class="n">d</span> <span class="o">=</span> <span class="n">sshdb</span><span class="o">.</span><span class="n">table_dict</span><span class="p">()</span>
-                    <span class="k">if</span> <span class="n">d</span> <span class="o">!=</span> <span class="p">{}:</span>
-                        <span class="k">print</span><span class="p">(</span><span class="n">_print_dict</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--format&#39;</span><span class="p">]))</span>
+                    <span class="c1">#sshdb = SSHKeyDBManager()</span>
+                    <span class="n">d</span> <span class="o">=</span> <span class="n">Key</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">d</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">d</span> <span class="o">!=</span> <span class="p">[]:</span>
+
+                        <span class="k">print</span><span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
+                                            <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span>
+                                                   <span class="s2">&quot;comment&quot;</span><span class="p">,</span>
+                                                   <span class="s2">&quot;uri&quot;</span><span class="p">,</span>
+                                                   <span class="s2">&quot;fingerprint&quot;</span><span class="p">,</span>
+                                                   <span class="s2">&quot;source&quot;</span><span class="p">],</span>
+                                            <span class="n">output</span><span class="o">=</span><span class="n">_format</span><span class="p">))</span>
+
+                        <span class="c1"># print(_print_dict(d, output=arguments[&#39;--format&#39;]))</span>
                         <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
                         <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
@@ -382,44 +442,17 @@
                     <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
                     <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem listing keys from database&quot;</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;load&#39;</span><span class="p">]:</span>
-            <span class="n">_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--format&#39;</span><span class="p">]</span>
-            <span class="n">_dir</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--dir&#39;</span><span class="p">]</span>
 
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">sshm</span> <span class="o">=</span> <span class="n">SSHKeyManager</span><span class="p">()</span>
-                <span class="n">m</span> <span class="o">=</span> <span class="n">sshm</span><span class="o">.</span><span class="n">get_from_yaml</span><span class="p">(</span><span class="n">load_order</span><span class="o">=</span><span class="n">directory</span><span class="p">)</span>
-                <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">__keys__</span><span class="p">)</span>
-
-                <span class="n">sshdb</span> <span class="o">=</span> <span class="n">SSHKeyDBManager</span><span class="p">()</span>
-
-                <span class="k">for</span> <span class="n">keyname</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">__keys__</span><span class="p">:</span>
-                    <span class="n">filename</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="n">keyname</span><span class="p">][</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
-                    <span class="k">try</span><span class="p">:</span>
-                        <span class="n">sshdb</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span>
-                                  <span class="n">keyname</span><span class="p">,</span>
-                                  <span class="n">source</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">,</span>
-                                  <span class="n">uri</span><span class="o">=</span><span class="s2">&quot;file://&quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
-                    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;problem adding key {}:{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="n">keyname</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
-
-                <span class="k">print</span><span class="p">(</span><span class="n">_print_dict</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">_format</span><span class="p">))</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem adding keys from yaml file&quot;</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;get&#39;</span><span class="p">]:</span>
 
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">]</span>
-                <span class="n">sshdb</span> <span class="o">=</span> <span class="n">SSHKeyDBManager</span><span class="p">()</span>
-                <span class="n">d</span> <span class="o">=</span> <span class="n">sshdb</span><span class="o">.</span><span class="n">table_dict</span><span class="p">()</span>
+                <span class="c1">#sshdb = SSHKeyDBManager()</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="n">Key</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">)</span>
 
-                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
-                        <span class="n">key</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">key</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
                         <span class="k">print</span><span class="p">(</span><span class="s2">&quot;{:}: {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">key</span><span class="p">[</span><span class="s1">&#39;fingerprint&#39;</span><span class="p">]))</span>
                         <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
                         <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
@@ -431,116 +464,119 @@
                 <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The key is not in the database&quot;</span><span class="p">)</span>
 
-        <span class="c1"># key add --git KEYNAME</span>
-        <span class="c1">#      key add --ssh KEYNAME</span>
-        <span class="c1">#      key add [--path=PATH]  KEYNAME</span>
+        <span class="c1"># key add [NAME] [--source=FILENAME]</span>
+        <span class="c1">#     key add [NAME] [--git]</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;add&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--git&quot;</span><span class="p">]:</span>
 
+            <span class="c1"># Console.error(&quot;This feature is not yet implemented&quot;, traceflag=False)</span>
+            <span class="c1"># return &quot;&quot;</span>
+
             <span class="k">print</span><span class="p">(</span><span class="s1">&#39;git add&#39;</span><span class="p">)</span>
-            <span class="n">sshdb</span> <span class="o">=</span> <span class="n">SSHKeyDBManager</span><span class="p">()</span>
-            <span class="n">keyname</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--name&#39;</span><span class="p">]</span>
-            <span class="n">gitkeyname</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">]</span>
-            <span class="n">filename</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;FILENAME&#39;</span><span class="p">]</span>
+            <span class="c1">#sshdb = SSHKeyDBManager()</span>
 
-            <span class="c1"># Are we adding to the database as well?</span>
-            <span class="c1"># sshdb.add(filename, keyname, source=&quot;ssh&quot;, uri=&quot;file://&quot;+filename)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
 
-            <span class="n">username</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--username&quot;</span><span class="p">]</span>
+            <span class="n">keyname</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">NAME</span>
 
-            <span class="k">if</span> <span class="n">username</span> <span class="o">==</span> <span class="s1">&#39;none&#39;</span><span class="p">:</span>
-                <span class="n">conf</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
-                <span class="n">username</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;cloudmesh.github.username&quot;</span><span class="p">]</span>
-            <span class="k">print</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+            <span class="c1">#</span>
+            <span class="c1"># get name</span>
+            <span class="c1">#</span>
+            <span class="n">conf</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;cloudmesh.github.username&quot;</span><span class="p">]</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">data</span><span class="o">.</span><span class="n">username</span>
 
-            <span class="n">sshm</span> <span class="o">=</span> <span class="n">SSHKeyManager</span><span class="p">()</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">sshm</span><span class="o">.</span><span class="n">get_from_git</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
-                <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">sshm</span><span class="o">.</span><span class="n">__keys__</span><span class="p">)</span>
-                <span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem adding keys to git for user: &quot;</span> <span class="o">+</span> <span class="n">username</span><span class="p">)</span>
+            <span class="c1">#</span>
+            <span class="c1"># get git username</span>
+            <span class="c1">#</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)[</span><span class="s2">&quot;cloudmesh.github.username&quot;</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">invalid_names</span><span class="p">:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The github user name is not set in the yaml file&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
                 <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
             <span class="k">try</span><span class="p">:</span>
-                <span class="c1"># FIXME: correct code to add to git</span>
-                <span class="n">d</span><span class="p">[</span><span class="n">gitkeyname</span><span class="p">][</span><span class="s1">&#39;keyname&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">keyname</span>
-                <span class="n">d</span><span class="p">[</span><span class="n">gitkeyname</span><span class="p">][</span><span class="s1">&#39;user&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span>
-                <span class="n">d</span><span class="p">[</span><span class="n">gitkeyname</span><span class="p">][</span><span class="s1">&#39;source&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;git&#39;</span>
-                <span class="c1"># sshdb.add_from_dict(d[gitkeyname])</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s2">&quot;Retrieving github ssh keys for user {username}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">))</span>
+                <span class="c1">#sshm = SSHKeyManager()</span>
+                <span class="n">Key</span><span class="o">.</span><span class="n">get_from_git</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="n">Key</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+                <span class="c1"># pprint(d)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The key already exists&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem adding keys to git for user: {username}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">))</span>
+                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;add&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--ssh&quot;</span><span class="p">]:</span>
-
-            <span class="c1"># print(&#39;ssh add&#39;)</span>
-            <span class="n">sshdb</span> <span class="o">=</span> <span class="n">SSHKeyDBManager</span><span class="p">()</span>
-            <span class="n">keyname</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--name&#39;</span><span class="p">]</span>
-            <span class="n">filename</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="s2">&quot;~/.ssh/id_rsa.pub&quot;</span><span class="p">)</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">sshdb</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">keyname</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">&quot;ssh&quot;</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="s2">&quot;file://&quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
-                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Key {:} successfully added to the database&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyname</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                Error.traceback(e)</span>
-<span class="sd">                print (keyname)</span>
-<span class="sd">                print (filename)</span>
-<span class="sd">                &quot;&quot;&quot;</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem adding the key `{}` from file `{}`&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyname</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">key</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
+                    <span class="n">key</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;git&quot;</span>
+                    <span class="n">key</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">name</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">o</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                        <span class="n">o</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span><span class="p">[</span><span class="s2">&quot;string&quot;</span><span class="p">]</span>
+                        <span class="n">Key</span><span class="o">.</span><span class="n">add_from_dict</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The key {name} with that finger print already exists&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">key</span><span class="p">),</span>
+                                      <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;add&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--git&quot;</span><span class="p">]:</span>
 
-            <span class="c1"># print(&#39;ssh add&#39;)</span>
-            <span class="n">sshdb</span> <span class="o">=</span> <span class="n">SSHKeyDBManager</span><span class="p">()</span>
-            <span class="n">keyname</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--name&#39;</span><span class="p">]</span>
-            <span class="n">filename</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;FILENAME&#39;</span><span class="p">]</span>
+            <span class="c1">#     key add [NAME] [--source=FILENAME]</span>
+            <span class="c1">#     key add [NAME] [--git]</span>
+
+            <span class="c1">#sshdb = SSHKeyDBManager()</span>
+
+            <span class="n">data</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">()</span>
+
+            <span class="c1">#</span>
+            <span class="c1"># get name</span>
+            <span class="c1">#</span>
+            <span class="n">conf</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;cloudmesh.profile.user&quot;</span><span class="p">]</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">data</span><span class="o">.</span><span class="n">username</span>
+
+            <span class="n">data</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--source&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">filename</span> <span class="o">==</span> <span class="s2">&quot;db&quot;</span> <span class="ow">or</span> <span class="n">data</span><span class="o">.</span><span class="n">filename</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="s2">&quot;~/.ssh/id_rsa.pub&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">invalid_names</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Your choice of keyname {name} is insufficient. </span><span class="se">\n</span><span class="s2">&quot;</span>
+                       <span class="s2">&quot;You must be chosing a keyname that is distingct on all clouds. </span><span class="se">\n</span><span class="s2">&quot;</span>
+                       <span class="s2">&quot;Possible choices are your gmail name, your XSEDE name, or </span><span class="se">\n</span><span class="s2">&quot;</span>
+                       <span class="s2">&quot;some name that is uniqe. &quot;</span>
+                       <span class="s2">&quot;Best is also to set this name in </span><span class="se">\n</span><span class="s2">&quot;</span>
+                       <span class="s2">&quot;cloudmesh.profile.user as &quot;</span>
+                       <span class="s2">&quot;part of your </span><span class="se">\n</span><span class="s2">~/cloudmesh/cloudmesh.yaml file.&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">sshdb</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">keyname</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">&quot;ssh&quot;</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="s2">&quot;file://&quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
-                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Key {:} successfully added to the database&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyname</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+                <span class="n">Key</span><span class="o">.</span><span class="n">add_from_path</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span>
+                                    <span class="n">data</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                    <span class="n">source</span><span class="o">=</span><span class="s2">&quot;ssh&quot;</span><span class="p">,</span>
+                                    <span class="n">uri</span><span class="o">=</span><span class="s2">&quot;file://&quot;</span> <span class="o">+</span> <span class="n">data</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Key {name} successfully added to the database&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">))</span>
                 <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
             <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The key `{}` already exists&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyname</span><span class="p">),</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-            <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            except Exception as e:</span>
-<span class="sd">                Error.traceback(e)</span>
-<span class="sd">                print (keyname)</span>
-<span class="sd">                print (filename)</span>
-<span class="sd">                Console.error(&quot;Problem adding the key `{}` from file `{}`&quot;.format(keyname, filename))</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;A key with this fingerprint already exists&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s2">&quot;Please use check with: key list&quot;</span><span class="p">)</span>
+
             <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;default&#39;</span><span class="p">]:</span>
 
             <span class="c1"># print(&quot;default&quot;)</span>
 
-            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;KEYNAME&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--select&#39;</span><span class="p">]:</span>
                 <span class="n">keyname</span> <span class="o">=</span> <span class="bp">None</span>
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">keyname</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;KEYNAME&#39;</span><span class="p">]</span>
-                    <span class="n">sshdb</span> <span class="o">=</span> <span class="n">SSHKeyDBManager</span><span class="p">()</span>
-                    <span class="n">sshdb</span><span class="o">.</span><span class="n">set_default</span><span class="p">(</span><span class="n">keyname</span><span class="p">)</span>
-                    <span class="n">Default</span><span class="o">.</span><span class="n">set_key</span><span class="p">(</span><span class="n">keyname</span><span class="p">)</span>
-                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Key {:} set as default&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyname</span><span class="p">))</span>
-                    <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                    <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Setting default for key {:} failed.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyname</span><span class="p">))</span>
-
-            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--select&#39;</span><span class="p">]:</span>
-                <span class="n">keyname</span> <span class="o">=</span> <span class="bp">None</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">sshdb</span> <span class="o">=</span> <span class="n">SSHKeyDBManager</span><span class="p">()</span>
-                    <span class="n">select</span> <span class="o">=</span> <span class="n">sshdb</span><span class="o">.</span><span class="n">select</span><span class="p">()</span>
+                    <span class="c1">#sshdb = SSHKeyDBManager()</span>
+                    <span class="n">select</span> <span class="o">=</span> <span class="n">Key</span><span class="o">.</span><span class="n">select</span><span class="p">()</span>
                     <span class="k">if</span> <span class="n">select</span> <span class="o">!=</span> <span class="s1">&#39;q&#39;</span><span class="p">:</span>
                         <span class="n">keyname</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
                         <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Setting key: {:} as default.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyname</span><span class="p">))</span>
-                        <span class="n">sshdb</span><span class="o">.</span><span class="n">set_default</span><span class="p">(</span><span class="n">keyname</span><span class="p">)</span>
+                        <span class="n">Default</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">keyname</span>
                         <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
                         <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -549,8 +585,8 @@
 
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">sshdb</span> <span class="o">=</span> <span class="n">SSHKeyDBManager</span><span class="p">()</span>
-                    <span class="n">d</span> <span class="o">=</span> <span class="n">sshdb</span><span class="o">.</span><span class="n">table_dict</span><span class="p">()</span>
+                    <span class="c1">#sshdb = SSHKeyDBManager()</span>
+                    <span class="n">d</span> <span class="o">=</span> <span class="n">Key</span><span class="o">.</span><span class="n">table_dict</span><span class="p">()</span>
 
                     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
                         <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;is_default&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;True&quot;</span><span class="p">:</span>
@@ -566,56 +602,57 @@
                     <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
                     <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem retrieving default key.&quot;</span><span class="p">)</span>
 
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;delete&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]:</span>
+
+            <span class="n">key</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">({</span>
+                <span class="s1">&#39;cloud&#39;</span><span class="p">:</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">],</span>
+                <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span>
+            <span class="p">})</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">Key</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">key</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem deleting the key {name} on the cloud {cloud}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">key</span><span class="p">))</span>
+
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;delete&#39;</span><span class="p">]:</span>
 
-            <span class="n">delete_on_cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--force&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">False</span>
-            <span class="c1"># print (&quot;DDD&quot;, delete_on_cloud)</span>
-            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--all&#39;</span><span class="p">]:</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">sshm</span> <span class="o">=</span> <span class="n">SSHKeyManager</span><span class="p">(</span><span class="n">delete_on_cloud</span><span class="o">=</span><span class="n">delete_on_cloud</span><span class="p">)</span>
-                    <span class="n">sshm</span><span class="o">.</span><span class="n">delete_all_keys</span><span class="p">()</span>
-                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;All keys from the database deleted successfully.&quot;</span><span class="p">)</span>
-                    <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                    <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem deleting keys&quot;</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--select&#39;</span><span class="p">]:</span>
-                <span class="n">keyname</span> <span class="o">=</span> <span class="bp">None</span>
-                <span class="n">sshdb</span> <span class="o">=</span> <span class="n">SSHKeyDBManager</span><span class="p">()</span>
-                <span class="n">select</span> <span class="o">=</span> <span class="n">sshdb</span><span class="o">.</span><span class="n">select</span><span class="p">()</span>
-                <span class="k">if</span> <span class="n">select</span> <span class="o">!=</span> <span class="s1">&#39;q&#39;</span><span class="p">:</span>
-                    <span class="k">try</span><span class="p">:</span>
-                        <span class="n">keyname</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-                        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Deleting key: {:}...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyname</span><span class="p">))</span>
-                        <span class="n">sshm</span> <span class="o">=</span> <span class="n">SSHKeyManager</span><span class="p">(</span><span class="n">delete_on_cloud</span><span class="o">=</span><span class="n">delete_on_cloud</span><span class="p">)</span>
-                        <span class="n">sshm</span><span class="o">.</span><span class="n">delete_key</span><span class="p">(</span><span class="n">keyname</span><span class="p">)</span>
-                        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
-                        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-                    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                        <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem deleting the key `{:}`&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyname</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">keyname</span> <span class="o">=</span> <span class="bp">None</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">keyname</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;KEYNAME&#39;</span><span class="p">]</span>
-                    <span class="n">sshm</span> <span class="o">=</span> <span class="n">SSHKeyManager</span><span class="p">(</span><span class="n">delete_on_cloud</span><span class="o">=</span><span class="n">delete_on_cloud</span><span class="p">)</span>
-                    <span class="n">sshm</span><span class="o">.</span><span class="n">delete_key</span><span class="p">(</span><span class="n">keyname</span><span class="p">)</span>
-                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Key {:} deleted successfully from database.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyname</span><span class="p">))</span>
-                    <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                    <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem deleting the key `{:}`&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyname</span><span class="p">))</span>
+            <span class="c1"># key delete (NAME | --select| --all)</span>
+
+            <span class="n">data</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">({</span>
+                <span class="s1">&#39;all&#39;</span><span class="p">:</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--all&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">False</span><span class="p">,</span>
+                <span class="s1">&#39;select&#39;</span><span class="p">:</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--select&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">False</span><span class="p">,</span>
+                <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">False</span><span class="p">,</span>
+            <span class="p">})</span>
+
+
+            <span class="n">pprint</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="c1"># BUG delete all is not properly implemented</span>
+
+            <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">all</span><span class="p">:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">TODO</span><span class="p">(</span><span class="s2">&quot;Delete --all is not yet implemented.&quot;</span><span class="p">)</span>
+                <span class="c1"># Key.delete()</span>
+            <span class="k">elif</span> <span class="n">data</span><span class="o">.</span><span class="n">select</span><span class="p">:</span>
+                <span class="n">key</span> <span class="o">=</span> <span class="n">Key</span><span class="o">.</span><span class="n">select</span><span class="p">()</span>
+                <span class="k">print</span> <span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span> <span class="c1"># name</span>
+                <span class="n">Key</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;upload&#39;</span><span class="p">]:</span>
+
+            <span class="c1"># pprint(arguments)</span>
 
             <span class="k">try</span><span class="p">:</span>
                 <span class="c1">#</span>
                 <span class="c1"># get username</span>
                 <span class="c1">#</span>
                 <span class="n">conf</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
-                <span class="n">username</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;profile&quot;</span><span class="p">][</span><span class="s2">&quot;username&quot;</span><span class="p">]</span>
+                <span class="n">username</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;profile&quot;</span><span class="p">][</span><span class="s2">&quot;user&quot;</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">username</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="s1">&#39;TBD&#39;</span><span class="p">]:</span>
                     <span class="n">username</span> <span class="o">=</span> <span class="bp">None</span>
 
@@ -623,10 +660,18 @@
                 <span class="c1"># get cloudnames</span>
                 <span class="c1">#</span>
                 <span class="n">clouds</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_cloud</span><span class="p">()</span>
+
+                <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--active&quot;</span><span class="p">]:</span>
+                    <span class="n">cloud</span> <span class="o">=</span> <span class="s1">&#39;active&#39;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">cloud</span>
+
                 <span class="k">if</span> <span class="n">cloud</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
                     <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
                     <span class="n">clouds</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">]</span>
+                <span class="k">elif</span> <span class="n">cloud</span> <span class="o">==</span> <span class="s1">&#39;active&#39;</span><span class="p">:</span>
+                    <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
+                    <span class="n">clouds</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;active&quot;</span><span class="p">]</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">clouds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
 
@@ -636,46 +681,29 @@
 
                 <span class="k">for</span> <span class="n">cloud</span> <span class="ow">in</span> <span class="n">clouds</span><span class="p">:</span>
                     <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span>
-                    <span class="n">sshdb</span> <span class="o">=</span> <span class="n">SSHKeyDBManager</span><span class="p">()</span>
-                    <span class="n">sshm</span> <span class="o">=</span> <span class="n">SSHKeyManager</span><span class="p">()</span>
-                    <span class="n">keys</span> <span class="o">=</span> <span class="n">sshdb</span><span class="o">.</span><span class="n">find_all</span><span class="p">()</span>
-                    <span class="k">for</span> <span class="n">keyid</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
-                        <span class="n">key</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="n">keyid</span><span class="p">]</span>
+                    <span class="c1">#sshdb = SSHKeyDBManager()</span>
+                    <span class="c1">#sshm = SSHKeyManager()</span>
+                    <span class="n">keys</span> <span class="o">=</span> <span class="n">Key</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+                    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
 
-                        <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;upload key {} -&gt; {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span>
-                                                            <span class="n">cloud</span><span class="p">))</span>
+                        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;upload key {} -&gt; {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span>
+                                                           <span class="n">cloud</span><span class="p">))</span>
 
                         <span class="k">try</span><span class="p">:</span>
-                            <span class="n">status</span> <span class="o">=</span> <span class="n">sshm</span><span class="o">.</span><span class="n">add_key_to_cloud</span><span class="p">(</span>
+                            <span class="n">status</span> <span class="o">=</span> <span class="n">Key</span><span class="o">.</span><span class="n">add_key_to_cloud</span><span class="p">(</span>
                                 <span class="n">username</span><span class="p">,</span>
                                 <span class="n">key</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span>
-                                <span class="n">cloud</span><span class="p">,</span>
-                                <span class="n">key</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
+                                <span class="n">cloud</span><span class="p">)</span>
 
                         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                            <span class="k">print</span> <span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;problem&quot;</span><span class="p">)</span>
                             <span class="k">if</span> <span class="s2">&quot;already exists&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
-                                <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;key already exists. Skipping &quot;</span>
-                                       <span class="s2">&quot;upload. ok.&quot;</span><span class="p">)</span>
+                                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;key already exists. Skipping upload. OK.&quot;</span><span class="p">)</span>
                         <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Problem uploading key. failed.&quot;</span><span class="p">)</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Problem uploading key {} to {}. failed.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span>
+                                                                                   <span class="n">cloud</span><span class="p">))</span>
 
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem adding key to cloud&quot;</span><span class="p">)</span>
-
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;map&#39;</span><span class="p">]:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_cloud</span><span class="p">()</span>
-                <span class="n">sshm</span> <span class="o">=</span> <span class="n">SSHKeyManager</span><span class="p">()</span>
-                <span class="n">map_dict</span> <span class="o">=</span> <span class="n">sshm</span><span class="o">.</span><span class="n">get_key_cloud_maps</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
-                <span class="k">print</span><span class="p">(</span><span class="n">dict_printer</span><span class="p">(</span><span class="n">map_dict</span><span class="p">,</span>
-                                   <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;key_name&quot;</span><span class="p">,</span> <span class="s2">&quot;cloud_name&quot;</span><span class="p">,</span> <span class="s2">&quot;key_name_on_cloud&quot;</span><span class="p">]))</span>
-
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem adding key to cloud&quot;</span><span class="p">)</span></div>
 </pre></div>
 
@@ -709,7 +737,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

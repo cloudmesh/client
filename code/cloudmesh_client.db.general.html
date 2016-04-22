@@ -1,0 +1,1014 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.db.general package &mdash; cloudmesh_client 4.1.5 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../index.html"/>
+        <link rel="up" title="cloudmesh_client.db package" href="cloudmesh_client.db.html"/>
+        <link rel="next" title="cloudmesh_client.db.libcloud package" href="cloudmesh_client.db.libcloud.html"/>
+        <link rel="prev" title="cloudmesh_client.db.azure package" href="cloudmesh_client.db.azure.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comet.html">Comet Virtual Cluster</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="cloudmesh_client.html">cloudmesh_client package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cloudmesh_client.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.cloud.html">cloudmesh_client.cloud package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.comet.html">cloudmesh_client.comet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="cloudmesh_client.db.html">cloudmesh_client.db package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="cloudmesh_client.db.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.db.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.db.html#module-cloudmesh_client.db.CloudmeshDatabase">cloudmesh_client.db.CloudmeshDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.db.html#module-cloudmesh_client.db">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.etc.html">cloudmesh_client.etc package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.provider.html">cloudmesh_client.provider package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.shell.html">cloudmesh_client.shell package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.system.html">cloudmesh_client.system package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.setup">cloudmesh_client.setup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.shell_commad">cloudmesh_client.shell_commad module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.var">cloudmesh_client.var module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.version">cloudmesh_client.version module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html#python-guidelines">Python Guidelines</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="cloudmesh_client.html">cloudmesh_client package</a> &raquo;</li>
+      
+          <li><a href="cloudmesh_client.db.html">cloudmesh_client.db package</a> &raquo;</li>
+      
+    <li>cloudmesh_client.db.general package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/code/cloudmesh_client.db.general.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cloudmesh-client-db-general-package">
+<h1>cloudmesh_client.db.general package<a class="headerlink" href="#cloudmesh-client-db-general-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cloudmesh_client.db.general.model">
+<span id="cloudmesh-client-db-general-model-module"></span><h2>cloudmesh_client.db.general.model module<a class="headerlink" href="#module-cloudmesh_client.db.general.model" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.db.general.model.BATCHJOB">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.db.general.model.</code><code class="descname">BATCHJOB</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/general/model.html#BATCHJOB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.general.model.BATCHJOB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.db.html#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin" title="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.BATCHJOB.category">
+<code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.general.model.BATCHJOB.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.BATCHJOB.cluster">
+<code class="descname">cluster</code><a class="headerlink" href="#cloudmesh_client.db.general.model.BATCHJOB.cluster" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.BATCHJOB.cm_id">
+<code class="descname">cm_id</code><a class="headerlink" href="#cloudmesh_client.db.general.model.BATCHJOB.cm_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.BATCHJOB.cmd">
+<code class="descname">cmd</code><a class="headerlink" href="#cloudmesh_client.db.general.model.BATCHJOB.cmd" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.BATCHJOB.created_at">
+<code class="descname">created_at</code><a class="headerlink" href="#cloudmesh_client.db.general.model.BATCHJOB.created_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.BATCHJOB.dir">
+<code class="descname">dir</code><a class="headerlink" href="#cloudmesh_client.db.general.model.BATCHJOB.dir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.BATCHJOB.group">
+<code class="descname">group</code><a class="headerlink" href="#cloudmesh_client.db.general.model.BATCHJOB.group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.BATCHJOB.job_id">
+<code class="descname">job_id</code><a class="headerlink" href="#cloudmesh_client.db.general.model.BATCHJOB.job_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.BATCHJOB.kind">
+<code class="descname">kind</code><a class="headerlink" href="#cloudmesh_client.db.general.model.BATCHJOB.kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.BATCHJOB.label">
+<code class="descname">label</code><a class="headerlink" href="#cloudmesh_client.db.general.model.BATCHJOB.label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.BATCHJOB.name">
+<code class="descname">name</code><a class="headerlink" href="#cloudmesh_client.db.general.model.BATCHJOB.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.BATCHJOB.nodes">
+<code class="descname">nodes</code><a class="headerlink" href="#cloudmesh_client.db.general.model.BATCHJOB.nodes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.BATCHJOB.output_file">
+<code class="descname">output_file</code><a class="headerlink" href="#cloudmesh_client.db.general.model.BATCHJOB.output_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.BATCHJOB.project">
+<code class="descname">project</code><a class="headerlink" href="#cloudmesh_client.db.general.model.BATCHJOB.project" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.BATCHJOB.provider">
+<code class="descname">provider</code><a class="headerlink" href="#cloudmesh_client.db.general.model.BATCHJOB.provider" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.BATCHJOB.queue">
+<code class="descname">queue</code><a class="headerlink" href="#cloudmesh_client.db.general.model.BATCHJOB.queue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.BATCHJOB.sbatch_file_path">
+<code class="descname">sbatch_file_path</code><a class="headerlink" href="#cloudmesh_client.db.general.model.BATCHJOB.sbatch_file_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.BATCHJOB.time">
+<code class="descname">time</code><a class="headerlink" href="#cloudmesh_client.db.general.model.BATCHJOB.time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.BATCHJOB.type">
+<code class="descname">type</code><a class="headerlink" href="#cloudmesh_client.db.general.model.BATCHJOB.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.BATCHJOB.updated_at">
+<code class="descname">updated_at</code><a class="headerlink" href="#cloudmesh_client.db.general.model.BATCHJOB.updated_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.BATCHJOB.user">
+<code class="descname">user</code><a class="headerlink" href="#cloudmesh_client.db.general.model.BATCHJOB.user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.db.general.model.DEFAULT">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.db.general.model.</code><code class="descname">DEFAULT</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/general/model.html#DEFAULT"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.general.model.DEFAULT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.db.html#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin" title="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>table to store default values</p>
+<p>if the category is &#8220;global&#8221; it is meant to be a global variable</p>
+<p>todo: check if its global or general</p>
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.DEFAULT.category">
+<code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.general.model.DEFAULT.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.DEFAULT.cm_id">
+<code class="descname">cm_id</code><a class="headerlink" href="#cloudmesh_client.db.general.model.DEFAULT.cm_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.DEFAULT.created_at">
+<code class="descname">created_at</code><a class="headerlink" href="#cloudmesh_client.db.general.model.DEFAULT.created_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.DEFAULT.kind">
+<code class="descname">kind</code><a class="headerlink" href="#cloudmesh_client.db.general.model.DEFAULT.kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.DEFAULT.label">
+<code class="descname">label</code><a class="headerlink" href="#cloudmesh_client.db.general.model.DEFAULT.label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.DEFAULT.name">
+<code class="descname">name</code><a class="headerlink" href="#cloudmesh_client.db.general.model.DEFAULT.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.DEFAULT.project">
+<code class="descname">project</code><a class="headerlink" href="#cloudmesh_client.db.general.model.DEFAULT.project" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.DEFAULT.provider">
+<code class="descname">provider</code><a class="headerlink" href="#cloudmesh_client.db.general.model.DEFAULT.provider" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.DEFAULT.type">
+<code class="descname">type</code><a class="headerlink" href="#cloudmesh_client.db.general.model.DEFAULT.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.DEFAULT.updated_at">
+<code class="descname">updated_at</code><a class="headerlink" href="#cloudmesh_client.db.general.model.DEFAULT.updated_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.DEFAULT.user">
+<code class="descname">user</code><a class="headerlink" href="#cloudmesh_client.db.general.model.DEFAULT.user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.DEFAULT.value">
+<code class="descname">value</code><a class="headerlink" href="#cloudmesh_client.db.general.model.DEFAULT.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.db.general.model.GROUP">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.db.general.model.</code><code class="descname">GROUP</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/general/model.html#GROUP"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.general.model.GROUP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.db.html#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin" title="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.GROUP.category">
+<code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.general.model.GROUP.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.GROUP.cm_id">
+<code class="descname">cm_id</code><a class="headerlink" href="#cloudmesh_client.db.general.model.GROUP.cm_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.GROUP.created_at">
+<code class="descname">created_at</code><a class="headerlink" href="#cloudmesh_client.db.general.model.GROUP.created_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.GROUP.kind">
+<code class="descname">kind</code><a class="headerlink" href="#cloudmesh_client.db.general.model.GROUP.kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.GROUP.label">
+<code class="descname">label</code><a class="headerlink" href="#cloudmesh_client.db.general.model.GROUP.label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.GROUP.member">
+<code class="descname">member</code><a class="headerlink" href="#cloudmesh_client.db.general.model.GROUP.member" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.GROUP.name">
+<code class="descname">name</code><a class="headerlink" href="#cloudmesh_client.db.general.model.GROUP.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.GROUP.project">
+<code class="descname">project</code><a class="headerlink" href="#cloudmesh_client.db.general.model.GROUP.project" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.GROUP.provider">
+<code class="descname">provider</code><a class="headerlink" href="#cloudmesh_client.db.general.model.GROUP.provider" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.GROUP.species">
+<code class="descname">species</code><a class="headerlink" href="#cloudmesh_client.db.general.model.GROUP.species" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.GROUP.type">
+<code class="descname">type</code><a class="headerlink" href="#cloudmesh_client.db.general.model.GROUP.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.GROUP.updated_at">
+<code class="descname">updated_at</code><a class="headerlink" href="#cloudmesh_client.db.general.model.GROUP.updated_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.GROUP.user">
+<code class="descname">user</code><a class="headerlink" href="#cloudmesh_client.db.general.model.GROUP.user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.db.general.model.KEY">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.db.general.model.</code><code class="descname">KEY</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/general/model.html#KEY"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.general.model.KEY" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.db.html#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin" title="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.KEY.category">
+<code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.general.model.KEY.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.KEY.cm_id">
+<code class="descname">cm_id</code><a class="headerlink" href="#cloudmesh_client.db.general.model.KEY.cm_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.KEY.comment">
+<code class="descname">comment</code><a class="headerlink" href="#cloudmesh_client.db.general.model.KEY.comment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.KEY.created_at">
+<code class="descname">created_at</code><a class="headerlink" href="#cloudmesh_client.db.general.model.KEY.created_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.KEY.fingerprint">
+<code class="descname">fingerprint</code><a class="headerlink" href="#cloudmesh_client.db.general.model.KEY.fingerprint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.KEY.is_default">
+<code class="descname">is_default</code><a class="headerlink" href="#cloudmesh_client.db.general.model.KEY.is_default" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.KEY.kind">
+<code class="descname">kind</code><a class="headerlink" href="#cloudmesh_client.db.general.model.KEY.kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.KEY.label">
+<code class="descname">label</code><a class="headerlink" href="#cloudmesh_client.db.general.model.KEY.label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.KEY.name">
+<code class="descname">name</code><a class="headerlink" href="#cloudmesh_client.db.general.model.KEY.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.KEY.project">
+<code class="descname">project</code><a class="headerlink" href="#cloudmesh_client.db.general.model.KEY.project" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.KEY.provider">
+<code class="descname">provider</code><a class="headerlink" href="#cloudmesh_client.db.general.model.KEY.provider" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.KEY.source">
+<code class="descname">source</code><a class="headerlink" href="#cloudmesh_client.db.general.model.KEY.source" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.KEY.type">
+<code class="descname">type</code><a class="headerlink" href="#cloudmesh_client.db.general.model.KEY.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.KEY.updated_at">
+<code class="descname">updated_at</code><a class="headerlink" href="#cloudmesh_client.db.general.model.KEY.updated_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.KEY.uri">
+<code class="descname">uri</code><a class="headerlink" href="#cloudmesh_client.db.general.model.KEY.uri" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.KEY.user">
+<code class="descname">user</code><a class="headerlink" href="#cloudmesh_client.db.general.model.KEY.user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.KEY.value">
+<code class="descname">value</code><a class="headerlink" href="#cloudmesh_client.db.general.model.KEY.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.db.general.model.LAUNCHER">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.db.general.model.</code><code class="descname">LAUNCHER</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/general/model.html#LAUNCHER"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.general.model.LAUNCHER" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.db.html#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin" title="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>table to store default values</p>
+<p>if the category is &#8220;global&#8221; it is meant to be a global variable</p>
+<p>todo: check if its global or general</p>
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.LAUNCHER.category">
+<code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.general.model.LAUNCHER.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.LAUNCHER.cm_id">
+<code class="descname">cm_id</code><a class="headerlink" href="#cloudmesh_client.db.general.model.LAUNCHER.cm_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.LAUNCHER.created_at">
+<code class="descname">created_at</code><a class="headerlink" href="#cloudmesh_client.db.general.model.LAUNCHER.created_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.LAUNCHER.kind">
+<code class="descname">kind</code><a class="headerlink" href="#cloudmesh_client.db.general.model.LAUNCHER.kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.LAUNCHER.label">
+<code class="descname">label</code><a class="headerlink" href="#cloudmesh_client.db.general.model.LAUNCHER.label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.LAUNCHER.name">
+<code class="descname">name</code><a class="headerlink" href="#cloudmesh_client.db.general.model.LAUNCHER.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.LAUNCHER.parameters">
+<code class="descname">parameters</code><a class="headerlink" href="#cloudmesh_client.db.general.model.LAUNCHER.parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.LAUNCHER.project">
+<code class="descname">project</code><a class="headerlink" href="#cloudmesh_client.db.general.model.LAUNCHER.project" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.LAUNCHER.provider">
+<code class="descname">provider</code><a class="headerlink" href="#cloudmesh_client.db.general.model.LAUNCHER.provider" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.LAUNCHER.source">
+<code class="descname">source</code><a class="headerlink" href="#cloudmesh_client.db.general.model.LAUNCHER.source" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.LAUNCHER.type">
+<code class="descname">type</code><a class="headerlink" href="#cloudmesh_client.db.general.model.LAUNCHER.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.LAUNCHER.updated_at">
+<code class="descname">updated_at</code><a class="headerlink" href="#cloudmesh_client.db.general.model.LAUNCHER.updated_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.LAUNCHER.user">
+<code class="descname">user</code><a class="headerlink" href="#cloudmesh_client.db.general.model.LAUNCHER.user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.db.general.model.RESERVATION">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.db.general.model.</code><code class="descname">RESERVATION</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/general/model.html#RESERVATION"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.general.model.RESERVATION" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.db.html#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin" title="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.RESERVATION.category">
+<code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.general.model.RESERVATION.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.RESERVATION.cm_id">
+<code class="descname">cm_id</code><a class="headerlink" href="#cloudmesh_client.db.general.model.RESERVATION.cm_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.RESERVATION.created_at">
+<code class="descname">created_at</code><a class="headerlink" href="#cloudmesh_client.db.general.model.RESERVATION.created_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.RESERVATION.description">
+<code class="descname">description</code><a class="headerlink" href="#cloudmesh_client.db.general.model.RESERVATION.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.RESERVATION.end_time">
+<code class="descname">end_time</code><a class="headerlink" href="#cloudmesh_client.db.general.model.RESERVATION.end_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.RESERVATION.hosts">
+<code class="descname">hosts</code><a class="headerlink" href="#cloudmesh_client.db.general.model.RESERVATION.hosts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.RESERVATION.kind">
+<code class="descname">kind</code><a class="headerlink" href="#cloudmesh_client.db.general.model.RESERVATION.kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.RESERVATION.label">
+<code class="descname">label</code><a class="headerlink" href="#cloudmesh_client.db.general.model.RESERVATION.label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.RESERVATION.name">
+<code class="descname">name</code><a class="headerlink" href="#cloudmesh_client.db.general.model.RESERVATION.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.RESERVATION.project">
+<code class="descname">project</code><a class="headerlink" href="#cloudmesh_client.db.general.model.RESERVATION.project" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.RESERVATION.provider">
+<code class="descname">provider</code><a class="headerlink" href="#cloudmesh_client.db.general.model.RESERVATION.provider" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.RESERVATION.start_time">
+<code class="descname">start_time</code><a class="headerlink" href="#cloudmesh_client.db.general.model.RESERVATION.start_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.RESERVATION.type">
+<code class="descname">type</code><a class="headerlink" href="#cloudmesh_client.db.general.model.RESERVATION.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.RESERVATION.updated_at">
+<code class="descname">updated_at</code><a class="headerlink" href="#cloudmesh_client.db.general.model.RESERVATION.updated_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.RESERVATION.user">
+<code class="descname">user</code><a class="headerlink" href="#cloudmesh_client.db.general.model.RESERVATION.user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.db.general.model.SECGROUPRULE">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.db.general.model.</code><code class="descname">SECGROUPRULE</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/general/model.html#SECGROUPRULE"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.general.model.SECGROUPRULE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.db.html#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin" title="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.SECGROUPRULE.category">
+<code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.general.model.SECGROUPRULE.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.SECGROUPRULE.cidr">
+<code class="descname">cidr</code><a class="headerlink" href="#cloudmesh_client.db.general.model.SECGROUPRULE.cidr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.SECGROUPRULE.cm_id">
+<code class="descname">cm_id</code><a class="headerlink" href="#cloudmesh_client.db.general.model.SECGROUPRULE.cm_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.SECGROUPRULE.created_at">
+<code class="descname">created_at</code><a class="headerlink" href="#cloudmesh_client.db.general.model.SECGROUPRULE.created_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.SECGROUPRULE.fromPort">
+<code class="descname">fromPort</code><a class="headerlink" href="#cloudmesh_client.db.general.model.SECGROUPRULE.fromPort" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.SECGROUPRULE.group">
+<code class="descname">group</code><a class="headerlink" href="#cloudmesh_client.db.general.model.SECGROUPRULE.group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.SECGROUPRULE.kind">
+<code class="descname">kind</code><a class="headerlink" href="#cloudmesh_client.db.general.model.SECGROUPRULE.kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.SECGROUPRULE.label">
+<code class="descname">label</code><a class="headerlink" href="#cloudmesh_client.db.general.model.SECGROUPRULE.label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.SECGROUPRULE.name">
+<code class="descname">name</code><a class="headerlink" href="#cloudmesh_client.db.general.model.SECGROUPRULE.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.SECGROUPRULE.project">
+<code class="descname">project</code><a class="headerlink" href="#cloudmesh_client.db.general.model.SECGROUPRULE.project" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.SECGROUPRULE.protocol">
+<code class="descname">protocol</code><a class="headerlink" href="#cloudmesh_client.db.general.model.SECGROUPRULE.protocol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.SECGROUPRULE.provider">
+<code class="descname">provider</code><a class="headerlink" href="#cloudmesh_client.db.general.model.SECGROUPRULE.provider" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.SECGROUPRULE.toPort">
+<code class="descname">toPort</code><a class="headerlink" href="#cloudmesh_client.db.general.model.SECGROUPRULE.toPort" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.SECGROUPRULE.type">
+<code class="descname">type</code><a class="headerlink" href="#cloudmesh_client.db.general.model.SECGROUPRULE.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.SECGROUPRULE.updated_at">
+<code class="descname">updated_at</code><a class="headerlink" href="#cloudmesh_client.db.general.model.SECGROUPRULE.updated_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.SECGROUPRULE.user">
+<code class="descname">user</code><a class="headerlink" href="#cloudmesh_client.db.general.model.SECGROUPRULE.user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.SECGROUPRULE.uuid">
+<code class="descname">uuid</code><a class="headerlink" href="#cloudmesh_client.db.general.model.SECGROUPRULE.uuid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.db.general.model.VAR">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.db.general.model.</code><code class="descname">VAR</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/general/model.html#VAR"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.general.model.VAR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.db.html#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin" title="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>table to store peristant variable values</p>
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.VAR.category">
+<code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.general.model.VAR.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.VAR.cm_id">
+<code class="descname">cm_id</code><a class="headerlink" href="#cloudmesh_client.db.general.model.VAR.cm_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.VAR.created_at">
+<code class="descname">created_at</code><a class="headerlink" href="#cloudmesh_client.db.general.model.VAR.created_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.VAR.kind">
+<code class="descname">kind</code><a class="headerlink" href="#cloudmesh_client.db.general.model.VAR.kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.VAR.label">
+<code class="descname">label</code><a class="headerlink" href="#cloudmesh_client.db.general.model.VAR.label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.VAR.name">
+<code class="descname">name</code><a class="headerlink" href="#cloudmesh_client.db.general.model.VAR.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.VAR.project">
+<code class="descname">project</code><a class="headerlink" href="#cloudmesh_client.db.general.model.VAR.project" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.VAR.provider">
+<code class="descname">provider</code><a class="headerlink" href="#cloudmesh_client.db.general.model.VAR.provider" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.VAR.type">
+<code class="descname">type</code><a class="headerlink" href="#cloudmesh_client.db.general.model.VAR.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.VAR.updated_at">
+<code class="descname">updated_at</code><a class="headerlink" href="#cloudmesh_client.db.general.model.VAR.updated_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.VAR.user">
+<code class="descname">user</code><a class="headerlink" href="#cloudmesh_client.db.general.model.VAR.user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.VAR.value">
+<code class="descname">value</code><a class="headerlink" href="#cloudmesh_client.db.general.model.VAR.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.db.general.model.WORKFLOW">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.db.general.model.</code><code class="descname">WORKFLOW</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/general/model.html#WORKFLOW"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.general.model.WORKFLOW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.db.html#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin" title="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>table to store default values</p>
+<p>if the category is &#8220;global&#8221; it is meant to be a global variable</p>
+<p>todo: check if its global or general</p>
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.WORKFLOW.category">
+<code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.general.model.WORKFLOW.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.WORKFLOW.cm_id">
+<code class="descname">cm_id</code><a class="headerlink" href="#cloudmesh_client.db.general.model.WORKFLOW.cm_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.WORKFLOW.created_at">
+<code class="descname">created_at</code><a class="headerlink" href="#cloudmesh_client.db.general.model.WORKFLOW.created_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.WORKFLOW.kind">
+<code class="descname">kind</code><a class="headerlink" href="#cloudmesh_client.db.general.model.WORKFLOW.kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.WORKFLOW.label">
+<code class="descname">label</code><a class="headerlink" href="#cloudmesh_client.db.general.model.WORKFLOW.label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.WORKFLOW.location">
+<code class="descname">location</code><a class="headerlink" href="#cloudmesh_client.db.general.model.WORKFLOW.location" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.WORKFLOW.name">
+<code class="descname">name</code><a class="headerlink" href="#cloudmesh_client.db.general.model.WORKFLOW.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.WORKFLOW.project">
+<code class="descname">project</code><a class="headerlink" href="#cloudmesh_client.db.general.model.WORKFLOW.project" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.WORKFLOW.provider">
+<code class="descname">provider</code><a class="headerlink" href="#cloudmesh_client.db.general.model.WORKFLOW.provider" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.WORKFLOW.status">
+<code class="descname">status</code><a class="headerlink" href="#cloudmesh_client.db.general.model.WORKFLOW.status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.WORKFLOW.type">
+<code class="descname">type</code><a class="headerlink" href="#cloudmesh_client.db.general.model.WORKFLOW.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.WORKFLOW.updated_at">
+<code class="descname">updated_at</code><a class="headerlink" href="#cloudmesh_client.db.general.model.WORKFLOW.updated_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.general.model.WORKFLOW.user">
+<code class="descname">user</code><a class="headerlink" href="#cloudmesh_client.db.general.model.WORKFLOW.user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cloudmesh_client.db.general">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cloudmesh_client.db.general" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cloudmesh_client.db.libcloud.html" class="btn btn-neutral float-right" title="cloudmesh_client.db.libcloud package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cloudmesh_client.db.azure.html" class="btn btn-neutral" title="cloudmesh_client.db.azure package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.1.5',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

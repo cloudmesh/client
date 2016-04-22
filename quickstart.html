@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quickstart &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>Quickstart &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="index.html"/>
         <link rel="next" title="Reference Card" href="reference_card.html"/>
         <link rel="prev" title="Introduction" href="introduction.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -88,12 +88,13 @@
 </ul>
 <p class="caption"><span class="caption-text">Short Manuals</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="">Quickstart</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#help">Help</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#cloudmesh-shell">Cloudmesh shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#defaults-and-variables">Defaults and Variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#accessing-clouds">Accessing Clouds</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#virtual-machines">Virtual Machines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vm-quickstart">VM Quickstart</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#hpc">HPC</a></li>
 </ul>
 </li>
@@ -183,17 +184,25 @@
 <p class="first admonition-title">Warning</p>
 <p class="last">This quickstart quide assumes that you have prepared your
 system according to the steps documented in the Section
-<a class="reference internal" href="system.html#preparation"><span>Preparation</span></a>.</p>
+<a class="reference internal" href="system.html#preparation"><span class="std std-ref">Preparation</span></a>. We also strongly recommend you read
+the sections <a class="reference internal" href="installation.html#installation"><span class="std std-ref">Installation</span></a> and
+<a class="reference internal" href="configuration.html#configuration"><span class="std std-ref">Configuration</span></a>.</p>
 </div>
 <div class="section" id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">At this time do not use the pip install as we have not
+yet uploaded the newest version to pypi. Instead, plase
+use the source install discussed in our manual</p>
+</div>
 <p>The setup of cloudmesh client is quite simple and can be done with:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>pip install cloudmesh_client
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">cloudmesh_client</span>
 </pre></div>
 </div>
 <p>However, you may want to read carefully our setup guide and prepare
 your machine as your OS may not have the required packages installed
-by default (see: <a class="reference internal" href="system.html#preparation"><span>Preparation</span></a>).</p>
+by default (see: <a class="reference internal" href="system.html#preparation"><span class="std std-ref">Preparation</span></a>).</p>
 </div>
 <div class="section" id="help">
 <h2>Help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h2>
@@ -204,70 +213,102 @@ span.prompt1:before {
   content: "cm> ";
 }
 </style><span class="prompt1">help</span>
-</pre><p>When locationg a specific command you want to know more about, lets assume you want to know more about the command <cite>color</cite>, say</p>
+</pre><p>When locationg a specific command you want to know more about, lets
+assume you want to know more about the command <cite>color</cite>, say</p>
 <pre class="highlight"><span class="prompt1">help color</span>
 </pre></div>
-<div class="section" id="cloudmesh-shell">
-<h2>Cloudmesh shell<a class="headerlink" href="#cloudmesh-shell" title="Permalink to this headline">¶</a></h2>
-<p>The cloudmesh shell contains a number of simple abstractions. This
-includes defaults, variables and configuration flags.</p>
+<div class="section" id="defaults-and-variables">
+<h2>Defaults and Variables<a class="headerlink" href="#defaults-and-variables" title="Permalink to this headline">¶</a></h2>
+<p>The cloudmesh shell contains a number of useful concepts. This
+includes defaults, variables and configuration flags.
+While Variables are not saved between different instantiations of
+cloudmesh, defaults are saved. Thus the values of defaults can be used
+consistently between invocations.</p>
 <p>To set a default value, for example to set the default cloud to kilo use:</p>
 <pre class="highlight"><span class="prompt1">default cloud=kilo</span>
-</pre><p>To configure color output of the cloudmesh shell use:</p>
-<pre class="highlight"><span class="prompt1">color on</span>
-</pre><p>To conduct a live refresh in a cloud please use</p>
+</pre><p>Some defaults are also set via special commands to make the use more prominent.
+To configure color output of the cloudmesh shell use:</p>
+<p>For example to set the refresh behavior to update a list command from
+a cloud before display you can either use the command:</p>
 <pre class="highlight"><span class="prompt1">refresh on</span>
+</pre><p>or</p>
+<pre class="highlight"><span class="prompt1">default refresh=True</span>
 </pre></div>
 <div class="section" id="accessing-clouds">
 <h2>Accessing Clouds<a class="headerlink" href="#accessing-clouds" title="Permalink to this headline">¶</a></h2>
-<p>Naturally you want to get started with clouds. In case you have a
+<p>Naturally, you want to get started with clouds. In case you have a
 username and project in futuresystems using cloudmesh is easy. Only
 thing you need is an entry in the .ssh/config file with the machine
 name india, like follows:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>Host india
-Hostname india.futuresystems.org
-User albert
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Host</span> <span class="n">india</span>
+<span class="n">Hostname</span> <span class="n">india</span><span class="o">.</span><span class="n">futuresystems</span><span class="o">.</span><span class="n">org</span>
+<span class="n">User</span> <span class="n">albert</span>
 </pre></div>
 </div>
 <p>Next you can register the cloud(s) with:</p>
 <pre class="highlight"><span class="prompt1">register remote</span>
 </pre><p>This will fetch the necessary credentials from the cloud,
-and poplulate the cloudmesh.yaml file for you. At this time it will
-create an entry for a cloud named kilo.</p>
+and populate the cloudmesh.yaml file for you. At this time it will
+update an entry for a cloud named kilo.</p>
+<p>In case you want to add other clouds such as chameleon you can use the
+command</p>
+<pre class="highlight"><span class="prompt1">register chameleon</span>
+</pre><p>This command will than interactively ask you for information about
+the cloud credentials and update the yaml file accordingly. To set the
+default cloud use the <cite>default</cite> command.</p>
 <p>If you need to view the flavors and images in the cloud, use:</p>
 <pre class="highlight"><span class="prompt1">image refresh</span>
 <span class="prompt1">flavor refresh</span>
-</pre><p>To list the images/flavors use the following:</p>
-<pre class="highlight"><span class="prompt1">list image</span>
-<span class="prompt1">list flavor</span>
-</pre><p>To set default flavor and image use:</p>
-<pre class="highlight"><span class="prompt1">default image=Ubuntu 14.04</span>
-<span class="prompt1">default flavor=m1.tiny</span>
-</pre><p>You also need to set your default group. If you already have a group
-created you can use that or else you can specify a new group name.</p>
-<pre class="highlight"><span class="prompt1">default group=test-group</span>
+</pre><p>The refresh commands are not necessary if you use <cite>refresh
+on</cite>. However in this case every time you invoke a list command the
+cloud is contacted and the data is updated. IF you do not use refresh,
+the data is read from an internal database.</p>
+<p>To list the images, flavors, and vms use the following:</p>
+<pre class="highlight"><span class="prompt1">image list</span>
+<span class="prompt1">flavor list</span>
+<span class="prompt1">vm list</span>
+</pre><p>To se a selected number of important defaults for the clouds use the
+command</p>
+<pre class="highlight"><span class="prompt1">cm info</span>
+</pre><p>To set default flavor and image use, inspect the results from the list
+commands, decide which you want to use, and simply set them for the
+current default cloud. Also make sure that the image size is
+appropriate. Some images will not fit in a small flavor.
+And as always, please assure proper spelling of the image name:</p>
+<pre class="highlight"><span class="prompt1">default image=Ubuntu-14.04-64</span>
+<span class="prompt1">default flavor=m1.small</span>
+</pre><p>When starting vms the vms are added to a default group. The initial
+default group name is simply &#8216;default&#8217;. If you like to change it you
+can set it with the following command:</p>
+<pre class="highlight"><span class="prompt1">default group=experiment_a</span>
 </pre><p>Next, you need to upload your ssh keys to the cloud. If you already
 have a key-pair you can use it, or else you can generate ssh keys using:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ ssh-keygen -t rsa -C albert@albert-pc
-</pre></div>
-</div>
-<p>This will generate id_rsa.pub (public key) and id_rsa (private key)
-in the ~/.ssh/ directory.</p>
-<p>First step (in the process of uploading key to cloud), is to add this key
-to the key database. To do so, use:</p>
-<pre class="highlight"><span class="prompt1">key add --ssh --name=id_rsa</span>
+<pre class="highlight"><style type="text/css">
+span.prompt2:before {
+  content: "$ ";
+}
+</style><span class="prompt2">ssh-keygen -t rsa -C albert@gmail.com</span>
+</pre><p>This will generate a keypair id_rsa.pub (public key) and id_rsa (private key)
+in the ~/.ssh/ directory. Next you need to add this key to cloudmesh
+with:</p>
+<pre class="highlight"><span class="prompt1">key add --ssh</span>
 </pre><p>You can list the keys in the key database by using:</p>
 <pre class="highlight"><span class="prompt1">key list</span>
 </pre><p>The output would look something like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>+--------+----------------+-------------------------------------+--------------+--------+
-| name   | comment        | uri                                 | fingerprint  | source |
-+--------+----------------+-------------------------------------+--------------+--------+
-| id_rsa | albert@mycompi | file:///home/albert/.ssh/id_rsa.pub | 64:aa: ....  | ssh    |
-+--------+----------------+-------------------------------------+--------------+--------+
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+--------+------------------+-------------------------------------+--------------+--------+</span>
+<span class="o">|</span> <span class="n">name</span>   <span class="o">|</span> <span class="n">comment</span>          <span class="o">|</span> <span class="n">uri</span>                                 <span class="o">|</span> <span class="n">fingerprint</span>  <span class="o">|</span> <span class="n">source</span> <span class="o">|</span>
+<span class="o">+--------+------------------+-------------------------------------+--------------+--------+</span>
+<span class="o">|</span> <span class="n">id_rsa</span> <span class="o">|</span> <span class="n">albert</span><span class="nd">@gmail</span><span class="o">.</span><span class="n">com</span> <span class="o">|</span> <span class="n">file</span><span class="p">:</span><span class="o">///</span><span class="n">home</span><span class="o">/</span><span class="n">albert</span><span class="o">/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span><span class="o">.</span><span class="n">pub</span> <span class="o">|</span> <span class="mi">64</span><span class="p">:</span><span class="n">aa</span><span class="p">:</span> <span class="o">....</span>  <span class="o">|</span> <span class="n">ssh</span>    <span class="o">|</span>
+<span class="o">+--------+------------------+-------------------------------------+--------------+--------+</span>
 </pre></div>
 </div>
-<p>Then, to upload this key to the cloud (your default cloud) use:</p>
-<pre class="highlight"><span class="prompt1">key upload albert_ssh_key</span>
+<p>Next the key needs to be uploaded to the cloud. Here we take advantage
+of the default cloud being automatically used:</p>
+<pre class="highlight"><span class="prompt1">key upload</span>
+</pre><p>in case you want to upload it to another cloud you can set the default
+cloud and repeat this command, or simply specify the cloud as a
+parameter:</p>
+<pre class="highlight"><span class="prompt1">key upload --cloud=chameleon</span>
 </pre></div>
 <div class="section" id="virtual-machines">
 <h2>Virtual Machines<a class="headerlink" href="#virtual-machines" title="Permalink to this headline">¶</a></h2>
@@ -276,19 +317,19 @@ to start a new VM in the cloud. This section explains how to do that.</p>
 <p>First, make sure all defaults are correctly set.</p>
 <pre class="highlight"><span class="prompt1">vm default</span>
 </pre><p>The output will look somewhat similar to the following:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>+-----------+---------------+
-| Attribute | Value         |
-+-----------+---------------+
-| secgroup  |               |
-| name      | albert-001    |
-| image     | Ubuntu 14.04  |
-| cloud     | kilo          |
-| group     | test-group    |
-| key       | id_rsa        |
-| flavor    | m1.tiny       |
-| login_key |               |
-+-----------+---------------+
-info. OK.
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+-----------+---------------+</span>
+<span class="o">|</span> <span class="n">Attribute</span> <span class="o">|</span> <span class="n">Value</span>         <span class="o">|</span>
+<span class="o">+-----------+---------------+</span>
+<span class="o">|</span> <span class="n">secgroup</span>  <span class="o">|</span>               <span class="o">|</span>
+<span class="o">|</span> <span class="n">name</span>      <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">001</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="n">image</span>     <span class="o">|</span> <span class="n">Ubuntu</span> <span class="mf">14.04</span>  <span class="o">|</span>
+<span class="o">|</span> <span class="n">cloud</span>     <span class="o">|</span> <span class="n">kilo</span>          <span class="o">|</span>
+<span class="o">|</span> <span class="n">group</span>     <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="n">group</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="n">key</span>       <span class="o">|</span> <span class="n">id_rsa</span>        <span class="o">|</span>
+<span class="o">|</span> <span class="n">flavor</span>    <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">tiny</span>       <span class="o">|</span>
+<span class="o">|</span> <span class="n">login_key</span> <span class="o">|</span>               <span class="o">|</span>
+<span class="o">+-----------+---------------+</span>
+<span class="n">info</span><span class="o">.</span> <span class="n">OK</span><span class="o">.</span>
 </pre></div>
 </div>
 <p>Starting a VM now is as simple as executing a single command.</p>
@@ -298,41 +339,61 @@ You need to refresh the database before listing VMs.</p>
 <pre class="highlight"><span class="prompt1">vm refresh</span>
 <span class="prompt1">vm list</span>
 </pre><p>The output will look something like follows:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>+----+--------------+------------+--------+-----------+-------------+----------+---------+--------+-------+
-| id | uuid         | label      | status | static_ip | floating_ip | key_name | project | user   | cloud |
-+----+--------------+------------+--------+-----------+-------------+----------+---------+--------+-------+
-| 47 | 8af4177f-... | albert-001 | ACTIVE | 10.0.2.37 |             | id_rsa   | fg478   | albert | kilo  |
-+----+--------------+------------+--------+-----------+-------------+----------+---------+--------+-------+
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+----+--------------+------------+--------+-----------+-------------+----------+---------+--------+-------+</span>
+<span class="o">|</span> <span class="nb">id</span> <span class="o">|</span> <span class="n">uuid</span>         <span class="o">|</span> <span class="n">label</span>      <span class="o">|</span> <span class="n">status</span> <span class="o">|</span> <span class="n">static_ip</span> <span class="o">|</span> <span class="n">floating_ip</span> <span class="o">|</span> <span class="n">key_name</span> <span class="o">|</span> <span class="n">project</span> <span class="o">|</span> <span class="n">user</span>   <span class="o">|</span> <span class="n">cloud</span> <span class="o">|</span>
+<span class="o">+----+--------------+------------+--------+-----------+-------------+----------+---------+--------+-------+</span>
+<span class="o">|</span> <span class="mi">47</span> <span class="o">|</span> <span class="mi">8</span><span class="n">af4177f</span><span class="o">-...</span> <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">001</span> <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.37</span> <span class="o">|</span>             <span class="o">|</span> <span class="n">id_rsa</span>   <span class="o">|</span> <span class="n">fg478</span>   <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span>
+<span class="o">+----+--------------+------------+--------+-----------+-------------+----------+---------+--------+-------+</span>
 </pre></div>
 </div>
 <p>Congratulations! you have now learnt how to set up cloudmesh, and use it to start a VM.
 Next step naturally is to login to the virtual machine. To do so, we need to assign it
 a public IP (also called floating IP).</p>
 <p>To associate a floating ip to an instance (albert-001) in our case, use:</p>
-<pre class="highlight"><span class="prompt1">network associate floating ip --instance=albert-001</span>
+<pre class="highlight"><span class="prompt1">vm ip assign albert-001</span>
 </pre><p>Listing VMs will now show you this floating ip:</p>
 <pre class="highlight"><span class="prompt1">vm list</span>
-</pre><div class="highlight-python"><div class="highlight"><pre><span></span>+----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+
-| id | uuid         | label      | status | static_ip | floating_ip  | key_name | project | user   | cloud |
-+----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+
-| 47 | 8af4177f-... | albert-001 | ACTIVE | 10.0.2.37 | 152.25.6.101 | id_rsa   | fg478   | albert | kilo  |
-+----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+</span>
+<span class="o">|</span> <span class="nb">id</span> <span class="o">|</span> <span class="n">uuid</span>         <span class="o">|</span> <span class="n">label</span>      <span class="o">|</span> <span class="n">status</span> <span class="o">|</span> <span class="n">static_ip</span> <span class="o">|</span> <span class="n">floating_ip</span>  <span class="o">|</span> <span class="n">key_name</span> <span class="o">|</span> <span class="n">project</span> <span class="o">|</span> <span class="n">user</span>   <span class="o">|</span> <span class="n">cloud</span> <span class="o">|</span>
+<span class="o">+----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+</span>
+<span class="o">|</span> <span class="mi">47</span> <span class="o">|</span> <span class="mi">8</span><span class="n">af4177f</span><span class="o">-...</span> <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">001</span> <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.37</span> <span class="o">|</span> <span class="mf">152.25</span><span class="o">.</span><span class="mf">6.101</span> <span class="o">|</span> <span class="n">id_rsa</span>   <span class="o">|</span> <span class="n">fg478</span>   <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span>
+<span class="o">+----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+</span>
 </pre></div>
 </div>
-<p>Next, you need to set your login key to be able to ssh to the VM.
-This will be the path to the private key (id_rsa) corresponding to
-the public key we uploaded to the cloud:</p>
-<pre class="highlight"><span class="prompt1">default login_key=~/.ssh/id_rsa</span>
-</pre><p>Logging into the cloud is now as simple as:</p>
+<p>Logging into the cloud is now as simple as:</p>
 <pre class="highlight"><span class="prompt1">vm login albert-001</span>
-</pre><p>This should get you through to the ssh session to the VM.
-Congratulations! You have now learnt how to start a new VM and log into a VM.</p>
-<p>To delete a VM, you use:</p>
+</pre><p>This should get you through to the ssh session to the VM.The user name
+to be used at login is either automatically detected and added to the
+vm information. If you like to change the username for the login you can use the
+username parameter</p>
+<pre class="highlight"><span class="prompt1">vm login albert-001 --username=ubuntu</span>
+</pre><p>To change the default username for a vm you can use the command</p>
+<pre class="highlight"><span class="prompt1">vm username ubuntu albert-001</span>
+</pre><p>This will set the username for the vm <cite>albert-001</cite> to <cite>ubuntu</cite></p>
+<p>To delete a VM, you use the vm name:</p>
 <pre class="highlight"><span class="prompt1">vm delete albert-001</span>
+</pre></div>
+<div class="section" id="vm-quickstart">
+<h2>VM Quickstart<a class="headerlink" href="#vm-quickstart" title="Permalink to this headline">¶</a></h2>
+<p>To summarize the steps to start a working cloudmesh client and prepare
+a simple default while using the <cite>futuresystems.org</cite> cloud use the commands:</p>
+<pre class="highlight"><span class="prompt1">cm add key --ssh</span>
+<span class="prompt1">cm register remote</span>
+<span class="prompt1">cm default cloud=kilo</span>
+<span class="prompt1">cm refresh on</span>
+<span class="prompt1">cm info</span>
+</pre><p>Inspect the info and see if the settings satisfy your needs. Change
+them accordingly with the cloudmesh commands.</p>
+<p>Now booting and managing a vm is real simple</p>
+<pre class="highlight"><span class="prompt1">cm boot</span>
+<span class="prompt1">cm ip assign</span>
+<span class="prompt1">cm login</span>
+</pre><p>And to delete the vm</p>
+<pre class="highlight"><span class="prompt1">cm delete --force</span>
 </pre></div>
 <div class="section" id="hpc">
 <h2>HPC<a class="headerlink" href="#hpc" title="Permalink to this headline">¶</a></h2>
-<p>IN order to use the HPC experiment management functionality, you must
+<p>In order to use the HPC experiment management functionality, you must
 register the queuing system in the yaml file and register the login
 node in the .ssh/config file. If you are using india and have used the
 clouds before, you may have already done this.</p>
@@ -388,7 +449,7 @@ system further to for example list the output</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

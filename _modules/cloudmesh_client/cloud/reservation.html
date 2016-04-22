@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.reservation &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>cloudmesh_client.cloud.reservation &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -182,10 +182,9 @@
 
 
 <div class="viewcode-block" id="Reservation"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation">[docs]</a><span class="k">class</span> <span class="nc">Reservation</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="o">.</span><span class="n">CloudmeshDatabase</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Reservation.info"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Reservation.info"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        prints if the user has access to the reservation an on which host.</span>
 
@@ -195,7 +194,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Reservation.add_from_file"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.add_from_file">[docs]</a>    <span class="k">def</span> <span class="nf">add_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="Reservation.add_from_file"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.add_from_file">[docs]</a>    <span class="k">def</span> <span class="nf">add_from_file</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        :param filename:</span>
@@ -203,7 +202,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Reservation.add"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Reservation.add"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span>
             <span class="n">name</span><span class="p">,</span>
             <span class="n">start</span><span class="p">,</span>
             <span class="n">end</span><span class="p">,</span>
@@ -211,7 +211,7 @@
             <span class="n">project</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
             <span class="n">hosts</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
             <span class="n">description</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-            <span class="n">cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+            <span class="n">category</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        :param name: Name of reservation</span>
@@ -224,19 +224,24 @@
 <span class="sd">        :param cloud: Cloud into which reservation done</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">obj_d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">db_obj_dict</span><span class="p">(</span><span class="s2">&quot;reservation&quot;</span><span class="p">,</span>
-                                    <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-                                    <span class="n">hosts</span><span class="o">=</span><span class="n">hosts</span><span class="p">,</span>
-                                    <span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span>
-                                    <span class="n">end</span><span class="o">=</span><span class="n">end</span><span class="p">,</span>
-                                    <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span>
-                                    <span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span>
-                                    <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
-                                    <span class="n">project</span><span class="o">=</span><span class="n">project</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">add_obj</span><span class="p">(</span><span class="n">obj_d</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Reservation.delete"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;provider&quot;</span><span class="p">:</span> <span class="s2">&quot;general&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;reservation&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+            <span class="s2">&quot;hosts&quot;</span><span class="p">:</span> <span class="n">hosts</span><span class="p">,</span>
+            <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="n">start</span><span class="p">,</span>
+            <span class="s2">&quot;end&quot;</span><span class="p">:</span> <span class="n">end</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">description</span><span class="p">,</span>
+            <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="n">category</span><span class="p">,</span>
+            <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="n">user</span><span class="p">,</span>
+            <span class="s2">&quot;project&quot;</span><span class="p">:</span> <span class="n">project</span>
+        <span class="p">}</span>
+
+        <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">o</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Reservation.delete"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span>
                <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                <span class="n">start</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                <span class="n">end</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
@@ -270,12 +275,13 @@
             <span class="n">args</span><span class="p">[</span><span class="s1">&#39;hosts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hosts</span>
 
         <span class="c1"># TODO: Improve this logic</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;RESERVATION&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
-        <span class="k">while</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;RESERVATION&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span></div>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;reservation&quot;</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;reservation&quot;</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">res</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="Reservation.delete_from_file"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.delete_from_file">[docs]</a>    <span class="k">def</span> <span class="nf">delete_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Reservation.delete_from_file"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.delete_from_file">[docs]</a>    <span class="k">def</span> <span class="nf">delete_from_file</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        :param filename:</span>
@@ -283,19 +289,24 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Reservation.suspend"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.suspend">[docs]</a>    <span class="k">def</span> <span class="nf">suspend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Reservation.suspend"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.suspend">[docs]</a>    <span class="k">def</span> <span class="nf">suspend</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Reservation.clear"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Reservation.clear"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Reservation.refresh"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Reservation.refresh"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Reservation.resume"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.resume">[docs]</a>    <span class="k">def</span> <span class="nf">resume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Reservation.resume"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.resume">[docs]</a>    <span class="k">def</span> <span class="nf">resume</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Reservation.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Reservation.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span>
              <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
              <span class="n">start</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
              <span class="n">end</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
@@ -313,6 +324,7 @@
 <span class="sd">        :param hosts: Hosts reserved</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
@@ -327,13 +339,15 @@
             <span class="n">args</span><span class="p">[</span><span class="s1">&#39;project&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">project</span>
         <span class="k">if</span> <span class="n">hosts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">args</span><span class="p">[</span><span class="s1">&#39;hosts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hosts</span>
+        <span class="n">args</span><span class="p">[</span><span class="s2">&quot;kind&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;reservation&quot;</span>
 
         <span class="c1"># print(args)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;RESERVATION&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
         <span class="c1"># print(&quot;RESULT:- {}&quot;.format(result))</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="Reservation.update"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Reservation.update"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span>
                <span class="n">name</span><span class="p">,</span>
                <span class="n">start</span><span class="p">,</span>
                <span class="n">end</span><span class="p">,</span>
@@ -343,26 +357,26 @@
                <span class="n">description</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                <span class="n">cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
 
-        <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">entry</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;start_time&#39;</span><span class="p">:</span> <span class="n">start</span><span class="p">,</span>
+            <span class="s1">&#39;end_time&#39;</span><span class="p">:</span> <span class="n">end</span><span class="p">,</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+            <span class="s1">&#39;user&#39;</span><span class="p">:</span> <span class="n">user</span><span class="p">,</span>
+            <span class="s1">&#39;project&#39;</span><span class="p">:</span> <span class="n">project</span><span class="p">,</span>
+            <span class="s1">&#39;hosts&#39;</span><span class="p">:</span> <span class="n">hosts</span><span class="p">,</span>
+            <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="n">description</span><span class="p">,</span>
+            <span class="s1">&#39;cloud&#39;</span><span class="p">:</span> <span class="n">cloud</span><span class="p">,</span>
+            <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;reservation&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;provider&quot;</span><span class="p">:</span> <span class="s2">&quot;general&quot;</span>
+        <span class="p">}</span>
 
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;start_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">start</span>
-        <span class="k">if</span> <span class="n">end</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;end_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">end</span>
-        <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">user</span>
-        <span class="k">if</span> <span class="n">project</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;project&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">project</span>
-        <span class="k">if</span> <span class="n">hosts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;hosts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hosts</span>
-        <span class="k">if</span> <span class="n">description</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">description</span>
-        <span class="k">if</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;cloud&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cloud</span>
+        <span class="n">update</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">entry</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">update</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;RESERVATION&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span></div></div>
+        <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;ARGS&quot;</span><span class="p">,</span> <span class="n">update</span><span class="p">)</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>
@@ -395,7 +409,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

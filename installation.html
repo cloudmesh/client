@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>Installation &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="index.html"/>
         <link rel="up" title="Setup" href="setup.html"/>
         <link rel="next" title="Configuration" href="configuration.html"/>
         <link rel="prev" title="Preparation" href="system.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -98,7 +98,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="setup.html">Setup</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="system.html">Preparation</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Installation</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Installation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#install-cloudmesh-client-via-pip">Install Cloudmesh Client via pip</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cloudmesh-installation-from-source">Cloudmesh Installation from Source</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#updating-an-existing-source-distribution">Updating an existing source distribution</a></li>
@@ -185,7 +185,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <p>We assume that you have prepared your system (see Section
 <span class="xref std std-ref">_my-reference-label</span>) on which you like to install the cloudmesh
 client. We recommend that you use python 2.7.10, pip 7.1.2 and use
@@ -198,9 +198,9 @@ to replicate.</p>
 <h2>Install Cloudmesh Client via pip<a class="headerlink" href="#install-cloudmesh-client-via-pip" title="Permalink to this headline">¶</a></h2>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">at this time we recommend you use the source install and not</p>
+<p class="last">at this time we recommend you use the source install and not
+the pip install, as we have not updated the code to pypi.</p>
 </div>
-<p>the pip install</p>
 <p>Users can install the cloudmesh client via pip</p>
 <pre class="highlight"><style type="text/css">
 span.prompt1:before {
@@ -209,29 +209,37 @@ span.prompt1:before {
 </style><span class="prompt1"><span class="nb">cd</span> ~</span>
 <span class="prompt1">pip install cloudmesh_client</span>
 </pre><p>Please note that the directory in which you call pip install does not have a
-directory called cloudmesh_client THis may prevent pip from working properly.</p>
+directory called cloudmesh_client This may prevent pip from working properly.</p>
 </div>
 <div class="section" id="cloudmesh-installation-from-source">
 <h2>Cloudmesh Installation from Source<a class="headerlink" href="#cloudmesh-installation-from-source" title="Permalink to this headline">¶</a></h2>
-<p>Developers that wish to contribute to the source can obtain the code from
+<p>Users can also install cloudmesh from the source code located in
 github. We assume that we conduct a source code install into the directory:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>~/github/cloudmesh
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">~/</span><span class="n">github</span><span class="o">/</span><span class="n">cloudmesh</span>
 </pre></div>
 </div>
 <p>If you like to use a different directory, that is also possible, but
 the instructions we provide here assumes are targeted towards this
-base directory.</p>
-<p>Please use the following commands</p>
+base directory. Please use the following commands</p>
 <pre class="highlight"><span class="prompt1">mkdir -p github/cloudmesh</span>
 <span class="prompt1"><span class="nb">cd</span> github/cloudmesh</span>
 <span class="prompt1">git clone https://github.com/cloudmesh/client.git</span>
 <span class="prompt1"><span class="nb">cd</span> client</span>
+<span class="prompt1"><span class="c1"># make sure you have a virtualenv configured and activated</span></span>
+<span class="prompt1"><span class="c1"># chose your branch and do either</span></span>
 <span class="prompt1">python setup.py install</span>
-</pre><div class="section" id="updating-an-existing-source-distribution">
+</pre><p>We have two branches in the code. The <cite>master</cite> branch and the <cite>dev</cite> branch.</p>
+<p>The master branch provides a snapshot of the code that should work and has
+passed the unit tests. If you have issues, please send us mail.</p>
+<p>However, in some circumstances you may which to use the newest version of
+cloudmesh which you can get from the <cite>dev</cite> branch. To get the newest version issue the command</p>
+<pre class="highlight"><span class="prompt1">git checkout dev</span>
+</pre><p>before you call the command <cite>python setup.py install</cite>. For more information about git see the
+github manual on the github.com web page.</p>
+<div class="section" id="updating-an-existing-source-distribution">
 <h3>Updating an existing source distribution<a class="headerlink" href="#updating-an-existing-source-distribution" title="Permalink to this headline">¶</a></h3>
 <p>During the development phase of cloudmesh you may need to update the
-code from source, as cloudmesh client uses three different
-repositories please do not forget to update them accordingly</p>
+code from source. Please do not forget to update them accordingly</p>
 <pre class="highlight"><span class="prompt1"><span class="nb">export</span> <span class="nv">CLOUDMESH_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/github/cloudmesh</span>
 <span class="prompt1"><span class="nb">cd</span> <span class="nv">$CLOUDMESH_HOME</span>/client</span>
 <span class="prompt1">git pull</span>
@@ -280,7 +288,7 @@ repositories please do not forget to update them accordingly</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

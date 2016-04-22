@@ -44,6 +44,14 @@ cloudmesh_client.common.FlatDict module
     :undoc-members:
     :show-inheritance:
 
+cloudmesh_client.common.GitInfo module
+--------------------------------------
+
+.. automodule:: cloudmesh_client.common.GitInfo
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.common.LibcloudDict module
 -------------------------------------------
 
@@ -68,6 +76,14 @@ cloudmesh_client.common.Printer module
     :undoc-members:
     :show-inheritance:
 
+cloudmesh_client.common.SSHkey module
+-------------------------------------
+
+.. automodule:: cloudmesh_client.common.SSHkey
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.common.Shell module
 ------------------------------------
 
@@ -88,6 +104,22 @@ cloudmesh_client.common.TableParser module
 ------------------------------------------
 
 .. automodule:: cloudmesh_client.common.TableParser
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.common.borg module
+-----------------------------------
+
+.. automodule:: cloudmesh_client.common.borg
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.common.dotdict module
+--------------------------------------
+
+.. automodule:: cloudmesh_client.common.dotdict
     :members:
     :undoc-members:
     :show-inheritance:
@@ -128,6 +160,14 @@ cloudmesh_client.common.type module
 -----------------------------------
 
 .. automodule:: cloudmesh_client.common.type
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.common.util module
+-----------------------------------
+
+.. automodule:: cloudmesh_client.common.util
     :members:
     :undoc-members:
     :show-inheritance:

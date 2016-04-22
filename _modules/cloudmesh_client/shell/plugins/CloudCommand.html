@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins.CloudCommand &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>cloudmesh_client.shell.plugins.CloudCommand &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -175,9 +175,11 @@
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">dict_printer</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">Printer</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.CloudProvider</span> <span class="kn">import</span> <span class="n">CloudProvider</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span><span class="p">,</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 
 
 <div class="viewcode-block" id="CloudCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.CloudCommand.CloudCommand">[docs]</a><span class="k">class</span> <span class="nc">CloudCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
@@ -247,9 +249,8 @@
 <span class="sd">          See also:</span>
 <span class="sd">             register</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># pprint(arguments)</span>
 
-        <span class="n">cloudname</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_cloud</span><span class="p">()</span>
+        <span class="n">cloudname</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">cloud</span>
 
         <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;logon&quot;</span><span class="p">]:</span>
             <span class="n">cloudname</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CLOUD&quot;</span><span class="p">]</span>
@@ -278,10 +279,27 @@
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;list&quot;</span><span class="p">]:</span>
             <span class="n">provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
             <span class="n">clouds</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">list_clouds</span><span class="p">()</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">cloud</span>
+            <span class="n">active</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;active&quot;</span><span class="p">]</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_key</span><span class="p">()</span>
+
+            <span class="k">def</span> <span class="nf">yes</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">state</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="s2">&quot;*&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="s2">&quot; &quot;</span>
+
+            <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">clouds</span><span class="p">:</span>
+                <span class="n">cloud</span> <span class="o">=</span> <span class="n">clouds</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+                <span class="n">cloud</span><span class="p">[</span><span class="s2">&quot;active&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">yes</span><span class="p">(</span><span class="n">cloud</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">active</span><span class="p">)</span>
+                <span class="n">cloud</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">yes</span><span class="p">(</span><span class="n">cloud</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">default</span><span class="p">)</span>
+                <span class="n">cloud</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
+                <span class="n">cloud</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">index</span>
+
             <span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">header</span><span class="p">)</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span><span class="o">.</span><span class="n">get_attributes</span><span class="p">(</span><span class="s2">&quot;clouds&quot;</span><span class="p">)</span>
 
-            <span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">dict_printer</span><span class="p">(</span><span class="n">clouds</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">))</span>
-        <span class="k">pass</span></div>
+            <span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">clouds</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">))</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
 </pre></div>
 
            </div>
@@ -314,7 +332,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

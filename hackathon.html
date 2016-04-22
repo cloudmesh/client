@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Using python 2 and 3 for development &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>Using python 2 and 3 for development &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="index.html"/>
         <link rel="prev" title="cloudmesh_client.system package" href="code/cloudmesh_client.system.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -122,7 +122,7 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="todo.html">ToDos</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Using python 2 and 3 for development</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using python 2 and 3 for development</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#install-python-3-5-and-2-7-11">Install python 3.5 and 2.7.11</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#osx">OSX</a></li>
 </ul>
@@ -211,7 +211,7 @@ span.prompt1:before {
 </style><span class="prompt1">$ ls /Library/Frameworks/Python.framework/Versions/3.5/bin</span>
 <span class="prompt1">$ ls /Library/Frameworks/Python.framework/Versions/2.7/bin</span>
 </pre><p>Next you may run outdated versions of pip that you need to update and install virtualenv:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>.. prompt:: bash
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">prompt</span><span class="p">::</span> <span class="n">bash</span>
 </pre></div>
 </div>
 <blockquote>
@@ -222,7 +222,7 @@ pip2.7 install &#8211;user virtualenv</div></blockquote>
 <p>Edit the  bash_profile with your prefered editor and append some useful aliasses:</p>
 <pre class="highlight"><span class="prompt1">emacs ~/.bash_profile</span>
 </pre><p>Append the following aliasses:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>alias virtualenv3=&#39;~/Library/Python/3.5/bin/virtualenv&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span>alias virtualenv3=&#39;~/Library/Python/3.5/bin/virtualenv&#39;
 alias virtualenv2=&#39;~/Library/Python/2.7/bin/virtualenv&#39;
 alias ENV2=`source ~/ENV2/bin/activate`
 alias ENV3=`source ~/ENV3/bin/activate`
@@ -251,7 +251,7 @@ which version of python we use:</p>
 <h1>Python Guidelines<a class="headerlink" href="#python-guidelines" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="exceptions">
 <h2>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre><span></span>from cloudmesh_client.common.Error import Error
+<div class="highlight-default"><div class="highlight"><pre><span></span>from cloudmesh_client.common.Error import Error
 Error.msg(“msg&quot;)
 Error.info(“msg”)
 Error.debug(“msg”)
@@ -457,7 +457,7 @@ YES!
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.comet.authenticate &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>cloudmesh_client.comet.authenticate &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -315,26 +315,26 @@
     <span class="c1"># in shell, we may ask user input</span>
     <span class="n">user</span> <span class="o">=</span> <span class="n">USERNAME</span>
     <span class="n">password</span> <span class="o">=</span> <span class="n">PASSWORD</span>
-    <span class="k">print</span> <span class="p">(</span><span class="n">auth</span><span class="o">.</span><span class="n">status</span><span class="p">())</span>
-    <span class="k">print</span> <span class="p">(</span><span class="n">auth</span><span class="o">.</span><span class="n">logon</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">))</span>
-    <span class="k">print</span> <span class="p">(</span><span class="n">auth</span><span class="o">.</span><span class="n">status</span><span class="p">())</span>
-    <span class="k">print</span> <span class="p">(</span><span class="n">auth</span><span class="o">.</span><span class="n">logoff</span><span class="p">())</span>
-    <span class="k">print</span> <span class="p">(</span><span class="n">auth</span><span class="o">.</span><span class="n">status</span><span class="p">())</span>
-    <span class="k">print</span> <span class="p">(</span><span class="n">auth</span><span class="o">.</span><span class="n">logoff</span><span class="p">())</span></div>
+    <span class="k">print</span><span class="p">(</span><span class="n">auth</span><span class="o">.</span><span class="n">status</span><span class="p">())</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">auth</span><span class="o">.</span><span class="n">logon</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">auth</span><span class="o">.</span><span class="n">status</span><span class="p">())</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">auth</span><span class="o">.</span><span class="n">logoff</span><span class="p">())</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">auth</span><span class="o">.</span><span class="n">status</span><span class="p">())</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">auth</span><span class="o">.</span><span class="n">logoff</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="test_get_cluster_list"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.test_get_cluster_list">[docs]</a><span class="k">def</span> <span class="nf">test_get_cluster_list</span><span class="p">():</span>
     <span class="n">token</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-    <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TEST 1: Get without logon&quot;</span><span class="p">)</span>
-    <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TEST 1: Get without logon&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
     <span class="n">authheader</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
                   <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s1">&#39;Token </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">token</span><span class="p">}</span>
     <span class="n">geturl</span> <span class="o">=</span> <span class="s2">&quot;http://localhost:8080/v1/cluster/&quot;</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">geturl</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">authheader</span><span class="p">)</span>
     <span class="n">pprint</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
 
-    <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TEST 2: Auth and then get cluster list&quot;</span><span class="p">)</span>
-    <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TEST 2: Auth and then get cluster list&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
     <span class="n">authurl</span> <span class="o">=</span> <span class="s2">&quot;http://localhost:8080/rest-auth&quot;</span>
     <span class="n">auth</span> <span class="o">=</span> <span class="n">Authenticator</span><span class="p">(</span><span class="n">authurl</span><span class="p">)</span>
     <span class="c1"># change user, password to proper value as set in django</span>
@@ -353,14 +353,14 @@
 
     <span class="c1"># as of 2:40pm ET Oct 15, this is changed to &#39;not implemented&#39;</span>
     <span class="c1"># as of 5:30pm ET this is now fixed and working</span>
-    <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TEST 3: Get cluster &#39;OSG&#39;&quot;</span><span class="p">)</span>
-    <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TEST 3: Get cluster &#39;OSG&#39;&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
     <span class="n">geturl1</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">geturl</span><span class="p">,</span> <span class="s2">&quot;osg/&quot;</span><span class="p">)</span>
     <span class="n">r1</span> <span class="o">=</span> <span class="n">hop_get</span><span class="p">(</span><span class="n">geturl1</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">authheader</span><span class="p">)</span>
     <span class="n">pprint</span><span class="p">(</span><span class="n">r1</span><span class="p">)</span>
 
-    <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TEST 4: logoff and get cluster list again&quot;</span><span class="p">)</span>
-    <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TEST 4: logoff and get cluster list again&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
     <span class="n">auth</span><span class="o">.</span><span class="n">logoff</span><span class="p">()</span>
     <span class="n">authheader</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
                   <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s1">&#39;Token </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">token</span><span class="p">}</span>
@@ -404,7 +404,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

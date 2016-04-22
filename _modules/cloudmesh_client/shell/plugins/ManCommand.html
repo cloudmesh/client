@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins.ManCommand &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>cloudmesh_client.shell.plugins.ManCommand &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -198,13 +198,13 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">print</span>
-        <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;Command - </span><span class="si">%s</span><span class="s2">::&quot;</span> <span class="o">%</span> <span class="n">what</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Command - </span><span class="si">%s</span><span class="s2">::&quot;</span> <span class="o">%</span> <span class="n">what</span><span class="p">)</span>
         <span class="n">h</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="k">exec</span> <span class="p">(</span><span class="s2">&quot;h = self.do_</span><span class="si">%s</span><span class="s2">.__doc__&quot;</span> <span class="o">%</span> <span class="n">what</span><span class="p">)</span>
+        <span class="k">exec</span><span class="p">(</span><span class="s2">&quot;h = self.do_</span><span class="si">%s</span><span class="s2">.__doc__&quot;</span> <span class="o">%</span> <span class="n">what</span><span class="p">)</span>
         <span class="c1"># noinspection PyUnboundLocalVariable</span>
         <span class="n">h</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">h</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;::</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="n">h</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">h</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">    &quot;</span><span class="p">)</span>
-        <span class="k">print</span> <span class="p">(</span><span class="n">h</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
 
     <span class="c1"># noinspection PyUnusedLocal</span>
     <span class="nd">@command</span>
@@ -232,25 +232,25 @@
         <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;COMMAND&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
 
             <span class="k">print</span>
-            <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;Commands&quot;</span><span class="p">)</span>
-            <span class="k">print</span> <span class="p">(</span><span class="mi">70</span> <span class="o">*</span> <span class="s2">&quot;=&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Commands&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="mi">70</span> <span class="o">*</span> <span class="s2">&quot;=&quot;</span><span class="p">)</span>
 
             <span class="n">commands</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;do_&quot;</span><span class="p">)]</span>
             <span class="n">commands</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">commands</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">str</span><span class="o">.</span><span class="n">lower</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">print</span> <span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
             <span class="n">commands</span> <span class="o">=</span> <span class="p">[</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;COMMAND&#39;</span><span class="p">]]</span>
 
         <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="n">commands</span><span class="p">:</span>
             <span class="n">what</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;do_&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--noheader&quot;</span><span class="p">]:</span>
-                    <span class="k">print</span> <span class="p">(</span><span class="n">what</span><span class="p">)</span>
-                    <span class="k">print</span> <span class="p">(</span><span class="mi">70</span> <span class="o">*</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span>
+                    <span class="k">print</span><span class="p">(</span><span class="n">what</span><span class="p">)</span>
+                    <span class="k">print</span><span class="p">(</span><span class="mi">70</span> <span class="o">*</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_print_rst</span><span class="p">(</span><span class="n">what</span><span class="p">)</span>
             <span class="k">except</span><span class="p">:</span>
-                <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">    Command documentation </span><span class="si">%s</span><span class="s2"> missing, help_</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">what</span><span class="p">,</span> <span class="n">what</span><span class="p">))</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">    Command documentation </span><span class="si">%s</span><span class="s2"> missing, help_</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">what</span><span class="p">,</span> <span class="n">what</span><span class="p">))</span>
             <span class="k">print</span>
         <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
 </pre></div>
@@ -285,7 +285,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

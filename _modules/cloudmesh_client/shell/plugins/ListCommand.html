@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins.ListCommand &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>cloudmesh_client.shell.plugins.ListCommand &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -176,7 +176,12 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.list</span> <span class="kn">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
+
 <span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.image</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.flavor</span> <span class="kn">import</span> <span class="n">Flavor</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.vm</span> <span class="kn">import</span> <span class="n">Vm</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span>
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
 
@@ -219,6 +224,7 @@
 <span class="sd">                $ list --cloud india --format table flavor</span>
 <span class="sd">                $ list --cloud india --user albert --tenant fg82 flavor</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="c1"># pprint(arguments)</span>
 
         <span class="c1"># Method to get the kind from args</span>
@@ -235,25 +241,26 @@
 
         <span class="c1"># Read commandline arguments</span>
         <span class="n">output_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--format&#39;</span><span class="p">]</span>
-        <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--cloud&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_cloud</span><span class="p">()</span>
+        <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--cloud&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">cloud</span>
         <span class="n">user</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--user&#39;</span><span class="p">]</span>
         <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--tenant&#39;</span><span class="p">]</span>
 
         <span class="c1"># If format is not specified, read default</span>
         <span class="k">if</span> <span class="n">output_format</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">output_format</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;format&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;table&quot;</span>
+            <span class="n">output_format</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;format&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;table&quot;</span>
 
         <span class="c1"># If cloud is not specified, get default</span>
         <span class="k">if</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">cloud</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cloud&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;kilo&quot;</span>
+            <span class="n">cloud</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;cloud&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;active&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
 
         <span class="c1"># If user is not specified, get default</span>
         <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">user</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">)</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;user&quot;</span><span class="p">)</span>
 
         <span class="c1"># If tenant is not specified, get default</span>
         <span class="k">if</span> <span class="n">tenant</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">tenant</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tenant&quot;</span><span class="p">)</span>
+            <span class="n">tenant</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;tenant&quot;</span><span class="p">)</span>
 
         <span class="c1"># Get the kind</span>
         <span class="n">kind</span> <span class="o">=</span> <span class="n">get_kind</span><span class="p">()</span>
@@ -270,71 +277,29 @@
         <span class="c1"># TODO: add quota</span>
         <span class="c1"># TODO: add limits</span>
         <span class="c1"># TODO: add usage</span>
-        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;FLAVOR&#39;</span><span class="p">:</span>
-            <span class="n">order</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="s1">&#39;cm_cloud&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;disk&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;ephemeral_disk&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;id&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;name&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;ram&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;vcpus&#39;</span>
-            <span class="p">]</span>
-        <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;DEFAULT&#39;</span><span class="p">:</span>
-            <span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;cloud&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;name&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;value&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;created_at&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;updated_at&#39;</span>
-                     <span class="p">]</span>
-        <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;IMAGE&#39;</span><span class="p">:</span>
-            <span class="n">order</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="s1">&#39;cm_cloud&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;cm_user&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;instance_type_ephemeral_gb&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;instance_type_flavorid&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;instance_type_id&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;instance_type_memory_mb&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;instance_type_name&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;instance_type_root_gb&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;instance_type_rxtx_factor&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;instance_type_swap&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;instance_type_vcpus&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;minDisk&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;minRam&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;name&#39;</span><span class="p">,</span>
-            <span class="p">]</span>
-            <span class="n">header</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="s1">&#39;cloud&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;user&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;ephemeral_gb&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;flavorid&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;id&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;memory_mb&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;flavor&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;root_gb&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;rxtx_factor&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;swap&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;vcpus&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;minDisk&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;minRam&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;name&#39;</span><span class="p">,</span>
-            <span class="p">]</span>
 
-        <span class="c1"># Get the result &amp; print it</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">List</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span>
-                           <span class="n">cloud</span><span class="p">,</span>
-                           <span class="n">user</span><span class="p">,</span>
-                           <span class="n">tenant</span><span class="p">,</span>
-                           <span class="n">order</span><span class="p">,</span>
-                           <span class="n">header</span><span class="p">,</span>
-                           <span class="n">output_format</span><span class="p">)</span>
+        <span class="c1">#</span>
+        <span class="c1"># TODO: BUG: use the get attribute from the provider.</span>
+        <span class="c1"># TODO:: call the cm xyz list functions and do not</span>
+        <span class="c1"># reimplement this here</span>
+        <span class="c1"># possibly introduce List.py</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;FLAVOR&#39;</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">Flavor</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">output_format</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;DEFAULT&#39;</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">output_format</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;IMAGE&#39;</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">output_format</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;VM&#39;</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="n">output_format</span><span class="o">=</span><span class="n">output_format</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
             <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No {}s found in the database.&quot;</span>
                           <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()))</span>
+
         <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
 </pre></div>
 
@@ -368,7 +333,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.common.LogUtil &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>cloudmesh_client.common.LogUtil &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -174,17 +174,15 @@
 <span></span><span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 
-<span class="kn">from</span> <span class="nn">cloudmesh_client.util</span> <span class="kn">import</span> <span class="n">path_expand</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span>
-
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.util</span> <span class="kn">import</span> <span class="n">path_expand</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
 
 <span class="c1"># define the logger</span>
 <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;LogUtil&#39;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="LogUtil"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LogUtil.LogUtil">[docs]</a><span class="k">class</span> <span class="nc">LogUtil</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-
     <span class="c1"># define global format for logs</span>
     <span class="n">FORMAT</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> [</span><span class="si">%(levelname)s</span><span class="s2">] </span><span class="si">%(filename)s</span><span class="s2">:</span><span class="si">%(lineno)s</span><span class="s2"> </span><span class="si">%(funcName)s</span><span class="s2">() </span><span class="si">%(message)s</span><span class="s2">&quot;</span>
 
@@ -207,7 +205,7 @@
 
         <span class="c1"># get the log level from database</span>
         <span class="n">log_level</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-            <span class="n">key</span><span class="o">=</span><span class="n">LogUtil</span><span class="o">.</span><span class="n">LOG_LEVEL_KEY</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">LogUtil</span><span class="o">.</span><span class="n">LOG_LEVEL_KEY</span><span class="p">,</span>
             <span class="n">category</span><span class="o">=</span><span class="n">LogUtil</span><span class="o">.</span><span class="n">category</span><span class="p">)</span> <span class="ow">or</span> <span class="n">LogUtil</span><span class="o">.</span><span class="n">DEFAULT_LOG_LEVEL</span>
 
         <span class="c1"># Update the cloudmesh config</span>
@@ -220,7 +218,7 @@
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="LogUtil.set_level"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LogUtil.LogUtil.set_level">[docs]</a>    <span class="k">def</span> <span class="nf">set_level</span><span class="p">(</span><span class="n">log_level</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        sets th eloglevel in teh database and the loglevel file from</span>
+<span class="sd">        sets th eloglevel in the database and the loglevel file from</span>
 <span class="sd">        cloudmesh.yaml</span>
 <span class="sd">        :param log_level: the loglevel</span>
 <span class="sd">        :return:</span>
@@ -255,7 +253,7 @@
 <span class="sd">        :param cloudname: The name of the cloud</span>
 <span class="sd">        :return: the log level</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">log_level</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">LogUtil</span><span class="o">.</span><span class="n">LOG_LEVEL_KEY</span><span class="p">,</span>
+        <span class="n">log_level</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">LogUtil</span><span class="o">.</span><span class="n">LOG_LEVEL_KEY</span><span class="p">,</span>
                                 <span class="n">category</span><span class="o">=</span><span class="n">LogUtil</span><span class="o">.</span><span class="n">category</span><span class="p">)</span>
 
         <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Returning Log Level: &quot;</span> <span class="o">+</span> <span class="n">log_level</span><span class="p">)</span>
@@ -272,10 +270,9 @@
 <span class="sd">        :return: the loglevel</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
-        <span class="n">log_level</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;logging&quot;</span><span class="p">][</span><span class="s2">&quot;level&quot;</span><span class="p">]</span> <span class="ow">or</span> \
-            <span class="n">LogUtil</span><span class="o">.</span><span class="n">DEFAULT_LOG_LEVEL</span>
+        <span class="n">log_level</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;logging&quot;</span><span class="p">][</span><span class="s2">&quot;level&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">LogUtil</span><span class="o">.</span><span class="n">DEFAULT_LOG_LEVEL</span>
 
-        <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;PPPP&quot;</span><span class="p">,</span> <span class="n">log_level</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;PPPP&quot;</span><span class="p">,</span> <span class="n">log_level</span><span class="p">)</span>
 
         <span class="c1"># Set the log level</span>
         <span class="n">LogUtil</span><span class="o">.</span><span class="n">set_level</span><span class="p">(</span><span class="n">log_level</span><span class="p">)</span>
@@ -353,7 +350,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

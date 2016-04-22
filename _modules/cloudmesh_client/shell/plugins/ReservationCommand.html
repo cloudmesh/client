@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins.ReservationCommand &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>cloudmesh_client.shell.plugins.ReservationCommand &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -174,7 +174,7 @@
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">dict_printer</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">Printer</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.reservation</span> <span class="kn">import</span> <span class="n">Reservation</span>
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
@@ -191,7 +191,7 @@
 
 
 <div class="viewcode-block" id="ReservationCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ReservationCommand.ReservationCommand">[docs]</a><span class="k">class</span> <span class="nc">ReservationCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
-    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;reservation&quot;</span><span class="p">:</span> <span class="s2">&quot;notimplemented&quot;</span><span class="p">}</span>
+    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;reservation&quot;</span><span class="p">:</span> <span class="s2">&quot;todo&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="c1"># super(self.__class__, self).__init__()</span>
@@ -279,23 +279,23 @@
             <span class="k">elif</span> <span class="n">format</span> <span class="o">==</span> <span class="s2">&quot;yaml&quot;</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">pyaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">format</span> <span class="o">==</span> <span class="s2">&quot;table&quot;</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">dict_printer</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
-                                    <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span>
-                                           <span class="s2">&quot;name&quot;</span><span class="p">,</span>
-                                           <span class="s2">&quot;start_time&quot;</span><span class="p">,</span>
-                                           <span class="s2">&quot;end_time&quot;</span><span class="p">,</span>
-                                           <span class="s2">&quot;user&quot;</span><span class="p">,</span>
-                                           <span class="s2">&quot;project&quot;</span><span class="p">,</span>
-                                           <span class="s2">&quot;hosts&quot;</span><span class="p">,</span>
-                                           <span class="s2">&quot;description&quot;</span><span class="p">,</span>
-                                           <span class="s2">&quot;cloud&quot;</span><span class="p">],</span>
-                                    <span class="n">output</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">,</span>
-                                    <span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
+                                     <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span>
+                                            <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+                                            <span class="s2">&quot;start_time&quot;</span><span class="p">,</span>
+                                            <span class="s2">&quot;end_time&quot;</span><span class="p">,</span>
+                                            <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+                                            <span class="s2">&quot;project&quot;</span><span class="p">,</span>
+                                            <span class="s2">&quot;hosts&quot;</span><span class="p">,</span>
+                                            <span class="s2">&quot;description&quot;</span><span class="p">,</span>
+                                            <span class="s2">&quot;cloud&quot;</span><span class="p">],</span>
+                                     <span class="n">output</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">,</span>
+                                     <span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">format</span> <span class="o">==</span> <span class="s2">&quot;csv&quot;</span><span class="p">:</span>
                 <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">d</span>
-                <span class="c1"># return dict_printer(d,order=[&#39;cm_id, name, fingerprint&#39;])</span>
+                <span class="c1"># return Printer.write(d,order=[&#39;cm_id, name, fingerprint&#39;])</span>
 
         <span class="k">def</span> <span class="nf">_get_db_date_format</span><span class="p">(</span><span class="n">date</span><span class="p">):</span>
             <span class="sd">&quot;&quot;&quot;</span>
@@ -488,7 +488,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

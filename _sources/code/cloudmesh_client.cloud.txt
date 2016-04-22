@@ -20,6 +20,14 @@ cloudmesh_client.cloud.ListResource module
     :undoc-members:
     :show-inheritance:
 
+cloudmesh_client.cloud.attributes module
+----------------------------------------
+
+.. automodule:: cloudmesh_client.cloud.attributes
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.cloud.counter module
 -------------------------------------
 
@@ -72,6 +80,22 @@ cloudmesh_client.cloud.inventory module
 ---------------------------------------
 
 .. automodule:: cloudmesh_client.cloud.inventory
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.cloud.ip module
+--------------------------------
+
+.. automodule:: cloudmesh_client.cloud.ip
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.cloud.key module
+---------------------------------
+
+.. automodule:: cloudmesh_client.cloud.key
     :members:
     :undoc-members:
     :show-inheritance:
@@ -164,10 +188,26 @@ cloudmesh_client.cloud.usage module
     :undoc-members:
     :show-inheritance:
 
+cloudmesh_client.cloud.vc module
+--------------------------------
+
+.. automodule:: cloudmesh_client.cloud.vc
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.cloud.vm module
 --------------------------------
 
 .. automodule:: cloudmesh_client.cloud.vm
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.cloud.workflow module
+--------------------------------------
+
+.. automodule:: cloudmesh_client.cloud.workflow
     :members:
     :undoc-members:
     :show-inheritance:

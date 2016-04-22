@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.secgroup &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>cloudmesh_client.cloud.secgroup &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -174,45 +174,54 @@
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">dict_printer</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.db.CloudmeshDatabase</span> <span class="kn">import</span> <span class="n">CloudmeshDatabase</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">Printer</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.db</span> <span class="kn">import</span> <span class="n">CloudmeshDatabase</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.CloudProvider</span> <span class="kn">import</span> <span class="n">CloudProvider</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.ListResource</span> <span class="kn">import</span> <span class="n">ListResource</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.LibcloudDict</span> <span class="kn">import</span> <span class="n">LibcloudDict</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.dotdict</span> <span class="kn">import</span> <span class="n">dotdict</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
 
 <span class="n">requests</span><span class="o">.</span><span class="n">packages</span><span class="o">.</span><span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">()</span>
 
 
 <div class="viewcode-block" id="SecGroup"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup">[docs]</a><span class="k">class</span> <span class="nc">SecGroup</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
-    <span class="n">cm_db</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">()</span>  <span class="c1"># Instance to communicate with the cloudmesh database</span>
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">()</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.convert_list_to_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.convert_list_to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">convert_list_to_dict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">os_result</span><span class="p">):</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">os_result</span><span class="p">):</span>
-            <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;Id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">id</span>
-            <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;Name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span>
-            <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;Description&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">description</span>
-        <span class="k">return</span> <span class="n">d</span></div>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    NOT USED</span>
+<span class="sd">    @classmethod</span>
+<span class="sd">    def convert_list_to_dict(cls, os_result):</span>
+<span class="sd">        d = {}</span>
+<span class="sd">        for i, obj in enumerate(os_result):</span>
+<span class="sd">            d[i] = {}</span>
+<span class="sd">            d[i][&quot;Id&quot;] = obj.id</span>
+<span class="sd">            d[i][&quot;Name&quot;] = obj.name</span>
+<span class="sd">            d[i][&quot;Description&quot;] = obj.description</span>
+<span class="sd">        return d</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># noinspection PyPep8</span>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="SecGroup.convert_rules_to_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.convert_rules_to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">convert_rules_to_dict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">os_result</span><span class="p">):</span>
         <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">os_result</span><span class="p">):</span>
-            <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;IP Protocol&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;ip_protocol&quot;</span><span class="p">]</span>
-            <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;From Port&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;from_port&quot;</span><span class="p">]</span>
-            <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;To Port&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;to_port&quot;</span><span class="p">]</span>
+
             <span class="k">if</span> <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;ip_range&quot;</span><span class="p">][</span><span class="s2">&quot;cidr&quot;</span><span class="p">]:</span>
                 <span class="n">ip_range</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;ip_range&quot;</span><span class="p">][</span><span class="s2">&quot;cidr&quot;</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">ip_range</span> <span class="o">=</span> <span class="s2">&quot;0.0.0.0/0&quot;</span>
-            <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;IP Range&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ip_range</span>
 
+            <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;IP Protocol&quot;</span><span class="p">:</span> <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;ip_protocol&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;From Port&quot;</span><span class="p">:</span> <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;from_port&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;To Port&quot;</span><span class="p">:</span> <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;to_port&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;IP Range&quot;</span><span class="p">:</span> <span class="n">ip_range</span>
+            <span class="p">}</span>
         <span class="k">return</span> <span class="n">d</span></div>
 
     <span class="nd">@classmethod</span>
@@ -222,35 +231,77 @@
 <span class="sd">        the database, then inserting new data</span>
 <span class="sd">        :param cloud: the cloud name</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm_db</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="s1">&#39;secgroup&#39;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span></div>
 
-    <span class="c1"># noinspection PyPep8Naming</span>
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.remove_subjectAltName_warning"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.remove_subjectAltName_warning">[docs]</a>    <span class="k">def</span> <span class="nf">remove_subjectAltName_warning</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span>
-            <span class="k">if</span> <span class="s2">&quot;Certificate has no `subjectAltName`&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
-                <span class="k">pass</span>
-            <span class="k">elif</span> <span class="s2">&quot;SecurityWarning&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
-                <span class="k">pass</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="s1">&#39;secgroup&#39;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.create"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.add_rule_to_db"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.add_rule_to_db">[docs]</a>    <span class="k">def</span> <span class="nf">add_rule_to_db</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">from_port</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">to_port</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cidr</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="n">old_rule</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;general&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;secgrouprule&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+            <span class="s2">&quot;group&quot;</span><span class="p">:</span> <span class="n">group</span>
+        <span class="p">}</span>
+
+        <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="o">**</span><span class="n">old_rule</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">rule</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;general&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;secgrouprule&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;group&quot;</span><span class="p">:</span> <span class="n">group</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+                <span class="s1">&#39;protocol&#39;</span><span class="p">:</span> <span class="n">protocol</span><span class="p">,</span>
+                <span class="s1">&#39;fromPort&#39;</span><span class="p">:</span> <span class="n">from_port</span><span class="p">,</span>
+                <span class="s1">&#39;toPort&#39;</span><span class="p">:</span> <span class="n">to_port</span><span class="p">,</span>
+                <span class="s1">&#39;cidr&#39;</span><span class="p">:</span> <span class="n">cidr</span>
+            <span class="p">}</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">rule</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem adding rule&quot;</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="SecGroup.upload"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.upload">[docs]</a>    <span class="k">def</span> <span class="nf">upload</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">clouds</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;active&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">clouds</span> <span class="o">=</span> <span class="p">[</span><span class="n">cloud</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">rules</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">)</span>
+            <span class="n">groups</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">rules</span><span class="p">:</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">rules</span><span class="p">[</span><span class="n">g</span><span class="p">]</span>
+                <span class="n">groups</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;group&quot;</span><span class="p">])</span>
+            <span class="n">groups</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">groups</span> <span class="o">=</span> <span class="p">[</span><span class="n">group</span><span class="p">]</span>
+
+
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">clouds</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">:</span>
+                <span class="n">SecGroup</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">g</span><span class="p">)</span>
+                <span class="n">uuid</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">g</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">rules</span><span class="p">:</span>
+                    <span class="n">r</span> <span class="o">=</span> <span class="n">rules</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;group&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">g</span><span class="p">:</span>
+                        <span class="n">SecGroup</span><span class="o">.</span><span class="n">add_rule</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">uuid</span><span class="p">,</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;fromPort&quot;</span><span class="p">],</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;toPort&quot;</span><span class="p">]</span> <span class="p">,</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;protocol&#39;</span><span class="p">],</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;cidr&#39;</span><span class="p">])</span></div>
+                <span class="c1"># create group</span>
+
+
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="SecGroup.create"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method creates a new security group in database</span>
 <span class="sd">        &amp; returns the uuid of the created group</span>
-<span class="sd">        :param label:</span>
-<span class="sd">        :param cloud:</span>
-<span class="sd">        :param tenant:</span>
+<span class="sd">        :param group:</span>
+<span class="sd">        :param category:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Create the security group in given cloud</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
-            <span class="n">secgroup</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">create_secgroup</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+            <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">category</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
+            <span class="n">secgroup</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">create_secgroup</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">secgroup</span><span class="p">:</span>
                 <span class="n">uuid</span> <span class="o">=</span> <span class="n">secgroup</span><span class="o">.</span><span class="n">id</span>
                 <span class="k">return</span> <span class="n">uuid</span>
@@ -263,57 +314,133 @@
         <span class="k">return</span> <span class="bp">None</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span>
+             <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+             <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+             <span class="n">category</span><span class="o">=</span><span class="s1">&#39;general&#39;</span><span class="p">,</span>
+             <span class="n">output</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">,</span>
+             <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method queries the database to fetch list of secgroups</span>
 <span class="sd">        filtered by cloud.</span>
 <span class="sd">        :param cloud:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">elements</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm_db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;secgroup&quot;</span><span class="p">,</span>
-                                      <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
-            <span class="c1">#pprint(elements)</span>
-            <span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">header</span><span class="p">)</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">get_attributes</span><span class="p">(</span><span class="s2">&quot;secgroup&quot;</span><span class="p">)</span>
 
-            <span class="k">return</span> <span class="n">dict_printer</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span>
-                                <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
-                                <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
-                                <span class="n">output</span><span class="o">=</span><span class="n">format</span><span class="p">)</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">({</span>
+            <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;secgrouprule&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;scope&quot;</span><span class="p">:</span> <span class="s2">&quot;all&quot;</span>
+        <span class="p">})</span>
+        <span class="k">if</span> <span class="n">category</span> <span class="ow">is</span> <span class="s2">&quot;general&quot;</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">group</span> <span class="o">=</span> <span class="n">group</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+            <span class="n">query</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">category</span>
+
+            <span class="n">elements</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="o">**</span><span class="n">query</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">elements</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">category</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">list_secgroup_rules</span><span class="p">(</span><span class="n">category</span><span class="p">)</span>
+
+
+
+        <span class="k">if</span> <span class="n">elements</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="c1"># pprint(elements)</span>
+            <span class="c1">#</span>
+            <span class="c1"># BUG this should not depend on cloud, but on &quot;general&quot;</span>
+            <span class="c1">#</span>
+            <span class="c1"># (order, header) = CloudProvider(cloud).get_attributes(&quot;secgroup&quot;)</span>
+
+            <span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;fromPort&#39;</span><span class="p">,</span> <span class="s1">&#39;toPort&#39;</span><span class="p">,</span> <span class="s1">&#39;cidr&#39;</span><span class="p">,</span> <span class="s1">&#39;protocol&#39;</span><span class="p">]</span>
+            <span class="n">header</span> <span class="o">=</span> <span class="bp">None</span>
+
+            <span class="k">return</span> <span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span>
+                                 <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
+                                 <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
+                                 <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">)</span></div>
+
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="SecGroup.list_rules"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.list_rules">[docs]</a>    <span class="k">def</span> <span class="nf">list_rules</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method gets the security group rules</span>
+<span class="sd">        from the cloudmesh database</span>
+<span class="sd">        :param uuid:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">uuid</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">rules</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;secgrouprule&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">args</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;group&quot;</span><span class="p">:</span> <span class="n">uuid</span>
+                <span class="p">}</span>
+
+                <span class="n">rules</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;secgrouprule&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+
+            <span class="c1"># check if rules exist</span>
+            <span class="k">if</span> <span class="n">rules</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s2">&quot;No rules for security group={} in the database. Try cm secgroup refresh.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">uuid</span><span class="p">)</span>
+
+            <span class="c1"># return table</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">rules</span><span class="p">,</span>
+                                  <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">,</span>
+                                         <span class="s2">&quot;group&quot;</span><span class="p">,</span>
+                                         <span class="s2">&quot;category&quot;</span><span class="p">,</span>
+                                         <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+                                         <span class="s2">&quot;fromPort&quot;</span><span class="p">,</span>
+                                         <span class="s2">&quot;toPort&quot;</span><span class="p">,</span>
+                                         <span class="s2">&quot;protocol&quot;</span><span class="p">,</span>
+                                         <span class="s2">&quot;cidr&quot;</span><span class="p">],</span>
+                                  <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">))</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Listing Security group rules&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">None</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="SecGroup.enable_ssh"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.enable_ssh">[docs]</a>    <span class="k">def</span> <span class="nf">enable_ssh</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">secgroup_name</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">):</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">provider</span>
-        <span class="n">secgroups</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">security_groups</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">asecgroup</span> <span class="ow">in</span> <span class="n">secgroups</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">asecgroup</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">secgroup_name</span><span class="p">:</span>
-                <span class="n">rules</span> <span class="o">=</span> <span class="n">asecgroup</span><span class="o">.</span><span class="n">rules</span>
-                <span class="n">rule_exists</span> <span class="o">=</span> <span class="bp">False</span>
-                <span class="c1"># structure of a secgroup rule:</span>
-                <span class="c1"># {u&#39;from_port&#39;: 22, u&#39;group&#39;: {}, u&#39;ip_protocol&#39;: u&#39;tcp&#39;, u&#39;to_port&#39;: 22, u&#39;parent_group_id&#39;: u&#39;UUIDHERE&#39;, u&#39;ip_range&#39;: {u&#39;cidr&#39;: u&#39;0.0.0.0/0&#39;}, u&#39;id&#39;: u&#39;UUIDHERE&#39;}</span>
-                <span class="k">for</span> <span class="n">arule</span> <span class="ow">in</span> <span class="n">rules</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">arule</span><span class="p">[</span><span class="s2">&quot;from_port&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">22</span> <span class="ow">and</span> \
-                                    <span class="n">arule</span><span class="p">[</span><span class="s2">&quot;to_port&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">22</span> <span class="ow">and</span> \
-                                    <span class="n">arule</span><span class="p">[</span><span class="s2">&quot;ip_protocol&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;tcp&#39;</span> <span class="ow">and</span> \
-                                    <span class="n">arule</span><span class="p">[</span><span class="s2">&quot;ip_range&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;cidr&#39;</span><span class="p">:</span> <span class="s1">&#39;0.0.0.0/0&#39;</span><span class="p">}:</span>
-                        <span class="c1"># print (arule[&quot;id&quot;])</span>
-                        <span class="n">rule_exists</span> <span class="o">=</span> <span class="bp">True</span>
-                        <span class="k">break</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">rule_exists</span><span class="p">:</span>
-                    <span class="n">cloud_provider</span><span class="o">.</span><span class="n">security_group_rules</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-                        <span class="n">asecgroup</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-                        <span class="n">ip_protocol</span><span class="o">=</span><span class="s1">&#39;tcp&#39;</span><span class="p">,</span>
-                        <span class="n">from_port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
-                        <span class="n">to_port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
-                        <span class="n">cidr</span><span class="o">=</span><span class="s1">&#39;0.0.0.0/0&#39;</span><span class="p">)</span>
-                <span class="c1"># else:</span>
-                <span class="c1">#    print (&quot;The rule allowing ssh login did exist!&quot;)</span>
-                <span class="n">ret</span> <span class="o">=</span> <span class="bp">True</span>
-                <span class="k">break</span>
+        <span class="k">if</span> <span class="n">cloud</span> <span class="ow">in</span> <span class="n">LibcloudDict</span><span class="o">.</span><span class="n">Libcloud_category_list</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Creating and adding security group for libcloud&quot;</span><span class="p">)</span>
+            <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
+            <span class="n">cloud_provider</span><span class="o">.</span><span class="n">create_sec_group</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="n">secgroup_name</span><span class="p">)</span>
+            <span class="n">cloud_provider</span><span class="o">.</span><span class="n">enable_ssh</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="n">secgroup_name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">provider</span>
+            <span class="n">secgroups</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">security_groups</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">asecgroup</span> <span class="ow">in</span> <span class="n">secgroups</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">asecgroup</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">secgroup_name</span><span class="p">:</span>
+                    <span class="n">rules</span> <span class="o">=</span> <span class="n">asecgroup</span><span class="o">.</span><span class="n">rules</span>
+                    <span class="n">rule_exists</span> <span class="o">=</span> <span class="bp">False</span>
+                    <span class="c1"># structure of a secgroup rule:</span>
+                    <span class="c1"># {u&#39;from_port&#39;: 22, u&#39;group&#39;: {}, u&#39;ip_protocol&#39;: u&#39;tcp&#39;, u&#39;to_port&#39;: 22, u&#39;parent_group_id&#39;: u&#39;UUIDHERE&#39;, u&#39;ip_range&#39;: {u&#39;cidr&#39;: u&#39;0.0.0.0/0&#39;}, u&#39;id&#39;: u&#39;UUIDHERE&#39;}</span>
+                    <span class="k">for</span> <span class="n">arule</span> <span class="ow">in</span> <span class="n">rules</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">arule</span><span class="p">[</span><span class="s2">&quot;from_port&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">22</span> <span class="ow">and</span> \
+                                        <span class="n">arule</span><span class="p">[</span><span class="s2">&quot;to_port&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">22</span> <span class="ow">and</span> \
+                                        <span class="n">arule</span><span class="p">[</span><span class="s2">&quot;ip_protocol&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;tcp&#39;</span> <span class="ow">and</span> \
+                                        <span class="n">arule</span><span class="p">[</span><span class="s2">&quot;ip_range&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;cidr&#39;</span><span class="p">:</span> <span class="s1">&#39;0.0.0.0/0&#39;</span><span class="p">}:</span>
+                            <span class="c1"># print (arule[&quot;id&quot;])</span>
+                            <span class="n">rule_exists</span> <span class="o">=</span> <span class="bp">True</span>
+                            <span class="k">break</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">rule_exists</span><span class="p">:</span>
+                        <span class="n">cloud_provider</span><span class="o">.</span><span class="n">security_group_rules</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+                            <span class="n">asecgroup</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                            <span class="n">ip_protocol</span><span class="o">=</span><span class="s1">&#39;tcp&#39;</span><span class="p">,</span>
+                            <span class="n">from_port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
+                            <span class="n">to_port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
+                            <span class="n">cidr</span><span class="o">=</span><span class="s1">&#39;0.0.0.0/0&#39;</span><span class="p">)</span>
+                    <span class="c1"># else:</span>
+                    <span class="c1">#    print (&quot;The rule allowing ssh login did exist!&quot;)</span>
+                    <span class="n">ret</span> <span class="o">=</span> <span class="bp">True</span>
+                    <span class="k">break</span>
 
         <span class="c1"># print (&quot;*&quot; * 80)</span>
         <span class="c1"># d = SecGroup.convert_list_to_dict(secgroups)</span>
@@ -321,7 +448,7 @@
         <span class="k">return</span> <span class="n">ret</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.get"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.get"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method queries the database to fetch secgroup</span>
 <span class="sd">        with given name filtered by cloud.</span>
@@ -329,28 +456,38 @@
 <span class="sd">        :param cloud:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="k">try</span><span class="p">:</span>
             <span class="n">args</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
-                <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="n">cloud</span><span class="p">,</span>
+                <span class="s1">&#39;scope&#39;</span><span class="p">:</span> <span class="s1">&#39;fisrt&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;kind&#39;</span><span class="p">:</span> <span class="s2">&quot;secgroup&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
             <span class="p">}</span>
-            <span class="n">secgroup</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm_db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;secgroup&quot;</span><span class="p">,</span>
-                                      <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
-                                      <span class="o">**</span><span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
-            <span class="k">return</span> <span class="n">secgroup</span>
+            <span class="k">if</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s1">&#39;general&#39;</span><span class="p">:</span>
+                <span class="n">args</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cloud</span>
+
+            <span class="n">secgroup</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">secgroup</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">None</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">secgroup</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;get secgroup&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">None</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.add_rule"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.add_rule">[docs]</a>    <span class="k">def</span> <span class="nf">add_rule</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">secgroup</span><span class="p">,</span> <span class="n">from_port</span><span class="p">,</span> <span class="n">to_port</span><span class="p">,</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">cidr</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.add_rule"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.add_rule">[docs]</a>    <span class="k">def</span> <span class="nf">add_rule</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">secgroup_uuid</span><span class="p">,</span> <span class="n">from_port</span><span class="p">,</span> <span class="n">to_port</span><span class="p">,</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">cidr</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
+
             <span class="c1"># Get the nova client object</span>
             <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
 
             <span class="c1"># Create add secgroup rules to the cloud</span>
             <span class="n">args</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s1">&#39;uuid&#39;</span><span class="p">:</span> <span class="n">secgroup</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span>
+                <span class="s1">&#39;uuid&#39;</span><span class="p">:</span> <span class="n">secgroup_uuid</span><span class="p">,</span>
                 <span class="s1">&#39;protocol&#39;</span><span class="p">:</span> <span class="n">protocol</span><span class="p">,</span>
                 <span class="s1">&#39;from_port&#39;</span><span class="p">:</span> <span class="n">from_port</span><span class="p">,</span>
                 <span class="s1">&#39;to_port&#39;</span><span class="p">:</span> <span class="n">to_port</span><span class="p">,</span>
@@ -358,25 +495,21 @@
             <span class="p">}</span>
             <span class="n">rule_id</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">add_secgroup_rule</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
 
+
             <span class="c1"># create local db record</span>
-            <span class="n">ruleObj</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm_db</span><span class="o">.</span><span class="n">db_obj_dict</span><span class="p">(</span><span class="s2">&quot;secgrouprule&quot;</span><span class="p">,</span>
-                                            <span class="n">uuid</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">rule_id</span><span class="p">),</span>
-                                            <span class="n">name</span><span class="o">=</span><span class="n">secgroup</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-                                            <span class="n">groupid</span><span class="o">=</span><span class="n">secgroup</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span>
-                                            <span class="n">category</span><span class="o">=</span><span class="n">secgroup</span><span class="o">.</span><span class="n">category</span><span class="p">,</span>
-                                            <span class="n">user</span><span class="o">=</span><span class="n">secgroup</span><span class="o">.</span><span class="n">user</span><span class="p">,</span>
-                                            <span class="n">project</span><span class="o">=</span><span class="n">secgroup</span><span class="o">.</span><span class="n">project</span><span class="p">,</span>
-                                            <span class="n">fromPort</span><span class="o">=</span><span class="n">from_port</span><span class="p">,</span>
-                                            <span class="n">toPort</span><span class="o">=</span><span class="n">to_port</span><span class="p">,</span>
-                                            <span class="n">protocol</span><span class="o">=</span><span class="n">protocol</span><span class="p">,</span>
-                                            <span class="n">cidr</span><span class="o">=</span><span class="n">cidr</span><span class="p">)</span>
-
-            <span class="n">cls</span><span class="o">.</span><span class="n">cm_db</span><span class="o">.</span><span class="n">add_obj</span><span class="p">(</span><span class="n">ruleObj</span><span class="p">)</span>
-            <span class="n">cls</span><span class="o">.</span><span class="n">cm_db</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-
-            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Added rule [{} | {} | {} | {}] to secgroup [{}]&quot;</span>
-                       <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">from_port</span><span class="p">,</span> <span class="n">to_port</span><span class="p">,</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">cidr</span><span class="p">,</span>
-                               <span class="n">secgroup</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+            <span class="n">rule</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;secgrouprule&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">rule_id</span><span class="p">),</span>
+                    <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="n">cloud</span><span class="p">,</span>
+                    <span class="s2">&quot;fromPort&quot;</span><span class="p">:</span> <span class="n">from_port</span><span class="p">,</span>
+                    <span class="s2">&quot;toPort&quot;</span><span class="p">:</span> <span class="n">to_port</span><span class="p">,</span>
+                    <span class="s2">&quot;protocol&quot;</span><span class="p">:</span> <span class="n">protocol</span><span class="p">,</span>
+                    <span class="s2">&quot;cidr&quot;</span><span class="p">:</span> <span class="n">cidr</span><span class="p">}</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            cls.cm.add(**rule)</span>
+<span class="sd">            cls.cm.save()</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Added rule {category} {uuid} {fromPort} {toPort} {protocol} {cidr}&quot;</span>
+                       <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">rule</span><span class="p">))</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
             <span class="k">if</span> <span class="s2">&quot;This rule already exists&quot;</span> <span class="ow">in</span> <span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">:</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Rule already exists. Added rule.&quot;</span><span class="p">)</span>
@@ -386,63 +519,100 @@
         <span class="k">return</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.get_rules"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.get_rules">[docs]</a>    <span class="k">def</span> <span class="nf">get_rules</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">uuid</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        This method gets the security group rule</span>
-<span class="sd">        from the cloudmesh database</span>
-<span class="sd">        :param uuid:</span>
-<span class="sd">        :return:</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">args</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;groupid&quot;</span><span class="p">:</span> <span class="n">uuid</span>
-            <span class="p">}</span>
+<div class="viewcode-block" id="SecGroup.reset_defaults"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.reset_defaults">[docs]</a>    <span class="k">def</span> <span class="nf">reset_defaults</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
 
-            <span class="n">rule</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm_db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;secgrouprule&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">secgroup</span> <span class="o">=</span> <span class="s2">&quot;{}-default&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Default</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">Default</span><span class="o">.</span><span class="n">set_secgroup</span><span class="p">(</span><span class="n">secgroup</span><span class="p">)</span>
 
-            <span class="c1"># check if rules exist</span>
-            <span class="k">if</span> <span class="n">rule</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="k">return</span> <span class="s2">&quot;No rules for security group [{}] in the database. Try cm secgroup refresh.&quot;</span>
-
-            <span class="c1"># return table</span>
-            <span class="k">return</span> <span class="p">(</span><span class="n">dict_printer</span><span class="p">(</span><span class="n">rule</span><span class="p">,</span>
-                                 <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">,</span>
-                                        <span class="s2">&quot;category&quot;</span><span class="p">,</span>
-                                        <span class="s2">&quot;name&quot;</span><span class="p">,</span>
-                                        <span class="s2">&quot;fromPort&quot;</span><span class="p">,</span>
-                                        <span class="s2">&quot;toPort&quot;</span><span class="p">,</span>
-                                        <span class="s2">&quot;protocol&quot;</span><span class="p">,</span>
-                                        <span class="s2">&quot;cidr&quot;</span><span class="p">],</span>
-                                 <span class="n">output</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">))</span>
-
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="bp">None</span></div>
+        <span class="c1"># nova secgroup-add-rule default icmp -1 -1 0.0.0.0/0</span>
+        <span class="n">SecGroup</span><span class="o">.</span><span class="n">add_rule_to_db</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">secgroup</span><span class="p">,</span>
+                                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ssh&quot;</span><span class="p">,</span>
+                                <span class="n">from_port</span><span class="o">=</span><span class="s2">&quot;22&quot;</span><span class="p">,</span>
+                                <span class="n">to_port</span><span class="o">=</span><span class="s2">&quot;22&quot;</span><span class="p">,</span>
+                                <span class="n">protocol</span><span class="o">=</span><span class="s2">&quot;tcp&quot;</span><span class="p">,</span>
+                                <span class="n">cidr</span><span class="o">=</span><span class="s2">&quot;0.0.0.0/0&quot;</span><span class="p">)</span>
+        <span class="n">SecGroup</span><span class="o">.</span><span class="n">add_rule_to_db</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">secgroup</span><span class="p">,</span>
+                                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;http&quot;</span><span class="p">,</span>
+                                <span class="n">from_port</span><span class="o">=</span><span class="s2">&quot;80&quot;</span><span class="p">,</span>
+                                <span class="n">to_port</span><span class="o">=</span><span class="s2">&quot;80&quot;</span><span class="p">,</span>
+                                <span class="n">protocol</span><span class="o">=</span><span class="s2">&quot;tcp&quot;</span><span class="p">,</span>
+                                <span class="n">cidr</span><span class="o">=</span><span class="s2">&quot;0.0.0.0/0&quot;</span><span class="p">)</span>
+        <span class="n">SecGroup</span><span class="o">.</span><span class="n">add_rule_to_db</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">secgroup</span><span class="p">,</span>
+                                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;https&quot;</span><span class="p">,</span>
+                                <span class="n">from_port</span><span class="o">=</span><span class="s2">&quot;443&quot;</span><span class="p">,</span>
+                                <span class="n">to_port</span><span class="o">=</span><span class="s2">&quot;443&quot;</span><span class="p">,</span>
+                                <span class="n">protocol</span><span class="o">=</span><span class="s2">&quot;tcp&quot;</span><span class="p">,</span>
+                                <span class="n">cidr</span><span class="o">=</span><span class="s2">&quot;0.0.0.0/0&quot;</span><span class="p">)</span>
+        <span class="n">SecGroup</span><span class="o">.</span><span class="n">add_rule_to_db</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">secgroup</span><span class="p">,</span>
+                                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;icmp&quot;</span><span class="p">,</span>
+                                <span class="n">from_port</span><span class="o">=</span><span class="s2">&quot;-1&quot;</span><span class="p">,</span>
+                                <span class="n">to_port</span><span class="o">=</span><span class="s2">&quot;-1&quot;</span><span class="p">,</span>
+                                <span class="n">protocol</span><span class="o">=</span><span class="s2">&quot;icmp&quot;</span><span class="p">,</span>
+                                <span class="n">cidr</span><span class="o">=</span><span class="s2">&quot;0.0.0.0/0&quot;</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.delete_secgroup"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.delete_secgroup">[docs]</a>    <span class="k">def</span> <span class="nf">delete_secgroup</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.delete"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span>
+               <span class="n">category</span><span class="o">=</span><span class="s1">&#39;general&#39;</span><span class="p">,</span>
+               <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+               <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="c1"># name is anme of the rule</span>
+
+        <span class="k">if</span> <span class="n">category</span><span class="o">==</span><span class="s1">&#39;general&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+
+                <span class="c1"># delete the entire group</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;secgrouprule&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">)</span>
+
+
+            <span class="k">elif</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="c1"># delete specific rule</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;secgrouprule&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">name</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">group</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="c1"># delete all groups</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;secgrouprule&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">group</span> <span class="o">==</span> <span class="n">Default</span><span class="o">.</span><span class="n">secgroup</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">secgroup</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">reset_defaults</span><span class="p">()</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">category</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
+
+            <span class="c1"># delete on cloud</span>
+            <span class="k">if</span>  <span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">provider</span><span class="o">.</span><span class="n">delete_secgroup</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                <span class="c1"># delete the entire group</span>
+            <span class="k">elif</span> <span class="n">group</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="c1"># delete all groups</span>
+                <span class="k">pass</span></div>
+
+
+
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="SecGroup.delete_secgroup"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.delete_secgroup">[docs]</a>    <span class="k">def</span> <span class="nf">delete_secgroup</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># Find the secgroup from the cloud</span>
             <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">delete_secgroup</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">delete_secgroup</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">result</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;delete group&quot;</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="SecGroup.delete_rule"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.delete_rule">[docs]</a>    <span class="k">def</span> <span class="nf">delete_rule</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">secgroup</span><span class="p">,</span> <span class="n">from_port</span><span class="p">,</span> <span class="n">to_port</span><span class="p">,</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">cidr</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">args</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;groupid&quot;</span><span class="p">:</span> <span class="n">secgroup</span><span class="o">.</span><span class="n">uuid</span><span class="p">,</span>
+                <span class="s2">&quot;group&quot;</span><span class="p">:</span> <span class="n">secgroup</span><span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">],</span>
                 <span class="s2">&quot;fromPort&quot;</span><span class="p">:</span> <span class="n">from_port</span><span class="p">,</span>
                 <span class="s2">&quot;toPort&quot;</span><span class="p">:</span> <span class="n">to_port</span><span class="p">,</span>
                 <span class="s2">&quot;protocol&quot;</span><span class="p">:</span> <span class="n">protocol</span><span class="p">,</span>
                 <span class="s2">&quot;cidr&quot;</span><span class="p">:</span> <span class="n">cidr</span>
             <span class="p">}</span>
 
-            <span class="n">rule</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm_db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;secgrouprule&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
-                                  <span class="o">**</span><span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+            <span class="n">rule</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;secgrouprule&quot;</span><span class="p">,</span>
+                               <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+                               <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">,</span>
+                               <span class="o">**</span><span class="n">args</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">rule</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="c1"># get the nova client for cloud</span>
@@ -450,14 +620,14 @@
                 <span class="c1"># delete the rule from the cloud</span>
                 <span class="n">cloud_provider</span><span class="o">.</span><span class="n">delete_secgroup_rule</span><span class="p">(</span><span class="n">rule</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
                 <span class="c1"># delete the local db record</span>
-                <span class="n">cls</span><span class="o">.</span><span class="n">cm_db</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">rule</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s2">&quot;Rule [{} | {} | {} | {}] deleted&quot;</span> \
-                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">from_port</span><span class="p">,</span> <span class="n">to_port</span><span class="p">,</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">cidr</span><span class="p">)</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">rule</span><span class="p">)</span>
+                <span class="k">return</span> <span class="s2">&quot;Rule [{fromPort} | {toPort} | {protocol} | {cidr}] deleted&quot;</span> \
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">None</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;delete rule&quot;</span><span class="p">)</span>
 
         <span class="k">return</span></div>
 
@@ -466,48 +636,21 @@
         <span class="k">try</span><span class="p">:</span>
 
             <span class="n">args</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;groupid&quot;</span><span class="p">:</span> <span class="n">secgroup</span><span class="o">.</span><span class="n">uuid</span>
+                <span class="s2">&quot;group&quot;</span><span class="p">:</span> <span class="n">secgroup</span><span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
             <span class="p">}</span>
-            <span class="n">rules</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm_db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;secgrouprule&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+            <span class="n">rules</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;secgrouprule&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">rules</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">rule</span> <span class="ow">in</span> <span class="n">rules</span><span class="p">:</span>
-                    <span class="n">cls</span><span class="o">.</span><span class="n">cm_db</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">rule</span><span class="p">)</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Rule [{} | {} | {} | {}] deleted&quot;</span>
-                               <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rule</span><span class="o">.</span><span class="n">fromPort</span><span class="p">,</span> <span class="n">rule</span><span class="o">.</span><span class="n">toPort</span><span class="p">,</span>
-                                       <span class="n">rule</span><span class="o">.</span><span class="n">protocol</span><span class="p">,</span> <span class="n">rule</span><span class="o">.</span><span class="n">cidr</span><span class="p">))</span>
+                    <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">rule</span><span class="p">)</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Rule [{fromPort} | {toPort} | {protocol} | {cidr}] deleted&quot;</span>
+                               <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">rule</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">pass</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;delete all rules&quot;</span><span class="p">)</span>
 
-        <span class="k">return</span></div>
-
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.toDict"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.toDict">[docs]</a>    <span class="k">def</span> <span class="nf">toDict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Method converts the item to a dict</span>
-<span class="sd">        :param item:</span>
-<span class="sd">        :return:</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Convert to dict &amp; print table</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="c1"># If list, iterate to form dict</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
-                <span class="n">d</span><span class="p">[</span><span class="n">element</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">element</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_sa&quot;</span><span class="p">):</span>
-                        <span class="n">d</span><span class="p">[</span><span class="n">element</span><span class="o">.</span><span class="n">id</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
-        <span class="c1"># Form dict without iterating</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">d</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_sa&quot;</span><span class="p">):</span>
-                    <span class="n">d</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">id</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
-
-        <span class="c1"># return the dict</span>
-        <span class="k">return</span> <span class="n">d</span></div></div>
+        <span class="k">return</span></div></div>
 
 
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
@@ -568,7 +711,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

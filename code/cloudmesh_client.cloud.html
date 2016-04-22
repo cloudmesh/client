@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud package &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>cloudmesh_client.cloud package &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client package" href="cloudmesh_client.html"/>
         <link rel="next" title="cloudmesh_client.cloud.hpc package" href="cloudmesh_client.cloud.hpc.html"/>
         <link rel="prev" title="cloudmesh_client package" href="cloudmesh_client.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -121,10 +121,11 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="cloudmesh_client.html">cloudmesh_client package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="cloudmesh_client.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="">cloudmesh_client.cloud package</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">cloudmesh_client.cloud package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.ListResource">cloudmesh_client.cloud.ListResource module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.attributes">cloudmesh_client.cloud.attributes module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.counter">cloudmesh_client.cloud.counter module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.experiment">cloudmesh_client.cloud.experiment module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.flavor">cloudmesh_client.cloud.flavor module</a></li>
@@ -132,6 +133,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.hpc">cloudmesh_client.cloud.hpc module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.image">cloudmesh_client.cloud.image module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.inventory">cloudmesh_client.cloud.inventory module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.ip">cloudmesh_client.cloud.ip module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.key">cloudmesh_client.cloud.key module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.launcher">cloudmesh_client.cloud.launcher module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.limits">cloudmesh_client.cloud.limits module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.list">cloudmesh_client.cloud.list module</a></li>
@@ -143,7 +146,9 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.secgroup">cloudmesh_client.cloud.secgroup module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.sync">cloudmesh_client.cloud.sync module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.usage">cloudmesh_client.cloud.usage module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.vc">cloudmesh_client.cloud.vc module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.vm">cloudmesh_client.cloud.vm module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.workflow">cloudmesh_client.cloud.workflow module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud">Module contents</a></li>
 </ul>
 </li>
@@ -151,7 +156,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.db.html">cloudmesh_client.db package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.etc.html">cloudmesh_client.etc package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.keys.html">cloudmesh_client.keys package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.provider.html">cloudmesh_client.provider package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.shell.html">cloudmesh_client.shell package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.system.html">cloudmesh_client.system package</a></li>
 </ul>
@@ -162,7 +167,6 @@
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.setup">cloudmesh_client.setup module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.shell_commad">cloudmesh_client.shell_commad module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.util">cloudmesh_client.util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.var">cloudmesh_client.var module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.version">cloudmesh_client.version module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client">Module contents</a></li>
@@ -295,23 +299,129 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.ListResource.ListResource.clear">
-<em class="property">classmethod </em><code class="descname">clear</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/ListResource.html#ListResource.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.ListResource.ListResource.clear" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/ListResource.html#ListResource.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.ListResource.ListResource.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>deletes all default values in the database.
+:return:</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.ListResource.ListResource.delete">
+<em class="property">classmethod </em><code class="descname">delete</code><span class="sig-paren">(</span><em>key</em>, <em>category</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/ListResource.html#ListResource.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.ListResource.ListResource.delete" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
+<dt id="cloudmesh_client.cloud.ListResource.ListResource.get">
+<em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>key</em>, <em>category='general'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/ListResource.html#ListResource.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.ListResource.ListResource.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the value of the first objects matching the key
+with the given category.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>key</strong> &#8211; The dictionary key</li>
+<li><strong>category</strong> &#8211; The category</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.ListResource.ListResource.get_object">
+<em class="property">classmethod </em><code class="descname">get_object</code><span class="sig-paren">(</span><em>key</em>, <em>category='general'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/ListResource.html#ListResource.get_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.ListResource.ListResource.get_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the first object that matches the key in the Default
+database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>key</strong> &#8211; The dictionary key</li>
+<li><strong>category</strong> &#8211; The category</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="cloudmesh_client.cloud.ListResource.ListResource.info">
-<em class="property">classmethod </em><code class="descname">info</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/ListResource.html#ListResource.info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.ListResource.ListResource.info" title="Permalink to this definition">¶</a></dt>
+<code class="descname">info</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/ListResource.html#ListResource.info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.ListResource.ListResource.info" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.ListResource.ListResource.list">
-<em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/ListResource.html#ListResource.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.ListResource.ListResource.list" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>category=None</em>, <em>order=None</em>, <em>output='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/ListResource.html#ListResource.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.ListResource.ListResource.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>lists the default values in the specified format.
+TODO: This method has a bug as it uses format and output,
+only one should be used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>category</strong> &#8211; the category of the default value. If general is used
+it is a special category that is used for global values.</li>
+<li><strong>order</strong> &#8211; The order in which the attributes are returned</li>
+<li><strong>output</strong> &#8211; The output format. json, table, yaml, dict, csv</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.ListResource.ListResource.refresh">
+<code class="descname">refresh</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/ListResource.html#ListResource.refresh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.ListResource.ListResource.refresh" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
-<dt id="cloudmesh_client.cloud.ListResource.ListResource.refresh">
-<em class="property">classmethod </em><code class="descname">refresh</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/ListResource.html#ListResource.refresh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.ListResource.ListResource.refresh" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="cloudmesh_client.cloud.ListResource.ListResource.set">
+<em class="property">classmethod </em><code class="descname">set</code><span class="sig-paren">(</span><em>key</em>, <em>value</em>, <em>category=None</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/ListResource.html#ListResource.set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.ListResource.ListResource.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the default value for a given category
+:param key: the dictionary key of the value to store it at.
+:param value: the value
+:param category: the name of the category
+:param user: the username to store this default value at.
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cloudmesh_client.cloud.attributes">
+<span id="cloudmesh-client-cloud-attributes-module"></span><h2>cloudmesh_client.cloud.attributes module<a class="headerlink" href="#module-cloudmesh_client.cloud.attributes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.cloud.attributes.Attributes">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.attributes.</code><code class="descname">Attributes</code><a class="reference internal" href="../_modules/cloudmesh_client/cloud/attributes.html#Attributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.attributes.Attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.cloud.ListResource.ListResource" title="cloudmesh_client.cloud.ListResource.ListResource"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.cloud.ListResource.ListResource</span></code></a></p>
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.attributes.Attributes.list">
+<em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>cloud</em>, <em>kind</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/attributes.html#Attributes.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.attributes.Attributes.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method lists all flavors of the cloud
+:param cloud: the cloud name
+:param kind: the kind of the attribute</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.attributes.Attributes.refresh">
+<em class="property">classmethod </em><code class="descname">refresh</code><span class="sig-paren">(</span><em>cloud</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/attributes.html#Attributes.refresh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.attributes.Attributes.refresh" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method has no effect for attributes
+:param cloud: The name of the cloud</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -451,7 +561,7 @@ the database, then inserting new data
 <dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.cloud.ListResource.ListResource" title="cloudmesh_client.cloud.ListResource.ListResource"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.cloud.ListResource.ListResource</span></code></a></p>
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.group.Group.add">
-<em class="property">classmethod </em><code class="descname">add</code><span class="sig-paren">(</span><em>name=None</em>, <em>type='vm'</em>, <em>id=None</em>, <em>category='kilo'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.add" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">add</code><span class="sig-paren">(</span><em>name=None</em>, <em>species='vm'</em>, <em>member=None</em>, <em>category=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.add" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Add an instance to a new group</dt>
 <dd>or add it to an existing one</dd>
@@ -462,8 +572,8 @@ the database, then inserting new data
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>name</strong> &#8211; </li>
-<li><strong>type</strong> &#8211; </li>
-<li><strong>id</strong> &#8211; </li>
+<li><strong>species</strong> &#8211; </li>
+<li><strong>member</strong> &#8211; </li>
 <li><strong>cloud</strong> &#8211; </li>
 </ul>
 </td>
@@ -497,7 +607,7 @@ the database, then inserting new data
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.group.Group.delete">
-<em class="property">classmethod </em><code class="descname">delete</code><span class="sig-paren">(</span><em>name=None</em>, <em>category='kilo'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.delete" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">delete</code><span class="sig-paren">(</span><em>name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.delete" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Method to delete a group from</dt>
 <dd>the cloudmesh database</dd>
@@ -537,7 +647,7 @@ with given name filtered by cloud.
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.group.Group.get_info">
-<em class="property">classmethod </em><code class="descname">get_info</code><span class="sig-paren">(</span><em>category='kilo'</em>, <em>name=None</em>, <em>output='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.get_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.get_info" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">get_info</code><span class="sig-paren">(</span><em>category='general'</em>, <em>name=None</em>, <em>output='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.get_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.get_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method to get info about a group
 :param cloud:
 :param name:
@@ -546,19 +656,29 @@ with given name filtered by cloud.
 </dd></dl>
 
 <dl class="classmethod">
+<dt id="cloudmesh_client.cloud.group.Group.get_vms">
+<em class="property">classmethod </em><code class="descname">get_vms</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.get_vms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.get_vms" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a list of vms within this group
+:param name:
+:return:</p>
+</dd></dl>
+
+<dl class="classmethod">
 <dt id="cloudmesh_client.cloud.group.Group.list">
-<em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>format='table'</em>, <em>category='kilo'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.list" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>Method to get list of groups in</dt>
-<dd>the cloudmesh database</dd>
-</dl>
+<em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>name=None</em>, <em>order=None</em>, <em>header=None</em>, <em>output='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>lists the default values in the specified format.
+TODO: This method has a bug as it uses format and output,
+only one should be used.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>format</strong> &#8211; </li>
-<li><strong>cloud</strong> &#8211; </li>
+<li><strong>category</strong> &#8211; the category of the default value. If general is used
+it is a special category that is used for global values.</li>
+<li><strong>format</strong> &#8211; json, table, yaml, dict, csv</li>
+<li><strong>order</strong> &#8211; The order in which the attributes are returned</li>
+<li><strong>output</strong> &#8211; The output format.</li>
 </ul>
 </td>
 </tr>
@@ -571,7 +691,7 @@ with given name filtered by cloud.
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.group.Group.merge">
-<em class="property">classmethod </em><code class="descname">merge</code><span class="sig-paren">(</span><em>_nameA</em>, <em>_nameB</em>, <em>mergeName</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.merge" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">merge</code><span class="sig-paren">(</span><em>group_a</em>, <em>group_b</em>, <em>merged_group</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.merge" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Method to merge two groups into</dt>
 <dd>one group</dd>
@@ -581,9 +701,9 @@ with given name filtered by cloud.
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>_nameA</strong> &#8211; </li>
-<li><strong>_nameB</strong> &#8211; </li>
-<li><strong>mergeName</strong> &#8211; </li>
+<li><strong>group_a</strong> &#8211; </li>
+<li><strong>group_b</strong> &#8211; </li>
+<li><strong>merged_group</strong> &#8211; </li>
 </ul>
 </td>
 </tr>
@@ -594,14 +714,19 @@ with given name filtered by cloud.
 </table>
 </dd></dl>
 
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.group.Group.names">
+<em class="property">classmethod </em><code class="descname">names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="attribute">
 <dt id="cloudmesh_client.cloud.group.Group.order">
-<code class="descname">order</code><em class="property"> = ['name', 'value', 'user', 'category', 'type']</em><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.order" title="Permalink to this definition">¶</a></dt>
+<code class="descname">order</code><em class="property"> = ['name', 'member', 'user', 'category', 'type', 'species']</em><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.order" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.group.Group.remove">
-<em class="property">classmethod </em><code class="descname">remove</code><span class="sig-paren">(</span><em>name</em>, <em>id</em>, <em>category</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.remove" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">remove</code><span class="sig-paren">(</span><em>name</em>, <em>member</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.remove" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method to remove an ID from the group
 in the cloudmesh database
 :param name:
@@ -619,20 +744,15 @@ in the cloudmesh database
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="cloudmesh_client.cloud.group.Group.transform_dict">
-<em class="property">classmethod </em><code class="descname">transform_dict</code><span class="sig-paren">(</span><em>dictionary</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.transform_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.transform_dict" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>Method to transform a dict,</dt>
-<dd>to display multiple rows
-per instance of a group</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
+<dt id="cloudmesh_client.cloud.group.Group.vm_groups">
+<em class="property">classmethod </em><code class="descname">vm_groups</code><span class="sig-paren">(</span><em>vm</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.vm_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.vm_groups" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dictionary</strong> &#8211; </td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>vm</strong> &#8211; name of the vm</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a list of groups the vm is in</td>
 </tr>
 </tbody>
 </table>
@@ -662,6 +782,21 @@ per instance of a group</dd>
 <dd></dd></dl>
 
 <dl class="classmethod">
+<dt id="cloudmesh_client.cloud.image.Image.get">
+<em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>name=None</em>, <em>cloud=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/image.html#Image.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.image.Image.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.image.Image.get_username">
+<em class="property">classmethod </em><code class="descname">get_username</code><span class="sig-paren">(</span><em>name</em>, <em>cloud</em>, <em>guess=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/image.html#Image.get_username"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.image.Image.get_username" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.image.Image.guess_username">
+<em class="property">classmethod </em><code class="descname">guess_username</code><span class="sig-paren">(</span><em>vm_name</em>, <em>cloud=None</em>, <em>description=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/image.html#Image.guess_username"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.image.Image.guess_username" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
 <dt id="cloudmesh_client.cloud.image.Image.list">
 <em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>cloud</em>, <em>format='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/image.html#Image.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.image.Image.list" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method lists all images of the cloud
@@ -675,6 +810,11 @@ per instance of a group</dd>
 the database, then inserting new data
 :param cloud: the cloud name</p>
 </dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.image.Image.set_username">
+<em class="property">classmethod </em><code class="descname">set_username</code><span class="sig-paren">(</span><em>name=None</em>, <em>cloud=None</em>, <em>username=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/image.html#Image.set_username"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.image.Image.set_username" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -724,71 +864,249 @@ the database, then inserting new data
 </dd></dl>
 
 </div>
-<div class="section" id="module-cloudmesh_client.cloud.launcher">
-<span id="cloudmesh-client-cloud-launcher-module"></span><h2>cloudmesh_client.cloud.launcher module<a class="headerlink" href="#module-cloudmesh_client.cloud.launcher" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="cloudmesh_client.cloud.launcher.Launcher">
-<code class="descclassname">cloudmesh_client.cloud.launcher.</code><code class="descname">Launcher</code><span class="sig-paren">(</span><em>kind</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#Launcher"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.Launcher" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<div class="section" id="module-cloudmesh_client.cloud.ip">
+<span id="cloudmesh-client-cloud-ip-module"></span><h2>cloudmesh_client.cloud.ip module<a class="headerlink" href="#module-cloudmesh_client.cloud.ip" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="cloudmesh_client.cloud.launcher.LauncherProvider">
-<em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.launcher.</code><code class="descname">LauncherProvider</code><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#LauncherProvider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.LauncherProvider" title="Permalink to this definition">¶</a></dt>
+<dt id="cloudmesh_client.cloud.ip.Ip">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.ip.</code><code class="descname">Ip</code><a class="reference internal" href="../_modules/cloudmesh_client/cloud/ip.html#Ip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.ip.Ip" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.cloud.ListResource.ListResource" title="cloudmesh_client.cloud.ListResource.ListResource"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.cloud.ListResource.ListResource</span></code></a></p>
-<dl class="method">
-<dt id="cloudmesh_client.cloud.launcher.LauncherProvider.clear">
-<code class="descname">clear</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#LauncherProvider.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.LauncherProvider.clear" title="Permalink to this definition">¶</a></dt>
+<dl class="attribute">
+<dt id="cloudmesh_client.cloud.ip.Ip.cm">
+<code class="descname">cm</code><em class="property"> = &lt;cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase object&gt;</em><a class="headerlink" href="#cloudmesh_client.cloud.ip.Ip.cm" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="cloudmesh_client.cloud.launcher.LauncherProvider.details">
-<code class="descname">details</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#LauncherProvider.details"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.LauncherProvider.details" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.cloud.launcher.LauncherProvider.info">
-<code class="descname">info</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#LauncherProvider.info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.LauncherProvider.info" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.cloud.launcher.LauncherProvider.kill">
-<code class="descname">kill</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#LauncherProvider.kill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.LauncherProvider.kill" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.cloud.launcher.LauncherProvider.list">
-<code class="descname">list</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#LauncherProvider.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.LauncherProvider.list" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.cloud.launcher.LauncherProvider.refresh">
-<code class="descname">refresh</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#LauncherProvider.refresh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.LauncherProvider.refresh" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.cloud.launcher.LauncherProvider.resume">
-<code class="descname">resume</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#LauncherProvider.resume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.LauncherProvider.resume" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.cloud.launcher.LauncherProvider.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#LauncherProvider.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.LauncherProvider.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.cloud.launcher.LauncherProvider.suspend">
-<code class="descname">suspend</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#LauncherProvider.suspend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.LauncherProvider.suspend" title="Permalink to this definition">¶</a></dt>
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.ip.Ip.list">
+<em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>cloud=None</em>, <em>names=None</em>, <em>output='table'</em>, <em>live=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/ip.html#Ip.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.ip.Ip.list" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
+</div>
+<div class="section" id="module-cloudmesh_client.cloud.key">
+<span id="cloudmesh-client-cloud-key-module"></span><h2>cloudmesh_client.cloud.key module<a class="headerlink" href="#module-cloudmesh_client.cloud.key" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="cloudmesh_client.cloud.launcher.LauncherShell">
-<em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.launcher.</code><code class="descname">LauncherShell</code><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#LauncherShell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.LauncherShell" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.cloud.launcher.LauncherProvider" title="cloudmesh_client.cloud.launcher.LauncherProvider"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.cloud.launcher.LauncherProvider</span></code></a></p>
+<dt id="cloudmesh_client.cloud.key.Key">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.key.</code><code class="descname">Key</code><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.cloud.ListResource.ListResource" title="cloudmesh_client.cloud.ListResource.ListResource"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.cloud.ListResource.ListResource</span></code></a></p>
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.key.Key.add_from_path">
+<em class="property">classmethod </em><code class="descname">add_from_path</code><span class="sig-paren">(</span><em>path</em>, <em>keyname=None</em>, <em>user=None</em>, <em>source=None</em>, <em>uri=None</em>, <em>store=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key.add_from_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.add_from_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the key to the database based on the path</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>keyname</strong> &#8211; name of the key or path to the key</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.key.Key.add_key_to_cloud">
+<em class="property">classmethod </em><code class="descname">add_key_to_cloud</code><span class="sig-paren">(</span><em>user</em>, <em>keyname</em>, <em>cloud</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key.add_key_to_cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.add_key_to_cloud" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>user</strong> &#8211; </li>
+<li><strong>keyname</strong> &#8211; </li>
+<li><strong>cloud</strong> &#8211; </li>
+<li><strong>name_on_cloud</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.key.Key.all">
+<em class="property">classmethod </em><code class="descname">all</code><span class="sig-paren">(</span><em>output='dict'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key.all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.all" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.key.Key.clear">
+<em class="property">classmethod </em><code class="descname">clear</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.cloud.key.Key.cm">
+<code class="descname">cm</code><em class="property"> = &lt;cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase object&gt;</em><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.cm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.key.Key.delete">
+<em class="property">classmethod </em><code class="descname">delete</code><span class="sig-paren">(</span><em>name=None</em>, <em>cloud=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.key.Key.delete_from_cloud">
+<em class="property">classmethod </em><code class="descname">delete_from_cloud</code><span class="sig-paren">(</span><em>name</em>, <em>cloud=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key.delete_from_cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.delete_from_cloud" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.key.Key.find">
+<em class="property">classmethod </em><code class="descname">find</code><span class="sig-paren">(</span><em>name=None</em>, <em>output='dict'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key.find"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.find" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.key.Key.get">
+<em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>name=None</em>, <em>output='dict'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the key on the database by name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> &#8211; name of the key to be found</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Query object of the search</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.key.Key.get_default">
+<em class="property">classmethod </em><code class="descname">get_default</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key.get_default"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.get_default" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.key.Key.get_from_dir">
+<em class="property">classmethod </em><code class="descname">get_from_dir</code><span class="sig-paren">(</span><em>directory=None</em>, <em>store=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key.get_from_dir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.get_from_dir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.key.Key.get_from_git">
+<em class="property">classmethod </em><code class="descname">get_from_git</code><span class="sig-paren">(</span><em>username</em>, <em>store=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key.get_from_git"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.get_from_git" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>username</strong> &#8211; the github username</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">an array of public keys</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="cloudmesh_client.html#cloudmesh_client.default.Default.list" title="cloudmesh_client.default.Default.list">list</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.key.Key.get_from_yaml">
+<em class="property">classmethod </em><code class="descname">get_from_yaml</code><span class="sig-paren">(</span><em>filename=None</em>, <em>load_order=None</em>, <em>store=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key.get_from_yaml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.get_from_yaml" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> &#8211; name of the yaml file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a SSHKeyManager (dict of keys)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.key.Key.info">
+<em class="property">classmethod </em><code class="descname">info</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key.info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.key.Key.list">
+<em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>category=None</em>, <em>live=False</em>, <em>output='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>this does not work only returns all ceys in the db</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.key.Key.list_on_cloud">
+<em class="property">classmethod </em><code class="descname">list_on_cloud</code><span class="sig-paren">(</span><em>cloud</em>, <em>live=False</em>, <em>format='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key.list_on_cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.list_on_cloud" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method lists all flavors of the cloud
+:param cloud: the cloud name</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.key.Key.refresh">
+<em class="property">classmethod </em><code class="descname">refresh</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key.refresh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.refresh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.key.Key.select">
+<em class="property">classmethod </em><code class="descname">select</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key.select"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.select" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.key.Key.set_default">
+<em class="property">classmethod </em><code class="descname">set_default</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key.set_default"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.set_default" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cloudmesh_client.cloud.launcher">
+<span id="cloudmesh-client-cloud-launcher-module"></span><h2>cloudmesh_client.cloud.launcher module<a class="headerlink" href="#module-cloudmesh_client.cloud.launcher" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.cloud.launcher.Launcher">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.launcher.</code><code class="descname">Launcher</code><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#Launcher"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.Launcher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.cloud.ListResource.ListResource" title="cloudmesh_client.cloud.ListResource.ListResource"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.cloud.ListResource.ListResource</span></code></a></p>
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.launcher.Launcher.add">
+<em class="property">classmethod </em><code class="descname">add</code><span class="sig-paren">(</span><em>name=None</em>, <em>source=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#Launcher.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.Launcher.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.launcher.Launcher.clear">
+<em class="property">classmethod </em><code class="descname">clear</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#Launcher.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.Launcher.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.cloud.launcher.Launcher.cm">
+<code class="descname">cm</code><em class="property"> = &lt;cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase object&gt;</em><a class="headerlink" href="#cloudmesh_client.cloud.launcher.Launcher.cm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.launcher.Launcher.details">
+<em class="property">classmethod </em><code class="descname">details</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#Launcher.details"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.Launcher.details" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
-<dt id="cloudmesh_client.cloud.launcher.LauncherShell.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#LauncherShell.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.LauncherShell.run" title="Permalink to this definition">¶</a></dt>
+<dt id="cloudmesh_client.cloud.launcher.Launcher.info">
+<code class="descname">info</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#Launcher.info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.Launcher.info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.launcher.Launcher.kill">
+<em class="property">classmethod </em><code class="descname">kill</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#Launcher.kill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.Launcher.kill" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.launcher.Launcher.list">
+<em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>name=None</em>, <em>output='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#Launcher.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.Launcher.list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.launcher.Launcher.refresh">
+<em class="property">classmethod </em><code class="descname">refresh</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#Launcher.refresh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.Launcher.refresh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.launcher.Launcher.resume">
+<em class="property">classmethod </em><code class="descname">resume</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#Launcher.resume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.Launcher.resume" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.launcher.Launcher.run">
+<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#Launcher.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.Launcher.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.launcher.Launcher.suspend">
+<em class="property">classmethod </em><code class="descname">suspend</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#Launcher.suspend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.Launcher.suspend" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -852,6 +1170,11 @@ given cloud and of given kind
 <em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.network.</code><code class="descname">Network</code><a class="reference internal" href="../_modules/cloudmesh_client/cloud/network.html#Network"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.network.Network" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.cloud.ListResource.ListResource" title="cloudmesh_client.cloud.ListResource.ListResource"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.cloud.ListResource.ListResource</span></code></a></p>
 <dl class="classmethod">
+<dt id="cloudmesh_client.cloud.network.Network.assign_floating_ip">
+<em class="property">classmethod </em><code class="descname">assign_floating_ip</code><span class="sig-paren">(</span><em>cloudname</em>, <em>instance_id</em>, <em>floating_ip</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/network.html#Network.assign_floating_ip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.network.Network.assign_floating_ip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
 <dt id="cloudmesh_client.cloud.network.Network.associate_floating_ip">
 <em class="property">classmethod </em><code class="descname">associate_floating_ip</code><span class="sig-paren">(</span><em>cloudname</em>, <em>instance_name</em>, <em>floating_ip</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/network.html#Network.associate_floating_ip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.network.Network.associate_floating_ip" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method to associate floating ip to an instance
@@ -860,6 +1183,11 @@ given cloud and of given kind
 :param floating_ip:
 :return:</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.cloud.network.Network.cm">
+<code class="descname">cm</code><em class="property"> = &lt;cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase object&gt;</em><a class="headerlink" href="#cloudmesh_client.cloud.network.Network.cm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.network.Network.create_assign_floating_ip">
@@ -900,6 +1228,11 @@ and associate it with the instance
 </dd></dl>
 
 <dl class="classmethod">
+<dt id="cloudmesh_client.cloud.network.Network.find_assign_floating_ip">
+<em class="property">classmethod </em><code class="descname">find_assign_floating_ip</code><span class="sig-paren">(</span><em>cloudname</em>, <em>instance_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/network.html#Network.find_assign_floating_ip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.network.Network.find_assign_floating_ip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
 <dt id="cloudmesh_client.cloud.network.Network.find_instance_name">
 <em class="property">classmethod </em><code class="descname">find_instance_name</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/network.html#Network.find_instance_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.network.Network.find_instance_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method to find instance name
@@ -909,7 +1242,7 @@ and associate it with the instance
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.network.Network.get_fixed_ip">
-<em class="property">classmethod </em><code class="descname">get_fixed_ip</code><span class="sig-paren">(</span><em>cloudname</em>, <em>fixed_ip_addr</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/network.html#Network.get_fixed_ip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.network.Network.get_fixed_ip" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">get_fixed_ip</code><span class="sig-paren">(</span><em>cloudname</em>, <em>fixed_ip_addr</em>, <em>output='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/network.html#Network.get_fixed_ip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.network.Network.get_fixed_ip" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method retrieves fixed ip info
 :param cloudname:
 :param fixed_ip_addr:
@@ -918,7 +1251,7 @@ and associate it with the instance
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.network.Network.get_floating_ip">
-<em class="property">classmethod </em><code class="descname">get_floating_ip</code><span class="sig-paren">(</span><em>cloudname</em>, <em>floating_ip_or_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/network.html#Network.get_floating_ip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.network.Network.get_floating_ip" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">get_floating_ip</code><span class="sig-paren">(</span><em>cloudname</em>, <em>floating_ip_or_id</em>, <em>output='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/network.html#Network.get_floating_ip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.network.Network.get_floating_ip" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method to get floating ip info
 :param cloudname:
 :param floating_ip_or_id:
@@ -939,6 +1272,14 @@ and associate it with the instance
 <dd><p>Method to get instance dict
 :param kwargs:
 :return: instance dict</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.network.Network.get_unused_floating_ip_list">
+<em class="property">classmethod </em><code class="descname">get_unused_floating_ip_list</code><span class="sig-paren">(</span><em>cloudname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/network.html#Network.get_unused_floating_ip_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.network.Network.get_unused_floating_ip_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to get the unused floating IP list
+:param cloudname:
+:return: floating_ips</p>
 </dd></dl>
 
 <dl class="classmethod">
@@ -967,7 +1308,7 @@ and associate it with the instance
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.network.Network.list_floating_ip">
-<em class="property">classmethod </em><code class="descname">list_floating_ip</code><span class="sig-paren">(</span><em>cloudname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/network.html#Network.list_floating_ip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.network.Network.list_floating_ip" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">list_floating_ip</code><span class="sig-paren">(</span><em>cloudname</em>, <em>output='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/network.html#Network.list_floating_ip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.network.Network.list_floating_ip" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method to list floating ips
 :param cloudname:
 :return: floating ip list</p>
@@ -979,6 +1320,15 @@ and associate it with the instance
 <dd><p>Method to list floating ip pool
 :param cloudname:
 :return:</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.network.Network.list_unused_floating_ip">
+<em class="property">classmethod </em><code class="descname">list_unused_floating_ip</code><span class="sig-paren">(</span><em>cloudname</em>, <em>output='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/network.html#Network.list_unused_floating_ip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.network.Network.list_unused_floating_ip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to list unused floating ips
+These floating ips are not associated with any instance
+:param cloudname:
+:return: floating ip list</p>
 </dd></dl>
 
 <dl class="classmethod">
@@ -1088,7 +1438,7 @@ and associate it with the instance
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.register.CloudRegister.list">
-<em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>filename</em>, <em>info=False</em>, <em>output='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/register.html#CloudRegister.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.register.CloudRegister.list" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>filename</em>, <em>cloud</em>, <em>info=False</em>, <em>output='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/register.html#CloudRegister.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.register.CloudRegister.list" title="Permalink to this definition">¶</a></dt>
 <dd><p>lists clouds from cloudmesh.yaml file</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1206,11 +1556,11 @@ project number.</p>
 <span id="cloudmesh-client-cloud-reservation-module"></span><h2>cloudmesh_client.cloud.reservation module<a class="headerlink" href="#module-cloudmesh_client.cloud.reservation" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cloudmesh_client.cloud.reservation.Reservation">
-<em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.reservation.</code><code class="descname">Reservation</code><span class="sig-paren">(</span><em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/reservation.html#Reservation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.reservation.Reservation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.reservation.</code><code class="descname">Reservation</code><a class="reference internal" href="../_modules/cloudmesh_client/cloud/reservation.html#Reservation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.reservation.Reservation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.cloud.ListResource.ListResource" title="cloudmesh_client.cloud.ListResource.ListResource"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.cloud.ListResource.ListResource</span></code></a></p>
-<dl class="method">
+<dl class="classmethod">
 <dt id="cloudmesh_client.cloud.reservation.Reservation.add">
-<code class="descname">add</code><span class="sig-paren">(</span><em>name</em>, <em>start</em>, <em>end</em>, <em>user=None</em>, <em>project=None</em>, <em>hosts=None</em>, <em>description=None</em>, <em>cloud=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/reservation.html#Reservation.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.reservation.Reservation.add" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">add</code><span class="sig-paren">(</span><em>name</em>, <em>start</em>, <em>end</em>, <em>user=None</em>, <em>project=None</em>, <em>hosts=None</em>, <em>description=None</em>, <em>category=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/reservation.html#Reservation.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.reservation.Reservation.add" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1249,14 +1599,19 @@ project number.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="classmethod">
 <dt id="cloudmesh_client.cloud.reservation.Reservation.clear">
-<code class="descname">clear</code><span class="sig-paren">(</span><em>names=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/reservation.html#Reservation.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.reservation.Reservation.clear" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">clear</code><span class="sig-paren">(</span><em>names=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/reservation.html#Reservation.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.reservation.Reservation.clear" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="attribute">
+<dt id="cloudmesh_client.cloud.reservation.Reservation.cm">
+<code class="descname">cm</code><em class="property"> = &lt;cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase object&gt;</em><a class="headerlink" href="#cloudmesh_client.cloud.reservation.Reservation.cm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
 <dt id="cloudmesh_client.cloud.reservation.Reservation.delete">
-<code class="descname">delete</code><span class="sig-paren">(</span><em>name=None</em>, <em>start=None</em>, <em>end=None</em>, <em>user=None</em>, <em>project=None</em>, <em>hosts=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/reservation.html#Reservation.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.reservation.Reservation.delete" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">delete</code><span class="sig-paren">(</span><em>name=None</em>, <em>start=None</em>, <em>end=None</em>, <em>user=None</em>, <em>project=None</em>, <em>hosts=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/reservation.html#Reservation.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.reservation.Reservation.delete" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1278,9 +1633,9 @@ project number.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="classmethod">
 <dt id="cloudmesh_client.cloud.reservation.Reservation.delete_from_file">
-<code class="descname">delete_from_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/reservation.html#Reservation.delete_from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.reservation.Reservation.delete_from_file" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">delete_from_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/reservation.html#Reservation.delete_from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.reservation.Reservation.delete_from_file" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1314,9 +1669,9 @@ project number.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="classmethod">
 <dt id="cloudmesh_client.cloud.reservation.Reservation.list">
-<code class="descname">list</code><span class="sig-paren">(</span><em>name=None</em>, <em>start=None</em>, <em>end=None</em>, <em>user=None</em>, <em>project=None</em>, <em>hosts=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/reservation.html#Reservation.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.reservation.Reservation.list" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>name=None</em>, <em>start=None</em>, <em>end=None</em>, <em>user=None</em>, <em>project=None</em>, <em>hosts=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/reservation.html#Reservation.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.reservation.Reservation.list" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1338,24 +1693,24 @@ project number.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
+<dl class="classmethod">
 <dt id="cloudmesh_client.cloud.reservation.Reservation.refresh">
-<code class="descname">refresh</code><span class="sig-paren">(</span><em>names=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/reservation.html#Reservation.refresh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.reservation.Reservation.refresh" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">refresh</code><span class="sig-paren">(</span><em>names=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/reservation.html#Reservation.refresh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.reservation.Reservation.refresh" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="classmethod">
 <dt id="cloudmesh_client.cloud.reservation.Reservation.resume">
-<code class="descname">resume</code><span class="sig-paren">(</span><em>names=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/reservation.html#Reservation.resume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.reservation.Reservation.resume" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">resume</code><span class="sig-paren">(</span><em>names=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/reservation.html#Reservation.resume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.reservation.Reservation.resume" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="classmethod">
 <dt id="cloudmesh_client.cloud.reservation.Reservation.suspend">
-<code class="descname">suspend</code><span class="sig-paren">(</span><em>names=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/reservation.html#Reservation.suspend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.reservation.Reservation.suspend" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">suspend</code><span class="sig-paren">(</span><em>names=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/reservation.html#Reservation.suspend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.reservation.Reservation.suspend" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="classmethod">
 <dt id="cloudmesh_client.cloud.reservation.Reservation.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>name</em>, <em>start</em>, <em>end</em>, <em>user=None</em>, <em>project=None</em>, <em>hosts=None</em>, <em>description=None</em>, <em>cloud=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/reservation.html#Reservation.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.reservation.Reservation.update" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">update</code><span class="sig-paren">(</span><em>name</em>, <em>start</em>, <em>end</em>, <em>user=None</em>, <em>project=None</em>, <em>hosts=None</em>, <em>description=None</em>, <em>cloud=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/reservation.html#Reservation.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.reservation.Reservation.update" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1369,18 +1724,31 @@ project number.</p>
 <dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.cloud.ListResource.ListResource" title="cloudmesh_client.cloud.ListResource.ListResource"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.cloud.ListResource.ListResource</span></code></a></p>
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.secgroup.SecGroup.add_rule">
-<em class="property">classmethod </em><code class="descname">add_rule</code><span class="sig-paren">(</span><em>cloud</em>, <em>secgroup</em>, <em>from_port</em>, <em>to_port</em>, <em>protocol</em>, <em>cidr</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.add_rule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.add_rule" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.cloud.secgroup.SecGroup.cm_db">
-<code class="descname">cm_db</code><em class="property"> = &lt;cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase object&gt;</em><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.cm_db" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">add_rule</code><span class="sig-paren">(</span><em>cloud</em>, <em>secgroup_uuid</em>, <em>from_port</em>, <em>to_port</em>, <em>protocol</em>, <em>cidr</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.add_rule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.add_rule" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
-<dt id="cloudmesh_client.cloud.secgroup.SecGroup.convert_list_to_dict">
-<em class="property">classmethod </em><code class="descname">convert_list_to_dict</code><span class="sig-paren">(</span><em>os_result</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.convert_list_to_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.convert_list_to_dict" title="Permalink to this definition">¶</a></dt>
+<dt id="cloudmesh_client.cloud.secgroup.SecGroup.add_rule_to_db">
+<em class="property">classmethod </em><code class="descname">add_rule_to_db</code><span class="sig-paren">(</span><em>group=None</em>, <em>name=None</em>, <em>from_port=None</em>, <em>to_port=None</em>, <em>protocol=None</em>, <em>cidr=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.add_rule_to_db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.add_rule_to_db" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.cloud.secgroup.SecGroup.cm">
+<code class="descname">cm</code><em class="property"> = &lt;cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase object&gt;</em><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.cm" title="Permalink to this definition">¶</a></dt>
+<dd><p>NOT USED
+&#64;classmethod
+def convert_list_to_dict(cls, os_result):</p>
+<blockquote>
+<div><p>d = {}
+for i, obj in enumerate(os_result):</p>
+<blockquote>
+<div>d[i] = {}
+d[i][&#8220;Id&#8221;] = obj.id
+d[i][&#8220;Name&#8221;] = obj.name
+d[i][&#8220;Description&#8221;] = obj.description</div></blockquote>
+<p>return d</p>
+</div></blockquote>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.secgroup.SecGroup.convert_rules_to_dict">
@@ -1389,14 +1757,18 @@ project number.</p>
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.secgroup.SecGroup.create">
-<em class="property">classmethod </em><code class="descname">create</code><span class="sig-paren">(</span><em>label</em>, <em>cloud=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.create" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">create</code><span class="sig-paren">(</span><em>group=None</em>, <em>category=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method creates a new security group in database
 &amp; returns the uuid of the created group
-:param label:
-:param cloud:
-:param tenant:
+:param group:
+:param category:
 :return:</p>
 </dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.secgroup.SecGroup.delete">
+<em class="property">classmethod </em><code class="descname">delete</code><span class="sig-paren">(</span><em>category='general'</em>, <em>group=None</em>, <em>name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.secgroup.SecGroup.delete_all_rules">
@@ -1410,7 +1782,7 @@ project number.</p>
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.secgroup.SecGroup.delete_secgroup">
-<em class="property">classmethod </em><code class="descname">delete_secgroup</code><span class="sig-paren">(</span><em>label</em>, <em>cloud</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.delete_secgroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.delete_secgroup" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">delete_secgroup</code><span class="sig-paren">(</span><em>name=None</em>, <em>cloud=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.delete_secgroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.delete_secgroup" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -1420,7 +1792,7 @@ project number.</p>
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.secgroup.SecGroup.get">
-<em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>name</em>, <em>cloud='general'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.get" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>name=None</em>, <em>cloud='general'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method queries the database to fetch secgroup
 with given name filtered by cloud.
 :param name:
@@ -1429,20 +1801,20 @@ with given name filtered by cloud.
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="cloudmesh_client.cloud.secgroup.SecGroup.get_rules">
-<em class="property">classmethod </em><code class="descname">get_rules</code><span class="sig-paren">(</span><em>uuid</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.get_rules"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.get_rules" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method gets the security group rule
-from the cloudmesh database
-:param uuid:
+<dt id="cloudmesh_client.cloud.secgroup.SecGroup.list">
+<em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>group=None</em>, <em>name=None</em>, <em>category='general'</em>, <em>output='table'</em>, <em>scope='all'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method queries the database to fetch list of secgroups
+filtered by cloud.
+:param cloud:
 :return:</p>
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="cloudmesh_client.cloud.secgroup.SecGroup.list">
-<em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>cloud='general'</em>, <em>format='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.list" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method queries the database to fetch list of secgroups
-filtered by cloud.
-:param cloud:
+<dt id="cloudmesh_client.cloud.secgroup.SecGroup.list_rules">
+<em class="property">classmethod </em><code class="descname">list_rules</code><span class="sig-paren">(</span><em>uuid=None</em>, <em>output='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.list_rules"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.list_rules" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method gets the security group rules
+from the cloudmesh database
+:param uuid:
 :return:</p>
 </dd></dl>
 
@@ -1455,17 +1827,14 @@ the database, then inserting new data
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="cloudmesh_client.cloud.secgroup.SecGroup.remove_subjectAltName_warning">
-<em class="property">classmethod </em><code class="descname">remove_subjectAltName_warning</code><span class="sig-paren">(</span><em>content</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.remove_subjectAltName_warning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.remove_subjectAltName_warning" title="Permalink to this definition">¶</a></dt>
+<dt id="cloudmesh_client.cloud.secgroup.SecGroup.reset_defaults">
+<em class="property">classmethod </em><code class="descname">reset_defaults</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.reset_defaults"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.reset_defaults" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
-<dt id="cloudmesh_client.cloud.secgroup.SecGroup.toDict">
-<em class="property">classmethod </em><code class="descname">toDict</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.toDict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.toDict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method converts the item to a dict
-:param item:
-:return:</p>
-</dd></dl>
+<dt id="cloudmesh_client.cloud.secgroup.SecGroup.upload">
+<em class="property">classmethod </em><code class="descname">upload</code><span class="sig-paren">(</span><em>cloud=None</em>, <em>group=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.upload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.upload" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -1537,6 +1906,28 @@ Either from local to remote OR vice-versa
 </dd></dl>
 
 </div>
+<div class="section" id="module-cloudmesh_client.cloud.vc">
+<span id="cloudmesh-client-cloud-vc-module"></span><h2>cloudmesh_client.cloud.vc module<a class="headerlink" href="#module-cloudmesh_client.cloud.vc" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.cloud.vc.Vc">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.vc.</code><code class="descname">Vc</code><a class="reference internal" href="../_modules/cloudmesh_client/cloud/vc.html#Vc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.vc.Vc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.cloud.ListResource.ListResource" title="cloudmesh_client.cloud.ListResource.ListResource"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.cloud.ListResource.ListResource</span></code></a></p>
+<dl class="attribute">
+<dt id="cloudmesh_client.cloud.vc.Vc.cm">
+<code class="descname">cm</code><em class="property"> = &lt;cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase object&gt;</em><a class="headerlink" href="#cloudmesh_client.cloud.vc.Vc.cm" title="Permalink to this definition">¶</a></dt>
+<dd><p>vc key list NAMES [&#8211;usort]</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.vc.Vc.list">
+<em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>names</em>, <em>usort=False</em>, <em>format='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/vc.html#Vc.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.vc.Vc.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method lists all vcs of the cloud
+:param cloud: the cloud name</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-cloudmesh_client.cloud.vm">
 <span id="cloudmesh-client-cloud-vm-module"></span><h2>cloudmesh_client.cloud.vm module<a class="headerlink" href="#module-cloudmesh_client.cloud.vm" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -1560,7 +1951,7 @@ Either from local to remote OR vice-versa
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.vm.Vm.construct_ip_dict">
-<em class="property">classmethod </em><code class="descname">construct_ip_dict</code><span class="sig-paren">(</span><em>ip_addr</em>, <em>name='kilo'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/vm.html#Vm.construct_ip_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.vm.Vm.construct_ip_dict" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">construct_ip_dict</code><span class="sig-paren">(</span><em>ip_addr</em>, <em>name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/vm.html#Vm.construct_ip_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.vm.Vm.construct_ip_dict" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -1569,13 +1960,55 @@ Either from local to remote OR vice-versa
 <dd></dd></dl>
 
 <dl class="classmethod">
-<dt id="cloudmesh_client.cloud.vm.Vm.get_last_vm">
-<em class="property">classmethod </em><code class="descname">get_last_vm</code><span class="sig-paren">(</span><em>cloud</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/vm.html#Vm.get_last_vm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.vm.Vm.get_last_vm" title="Permalink to this definition">¶</a></dt>
+<dt id="cloudmesh_client.cloud.vm.Vm.get">
+<em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>key</em>, <em>category=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/vm.html#Vm.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.vm.Vm.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the value of the first objects matching the key
+with the given category.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>key</strong> &#8211; The dictionary key</li>
+<li><strong>category</strong> &#8211; The category</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.vm.Vm.get_login_user">
+<em class="property">classmethod </em><code class="descname">get_login_user</code><span class="sig-paren">(</span><em>name</em>, <em>cloud</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/vm.html#Vm.get_login_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.vm.Vm.get_login_user" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
-<dt id="cloudmesh_client.cloud.vm.Vm.get_vm_login_user">
-<em class="property">classmethod </em><code class="descname">get_vm_login_user</code><span class="sig-paren">(</span><em>name_or_id</em>, <em>cloud</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/vm.html#Vm.get_vm_login_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.vm.Vm.get_vm_login_user" title="Permalink to this definition">¶</a></dt>
+<dt id="cloudmesh_client.cloud.vm.Vm.get_vm_public_ip">
+<em class="property">classmethod </em><code class="descname">get_vm_public_ip</code><span class="sig-paren">(</span><em>vm_name</em>, <em>cloud</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/vm.html#Vm.get_vm_public_ip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.vm.Vm.get_vm_public_ip" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>vm_name</strong> &#8211; Name of the VM instance whose Public IP has to be retrieved from the DB</li>
+<li><strong>cloud</strong> &#8211; Libcloud supported Cloud provider name</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Public IP as a list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.vm.Vm.get_vms_by_name">
+<em class="property">classmethod </em><code class="descname">get_vms_by_name</code><span class="sig-paren">(</span><em>name</em>, <em>cloud</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/vm.html#Vm.get_vms_by_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.vm.Vm.get_vms_by_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -1605,8 +2038,8 @@ Either from local to remote OR vice-versa
 <dd></dd></dl>
 
 <dl class="classmethod">
-<dt id="cloudmesh_client.cloud.vm.Vm.set_vm_login_user">
-<em class="property">classmethod </em><code class="descname">set_vm_login_user</code><span class="sig-paren">(</span><em>name_or_id</em>, <em>cloud</em>, <em>username</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/vm.html#Vm.set_vm_login_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.vm.Vm.set_vm_login_user" title="Permalink to this definition">¶</a></dt>
+<dt id="cloudmesh_client.cloud.vm.Vm.set_login_user">
+<em class="property">classmethod </em><code class="descname">set_login_user</code><span class="sig-paren">(</span><em>name=None</em>, <em>cloud=None</em>, <em>username=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/vm.html#Vm.set_login_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.vm.Vm.set_login_user" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -1623,6 +2056,50 @@ Either from local to remote OR vice-versa
 <dt id="cloudmesh_client.cloud.vm.Vm.stop">
 <em class="property">classmethod </em><code class="descname">stop</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/vm.html#Vm.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.vm.Vm.stop" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.vm.Vm.uuid">
+<em class="property">classmethod </em><code class="descname">uuid</code><span class="sig-paren">(</span><em>name</em>, <em>category=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/vm.html#Vm.uuid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.vm.Vm.uuid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cloudmesh_client.cloud.workflow">
+<span id="cloudmesh-client-cloud-workflow-module"></span><h2>cloudmesh_client.cloud.workflow module<a class="headerlink" href="#module-cloudmesh_client.cloud.workflow" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.cloud.workflow.Workflow">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.workflow.</code><code class="descname">Workflow</code><a class="reference internal" href="../_modules/cloudmesh_client/cloud/workflow.html#Workflow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.workflow.Workflow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.cloud.ListResource.ListResource" title="cloudmesh_client.cloud.ListResource.ListResource"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.cloud.ListResource.ListResource</span></code></a></p>
+<dl class="attribute">
+<dt id="cloudmesh_client.cloud.workflow.Workflow.cm">
+<code class="descname">cm</code><em class="property"> = &lt;cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase object&gt;</em><a class="headerlink" href="#cloudmesh_client.cloud.workflow.Workflow.cm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.workflow.Workflow.delete">
+<em class="property">classmethod </em><code class="descname">delete</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/workflow.html#Workflow.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.workflow.Workflow.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.workflow.Workflow.details">
+<em class="property">classmethod </em><code class="descname">details</code><span class="sig-paren">(</span><em>cloud</em>, <em>id</em>, <em>live=False</em>, <em>format='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/workflow.html#Workflow.details"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.workflow.Workflow.details" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.workflow.Workflow.list">
+<em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>name</em>, <em>live=False</em>, <em>format='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/workflow.html#Workflow.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.workflow.Workflow.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method lists all workflows of the cloud
+:param cloud: the cloud name</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.workflow.Workflow.refresh">
+<em class="property">classmethod </em><code class="descname">refresh</code><span class="sig-paren">(</span><em>cloud</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/workflow.html#Workflow.refresh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.workflow.Workflow.refresh" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method would refresh the workflow list by first clearing
+the database, then inserting new data
+:param cloud: the cloud name</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -1672,7 +2149,7 @@ Either from local to remote OR vice-versa
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

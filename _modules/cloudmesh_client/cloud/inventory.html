@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.inventory &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>cloudmesh_client.cloud.inventory &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -172,17 +172,19 @@
             
   <h1>Source code for cloudmesh_client.cloud.inventory</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span>
 
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="kn">import</span> <span class="n">Shell</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.util</span> <span class="kn">import</span> <span class="n">banner</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">dict_printer</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
-<span class="kn">import</span> <span class="nn">yaml</span>
-<span class="kn">import</span> <span class="nn">hostlist</span>
-<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">hostlist</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.ListResource</span> <span class="kn">import</span> <span class="n">ListResource</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">Printer</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="kn">import</span> <span class="n">Shell</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.util</span> <span class="kn">import</span> <span class="n">banner</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
 
 
 <div class="viewcode-block" id="Inventory"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.inventory.Inventory">[docs]</a><span class="k">class</span> <span class="nc">Inventory</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
@@ -199,9 +201,9 @@
             <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config_filename</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem reading the yaml file {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">config_filename</span><span class="p">))</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Please check if the file exists or is empty&quot;</span><span class="p">)</span>
-            <span class="k">print</span> <span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">config_filename</span><span class="p">),</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Please check if the file exists or is empty&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
 
         <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span></div>
 
@@ -248,7 +250,7 @@
 <div class="viewcode-block" id="Inventory.add"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.inventory.Inventory.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="s2">&quot;host&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;ERROR no id specified&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ERROR no id specified&quot;</span><span class="p">)</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
         <span class="n">hosts</span> <span class="o">=</span> <span class="n">hostlist</span><span class="o">.</span><span class="n">expand_hostlist</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;host&#39;</span><span class="p">])</span>
@@ -269,10 +271,10 @@
 <div class="viewcode-block" id="Inventory.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.inventory.Inventory.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">order</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">order</span>
-        <span class="k">return</span> <span class="n">dict_printer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-                            <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
-                            <span class="n">output</span><span class="o">=</span><span class="n">format</span><span class="p">,</span>
-                            <span class="n">sort_keys</span><span class="o">=</span><span class="n">sort_keys</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+                             <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
+                             <span class="n">output</span><span class="o">=</span><span class="n">format</span><span class="p">,</span>
+                             <span class="n">sort_keys</span><span class="o">=</span><span class="n">sort_keys</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">with_empty</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="k">print</span>
@@ -280,7 +282,7 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="ow">is</span> <span class="s1">&#39;&#39;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="k">pass</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">print</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">])</span></div>
+                <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">])</span></div>
 
 
 <span class="c1"># noinspection PyBroadException,PyPep8Naming</span>
@@ -354,7 +356,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

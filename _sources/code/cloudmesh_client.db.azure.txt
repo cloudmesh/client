@@ -1,0 +1,22 @@
+cloudmesh_client.db.azure package
+=================================
+
+Submodules
+----------
+
+cloudmesh_client.db.azure.model module
+--------------------------------------
+
+.. automodule:: cloudmesh_client.db.azure.model
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: cloudmesh_client.db.azure
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,372 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.shell.plugins.VcCommand &mdash; cloudmesh_client 4.1.5 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../../../../index.html"/>
+        <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../prefix.html">Prefix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../comet.html">Comet Virtual Cluster</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hackathon.html#python-guidelines">Python Guidelines</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      
+          <li><a href="../../../cloudmesh_client.html">cloudmesh_client</a> &raquo;</li>
+      
+    <li>cloudmesh_client.shell.plugins.VcCommand</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cloudmesh_client.shell.plugins.VcCommand</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.vc</span> <span class="kn">import</span> <span class="n">Vc</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span><span class="p">,</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.dotdict</span> <span class="kn">import</span> <span class="n">dotdict</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.hostlist</span> <span class="kn">import</span> <span class="n">Parameter</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+
+<div class="viewcode-block" id="VcCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.VcCommand.VcCommand">[docs]</a><span class="k">class</span> <span class="nc">VcCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
+    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;vc&quot;</span><span class="p">:</span> <span class="s2">&quot;todo&quot;</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;init command vc&quot;</span><span class="p">)</span>
+
+    <span class="c1"># noinspection PyUnusedLocal</span>
+    <span class="nd">@command</span>
+    <span class="k">def</span> <span class="nf">do_vc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        ::</span>
+
+<span class="sd">            Usage:</span>
+<span class="sd">                vc key add KEYFILE NAMES [--username=USERNAME] [--proxy=PROXY]</span>
+<span class="sd">                vc key distribute NAMES [--username=USERNAME] [--proxy=PROXY]</span>
+<span class="sd">                vc key list NAMES [--usort] [--username=USERNAME] [--proxy=PROXY] [--format=FORMAT]</span>
+<span class="sd">                vc key proxy NAMES [--username=USERNAME] [--proxy=PROXY]</span>
+
+<span class="sd">            Options:</span>
+<span class="sd">               --format=FORMAT  the output format [default: table]</span>
+
+<span class="sd">            Description:</span>
+
+<span class="sd">                see examples</span>
+
+<span class="sd">            Examples:</span>
+<span class="sd">                cm vc key add keys.txt gregor-[001-010]</span>
+<span class="sd">                    adds the keys in the file keys.txt to the authorized_keys file</span>
+<span class="sd">                    in the user that is registered for the vm</span>
+
+<span class="sd">                cm vc key add keys.txt gregor-[001-010] --username=ubuntu</span>
+<span class="sd">                    adds the keys in the file keys.txt to the authorized_keys file</span>
+<span class="sd">                    in the user ubuntu for each of the vms</span>
+
+<span class="sd">                vc key distribute gregor-[001-010]</span>
+<span class="sd">                    gathers the keys from the host gathers it into a single file</span>
+<span class="sd">                    and adds them to the authorized keys file. Duplicated keys will</span>
+<span class="sd">                    be ignored.</span>
+
+<span class="sd">                vc key list gregor-[001-010] [--usort]</span>
+<span class="sd">                    creates a table with all keys in authorized_keys from all of the</span>
+<span class="sd">                    remote machines. If the parameter usort is specified it only lists</span>
+<span class="sd">                    the key once, but lists in the host column the list of all host on</span>
+<span class="sd">                    which the key is stored</span>
+
+<span class="sd">                Proxy server</span>
+
+<span class="sd">                    vc key proxy NAMES</span>
+<span class="sd">                        sometimes you may not have enough floating IPs so it is possible to dedicate one machine</span>
+<span class="sd">                        as a proxy server that has such a floating ip. The way this is done is that you need to set</span>
+<span class="sd">                        up ssh tunnels via the proxy server in your  .ssh/config file. The command will print a</span>
+<span class="sd">                        template that you could include in your .ssh/config file to gain easily access to your other</span>
+<span class="sd">                        machines without floating ip. For example it will generate the following for a given PROXY host,</span>
+<span class="sd">                        USERNAME, and vm1 is the name of the first vm in NAMES</span>
+
+<span class="sd">                        Host vm1</span>
+<span class="sd">                            User  USERNAME</span>
+<span class="sd">                            Hostname PROXY</span>
+<span class="sd">                            ProxyCommand  ssh 10.1.1.2 nc %h %p</span>
+<span class="sd">                            ForwardX11 yes</span>
+
+<span class="sd">                        Note: this is just a draft and will be improved upon discussion with the team</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">arg</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">usort</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--usort&quot;</span><span class="p">]</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--format&quot;</span><span class="p">]</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--username&quot;</span><span class="p">]</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">proxy</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--proxy&quot;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">NAMES</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">arg</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">NAMES</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">arg</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="bp">None</span>
+
+
+        <span class="n">pprint</span> <span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">add</span><span class="p">:</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;vc key add KEYFILE NAMES --username=USERNAME&quot;</span><span class="p">)</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">KEYFILE</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">proxy</span><span class="p">)</span>
+
+
+            <span class="n">Console</span><span class="o">.</span><span class="n">TODO</span><span class="p">(</span><span class="s2">&quot;not yet implemented&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="k">elif</span> <span class="n">arg</span><span class="o">.</span><span class="n">distribute</span><span class="p">:</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;vc key distribute NAMES --username=USERNAME&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">proxy</span><span class="p">)</span>
+
+            <span class="n">Console</span><span class="o">.</span><span class="n">TODO</span><span class="p">(</span><span class="s2">&quot;not yet implemented&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="k">elif</span> <span class="n">arg</span><span class="o">.</span><span class="n">list</span><span class="p">:</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;vc key list NAMES [--usort] [--format=FORMAT]&quot;</span><span class="p">)</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">usort</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">proxy</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">Vc</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>  <span class="c1"># dont forget format and sort</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">TODO</span><span class="p">(</span><span class="s2">&quot;not yet implemented&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="k">elif</span> <span class="n">arg</span><span class="o">.</span><span class="n">proxy</span><span class="p">:</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;vc key proxy NAMES [--username=USERNAME] [--proxy=PROXY]&quot;</span><span class="p">)</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">usort</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">proxy</span><span class="p">)</span>
+
+            <span class="n">result</span> <span class="o">=</span> <span class="n">Vc</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>  <span class="c1"># dont forget format and sort</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">TODO</span><span class="p">(</span><span class="s2">&quot;not yet implemented&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'4.1.5',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

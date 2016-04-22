@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins.RegisterCommand &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>cloudmesh_client.shell.plugins.RegisterCommand &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -173,23 +173,24 @@
   <h1>Source code for cloudmesh_client.shell.plugins.RegisterCommand</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
+<span class="kn">import</span> <span class="nn">getpass</span>
+<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">os.path</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">getpass</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">input</span>
 
-<span class="kn">from</span> <span class="nn">cloudmesh_client.util</span> <span class="kn">import</span> <span class="n">yn_choice</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">ConfigDict</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.register</span> <span class="kn">import</span> <span class="n">CloudRegister</span><span class="p">,</span> <span class="n">Register</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">attribute_printer</span><span class="p">,</span> <span class="n">dict_printer</span><span class="p">,</span> \
-    <span class="n">print_list</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.util</span> <span class="kn">import</span> <span class="n">path_expand</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">ConfigDict</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.Error</span> <span class="kn">import</span> <span class="n">Error</span>
-
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">Printer</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.util</span> <span class="kn">import</span> <span class="n">path_expand</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.util</span> <span class="kn">import</span> <span class="n">yn_choice</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
-
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.dotdict</span> <span class="kn">import</span> <span class="n">dotdict</span>
+<span class="kn">from</span> <span class="nn">stat</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="c1"># noinspection PyBroadException</span>
 <div class="viewcode-block" id="RegisterCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.RegisterCommand.RegisterCommand">[docs]</a><span class="k">class</span> <span class="nc">RegisterCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
@@ -209,12 +210,15 @@
 
 <span class="sd">          Usage:</span>
 <span class="sd">              register info</span>
-<span class="sd">              register new</span>
+<span class="sd">              register new [--force] [--dryrun]</span>
 <span class="sd">              register clean [--force]</span>
 <span class="sd">              register list ssh [--format=FORMAT]</span>
 <span class="sd">              register list [--yaml=FILENAME][--info][--format=FORMAT]</span>
 <span class="sd">              register cat [--yaml=FILENAME]</span>
 <span class="sd">              register edit [--yaml=FILENAME]</span>
+<span class="sd">              register user [USERNAME]</span>
+<span class="sd">              register cloud [CLOUD] [--force]</span>
+<span class="sd">              register remote [CLOUD] [--force]</span>
 <span class="sd">              register export HOST [--password] [--format=FORMAT]</span>
 <span class="sd">              register source HOST</span>
 <span class="sd">              register merge FILEPATH</span>
@@ -222,13 +226,9 @@
 <span class="sd">              register check [--yaml=FILENAME]</span>
 <span class="sd">              register test [--yaml=FILENAME]</span>
 <span class="sd">              register json HOST</span>
-<span class="sd">              register remote [CLOUD] [--force]</span>
 <span class="sd">              register env [--provider=PROVIDER]</span>
-<span class="sd">              register profile --username=[USERNAME]</span>
-<span class="sd">              register yaml ENTRY</span>
-<span class="sd">              register CLOUD [--force]</span>
-<span class="sd">              register CLOUD [--dir=DIR]</span>
 <span class="sd">              register ec2 CLOUD EC2ZIP</span>
+<span class="sd">              register ENTRY</span>
 
 <span class="sd">          managing the registered clouds in the cloudmesh.yaml file.</span>
 <span class="sd">          It looks for it in the current directory, and than in</span>
@@ -260,8 +260,8 @@
 <span class="sd">          Description:</span>
 
 <span class="sd">              register info</span>
-<span class="sd">                  It looks out for the cloudmesh.yaml file in the current</span>
-<span class="sd">                  directory, and then in ~/.cloudmesh</span>
+<span class="sd">                  lists the clouds specified in the cloudmesh.yaml</span>
+<span class="sd">                  file in the current directory, and then in ~/.cloudmesh</span>
 
 <span class="sd">              register list [--yaml=FILENAME] [--name] [--info]</span>
 <span class="sd">                  lists the clouds specified in the cloudmesh.yaml file. If</span>
@@ -329,6 +329,7 @@
 <span class="sd">              register username [USERNAME]</span>
 <span class="sd">                  Sets the username in yaml with the value provided.</span>
 <span class="sd">         &quot;&quot;&quot;</span>
+
         <span class="c1"># from pprint import pprint</span>
         <span class="c1"># pprint(arguments)</span>
 
@@ -352,9 +353,9 @@
                 <span class="k">for</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">credentials</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                     <span class="k">print</span><span class="p">(</span><span class="s2">&quot;export {}={}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
             <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s2">&quot;table&quot;</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="n">attribute_printer</span><span class="p">(</span><span class="n">credentials</span><span class="p">))</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">credentials</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="n">dict_printer</span><span class="p">(</span><span class="n">credentials</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">))</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">credentials</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">))</span>
                 <span class="c1"># TODO: bug csv does not work</span>
             <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
@@ -368,6 +369,7 @@
                 <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;The yaml file contains the following templates:&quot;</span><span class="p">)</span>
 
                 <span class="n">d</span> <span class="o">=</span> <span class="n">CloudRegister</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span>
+                                       <span class="n">Default</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span>
                                        <span class="n">info</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                                        <span class="n">output</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">)</span>
                 <span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
@@ -381,16 +383,27 @@
 
             <span class="kn">import</span> <span class="nn">shutil</span>
             <span class="kn">import</span> <span class="nn">cloudmesh_client.etc</span>
-            <span class="k">print</span><span class="p">(</span><span class="n">cloudmesh_client</span><span class="o">.</span><span class="n">etc</span><span class="o">.</span><span class="n">__file__</span><span class="p">)</span>
-            <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">cloudmesh_client</span><span class="o">.</span><span class="n">etc</span><span class="o">.</span><span class="n">__file__</span><span class="p">),</span>
-                <span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-            <span class="n">yamlfile</span> <span class="o">=</span> <span class="n">path_expand</span><span class="p">(</span><span class="s2">&quot;~/.cloudmesh/cloudmesh.yaml&quot;</span><span class="p">)</span>
-            <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">yamlfile</span><span class="p">)</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;copy &quot;</span><span class="p">)</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;From: &quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;To:   &quot;</span><span class="p">,</span> <span class="n">yamlfile</span><span class="p">)</span>
+
+            <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">({</span>
+                <span class="s1">&#39;dir&#39;</span><span class="p">:</span> <span class="n">cloudmesh_client</span><span class="o">.</span><span class="n">etc</span><span class="o">.</span><span class="n">__file__</span><span class="p">,</span>
+                <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">cloudmesh_client</span><span class="o">.</span><span class="n">etc</span><span class="o">.</span><span class="n">__file__</span><span class="p">),</span>
+                    <span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">),</span>
+                <span class="s1">&#39;yamlfile&#39;</span><span class="p">:</span> <span class="n">path_expand</span><span class="p">(</span><span class="s2">&quot;~/.cloudmesh/cloudmesh.yaml&quot;</span><span class="p">),</span>
+                <span class="s1">&#39;dryrun&#39;</span><span class="p">:</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--dryrun&#39;</span><span class="p">]</span>
+            <span class="p">})</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+            <span class="n">force</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--force&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">force</span><span class="p">:</span>
+                <span class="n">force</span> <span class="o">=</span> <span class="n">yn_choice</span><span class="p">(</span><span class="s2">&quot;Would you like create a new configuration file at {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">yamlfile</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">force</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="o">.</span><span class="n">dryrun</span><span class="p">:</span>
+                    <span class="n">config</span><span class="o">.</span><span class="n">make_a_copy</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">yamlfile</span><span class="p">)</span>
+                    <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">yamlfile</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;copy &quot;</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;From: &quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;To:   &quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">yamlfile</span><span class="p">)</span>
 
             <span class="c1"># filename = _get_config_yaml_file(arguments)</span>
             <span class="c1"># if _exists(filename):</span>
@@ -452,7 +465,7 @@
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;list&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;ssh&#39;</span><span class="p">]:</span>
             <span class="n">output</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--format&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">&#39;table&#39;</span>
             <span class="n">hosts</span> <span class="o">=</span> <span class="n">CloudRegister</span><span class="o">.</span><span class="n">list_ssh</span><span class="p">()</span>
-            <span class="k">print</span><span class="p">(</span><span class="n">print_list</span><span class="p">(</span><span class="n">hosts</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">))</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">hosts</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">))</span>
             <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;list&#39;</span><span class="p">]:</span>
@@ -465,6 +478,7 @@
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;File {} doesn&#39;t exist&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">d</span> <span class="o">=</span> <span class="n">CloudRegister</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span>
+                                       <span class="n">Default</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span>
                                        <span class="n">info</span><span class="o">=</span><span class="n">info</span><span class="p">,</span>
                                        <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">)</span>
                 <span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
@@ -549,7 +563,9 @@
             <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;CLOUD&#39;</span><span class="p">]</span>
 
             <span class="k">if</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">clouds</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;kilo&quot;</span><span class="p">]</span>
+                <span class="c1"># clouds =  [ConfigDict(filename=&quot;cloudmesh.yaml&quot;)[&quot;cloudmesh&quot;][&quot;active&quot;][0]]</span>
+                <span class="n">clouds</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;kilo&quot;</span><span class="p">]</span>  <span class="c1"># hardcode to kilo for now</span>
+
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">clouds</span> <span class="o">=</span> <span class="p">[</span><span class="n">cloud</span><span class="p">]</span>
 
@@ -558,12 +574,10 @@
                 <span class="n">export</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="s2">&quot;table&quot;</span><span class="p">)</span>
 
             <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh.profile.username&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;TBD&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh.profile.user&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;TBD&quot;</span><span class="p">:</span>
                 <span class="n">name</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh.clouds.kilo.credentials.OS_USERNAME&quot;</span><span class="p">]</span>
-                <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;profile&quot;</span><span class="p">][</span><span class="s2">&quot;username&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+                <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;profile&quot;</span><span class="p">][</span><span class="s2">&quot;user&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
                 <span class="n">config</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;KKK&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;ec2&#39;</span><span class="p">]:</span>
@@ -572,7 +586,7 @@
             <span class="n">zipfile</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;EC2ZIP&#39;</span><span class="p">]</span>
 
             <span class="k">if</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">clouds</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;kilo&quot;</span><span class="p">]</span>
+                <span class="n">clouds</span> <span class="o">=</span> <span class="p">[</span><span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;active&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">clouds</span> <span class="o">=</span> <span class="p">[</span><span class="n">cloud</span><span class="p">]</span>
 
@@ -587,32 +601,54 @@
                 <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
             <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;CLOUD&#39;</span><span class="p">]:</span>
-            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--dir&#39;</span><span class="p">]:</span>
-                <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;CLOUD&#39;</span><span class="p">]</span>
-                <span class="n">directory</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--dir&#39;</span><span class="p">]</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
-                <span class="n">CloudRegister</span><span class="o">.</span><span class="n">directory</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="n">directory</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;cloud&#39;</span><span class="p">]:</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            if arguments[&#39;--dir&#39;]:</span>
+<span class="sd">                cloud = arguments[&#39;--name&#39;]</span>
+<span class="sd">                directory = arguments[&#39;--dir&#39;]</span>
+<span class="sd">                Console.ok(directory)</span>
+<span class="sd">                CloudRegister.directory(cloud, directory)</span>
+
+<span class="sd">            else:</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+
+            <span class="n">values_to_replace</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tbd&#39;</span><span class="p">,</span> <span class="s1">&#39;null&#39;</span><span class="p">,</span> <span class="s1">&#39;tbd_not_used&#39;</span><span class="p">]</span>
+
+            <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;CLOUD&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">clouds</span> <span class="o">=</span> <span class="p">[</span><span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;active&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;CLOUD&#39;</span><span class="p">]</span>
+                <span class="n">clouds</span> <span class="o">=</span> <span class="p">[</span><span class="n">cloud</span><span class="p">]</span>
 
-                <span class="k">if</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                    <span class="n">clouds</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;kilo&quot;</span><span class="p">]</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">clouds</span> <span class="o">=</span> <span class="p">[</span><span class="n">cloud</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">cloud</span> <span class="ow">in</span> <span class="n">clouds</span><span class="p">:</span>
 
-                <span class="k">for</span> <span class="n">cloud</span> <span class="ow">in</span> <span class="n">clouds</span><span class="p">:</span>
-                    <span class="n">CloudRegister</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
-                    <span class="n">export</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="s2">&quot;table&quot;</span><span class="p">)</span>
+                <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
+
+                <span class="n">cloud_config</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh.clouds&quot;</span><span class="p">][</span><span class="n">cloud</span><span class="p">]</span>
+
+                <span class="c1"># Checking credentials</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Checking cloud credentials...&quot;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">cloud_config</span><span class="p">[</span><span class="s2">&quot;credentials&quot;</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">cloud_config</span><span class="p">[</span><span class="s2">&quot;credentials&quot;</span><span class="p">][</span><span class="n">prop</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">values_to_replace</span><span class="p">:</span>
+                        <span class="n">value</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="n">prop</span> <span class="o">+</span> <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="n">cloud_config</span><span class="p">[</span><span class="s2">&quot;credentials&quot;</span><span class="p">][</span><span class="n">prop</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;): &quot;</span><span class="p">)</span>
+                        <span class="n">cloud_config</span><span class="p">[</span><span class="s2">&quot;credentials&quot;</span><span class="p">][</span><span class="n">prop</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+                <span class="c1"># Checking defaults</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Checking cloud defaults...&quot;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">cloud_config</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">cloud_config</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">][</span><span class="n">prop</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">values_to_replace</span><span class="p">:</span>
+                        <span class="n">value</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="n">prop</span> <span class="o">+</span> <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="n">cloud_config</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">][</span><span class="n">prop</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;): &quot;</span><span class="p">)</span>
+                        <span class="n">cloud_config</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">][</span><span class="n">prop</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+                <span class="n">config</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                <span class="n">export</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="s2">&quot;table&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;profile&#39;</span><span class="p">]:</span>
-            <span class="n">username</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--username&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getuser</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]:</span>
+            <span class="n">username</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;USERNAME&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getuser</span><span class="p">()</span>
             <span class="n">CloudRegister</span><span class="o">.</span><span class="n">set_username</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Username {} set successfully in the yaml settings.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">username</span><span class="p">))</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Setting profile user to {} in the yaml file.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">username</span><span class="p">))</span>
             <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;yaml&#39;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;ENTRY&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;ENTRY&#39;</span><span class="p">]</span>
             <span class="n">Register</span><span class="o">.</span><span class="n">entry</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
             <span class="k">return</span> <span class="s2">&quot;&quot;</span>
@@ -622,7 +658,6 @@
         <span class="n">CloudRegister</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 
         <span class="k">pass</span></div>
-
 </pre></div>
 
            </div>
@@ -655,7 +690,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

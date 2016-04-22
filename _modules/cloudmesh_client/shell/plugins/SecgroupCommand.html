@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins.SecgroupCommand &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>cloudmesh_client.shell.plugins.SecgroupCommand &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -177,7 +177,9 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.secgroup</span> <span class="kn">import</span> <span class="n">SecGroup</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
-
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.dotdict</span> <span class="kn">import</span> <span class="n">dotdict</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">Printer</span>
 
 <div class="viewcode-block" id="SecgroupCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.SecgroupCommand.SecgroupCommand">[docs]</a><span class="k">class</span> <span class="nc">SecgroupCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
     <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;secgroup&quot;</span><span class="p">:</span> <span class="s2">&quot;security&quot;</span><span class="p">}</span>
@@ -194,22 +196,20 @@
 <span class="sd">        ::</span>
 
 <span class="sd">            Usage:</span>
-<span class="sd">                secgroup list [--cloud=CLOUD]</span>
-<span class="sd">                secgroup create [--cloud=CLOUD] LABEL</span>
-<span class="sd">                secgroup delete [--cloud=CLOUD] LABEL</span>
-<span class="sd">                secgroup rules-list [--cloud=CLOUD] LABEL</span>
-<span class="sd">                secgroup rules-add [--cloud=CLOUD] LABEL FROMPORT TOPORT PROTOCOL CIDR</span>
-<span class="sd">                secgroup rules-delete [--cloud=CLOUD] [--all] LABEL [FROMPORT] [TOPORT] [PROTOCOL] [CIDR]</span>
-<span class="sd">                secgroup refresh [--cloud=CLOUD]</span>
-<span class="sd">                secgroup -h | --help</span>
-<span class="sd">                secgroup --version</span>
+<span class="sd">                secgroup list</span>
+<span class="sd">                secgroup list --cloud=CLOUD [--format=FORMAT]</span>
+<span class="sd">                secgroup list GROUP [RULE] [--format=FORMAT]</span>
+<span class="sd">                secgroup add GROUP RULE FROMPORT TOPORT PROTOCOL CIDR</span>
+<span class="sd">                secgroup delete GROUP [--cloud=CLOUD]</span>
+<span class="sd">                secgroup upload [GROUP] [--cloud=CLOUD]</span>
 
 <span class="sd">            Options:</span>
-<span class="sd">                -h                  help message</span>
-<span class="sd">                --cloud=CLOUD       Name of the IaaS cloud e.g. india_openstack_grizzly.</span>
+<span class="sd">                --cloud=CLOUD       Name of the IaaS cloud e.g. kilo, chameleoon. The clouds are defined in the yaml</span>
+<span class="sd">                                    file. If the name &quot;all&quot; is used for the cloud all clouds will be selected.</span>
 
 <span class="sd">            Arguments:</span>
-<span class="sd">                LABEL         The label/name of the security group</span>
+<span class="sd">                RULE          The security group rule name</span>
+<span class="sd">                GROUP         The label/name of the security group</span>
 <span class="sd">                FROMPORT      Staring port of the rule, e.g. 22</span>
 <span class="sd">                TOPORT        Ending port of the rule, e.g. 22</span>
 <span class="sd">                PROTOCOL      Protocol applied, e.g. TCP,UDP,ICMP</span>
@@ -230,172 +230,123 @@
 <span class="sd">                secgroup rules-delete --cloud=kilo webservice 8080 8088 TCP 129.79.0.0/16</span>
 <span class="sd">                secgroup rules-delete --all</span>
 
+<span class="sd">            Description:</span>
 
+<span class="sd">                Security groups are first assembled in a local database. Once they are defined they can be added to the</span>
+<span class="sd">                clouds.</span>
+
+<span class="sd">                secgroup list</span>
+<span class="sd">                    lists all security groups and rules in the database</span>
+
+<span class="sd">                secgroup list --cloud=CLOUD... [--format=FORMAT]</span>
+<span class="sd">                    lists the security groups and rules on the specified clouds.</span>
+
+<span class="sd">                secgroup list GROUP [RULE] [--format=FORMAT]</span>
+<span class="sd">                    lists a given security group. If in addition the RULE is specified it only lists the RULE</span>
+
+<span class="sd">                secgroup add GROUP RULE FROMPORT TOPORT PROTOCOL CIDR</span>
+<span class="sd">                    adds a security rule with the given group and teh details of the security ruls</span>
+
+<span class="sd">                secgroup delete GROUP</span>
+<span class="sd">                    deletes all security rules related to the specified group</span>
+
+<span class="sd">                secgroup delete GROUP RULE</span>
+<span class="sd">                    deletes just the given rule from the group</span>
+
+<span class="sd">                secgroup upload [GROUP] [--cloud=CLOUD...]</span>
+<span class="sd">                    uploads a given group to the given cloud. if the cloud is not specified the default cloud is used.</span>
+<span class="sd">                    If the parameter for cloud is &quot;all&quot; the rules and groups will be uploaded to all active clouds.</span>
+
+
+<span class="sd">            Example:</span>
+
+<span class="sd">                cm secgroup list</span>
+<span class="sd">                cm secgroup list --cloud=kilo</span>
+<span class="sd">                cm secgroup add  cm-gregor-default web 80 80 tcp  0.0.0.0/0</span>
+<span class="sd">                cm secgroup add  cm-gregor-default ssh 22 22 tcp  0.0.0.0/0</span>
+<span class="sd">                cm secgroup upload --cloud=kilo</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># pprint(arguments)</span>
 
-        <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_cloud</span><span class="p">()</span>
+        <span class="n">arg</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">is_cloud</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="n">arg</span><span class="o">.</span><span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">cloud</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">is_cloud</span> <span class="o">=</span> <span class="bp">False</span>
 
-        <span class="c1"># if refresh ON, pull data from cloud to db</span>
-        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;refresh&quot;</span><span class="p">]</span> <span class="ow">or</span> \
-                <span class="n">Default</span><span class="o">.</span><span class="n">refresh</span><span class="p">():</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Refresh secgroup for cloud {:}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">cloud</span><span class="p">):</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;{:} ok&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;{:} failed&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">FORMAT</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--format&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">&#39;table&#39;</span>
 
         <span class="c1"># list all security-groups in cloud</span>
+
         <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;list&quot;</span><span class="p">]:</span>
-            <span class="c1"># If default not set, terminate</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set!&quot;</span><span class="p">)</span>
-                <span class="k">return</span>
 
-            <span class="n">result</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_cloud</span><span class="p">:</span>
+
+                <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">RULE</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="n">SecGroup</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">GROUP</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">RULE</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">FORMAT</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="n">SecGroup</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">GROUP</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">FORMAT</span><span class="p">))</span>
+
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                    <span class="s2">&quot;No Security Groups found in the cloudmesh database!&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="c1"># Create a security-group</span>
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;create&quot;</span><span class="p">]:</span>
-            <span class="c1"># if no arguments read default</span>
-            <span class="n">label</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;LABEL&quot;</span><span class="p">]</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">SecGroup</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">FORMAT</span><span class="p">))</span>
 
-            <span class="c1"># If default not set, terminate</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set!&quot;</span><span class="p">)</span>
-                <span class="k">return</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;add&quot;</span><span class="p">]:</span>
 
-            <span class="c1"># Create returns uuid of created sec-group</span>
-            <span class="n">uuid</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">SecGroup</span><span class="o">.</span><span class="n">add_rule_to_db</span><span class="p">(</span>
+                    <span class="n">name</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">RULE</span><span class="p">,</span>
+                    <span class="n">group</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">GROUP</span><span class="p">,</span>
+                    <span class="n">from_port</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">FROMPORT</span><span class="p">,</span>
+                    <span class="n">to_port</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">TOPORT</span><span class="p">,</span>
+                    <span class="n">protocol</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">PROTOCOL</span><span class="p">,</span>
+                    <span class="n">cidr</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">CIDR</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem adding security group to db&quot;</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">uuid</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Created a new security group [{}] with UUID [{}]&quot;</span>
-                           <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">uuid</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Exiting!&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
         <span class="c1"># Delete a security-group</span>
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;delete&quot;</span><span class="p">]:</span>
             <span class="c1"># if no arguments read default</span>
-            <span class="n">label</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;LABEL&quot;</span><span class="p">]</span>
 
             <span class="c1"># If default not set, terminate</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set!&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-
-            <span class="n">result</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">delete_secgroup</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Security Group [{}] in cloud [{}] deleted successfully.&quot;</span> \
-                           <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">cloud</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">cloud</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">SecGroup</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">GROUP</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Failed to delete Security Group [{}] in cloud [{}]&quot;</span>
-                              <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">cloud</span><span class="p">))</span>
-
-            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-
-        <span class="c1"># Delete security group rule</span>
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;rules-delete&quot;</span><span class="p">]:</span>
-            <span class="c1"># if no arguments read default</span>
-            <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_cloud</span><span class="p">()</span>
-
-            <span class="n">label</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;LABEL&quot;</span><span class="p">]</span>
-            <span class="n">from_port</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;FROMPORT&quot;</span><span class="p">]</span>
-            <span class="n">to_port</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;TOPORT&quot;</span><span class="p">]</span>
-            <span class="n">protocol</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;PROTOCOL&quot;</span><span class="p">]</span>
-            <span class="n">cidr</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CIDR&quot;</span><span class="p">]</span>
-
-            <span class="c1"># If default not set, terminate</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set!&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-
-            <span class="c1"># Get the security group</span>
-            <span class="n">sec_group</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">sec_group</span><span class="p">:</span>
-
-                <span class="c1"># delete all rules for secgroup</span>
-                <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--all&quot;</span><span class="p">]:</span>
-                    <span class="n">SecGroup</span><span class="o">.</span><span class="n">delete_all_rules</span><span class="p">(</span><span class="n">secgroup</span><span class="o">=</span><span class="n">sec_group</span><span class="p">)</span>
-                    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-
-                <span class="c1"># Get the rules</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">delete_rule</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span>
-                                              <span class="n">secgroup</span><span class="o">=</span><span class="n">sec_group</span><span class="p">,</span>
-                                              <span class="n">from_port</span><span class="o">=</span><span class="n">from_port</span><span class="p">,</span>
-                                              <span class="n">to_port</span><span class="o">=</span><span class="n">to_port</span><span class="p">,</span>
-                                              <span class="n">protocol</span><span class="o">=</span><span class="n">protocol</span><span class="p">,</span>
-                                              <span class="n">cidr</span><span class="o">=</span><span class="n">cidr</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">delete_secgroup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">GROUP</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Security Group={GROUP} in cloud={cloud} deleted successfully.&quot;</span>
+                           <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">arg</span><span class="p">))</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                        <span class="s2">&quot;Rule [{} | {} | {} | {}] could not be deleted&quot;</span>
-                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">from_port</span><span class="p">,</span> <span class="n">to_port</span><span class="p">,</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">cidr</span><span class="p">))</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Failed to delete Security Group={GROUP} in cloud={cloud}&quot;</span>
+                              <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">arg</span><span class="p">))</span>
 
-            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;upload&quot;</span><span class="p">]:</span>
 
-        <span class="c1"># list security group rules</span>
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;rules-list&quot;</span><span class="p">]:</span>
-            <span class="c1"># if no arguments read default</span>
-            <span class="n">label</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;LABEL&quot;</span><span class="p">]</span>
-
-            <span class="c1"># If default not set, terminate</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set!&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-
-            <span class="c1"># Get the security group</span>
-            <span class="n">sec_group</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">sec_group</span><span class="p">:</span>
-                <span class="c1"># Get the rules</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">get_rules</span><span class="p">(</span><span class="n">sec_group</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
-                <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                    <span class="s2">&quot;Security Group with label [{}] in cloud [{}] not found!&quot;</span>
-                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">cloud</span><span class="p">))</span>
-                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-
-        <span class="c1"># add rule to security group</span>
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;rules-add&quot;</span><span class="p">]:</span>
-            <span class="n">label</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;LABEL&quot;</span><span class="p">]</span>
-            <span class="n">from_port</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;FROMPORT&quot;</span><span class="p">]</span>
-            <span class="n">to_port</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;TOPORT&quot;</span><span class="p">]</span>
-            <span class="n">protocol</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;PROTOCOL&quot;</span><span class="p">]</span>
-            <span class="n">cidr</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CIDR&quot;</span><span class="p">]</span>
-
-            <span class="c1"># If default not set, terminate</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set!&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-
-            <span class="c1"># Get the security group</span>
-            <span class="n">sec_group</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">sec_group</span><span class="p">:</span>
-                <span class="c1"># Add rules to the security group</span>
-                <span class="n">SecGroup</span><span class="o">.</span><span class="n">add_rule</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span>
-                                  <span class="n">secgroup</span><span class="o">=</span><span class="n">sec_group</span><span class="p">,</span>
-                                  <span class="n">from_port</span><span class="o">=</span><span class="n">from_port</span><span class="p">,</span>
-                                  <span class="n">to_port</span><span class="o">=</span><span class="n">to_port</span><span class="p">,</span>
-                                  <span class="n">protocol</span><span class="o">=</span><span class="n">protocol</span><span class="p">,</span>
-                                  <span class="n">cidr</span><span class="o">=</span><span class="n">cidr</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                    <span class="s2">&quot;Security Group with label [{}] in cloud [{}] not found!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">cloud</span><span class="p">))</span>
-                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-
-        <span class="c1"># TODO: Add Implementation</span>
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--version&quot;</span><span class="p">]:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s1">&#39;Version: &#39;</span><span class="p">)</span>
+            <span class="n">SecGroup</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">GROUP</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    # Create a security-group</span>
+<span class="sd">    elif arguments[&quot;create&quot;]:</span>
+
+<span class="sd">        # If default not set, terminate</span>
+<span class="sd">        if arg.cloud is not None:</span>
+<span class="sd">            Console.error(&quot;Default cloud not set.&quot;)</span>
+<span class="sd">            return</span>
+
+<span class="sd">        # Create returns uuid of created sec-group</span>
+<span class="sd">        uuid = SecGroup.create(arg.label, arg.cloud)</span>
+
+<span class="sd">        if uuid:</span>
+<span class="sd">            Console.ok(&quot;Created a new security group={label} with UUID={uuid}&quot;</span>
+<span class="sd">                       .format(**arg))</span>
+<span class="sd">        else:</span>
+<span class="sd">            Console.error(&quot;Exiting!&quot;)</span>
+<span class="sd">        return &quot;&quot;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 </pre></div>
 
            </div>
@@ -428,7 +379,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

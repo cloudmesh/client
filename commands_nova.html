@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Command Ideas &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>Command Ideas &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="index.html"/> 
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -170,18 +170,18 @@
   <div class="section" id="command-ideas">
 <h1>Command Ideas<a class="headerlink" href="#command-ideas" title="Permalink to this headline">¶</a></h1>
 <p>Summary of commands:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>[daniel] cm register india
-[daniel] cm register CLOUD CERT
-[daniel] cm register CLOUD DIR
-[daniel] cm test cloud CLOUD
-[daniel] cm test ssh HOST
-cm list cloud flavor
-cm update cloud
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">daniel</span><span class="p">]</span> <span class="n">cm</span> <span class="n">register</span> <span class="n">india</span>
+<span class="p">[</span><span class="n">daniel</span><span class="p">]</span> <span class="n">cm</span> <span class="n">register</span> <span class="n">CLOUD</span> <span class="n">CERT</span>
+<span class="p">[</span><span class="n">daniel</span><span class="p">]</span> <span class="n">cm</span> <span class="n">register</span> <span class="n">CLOUD</span> <span class="n">DIR</span>
+<span class="p">[</span><span class="n">daniel</span><span class="p">]</span> <span class="n">cm</span> <span class="n">test</span> <span class="n">cloud</span> <span class="n">CLOUD</span>
+<span class="p">[</span><span class="n">daniel</span><span class="p">]</span> <span class="n">cm</span> <span class="n">test</span> <span class="n">ssh</span> <span class="n">HOST</span>
+<span class="n">cm</span> <span class="nb">list</span> <span class="n">cloud</span> <span class="n">flavor</span>
+<span class="n">cm</span> <span class="n">update</span> <span class="n">cloud</span>
 
 
 
-cm nova list inactive
-cm nova list gregor*
+<span class="n">cm</span> <span class="n">nova</span> <span class="nb">list</span> <span class="n">inactive</span>
+<span class="n">cm</span> <span class="n">nova</span> <span class="nb">list</span> <span class="n">gregor</span><span class="o">*</span>
 </pre></div>
 </div>
 <p>NOT SURE HWY WE NEED NOVA HERE</p>
@@ -189,12 +189,12 @@ cm nova list gregor*
 <div class="section" id="register">
 <h2>Register<a class="headerlink" href="#register" title="Permalink to this headline">¶</a></h2>
 <p>Register futuresystems india cloud which includes openrc and cert:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm register india
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">register</span> <span class="n">india</span>
 </pre></div>
 </div>
 <p>The next command copies the CERT to the ~/.cloudmesh/clouds/CLOUD directory and
 registers that cert in the coudmeh.yaml file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm register CLOUD CERT
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">register</span> <span class="n">CLOUD</span> <span class="n">CERT</span>
 </pre></div>
 </div>
 <p>Finding the CACERT can be facilitated also while  looking at the
@@ -203,7 +203,7 @@ variable for that cloud, the file is also fetched. The location will
 be reset to be where we copy the cert e.g. ~/.cloudmesh/clouds/CLOUD.</p>
 <p>In some cases we need more than a  single file and an entire directory
 needs to be copied. For this we have the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm register CLOUD DIR
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">register</span> <span class="n">CLOUD</span> <span class="n">DIR</span>
 </pre></div>
 </div>
 <p>where DIR specifies the directory that need to be fetched.</p>
@@ -212,11 +212,11 @@ needs to be copied. For this we have the command:</p>
 <h2>Test after Registration<a class="headerlink" href="#test-after-registration" title="Permalink to this headline">¶</a></h2>
 <p>To test if a cloud is properly registered and is functioning a test
 can be performed:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm test cloud CLOUD
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">test</span> <span class="n">cloud</span> <span class="n">CLOUD</span>
 </pre></div>
 </div>
 <p>To test the ssh connection to a machine we can use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm test ssh HOST
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">test</span> <span class="n">ssh</span> <span class="n">HOST</span>
 </pre></div>
 </div>
 <p>The host is specified in the .ssh/config file. The username and
@@ -225,16 +225,16 @@ hostname can be overwritten with <a class="reference external" href="mailto:user
 <div class="section" id="list">
 <h2>List<a class="headerlink" href="#list" title="Permalink to this headline">¶</a></h2>
 <p>List all virtual machines that are not active.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm list inactive
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="nb">list</span> <span class="n">inactive</span>
 </pre></div>
 </div>
 <p>Lists all virtual machines that starts with a specific character or
 sequence of characters. After the virtual machine name, a &#8216;*&#8217; can be
 used as a regular expression. The following command lists all the
 Virtual machines that has gregor as their prefix.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm list gregor-*
-cm list gregor-[001-008]
-cm list gregor-[001-008,010]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="nb">list</span> <span class="n">gregor</span><span class="o">-*</span>
+<span class="n">cm</span> <span class="nb">list</span> <span class="n">gregor</span><span class="o">-</span><span class="p">[</span><span class="mi">001</span><span class="o">-</span><span class="mi">008</span><span class="p">]</span>
+<span class="n">cm</span> <span class="nb">list</span> <span class="n">gregor</span><span class="o">-</span><span class="p">[</span><span class="mi">001</span><span class="o">-</span><span class="mi">008</span><span class="p">,</span><span class="mi">010</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>The convenient specification to set multiple matches i applied
@@ -253,7 +253,7 @@ want the name hostlist is that we use this not only with hosts.</p>
 <div class="section" id="update">
 <h2>Update<a class="headerlink" href="#update" title="Permalink to this headline">¶</a></h2>
 <p>Updates information from clouds and stores them in the database:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm update india
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">update</span> <span class="n">india</span>
 </pre></div>
 </div>
 <p>Individual updates can be called as follows</p>
@@ -262,14 +262,14 @@ want the name hostlist is that we use this not only with hosts.</p>
 cm update india vm
 cm update india image</div></blockquote>
 <p>Combinations are possible:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm update india,aws,azure image,vm
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">update</span> <span class="n">india</span><span class="p">,</span><span class="n">aws</span><span class="p">,</span><span class="n">azure</span> <span class="n">image</span><span class="p">,</span><span class="n">vm</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="delete">
 <h2>Delete<a class="headerlink" href="#delete" title="Permalink to this headline">¶</a></h2>
 <p>The following command deletes all machines that are not active.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm nova delete inactive
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">nova</span> <span class="n">delete</span> <span class="n">inactive</span>
 </pre></div>
 </div>
 </div>
@@ -282,13 +282,13 @@ associated with it so that commands can be used in several machines at
 the same time. Virtual machines from the index 1 to 10 have their
 flavor changeded after the command below is run (is it possible to
 change the flavor on the fly?)</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm flavor-up [0:10]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">flavor</span><span class="o">-</span><span class="n">up</span> <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Changes the flavor of either one or several virtual machines so that
 they will become slower. The following command changes the flavor of
 the virtual machines from 20 to 30 index.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm flavor-down [20:30]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">flavor</span><span class="o">-</span><span class="n">down</span> <span class="p">[</span><span class="mi">20</span><span class="p">:</span><span class="mi">30</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -297,18 +297,18 @@ the virtual machines from 20 to 30 index.</p>
 <p>The following command protects a set of virtual machine against
 accidentally changes. Whenever the user wants to delete a virtual
 machine, a password will be asked.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm lock --vm-name
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">lock</span> <span class="o">--</span><span class="n">vm</span><span class="o">-</span><span class="n">name</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="order">
 <h2>Order<a class="headerlink" href="#order" title="Permalink to this headline">¶</a></h2>
 <p>Orders the virtual machines by flavor and displays them on the screen.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm order-flavor
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">order</span><span class="o">-</span><span class="n">flavor</span>
 </pre></div>
 </div>
 <p>Orders the virtual machines by status and displays them on the screen.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm order-status
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">order</span><span class="o">-</span><span class="n">status</span>
 </pre></div>
 </div>
 </div>
@@ -317,22 +317,22 @@ machine, a password will be asked.</p>
 <p>Run the following command to fix errors that occurred during the boot
 process. If there is no resources available, it tries to change the
 virtual machine flavor in order to boot them correctly.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm restart all-error
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">restart</span> <span class="nb">all</span><span class="o">-</span><span class="n">error</span>
 </pre></div>
 </div>
 <p>Creates a new virtual machine and adds a label to it. That label can
 be used to identify what type of task a virtual machine is
 running. Commands such as delete and flavor-up can be applied in
 certain labels.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm boot --flavor --image --key-name --name [label]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">boot</span> <span class="o">--</span><span class="n">flavor</span> <span class="o">--</span><span class="n">image</span> <span class="o">--</span><span class="n">key</span><span class="o">-</span><span class="n">name</span> <span class="o">--</span><span class="n">name</span> <span class="p">[</span><span class="n">label</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>With this command, several virtual machines can be created at the same time.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm boot --flavor --image --key-name --name [--quantity]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">boot</span> <span class="o">--</span><span class="n">flavor</span> <span class="o">--</span><span class="n">image</span> <span class="o">--</span><span class="n">key</span><span class="o">-</span><span class="n">name</span> <span class="o">--</span><span class="n">name</span> <span class="p">[</span><span class="o">--</span><span class="n">quantity</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Deletes all machines that has a specific label.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm delete --label
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">delete</span> <span class="o">--</span><span class="n">label</span>
 </pre></div>
 </div>
 </div>
@@ -349,19 +349,19 @@ if arguments[ATTRIBUTE=VALUE]:</p>
 <p>if a = &#8220;activate&#8221;</p>
 </div></blockquote>
 </div></blockquote>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm default --cloud=india format-table-header=&quot;name,id&quot;
-cm default --cloud=india format-table-header=name,id
-cm default --cloud=india format-table-order=&quot;name,id&quot;
-cm default active clouds=india,azure
-cmd list clouds
-cm default india image=abc
-cm default india flavor=xyz
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">default</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">india</span> <span class="nb">format</span><span class="o">-</span><span class="n">table</span><span class="o">-</span><span class="n">header</span><span class="o">=</span><span class="s2">&quot;name,id&quot;</span>
+<span class="n">cm</span> <span class="n">default</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">india</span> <span class="nb">format</span><span class="o">-</span><span class="n">table</span><span class="o">-</span><span class="n">header</span><span class="o">=</span><span class="n">name</span><span class="p">,</span><span class="nb">id</span>
+<span class="n">cm</span> <span class="n">default</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">india</span> <span class="nb">format</span><span class="o">-</span><span class="n">table</span><span class="o">-</span><span class="n">order</span><span class="o">=</span><span class="s2">&quot;name,id&quot;</span>
+<span class="n">cm</span> <span class="n">default</span> <span class="n">active</span> <span class="n">clouds</span><span class="o">=</span><span class="n">india</span><span class="p">,</span><span class="n">azure</span>
+<span class="n">cmd</span> <span class="nb">list</span> <span class="n">clouds</span>
+<span class="n">cm</span> <span class="n">default</span> <span class="n">india</span> <span class="n">image</span><span class="o">=</span><span class="n">abc</span>
+<span class="n">cm</span> <span class="n">default</span> <span class="n">india</span> <span class="n">flavor</span><span class="o">=</span><span class="n">xyz</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="nova-pass-through">
 <h2>Nova Pass through<a class="headerlink" href="#nova-pass-through" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm nova ...
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">nova</span> <span class="o">...</span>
 </pre></div>
 </div>
 <p>simple nova pass through command</p>
@@ -399,7 +399,7 @@ cm default india flavor=xyz
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

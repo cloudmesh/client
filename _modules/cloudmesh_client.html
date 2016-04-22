@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>cloudmesh_client &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../index.html"/>
         <link rel="up" title="Module code" href="index.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -169,19 +169,27 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">cloudmesh_client.version</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.register</span> <span class="kn">import</span> <span class="n">CloudRegister</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">dict_printer</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.todo</span> <span class="kn">import</span> <span class="n">TODO</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.util</span> <span class="kn">import</span> <span class="n">path_expand</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="kn">import</span> <span class="n">Shell</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
-
-<span class="kn">import</span> <span class="nn">os</span>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
 
+<span class="kn">import</span> <span class="nn">cloudmesh_client.version</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.register</span> <span class="kn">import</span> <span class="n">CloudRegister</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span><span class="p">,</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="kn">import</span> <span class="n">Shell</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.todo</span> <span class="kn">import</span> <span class="n">TODO</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.util</span> <span class="kn">import</span> <span class="n">path_expand</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.db</span> <span class="kn">import</span> <span class="n">CloudmeshDatabase</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">.common.Printer</span> <span class="kn">import</span> <span class="n">Printer</span>
+<span class="kn">from</span> <span class="nn">.db.CloudmeshDatabase</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.db.general.model</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.db.libcloud.model</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.db.openstack.model</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.default</span> <span class="kn">import</span> <span class="n">Default</span>
+<span class="kn">from</span> <span class="nn">.var</span> <span class="kn">import</span> <span class="n">Var</span>
+
 <span class="n">__version__</span> <span class="o">=</span> <span class="n">cloudmesh_client</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">__version__</span>
+
 
 <div class="viewcode-block" id="create_cloudmesh_yaml"><a class="viewcode-back" href="../code/cloudmesh_client.html#cloudmesh_client.create_cloudmesh_yaml">[docs]</a><span class="k">def</span> <span class="nf">create_cloudmesh_yaml</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
@@ -195,9 +203,11 @@
         <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;chmod -R go-rwx &quot;</span> <span class="o">+</span> <span class="n">path_expand</span><span class="p">(</span><span class="s2">&quot;~/.cloudmesh&quot;</span><span class="p">))</span>
         <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;~/.cloudmesh/cloudmesh.yaml created&quot;</span><span class="p">)</span></div>
 
+
 <div class="viewcode-block" id="setup_yaml"><a class="viewcode-back" href="../code/cloudmesh_client.html#cloudmesh_client.setup_yaml">[docs]</a><span class="k">def</span> <span class="nf">setup_yaml</span><span class="p">():</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">path_expand</span><span class="p">(</span><span class="s2">&quot;~/.cloudmesh/cloudmesh.yaml&quot;</span><span class="p">)</span>
     <span class="n">create_cloudmesh_yaml</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div>
+
 
 <span class="n">setup_yaml</span><span class="p">()</span>
 </pre></div>
@@ -232,7 +242,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

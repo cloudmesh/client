@@ -1,0 +1,19 @@
+cloudmesh_client.provider package
+=================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    cloudmesh_client.provider.general
+    cloudmesh_client.provider.libcloud
+    cloudmesh_client.provider.openstack
+
+Module contents
+---------------
+
+.. automodule:: cloudmesh_client.provider
+    :members:
+    :undoc-members:
+    :show-inheritance:

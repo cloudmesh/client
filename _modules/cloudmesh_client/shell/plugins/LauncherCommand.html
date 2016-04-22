@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins.LauncherCommand &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>cloudmesh_client.shell.plugins.LauncherCommand &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -172,15 +172,19 @@
             
   <h1>Source code for cloudmesh_client.shell.plugins.LauncherCommand</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
+
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.launcher</span> <span class="kn">import</span> <span class="n">Launcher</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.dotdict</span> <span class="kn">import</span> <span class="n">dotdict</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span><span class="p">,</span> <span class="n">PluginCommand</span><span class="p">,</span> \
     <span class="n">CloudPluginCommand</span><span class="p">,</span> <span class="n">CometPluginCommand</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.launcher</span> <span class="kn">import</span> <span class="n">Launcher</span>
-
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.hostlist</span> <span class="kn">import</span> <span class="n">Parameter</span>
 
 <div class="viewcode-block" id="LauncherCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.LauncherCommand.LauncherCommand">[docs]</a><span class="k">class</span> <span class="nc">LauncherCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">,</span> <span class="n">CometPluginCommand</span><span class="p">):</span>
-    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;launcher&quot;</span><span class="p">:</span> <span class="s2">&quot;cloud&quot;</span><span class="p">}</span>
+    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;launcher&quot;</span><span class="p">:</span> <span class="s2">&quot;todo&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
@@ -194,14 +198,16 @@
 <span class="sd">        ::</span>
 
 <span class="sd">          Usage:</span>
-<span class="sd">              launcher list [--cloud=CLOUD] [--format=FORMAT] [--all]</span>
-<span class="sd">              launcher delete KEY [--cloud=CLOUD]</span>
-<span class="sd">              launcher run</span>
-<span class="sd">              launcher resume</span>
-<span class="sd">              launcher suspend</span>
-<span class="sd">              launcher details</span>
+<span class="sd">              launcher list [NAMES] [--cloud=CLOUD] [--format=FORMAT] [--source=db|dir]</span>
+<span class="sd">              launcher add NAME SOURCE</span>
+<span class="sd">              launcher delete [NAMES] [--cloud=CLOUD]</span>
 <span class="sd">              launcher clear</span>
+<span class="sd">              launcher run [NAME]</span>
+<span class="sd">              launcher resume [NAME]</span>
+<span class="sd">              launcher suspend [NAME]</span>
 <span class="sd">              launcher refresh</span>
+<span class="sd">              launcher log [NAME]</span>
+<span class="sd">              launcher status [NAME]</span>
 
 <span class="sd">          Arguments:</span>
 
@@ -233,47 +239,67 @@
 <span class="sd">            launcher list --cloud=general</span>
 <span class="sd">            launcher delete &lt;KEY&gt;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># pprint(arguments)</span>
 
-        <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_cloud</span><span class="p">()</span>
-        <span class="n">launcher</span> <span class="o">=</span> <span class="n">Launcher</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+        <span class="n">arg</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">cloud</span>
+        <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">NAMES</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">arg</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">NAMES</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">arg</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;all&#39;</span><span class="p">]:</span>
+            <span class="n">arg</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--format&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">&#39;table&#39;</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--source&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">&#39;db&#39;</span>
+        <span class="n">pprint</span> <span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+        
+        <span class="c1"># arg.cloud = arguments[&quot;--cloud&quot;] or Default.cloud</span>
+        <span class="c1"># c = arg.list</span>
+        <span class="c1"># print (&quot;CCCC&quot;, c, arg.NAME, arg.cloud)</span>
+        <span class="c1"># print (&quot;Hallo {cloud} is list={list}&quot;.format(**arg))</span>
+        <span class="c1"># launcher = Launcher(kind=None)</span>
 
-        <span class="k">if</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">cloud</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default arg.cloud not set&quot;</span><span class="p">)</span>
             <span class="k">return</span>
 
+        <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
         <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;list&quot;</span><span class="p">]:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">launcher</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
-            <span class="k">print</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+            <span class="n">arg</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="n">arguments</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;--format&quot;</span><span class="p">,</span> <span class="s2">&quot;table&quot;</span><span class="p">)</span>
+
+            <span class="n">result</span> <span class="o">=</span> <span class="n">Launcher</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">names</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">arg</span><span class="o">.</span><span class="n">add</span><span class="p">:</span>
+
+            <span class="n">result</span> <span class="o">=</span> <span class="n">Launcher</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">NAME</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">SOURCE</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;delete&quot;</span><span class="p">]:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">launcher</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
-            <span class="k">print</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">Launcher</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">Launcher</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;run&quot;</span><span class="p">]:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">launcher</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-            <span class="k">print</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">Launcher</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;resume&quot;</span><span class="p">]:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">launcher</span><span class="o">.</span><span class="n">resume</span><span class="p">()</span>
-            <span class="k">print</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">Launcher</span><span class="o">.</span><span class="n">resume</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;suspend&quot;</span><span class="p">]:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">launcher</span><span class="o">.</span><span class="n">suspend</span><span class="p">()</span>
-            <span class="k">print</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">Launcher</span><span class="o">.</span><span class="n">suspend</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;details&quot;</span><span class="p">]:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">launcher</span><span class="o">.</span><span class="n">details</span><span class="p">()</span>
-            <span class="k">print</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">Launcher</span><span class="o">.</span><span class="n">details</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;clear&quot;</span><span class="p">]:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">launcher</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-            <span class="k">print</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">Launcher</span><span class="o">.</span><span class="n">clear</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;refresh&quot;</span><span class="p">]:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">launcher</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
-            <span class="k">print</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span></div>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">Launcher</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
 
+        <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
@@ -306,7 +332,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

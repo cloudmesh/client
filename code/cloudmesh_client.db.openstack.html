@@ -1,0 +1,813 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.db.openstack package &mdash; cloudmesh_client 4.1.5 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../index.html"/>
+        <link rel="up" title="cloudmesh_client.db package" href="cloudmesh_client.db.html"/>
+        <link rel="next" title="cloudmesh_client.etc package" href="cloudmesh_client.etc.html"/>
+        <link rel="prev" title="cloudmesh_client.db.libcloud package" href="cloudmesh_client.db.libcloud.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comet.html">Comet Virtual Cluster</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="cloudmesh_client.html">cloudmesh_client package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cloudmesh_client.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.cloud.html">cloudmesh_client.cloud package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.comet.html">cloudmesh_client.comet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="cloudmesh_client.db.html">cloudmesh_client.db package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="cloudmesh_client.db.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.db.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.db.html#module-cloudmesh_client.db.CloudmeshDatabase">cloudmesh_client.db.CloudmeshDatabase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.db.html#module-cloudmesh_client.db">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.etc.html">cloudmesh_client.etc package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.provider.html">cloudmesh_client.provider package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.shell.html">cloudmesh_client.shell package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.system.html">cloudmesh_client.system package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.setup">cloudmesh_client.setup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.shell_commad">cloudmesh_client.shell_commad module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.var">cloudmesh_client.var module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.version">cloudmesh_client.version module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html#python-guidelines">Python Guidelines</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="cloudmesh_client.html">cloudmesh_client package</a> &raquo;</li>
+      
+          <li><a href="cloudmesh_client.db.html">cloudmesh_client.db package</a> &raquo;</li>
+      
+    <li>cloudmesh_client.db.openstack package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/code/cloudmesh_client.db.openstack.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cloudmesh-client-db-openstack-package">
+<h1>cloudmesh_client.db.openstack package<a class="headerlink" href="#cloudmesh-client-db-openstack-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cloudmesh_client.db.openstack.model">
+<span id="cloudmesh-client-db-openstack-model-module"></span><h2>cloudmesh_client.db.openstack.model module<a class="headerlink" href="#module-cloudmesh_client.db.openstack.model" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.db.openstack.model.</code><code class="descname">FLAVOR_OPENSTACK</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/openstack/model.html#FLAVOR_OPENSTACK"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.db.html#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin" title="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.category">
+<code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.cm_id">
+<code class="descname">cm_id</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.cm_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.created_at">
+<code class="descname">created_at</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.created_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.disk">
+<code class="descname">disk</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.disk" title="Permalink to this definition">¶</a></dt>
+<dd><p>if kwargs is not None:
+for key, value in kwargs.iteritems():</p>
+<blockquote>
+<div>print (&#8220;{} = {}&#8221;.format(key, value))
+self[key] = value</div></blockquote>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.kind">
+<code class="descname">kind</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.label">
+<code class="descname">label</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.name">
+<code class="descname">name</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.os_flavor_acces">
+<code class="descname">os_flavor_acces</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.os_flavor_acces" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.os_flv_disabled">
+<code class="descname">os_flv_disabled</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.os_flv_disabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.os_flv_ext_data">
+<code class="descname">os_flv_ext_data</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.os_flv_ext_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.project">
+<code class="descname">project</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.project" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.provider">
+<code class="descname">provider</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.provider" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.ram">
+<code class="descname">ram</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.ram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.rxtx_factor">
+<code class="descname">rxtx_factor</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.rxtx_factor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.swap">
+<code class="descname">swap</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.swap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.type">
+<code class="descname">type</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.updated_at">
+<code class="descname">updated_at</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.updated_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.user">
+<code class="descname">user</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.uuid">
+<code class="descname">uuid</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.uuid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.vcpus">
+<code class="descname">vcpus</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK.vcpus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.db.openstack.model.</code><code class="descname">IMAGE_OPENSTACK</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/openstack/model.html#IMAGE_OPENSTACK"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.db.html#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin" title="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.category">
+<code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.cm_id">
+<code class="descname">cm_id</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.cm_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.created">
+<code class="descname">created</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.created_at">
+<code class="descname">created_at</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.created_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.kind">
+<code class="descname">kind</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.label">
+<code class="descname">label</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__base_image_ref">
+<code class="descname">metadata__base_image_ref</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__base_image_ref" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__description">
+<code class="descname">metadata__description</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__image_location">
+<code class="descname">metadata__image_location</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__image_location" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__image_state">
+<code class="descname">metadata__image_state</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__image_state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__image_type">
+<code class="descname">metadata__image_type</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__image_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__instance_type_ephemeral_gb">
+<code class="descname">metadata__instance_type_ephemeral_gb</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__instance_type_ephemeral_gb" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__instance_type_flavorid">
+<code class="descname">metadata__instance_type_flavorid</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__instance_type_flavorid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__instance_type_id">
+<code class="descname">metadata__instance_type_id</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__instance_type_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__instance_type_memory_mb">
+<code class="descname">metadata__instance_type_memory_mb</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__instance_type_memory_mb" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__instance_type_name">
+<code class="descname">metadata__instance_type_name</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__instance_type_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__instance_type_root_gb">
+<code class="descname">metadata__instance_type_root_gb</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__instance_type_root_gb" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__instance_type_rxtx_factor">
+<code class="descname">metadata__instance_type_rxtx_factor</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__instance_type_rxtx_factor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__instance_type_swap">
+<code class="descname">metadata__instance_type_swap</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__instance_type_swap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__instance_type_vcpus">
+<code class="descname">metadata__instance_type_vcpus</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__instance_type_vcpus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__instance_uuid">
+<code class="descname">metadata__instance_uuid</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__instance_uuid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__kernel_id">
+<code class="descname">metadata__kernel_id</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__kernel_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__network_allocated">
+<code class="descname">metadata__network_allocated</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__network_allocated" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__owner_id">
+<code class="descname">metadata__owner_id</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__owner_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__ramdisk_id">
+<code class="descname">metadata__ramdisk_id</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__ramdisk_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__user_id">
+<code class="descname">metadata__user_id</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.metadata__user_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>if kwargs is not None:
+for key, value in kwargs.iteritems():</p>
+<blockquote>
+<div>print (&#8220;{} = {}&#8221;.format(key, value))
+self[key] = value</div></blockquote>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.minDisk">
+<code class="descname">minDisk</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.minDisk" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.minRam">
+<code class="descname">minRam</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.minRam" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.name">
+<code class="descname">name</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.os_image_size">
+<code class="descname">os_image_size</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.os_image_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.progress">
+<code class="descname">progress</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.progress" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.project">
+<code class="descname">project</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.project" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.provider">
+<code class="descname">provider</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.provider" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.status">
+<code class="descname">status</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.type">
+<code class="descname">type</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.updated">
+<code class="descname">updated</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.updated" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.updated_at">
+<code class="descname">updated_at</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.updated_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.user">
+<code class="descname">user</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.username">
+<code class="descname">username</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.username" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.uuid">
+<code class="descname">uuid</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK.uuid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.db.openstack.model.</code><code class="descname">VM_OPENSTACK</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/openstack/model.html#VM_OPENSTACK"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.db.html#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin" title="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.accessIPv4">
+<code class="descname">accessIPv4</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.accessIPv4" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.accessIPv6">
+<code class="descname">accessIPv6</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.accessIPv6" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.availability_zone">
+<code class="descname">availability_zone</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.availability_zone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.category">
+<code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.cm_id">
+<code class="descname">cm_id</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.cm_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.config_drive">
+<code class="descname">config_drive</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.config_drive" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.created">
+<code class="descname">created</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.created_at">
+<code class="descname">created_at</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.created_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.diskConfig">
+<code class="descname">diskConfig</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.diskConfig" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.flavor">
+<code class="descname">flavor</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.flavor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.flavor__id">
+<code class="descname">flavor__id</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.flavor__id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.floating_ip">
+<code class="descname">floating_ip</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.floating_ip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.group">
+<code class="descname">group</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.hostId">
+<code class="descname">hostId</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.hostId" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.image">
+<code class="descname">image</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.image__id">
+<code class="descname">image__id</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.image__id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.key">
+<code class="descname">key</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.kind">
+<code class="descname">kind</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.label">
+<code class="descname">label</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.launched_at">
+<code class="descname">launched_at</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.launched_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.name">
+<code class="descname">name</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.power_state">
+<code class="descname">power_state</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.power_state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.progress">
+<code class="descname">progress</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.progress" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.project">
+<code class="descname">project</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.project" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.provider">
+<code class="descname">provider</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.provider" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.security_groups">
+<code class="descname">security_groups</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.security_groups" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.static_ip">
+<code class="descname">static_ip</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.static_ip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.status">
+<code class="descname">status</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.task_state">
+<code class="descname">task_state</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.task_state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.tenant_id">
+<code class="descname">tenant_id</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.tenant_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.terminated_at">
+<code class="descname">terminated_at</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.terminated_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.type">
+<code class="descname">type</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.updated">
+<code class="descname">updated</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.updated" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.updated_at">
+<code class="descname">updated_at</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.updated_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.user">
+<code class="descname">user</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.user_id">
+<code class="descname">user_id</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.user_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.username">
+<code class="descname">username</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.username" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.uuid">
+<code class="descname">uuid</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.uuid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.vm_state">
+<code class="descname">vm_state</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.vm_state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.volumes_attached">
+<code class="descname">volumes_attached</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.volumes_attached" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cloudmesh_client.db.openstack">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cloudmesh_client.db.openstack" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cloudmesh_client.etc.html" class="btn btn-neutral float-right" title="cloudmesh_client.etc package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cloudmesh_client.db.libcloud.html" class="btn btn-neutral" title="cloudmesh_client.db.libcloud package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.1.5',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Register Command &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>Register Command &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Cloud Command" href="command_cloud.html"/>
         <link rel="prev" title="Select Command" href="command_select.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -100,7 +100,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="index.html#shell-commands">Shell Commands</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#cloud-commands">Cloud Commands</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="">Register Command</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Register Command</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#quickstart-for-registration-of-some-clouds">Quickstart for registration of some clouds</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#introduction">Introduction</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#register-list">register list</a></li>
@@ -225,7 +225,7 @@
 <p>Please only use the quickstart if you know hat you are doing, otherwise,
 read the manual. We assume you have access to the specific clouds that you
 like to access. On a terminal say:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm register remote kilo
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">register</span> <span class="n">remote</span> <span class="n">kilo</span>
 </pre></div>
 </div>
 <p>to register the FutureSystems kilo cloud</p>
@@ -235,7 +235,7 @@ like to access. On a terminal say:</p>
 </ul>
 <p>To register an openstack cloud for which you have an existing openrc.sh file,
 you can simply say:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm register openrc.sh
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">register</span> <span class="n">openrc</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
 <div class="admonition-todo admonition" id="index-0">
@@ -243,7 +243,7 @@ you can simply say:</p>
 <p class="last">verify if this works</p>
 </div>
 <p>On chameleoncloud.org you can for example go to the horizon web interface and
-download the credentials in teh security panel.</p>
+download the credentials in the security panel.</p>
 </div>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
@@ -251,7 +251,7 @@ download the credentials in teh security panel.</p>
 them first. To make it easy for you cloudmesh reads the registered
 clouds from an easy to manage yaml file. This yam file is installed by
 default into the file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>~/.cloudmesh/cloudmesh.yaml
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">cloudmesh</span><span class="o">.</span><span class="n">yaml</span>
 </pre></div>
 </div>
 <p>A number of templates in that file exist that refer to commonly used
@@ -267,18 +267,18 @@ future.</p>
 </div>
 <p>As it may be inconvenient to edit this file and look at the yaml
 format, we provide several administrative commands. The command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ register info
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ register info
 
 File /Users/albert/.cloudmesh/cloudmesh.yaml exists. ok.
 </pre></div>
 </div>
 <p>identifies if the <cite>cloudmesh.yaml</cite> file exists.</p>
 <p>To view the contents of that file, you can cat it or use the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>register cat
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">register</span> <span class="n">cat</span>
 </pre></div>
 </div>
 <p>To edit the file, you can use the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>register edit
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">register</span> <span class="n">edit</span>
 </pre></div>
 </div>
 </div>
@@ -286,12 +286,12 @@ File /Users/albert/.cloudmesh/cloudmesh.yaml exists. ok.
 <h2>register list<a class="headerlink" href="#register-list" title="Permalink to this headline">¶</a></h2>
 <p>To list the clouds that are defined in the cloudmesh.yaml file, you
 can use the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ register list
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ register list
 </pre></div>
 </div>
 <p>which will print a table with elementary information defined for the
 clouds.:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ register list
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ register list
 Clouds specified in the configuration file ~/.cloudmesh\cloudmesh.yaml
 
 +-------+-----------+---------+
@@ -304,7 +304,7 @@ Clouds specified in the configuration file ~/.cloudmesh\cloudmesh.yaml
 </pre></div>
 </div>
 <p>To list only the names, please use the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ register list --name
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ register list --name
 Clouds specified in the configuration file ~/.cloudmesh\cloudmesh.yaml
 
 +-------+
@@ -332,7 +332,7 @@ User yourusername</dd>
 </div></blockquote>
 <p>The list command followed by ssh will give  you a list of hosts defined
 in that file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm register list ssh
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm register list ssh
 
 india
 </pre></div>
@@ -345,7 +345,7 @@ openrc.sh file. We are providing some very special helper functions, like
 for example obtain the openrc files from the FutureSystems
 cloud.</p>
 <p>The command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>register remote HOSTNAME
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">register</span> <span class="n">remote</span> <span class="n">HOSTNAME</span>
 </pre></div>
 </div>
 <p>will copy and register a machine on which an openrc.sh file is located into
@@ -353,7 +353,7 @@ the <cite>cloudmesh.yaml</cite> file. With cloudmesh we provide some default hos
 <blockquote>
 <div><p>they are very easy to configure. This includes <cite>kilo</cite> our
 current clouds in our lab. To register them you can use the commands:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm register reomte kilo
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">register</span> <span class="n">reomte</span> <span class="n">kilo</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -365,43 +365,43 @@ previously.</p>
 <h2>register export<a class="headerlink" href="#register-export" title="Permalink to this headline">¶</a></h2>
 <p>To view the data associated with a particular cloud you can just use the
 command export:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>register export kilo --format=table
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">register</span> <span class="n">export</span> <span class="n">kilo</span> <span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">table</span>
 </pre></div>
 </div>
 <p>Which will look like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>+-----------------------+------------------------------------------+
-| Attribute             | Value                                    |
-+-----------------------+------------------------------------------+
-| OS_PASSWORD           | ********                                 |
-| OS_VOLUME_API_VERSION | 2                                        |
-| OS_IMAGE_API_VERSION  | 2                                        |
-| OS_PROJECT_DOMAIN_ID  | default                                  |
-| OS_USER_DOMAIN_ID     | default                                  |
-| OS_TENANT_NAME        | fg1234                                   |
-| OS_PROJECT_NAME       | fg1234                                   |
-| OS_USERNAME           | albert                                   |
-| OS_AUTH_URL           | https://kilo.futuresystems.org:5000/v3   |
-| OS_VERSION            | kilo                                     |
-| OS_OPENRC             | ~/.cloudmesh/clouds/india/kilo/openrc.sh |
-+-----------------------+------------------------------------------+
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+-----------------------+------------------------------------------+</span>
+<span class="o">|</span> <span class="n">Attribute</span>             <span class="o">|</span> <span class="n">Value</span>                                    <span class="o">|</span>
+<span class="o">+-----------------------+------------------------------------------+</span>
+<span class="o">|</span> <span class="n">OS_PASSWORD</span>           <span class="o">|</span> <span class="o">********</span>                                 <span class="o">|</span>
+<span class="o">|</span> <span class="n">OS_VOLUME_API_VERSION</span> <span class="o">|</span> <span class="mi">2</span>                                        <span class="o">|</span>
+<span class="o">|</span> <span class="n">OS_IMAGE_API_VERSION</span>  <span class="o">|</span> <span class="mi">2</span>                                        <span class="o">|</span>
+<span class="o">|</span> <span class="n">OS_PROJECT_DOMAIN_ID</span>  <span class="o">|</span> <span class="n">default</span>                                  <span class="o">|</span>
+<span class="o">|</span> <span class="n">OS_USER_DOMAIN_ID</span>     <span class="o">|</span> <span class="n">default</span>                                  <span class="o">|</span>
+<span class="o">|</span> <span class="n">OS_TENANT_NAME</span>        <span class="o">|</span> <span class="n">fg1234</span>                                   <span class="o">|</span>
+<span class="o">|</span> <span class="n">OS_PROJECT_NAME</span>       <span class="o">|</span> <span class="n">fg1234</span>                                   <span class="o">|</span>
+<span class="o">|</span> <span class="n">OS_USERNAME</span>           <span class="o">|</span> <span class="n">albert</span>                                   <span class="o">|</span>
+<span class="o">|</span> <span class="n">OS_AUTH_URL</span>           <span class="o">|</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">kilo</span><span class="o">.</span><span class="n">futuresystems</span><span class="o">.</span><span class="n">org</span><span class="p">:</span><span class="mi">5000</span><span class="o">/</span><span class="n">v3</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">OS_VERSION</span>            <span class="o">|</span> <span class="n">kilo</span>                                     <span class="o">|</span>
+<span class="o">|</span> <span class="n">OS_OPENRC</span>             <span class="o">|</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">clouds</span><span class="o">/</span><span class="n">india</span><span class="o">/</span><span class="n">kilo</span><span class="o">/</span><span class="n">openrc</span><span class="o">.</span><span class="n">sh</span> <span class="o">|</span>
+<span class="o">+-----------------------+------------------------------------------+</span>
 </pre></div>
 </div>
 <p>The default view returns a openrc.sh file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm register export kilo
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">register</span> <span class="n">export</span> <span class="n">kilo</span>
 </pre></div>
 </div>
 <p>The output contains an rc file example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>export OS_PROJECT_DOMAIN_ID=default
-export OS_USERNAME=albert
-export OS_OPENRC=~/.cloudmesh/clouds/india/kilo/openrc.sh
-export OS_AUTH_URL=https://kilo.futuresystems.org:5000/v3
-export OS_TENANT_NAME=1234
-export OS_USER_DOMAIN_ID=default
-export OS_VERSION=kilo
-export OS_VOLUME_API_VERSION=2
-export OS_IMAGE_API_VERSION=2
-export OS_PASSWORD=********
-export OS_PROJECT_NAME=fg1234
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">OS_PROJECT_DOMAIN_ID</span><span class="o">=</span><span class="n">default</span>
+<span class="n">export</span> <span class="n">OS_USERNAME</span><span class="o">=</span><span class="n">albert</span>
+<span class="n">export</span> <span class="n">OS_OPENRC</span><span class="o">=~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">clouds</span><span class="o">/</span><span class="n">india</span><span class="o">/</span><span class="n">kilo</span><span class="o">/</span><span class="n">openrc</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">export</span> <span class="n">OS_AUTH_URL</span><span class="o">=</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">kilo</span><span class="o">.</span><span class="n">futuresystems</span><span class="o">.</span><span class="n">org</span><span class="p">:</span><span class="mi">5000</span><span class="o">/</span><span class="n">v3</span>
+<span class="n">export</span> <span class="n">OS_TENANT_NAME</span><span class="o">=</span><span class="mi">1234</span>
+<span class="n">export</span> <span class="n">OS_USER_DOMAIN_ID</span><span class="o">=</span><span class="n">default</span>
+<span class="n">export</span> <span class="n">OS_VERSION</span><span class="o">=</span><span class="n">kilo</span>
+<span class="n">export</span> <span class="n">OS_VOLUME_API_VERSION</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">export</span> <span class="n">OS_IMAGE_API_VERSION</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">export</span> <span class="n">OS_PASSWORD</span><span class="o">=********</span>
+<span class="n">export</span> <span class="n">OS_PROJECT_NAME</span><span class="o">=</span><span class="n">fg1234</span>
 </pre></div>
 </div>
 <p>The passwords will be masked with eight stars: <cite>********</cite>.
@@ -437,11 +437,11 @@ created with an increased number.</p>
 <p>In some cases it is nice to have an interactive mechanism to fill out
 the missing yaml file information that is indicated with TBD. THis is
 useful, if you do not have an editor at hand. Thus you can use the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>register form
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">register</span> <span class="n">form</span>
 </pre></div>
 </div>
 <p>It will interactively fills out the form wherever we find TBD:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm register form
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm register form
 Please enter email[TBD]:
 Editing the credentials for cloud india
 Please enter OS_TENANT_NAME[TBD]:
@@ -461,12 +461,12 @@ Please enter thumbprint[TBD]:
 <div class="section" id="register-check">
 <h2>register check<a class="headerlink" href="#register-check" title="Permalink to this headline">¶</a></h2>
 <p>o find any not filled out values, you can use the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>register check
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">register</span> <span class="n">check</span>
 </pre></div>
 </div>
 <p>which hecks the yaml file for completness and list all fields that
 have the value TBD:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm register check
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm register check
 ERROR: The file has 11 values to be fixed
 
   email: TBD
@@ -488,11 +488,11 @@ ERROR: The file has 11 values to be fixed
 <p>Instead of using the cat command and listing the contents of a cloud
 registration in yaml format you can also explicitly obtain a jason
 representation by issueing the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>register json
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">register</span> <span class="n">json</span>
 </pre></div>
 </div>
 <p>It will return output in json format:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm register json azure
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm register json azure
 {
     &quot;cm_heading&quot;: &quot;Microsoft Azure Virtual Machines&quot;,
     &quot;cm_label&quot;: &quot;waz&quot;,
@@ -518,7 +518,7 @@ representation by issueing the command:</p>
 <h2>register profile &#8211;username<a class="headerlink" href="#register-profile-username" title="Permalink to this headline">¶</a></h2>
 <p>Instead of modifying the profile username in the cloudmesh yaml file manually, this command provides a convenient way
 of setting the username through cm shell:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm register profile --username=albert
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm register profile --username=albert
 Username albert set successfully in the yaml settings.
 </pre></div>
 </div>
@@ -565,7 +565,7 @@ Username albert set successfully in the yaml settings.
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

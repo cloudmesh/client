@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.iaas.CloudProvider &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>cloudmesh_client.cloud.iaas.CloudProvider &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -179,6 +179,7 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.Error</span> <span class="kn">import</span> <span class="n">Error</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.todo</span> <span class="kn">import</span> <span class="n">TODO</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2</span> <span class="kn">import</span> <span class="n">CloudProviderLibcloudEC2</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
 
 <span class="n">requests</span><span class="o">.</span><span class="n">packages</span><span class="o">.</span><span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">()</span>
 
@@ -189,9 +190,11 @@
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">cloudname</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">]:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;the cloud {} is not defined in the yaml file. failed.&quot;</span>
-                                 <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloudname</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">cloudname</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">]:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;the cloud {} is not defined in the yaml file. failed.&quot;</span>
+                                 <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloudname</span><span class="p">),</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                <span class="k">return</span>
 
             <span class="n">cloud_details</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">][</span><span class="n">cloudname</span><span class="p">]</span>
 
@@ -213,7 +216,7 @@
 
             <span class="k">if</span> <span class="n">cloud_details</span><span class="p">[</span><span class="s2">&quot;cm_type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;azure&quot;</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;azure cloud provider yet implemented. failed.&quot;</span><span class="p">)</span>
-                <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">TODO</span><span class="p">(</span><span class="s2">&quot;Azure provider to be implemented&quot;</span><span class="p">)</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
@@ -228,7 +231,7 @@
     <span class="n">cloud</span> <span class="o">=</span> <span class="s2">&quot;kilo&quot;</span>
     <span class="n">provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
 
-    <span class="k">print</span> <span class="p">(</span><span class="n">provider</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">provider</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">provider</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">provider</span><span class="p">))</span>
 
     <span class="c1"># pprint (provider.__dict__)</span>
     <span class="c1"># pprint (dir(provider))</span>
@@ -236,7 +239,7 @@
     <span class="n">r</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">list_flavor</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
     <span class="n">pprint</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="s2">&quot;limits&quot;</span><span class="p">,</span> <span class="s2">&quot;quota&quot;</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="s2">&quot;key&quot;</span><span class="p">]:</span>  <span class="c1"># &quot;limits&quot;, &quot;quota&quot;]:</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
         <span class="n">pprint</span><span class="p">(</span><span class="n">r</span><span class="p">)</span></div>
 
@@ -275,7 +278,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

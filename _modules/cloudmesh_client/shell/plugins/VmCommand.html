@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins.VmCommand &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>cloudmesh_client.shell.plugins.VmCommand &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -183,17 +183,24 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.vm</span> <span class="kn">import</span> <span class="n">Vm</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.secgroup</span> <span class="kn">import</span> <span class="n">SecGroup</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.network</span> <span class="kn">import</span> <span class="n">Network</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.group</span> <span class="kn">import</span> <span class="n">Group</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.counter</span> <span class="kn">import</span> <span class="n">Counter</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">dict_printer</span><span class="p">,</span> <span class="n">attribute_printer</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">Printer</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">Username</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.CloudProvider</span> <span class="kn">import</span> <span class="n">CloudProvider</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.Error</span> <span class="kn">import</span> <span class="n">Error</span>
-
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.LibcloudDict</span> <span class="kn">import</span> <span class="n">LibcloudDict</span>
 <span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">input</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.hostlist</span> <span class="kn">import</span> <span class="n">Parameter</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="kn">import</span> <span class="n">Shell</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.dotdict</span> <span class="kn">import</span> <span class="n">dotdict</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.image</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.ip</span> <span class="kn">import</span> <span class="n">Ip</span>
 
 
 <div class="viewcode-block" id="VmCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.VmCommand.VmCommand">[docs]</a><span class="k">class</span> <span class="nc">VmCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
@@ -212,50 +219,69 @@
 
 <span class="sd">            Usage:</span>
 <span class="sd">                vm default [--cloud=CLOUD][--format=FORMAT]</span>
-<span class="sd">                vm refresh [--cloud=CLOUD]</span>
+<span class="sd">                vm refresh [all][--cloud=CLOUD]</span>
 <span class="sd">                vm boot [--name=NAME]</span>
 <span class="sd">                        [--cloud=CLOUD]</span>
-<span class="sd">                        [--image=IMAGE_OR_ID]</span>
-<span class="sd">                        [--flavor=FLAVOR_OR_ID]</span>
+<span class="sd">                        [--username=USERNAME]</span>
+<span class="sd">                        [--image=IMAGE]</span>
+<span class="sd">                        [--flavor=FLAVOR]</span>
 <span class="sd">                        [--group=GROUP]</span>
 <span class="sd">                        [--secgroup=SECGROUP]</span>
 <span class="sd">                        [--key=KEY]</span>
 <span class="sd">                        [--dryrun]</span>
-<span class="sd">                vm start [NAME]...</span>
+<span class="sd">                vm boot [--n=COUNT]</span>
+<span class="sd">                        [--cloud=CLOUD]</span>
+<span class="sd">                        [--username=USERNAME]</span>
+<span class="sd">                        [--image=IMAGE]</span>
+<span class="sd">                        [--flavor=FLAVOR]</span>
+<span class="sd">                        [--group=GROUP]</span>
+<span class="sd">                        [--secgroup=SECGROUP]</span>
+<span class="sd">                        [--key=KEY]</span>
+<span class="sd">                        [--dryrun]</span>
+<span class="sd">                vm ping [NAME] [N]</span>
+<span class="sd">                vm console [NAME]</span>
 <span class="sd">                         [--group=GROUP]</span>
 <span class="sd">                         [--cloud=CLOUD]</span>
 <span class="sd">                         [--force]</span>
-<span class="sd">                vm stop [NAME]...</span>
+<span class="sd">                vm start [NAMES]</span>
+<span class="sd">                         [--group=GROUP]</span>
+<span class="sd">                         [--cloud=CLOUD]</span>
+<span class="sd">                         [--force]</span>
+<span class="sd">                vm stop [NAMES]</span>
 <span class="sd">                        [--group=GROUP]</span>
 <span class="sd">                        [--cloud=CLOUD]</span>
 <span class="sd">                        [--force]</span>
-<span class="sd">                vm delete [NAME]...</span>
+<span class="sd">                vm terminate [NAMES]</span>
 <span class="sd">                          [--group=GROUP]</span>
 <span class="sd">                          [--cloud=CLOUD]</span>
 <span class="sd">                          [--force]</span>
-<span class="sd">                vm ip assign [NAME]...</span>
+<span class="sd">                vm delete [NAMES]</span>
+<span class="sd">                          [--group=GROUP]</span>
 <span class="sd">                          [--cloud=CLOUD]</span>
-<span class="sd">                vm ip show [NAME]...</span>
+<span class="sd">                          [--force]</span>
+<span class="sd">                vm ip assign [NAMES]</span>
+<span class="sd">                          [--cloud=CLOUD]</span>
+<span class="sd">                vm ip show [NAMES]</span>
 <span class="sd">                           [--group=GROUP]</span>
 <span class="sd">                           [--cloud=CLOUD]</span>
 <span class="sd">                           [--format=FORMAT]</span>
 <span class="sd">                           [--refresh]</span>
-<span class="sd">                vm login [NAME] [--user=USER]</span>
+<span class="sd">                vm login [NAME] [--username=USER]</span>
 <span class="sd">                         [--ip=IP]</span>
 <span class="sd">                         [--cloud=CLOUD]</span>
 <span class="sd">                         [--key=KEY]</span>
 <span class="sd">                         [--command=COMMAND]</span>
-<span class="sd">                vm rename [NAME]...</span>
-<span class="sd">                          [--new=NEWNAME]</span>
-<span class="sd">                          [--cloud=CLOUD]</span>
-<span class="sd">                vm list [NAME_OR_ID]</span>
-<span class="sd">                        [--cloud=CLOUD|--all]</span>
+<span class="sd">                vm rename [OLDNAMES] [NEWNAMES] [--force] [--dryrun]</span>
+<span class="sd">                vm list [NAMES]</span>
+<span class="sd">                        [--cloud=CLOUDS|--active]</span>
 <span class="sd">                        [--group=GROUP]</span>
 <span class="sd">                        [--format=FORMAT]</span>
 <span class="sd">                        [--refresh]</span>
 <span class="sd">                vm status [--cloud=CLOUD]</span>
 <span class="sd">                vm info [--cloud=CLOUD]</span>
 <span class="sd">                        [--format=FORMAT]</span>
+<span class="sd">                vm check NAME</span>
+<span class="sd">                vm username USERNAME [NAMES] [--cloud=CLOUD]</span>
 
 <span class="sd">            Arguments:</span>
 <span class="sd">                COMMAND        positional arguments, the commands you want to</span>
@@ -264,11 +290,15 @@
 <span class="sd">                               the server, note that type in -- is suggested before</span>
 <span class="sd">                               you input the commands</span>
 <span class="sd">                NAME           server name. By default it is set to the name of last vm from database.</span>
-<span class="sd">                NAME_OR_ID     server name or ID</span>
-<span class="sd">                KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is not a path to key.</span>
-<span class="sd">                NEWNAME        New name of the VM while renaming.</span>
+<span class="sd">                NAMES          server name. By default it is set to the name of last vm from database.</span>
+<span class="sd">                KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is</span>
+<span class="sd">                               not a path to key.</span>
+<span class="sd">                NEWNAMES       New names of the VM while renaming.</span>
+<span class="sd">                OLDNAMES       Old names of the VM while renaming.</span>
 
 <span class="sd">            Options:</span>
+<span class="sd">                --username=USERNAME  the username to login into the vm. If not specified it will be guessed</span>
+<span class="sd">                                     from the image name and the cloud</span>
 <span class="sd">                --ip=IP          give the public ip of the server</span>
 <span class="sd">                --cloud=CLOUD    give a cloud to work on, if not given, selected</span>
 <span class="sd">                                 or default cloud will be used</span>
@@ -276,10 +306,10 @@
 <span class="sd">                --detail         for table print format, a brief version</span>
 <span class="sd">                                 is used as default, use this flag to print</span>
 <span class="sd">                                 detailed table</span>
-<span class="sd">                --flavor=FLAVOR_OR_ID  give the name or id of the flavor</span>
+<span class="sd">                --flavor=FLAVOR  give the name or id of the flavor</span>
 <span class="sd">                --group=GROUP          give the group name of server</span>
 <span class="sd">                --secgroup=SECGROUP    security group name for the server</span>
-<span class="sd">                --image=IMAGE_OR_ID    give the name or id of the image</span>
+<span class="sd">                --image=IMAGE    give the name or id of the image</span>
 <span class="sd">                --key=KEY        specify a key to use, input a string which</span>
 <span class="sd">                                 is the full path to the private key file</span>
 <span class="sd">                --keypair_name=KEYPAIR_NAME   Name of the openstack keypair to be used to create VM.</span>
@@ -287,35 +317,47 @@
 <span class="sd">                --user=USER      give the user name of the server that you want</span>
 <span class="sd">                                 to use to login</span>
 <span class="sd">                --name=NAME      give the name of the virtual machine</span>
-<span class="sd">                --force          delete vms without user&#39;s confirmation</span>
+<span class="sd">                --force          rename/ delete vms without user&#39;s confirmation</span>
 <span class="sd">                --command=COMMAND</span>
 <span class="sd">                                 specify the commands to be executed</span>
-<span class="sd">                --new=NEWNAME    Specify the new name for a VM while renaming.</span>
-<span class="sd">                                 By default, this will be set to &lt;username&gt;-&lt;count&gt; format.</span>
-
 
 
 <span class="sd">            Description:</span>
 <span class="sd">                commands used to boot, start or delete servers of a cloud</span>
 
-<span class="sd">                vm default [options...]     Displays default parameters that are set for VM boot.</span>
-<span class="sd">                vm boot [options...]        Boots servers on a cloud, user may specify</span>
-<span class="sd">                                            flavor, image .etc, otherwise default values</span>
-<span class="sd">                                            will be used, see how to set default values</span>
-<span class="sd">                                            of a cloud: cloud help</span>
-<span class="sd">                vm start [options...]       Starts a suspended or stopped vm instance.</span>
-<span class="sd">                vm stop [options...]        Stops a vm instance .</span>
-<span class="sd">                vm delete [options...]      delete servers of a cloud, user may delete</span>
-<span class="sd">                                            a server by its name or id, delete servers</span>
-<span class="sd">                                            of a group or servers of a cloud, give prefix</span>
-<span class="sd">                                            and/or range to find servers by their names.</span>
-<span class="sd">                                            Or user may specify more options to narrow</span>
-<span class="sd">                                            the search</span>
-<span class="sd">                vm floating_ip_assign [options...]   assign a public ip to a VM of a cloud</span>
-<span class="sd">                vm ip show [options...]     show the ips of VMs</span>
-<span class="sd">                vm login [options...]       login to a server or execute commands on it</span>
-<span class="sd">                vm list [options...]        same as command &quot;list vm&quot;, please refer to it</span>
-<span class="sd">                vm status [options...]      Retrieves status of last VM booted on cloud and displays it.</span>
+<span class="sd">                vm default [options...]</span>
+<span class="sd">                    Displays default parameters that are set for vm boot either on the</span>
+<span class="sd">                    default cloud or the specified cloud.</span>
+
+<span class="sd">                vm boot [options...]</span>
+<span class="sd">                    Boots servers on a cloud, user may specify flavor, image .etc, otherwise default values</span>
+<span class="sd">                    will be used, see how to set default values of a cloud: cloud help</span>
+
+<span class="sd">                vm start [options...]</span>
+<span class="sd">                    Starts a suspended or stopped vm instance.</span>
+
+<span class="sd">                vm stop [options...]</span>
+<span class="sd">                    Stops a vm instance .</span>
+
+<span class="sd">                vm delete [options...]</span>
+<span class="sd">                    Delete servers of a cloud, user may delete a server by its name or id, delete servers</span>
+<span class="sd">                    of a group or servers of a cloud, give prefix and/or range to find servers by their names.</span>
+<span class="sd">                    Or user may specify more options to narrow the search</span>
+
+<span class="sd">                vm floating_ip_assign [options...]</span>
+<span class="sd">                    assign a public ip to a VM of a cloud</span>
+
+<span class="sd">                vm ip show [options...]</span>
+<span class="sd">                    show the ips of VMs</span>
+
+<span class="sd">                vm login [options...]</span>
+<span class="sd">                    login to a server or execute commands on it</span>
+
+<span class="sd">                vm list [options...]</span>
+<span class="sd">                    same as command &quot;list vm&quot;, please refer to it</span>
+
+<span class="sd">                vm status [options...]</span>
+<span class="sd">                    Retrieves status of last VM booted on cloud and displays it.</span>
 
 <span class="sd">            Tip:</span>
 <span class="sd">                give the VM name, but in a hostlist style, which is very</span>
@@ -325,72 +367,57 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">def</span> <span class="nf">_print_dict</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">format</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">format</span> <span class="o">==</span> <span class="s2">&quot;yaml&quot;</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">pyaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">format</span> <span class="o">==</span> <span class="s2">&quot;table&quot;</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">dict_printer</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
-                                    <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span>
-                                           <span class="s2">&quot;name&quot;</span><span class="p">,</span>
-                                           <span class="s2">&quot;status&quot;</span><span class="p">],</span>
-                                    <span class="n">output</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">,</span>
-                                    <span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">d</span>
-
-        <span class="k">def</span> <span class="nf">_print_dict_ip</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">format</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">format</span> <span class="o">==</span> <span class="s2">&quot;yaml&quot;</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">pyaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">format</span> <span class="o">==</span> <span class="s2">&quot;table&quot;</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">dict_printer</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
-                                    <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;network&quot;</span><span class="p">,</span>
-                                           <span class="s2">&quot;version&quot;</span><span class="p">,</span>
-                                           <span class="s2">&quot;addr&quot;</span><span class="p">],</span>
-                                    <span class="n">output</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">,</span>
-                                    <span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">d</span>
-
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        def list_vms_on_cloud(cloud=&quot;kilo&quot;, group=None, format=&quot;table&quot;):</span>
 
-<span class="sd">            Utility reusable function to list vms on the cloud.</span>
-<span class="sd">            :param cloud:</span>
-<span class="sd">            :param group:</span>
-<span class="sd">            :param format:</span>
-<span class="sd">            :return:</span>
+<span class="sd">        # terminate</span>
+<span class="sd">        #  issues a termination to the cloud, keeps vm in database</span>
 
-<span class="sd">            _cloud = cloud</span>
-<span class="sd">            _group = group</span>
-<span class="sd">            _format = format</span>
-
-<span class="sd">            cloud_provider = CloudProvider(_cloud).provider</span>
-<span class="sd">            servers = cloud_provider.list_vm(_cloud)</span>
+<span class="sd">        # delete</span>
+<span class="sd">        #   issues a terminate if not already done</span>
+<span class="sd">        #      (remember you do not have to go to cloud if state is already terminated)</span>
+<span class="sd">        #   deletes the vm from database</span>
+<span class="sd">        #</span>
 
 
-<span class="sd">            server_list = {}</span>
-<span class="sd">            index = 0</span>
-<span class="sd">            # TODO: Improve the implementation to display more fields if required.</span>
-<span class="sd">            for server in servers:</span>
-<span class="sd">                server_list[index] = {}</span>
-<span class="sd">                server_list[index][&quot;name&quot;] = server.name</span>
-<span class="sd">                server_list[index][&quot;id&quot;] = server.id</span>
-<span class="sd">                server_list[index][&quot;status&quot;] = server.status</span>
-<span class="sd">                index += 1</span>
+<span class="sd">        # bulk rename</span>
 
+<span class="sd">        rename abc[0-1] def[3-4]       renames the abc0,abc1 -&gt; def3,def4</span>
 
-<span class="sd">            # TODO: Get this printed in a table</span>
-<span class="sd">            print(&quot;Print table&quot;)</span>
-<span class="sd">            dict_printer(servers, output=_format)</span>
+<span class="sd">        if arguments[&quot;rename&quot;]:</span>
+<span class="sd">            oldnames = Parameter.expand(arguments[&quot;OLDNAME&quot;])</span>
+<span class="sd">            newnames = Parameter.expand(arguments[&quot;NEWNAME&quot;])</span>
+
+<span class="sd">            # check if new names ar not already taken</span>
+<span class="sd">            # to be implemented</span>
+
+<span class="sd">            if len(oldnames) == len(newnames):</span>
+<span class="sd">                for i in range(0, len(oldnames)):</span>
+<span class="sd">                    oldname = oldnames[i]</span>
+<span class="sd">                    newname = newnames[i]</span>
+<span class="sd">                if newname is None or newname == &#39;&#39;:</span>
+<span class="sd">                    print(&quot;New node name cannot be empty&quot;)</span>
+<span class="sd">                else:</span>
+<span class="sd">                    print(Cluster.rename_node(clusterid, oldname, newname))</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="c1"># pprint(arguments)</span>
+        <span class="k">def</span> <span class="nf">_print_dict</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">],</span> <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">_refresh</span><span class="p">():</span>
+        <span class="k">def</span> <span class="nf">_print_dict_ip</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;network&quot;</span><span class="p">,</span> <span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="s2">&quot;addr&quot;</span><span class="p">],</span> <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">get_vm_name</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">count</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_counter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">offset</span>
+                <span class="n">prefix</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">user</span>
+                <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">count</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Prefix and Count could not be retrieved correctly.&quot;</span><span class="p">)</span>
+                    <span class="k">return</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="n">fill</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">name</span>
+
+        <span class="k">def</span> <span class="nf">_refresh_cloud</span><span class="p">(</span><span class="n">cloud</span><span class="p">):</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Refresh VMs for cloud {:}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">Vm</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">):</span>
@@ -398,113 +425,121 @@
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;{:} failed&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem running VM refresh&quot;</span><span class="p">)</span>
 
-        <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_cloud</span><span class="p">()</span>
+        <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">cloud</span>
+
+        <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
+        <span class="n">active_clouds</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;active&quot;</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">_refresh</span><span class="p">(</span><span class="n">cloud</span><span class="p">):</span>
+            <span class="nb">all</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;all&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
+
+            <span class="k">if</span> <span class="nb">all</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+
+                <span class="n">_refresh_cloud</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">cloud</span> <span class="ow">in</span> <span class="n">active_clouds</span><span class="p">:</span>
+                    <span class="n">_refresh_cloud</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
+
+        <span class="n">arg</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
+
+        <span class="n">arg</span><span class="o">.</span><span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">cloud</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--image&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">flavor</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--flavor&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">group</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--group&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">group</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">secgroup</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--secgroup&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">secgroup</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--key&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">key</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">dryrun</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--dryrun&quot;</span><span class="p">]</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--name&quot;</span><span class="p">]</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--format&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">&#39;table&#39;</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">refresh</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">refresh</span> <span class="ow">or</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--refresh&quot;</span><span class="p">]</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--n&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">dryrun</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--dryrun&quot;</span><span class="p">]</span>
+
+        <span class="c1">#</span>
+        <span class="c1"># in many cases use NAMES</span>
+        <span class="c1"># if arg.NAMES is not None:</span>
+        <span class="c1">#   arg.names = Parameter.expand(arg.NAMES)   #  gvonlasz[001-002]  gives [&quot;gvonlasz-001&quot;, &quot;gvonlasz-002&quot;]</span>
+        <span class="c1"># else:</span>
+        <span class="c1">#    arg.names = None</span>
+        <span class="c1">#</span>
 
         <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;boot&quot;</span><span class="p">]:</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="bp">None</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--name&quot;</span><span class="p">]</span>
-                <span class="n">is_name_provided</span> <span class="o">=</span> <span class="bp">True</span>
 
-                <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                    <span class="n">is_name_provided</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="n">arg</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--username&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Image</span><span class="o">.</span><span class="n">guess_username</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">image</span><span class="p">)</span>
 
-                    <span class="n">count</span> <span class="o">=</span> <span class="n">Counter</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-                    <span class="n">prefix</span> <span class="o">=</span> <span class="n">Username</span><span class="p">()</span>
+            <span class="n">is_name_provided</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
 
-                    <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">count</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Prefix and Count could not be retrieved correctly.&quot;</span><span class="p">)</span>
-                        <span class="k">return</span>
+            <span class="n">arg</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">user</span>
 
-                    <span class="c1"># BUG THE Z FILL SHOULD BE detected from yaml file</span>
-                    <span class="n">name</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">arg</span><span class="o">.</span><span class="n">count</span><span class="p">):</span>
+                <span class="n">vm_details</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">({</span>
+                    <span class="s2">&quot;cloud&quot;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span>
+                    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">get_vm_name</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">index</span><span class="p">),</span>
+                    <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">image</span><span class="p">,</span>
+                    <span class="s2">&quot;flavor&quot;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">flavor</span><span class="p">,</span>
+                    <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">key</span><span class="p">,</span>
+                    <span class="s2">&quot;secgroup&quot;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">secgroup</span><span class="p">,</span>
+                    <span class="s2">&quot;group&quot;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">group</span><span class="p">,</span>
+                    <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+                    <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">user</span>
+                <span class="p">})</span>
 
-                <span class="c1"># if default cloud not set, return error</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set.&quot;</span><span class="p">)</span>
-                    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+                <span class="k">try</span><span class="p">:</span>
 
-                <span class="n">image</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--image&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span>
-                                                            <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
-                <span class="c1"># if default image not set, return error</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">image</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default image not set.&quot;</span><span class="p">)</span>
-                    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+                    <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">dryrun</span><span class="p">:</span>
+                        <span class="k">print</span><span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">vm_details</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">format</span><span class="p">))</span>
+                        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;dryrun info. OK.&quot;</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">vm_id</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="o">**</span><span class="n">vm_details</span><span class="p">)</span>
 
-                <span class="n">flavor</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--flavor&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;flavor&quot;</span><span class="p">,</span>
-                                                              <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
-                <span class="c1"># if default flavor not set, return error</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">flavor</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default flavor not set.&quot;</span><span class="p">)</span>
-                    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+                        <span class="k">if</span> <span class="n">vm_id</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. failed.&quot;</span>
+                            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-                <span class="n">group</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--group&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_group</span><span class="p">()</span>
+                        <span class="c1"># set name and counter in defaults</span>
+                        <span class="n">Default</span><span class="o">.</span><span class="n">set_vm</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">vm_details</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">is_name_provided</span> <span class="ow">is</span> <span class="bp">False</span><span class="p">:</span>
+                            <span class="n">Default</span><span class="o">.</span><span class="n">incr_counter</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
 
-                <span class="c1"># if default group not set, return error</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">group</span><span class="p">:</span>
-                    <span class="n">group</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span>
-                    <span class="n">Default</span><span class="o">.</span><span class="n">set_group</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+                        <span class="c1"># Add to group</span>
+                        <span class="k">if</span> <span class="n">vm_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                            <span class="n">Group</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">vm_details</span><span class="o">.</span><span class="n">group</span><span class="p">,</span>
+                                      <span class="n">species</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span>
+                                      <span class="n">member</span><span class="o">=</span><span class="n">vm_details</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                      <span class="n">category</span><span class="o">=</span><span class="n">vm_details</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span>
 
-                <span class="n">secgroup</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--secgroup&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                    <span class="s2">&quot;secgroup&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
-                <span class="c1"># print(&quot;SecurityGrp : {:}&quot;.format(secgroup))</span>
-                <span class="n">secgroup_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]</span>
-                <span class="k">if</span> <span class="n">secgroup</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                    <span class="n">secgroup_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">secgroup</span><span class="p">)</span>
+                        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
-                <span class="n">key_name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--key&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_key</span><span class="p">()</span>
-                <span class="c1"># if default keypair not set, return error</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">key_name</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default key not set.&quot;</span><span class="p">)</span>
-                    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem booting instance {name}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">vm_details</span><span class="p">))</span>
 
-                <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--dryrun&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">]:</span>
 
-                    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-                        <span class="s2">&quot;cloud&quot;</span><span class="p">:</span> <span class="n">cloud</span><span class="p">,</span>
-                        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
-                        <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="n">image</span><span class="p">,</span>
-                        <span class="s2">&quot;flavor&quot;</span><span class="p">:</span> <span class="n">flavor</span><span class="p">,</span>
-                        <span class="s2">&quot;key_name&quot;</span><span class="p">:</span> <span class="n">key_name</span><span class="p">,</span>
-                        <span class="s2">&quot;secgroup_list&quot;</span><span class="p">:</span> <span class="n">secgroup_list</span><span class="p">,</span>
-                        <span class="s2">&quot;group&quot;</span><span class="p">:</span> <span class="n">group</span>
-                    <span class="p">}</span>
-                    <span class="k">print</span> <span class="p">(</span><span class="n">attribute_printer</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">))</span>
-                    <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;dryrun info. OK.&quot;</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">vm_id</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span>
-                                    <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-                                    <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span>
-                                    <span class="n">flavor</span><span class="o">=</span><span class="n">flavor</span><span class="p">,</span>
-                                    <span class="n">key_name</span><span class="o">=</span><span class="n">key_name</span><span class="p">,</span>
-                                    <span class="n">secgroup_list</span><span class="o">=</span><span class="n">secgroup_list</span><span class="p">)</span>
-                    <span class="n">Default</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;last_vm_id&quot;</span><span class="p">,</span> <span class="n">vm_id</span><span class="p">)</span>
-                    <span class="n">Default</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;last_vm_name&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">arg</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--username&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Image</span><span class="o">.</span><span class="n">guess_username</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">image</span><span class="p">)</span>
 
-                    <span class="c1"># SHOULD WE NOT DO THIS BY DEFAULT EVEN IF WE SPECIFY THE NAME?</span>
-                    <span class="k">if</span> <span class="n">is_name_provided</span> <span class="ow">is</span> <span class="bp">False</span><span class="p">:</span>
-                        <span class="c1"># Incrementing count</span>
-                        <span class="n">Counter</span><span class="o">.</span><span class="n">incr</span><span class="p">()</span>
+            <span class="n">cloud</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">cloud</span>
+            <span class="n">username</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">USERNAME</span>
+            <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">NAMES</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">Default</span><span class="o">.</span><span class="n">vm</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">names</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">NAMES</span><span class="p">)</span>
 
-                    <span class="c1"># Add to group</span>
-                    <span class="k">if</span> <span class="n">vm_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                        <span class="n">Group</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">group</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-                                  <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span>
 
-                    <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem booting instance {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+                <span class="n">arg</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Set username for {cloud}:{name} to {USERNAME}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">arg</span><span class="p">))</span>
+                <span class="n">Vm</span><span class="o">.</span><span class="n">set_login_user</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">count</span> <span class="o">=</span> <span class="n">Counter</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+                <span class="n">count</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_counter</span><span class="p">()</span>
                 <span class="n">prefix</span> <span class="o">=</span> <span class="n">Username</span><span class="p">()</span>
 
                 <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">count</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
@@ -512,19 +547,63 @@
                     <span class="k">return</span>
 
                 <span class="n">vm_name</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-                <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">vm_name</span><span class="p">,</span>
-                        <span class="s2">&quot;cloud&quot;</span><span class="p">:</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_cloud</span><span class="p">()}</span>
-                <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="s2">&quot;login_key&quot;</span><span class="p">,</span> <span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="s2">&quot;secgroup&quot;</span><span class="p">]:</span>
-                    <span class="n">data</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">attribute</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
-                <span class="n">output_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--format&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;table&quot;</span>
-                <span class="k">print</span> <span class="p">(</span><span class="n">attribute_printer</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">output_format</span><span class="p">))</span>
+                <span class="n">arg</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">vm_name</span><span class="p">,</span>
+                    <span class="s2">&quot;cloud&quot;</span><span class="p">:</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">cloud</span>
+                <span class="p">}</span>
+                <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;flavor&quot;</span><span class="p">]:</span>
+                    <span class="n">arg</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">attribute</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="s2">&quot;secgroup&quot;</span><span class="p">]:</span>
+                    <span class="n">arg</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">attribute</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s1">&#39;general&#39;</span><span class="p">)</span>
+
+                <span class="n">output</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--format&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;table&quot;</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">))</span>
                 <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
                 <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;default command not implemented properly. Upon &quot;</span>
                            <span class="s2">&quot;first install the defaults should be read from yaml.&quot;</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="c1"># Error.traceback(e)</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem listing defaults&quot;</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;ping&quot;</span><span class="p">]:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;N&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">vm</span>
+                    <span class="n">n</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;N&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+                    <span class="n">n</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span>
+                    <span class="n">name</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">vm</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">vm</span>
+                    <span class="n">n</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;N&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="mi">1</span>
+
+                <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;Ping:&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+                <span class="n">vm</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">(</span><span class="n">Vm</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">)[</span><span class="s2">&quot;dict&quot;</span><span class="p">])</span>
+
+                <span class="n">ip</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">floating_ip</span>
+
+                <span class="n">result</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">ping</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+                <span class="k">print</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;console&quot;</span><span class="p">]:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">vm</span>
+
+                <span class="n">vm</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">(</span><span class="n">Vm</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">)[</span><span class="s2">&quot;dict&quot;</span><span class="p">])</span>
+
+                <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
+                <span class="n">vm_list</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">list_console</span><span class="p">(</span><span class="n">vm</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">vm_list</span><span class="p">)</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="c1"># Error.traceback(e)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem retrieving status of the VM&quot;</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -534,7 +613,7 @@
                 <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="c1"># Error.traceback(e)</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem retrieving status of the VM&quot;</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;info&quot;</span><span class="p">]:</span>
@@ -543,20 +622,74 @@
                 <span class="n">vms</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">list_vm</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
                 <span class="n">vm</span> <span class="o">=</span> <span class="n">vms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="n">output_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--format&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;table&quot;</span>
-                <span class="k">print</span> <span class="p">(</span><span class="n">attribute_printer</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">output_format</span><span class="p">))</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">output_format</span><span class="p">))</span>
                 <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="c1"># Error.traceback(e)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem retrieving status of the VM&quot;</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;check&quot;</span><span class="p">]:</span>
+
+            <span class="n">test</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">try</span><span class="p">:</span>
+
+                <span class="n">names</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">])</span>
+                <span class="nb">id</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Not implemented: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+                    <span class="c1"># TODO: check the status of the vms</span>
+                    <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;active&quot;</span>
+                    <span class="c1"># TODO: check if they have a floating ip</span>
+                    <span class="c1"># TODO: get ip</span>
+                    <span class="n">floating_ip</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span>
+                    <span class="n">ip</span> <span class="o">=</span> <span class="bp">True</span>
+                    <span class="c1"># ping</span>
+                    <span class="c1"># TODO: ping the machine with the shell command</span>
+                    <span class="n">ping</span> <span class="o">=</span> <span class="bp">True</span>
+                    <span class="c1"># check if one can login and run a command</span>
+                    <span class="n">check</span> <span class="o">=</span> <span class="bp">False</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">r</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;uname&quot;</span><span class="p">,</span> <span class="s2">&quot;-a&quot;</span><span class="p">)</span>
+                        <span class="c1"># do a real check</span>
+                        <span class="n">check</span> <span class="o">=</span> <span class="bp">True</span>
+                    <span class="k">except</span><span class="p">:</span>
+                        <span class="n">check</span> <span class="o">=</span> <span class="bp">False</span>
+                    <span class="n">test</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">,</span>
+                        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+                        <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="n">status</span><span class="p">,</span>
+                        <span class="s2">&quot;ip&quot;</span><span class="p">:</span> <span class="n">ip</span><span class="p">,</span>
+                        <span class="s2">&quot;ping&quot;</span><span class="p">:</span> <span class="n">ping</span><span class="p">,</span>
+                        <span class="s2">&quot;login&quot;</span><span class="p">:</span> <span class="n">check</span>
+                    <span class="p">}</span>
+                    <span class="nb">id</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                <span class="n">pprint</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
+
+                <span class="k">print</span><span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">test</span><span class="p">,</span>
+                                    <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span>
+                                           <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+                                           <span class="s2">&quot;status&quot;</span><span class="p">,</span>
+                                           <span class="s2">&quot;ip&quot;</span><span class="p">,</span>
+                                           <span class="s2">&quot;ping&quot;</span><span class="p">,</span>
+                                           <span class="s2">&quot;login&quot;</span><span class="p">],</span>
+                                    <span class="n">output</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">,</span>
+                                    <span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+
+                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;not yet implemented. failed.&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="c1"># Error.traceback(e)</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem retrieving status of the VM&quot;</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">servers</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span>
+                <span class="n">servers</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAMES&quot;</span><span class="p">])</span>
 
                 <span class="c1"># If names not provided, take the last vm from DB.</span>
-                <span class="k">if</span> <span class="n">servers</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">servers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">last_vm</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">get_last_vm</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">servers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">last_vm</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">vm</span>
                     <span class="k">if</span> <span class="n">last_vm</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                         <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No VM records in database. Please run vm refresh.&quot;</span><span class="p">)</span>
                         <span class="k">return</span> <span class="s2">&quot;&quot;</span>
@@ -572,21 +705,22 @@
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
                     <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set.&quot;</span><span class="p">)</span>
                     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
                 <span class="n">Vm</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="n">servers</span><span class="o">=</span><span class="n">servers</span><span class="p">)</span>
 
                 <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="c1"># Error.traceback(e)</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem starting instances&quot;</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">servers</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span>
+                <span class="n">servers</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAMES&quot;</span><span class="p">])</span>
 
                 <span class="c1"># If names not provided, take the last vm from DB.</span>
                 <span class="k">if</span> <span class="n">servers</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">servers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">last_vm</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">get_last_vm</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
+                    <span class="n">last_vm</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">vm</span>
                     <span class="k">if</span> <span class="n">last_vm</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                         <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No VM records in database. Please run vm refresh.&quot;</span><span class="p">)</span>
                         <span class="k">return</span> <span class="s2">&quot;&quot;</span>
@@ -608,304 +742,305 @@
                 <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="c1"># Error.traceback(e)</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem stopping instances&quot;</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;refresh&quot;</span><span class="p">]:</span>
 
-            <span class="n">_refresh</span><span class="p">()</span>
+            <span class="n">_refresh</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;delete&quot;</span><span class="p">]:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">servers</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span>
 
-                <span class="c1"># If names not provided, take the last vm from DB.</span>
-                <span class="k">if</span> <span class="n">servers</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">servers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">last_vm</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">get_last_vm</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="n">last_vm</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No VM records in database. Please run vm refresh.&quot;</span><span class="p">)</span>
-                        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-                    <span class="n">name</span> <span class="o">=</span> <span class="n">last_vm</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
-                    <span class="n">servers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-                    <span class="n">servers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">group</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--group&quot;</span><span class="p">]</span>
+            <span class="n">force</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--force&quot;</span><span class="p">]</span>
+            <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span>
+            <span class="n">servers</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAMES&quot;</span><span class="p">])</span>
 
-                <span class="n">group</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--group&quot;</span><span class="p">]</span>
-                <span class="n">force</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--force&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">servers</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;last&#39;</span><span class="p">]:</span>
+                <span class="n">servers</span> <span class="o">==</span> <span class="p">[</span><span class="n">Default</span><span class="o">.</span><span class="n">vm</span><span class="p">]</span>
 
-                <span class="c1"># if default cloud not set, return error</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set.&quot;</span><span class="p">)</span>
-                    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">servers</span><span class="p">)</span>
 
-                <span class="n">Vm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="n">servers</span><span class="o">=</span><span class="n">servers</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">servers</span><span class="p">:</span>
+                <span class="n">Vm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">servers</span><span class="o">=</span><span class="p">[</span><span class="n">server</span><span class="p">],</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
 
-                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem deleting instances&quot;</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;ip&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;assign&quot;</span><span class="p">]:</span>
-            <span class="n">vmids</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAMES&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">Default</span><span class="o">.</span><span class="n">vm</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">names</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAMES&quot;</span><span class="p">])</span>
 
-            <span class="c1"># If names not provided, take the last vm from DB.</span>
-            <span class="k">if</span> <span class="n">vmids</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">vmids</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">last_vm</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">get_last_vm</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">last_vm</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No VM records in database. Please run vm refresh.&quot;</span><span class="p">)</span>
-                    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-                <span class="n">name</span> <span class="o">=</span> <span class="n">last_vm</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
-                <span class="n">vmids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-                <span class="n">vmids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
 
-            <span class="c1"># if default cloud not set, return error</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set.&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
-                <span class="k">for</span> <span class="n">sname</span> <span class="ow">in</span> <span class="n">vmids</span><span class="p">:</span>
-                    <span class="n">floating_ip</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">create_assign_floating_ip</span><span class="p">(</span>
-                        <span class="n">sname</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="n">floating_ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                        <span class="k">print</span><span class="p">(</span>
-                            <span class="s2">&quot;Floating IP assigned to {:} successfully and it is: {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                                <span class="n">sname</span><span class="p">,</span> <span class="n">floating_ip</span><span class="p">))</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem assigning floating ips.&quot;</span><span class="p">)</span>
+                <span class="c1"># ip = Network.get_floatingip(....)</span>
+
+                <span class="n">vm</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">(</span><span class="n">Vm</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">)[</span><span class="s2">&quot;dict&quot;</span><span class="p">])</span>
+
+                <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;FFFF&quot;</span><span class="p">,</span> <span class="n">vm</span><span class="o">.</span><span class="n">floating_ip</span><span class="p">)</span>
+                <span class="n">pprint</span><span class="p">(</span><span class="n">vm</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">vm</span><span class="o">.</span><span class="n">floating_ip</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+
+                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Assign IP to {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">floating_ip</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">find_assign_floating_ip</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span>
+                                                                      <span class="n">instance_id</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+
+                        <span class="n">Vm</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
+                        <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;OOOO&quot;</span><span class="p">,</span> <span class="n">floating_ip</span><span class="p">)</span>
+
+                        <span class="k">if</span> <span class="n">floating_ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                            <span class="k">print</span><span class="p">(</span>
+                                <span class="s2">&quot;Floating IP assigned to {:} is {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                                    <span class="n">name</span><span class="p">,</span> <span class="n">floating_ip</span><span class="p">))</span>
+                            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
+                            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+
+                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem assigning floating ips.&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;VM {} already has a floating ip: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">vm</span><span class="o">.</span><span class="n">floating_ip</span><span class="p">))</span>
+
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;ip&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;show&quot;</span><span class="p">]:</span>
-            <span class="n">vmids</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span>
-
-            <span class="c1"># If names not provided, take the last vm from DB.</span>
-            <span class="k">if</span> <span class="n">vmids</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">vmids</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">last_vm</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">get_last_vm</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">last_vm</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No VM records in database. Please run vm refresh.&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAMES&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">Default</span><span class="o">.</span><span class="n">vm</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">]:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The default vm is not set.&quot;</span><span class="p">)</span>
                     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-                <span class="n">name</span> <span class="o">=</span> <span class="n">last_vm</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
-                <span class="n">vmids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-                <span class="n">vmids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">Default</span><span class="o">.</span><span class="n">vm</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">names</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAMES&quot;</span><span class="p">])</span>
 
             <span class="n">group</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--group&quot;</span><span class="p">]</span>
             <span class="n">output_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--format&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;table&quot;</span>
             <span class="n">refresh</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--refresh&quot;</span><span class="p">]</span>
 
-            <span class="c1"># if default cloud not set, return error</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set.&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
-                <span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">vmids</span><span class="p">:</span>
-                    <span class="n">ip_addr</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">get_ips</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
 
-                    <span class="n">ipaddr_dict</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">construct_ip_dict</span><span class="p">(</span><span class="n">ip_addr</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
-
-                    <span class="k">print</span><span class="p">(</span>
-                        <span class="s2">&quot;IP Addresses of instance {:} are as follows:-&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="n">server</span><span class="p">))</span>
-                    <span class="k">print</span><span class="p">(</span><span class="n">_print_dict_ip</span><span class="p">(</span><span class="n">ipaddr_dict</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">output_format</span><span class="p">))</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="n">ips</span> <span class="o">=</span> <span class="n">Ip</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">output_format</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">)</span>
+                <span class="k">print</span> <span class="p">(</span><span class="n">ips</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                    <span class="s2">&quot;Problem getting ip addresses for instance {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem getting ip addresses for instance&quot;</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;login&quot;</span><span class="p">]:</span>
-            <span class="n">vm_names</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span>
 
-            <span class="c1"># If names not provided, take the last vm from DB.</span>
-            <span class="k">if</span> <span class="n">vm_names</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">vm_names</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">last_vm</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">get_last_vm</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">last_vm</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No VM records in database. Please run vm refresh.&quot;</span><span class="p">)</span>
-                    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-                <span class="n">name</span> <span class="o">=</span> <span class="n">last_vm</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+
+            <span class="n">chameleon</span> <span class="o">=</span> <span class="s2">&quot;chameleon&quot;</span> <span class="ow">in</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">][</span><span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">][</span><span class="s2">&quot;cm_host&quot;</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">chameleon</span><span class="p">:</span>
+                <span class="n">arg</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="s2">&quot;cc&quot;</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">name</span> <span class="o">=</span> <span class="n">vm_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Logging in into {:} machine...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">username</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Could not guess the username of the vm&quot;</span><span class="p">)</span>
+                    <span class="k">return</span>
+                <span class="n">arg</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--username&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Image</span><span class="o">.</span><span class="n">guess_username</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">image</span><span class="p">)</span>
 
-            <span class="n">user</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--user&quot;</span><span class="p">]</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">({</span>
+                <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">vm</span><span class="p">,</span>
+                <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+                <span class="s1">&#39;cloud&#39;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">cloud</span>
+            <span class="p">})</span>
 
-            <span class="c1"># Get user if user argument not specified.</span>
-            <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">user_from_db</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">get_vm_login_user</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
-                <span class="n">user_suggest</span> <span class="o">=</span> <span class="n">user_from_db</span> <span class="ow">or</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getuser</span><span class="p">()</span>
-                <span class="n">user</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter the user to login (Default: {}):&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user_suggest</span><span class="p">))</span> <span class="ow">or</span> <span class="n">user_suggest</span>
-                <span class="n">Vm</span><span class="o">.</span><span class="n">set_vm_login_user</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">user</span><span class="p">)</span>
+
+
+
+            <span class="n">pprint</span> <span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Login {username}@{name} ...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">))</span>
+
+            <span class="n">vm</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span>
+
+            <span class="n">Vm</span><span class="o">.</span><span class="n">set_login_user</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+
+            <span class="n">data</span><span class="o">.</span><span class="n">floating_ip</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">floating_ip</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">key</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+
+
+            <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            if vm.username is None:</span>
+<span class="sd">                user_from_db = Vm.get_login_user(vm.name, vm.cloud)</span>
+
+<span class="sd">                user_suggest = user_from_db or Default.user</span>
+<span class="sd">                username = input(&quot;Username (Default: {}):&quot;.format(user_suggest)) or user_suggest</span>
+
+<span class="sd">            Vm.set_login_user(name=data.name, cloud=cloud, username=data.username)</span>
+<span class="sd">            &#39;&#39;&#39;</span>
 
             <span class="n">ip</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--ip&quot;</span><span class="p">]</span>
             <span class="n">commands</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--command&quot;</span><span class="p">]</span>
 
-            <span class="c1"># if default cloud not set, return error</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set.&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-
-            <span class="n">key</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--key&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;login_key&quot;</span><span class="p">,</span>
-                                                    <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default login_key not set.&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-
-            <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
-            <span class="c1"># print(&quot;Name : {:}&quot;.format(name))</span>
-            <span class="n">ip_addr</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">get_ips</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
             <span class="n">ip_addresses</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
+            <span class="n">ip_addr</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">get_ips</span><span class="p">(</span><span class="n">vm</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
             <span class="n">ipaddr_dict</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">construct_ip_dict</span><span class="p">(</span><span class="n">ip_addr</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">ipaddr_dict</span><span class="p">:</span>
                 <span class="n">ip_addresses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ipaddr_dict</span><span class="p">[</span><span class="n">entry</span><span class="p">][</span><span class="s2">&quot;addr&quot;</span><span class="p">])</span>
 
-            <span class="k">if</span> <span class="n">ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">ip</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ip_addresses</span><span class="p">:</span>
-                    <span class="k">print</span><span class="p">(</span>
-                        <span class="s2">&quot;ERROR: IP Address specified does not match with the host.&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ip_addresses</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">ip</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ip_addresses</span><span class="p">:</span>
+                        <span class="k">print</span><span class="p">(</span>
+                            <span class="s2">&quot;ERROR: IP Address specified does not match with the host.&quot;</span><span class="p">)</span>
+                        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Determining IP Address to use with a ping test.&quot;</span><span class="p">)</span>
+                    <span class="c1"># This part assumes that the ping is allowed to the machine.</span>
+                    <span class="k">for</span> <span class="n">ipadd</span> <span class="ow">in</span> <span class="n">ip_addresses</span><span class="p">:</span>
+                        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Checking {:}...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ipadd</span><span class="p">))</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="n">socket</span><span class="o">.</span><span class="n">gethostbyaddr</span><span class="p">(</span><span class="n">ipadd</span><span class="p">)</span>
+                            <span class="c1"># ip will be set if above command is successful.</span>
+                            <span class="n">ip</span> <span class="o">=</span> <span class="n">ipadd</span>
+                        <span class="k">except</span> <span class="n">socket</span><span class="o">.</span><span class="n">herror</span><span class="p">:</span>
+                            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cannot reach {:}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ipadd</span><span class="p">))</span>
+
+                <span class="k">if</span> <span class="n">ip</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Unable to connect to the machine&quot;</span><span class="p">)</span>
                     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;IP to be used is: {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ip</span><span class="p">))</span>
+
+                <span class="c1">#</span>
+                <span class="c1"># TODO: is thsi correctly implemented</span>
+                <span class="c1">#</span>
+                <span class="n">SecGroup</span><span class="o">.</span><span class="n">enable_ssh</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
+
+                <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Connecting to Instance at IP:&quot;</span> <span class="o">+</span> <span class="n">format</span><span class="p">(</span><span class="n">ip</span><span class="p">))</span>
+                <span class="c1"># Constructing the ssh command to connect to the machine.</span>
+                <span class="n">sshcommand</span> <span class="o">=</span> <span class="s2">&quot;ssh&quot;</span>
+                <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">sshcommand</span> <span class="o">+=</span> <span class="s2">&quot; -i {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+                <span class="n">sshcommand</span> <span class="o">+=</span> <span class="s2">&quot; -o StrictHostKeyChecking=no&quot;</span>
+                <span class="n">sshcommand</span> <span class="o">+=</span> <span class="s2">&quot; {:}@{:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">ip</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">commands</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">sshcommand</span> <span class="o">+=</span> <span class="s2">&quot; </span><span class="se">\&quot;</span><span class="s2">{:}</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">commands</span><span class="p">)</span>
+
+                <span class="c1"># print(sshcommand)</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">sshcommand</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Determining IP Address to use with a ping test.&quot;</span><span class="p">)</span>
-                <span class="c1"># This part assumes that the ping is allowed to the machine.</span>
-                <span class="k">for</span> <span class="n">ipadd</span> <span class="ow">in</span> <span class="n">ip_addresses</span><span class="p">:</span>
-                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Checking {:}...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ipadd</span><span class="p">))</span>
-                    <span class="k">try</span><span class="p">:</span>
-                        <span class="n">socket</span><span class="o">.</span><span class="n">gethostbyaddr</span><span class="p">(</span><span class="n">ipadd</span><span class="p">)</span>
-                        <span class="c1"># ip will be set if above command is successful.</span>
-                        <span class="n">ip</span> <span class="o">=</span> <span class="n">ipadd</span>
-                    <span class="k">except</span> <span class="n">socket</span><span class="o">.</span><span class="n">herror</span><span class="p">:</span>
-                        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cannot reach {:}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ipadd</span><span class="p">))</span>
-
-            <span class="k">if</span> <span class="n">ip</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;SORRY. Unable to connect to the machine&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;IP to be used is: {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ip</span><span class="p">))</span>
-
-            <span class="n">SecGroup</span><span class="o">.</span><span class="n">enable_ssh</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
-            <span class="c1"># print(&quot;COMMANDS : {:}&quot;.format(commands))</span>
-
-            <span class="c1"># Constructing the ssh command to connect to the machine.</span>
-            <span class="n">sshcommand</span> <span class="o">=</span> <span class="s2">&quot;ssh&quot;</span>
-            <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">sshcommand</span> <span class="o">+=</span> <span class="s2">&quot; -i {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-            <span class="n">sshcommand</span> <span class="o">+=</span> <span class="s2">&quot; -o StrictHostKeyChecking=no&quot;</span>
-            <span class="n">sshcommand</span> <span class="o">+=</span> <span class="s2">&quot; {:}@{:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">ip</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">commands</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">sshcommand</span> <span class="o">+=</span> <span class="s2">&quot; </span><span class="se">\&quot;</span><span class="s2">{:}</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">commands</span><span class="p">)</span>
-
-            <span class="c1"># print(sshcommand)</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">sshcommand</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No Public IPs found for the instance&quot;</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;list&quot;</span><span class="p">]:</span>
 
-            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--all&quot;</span><span class="p">]:</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--format&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;table&quot;</span>
-                    <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
-                    <span class="k">for</span> <span class="n">cloud</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">]:</span>
+            <span class="c1"># groups = Group.list(output=&quot;dict&quot;)</span>
 
-                        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--refresh&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">refresh</span><span class="p">():</span>
-                            <span class="n">_refresh</span><span class="p">()</span>
+            <span class="n">arg</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
+            <span class="n">arg</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAMES&quot;</span><span class="p">]</span>
 
-                        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Listing VMs on Cloud: {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloud</span><span class="p">))</span>
-                        <span class="n">result</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="n">output_format</span><span class="o">=</span><span class="n">_format</span><span class="p">)</span>
-                        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                            <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-                        <span class="k">else</span><span class="p">:</span>
-                            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Sorry. No data found with requested parameters in DB.&quot;</span><span class="p">)</span>
-                    <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                    <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem listing all instances&quot;</span><span class="p">)</span>
+            <span class="n">arg</span><span class="o">.</span><span class="n">group</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--group&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">group</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">arg</span><span class="o">.</span><span class="n">group</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">else</span><span class="p">:</span>
+                <span class="n">arg</span><span class="o">.</span><span class="n">group</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--group&quot;</span><span class="p">])</span>
 
-                <span class="c1"># if default cloud not set, return error</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set.&quot;</span><span class="p">)</span>
-                    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">name_or_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME_OR_ID&quot;</span><span class="p">]</span>
-                    <span class="n">group</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--group&quot;</span><span class="p">]</span>
-                    <span class="n">_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--format&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;table&quot;</span>
+            <span class="n">arg</span><span class="o">.</span><span class="n">refresh</span> <span class="o">=</span>  <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--refresh&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">refresh</span>
 
-                    <span class="c1"># list_vms_on_cloud(cloud, group, _format)</span>
-                    <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--refresh&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">refresh</span><span class="p">():</span>
-                        <span class="n">_refresh</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">NAMES</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">arg</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAMES&quot;</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">arg</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;all&quot;</span><span class="p">]</span>
 
-                    <span class="n">result</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">name_or_id</span><span class="o">=</span><span class="n">name_or_id</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="n">output_format</span><span class="o">=</span><span class="n">_format</span><span class="p">)</span>
+            <span class="n">_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--format&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;table&quot;</span>
 
-                    <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                        <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--active&quot;</span><span class="p">]:</span>
+                <span class="n">clouds</span> <span class="o">=</span> <span class="n">active_clouds</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]:</span>
+                    <span class="n">clouds</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">clouds</span> <span class="o">=</span> <span class="p">[</span><span class="n">Default</span><span class="o">.</span><span class="n">cloud</span><span class="p">]</span>
+
+            <span class="k">try</span><span class="p">:</span>
+
+                <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">cloud</span> <span class="ow">in</span> <span class="n">clouds</span><span class="p">:</span>
+
+                    <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">refresh</span><span class="p">:</span>
+                        <span class="n">_refresh</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
+
+                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Listing VMs on Cloud: {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloud</span><span class="p">))</span>
+
+
+                    <span class="n">vms</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;raw&quot;</span><span class="p">)</span>
+
+                    <span class="c1"># print (&quot;XXX&quot;, type(vms), vms)</span>
+
+                    <span class="k">if</span> <span class="n">vms</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                        <span class="k">break</span>
+
+                    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="k">if</span> <span class="s2">&quot;all&quot;</span> <span class="ow">in</span> <span class="n">arg</span><span class="o">.</span><span class="n">names</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                            <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">result</span> <span class="o">=</span> <span class="n">vms</span>
+                    <span class="k">elif</span> <span class="n">arg</span><span class="o">.</span><span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">group</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">vm</span> <span class="ow">in</span> <span class="n">vms</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="n">vm</span><span class="p">[</span><span class="s2">&quot;group&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">arg</span><span class="o">.</span><span class="n">group</span><span class="p">:</span>
+                                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vm</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">arg</span><span class="o">.</span><span class="n">names</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">names</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">vm</span> <span class="ow">in</span> <span class="n">vms</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="n">vm</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">arg</span><span class="o">.</span><span class="n">names</span><span class="p">:</span>
+                                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vm</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="c1">#print(result)</span>
+                        <span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">header</span><span class="p">)</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">get_attributes</span><span class="p">(</span><span class="s2">&quot;vm&quot;</span><span class="p">)</span>
+                        <span class="k">print</span> <span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">result</span><span class="p">,</span>
+                                             <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
+                                             <span class="n">output</span><span class="o">=</span><span class="n">_format</span><span class="p">)</span>
+                              <span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;No data found with the requested parameters.&quot;</span><span class="p">)</span>
+                        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;No data found with requested parameters.&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="c1"># Error.traceback(e)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem listing all instances&quot;</span><span class="p">)</span>
 
-                    <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-
-                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                    <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                        <span class="s2">&quot;Problem listing instances on cloud {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloud</span><span class="p">))</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;rename&quot;</span><span class="p">]:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">servers</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span>
+                <span class="n">oldnames</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;OLDNAMES&quot;</span><span class="p">])</span>
+                <span class="n">newnames</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NEWNAMES&quot;</span><span class="p">])</span>
+                <span class="n">force</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--force&quot;</span><span class="p">]</span>
 
-                <span class="c1"># If names not provided, take the last vm from DB.</span>
-                <span class="k">if</span> <span class="n">servers</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">servers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">last_vm</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">get_last_vm</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="n">last_vm</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No VM records in database. Please run vm refresh.&quot;</span><span class="p">)</span>
-                        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-                    <span class="n">name</span> <span class="o">=</span> <span class="n">last_vm</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
-                    <span class="n">servers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-                    <span class="n">servers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-
-                <span class="c1"># if default cloud not set, return error</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set.&quot;</span><span class="p">)</span>
-                    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-
-                <span class="n">new_name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--new&quot;</span><span class="p">]</span>
-                <span class="n">is_name_provided</span> <span class="o">=</span> <span class="bp">True</span>
-
-                <span class="c1"># If the new name is not provided, make the new new name in format username-count.</span>
-                <span class="k">if</span> <span class="n">new_name</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_name</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-
-                    <span class="n">is_name_provided</span> <span class="o">=</span> <span class="bp">False</span>
-
-                    <span class="n">count</span> <span class="o">=</span> <span class="n">Counter</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-                    <span class="n">prefix</span> <span class="o">=</span> <span class="n">Username</span><span class="p">()</span>
-
-                    <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">count</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Prefix and Count could not be retrieved correctly.&quot;</span><span class="p">)</span>
-                        <span class="k">return</span>
-
-                    <span class="c1"># BUG THE Z FILL SHOULD BE detected from yaml file</span>
-                    <span class="n">new_name</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-
-                <span class="n">Vm</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="n">servers</span><span class="o">=</span><span class="n">servers</span><span class="p">,</span> <span class="n">new_name</span><span class="o">=</span><span class="n">new_name</span><span class="p">)</span>
-
-                <span class="k">if</span> <span class="n">is_name_provided</span> <span class="ow">is</span> <span class="bp">False</span><span class="p">:</span>
-                    <span class="c1"># Incrementing count</span>
-                    <span class="n">Counter</span><span class="o">.</span><span class="n">incr</span><span class="p">()</span>
-
-                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">oldnames</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">newnames</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Wrong VMs specified for rename&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">oldnames</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">newnames</span><span class="p">):</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The number of VMs to be renamed is wrong&quot;</span><span class="p">,</span>
+                                  <span class="n">traceflat</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">oldnames</span><span class="p">)):</span>
+                        <span class="n">oldname</span> <span class="o">=</span> <span class="n">oldnames</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                        <span class="n">newname</span> <span class="o">=</span> <span class="n">newnames</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--dryrun&quot;</span><span class="p">]:</span>
+                            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Rename {} to {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">oldname</span><span class="p">,</span> <span class="n">newname</span><span class="p">))</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">Vm</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span>
+                                      <span class="n">oldname</span><span class="o">=</span><span class="n">oldname</span><span class="p">,</span>
+                                      <span class="n">newname</span><span class="o">=</span><span class="n">newname</span><span class="p">,</span>
+                                      <span class="n">force</span><span class="o">=</span><span class="n">force</span>
+                                      <span class="p">)</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;info. OK.&quot;</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="c1"># Error.traceback(e)</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem deleting instances&quot;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
-
 </pre></div>
 
            </div>
@@ -938,7 +1073,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

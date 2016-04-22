@@ -100,6 +100,14 @@ cloudmesh_client.shell.plugins.ImageCommand module
     :undoc-members:
     :show-inheritance:
 
+cloudmesh_client.shell.plugins.InfoCommand module
+-------------------------------------------------
+
+.. automodule:: cloudmesh_client.shell.plugins.InfoCommand
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.shell.plugins.InventoryCommand module
 ------------------------------------------------------
 
@@ -300,6 +308,14 @@ cloudmesh_client.shell.plugins.TerminalCommands module
     :undoc-members:
     :show-inheritance:
 
+cloudmesh_client.shell.plugins.TestCommand module
+-------------------------------------------------
+
+.. automodule:: cloudmesh_client.shell.plugins.TestCommand
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.shell.plugins.TimerCommand module
 --------------------------------------------------
 
@@ -316,6 +332,14 @@ cloudmesh_client.shell.plugins.UsageCommand module
     :undoc-members:
     :show-inheritance:
 
+cloudmesh_client.shell.plugins.VcCommand module
+-----------------------------------------------
+
+.. automodule:: cloudmesh_client.shell.plugins.VcCommand
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.shell.plugins.VmCommand module
 -----------------------------------------------
 
@@ -328,6 +352,14 @@ cloudmesh_client.shell.plugins.WhoCommand module
 ------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.WhoCommand
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.shell.plugins.WorkflowCommand module
+-----------------------------------------------------
+
+.. automodule:: cloudmesh_client.shell.plugins.WorkflowCommand
     :members:
     :undoc-members:
     :show-inheritance:

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Cloud Command &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>Cloud Command &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Key Command" href="command_key.html"/>
         <link rel="prev" title="Register Command" href="command_register.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -101,7 +101,7 @@
 <li class="toctree-l2"><a class="reference internal" href="index.html#shell-commands">Shell Commands</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#cloud-commands">Cloud Commands</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="command_register.html">Register Command</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="">Cloud Command</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Cloud Command</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#list-status-of-all-clouds">List status of all clouds</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#login-to-a-single-multiple-clouds">Login to a single/multiple clouds</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#deactivate-a-cloud">Deactivate a cloud</a></li>
@@ -212,95 +212,95 @@ a cloud, activate a cloud, deactivate a cloud &amp; logout from a cloud.</p>
 <h2>List status of all clouds<a class="headerlink" href="#list-status-of-all-clouds" title="Permalink to this headline">¶</a></h2>
 <p>To list status of all clouds registered in the
 cloudmesh.yaml file use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm&gt; cloud list
-  +------------+------------+
-  | cloud name | status     |
-  +------------+------------+
-  | aws        | Logged Out |
-  | azure      | Logged Out |
-  | chameleon  | Logged Out |
-  | kilo       | Logged Out |
-  +------------+------------+
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">&gt;</span> <span class="n">cloud</span> <span class="nb">list</span>
+  <span class="o">+------------+------------+</span>
+  <span class="o">|</span> <span class="n">cloud</span> <span class="n">name</span> <span class="o">|</span> <span class="n">status</span>     <span class="o">|</span>
+  <span class="o">+------------+------------+</span>
+  <span class="o">|</span> <span class="n">aws</span>        <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span>
+  <span class="o">|</span> <span class="n">azure</span>      <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span>
+  <span class="o">|</span> <span class="n">chameleon</span>  <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span>
+  <span class="o">|</span> <span class="n">kilo</span>       <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span>
+  <span class="o">+------------+------------+</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="login-to-a-single-multiple-clouds">
 <h2>Login to a single/multiple clouds<a class="headerlink" href="#login-to-a-single-multiple-clouds" title="Permalink to this headline">¶</a></h2>
 <p>To logon to a cloud use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm&gt; cloud logon kilo
-  Logged into cloud: kilo
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">&gt;</span> <span class="n">cloud</span> <span class="n">logon</span> <span class="n">kilo</span>
+  <span class="n">Logged</span> <span class="n">into</span> <span class="n">cloud</span><span class="p">:</span> <span class="n">kilo</span>
 </pre></div>
 </div>
 <p>You can logon to multiple clouds:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm&gt; cloud logon kilo
-  Logged into cloud: kilo
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">&gt;</span> <span class="n">cloud</span> <span class="n">logon</span> <span class="n">kilo</span>
+  <span class="n">Logged</span> <span class="n">into</span> <span class="n">cloud</span><span class="p">:</span> <span class="n">kilo</span>
 
-cm&gt; cloud list
-  +------------+------------+
-  | cloud name | status     |
-  +------------+------------+
-  | aws        | Logged Out |
-  | azure      | Logged Out |
-  | chameleon  | Logged Out |
-  | kilo       | Active     |
-  +------------+------------+
+<span class="n">cm</span><span class="o">&gt;</span> <span class="n">cloud</span> <span class="nb">list</span>
+  <span class="o">+------------+------------+</span>
+  <span class="o">|</span> <span class="n">cloud</span> <span class="n">name</span> <span class="o">|</span> <span class="n">status</span>     <span class="o">|</span>
+  <span class="o">+------------+------------+</span>
+  <span class="o">|</span> <span class="n">aws</span>        <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span>
+  <span class="o">|</span> <span class="n">azure</span>      <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span>
+  <span class="o">|</span> <span class="n">chameleon</span>  <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span>
+  <span class="o">|</span> <span class="n">kilo</span>       <span class="o">|</span> <span class="n">Active</span>     <span class="o">|</span>
+  <span class="o">+------------+------------+</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="deactivate-a-cloud">
 <h2>Deactivate a cloud<a class="headerlink" href="#deactivate-a-cloud" title="Permalink to this headline">¶</a></h2>
 <p>To deactivate a cloud use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm&gt; cloud deactivate kilo
-  Deactivated cloud: kilo
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">&gt;</span> <span class="n">cloud</span> <span class="n">deactivate</span> <span class="n">kilo</span>
+  <span class="n">Deactivated</span> <span class="n">cloud</span><span class="p">:</span> <span class="n">kilo</span>
 
-cm&gt; cloud list
-  +------------+------------+
-  | cloud name | status     |
-  +------------+------------+
-  | aws        | Logged Out |
-  | azure      | Logged Out |
-  | chameleon  | Logged Out |
-  | kilo       | Inactive   |
-  +------------+------------+
+<span class="n">cm</span><span class="o">&gt;</span> <span class="n">cloud</span> <span class="nb">list</span>
+  <span class="o">+------------+------------+</span>
+  <span class="o">|</span> <span class="n">cloud</span> <span class="n">name</span> <span class="o">|</span> <span class="n">status</span>     <span class="o">|</span>
+  <span class="o">+------------+------------+</span>
+  <span class="o">|</span> <span class="n">aws</span>        <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span>
+  <span class="o">|</span> <span class="n">azure</span>      <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span>
+  <span class="o">|</span> <span class="n">chameleon</span>  <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span>
+  <span class="o">|</span> <span class="n">kilo</span>       <span class="o">|</span> <span class="n">Inactive</span>   <span class="o">|</span>
+  <span class="o">+------------+------------+</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="activate-a-cloud">
 <h2>Activate a cloud<a class="headerlink" href="#activate-a-cloud" title="Permalink to this headline">¶</a></h2>
 <p>To activate a cloud use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm&gt; cloud activate kilo
-  Activated cloud: kilo
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">&gt;</span> <span class="n">cloud</span> <span class="n">activate</span> <span class="n">kilo</span>
+  <span class="n">Activated</span> <span class="n">cloud</span><span class="p">:</span> <span class="n">kilo</span>
 
-cm&gt; cloud list
-  +------------+------------+
-  | cloud name | status     |
-  +------------+------------+
-  | aws        | Logged Out |
-  | azure      | Logged Out |
-  | chameleon  | Logged Out |
-  | kilo       | Active     |
-  +------------+------------+
+<span class="n">cm</span><span class="o">&gt;</span> <span class="n">cloud</span> <span class="nb">list</span>
+  <span class="o">+------------+------------+</span>
+  <span class="o">|</span> <span class="n">cloud</span> <span class="n">name</span> <span class="o">|</span> <span class="n">status</span>     <span class="o">|</span>
+  <span class="o">+------------+------------+</span>
+  <span class="o">|</span> <span class="n">aws</span>        <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span>
+  <span class="o">|</span> <span class="n">azure</span>      <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span>
+  <span class="o">|</span> <span class="n">chameleon</span>  <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span>
+  <span class="o">|</span> <span class="n">kilo</span>       <span class="o">|</span> <span class="n">Active</span>     <span class="o">|</span>
+  <span class="o">+------------+------------+</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="log-out-from-a-cloud">
 <h2>Log out from a cloud<a class="headerlink" href="#log-out-from-a-cloud" title="Permalink to this headline">¶</a></h2>
 <p>To log out from a cloud use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm&gt; cloud logout kilo
-  Logged out of cloud: kilo
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">&gt;</span> <span class="n">cloud</span> <span class="n">logout</span> <span class="n">kilo</span>
+  <span class="n">Logged</span> <span class="n">out</span> <span class="n">of</span> <span class="n">cloud</span><span class="p">:</span> <span class="n">kilo</span>
 
-cm&gt; cloud logout kilo
-  Logged out of cloud: kilo
+<span class="n">cm</span><span class="o">&gt;</span> <span class="n">cloud</span> <span class="n">logout</span> <span class="n">kilo</span>
+  <span class="n">Logged</span> <span class="n">out</span> <span class="n">of</span> <span class="n">cloud</span><span class="p">:</span> <span class="n">kilo</span>
 
-cm&gt; cloud list
-  +------------+------------+
-  | cloud name | status     |
-  +------------+------------+
-  | aws        | Logged Out |
-  | azure      | Logged Out |
-  | chameleon  | Logged Out |
-  | kilo       | Logged Out |
-  +------------+------------+
+<span class="n">cm</span><span class="o">&gt;</span> <span class="n">cloud</span> <span class="nb">list</span>
+  <span class="o">+------------+------------+</span>
+  <span class="o">|</span> <span class="n">cloud</span> <span class="n">name</span> <span class="o">|</span> <span class="n">status</span>     <span class="o">|</span>
+  <span class="o">+------------+------------+</span>
+  <span class="o">|</span> <span class="n">aws</span>        <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span>
+  <span class="o">|</span> <span class="n">azure</span>      <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span>
+  <span class="o">|</span> <span class="n">chameleon</span>  <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span>
+  <span class="o">|</span> <span class="n">kilo</span>       <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span>
+  <span class="o">+------------+------------+</span>
 </pre></div>
 </div>
 </div>
@@ -346,7 +346,7 @@ cm&gt; cloud list
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

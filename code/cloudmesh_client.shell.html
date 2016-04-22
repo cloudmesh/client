@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell package &mdash; cloudmesh_client 3.1.0 documentation</title>
+  <title>cloudmesh_client.shell package &mdash; cloudmesh_client 4.1.5 documentation</title>
   
 
   
@@ -30,10 +30,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client package" href="cloudmesh_client.html"/>
         <link rel="next" title="cloudmesh_client.shell.plugins package" href="cloudmesh_client.shell.plugins.html"/>
-        <link rel="prev" title="cloudmesh_client.keys package" href="cloudmesh_client.keys.html"/> 
+        <link rel="prev" title="cloudmesh_client.provider.openstack package" href="cloudmesh_client.provider.openstack.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                3.1.0
+                4.1.5
               </div>
             
           
@@ -126,8 +126,8 @@
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.db.html">cloudmesh_client.db package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.etc.html">cloudmesh_client.etc package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.keys.html">cloudmesh_client.keys package</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="">cloudmesh_client.shell package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.provider.html">cloudmesh_client.provider package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">cloudmesh_client.shell package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.shell.cm">cloudmesh_client.shell.cm module</a></li>
@@ -146,7 +146,6 @@
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.setup">cloudmesh_client.setup module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.shell_commad">cloudmesh_client.shell_commad module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.util">cloudmesh_client.util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.var">cloudmesh_client.var module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.version">cloudmesh_client.version module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client">Module contents</a></li>
@@ -224,6 +223,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.GroupCommand">cloudmesh_client.shell.plugins.GroupCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.HpcCommand">cloudmesh_client.shell.plugins.HpcCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ImageCommand">cloudmesh_client.shell.plugins.ImageCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.InfoCommand">cloudmesh_client.shell.plugins.InfoCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.InventoryCommand">cloudmesh_client.shell.plugins.InventoryCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.KeyCommand">cloudmesh_client.shell.plugins.KeyCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.LauncherCommand">cloudmesh_client.shell.plugins.LauncherCommand module</a></li>
@@ -249,10 +249,13 @@
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.SubmitCommands">cloudmesh_client.shell.plugins.SubmitCommands module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.SyncCommand">cloudmesh_client.shell.plugins.SyncCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.TerminalCommands">cloudmesh_client.shell.plugins.TerminalCommands module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.TestCommand">cloudmesh_client.shell.plugins.TestCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.TimerCommand">cloudmesh_client.shell.plugins.TimerCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.UsageCommand">cloudmesh_client.shell.plugins.UsageCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.VcCommand">cloudmesh_client.shell.plugins.VcCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.VmCommand">cloudmesh_client.shell.plugins.VmCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.WhoCommand">cloudmesh_client.shell.plugins.WhoCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.WorkflowCommand">cloudmesh_client.shell.plugins.WorkflowCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins">Module contents</a></li>
 </ul>
 </li>
@@ -271,11 +274,11 @@
 <dl class="method">
 <dt id="cloudmesh_client.shell.cm.CloudmeshConsole.do_EOF">
 <code class="descname">do_EOF</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#CloudmeshConsole.do_EOF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.do_EOF" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
-    EOF
+<dd><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span>
+    <span class="n">EOF</span>
 
-Description:
-    Command to the shell to terminate reading a script.
+<span class="n">Description</span><span class="p">:</span>
+    <span class="n">Command</span> <span class="n">to</span> <span class="n">the</span> <span class="n">shell</span> <span class="n">to</span> <span class="n">terminate</span> <span class="n">reading</span> <span class="n">a</span> <span class="n">script</span><span class="o">.</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -283,11 +286,11 @@ Description:
 <dl class="method">
 <dt id="cloudmesh_client.shell.cm.CloudmeshConsole.do_context">
 <code class="descname">do_context</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#CloudmeshConsole.do_context"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.do_context" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
-    context
+<dd><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span>
+    <span class="n">context</span>
 
-Description:
-    Lists the context variables and their values
+<span class="n">Description</span><span class="p">:</span>
+    <span class="n">Lists</span> <span class="n">the</span> <span class="n">context</span> <span class="n">variables</span> <span class="ow">and</span> <span class="n">their</span> <span class="n">values</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -295,13 +298,13 @@ Description:
 <dl class="method">
 <dt id="cloudmesh_client.shell.cm.CloudmeshConsole.do_exec">
 <code class="descname">do_exec</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#CloudmeshConsole.do_exec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.do_exec" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
-   exec FILENAME
+<dd><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span>
+   <span class="n">exec</span> <span class="n">FILENAME</span>
 
-executes the commands in the file. See also the script command.
+<span class="n">executes</span> <span class="n">the</span> <span class="n">commands</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">file</span><span class="o">.</span> <span class="n">See</span> <span class="n">also</span> <span class="n">the</span> <span class="n">script</span> <span class="n">command</span><span class="o">.</span>
 
-Arguments:
-  FILENAME   The name of the file
+<span class="n">Arguments</span><span class="p">:</span>
+  <span class="n">FILENAME</span>   <span class="n">The</span> <span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">file</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -321,13 +324,13 @@ history ID</dd>
 <dl class="method">
 <dt id="cloudmesh_client.shell.cm.CloudmeshConsole.do_help">
 <code class="descname">do_help</code><span class="sig-paren">(</span><em>arg</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#CloudmeshConsole.do_help"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.do_help" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
-    help
-    help COMMAND
+<dd><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span>
+    <span class="n">help</span>
+    <span class="n">help</span> <span class="n">COMMAND</span>
 
-Description:
-    List available commands with &quot;help&quot; or detailed help with
-    &quot;help COMMAND&quot;.
+<span class="n">Description</span><span class="p">:</span>
+    <span class="n">List</span> <span class="n">available</span> <span class="n">commands</span> <span class="k">with</span> <span class="s2">&quot;help&quot;</span> <span class="ow">or</span> <span class="n">detailed</span> <span class="n">help</span> <span class="k">with</span>
+    <span class="s2">&quot;help COMMAND&quot;</span><span class="o">.</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -347,11 +350,11 @@ history ID</dd>
 <dl class="method">
 <dt id="cloudmesh_client.shell.cm.CloudmeshConsole.do_q">
 <code class="descname">do_q</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.do_q" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
-    quit
+<dd><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span>
+    <span class="n">quit</span>
 
-Description:
-    Action to be performed whne quit is typed
+<span class="n">Description</span><span class="p">:</span>
+    <span class="n">Action</span> <span class="n">to</span> <span class="n">be</span> <span class="n">performed</span> <span class="n">whne</span> <span class="n">quit</span> <span class="ow">is</span> <span class="n">typed</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -359,11 +362,11 @@ Description:
 <dl class="method">
 <dt id="cloudmesh_client.shell.cm.CloudmeshConsole.do_quit">
 <code class="descname">do_quit</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#CloudmeshConsole.do_quit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.do_quit" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
-    quit
+<dd><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span>
+    <span class="n">quit</span>
 
-Description:
-    Action to be performed whne quit is typed
+<span class="n">Description</span><span class="p">:</span>
+    <span class="n">Action</span> <span class="n">to</span> <span class="n">be</span> <span class="n">performed</span> <span class="n">whne</span> <span class="n">quit</span> <span class="ow">is</span> <span class="n">typed</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -435,10 +438,10 @@ VALUE   VALUE to be assigned</dd>
 <dl class="method">
 <dt id="cloudmesh_client.shell.cm.CloudmeshConsole.help_help">
 <code class="descname">help_help</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#CloudmeshConsole.help_help"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.help_help" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
-   help NAME
+<dd><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span>
+   <span class="n">help</span> <span class="n">NAME</span>
 
-Prints out the help message for a given function
+<span class="n">Prints</span> <span class="n">out</span> <span class="n">the</span> <span class="n">help</span> <span class="n">message</span> <span class="k">for</span> <span class="n">a</span> <span class="n">given</span> <span class="n">function</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -590,19 +593,19 @@ otherwise quit [default: False]</td></tr>
 <dl class="method">
 <dt id="cloudmesh_client.shell.cm_shell_status.cm_shell_status.do_status">
 <code class="descname">do_status</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.cm_shell_status.cm_shell_status.do_status" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
-    status
-    status db
-    status CLOUDS...
+<dd><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span>
+    <span class="n">status</span>
+    <span class="n">status</span> <span class="n">db</span>
+    <span class="n">status</span> <span class="n">CLOUDS</span><span class="o">...</span>
 
 
 
 
-Arguments:
+<span class="n">Arguments</span><span class="p">:</span>
 
 
 
-Options:
+<span class="n">Options</span><span class="p">:</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -686,7 +689,7 @@ pass</div></blockquote>
 simply the print statement you can use special methods to indicate
 warnings, errors, ok and regular messages.</p>
 <p>Example Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">Console</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Warning&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Console</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Warning&quot;</span><span class="p">)</span>
 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">)</span>
 <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Info&quot;</span><span class="p">)</span>
 <span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s2">&quot;msg&quot;</span><span class="p">)</span>
@@ -694,11 +697,16 @@ warnings, errors, ok and regular messages.</p>
 </pre></div>
 </div>
 <p>One can swith the color mode off with:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">Console</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="bp">False</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Console</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The color will be switched on by default.</p>
+<dl class="staticmethod">
+<dt id="cloudmesh_client.shell.console.Console.TODO">
+<em class="property">static </em><code class="descname">TODO</code><span class="sig-paren">(</span><em>message</em>, <em>prefix=True</em>, <em>traceflag=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/console.html#Console.TODO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.console.Console.TODO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="attribute">
 <dt id="cloudmesh_client.shell.console.Console.color">
 <code class="descname">color</code><em class="property"> = True</em><a class="headerlink" href="#cloudmesh_client.shell.console.Console.color" title="Permalink to this definition">¶</a></dt>
@@ -709,9 +717,14 @@ warnings, errors, ok and regular messages.</p>
 <em class="property">static </em><code class="descname">cprint</code><span class="sig-paren">(</span><em>color</em>, <em>prefix</em>, <em>message</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/console.html#Console.cprint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.console.Console.cprint" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="staticmethod">
+<dl class="attribute">
+<dt id="cloudmesh_client.shell.console.Console.debug">
+<code class="descname">debug</code><em class="property"> = True</em><a class="headerlink" href="#cloudmesh_client.shell.console.Console.debug" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
 <dt id="cloudmesh_client.shell.console.Console.error">
-<em class="property">static </em><code class="descname">error</code><span class="sig-paren">(</span><em>message</em>, <em>prefix=True</em>, <em>traceflag=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/console.html#Console.error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.console.Console.error" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">error</code><span class="sig-paren">(</span><em>message</em>, <em>prefix=True</em>, <em>traceflag=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/console.html#Console.error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.console.Console.error" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="staticmethod">
@@ -734,6 +747,11 @@ warnings, errors, ok and regular messages.</p>
 <em class="property">static </em><code class="descname">ok</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/console.html#Console.ok"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.console.Console.ok" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="classmethod">
+<dt id="cloudmesh_client.shell.console.Console.set_debug">
+<em class="property">classmethod </em><code class="descname">set_debug</code><span class="sig-paren">(</span><em>on=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/console.html#Console.set_debug"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.console.Console.set_debug" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="staticmethod">
 <dt id="cloudmesh_client.shell.console.Console.set_theme">
 <em class="property">static </em><code class="descname">set_theme</code><span class="sig-paren">(</span><em>color=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/console.html#Console.set_theme"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.console.Console.set_theme" title="Permalink to this definition">¶</a></dt>
@@ -741,17 +759,17 @@ warnings, errors, ok and regular messages.</p>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.shell.console.Console.theme">
-<code class="descname">theme</code><em class="property"> = {'BLUE': '\x1b[34m', 'RED': '\x1b[31m', 'WARNING': '\x1b[35m', 'BLACK': '\x1b[30m', 'GREEN': '\x1b[32m', 'FAIL': '\x1b[31m', 'ENDC': '\x1b[0m', 'CYAN': '\x1b[36m', 'BOLD': '\x1b[1m', 'HEADER': '\x1b[35m', 'OKBLUE': '\x1b[34m', 'OKGREEN': '\x1b[32m', 'WHITE': '\x1b[37m'}</em><a class="headerlink" href="#cloudmesh_client.shell.console.Console.theme" title="Permalink to this definition">¶</a></dt>
+<code class="descname">theme</code><em class="property"> = {'OKBLUE': '\x1b[34m', 'OKGREEN': '\x1b[32m', 'BOLD': '\x1b[1m', 'HEADER': '\x1b[35m', 'ENDC': '\x1b[0m', 'BLACK': '\x1b[30m', 'FAIL': '\x1b[31m', 'CYAN': '\x1b[36m', 'WHITE': '\x1b[37m', 'RED': '\x1b[31m', 'BLUE': '\x1b[34m', 'WARNING': '\x1b[35m', 'GREEN': '\x1b[32m'}</em><a class="headerlink" href="#cloudmesh_client.shell.console.Console.theme" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.shell.console.Console.theme_bw">
-<code class="descname">theme_bw</code><em class="property"> = {'BLUE': '', 'RED': '', 'WARNING': '', 'BLACK': '', 'GREEN': '', 'FAIL': '', 'ENDC': '', 'CYAN': '', 'BOLD': '', 'HEADER': '', 'OKBLUE': '', 'OKGREEN': '', 'WHITE': ''}</em><a class="headerlink" href="#cloudmesh_client.shell.console.Console.theme_bw" title="Permalink to this definition">¶</a></dt>
+<code class="descname">theme_bw</code><em class="property"> = {'OKBLUE': '', 'OKGREEN': '', 'BOLD': '', 'HEADER': '', 'ENDC': '', 'BLACK': '', 'FAIL': '', 'CYAN': '', 'WHITE': '', 'RED': '', 'BLUE': '', 'WARNING': '', 'GREEN': ''}</em><a class="headerlink" href="#cloudmesh_client.shell.console.Console.theme_bw" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.shell.console.Console.theme_color">
-<code class="descname">theme_color</code><em class="property"> = {'BLUE': '\x1b[34m', 'RED': '\x1b[31m', 'WARNING': '\x1b[35m', 'BLACK': '\x1b[30m', 'GREEN': '\x1b[32m', 'FAIL': '\x1b[31m', 'ENDC': '\x1b[0m', 'CYAN': '\x1b[36m', 'BOLD': '\x1b[1m', 'HEADER': '\x1b[35m', 'OKBLUE': '\x1b[34m', 'OKGREEN': '\x1b[32m', 'WHITE': '\x1b[37m'}</em><a class="headerlink" href="#cloudmesh_client.shell.console.Console.theme_color" title="Permalink to this definition">¶</a></dt>
+<code class="descname">theme_color</code><em class="property"> = {'OKBLUE': '\x1b[34m', 'OKGREEN': '\x1b[32m', 'BOLD': '\x1b[1m', 'HEADER': '\x1b[35m', 'ENDC': '\x1b[0m', 'BLACK': '\x1b[30m', 'FAIL': '\x1b[31m', 'CYAN': '\x1b[36m', 'WHITE': '\x1b[37m', 'RED': '\x1b[31m', 'BLUE': '\x1b[34m', 'WARNING': '\x1b[35m', 'GREEN': '\x1b[32m'}</em><a class="headerlink" href="#cloudmesh_client.shell.console.Console.theme_color" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="staticmethod">
@@ -782,7 +800,7 @@ warnings, errors, ok and regular messages.</p>
         <a href="cloudmesh_client.shell.plugins.html" class="btn btn-neutral float-right" title="cloudmesh_client.shell.plugins package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="cloudmesh_client.keys.html" class="btn btn-neutral" title="cloudmesh_client.keys package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cloudmesh_client.provider.openstack.html" class="btn btn-neutral" title="cloudmesh_client.provider.openstack package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -812,7 +830,7 @@ warnings, errors, ok and regular messages.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'3.1.0',
+            VERSION:'4.1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
