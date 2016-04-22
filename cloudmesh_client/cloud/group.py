@@ -1,23 +1,30 @@
 from __future__ import absolute_import
 
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.db import CloudmeshDatabase
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.default import Default
 from cloudmesh_client.cloud.vm import Vm
 
+from cloudmesh_client.common.dotdict import dotdict
+from pprint import pprint
+
 
 # noinspection PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming
 class Group(ListResource):
-    cm = CloudmeshDatabase()  # Instance to communicate with the cloudmesh database
+    __kind__ = "group"
+    __provider__ = "general"
+
+    cm = CloudmeshDatabase()
 
     order = ["name",
-             "value",
+             "member",
              "user",
              "category",
-             "type"]
+             "type",
+             "species"]
 
     # TODO: implement and extend to user
     @classmethod
@@ -39,28 +46,128 @@ class Group(ListResource):
                                                                          cloud))
 
     @classmethod
-    def list(cls, format="table", category="kilo"):
+    def names(cls):
+        try:
+
+            query = {}
+
+            d = cls.cm.find(kind="group", **query)
+            names = set()
+            for vm in d:
+                names.add(vm['name'])
+            return list(names)
+        except Exception as ex:
+            Console.error(ex.message)
+
+    @classmethod
+    def get_vms(cls, name):
         """
-        Method to get list of groups in
-            the cloudmesh database
-        :param format:
-        :param cloud:
+        returns a list of vms within this group
+        :param name:
         :return:
         """
         try:
-            args = {}
-            d = cls.cm.find("GROUP", **args)
-            # d = cls.cm.all(model.GROUP)
-            # Transform the dict to show multiple rows per vm
-            newdict = Group.transform_dict(d)
-            return (dict_printer(newdict,
-                                 order=cls.order,
-                                 output=format))
+
+
+            query = {
+                "species": "vm",
+                "scope": "all",
+                "category": "general",
+                "kind": "group"
+            }
+
+            if name is not None:
+                query["name"] = name
+
+            d = cls.cm.find(**query)
+
+
+            if d is None:
+                return None
+            names = set()
+            for vm in d:
+                names.add(vm['member'])
+            return list(names)
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
     @classmethod
-    def get_info(cls, category="kilo", name=None, output="table"):
+    def vm_groups(cls, vm):
+        """
+
+        :param vm: name of the vm
+        :return: a list of groups the vm is in
+        """
+        try:
+            query = {
+                "species": "vm",
+                "member": vm
+            }
+
+            d = cls.cm.find(kind="group", scope='all', **query)
+
+            print ("FIND", vm, d)
+
+            if d is None:
+                return None
+            groups = set()
+            for vm in d:
+                groups.add(vm['name'])
+            return list(groups)
+        except Exception as ex:
+            Console.error(ex.message)
+
+    @classmethod
+    def list(cls,
+             name=None,
+             order=None,
+             header=None,
+             output='table'):
+        """
+        lists the default values in the specified format.
+        TODO: This method has a bug as it uses format and output,
+        only one should be used.
+
+        :param category: the category of the default value. If general is used
+                      it is a special category that is used for global values.
+        :param format: json, table, yaml, dict, csv
+        :param order: The order in which the attributes are returned
+        :param output: The output format.
+        :return:
+        """
+        if order is None:
+            order, header = None, None
+            # order = ['user',
+            #         'category',
+            #         'name',
+            #         'value',
+            #         'updated_at']
+            # order, header = Attributes(cls.__kind__, provider=cls.__provider__)
+        try:
+            query = {
+                "provider": cls.__provider__,
+                "kind": cls.__kind__,
+                "category": 'general'
+            }
+            result = None
+            if name is not None:
+                query["name"] = name
+
+            result = cls.cm.find(**query)
+
+            if result is None:
+                table = None
+            else:
+                table = Printer.write(result,
+                                      output='table')
+            return table
+        except Exception as e:
+            Console.error("Error creating list", traceflag=False)
+            Console.error(e.message)
+            return None
+
+    @classmethod
+    def get_info(cls, category="general", name=None, output="table"):
         """
         Method to get info about a group
         :param cloud:
@@ -68,97 +175,67 @@ class Group(ListResource):
         :param output:
         :return:
         """
+
         try:
-            cloud = category or Default.get("cloud")
+            cloud = category or Default.cloud
+
             args = {
-                "name": name,
                 "category": category
             }
 
-            # group = cls.get(name=name, category=cloud)
-            group = cls.cm.find("group", output="object", **args).first()
+            if name is not None:
+                args["name"] = name
 
-            if group is not None:
-                d = cls.to_dict(group)
-                # Transform the dict to show multiple rows per vm
-                newdict = Group.transform_dict(d)
-            else:
-                return None
+            group = cls.cm.find(kind="group", output="dict", **args)
 
-            return dict_printer(newdict,
-                                order=cls.order,
-                                output=output)
+            return Printer.write(group,
+                                 order=cls.order,
+                                 output=output)
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
     @classmethod
-    def add(cls, name=None, type="vm", id=None, category="kilo"):
+    def add(cls, name=None, species="vm", member=None, category=None):
         """
         Add an instance to a new group
             or add it to an existing one
         :param name:
-        :param type:
-        :param id:
+        :param species:
+        :param member:
         :param cloud:
         :return:
         """
+
         # user logged into cloudmesh
-        user = ConfigDict.getUser(category) or cls.cm.user
+        #user = ConfigDict.getUser(category) or cls.cm.user
+        user = cls.cm.user
+        category = category or "general"
 
         try:
             # See if group already exists. If yes, add id to the group
-            query = {
+            data = dotdict({
+                'member': member,
                 'name': name,
-                'category': category
-            }
+                'kind': 'group',
+                'provider': 'general'
+            })
 
-            # Find an existing group with name
-            existing_group = cls.cm.find("group", output="object",
-                                         **query).first()
+            group = cls.cm.find(**data)
 
-            # Existing group
-            if existing_group is not None:
-                id_str = str(existing_group.value)
-                ids = id_str.split(',')
+            if group is None:
+                t = cls.cm.table(provider="general", kind="group")
 
-                # check if id is already in group
-                if id in ids:
-                    Console.error("ID [{}] is already part of Group [{}]"
-                                  .format(id, name))
-                else:
-                    id_str += ',' + id  # add the id to the group
-                    existing_group.value = id_str
-                    cls.cm.save()
-                    Console.ok("Added ID [{}] to Group [{}]"
-                               .format(id, name))
-
-            # Create a new group
-            else:
-                obj_d = cls.cm.db_obj_dict("group",
-                                           name=name,
-                                           value=id,
-                                           type=type,
-                                           category=category,
-                                           user=user)
-                cls.cm.add_obj(obj_d)
-                cls.cm.save()
-
-                """
-                group_obj = model.GROUP(
-                    name,
-                    id,
-                    type,
-                    category=category,
-                    user=user
-                )
-                cls.cm.add(group_obj)
-                cls.cm.save()
-                """
-                Console.ok("Created a new group [{}] and added ID [{}] to it"
-                           .format(name, id))
+                group = t(name=name,
+                          member=member,
+                          category="general",
+                          user=user,
+                          species=species
+                          )
+                cls.cm.add(group, replace=False)
+                return
 
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
         return
 
@@ -171,6 +248,7 @@ class Group(ListResource):
         :param cloud:
         :return:
         """
+
         query = dict(kwargs)
 
         if 'output' in kwargs:
@@ -179,18 +257,21 @@ class Group(ListResource):
                     query[key] = "None"
             del query['output']
         try:
-            group = cls.cm.find_by_name("group", **query)
+
+            print("QQQ"), query
+            group = cls.cm.find(kind="group", **query)
+            print("gggg", group)
             if group is not None \
                     and "output" in kwargs:
                 d = {"0": group}
-                group = dict_printer(d)
+                group = Printer.write(d)
             return group
 
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
     @classmethod
-    def delete(cls, name=None, category="kilo"):
+    def delete(cls, name=None):
         """
         Method to delete a group from
             the cloudmesh database
@@ -198,43 +279,47 @@ class Group(ListResource):
         :param cloud:
         :return:
         """
+
         try:
             # group = cls.get(name=name, category=category)
             args = {}
             if name is not None:
                 args["name"] = name
-            if category is not None:
-                args["category"] = category
 
-            group = cls.cm.find("group", output="object", **args).first()
+            group = cls.cm.find(provider='general', kind="group", scope='all', output="dict", **args)
 
             if group:
                 # Delete VM from cloud before deleting group
-                vm_ids = group.value.split(",")
-                for vm_id in vm_ids:
-                    try:
-                        # Submit request to delete VM
-                        # args = ["delete", vm_id]
-                        # result = Shell.execute("nova", args)
 
-                        # FIX: Using vm.delete instead of nova
-                        Vm.delete(cloud=category, servers=[vm_id])
-                    except Exception as e:
-                        Console.error("Failed to delete VM {}, error: {}"
-                                      .format(vm_id, e))
-                        continue
+                for vm in group:
+                    server = vm["member"]
+
+                    groups = Group.vm_groups(server)
+
+                    if groups is not None and len(groups) == 1:
+
+                        try:
+                            Vm.delete(name=server, servers=[server])
+                        except Exception as e:
+                            Console.error("Failed to delete VM {}, error: {}"
+                                          .format(vm, e), traceflag=False)
+                            Console.error(e.message)
+                            continue
 
                 # Delete group record in local db
-                cls.cm.delete(group)
-                return "Delete Success"
+
+                for element in group:
+                    cls.cm.delete(**element)
+                cls.cm.save()
+                return "Delete. ok."
             else:
                 return None
 
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
     @classmethod
-    def remove(cls, name, id, category):
+    def remove(cls, name, member):
         """
         Method to remove an ID from the group
         in the cloudmesh database
@@ -247,51 +332,24 @@ class Group(ListResource):
             # group = cls.get(name=name, category=category)
             args = {
                 "name": name,
-                "category": category
+                "category": "general",
+                "member": member,
             }
 
             # Find an existing group with name & category
-            group = cls.cm.find("group", output="object", **args).first()
-
+            group = cls.cm.find(kind="group", scope='all', output="dict", **args)
+            print ("YYYY", group, args)
             if group is not None:
-                vm_ids = group.value.split(",")
-                new_id_str = ","
-                del_group = False
+                for element in group:
+                    print("ELEMENT", element)
+                    cls.cm.delete(**element)
 
-                # If group has single ID, then set delete flag
-                if len(vm_ids) == 1:
-                    del_group = True
-
-                if id in vm_ids:
-                    for vm_id in vm_ids:
-                        if id == vm_id:
-                            vm_ids.remove(vm_id)
-
-                    # Update the list of IDs for group
-                    new_id_str = new_id_str.join(vm_ids)
-                    group.value = new_id_str
-
-                    # Save the db record
-                    cls.cm.save()
-
-                    # If delete flag set, then delete group
-                    if del_group is not None:
-                        Group.delete(name, category)
-
-                    return "Successfully removed ID [{}] from the group [{}]" \
-                        .format(id, name)
-                else:
-                    Console.error(
-                        "The ID [{}] supplied does not belong to group [{}]"
-                        .format(id, name))
-                    return None
-            else:
-                return None
+            return "Removed {} from the group {}. ok.".format(member, name)
 
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
-        return
+        return None
 
     @classmethod
     def copy(cls, _fromName, _toName):
@@ -301,6 +359,7 @@ class Group(ListResource):
         :param _toName:
         :return:
         """
+
         try:
             from_args = {
                 "name": _fromName
@@ -309,131 +368,49 @@ class Group(ListResource):
                 "name": _toName
             }
 
-            # _fromGroup = cls.cm.find_by_name(model.GROUP, _fromName)
-            # _toGroup = cls.cm.find_by_name(model.GROUP, _toName)
-            _fromGroup = cls.cm.find("group", output="object",
-                                     **from_args).first()
-            _toGroup = cls.cm.find("group", output="object", **to_args).first()
+            _fromGroup = cls.cm.find(kind="group", scope="all", output="dict", **from_args)
+            _toGroup = cls.cm.find(kind="group", scope="all", output="dict", **to_args)
 
-            # Get IDs from _fromName group
-            from_id_str = str(_fromGroup.value)
-            from_ids = from_id_str.split(",")
+            # print ("A")
+            # pprint (_fromGroup)
+            # print ("B")
+            # pprint(_toGroup)
 
             if _fromGroup is not None:
-                # Check if _to group exists, if so add from _fromName
-                if _toGroup is not None:
-                    # Get existing list of IDs from _to group
-                    to_id_str = str(_toGroup.value)
-                    to_ids = to_id_str.split(",")
 
-                    # Iterate and check if IDs are already present
-                    # If not present in _toName, then add else pass
-                    for _id in from_ids:
-                        if _id in to_ids:
-                            pass
-                        else:
-                            to_id_str += ',' + _id
+                for from_element in _fromGroup:
+                    member = from_element["member"]
+                    species = from_element["species"]
+                    category = from_element["category"]
+                    print("TTT", _toName)
+                    cls.add(name=_toName, species=species, member=member, category=category)
+                cls.cm.save()
+                Console.ok("Copy from group {} to group {}. ok."
+                           .format(_fromName, _toName))
 
-                    _toGroup.value = to_id_str
-                    cls.cm.save()
-                    Console.ok("Copy from Group [{}] to Group [{}] ok."
-                               .format(_fromName, _toName))
-
-                # Create a new group & copy details from _fromName
-                else:
-                    group_obj = cls.cm.db_obj_dict("group",
-                                                   name=_toName,
-                                                   value=from_id_str,
-                                                   type=_fromGroup.type,
-                                                   category=_fromGroup.category,
-                                                   user=_fromGroup.user)
-                    cls.cm.add_obj(group_obj)
-                    cls.cm.save()
-                    """
-                    group_obj = model.GROUP(
-                        _toName,
-                        from_id_str,
-                        _fromGroup.type,
-                        category=_fromGroup.category,
-                        user=_fromGroup.user
-                    )
-                    cls.cm.add(group_obj)
-                    """
-                    Console.ok(
-                        "Created a new group [{}] and added ID [{}] to it"
-                        .format(_toName, from_id_str))
-
-            # _fromName group does not exist, error!
             else:
                 Console.error(
                     "Group [{}] does not exist in the cloudmesh database!"
-                    .format(_fromName))
+                        .format(_fromName), traceflag=False)
                 return None
 
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
     @classmethod
-    def merge(cls, _nameA, _nameB, mergeName):
+    def merge(cls, group_a, group_b, merged_group):
         """
         Method to merge two groups into
             one group
-        :param _nameA:
-        :param _nameB:
-        :param mergeName:
+        :param group_a:
+        :param group_b:
+        :param merged_group:
         :return:
         """
-        try:
-            args_a = {
-                "name": _nameA
-            }
-            args_b = {
-                "name": _nameB
-            }
+        cls.copy(group_a, merged_group)
+        cls.copy(group_b, merged_group)
 
-            # groupA = cls.cm.find_by_name(model.GROUP, _nameA)
-            # groupB = cls.cm.find_by_name(model.GROUP, _nameB)
-
-            groupA = cls.cm.find("group", output="object", **args_a).first()
-            groupB = cls.cm.find("group", output="object", **args_b).first()
-
-            if groupA is not None \
-                    and groupB is not None:
-                id_str_a = groupA.value
-                id_str_b = groupB.value
-                merge_str = id_str_a + ',' + id_str_b
-
-                # Copy default parameters
-                user = groupA.user
-                category = groupA.category
-
-                """
-                mergeGroup = model.GROUP(
-                    mergeName,
-                    merge_str,
-                    user=user,
-                    category=category
-                )
-                cls.cm.add(mergeGroup)
-                """
-
-                mergeGroup = cls.cm.db_obj_dict("group",
-                                                name=mergeName,
-                                                value=merge_str,
-                                                user=user,
-                                                category=category)
-                cls.cm.add_obj(mergeGroup)
-                cls.cm.save()
-
-                Console.ok(
-                    "Merge of group [{}] & [{}] to group [{}] ok."
-                    .format(_nameA, _nameB, mergeName))
-            else:
-                Console.error("Your groups [{}] and/or [{}] do not exist!"
-                              .format(_nameA, _nameB))
-        except Exception as ex:
-            Console.error(ex.message, ex)
-
+    # TODO: this is dependent on the provider This needs to be imported from the provider
     @classmethod
     def to_dict(cls, item):
         """
@@ -446,29 +423,3 @@ class Group(ListResource):
             if not key.startswith("_sa"):
                 d[item.id][key] = str(item.__dict__[key])
         return d
-
-    # TODO we have a dict transformer elsewhere
-    @classmethod
-    def transform_dict(cls, dictionary):
-        """
-        Method to transform a dict,
-            to display multiple rows
-            per instance of a group
-        :param dictionary:
-        :return:
-        """
-        d = {}
-        i = 0
-
-        for key in list(dictionary.keys()):
-            item = dictionary[key]
-            for value in item['value'].split(','):
-                d[i] = {}
-                d[i]['name'] = item['name']
-                d[i]['category'] = item['category']
-                d[i]['user'] = item['user']
-                d[i]['value'] = value
-                d[i]['type'] = item['type']
-                i += 1
-        return d
-

@@ -32,10 +32,8 @@
 # 02110-1301, USA.
 
 """Handle hostlist expressions.
-
 This module provides operations to expand and collect hostlist
 expressions.
-
 The hostlist expression syntax is the same as in several programs
 developed at LLNL (https://computing.llnl.gov/linux/). However in
 corner cases the behaviour of this module have not been compared for
@@ -49,28 +47,42 @@ import itertools
 
 
 # Exception used for error reporting to the caller
-class BadHostlist(Exception):
-    pass
+class BadHostlist(Exception): pass
+
 
 # Configuration to guard against ridiculously long expanded lists
 MAX_SIZE = 100000
 
+
 # Hostlist expansion
 
-
 class Parameter(object):
-
     @classmethod
     def expand(cls, parameter, allow_duplicates=False, sort=False):
         return expand_hostlist(parameter, allow_duplicates=False, sort=False)
 
+    '''
+    def expand(cls, *args, **kwargs):
+
+        allow_duplicates = False
+        sort = False
+
+        if "allow_duplicates" in kwargs:
+            allow_duplicates = kwargs["allow_duplicates"]
+
+        if "sort" in kwargs:
+            sort = kwargs["sort"]
+
+        parameters = ','.join(*args)
+
+        return expand_hostlist(parameters, allow_duplicates=allow_duplicates, sort=sort)
+    '''
+
 
 def expand_hostlist(hostlist, allow_duplicates=False, sort=False):
     """Expand a hostlist expression string to a Python list.
-
     Example: expand_hostlist("n[9-11],d[01-02]") ==>
              ['n9', 'n10', 'n11', 'd01', 'd02']
-
     Unless allow_duplicates is true, duplicates will be purged
     from the results. If sort is true, the output will be sorted.
     """
@@ -82,8 +94,7 @@ def expand_hostlist(hostlist, allow_duplicates=False, sort=False):
     for c in hostlist + ",":
         if c == "," and bracket_level == 0:
             # Comma at top level, split!
-            if part:
-                results.extend(expand_part(part))
+            if part: results.extend(expand_part(part))
             part = ""
             bad_part = False
         else:
@@ -179,7 +190,7 @@ def expand_range(prefix, range_):
         raise BadHostlist("range too large")
 
     results = []
-    for i in list(range(low, high + 1)):
+    for i in xrange(low, high + 1):
         results.append("%s%0*d" % (prefix, width, i))
     return results
 
@@ -199,10 +210,8 @@ def remove_duplicates(l):
 
 def collect_hostlist(hosts, silently_discard_bad=False):
     """Collect a hostlist string from a Python list of hosts.
-
     We start grouping from the rightmost numerical part.
     Duplicates are removed.
-
     A bad hostname raises an exception (unless silently_discard_bad
     is true causing the bad hostname to be silently discarded instead).
     """
@@ -216,8 +225,7 @@ def collect_hostlist(hosts, silently_discard_bad=False):
     for host in hosts:
         # We remove leading and trailing whitespace first, and skip empty lines
         host = host.strip()
-        if host == "":
-            continue
+        if host == "": continue
 
         # We cannot accept a host containing any of the three special
         # characters in the hostlist syntax (comma and flat brackets)
@@ -238,7 +246,6 @@ def collect_hostlist(hosts, silently_discard_bad=False):
 
 def collect_hostlist_1(left_right):
     """Collect a hostlist string from a list of hosts (left+right).
-
     The input is a list of tuples (left, right). The left part
     is analyzed, while the right part is just passed along
     (it can contain already collected range expressions).
@@ -340,9 +347,9 @@ def collect_hostlist_1(left_right):
                                 (range_list[0][2], range_list[0][0], suffix)))
             else:
                 # General case where high > low
-                results.append((prefix, "[" +
+                results.append((prefix, "[" + \
                                 ",".join([format_range(l, h, w)
-                                          for l, h, w in range_list]) +
+                                          for l, h, w in range_list]) + \
                                 "]" + suffix))
 
     # At this point, the set of remaining hosts should be empty and we
@@ -366,7 +373,6 @@ def format_range(low, high, width):
 
 def numerically_sorted(l):
     """Sort a list of hosts numerically.
-
     E.g. sorted order should be n1, n2, n10; not n1, n10, n2.
     """
 
@@ -418,13 +424,13 @@ def parse_slurm_tasks_per_node(s):
             raise BadHostlist("bad task list syntax")
     return res
 
+
 #
 # Keep this part to tell users where the command line interface went
 #
 
 if __name__ == '__main__':
-    import os
-    import sys
+    import os, sys
 
     sys.stderr.write("The command line utility has been moved to a separate 'hostlist' program.\n")
     sys.exit(os.EX_USAGE)

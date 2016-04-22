@@ -11,6 +11,7 @@ import sys
 from builtins import input
 from past.builtins import basestring
 
+
 def grep(pattern, filename):
     """Very simple grep that returns the first matching line in a file.
     String matching only, does not do REs as currently implemented.
@@ -68,7 +69,7 @@ def yn_choice(message, default='y', tries=None):
             elif choice in ['n', 'no', 'q']:
                 return False
             else:
-                print ("Invalid input...")
+                print("Invalid input...")
                 tries -= 1
 
 
@@ -88,10 +89,10 @@ def banner(txt=None, c="#", debug=True):
     """
     if debug:
         print
-        print ("#", 70 * c)
+        print("#", 70 * c)
         if txt is not None:
-            print ("#", txt)
-            print ("#", 70 * c)
+            print("#", txt)
+            print("#", 70 * c)
 
 
 def str_banner(txt=None, c="#", debug=True):
@@ -127,10 +128,15 @@ def HEADING(txt=None):
     :param txt: a text message to be printed
     :type txt: string
     """
-    if txt is None:
-        txt = inspect.getouterframes(inspect.currentframe())[1][3]
+    frame = inspect.getouterframes(inspect.currentframe())
+
+    filename = frame[1][1].replace(os.getcwd(), "")
+    line = frame[1][2] - 1
+    method = frame[1][3]
+    msg = "{}\n# {} {} {}".format(txt, method, filename, line)
+
     print()
-    banner(txt)
+    banner(msg)
 
 
 def backup_name(filename):
@@ -252,4 +258,3 @@ def check_python():
         print("WARNING: You are running an old version of pip: " + str(pip_version))
         print("         We recommend you update your pip  with \n")
         print("             pip install -U pip\n")
-

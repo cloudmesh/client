@@ -13,6 +13,9 @@ class SSHkey(object):
         self.__key__ = None
         self.read(file_path, keyname)
 
+    def get(self):
+        return self.__key__
+
     def __str__(self):
         return self.__key__['key']
 
@@ -65,18 +68,20 @@ class SSHkey(object):
     def comment(self):
         return self.__key__['comment']
 
-    def _fingerprint(self, entirekey):
+    @classmethod
+    def _fingerprint(cls, entirekey):
         """returns the fingerprint of a key.
         :param entirekey: the key
         :type entirekey: string
         """
-        t, keystring, comment = self._parse(entirekey)
+        t, keystring, comment = cls._parse(entirekey)
         if keystring is not None:
-            return self._key_fingerprint(keystring)
+            return cls._key_fingerprint(keystring)
         else:
             return ''
 
-    def _key_fingerprint(self, key_string):
+    @classmethod
+    def _key_fingerprint(cls, key_string):
         """create the fingerprint form just the key.
 
         :param key_string: the key
@@ -89,22 +94,22 @@ class SSHkey(object):
 
         return ':'.join(a + b for a, b in zip(fp_plain[::2], fp_plain[1::2]))
 
-
-    def _parse(self, keystring):
+    @classmethod
+    def _parse(cls, keystring):
         """
         parse the keystring/keycontent into type,key,comment
         :param keystring: the content of a key in string format
         """
         # comment section could have a space too
         keysegments = keystring.split(" ", 2)
-        keystype = keysegments[0]
+        keytype = keysegments[0]
         key = None
         comment = None
         if len(keysegments) > 1:
             key = keysegments[1]
             if len(keysegments) > 2:
                 comment = keysegments[2]
-        return keystype, key, comment
+        return keytype, key, comment
 
     def _validate(self, keytype, key):
         """reads the key string from a file. THIS FUNCTION HAS A BUG.
@@ -113,7 +118,7 @@ class SSHkey(object):
         :param keytype: if 'file' the key is read form the file specified in key.
                         if 'string' the key is passed as a string in key
         """
-        keystring = "undefined"
+        keystring = None
         if keytype.lower() == "file":
             try:
                 keystring = open(key, "r").read()

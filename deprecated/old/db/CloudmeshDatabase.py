@@ -12,13 +12,14 @@ from datetime import datetime
 from cloudmesh_base.hostlist import Parameter
 import getpass
 
+
 class CloudmeshDatabase(object):
     def __init__(self, cm_user=None):
         """
         initializes the CloudmeshDatabase for a specific user.
         The user is used to add entries augmented with it.
 
-        :param cm_user: The username that is used to be added to the objects in teh database
+        :param cm_user: The username that is used to be added to the objects in the database
         """
 
         self.db = database()
@@ -606,7 +607,7 @@ class Insert(object):
         returns first a list with the defined and than a list with the undefined keys
 
         :param element: an instantiation of a database table element
-        :param d: teh dict
+        :param d: the dict
         :return: list, list
         """
         defined = []

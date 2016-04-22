@@ -1,0 +1,22 @@
+timer on
+banner refresh off
+refresh off
+default cloud=kilo
+
+banner refresh
+image --refresh
+flavor --refresh
+vm --refresh
+
+banner list
+image list
+flavor list
+vm list
+
+banner refresh on
+refresh on
+
+banner list
+image list
+flavor list
+vm list

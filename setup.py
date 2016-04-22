@@ -25,14 +25,14 @@ from cloudmesh_client import __version__
 import platform
 
 if sys.version_info < (2, 7, 10) or sys.version_info > (3, 0):
-    print (70 * "#")
+    print(70 * "#")
     print("WARNING: upgrade to python 2.7.10 or above but not 3 "
           "are not supported. Your version is {}. failed.".format(sys.version_info))
-    print (70 * "#")
+    print(70 * "#")
 
 command = None
 this_platform = platform.system().lower()
-if  this_platform in ['darwin']:
+if this_platform in ['darwin']:
     command = "easy_install readline"
 elif this_platform in ['windows']:
     command = "pip install pyreadline"
@@ -42,7 +42,7 @@ if command is not None:
     os.system(command)
 
 requirements = [
-    'pbr>=1.6',
+    'pbr>1.6',
     'apache-libcloud',
     'nose',
     'pytest',
@@ -67,7 +67,9 @@ requirements = [
     'cloudmesh_timestring',
     'wheel',
     'tox',
-    'pytimeparse']
+    'pytimeparse',
+    'humanize']
+
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -130,5 +132,3 @@ setup(
     # tests_require=['tox'],
     # dependency_links = []
 )
-
-

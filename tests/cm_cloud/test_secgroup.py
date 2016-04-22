@@ -9,122 +9,83 @@ or
 nosetests -v tests/test_secgroup.py
 
 """
-import os
 
-from cloudmesh_client.common.Shell import Shell
-from cloudmesh_client.util import HEADING
-from cloudmesh_client.util import banner
-from cloudmesh_client.cloud.secgroup import SecGroup
 from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.common.Shell import Shell
+from cloudmesh_client.common.dotdict import dotdict
+from cloudmesh_client.common.util import HEADING
+from cloudmesh_client.common.util import banner
+from cloudmesh_client.default import Default
 
 
-def run(command):
-    banner(command, c='-')
-    parameter = command.split(" ")
-    shell_command = parameter[0]
-    args = parameter[1:]
-    result = Shell.execute(shell_command, args)
-    print(result)
-    return result
+'''
+cm secgroup list
+cm secgroup list --cloud=kilo
+cm secgroup add  cm-gregor-default web 80 80 tcp  0.0.0.0/0
+cm secgroup add  cm-gregor-default ssh 22 22 tcp  0.0.0.0/0
+cm secgroup upload --cloud=kilo
+'''
 
-
+# noinspection PyPep8Naming
 class Test_secgroup:
-    def setup(self):
-        config = ConfigDict("cloudmesh.yaml")
-
-        self.data = {
-            "cloud": "kilo",
+    data = dotdict({
+        "cloud": Default.cloud,
+        "group": "cm-{}-test".format(Default.user),
+        "wrong_cloud": "no_cloud",
+        "rules": {
+            "rule_http": "80 80 tcp  0.0.0.0/0",
+            "rule_https": "443 443 tcp  0.0.0.0/0",
+            "rule_ssh": "443 443 tcp  0.0.0.0/0",
         }
+    })
+    for rule in data.rules:
+        data[rule] = data.rules[rule]
 
-        self.data["tenant"] = config["cloudmesh.clouds"][self.data["cloud"]][
-            "credentials"]["OS_TENANT_NAME"]
+    data.tenant = ConfigDict("cloudmesh.yaml")["cloudmesh.clouds"][data.cloud]["credentials"]["OS_TENANT_NAME"]
+
+    def run(self, command):
+        command = command.format(**self.data)
+        banner(command, c="-")
+        print(command)
+        parameter = command.split(" ")
+        shell_command = parameter[0]
+        args = parameter[1:]
+        result = Shell.execute(shell_command, args)
+        print(result)
+        return str(result)
+
+    def setup(self):
         pass
 
+    # noinspection PyPep8Naming
     def tearDown(self):
         pass
 
     def test_001(self):
-        """testing cm secgroup create --cloud=india test-group"""
-        HEADING()
-        command = "cm secgroup create --cloud={cloud} test-group"
-        result = run(command.format(**self.data))
-        assert "Created a new security group [test-group]" in result
-        return
+        HEADING("cm secgroup add ...")
+        for rule in self.data.rules:
+            command = "cm secgroup add  {} {} {}".format(self.data.group, rule, self.data["rules"][rule])
+            result = self.run(command)
+
+        command = "cm secgroup list"
+        result = self.run(command)
+
+
+        for rule in self.data.rules:
+            assert rule in result
+
 
     def test_002(self):
-        """testing cm secgroup refresh"""
-        HEADING()
-        command = "cm secgroup refresh"
-        result = run(command)
-        assert "ok" in result
+        HEADING("cm secgroup delete ...")
 
-        return
+        command = "cm secgroup delete {group}".format(**self.data)
 
-    def test_003(self):
-        """testing cm secgroup list --cloud=india"""
-        HEADING()
-        command = "cm secgroup list --cloud={cloud}"
-        result = run(command.format(**self.data))
-        assert "test-group" in result
 
-        return
+        result = self.run(command)
 
-    def test_004(self):
-        """testing cm secgroup rules-add --cloud=india test-group 80 80 tcp  0.0.0.0/0"""
-        HEADING()
-        command = "cm secgroup rules-add --cloud={cloud} " \
-                  "test-group 80 80 tcp  0.0.0.0/0"
 
-        result = run(command.format(**self.data))
-        assert "Added rule" in result
+        result = self.run("cm secgroup list")
 
-    def test_005(self):
-        """testing cm secgroup rules-add --cloud=india test-group 443 443 udp  0.0.0.0/0"""
-        HEADING()
+        assert self.data.group not in result
 
-        command = "cm secgroup rules-add --cloud={cloud} " \
-                  "test-group 443 443 tcp  0.0.0.0/0"
 
-        result = run(command.format(**self.data))
-        assert "Added rule" in result
-
-        return
-
-    def test_006(self):
-        """cm secgroup rules-list --cloud=india test-group"""
-        HEADING()
-        command = "cm secgroup rules-list --cloud={cloud} test-group"
-        result = run(command.format(**self.data))
-        assert "0.0.0.0/0" in result
-
-        return
-
-    def test_007(self):
-        """cm secgroup rules-delete --cloud=india test-group 80 80 tcp  0.0.0.0/0"""
-        HEADING()
-        command = "cm secgroup rules-delete --cloud={cloud} " \
-                  "test-group 80 80 tcp  0.0.0.0/0"
-
-        result = run(command.format(**self.data))
-        assert "Rule [80 | 80 | tcp | 0.0.0.0/0] deleted" in result
-
-        return
-
-    def test_008(self):
-        """cm secgroup rules-delete --cloud=india test-group --all"""
-        HEADING()
-        command = "cm secgroup rules-delete --cloud={cloud} test-group --all"
-
-        result = run(command.format(**self.data))
-        assert "Rule [443 | 443 | tcp | 0.0.0.0/0] deleted" in result
-
-        return
-
-    def test_009(self):
-        """cm secgroup delete --cloud=india test-group"""
-        HEADING()
-        command = "cm secgroup delete --cloud={cloud} test-group"
-        result = run(command.format(**self.data))
-        assert "deleted successfully" in result
-
-        return

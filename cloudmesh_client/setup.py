@@ -1,13 +1,14 @@
 from __future__ import print_function
 
-from cloudmesh_client.util import banner
-from cloudmesh_client.common.Shell import Shell
 import os
-import pip
 import sys
+
+import pip
 import yaml
 from setuptools.command.install import install
-import textwrap
+
+from cloudmesh_client.common.Shell import Shell
+from cloudmesh_client.common.util import banner
 
 make = """
     test:

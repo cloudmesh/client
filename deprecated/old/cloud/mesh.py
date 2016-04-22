@@ -4,9 +4,11 @@ from cloudmesh_base.hostlist import Parameter
 from cloudmesh_base.util import path_expand
 
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.default import Default
+
+cm = CloudmeshDatabase()
 
 
 class Mesh(object):
@@ -37,14 +39,15 @@ class Mesh(object):
     t_vm = "vm"
 
     def __init__(self):
-        self.db = CloudmeshDatabase()
+        global cm
+        self.db = cm
 
     @classmethod
     def clouds(self, format='json', order=None):
         filename = "cloudmesh.yaml"
         config = ConfigDict(filename)
         yaml_clouds = dict(config["cloudmesh"]["clouds"])
-        return dict_printer(yaml_clouds, output=format, order=order)
+        return Printer.write(yaml_clouds, output=format, order=order)
 
     @classmethod
     def verify(self):

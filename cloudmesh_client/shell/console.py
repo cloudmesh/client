@@ -40,6 +40,7 @@ class Console(object):
     """
 
     color = True
+    debug = True
 
     theme_color = {
         'HEADER': Fore.MAGENTA,
@@ -75,6 +76,10 @@ class Console(object):
 
     theme = theme_color
 
+    @classmethod
+    def set_debug(cls, on=True):
+        cls.debug = on
+
     @staticmethod
     def set_theme(color=True):
         if color:
@@ -97,25 +102,43 @@ class Console(object):
     @staticmethod
     def msg(message):
         message = message or ""
-        print (message)
+        print(message)
 
-    @staticmethod
-    def error(message, prefix=True, traceflag=True):
+    @classmethod
+    def error(cls, message, prefix=True, traceflag=True):
         message = message or ""
         if prefix:
             text = "ERROR: "
         else:
             text = ""
+        if cls.color:
+            cls.cprint('FAIL', text, str(message))
+        else:
+            print(cls.msg(text + str(message)))
+
+        if traceflag and cls.debug:
+            trace = traceback.format_exc().strip()
+            print
+            print("\n".join(str(trace).splitlines()))
+            print
+
+    @staticmethod
+    def TODO(message, prefix=True, traceflag=True):
+        message = message or ""
+        if prefix:
+            text = "TODO: "
+        else:
+            text = ""
         if Console.color:
             Console.cprint('FAIL', text, str(message))
         else:
-            print (Console.msg(text + str(message)))
+            print(Console.msg(text + str(message)))
 
         trace = traceback.format_exc().strip()
 
         if traceflag and trace != "None":
             print
-            print ("\n".join(str(trace).splitlines()))
+            print("\n".join(str(trace).splitlines()))
             print
 
     @staticmethod
@@ -124,7 +147,7 @@ class Console(object):
         if Console.color:
             Console.cprint('OKBLUE', "INFO: ", message)
         else:
-            print (Console.msg("INFO: " + message))
+            print(Console.msg("INFO: " + message))
 
     @staticmethod
     def warning(message):
@@ -132,7 +155,7 @@ class Console(object):
         if Console.color:
             Console.cprint('WARNING', "WARNING: ", message)
         else:
-            print (Console.msg("WARNING: " + message))
+            print(Console.msg("WARNING: " + message))
 
     @staticmethod
     def ok(message):
@@ -140,16 +163,17 @@ class Console(object):
         if Console.color:
             Console.cprint('OKGREEN', "", message)
         else:
-            print (Console.msg(message))
+            print(Console.msg(message))
 
     @staticmethod
     def cprint(color, prefix, message):
         message = message or ""
         prefix = prefix or ""
-        print ((Console.theme[color] +
+        print((Console.theme[color] +
                prefix +
                message +
                Console.theme['ENDC']))
+
 
 
 #
@@ -158,9 +182,9 @@ class Console(object):
 
 
 if __name__ == "__main__":
-    print (Console.color)
+    print(Console.color)
 
-    print (Console.theme)
+    print(Console.theme)
 
     Console.warning("Warning")
     Console.error("Error")
@@ -169,7 +193,7 @@ if __name__ == "__main__":
     Console.ok("Ok")
 
     Console.color = False
-    print (Console.color)
+    print(Console.color)
     Console.error("Error")
 
     print(Fore.RED + 'some red text')

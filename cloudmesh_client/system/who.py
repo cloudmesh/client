@@ -56,12 +56,12 @@ class Who(object):
 
     def whois(self):
         for entry in self.data:
-            print ("EEE", entry)
+            print("EEE", entry)
             host = entry["host"]
             if ".edu" in host or ".org" in host:
                 host = host.split(".")
                 host = ".".join(host[-2:])
-                print (host)
+                print(host)
             entry["domain"] = host
 
             if host in self.cache:

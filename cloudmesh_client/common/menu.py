@@ -1,6 +1,6 @@
 """Ascii menu class"""
 from __future__ import print_function
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Printer import Printer
 
 from builtins import input
 
@@ -134,15 +134,15 @@ def dict_choice(d):
     #   pprint(d)
     if elements != {}:
         # noinspection PyPep8
-        print(dict_printer(elements,
-                           order=["id",
+        print(Printer.write(elements,
+                            order=["id",
                                   "name",
                                   "comment",
                                   "uri",
                                   "fingerprint",
                                   "source"],
-                           output="table",
-                           sort_keys=True))
+                            output="table",
+                            sort_keys=True))
     else:
         print("ERROR: No keys in the database")
         return

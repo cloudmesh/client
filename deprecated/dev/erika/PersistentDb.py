@@ -12,6 +12,7 @@ from faker import Faker
 # or a bit less readable
 # " .... {:} .....".format(self.table_name, ...) ....
 
+
 class PersistentDb:
     table_name = ""
 

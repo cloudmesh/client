@@ -96,14 +96,10 @@ set. To mark key as default by name you can use the command::
     info. OK.
 
 
-You can verify that a key is set as default while looking at the
-'is_default' attribute::
-
  $ cm key list --format=json
 
         "1": {
             "comment": "albert@Zweistein",
-            "is_default": "True",  <<--Set to True
             "kind": "key",
             "name": "demokey",
             "created_at": "2015-09-23 15:58:32",

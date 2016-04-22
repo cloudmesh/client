@@ -39,7 +39,7 @@ class UsageCommand(PluginCommand, CloudPluginCommand):
         """
 
         if arguments["list"]:
-            cloud = arguments["--cloud"] or Default.get("cloud")
+            cloud = arguments["--cloud"] or Default.get(name="cloud")
 
             if not cloud:
                 Console.error("cloud doesn't exist")

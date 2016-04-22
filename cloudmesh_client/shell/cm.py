@@ -1,38 +1,40 @@
 from __future__ import print_function
 
-import datetime
 import cmd
-import sys
-import string
-import textwrap
+import datetime
 import os
-import shutil
-import re
+import string
+import sys
+import textwrap
 
-import cloudmesh_client
-
-from cloudmesh_client.util import path_expand
-from cloudmesh_client.common.Shell import Shell
-from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.Error import Error
+from cloudmesh_client.common.Shell import Shell
+from cloudmesh_client.common.util import path_expand
+from cloudmesh_client.shell.console import Console
 from cloudmesh_client.var import Var
 
 # noinspection PyPep8
-from cloudmesh_client.default import Default
-from cloudmesh_client.util import get_python
-from cloudmesh_client.util import check_python
 import cloudmesh_client
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.default import Default
+from cloudmesh_client.common.util import get_python
+from cloudmesh_client.common.util import check_python
+import cloudmesh_client
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.command import PluginCommand
 from cloudmesh_client.common.ssh_config import ssh_config
 import cloudmesh_client.etc
+from cloudmesh_client.cloud.secgroup import SecGroup
+from cloudmesh_client.cloud.key import Key
 
 import cloudmesh_client.shell.plugins
 from cloudmesh_client.common.StopWatch import StopWatch
 
+from cloudmesh_client.db import CloudmeshDatabase
+from cloudmesh_client import setup_yaml
 
+cm = CloudmeshDatabase()
 
 
 class CloudmeshContext(object):
@@ -44,7 +46,6 @@ PluginCommandClasses = type(
     'CommandProxyClass',
     tuple(PluginCommand.__subclasses__()),
     {})
-
 
 # print (type(PluginCommand.__subclasses__()))
 # print (PluginCommand.__subclasses__())
@@ -69,7 +70,7 @@ class ConsoleClasses(object):
 """
 
 
-# console = ConsoleFactory(PluginCommand)
+# console = ConsoleFactory(PluginCommand)https://www.rackmountsales.com/kvm-switches/kvm-switch-8-port-combo-usb-ps-2-kvm-switch-sun-imac-compatible-part-kvm-s8.html
 
 # noinspection PyBroadException,PyPep8Naming
 class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
@@ -82,9 +83,9 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
     def postcmd(self, stop, line):
         StopWatch.stop("command")
-        if Default.timer():
-            print ("Timer: {:.4f}s ({})".format(StopWatch.get("command"),
-                                                line))
+        if Default.timer:
+            print("Timer: {:.4f}s ({})".format(StopWatch.get("command"),
+                                               line.strip()))
         return stop
 
     def onecmd(self, line):
@@ -177,28 +178,55 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         # use the first cloud in cloudmesh.yaml as default
         #
 
+        Console.set_debug(Default.debug)
+
         filename = path_expand("~/.cloudmesh/cloudmesh.yaml")
         # moved to import cloudmesh_client
 
         # create_cloudmesh_yaml(filename)
+
+        setup_yaml()
 
         # Initialize Logging
         # LogUtil.initialize_logging()
 
         # sys,exit(1)
 
-        value = Default.get('cloud', category='general')
+        # ##################
+        # DEFAULTS
+        #
+
+        #
+        # SET DEFAULT CLOUD
+        #
+
+        value = Default.get(name='cloud', category='general')
+
         if value is None:
-            clouds = ConfigDict(filename=filename)["cloudmesh"]["clouds"]
-            cloud = list(clouds.keys())[0]
+
+            config = ConfigDict(filename=filename)["cloudmesh"]
+            if 'active' in config:
+                cloud = config["active"][0]
+            else:
+                clouds = config["clouds"]
+                cloud = list(clouds.keys())[0]
             Default.set('cloud', cloud, category='general')
 
-        value = Default.get('default', category='general')
+
+        #
+        # NOT SURE WHAT THIS IS FOR
+        #
+        value = Default.get(name='default', category='general')
         if value is None:
             Default.set('default', 'default', category='general')
 
-        cluster = 'kilo'  # hardcode a value if not defined
-        value = Default.get('cluster', category='general')
+        #
+        # SET DEFAULT CLUSTER
+        #
+        '''
+        cluster = ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["active"][0]
+
+        value = Default.get(name='cluster', category='general')
         if value is None:
             try:
                 hosts = ssh_config().names()
@@ -210,22 +238,61 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         else:
             cluster = value
         Default.set('cluster', cluster, category='general')
+        '''
 
-        group = Default.get_group()
+        #
+        # SET DEFAULT GROUP
+        #
+        group = Default.group
         if group is None:
             Default.set_group("default")
 
+        #
+        # LOAD DEFAULTS FROM YAML
+        #
         Default.load("cloudmesh.yaml")
 
-        on = Default.timer()
+        try:
+            d = Key.get_from_dir("~/.ssh", store=False)
+        except Exception as e:
+            Console.error(e.message)
 
-        group = Default.get_group()
-        if group is None:
-            Default.set_group("default")
+        #
+        # SET DEFAULT TIMER
+        #
+        on = Default.timer
 
-        r = Default.get_refresh()
+
+        #
+        # SET DEFUALT SECGROUP
+        #
+
+
+        #
+        # SET DEFAULT REFRESH
+        #
+        # r = Default.refresh
+        # print ("REFRESH", r)
+        # if r is None:
+        #     Default.set_refresh("on")
+
+        #
+        # SET DEFAULT USER
+        #
+        user = Default.user
+        if user is None:
+            user = ConfigDict(filename=filename)["cloudmesh"]["profile"]["user"]
+            Default.set_user(user)
+
+
+        r = Default.secgroup
+
         if r is None:
-            Default.set_refresh("on")
+            secgroup = "{}-default".format(Default.user)
+            Default.set_secgroup(secgroup)
+            SecGroup.add_rule_to_db(group=secgroup, name="ssh",from_port="22",to_port="22",protocol="tcp", cidr="0.0.0.0/0")
+            SecGroup.add_rule_to_db(group=secgroup, name="http",from_port="80",to_port="80",protocol="tcp", cidr="0.0.0.0/0")
+            SecGroup.add_rule_to_db(group=secgroup, name="https", from_port="443", to_port="443", protocol="tcp", cidr="0.0.0.0/0")
 
         """
         try:
@@ -357,9 +424,8 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
         }
 
-
-        print(dict_printer(versions, output=arguments["--format"],
-                           order=["name", "version"]))
+        print(Printer.write(versions, output=arguments["--format"],
+                            order=["name", "version"]))
         if arguments["--check"] in ["True"]:
             check_python()
 
@@ -477,7 +543,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         try:
             os.system(command)
         except Exception as e:
-            print (e)
+            print(e)
 
     # noinspection PyUnusedLocal
     # BUG: this does not for some reason execute the arguments
@@ -495,7 +561,8 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         try:
             os.system(command)
         except Exception as e:
-            print (e)
+            print(e)
+
     #
     # VAR
     #
@@ -556,7 +623,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         for v in vars["dot"]:
             try:
                 config = ConfigDict("cloudmesh.yaml")
-                print (config["cloudmesh.profile"])
+                print(config["cloudmesh.profile"])
                 value = config[v]
                 line = line.replace(c + v, value)
             except Exception as e:
@@ -618,7 +685,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         """
         if arguments['list'] or arg == '' or arg is None:
             # self._list_variables()
-            print (Var.list())
+            print(Var.list())
             return ""
 
         elif arguments['NAME=VALUE'] and "=" in arguments["NAME=VALUE"]:
@@ -662,10 +729,10 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         """
         try:
             if arguments["list"] or args == "":
-                print ("LIST")
+                print("LIST")
                 h = 0
                 for line in self._hist:
-                    print ("{}: {}".format(h, self._hist[h]))
+                    print("{}: {}".format(h, self._hist[h]))
                     h += 1
                 return ""
 
@@ -681,7 +748,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             elif arguments["ID"]:
                 h = int(arguments["ID"])
                 if h in range(0, len(self._hist)):
-                    print ("{}".format(self._hist[h]))
+                    print("{}".format(self._hist[h]))
                     if not args.startswith("history"):
                         command = self._hist[h]
                         self.precmd(command)

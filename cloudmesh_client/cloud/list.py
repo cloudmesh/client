@@ -1,15 +1,14 @@
 from __future__ import print_function
 
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.db import CloudmeshDatabase
 
 
 # noinspection PyPep8Naming,PyPep8Naming
 class List(object):
     cm = CloudmeshDatabase()
-    # Instance to communicate with the cloudmesh database
 
     @classmethod
     def list(cls, kind, cloud, user=None,
@@ -27,8 +26,9 @@ class List(object):
         :return:
         """
         try:
+
             # get the model object
-            table = cls.cm.get_table(kind)
+            table = cm.get_table(kind)
 
             filter = {}
             if cloud is not None:
@@ -42,15 +42,15 @@ class List(object):
 
             if elements is not None or elements is not {}:
                 # convert the output to a dict
-                return (dict_printer(elements,
-                                     order=order,
-                                     header=header,
-                                     output=output))
+                return (Printer.write(elements,
+                                      order=order,
+                                      header=header,
+                                      output=output))
             else:
                 return None
 
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
     #
     # TODO: don't we have not already a conversion method
@@ -80,4 +80,3 @@ class List(object):
 
         # return the dict
         return d
-

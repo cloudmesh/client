@@ -13,272 +13,327 @@ from __future__ import print_function
 
 from pprint import pprint
 
-# from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
-# from cloudmesh_client.keys.SSHkey import SSHkey
-# from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
-# from cloudmesh_client.common.Printer import dict_printer
+import yaml
+from cloudmesh_client.cloud.key import Key
 
-from cloudmesh_client.util import HEADING
+from cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI import CloudProviderOpenstackAPI
+from cloudmesh_client import CloudmeshDatabase
+from cloudmesh_client import ConfigDict
+from cloudmesh_client.common.Printer import Printer
+from cloudmesh_client.common.SSHkey import SSHkey
 from cloudmesh_client.common.Shell import Shell
-import os
-
-def run(command):
-    print (command)
-    parameter = command.split(" ")
-    shell_command = parameter[0]
-    args = parameter[1:]
-    result = Shell.execute(shell_command, args)
-    print(result)
-    return result
+from cloudmesh_client.common.dotdict import dotdict
+from cloudmesh_client.common.util import HEADING
+from cloudmesh_client.common.util import banner
+from cloudmesh_client.default import Default
 
 
+# noinspection PyMethodMayBeStatic,PyMethodMayBeStatic,PyPep8Naming
 class Test_keys:
+    cm = CloudmeshDatabase()
+
+    # noinspection PyTypeChecker
+    data = dotdict({
+        "cloud": Default.cloud,
+        "username": ConfigDict("cloudmesh.yaml")["cloudmesh"]["github"]["username"],
+        "key": Default.user
+    }
+    )
+
+    def run(self, command):
+        command = command.format(**self.data)
+        banner(command, c="-")
+        print(command)
+        parameter = command.split(" ")
+        shell_command = parameter[0]
+        args = parameter[1:]
+        result = Shell.execute(shell_command, args)
+        print(result)
+        return result
+
     def setup(self):
         pass
 
+    # noinspection PyPep8Naming
     def tearDown(self):
         pass
 
-    """
-    def test_001(self):
-        reading the keys from ~/.ssh
-        HEADING()
+    def clean_db(self):
+        """create new db"""
+        print("clean db")
+        self.cm.clean()
+        result = self.run("cm default cloud={cloud}")
+        result = self.run("cm default cloud")
+        assert self.data.cloud in result
 
-        mykeys = SSHKeyManager()
+    def test_001(self):
+        HEADING("clen")
+        self.cm.clean()
+
+    def test_002(self):
+        HEADING("reading the keys from ~/.ssh")
 
         banner("ssh keys")
-        mykeys.get_from_dir("~/.ssh")
-
+        Key.get_from_dir("~/.ssh")
+        mykeys = Key.all(output="dict")
 
         assert len(mykeys) > 0
 
-    def test_002(self):
-        reading the keys from github
-        HEADING()
+    def test_003(self):
+        HEADING("reading the keys from github")
 
-        # from cloudmesh_client.common import cloudmesh_yaml
-        #config = ConfigDict(filename=cloudmesh_yaml")
-        #git_username = config['cloudmesh']['github']['username']
-        git_username = 'laszewsk'
+        self.cm.clean()
 
-        mykeys = SSHKeyManager()
+        config = ConfigDict("cloudmesh.yaml")
+        git_username = config['cloudmesh']['github']['username']
 
         banner("git hub")
-        mykeys.get_from_git(git_username)
+        Key.get_from_git(git_username)
 
+        mykeys = Key.all(output="dict")
         count1 = len(mykeys)
 
         banner("all")
-        mykeys.get_all(git_username)
+        key = Key.get(git_username, output="dict")
+        print(key)
 
+        mykeys = Key.all(output="dict")
         count2 = len(mykeys)
 
-        # d = mykeys.dict()
-        print (mykeys.table)
+        print(mykeys)
 
-        mykeys.__delitem__('github-0')
-        print (mykeys.table)
+        Key.delete(name='github-0')
 
-        assert count1 > 0 and count2 >0
+        mykeys = Key.all(output="table")
 
+        print(mykeys)
 
-    def test_003(self):
-        testing properties in SSHKey
-        HEADING()
-
-
-        sshkey = SSHkey("~/.ssh/id_rsa.pub")
-        pprint (sshkey.key)
-        print ("Fingerprint:", sshkey.fingerprint)
-        pprint (sshkey.__key__)
-        print ("sshkey", sshkey)
-        print ("str", str(sshkey))
-        print (sshkey.type)
-        assert True
+        assert count1 > 0 and count2 > 0
 
     def test_004(self):
-        HEADING()
-        sshdb = SSHKeyDBManager()
-        sshdb.delete_all()
-        sshdb.add("~/.ssh/id_rsa.pub")
+        HEADING("testing properties in SSHKey")
 
-        d = sshdb.dict()
-        print d
-        print dict_printer(d, output="table")
-
-        d = sshdb.find('PauloR@bebop')
-        print ('find function: ', d)
-
-        sshdb.delete('PauloR@bebop')
-
-        d = sshdb.object_to_dict(sshdb.find_all())
-        print ("DICT", d)
+        sshkey = SSHkey("~/.ssh/id_rsa.pub")
+        pprint(sshkey.key)
+        print("Fingerprint:", sshkey.fingerprint)
+        pprint(sshkey.__key__)
+        print("sshkey", sshkey)
+        print("str", str(sshkey))
+        print(sshkey.type)
+        assert True
 
     def test_005(self):
         HEADING()
-        sshm = SSHKeyManager()
-        print sshm.get_from_yaml()
-    """
 
-    def test_001(self):
+        Key.delete()
+        Key.add_from_path("~/.ssh/id_rsa.pub")
+
+        d = Key.all(output="dict")
+        print(d)
+
+        print(Printer.write(d, output="table"))
+        assert 'id_rsa.pub' in str(d)
+
+        d = Key.find(name='rsa')
+        print('find function: ', d)
+
+        Key.delete(name='rsa')
+
+        d = Key.all(output="dict")
+
+        assert d is None
+
+    def test_006(self):
         """
-        cm key add --name=testkey ~/.ssh/id_rsa.pub
+        cm key add testkey ~/.ssh/id_rsa.pub
         """
         HEADING()
-        os.system("make db")
-        result = run("cm key add --name=testkey ~/.ssh/id_rsa.pub")
-        print (result)
-        assert "OK." in result
+        self.clean_db()
+        result = self.run("cm key add {key} --source=~/.ssh/id_rsa.pub")
+        result = self.run("cm key list")
 
-    def test_002(self):
+        assert "{key}".format(**self.data) in result
+        assert "file:" in result
+
+    def test_007(self):
         """
         cm key add --git --name=testkey ~/.ssh/id_rsa.pub
         """
         HEADING()
-        os.system("make db")
-        result = run("cm key add --git --name=testkey ~/.ssh/id_rsa.pub")
-        print (result)
-        assert "ERROR: The key already exists" in result
+        self.clean_db()
 
-    def test_003(self):
+        result = self.run("cm key add --git ")
+        result = self.run("cm key list")
+
+        username = "{username}_git".format(**self.data)
+
+        assert username in result
+
+    def test_008(self):
         """
         key add --ssh --name=testkey
         """
         HEADING()
-        os.system("make db")
-        result = run("cm key add --ssh --name=testkey")
-        print (result)
-        assert "OK." in result
+        self.clean_db()
+        result = self.run("cm key add {key} --ssh")
+        result = self.run("cm key list")
+        assert "{key}".format(**self.data) in result
+        assert "ssh" in result
 
-    def test_004(self):
-        """
-        cm key list
-        """
-
-        HEADING()
-        result = run("cm key list")
-        print (result)
-        assert "OK." in result
-
-    def test_005(self):
+    def test_009(self):
         """
         cm key list --source=db
         """
 
         HEADING()
-        result = run("cm key list --source=db")
-        print (result)
-        assert "OK." in result
+        self.clean_db()
+        result = self.run("cm key add {key} --ssh")
+        result = self.run("cm key list --source=db")
 
-    def test_006(self):
+        assert "{key}".format(**self.data) in result
+        assert "ssh" in result
+
+    def test_010(self):
         """
         cm key list --source=db --format=json
         """
 
         HEADING()
-        result = run("cm key list --source=db --format=json")
-        print (result)
-        assert "OK." in result
+        result = self.run("cm key list --source=db --format=json")
+        print(result)
 
-    def test_007(self):
+        assert "{" in result
+        assert "{key}".format(**self.data) in result
+
+    def test_011(self):
         """
         cm key list --source=db --format=yaml
         """
 
         HEADING()
-        result = run("cm key list --source=db --format=yaml")
-        print (result)
-        assert "OK." in result
+        result = self.run("cm key list --source=db --format=yaml")
 
-    def test_008(self):
-        """
-        cm key list --source=db --format=yaml
-        """
+        print("--------")
+        print(result)
+        print("--------")
 
-        HEADING()
-        result = run("cm key list --source=db --format=yaml")
-        print (result)
-        assert "OK." in result
+        # d = yaml.load(str(result))
 
-    def test_009(self):
+
+        # assert "testkey" in result
+        assert ":" in str(result)
+
+    def test_012(self):
         """
         cm key list --source=git
         """
 
         HEADING()
-        result = run("cm key list --source=git")
-        print (result)
-        assert "OK." in result
+        result = self.run("cm key list --source=git")
+        assert "_git_" in result
 
-    def test_010(self):
+    def test_013(self):
         """
         cm key list --source=cloudmesh
         """
 
         HEADING()
-        result = run("cm key list --source=cloudmesh")
-        print (result)
-        assert "OK." in result
+        result = self.run("cm key list --source=yaml")
+        print(result)
+        assert ":" in result
 
-    def test_011(self):
+    def test_014(self):
         """
         cm key list --source=ssh
         """
 
         HEADING()
-        result = run("cm key list --source=ssh")
-        print (result)
-        assert "OK." in result
+        result = self.run("cm key list --source=ssh")
+        assert "rsa" in result
 
-    def test_012(self):
-        """
-        cm key list --source=cloudmesh
-        """
-
-        HEADING()
-        result = run("cm key list --source=cloudmesh")
-        print (result)
-        assert "OK." in result
-
-    def test_013(self):
+    def test_015(self):
         """
         cm key get testkey
         """
 
         HEADING()
-        result = run("cm key get testkey")
-        print (result)
-        assert "OK." in result
+        result = self.run("cm key get {key}")
+        assert "{key}".format(**self.data) in result
 
-    def test_014(self):
+    def test_016(self):
         """
         cm key default testkey
         """
 
         HEADING()
-        result = run("cm key default testkey")
-        print (result)
-        assert "OK." in result
+        result = self.run("cm default key={key}")
+        assert "ok." in result
 
-    def test_015(self):
+        result = self.run("cm default key")
+        assert "{key}".format(**self.data) in result
+
+    def test_017(self):
         """
         cm key delete testkey
         """
 
         HEADING()
-        result = run("cm key delete testkey")
-        print (result)
+        self.clean_db()
+        result = self.run("cm key add {key} --ssh")
+        result = self.run("cm key delete {key}")
+        assert "{key}".format(**self.data) in result
         assert "OK." in result
 
-    def test_016(self):
+        result = self.run("cm key list")
+
+        assert "None" in str(result)
+
+    def test_018(self):
         """
         cm key delete --all
         """
 
         HEADING()
-        result = run("cm key add --name=testkey ~/.ssh/id_rsa.pub")
-        result = run("cm key delete --all --force")
-        print (result)
+        result = self.run("cm key add {key} --ssh")
+        result = self.run("cm key delete --all")
         assert "OK." in result
 
+    def test_019(self):
+        HEADING()
+        self.clean_db()
+        result = self.run("cm key add {key} --ssh")
+        result = self.run("cm key upload {key}")
 
+        cloudname = self.data.cloud
+        d = ConfigDict("cloudmesh.yaml")
+        cloud_details = d["cloudmesh"]["clouds"][cloudname]
+
+        cloud = CloudProviderOpenstackAPI(cloudname, cloud_details)
+
+        d = cloud.list_key(cloudname)
+        pprint(d)
+
+        assert len(d) > 0
+        result = self.run("cm key delete {key} --cloud={cloud}")
+        assert 'OK' in result
+
+    def test_020(self):
+        HEADING("set key to user defaults")
+
+        result = self.run("cm key add {} --ssh".format(Default.user))
+        result = self.run("cm default key={}".format(Default.user))
+
+
+
+    # def test_021(self):
+    #    HEADING()
+    #    print(Key.get_from_yaml())
+
+    # def test_022(self):
+    #    """
+    #    cm key list --source=cloudmesh
+    #    """
+    #    HEADING()
+    #    result = self.run("cm key list --source=yaml")
+    #    assert "ssh" in result
+    #    assert "fingerprint" in result

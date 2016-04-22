@@ -2,7 +2,7 @@
 import inspect
 # from abc import ABCMeta
 
-from cloudmesh_client.common.Printer import dict_printer, attribute_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.shell.console import Console
 
 
@@ -11,6 +11,10 @@ class CloudProviderBase(object):
     #    __metaclass__ = ABCMeta
 
     def __init__(self, cloudname, user=None, flat=False, source="db"):
+
+        #
+        # BUG libcloud_image does not belong here its only for libcloud_image not for other clouds.
+        #
         self.kind = ["image", "flavor", "vm", "quota", "limits", "usage", "key"]
         self.nodes = None
         self.flavors = None
@@ -135,6 +139,31 @@ class CloudProviderBase(object):
         return self.resource("refresh", kind, cloudname, **kwargs)
 
     # #########################
+    # SECGROUP
+    # #########################
+    '''
+    def list_secgroup(self, cloudname, **kwargs):
+        """
+        returns the objects in json format
+        :param cloudname:
+        :return:
+        """
+        """
+        Listing of iamge
+        :return:
+        """
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        return None
+    '''
+
+    def list_secgroup_rules(self, cloudname):
+
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        return None
+
+    # #########################
     # VMS
     # #########################
 
@@ -203,10 +232,10 @@ class CloudProviderBase(object):
             "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return
 
-    def delete(self, name_or_id, group=None, force=None):
+    def delete(self, name, group=None, force=None):
         """
-        Deletes the vm indicated by name_or_id on target cloud.
-        :param name_or_id:
+        Deletes the vm indicated by name on target cloud.
+        :param name:
         :param group:
         :param force:
         :return:
@@ -215,10 +244,10 @@ class CloudProviderBase(object):
             "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return
 
-    def get_ips(self, name_or_id, group=None, force=None):
+    def get_ips(self, name, group=None, force=None):
         """
-        Returns the ip addresses of the instance indicated by name_or_id
-        :param name_or_id:
+        Returns the ip addresses of the instance indicated by name
+        :param name:
         :param group:
         :param force:
         :return:
@@ -300,6 +329,10 @@ class CloudProviderBase(object):
             "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return
 
+    # ####################################
+    # KEYS
+    # ####################################
+
     def add_key_to_cloud(self, name, public_key):
         """
         Adds key to cloud for given public key.
@@ -329,39 +362,24 @@ class CloudProviderBase(object):
             "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return None
 
-    def details(self, kind, cloud, id, format="table"):
-        from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
-        try:
-            cm = CloudmeshDatabase()
+    def get_key(self, **kwargs):
+        """
+        finds the flavor based on a query
+        TODO: details TBD
+        """
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        return
 
-            if kind not in self.kind:
-                raise ValueError('{} not defined'.format(kind))
-
-            elements = None
-            for idkey in ["name", "uuid", "id"]:
-                s = {idkey: id}
-                try:
-                    elements = cm.find(kind, category=cloud, **s)
-                except:
-                    pass
-                if len(elements) > 0:
-                    break
-
-            if len(elements) == 0:
-                return None
-
-            if format == "table":
-                element = list(elements.values())[0]
-                return attribute_printer(element)
-            else:
-                return dict_printer(elements,
-                                    output=format)
-        except Exception as ex:
-            Console.error(ex.message, ex)
-
-    # ##################
-    # KEY
-    # ##################
+    # noinspection PyUnusedLocal
+    def refresh_key(self, cloudname, identifier, **kwargs):
+        """
+        Listing of vm instances
+        :return:
+        """
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        return
 
     def list_key(self, cloudname, **kwargs):
         """
@@ -376,3 +394,43 @@ class CloudProviderBase(object):
         raise ValueError(
             "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return None
+
+    # ####################################
+    # DETAILS
+    # ####################################
+
+    def details(self, kind, category, id, format="table"):
+
+        from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+
+        cm = CloudmeshDatabase()
+
+        try:
+            if kind not in self.kind:
+                raise ValueError('{} not defined'.format(kind))
+
+            elements = None
+            for idkey in ["cm_id", "name", "uuid", "id", "cm_id"]:
+                s = {idkey: id}
+                try:
+                    elements = cm.find(kind=kind, category=category, **s)
+                except:
+                    pass
+                if elements is not None:
+                    break
+
+            if elements is None:
+                return None
+
+            if len(elements) > 0:
+                element = elements[0]
+                if format == "table":
+                    return Printer.attribute(element)
+                else:
+                    return Printer.write(element,
+                                         output=format)
+            else:
+                return None
+
+        except Exception as ex:
+            Console.error(ex.message)

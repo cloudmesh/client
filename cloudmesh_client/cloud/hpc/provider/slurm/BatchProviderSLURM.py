@@ -4,17 +4,19 @@ from datetime import datetime
 import textwrap
 
 from cloudmesh_client.common.Shell import Shell
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.common.TableParser import TableParser
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 from cloudmesh_client.cloud.hpc.BatchProviderBase import BatchProviderBase
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.db import CloudmeshDatabase
 import os
 from cloudmesh_client.common.Error import Error
 
 
 # noinspection PyBroadException
 class BatchProviderSLURM(BatchProviderBase):
+    cm = CloudmeshDatabase()
+
     kind = "slurm"
 
     @classmethod
@@ -49,18 +51,18 @@ class BatchProviderSLURM(BatchProviderBase):
                 return json.dumps(d, indent=4, separators=(',', ': '))
 
             else:
-                return (dict_printer(d,
-                                     order=['cluster',
-                                            'jobid',
-                                            'partition',
-                                            'name',
-                                            'user',
-                                            'st',
-                                            'time',
-                                            'nodes',
-                                            'nodelist',
-                                            'updated'],
-                                     output=format))
+                return (Printer.write(d,
+                                      order=['cluster',
+                                             'jobid',
+                                             'partition',
+                                             'name',
+                                             'user',
+                                             'st',
+                                             'time',
+                                             'nodes',
+                                             'nodelist',
+                                             'updated'],
+                                      output=format))
         except Exception as e:
             Error.traceback(e)
             return e
@@ -94,16 +96,16 @@ class BatchProviderSLURM(BatchProviderBase):
             return json.dumps(d, indent=4, separators=(',', ': '))
 
         else:
-            return (dict_printer(d,
-                                 order=['cluster',
-                                        'partition',
-                                        'avail',
-                                        'timelimit',
-                                        'nodes',
-                                        'state',
-                                        'nodelist',
-                                        'updated'],
-                                 output=format))
+            return (Printer.write(d,
+                                  order=['cluster',
+                                         'partition',
+                                         'avail',
+                                         'timelimit',
+                                         'nodes',
+                                         'state',
+                                         'nodelist',
+                                         'updated'],
+                                  output=format))
 
     @classmethod
     def test(cls, cluster, time):
@@ -167,7 +169,7 @@ class BatchProviderSLURM(BatchProviderBase):
                           '-D': '{remote_experiment_dir}'.format(**data),
                           '-e': '{script_error}'.format(**data)}
 
-        #map(lambda k, v:
+        # map(lambda k, v:
         #    option_mapping.__setitem__(k, kwargs.get(k) or v),
         #    option_mapping.items())
         #
@@ -350,7 +352,7 @@ class BatchProviderSLURM(BatchProviderBase):
 
         for key in ['-t', '-N', '-p', '-o', '-D', '-e']:
             if key in data:
-                print (key, data[key])
+                print(key, data[key])
                 del data[key]
         data['status'] = 'started'
         cls.add_db(**data)
@@ -370,11 +372,11 @@ class BatchProviderSLURM(BatchProviderBase):
         try:
             if group is not None:
                 # get the job ids from the db
-                cm = CloudmeshDatabase()
+
                 arguments = {'cluster': cluster,
                              'group': group}
-                db_jobs = cm.find('batchjob',
-                                  **arguments)
+                db_jobs = cls.cm.find('batchjob',
+                                      **arguments)
 
                 list1 = []
                 for i in db_jobs:
@@ -413,10 +415,9 @@ class BatchProviderSLURM(BatchProviderBase):
 
     @classmethod
     def add_db(cls, **kwargs):
-        cm = CloudmeshDatabase()
 
         kwargs['name'] = kwargs.get('script_name')
 
         db_obj = {0: {"batchjob": kwargs}}
-        cm.add_obj(db_obj)
-        cm.save()
+        cls.cm.add_obj(db_obj)
+        cls.cm.save()

@@ -9,6 +9,7 @@ import os
 import sys
 from builtins import input
 
+
 # noinspection PyUnusedLocal,PyBroadException
 class CometCommand(PluginCommand, CometPluginCommand):
     topics = {"comet": "comet"}
@@ -43,7 +44,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                comet iso upload [--isoname=ISONAME] PATHISOFILE
                comet iso attach ISONAME CLUSTERID [COMPUTENODEIDS]
                comet iso detach CLUSTERID [COMPUTENODEIDS]
-               comet node rename CLUSTERID OLDNAME NEWNAME
+               comet node rename CLUSTERID OLDNAMES NEWNAMES
 
             Options:
                 --format=FORMAT         Format is either table, json, yaml,
@@ -82,6 +83,10 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                 e.g., vm-vc1-0
                 ISONAME         Name of an iso image at remote server
                 PATHISOFILE     The full path to the iso image file to be uploaded
+                OLDNAMES        The list of current node names to be renamed, in hostlist
+                                format. A single host is also acceptable.
+                NEWNAMES        The list of new names to rename to, in hostlist format.
+                                A single host is also acceptable.
         """
         # back up of all the proposed commands/options
         """
@@ -252,7 +257,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
 
         """
         if arguments["init"]:
-            print ("Initializing the comet configuration file...")
+            print("Initializing the comet configuration file...")
             config = ConfigDict("cloudmesh.yaml")
             # for unit testing only.
             cometConf = config["cloudmesh.comet"]
@@ -261,7 +266,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
             if "endpoints" in cometConf.keys():
                 endpoints = cometConf["endpoints"].keys()
                 if len(endpoints) < 1:
-                    Console.error("No service endpoints available."\
+                    Console.error("No service endpoints available."
                                   " Please check the config template")
                     return ""
             if "username" in cometConf.keys():
@@ -278,59 +283,59 @@ class CometCommand(PluginCommand, CometPluginCommand):
             if "active" in cometConf.keys():
                 active_endpoint = cometConf['active']
                 set_active_endpoint = \
-                        input("Set the active service endpoint to use. "\
-                                  "The availalbe endpoints are - %s [%s]: "\
-                                   % ("/".join(endpoints),
-                                     active_endpoint)
-                                 )
+                    input("Set the active service endpoint to use. "
+                          "The availalbe endpoints are - %s [%s]: "
+                          % ("/".join(endpoints),
+                             active_endpoint)
+                          )
                 if set_active_endpoint:
                     if set_active_endpoint in endpoints:
                         config.data["cloudmesh"]["comet"]["active"] = \
-                                        set_active_endpoint
+                            set_active_endpoint
                         config.save()
                         Console.ok("Comet active service endpoint set!")
                     else:
-                        Console.error("The provided endpoint does not match any "\
-                                      "available service endpoints. Try %s" \
-                                      % "/".join(endpoints) )
+                        Console.error("The provided endpoint does not match any "
+                                      "available service endpoints. Try %s"
+                                      % "/".join(endpoints))
 
             if cometConf['active'] in endpoints:
-                endpoint_url = cometConf["endpoints"]\
-                               [cometConf['active']]["nucleus_base_url"]
-                api_version = cometConf["endpoints"]\
-                               [cometConf['active']]["api_version"]
+                endpoint_url = cometConf["endpoints"] \
+                    [cometConf['active']]["nucleus_base_url"]
+                api_version = cometConf["endpoints"] \
+                    [cometConf['active']]["api_version"]
                 set_endpoint_url = \
-                        input("Set the base url for the nucleus %s service [%s]: "\
-                                   % (cometConf['active'],
-                                      endpoint_url)
-                                 )
+                    input("Set the base url for the nucleus %s service [%s]: " \
+                          % (cometConf['active'],
+                             endpoint_url)
+                          )
                 if set_endpoint_url:
                     if set_endpoint_url != endpoint_url:
-                        config.data["cloudmesh"]["comet"]["endpoints"]\
-                                    [cometConf['active']]["nucleus_base_url"]\
-                                    = set_endpoint_url
+                        config.data["cloudmesh"]["comet"]["endpoints"] \
+                            [cometConf['active']]["nucleus_base_url"] \
+                            = set_endpoint_url
                         config.save()
                         Console.ok("Service base url set!")
 
                 set_api_version = \
-                        input("Set the api version for the nucleus %s service [%s]: "\
-                                   % (cometConf['active'],
-                                   api_version)
-                                 )
+                    input("Set the api version for the nucleus %s service [%s]: " \
+                          % (cometConf['active'],
+                             api_version)
+                          )
                 if set_api_version:
                     if set_api_version != api_version:
-                        config.data["cloudmesh"]["comet"]["endpoints"]\
-                                    [cometConf['active']]["api_version"]\
-                                    = set_api_version
+                        config.data["cloudmesh"]["comet"]["endpoints"] \
+                            [cometConf['active']]["api_version"] \
+                            = set_api_version
                         config.save()
                         Console.ok("Service api version set!")
-                print ("Authenticating to the nucleus %s "\
-                       "service and obtaining the apikey..." \
-                       % cometConf['active'])
+                print("Authenticating to the nucleus %s " \
+                      "service and obtaining the apikey..." \
+                      % cometConf['active'])
                 Comet.get_apikey(cometConf['active'])
 
             return ''
-            #Comet.get_apikey()
+            # Comet.get_apikey()
         try:
             logon = Comet.logon()
             if logon is False:
@@ -357,7 +362,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
             state = arguments["--state"] or None
             allocation = arguments["--allocation"] or None
             cluster = arguments["--cluster"] or None
-            print (Cluster.computeset(computeset_id, cluster, state, allocation))
+            print(Cluster.computeset(computeset_id, cluster, state, allocation))
         elif arguments["start"]:
             clusterid = arguments["CLUSTERID"]
             numnodes = arguments["--count"] or None
@@ -369,7 +374,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 allocations = cluster[0]['allocations']
             except:
                 # print (cluster)
-                Console.error("No allocation available for the specified cluster." \
+                Console.error("No allocation available for the specified cluster."
                               "Please check with the comet help team")
                 return ""
 
@@ -392,7 +397,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                     return ""
                 numnodes = param
             else:
-                Console.error("You have to specify either the count of nodes, " \
+                Console.error("You have to specify either the count of nodes, "
                               "or the names of nodes in hostlist format")
                 return ""
 
@@ -402,8 +407,8 @@ class CometCommand(PluginCommand, CometPluginCommand):
             # validating walltime and allocation parameters
             walltime = Cluster.convert_to_mins(walltime)
             if not walltime:
-                print ("No valid walltime specified. "\
-                       "Using system default (2 days)")
+                print("No valid walltime specified. "
+                      "Using system default (2 days)")
             if not allocation:
                 if len(allocations) == 1:
                     allocation = allocations[0]
@@ -411,15 +416,15 @@ class CometCommand(PluginCommand, CometPluginCommand):
                     allocation = Cluster.display_get_allocation(allocations)
 
             # issuing call to start a computeset with specified parameters
-            print (Cluster.computeset_start(clusterid,
-                                            computenodeids,
-                                            numnodes,
-                                            allocation,
-                                            walltime)
+            print(Cluster.computeset_start(clusterid,
+                                           computenodeids,
+                                           numnodes,
+                                           allocation,
+                                           walltime)
                   )
         elif arguments["terminate"]:
             computesetid = arguments["COMPUTESETID"]
-            print (Cluster.computeset_terminate(computesetid))
+            print(Cluster.computeset_terminate(computesetid))
         elif arguments["power"]:
             clusterid = arguments["CLUSTERID"] or None
             fuzzyparam = arguments["NODESPARAM"] or None
@@ -454,10 +459,10 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 action = "shutdown"
             else:
                 action = None
-            print (Cluster.power(clusterid,
-                                 subject,
-                                 param,
-                                 action)
+            print(Cluster.power(clusterid,
+                                subject,
+                                param,
+                                action)
                   )
         elif arguments["console"]:
             clusterid = arguments["CLUSTERID"]
@@ -473,7 +478,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                     if iso.startswith("public/"):
                         iso = iso.split("/")[1]
                     idx += 1
-                    print ("{}: {}".format(idx, iso))
+                    print("{}: {}".format(idx, iso))
             if arguments["upload"]:
                 isofile = arguments["PATHISOFILE"]
                 isofile = os.path.abspath(isofile)
@@ -483,47 +488,92 @@ class CometCommand(PluginCommand, CometPluginCommand):
                     else:
                         filename = os.path.basename(isofile)
                 else:
-                    print ("File does not exist - {}"\
-                                  .format(arguments["PATHISOFILE"]))
+                    print("File does not exist - {}" \
+                          .format(arguments["PATHISOFILE"]))
                     return ""
-                print (Comet.upload_iso(filename, isofile))
+                print(Comet.upload_iso(filename, isofile))
             elif arguments["attach"]:
                 isoname = arguments["ISONAME"]
                 clusterid = arguments["CLUSTERID"]
                 computenodeids = arguments["COMPUTENODEIDS"] or None
-                print (Cluster.attach_iso(isoname, clusterid, computenodeids))
+                print(Cluster.attach_iso(isoname, clusterid, computenodeids))
             elif arguments["detach"]:
                 clusterid = arguments["CLUSTERID"]
                 computenodeids = arguments["COMPUTENODEIDS"] or None
-                print (Cluster.detach_iso(clusterid, computenodeids))
+                print(Cluster.detach_iso(clusterid, computenodeids))
         elif arguments["node"]:
+            '''
             if arguments["rename"]:
                 clusterid = arguments["CLUSTERID"]
                 oldname = arguments["OLDNAME"]
                 newname = arguments["NEWNAME"]
                 if newname is None or newname == '':
-                    print ("New node name cannot be empty")
+                    print("New node name cannot be empty")
                 else:
-                    print (Cluster.rename_node(clusterid, oldname, newname))
+                    print(Cluster.rename_node(clusterid, oldname, newname))
 
             '''
             # bulk rename
 
             if arguments["rename"]:
-               oldnames = Parameter.expand(arguments["OLDNAME"])
-               newnames = Parameter.expand(arguments["NEWNAME"])
-
-               # check if new names ar not already taken
-               # to be implemented
-
-               if len(oldnames) == len(newnames):
-                   for i in range(0,len(oldnames)):
-                       oldname = oldnames[i]
-                       newname = newnames[i]
-                   if newname is None or newname == '':
-                       print ("New node name cannot be empty")
-                   else:
-                       print (Cluster.rename_node(clusterid, oldname, newname))
-            '''
+                clusterid = arguments["CLUSTERID"]
+                oldnames = Parameter.expand(arguments["OLDNAMES"])
+                newnames = Parameter.expand(arguments["NEWNAMES"])
+                if len(oldnames) != len(newnames):
+                    Console.error("Length of OLDNAMES and NEWNAMES have to be the same",
+                                  traceflag=False)
+                    return ""
+                else:
+                    for newname in newnames:
+                        if newname.strip() == "":
+                            Console.error("Newname cannot be empty string",
+                                          traceflag=False)
+                            return ""
+                    cluster_data = Cluster.list(clusterid, format="rest")
+                    if len(cluster_data) > 0:
+                        computes = cluster_data[0]["computes"]
+                        nodenames = [x["name"] for x in computes]
+                    else:
+                        Console.error("Error obtaining the cluster information",
+                                      traceflag=False)
+                        return ""
+                    # check if new names ar not already taken
+                    # to be implemented
+                    # print (oldnames)
+                    # print (newnames)
+                    # print (nodenames)
+                    oldset = set(oldnames)
+                    newset = set(newnames)
+                    currentset = set(nodenames)
+                    # at least one OLDNAME does not exist
+                    if  not oldset <= currentset:
+                        Console.error("Not all OLDNAMES are valid", traceflag=False)
+                        return ""
+                    else:
+                        # those unchanged nodes
+                        keptset = currentset - oldset
+                        # duplication between name of unchanged nodes and
+                        # the requested NEWNAMES
+                        if keptset & newset != set():
+                            Console.error("Not proceeding as otherwise introducing "\
+                                          "duplicated names",
+                                          traceflag=False)
+                        else:
+                            for i in range(0,len(oldnames)):
+                                oldname = oldnames[i]
+                                newname = newnames[i]
+                                print ("%s -> %s" % (oldname, newname))
+                            confirm = input("Confirm batch renaming (Y/y to confirm, "\
+                                            "any other key to abort):")
+                            if confirm.lower() == 'y':
+                                print ("Conducting batch renaming")
+                                for i in range(0,len(oldnames)):
+                                    oldname = oldnames[i]
+                                    newname = newnames[i]
+                                    print (Cluster.rename_node(clusterid,
+                                                               oldname,
+                                                               newname))
+                            else:
+                                print ("Action aborted!")
 
         return ""

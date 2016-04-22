@@ -1,17 +1,15 @@
 import inspect
 import logging
 
-from cloudmesh_client.util import path_expand
-from cloudmesh_client.default import Default
 from cloudmesh_client.common.ConfigDict import ConfigDict
-
+from cloudmesh_client.common.util import path_expand
+from cloudmesh_client.default import Default
 
 # define the logger
 LOGGER = logging.getLogger('LogUtil')
 
 
 class LogUtil(object):
-
     # define global format for logs
     FORMAT = "%(asctime)s [%(levelname)s] %(filename)s:%(lineno)s %(funcName)s() %(message)s"
 
@@ -34,7 +32,7 @@ class LogUtil(object):
 
         # get the log level from database
         log_level = Default.get(
-            key=LogUtil.LOG_LEVEL_KEY,
+            name=LogUtil.LOG_LEVEL_KEY,
             category=LogUtil.category) or LogUtil.DEFAULT_LOG_LEVEL
 
         # Update the cloudmesh config
@@ -47,7 +45,7 @@ class LogUtil(object):
     @staticmethod
     def set_level(log_level):
         """
-        sets th eloglevel in teh database and the loglevel file from
+        sets th eloglevel in the database and the loglevel file from
         cloudmesh.yaml
         :param log_level: the loglevel
         :return:
@@ -82,7 +80,7 @@ class LogUtil(object):
         :param cloudname: The name of the cloud
         :return: the log level
         """
-        log_level = Default.get(key=LogUtil.LOG_LEVEL_KEY,
+        log_level = Default.get(name=LogUtil.LOG_LEVEL_KEY,
                                 category=LogUtil.category)
 
         LOGGER.info("Returning Log Level: " + log_level)
@@ -99,10 +97,9 @@ class LogUtil(object):
         :return: the loglevel
         """
         config = ConfigDict("cloudmesh.yaml")
-        log_level = config["cloudmesh"]["logging"]["level"] or \
-            LogUtil.DEFAULT_LOG_LEVEL
+        log_level = config["cloudmesh"]["logging"]["level"] or LogUtil.DEFAULT_LOG_LEVEL
 
-        print ("PPPP", log_level)
+        print("PPPP", log_level)
 
         # Set the log level
         LogUtil.set_level(log_level)

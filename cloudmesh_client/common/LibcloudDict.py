@@ -9,6 +9,7 @@ class LibcloudDict(object):
     @staticmethod
     def convert_libcloud_vm_to_dict(node_obj):
         vm_dict = {
+            'id': node_obj.id,
             'node_id': node_obj.id,
             'name': node_obj.name,
             'state': str(node_obj.state)
@@ -22,7 +23,7 @@ class LibcloudDict(object):
             vm_dict['private_ips'] = node_obj.private_ips[0]
         else:
             vm_dict['private_ips'] = ""
-        vm_image_dict = LibcloudDict.handle_vm_image_details(node_obj.size)
+        vm_image_dict = LibcloudDict.handle_vm_image_details(node_obj.size, is_image_dict=False)
         vm_dict.update(vm_image_dict)
         if node_obj.extra:
             extra_args_dict = LibcloudDict.handle_vm_extra_args(node_obj.extra)
@@ -43,7 +44,7 @@ class LibcloudDict(object):
                 extra_vm_dict[key] = value
             if key == "instance_type":
                 extra_vm_dict[key] = value
-            if key == "key_name":
+            if key == "key":
                 extra_vm_dict[key] = value
             if key == "private_dns":
                 extra_vm_dict[key] = value
@@ -59,6 +60,7 @@ class LibcloudDict(object):
     def handle_vm_size_details(node_size_obj):
         vm_size_dict = {}
         if node_size_obj.id:
+            vm_size_dict['id'] = node_size_obj.id
             vm_size_dict['flavor_id'] = node_size_obj.id
         if node_size_obj.name:
             vm_size_dict['name'] = node_size_obj.name
@@ -81,8 +83,10 @@ class LibcloudDict(object):
             pprint(key + " : " + str(val))
 
     @staticmethod
-    def handle_vm_image_details(node_image_obj):
+    def handle_vm_image_details(node_image_obj, is_image_dict=True):
         node_image_dict = {}
+        if is_image_dict:
+            node_image_dict['id'] = node_image_obj.id
         if node_image_obj and node_image_obj.id:
             node_image_dict['image_id'] = node_image_obj.id
         else:

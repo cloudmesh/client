@@ -3,7 +3,12 @@ from __future__ import print_function
 from cloudmesh_client.cloud.list import List
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
+
 from cloudmesh_client.default import Default
+from cloudmesh_client.cloud.image import Image
+from cloudmesh_client.cloud.flavor import Flavor
+from cloudmesh_client.cloud.vm import Vm
+from cloudmesh_client.common.ConfigDict import ConfigDict
 
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
@@ -46,6 +51,7 @@ class ListCommand(PluginCommand, CloudPluginCommand):
                 $ list --cloud india --format table flavor
                 $ list --cloud india --user albert --tenant fg82 flavor
         """
+
         # pprint(arguments)
 
         # Method to get the kind from args
@@ -62,25 +68,26 @@ class ListCommand(PluginCommand, CloudPluginCommand):
 
         # Read commandline arguments
         output_format = arguments['--format']
-        cloud = arguments['--cloud'] or Default.get_cloud()
+        cloud = arguments['--cloud'] or Default.cloud
         user = arguments['--user']
         tenant = arguments['--tenant']
 
         # If format is not specified, read default
         if output_format is None:
-            output_format = Default.get("format") or "table"
+            output_format = Default.get(name="format") or "table"
 
         # If cloud is not specified, get default
         if cloud is None:
-            cloud = Default.get("cloud") or "kilo"
+            cloud = Default.get(name="cloud") or ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["active"][0]
+
 
         # If user is not specified, get default
         if user is None:
-            user = Default.get("user")
+            user = Default.get(name="user")
 
         # If tenant is not specified, get default
         if tenant is None:
-            tenant = Default.get("tenant")
+            tenant = Default.get(name="tenant")
 
         # Get the kind
         kind = get_kind()
@@ -97,69 +104,27 @@ class ListCommand(PluginCommand, CloudPluginCommand):
         # TODO: add quota
         # TODO: add limits
         # TODO: add usage
-        if kind == 'FLAVOR':
-            order = [
-                'cm_cloud',
-                'disk',
-                'ephemeral_disk',
-                'id',
-                'name',
-                'ram',
-                'vcpus'
-            ]
-        elif kind == 'DEFAULT':
-            order = ['user',
-                     'cloud',
-                     'name',
-                     'value',
-                     'created_at',
-                     'updated_at'
-                     ]
-        elif kind == 'IMAGE':
-            order = [
-                'cm_cloud',
-                'cm_user',
-                'instance_type_ephemeral_gb',
-                'instance_type_flavorid',
-                'instance_type_id',
-                'instance_type_memory_mb',
-                'instance_type_name',
-                'instance_type_root_gb',
-                'instance_type_rxtx_factor',
-                'instance_type_swap',
-                'instance_type_vcpus',
-                'minDisk',
-                'minRam',
-                'name',
-            ]
-            header = [
-                'cloud',
-                'user',
-                'ephemeral_gb',
-                'flavorid',
-                'id',
-                'memory_mb',
-                'flavor',
-                'root_gb',
-                'rxtx_factor',
-                'swap',
-                'vcpus',
-                'minDisk',
-                'minRam',
-                'name',
-            ]
 
-        # Get the result & print it
-        result = List.list(kind,
-                           cloud,
-                           user,
-                           tenant,
-                           order,
-                           header,
-                           output_format)
+        #
+        # TODO: BUG: use the get attribute from the provider.
+        # TODO:: call the cm xyz list functions and do not
+        # reimplement this here
+        # possibly introduce List.py
+
+        result = None
+        if kind == 'FLAVOR':
+            result = Flavor.list(cloud, format=output_format)
+        elif kind == 'DEFAULT':
+            result = Default.list(order=order, output=output_format)
+        elif kind == 'IMAGE':
+            result = Image.list(cloud, format=output_format)
+        elif kind == 'VM':
+            result = Vm.list(cloud=cloud, output_format=output_format)
+
         if result:
             print(result)
         else:
             Console.error("No {}s found in the database."
                           .format(kind.lower()))
+
         return ""

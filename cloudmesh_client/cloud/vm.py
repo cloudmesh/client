@@ -5,12 +5,16 @@ from cloudmesh_client.common.todo import TODO
 # add imports for other cloud providers in future
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.ListResource import ListResource
-from cloudmesh_client.common.Printer import dict_printer, attribute_printer
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.common.Printer import Printer
+from cloudmesh_client.db import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.common.Error import Error
-
 from uuid import UUID
+from cloudmesh_client.common.dotdict import dotdict
+from builtins import input
+from pprint import pprint
+from cloudmesh_client.cloud.network import Network
+from cloudmesh_client.default import Default
 
 
 # noinspection PyPep8Naming
@@ -18,7 +22,44 @@ class Vm(ListResource):
     cm = CloudmeshDatabase()
 
     @classmethod
-    def construct_ip_dict(cls, ip_addr, name="kilo"):
+    def uuid(cls, name, category=None):
+        vm = cls.get(name, category=category)
+        if vm is None:
+            return None
+
+        return vm.uuid
+
+    @classmethod
+    def get(cls, key, category=None):
+        """
+        returns the value of the first objects matching the key
+        with the given category.
+
+        :param key: The dictionary key
+        :param category: The category
+        :return:
+        """
+
+        if category is None:
+            o = cls.cm.find(kind='vm',
+                            output='dict',
+                            scope='first',
+                            name=key)
+
+        else:
+            o = cls.cm.find(category=category,
+                            kind='vm',
+                            output='dict',
+                            scope='first',
+                            name=key)
+        return o
+
+    @classmethod
+    def construct_ip_dict(cls, ip_addr, name=None):
+        # TODO kilo cloud as defualt should be avoided
+        if name is None:
+            Console.error("cloud name not set")
+            return None
         try:
             d = ConfigDict("cloudmesh.yaml")
             cloud_details = d["cloudmesh"]["clouds"][name]
@@ -38,12 +79,12 @@ class Vm(ListResource):
 
             # Handle EC2 Specific Output
             if cloud_details["cm_type"] == "ec2":
-                print("ec2 ip dict yet to be implemented")
+                Console.TODO("ec2 ip dict yet to be implemented")
                 TODO.implement()
 
             # Handle Azure Specific Output
             if cloud_details["cm_type"] == "azure":
-                print("azure ip dict yet to be implemented")
+                Console.TODO("azure ip dict yet to be implemented")
                 TODO.implement()
 
         except Exception as e:
@@ -60,83 +101,198 @@ class Vm(ListResource):
     @classmethod
     def boot(cls, **kwargs):
 
-        key_name = kwargs["key_name"]
-        cloud_name = kwargs["cloud"]
+        arg = dotdict(kwargs)
+
+        for a in ["key", "name", "image", "flavor"]:
+            if a not in kwargs:
+                raise ValueError(a + " not in arguments to vm boot")
 
         conf = ConfigDict("cloudmesh.yaml")
-        username = conf["cloudmesh"]["profile"]["username"]
+        arg.username = conf["cloudmesh"]["profile"]["user"]
+        arg.group = arg.group or Default.group
+        cloud_provider = CloudProvider(arg.cloud).provider
 
-        keycloudmap = cls.cm.get_key_cloud_mapping(username, key_name, cloud_name)
-
-        if keycloudmap is None or len(keycloudmap) == 0:
-            raise RuntimeError("No key cloud mapping found for user {:}, key name {:} and cloud {:} in database."
-                               .format(username, key_name, cloud_name))
-
-        # print("Keycloudmap = {:}".format(keycloudmap))
-        key_name_on_cloud = keycloudmap["key_name_on_cloud"]
-
-        # print("Booting with key_name_on_cloud as " + key_name_on_cloud)
-
-        cloud_provider = CloudProvider(cloud_name).provider
-
-        if "nics" in kwargs:
-            vm = cloud_provider.boot_vm(kwargs["name"],
-                                        kwargs["image"],
-                                        kwargs["flavor"],
-                                        key=key_name_on_cloud,
-                                        secgroup=kwargs["secgroup_list"],
-                                        nics=kwargs["nics"])
+        if "nics" in arg:
+            nics = arg.nics
         else:
-            vm = cloud_provider.boot_vm(kwargs["name"],
-                                        kwargs["image"],
-                                        kwargs["flavor"],
-                                        key=key_name_on_cloud,
-                                        secgroup=kwargs["secgroup_list"],
-                                        nics=None)
+            nics = None
 
-        print("Machine {:} is being booted on {:} Cloud...".format(kwargs["name"], cloud_provider.cloud))
+        d = dotdict({
+            "cloud": arg.cloud,
+            "name": arg.name,
+            "image": arg.image,
+            "flavor": arg.flavor,
+            "key": arg.key,
+            "secgroup": [arg.secgroup],
+            "nics": nics,
+            "meta": {'kind': 'cloudmesh',
+                     'group': arg.group,
+                     'image': arg.image,
+                     'flavor': arg.flavor,
+                     'key': arg.key,
+                     'category': arg.cloud
+                    }
+        })
+
+        Console.ok("Machine {name} is being booted on cloud {cloud} ...".format(**arg))
+
+        print(Printer.attribute(d))
+
+        vm = cloud_provider.boot_vm(**d)
+        if vm is not None:
+            cls.refresh(cloud=arg.cloud)
+
+            cls.cm.set(d.name, "key", d.key, scope="first", kind="vm")
+            cls.cm.set(d.name, "image", d.image, scope="first", kind="vm")
+            cls.cm.set(d.name, "flavor", d.flavor, scope="first", kind="vm")
+            cls.cm.set(d.name, "group", arg.group, scope="first", kind="vm")
+            cls.cm.set(d.name, "user", arg.user, scope="first", kind="vm")
+
+        # update group and key
+        #
+        # cls.cm.update("vm", name=data.name)
+
         return vm
 
     @classmethod
     def start(cls, **kwargs):
-        cloud_provider = CloudProvider(kwargs["cloud"]).provider
+        arg = dotdict(kwargs)
+        cloud_provider = CloudProvider(arg.cloud).provider
         for server in kwargs["servers"]:
             cloud_provider.start_vm(server)
-            print("Machine {:} is being started on {:} Cloud...".format(server, cloud_provider.cloud))
+            Console.ok("Machine {:} is being started on {:} Cloud...".format(server, cloud_provider.cloud))
 
             # Explicit refresh called after VM start, to update db.
             # cls.refresh(cloud=kwargs["cloud"])
 
     @classmethod
     def stop(cls, **kwargs):
-        cloud_provider = CloudProvider(kwargs["cloud"]).provider
+        arg = dotdict(kwargs)
+        cloud_provider = CloudProvider(arg.cloud).provider
         for server in kwargs["servers"]:
             cloud_provider.stop_vm(server)
-            print("Machine {:} is being stopped on {:} Cloud...".format(server, cloud_provider.cloud))
+            Console.ok("Machine {:} is being stopped on {:} Cloud...".format(server, cloud_provider.cloud))
 
             # Explicit refresh called after VM stop, to update db.
             # cls.refresh(cloud=kwargs["cloud"])
 
     @classmethod
     def delete(cls, **kwargs):
-        cloud_provider = CloudProvider(kwargs["cloud"]).provider
-        for server in kwargs["servers"]:
-            cloud_provider.delete_vm(server)
-            print("Machine {:} is being deleted on {:} Cloud...".format(server, cloud_provider.cloud))
+        arg = dotdict(kwargs)
 
-            # Explicit refresh called after VM delete, to update db.
-            cls.refresh(cloud=kwargs["cloud"])
+        force = kwargs.get("force", Default.purge)
+
+
+        if "cloud" in arg:
+            cloud_provider = CloudProvider(arg.cloud).provider
+            for server in kwargs["servers"]:
+                vm = cls.cm.find(name=server, kind="vm", cloud=arg.cloud, scope="first")
+                if vm:
+                    provider = vm["provider"]
+                    cloud = vm["category"]
+
+                    # If server has a floating ip associated, release it
+                    server_dict = Network.get_instance_dict(cloudname=arg.cloud,
+                                                            instance_id=server)
+                    floating_ip = server_dict["floating_ip"]
+                    if floating_ip is not None:
+                        Network.disassociate_floating_ip(cloudname=arg.cloud,
+                                                         instance_name=server,
+                                                         floating_ip=floating_ip)
+                    cloud_provider.delete_vm(server)
+                    if force:
+                        cls.cm.delete(kind="vm",
+                                      provider=provider,
+                                      category=cloud,
+                                      name=server)  # delete the record from db
+                        Console.ok("VM record {:} is being deleted from the local database..." \
+                                   .format(server))
+
+                    else:
+                        cls.cm.set(server, "status", "deleted", kind="vm", scope="first")
+
+                    # Console.ok("VM {:} is being deleted on {:} cloud...".format(server, cloud_provider.cloud))
+                else:
+                    Console.error("VM {:} can not be found.".format(server), traceflag=False)
+        else:
+
+            clouds = set()
+            for server in arg.servers:
+
+                vm = cls.cm.find(kind="vm", name=server, scope="first")
+                if vm:
+                    cloud = vm["category"]
+                    provider = vm["provider"]
+                    cloud_provider = CloudProvider(cloud).provider
+                    clouds.add(cloud)
+                    cloud_provider.delete_vm(server)
+                    if force:
+                        cls.cm.delete(kind="vm",
+                                      provider=provider,
+                                      category=cloud,
+                                      name=server)
+                        Console.ok("VM record {:} is being deleted from the local database..." \
+                                   .format(server))
+
+                    else:
+                        cls.cm.set(server, "status", "deleted", kind="vm", scope="first")
+
+                    # Console.ok("VM {:} is being deleted on {:} cloud...".format(server, cloud))
+                else:
+                    Console.error("VM {:} can not be found.".format(server), traceflag=False)
+
+
+    @classmethod
+    def get_vms_by_name(cls, name, cloud):
+
+        vm_data = cls.cm.find(kind="vm", name=name, category=cloud)
+        if vm_data is None or len(vm_data) == 0:
+            raise RuntimeError("VM data not found in database.")
+        return vm_data
 
     @classmethod
     def rename(cls, **kwargs):
-        cloud_provider = CloudProvider(kwargs["cloud"]).provider
-        new_name = kwargs["new_name"]
-        for server in kwargs["servers"]:
-            cloud_provider.rename_vm(server, new_name)
-            print("Machine {:} renamed to {:} on {:} Cloud...".format(server, new_name, cloud_provider.cloud))
 
-            # Explicit refresh called after VM delete, to update db.
-            cls.refresh(cloud=kwargs["cloud"])
+        arg = dotdict(kwargs)
+
+        cloud_provider = CloudProvider(kwargs["cloud"]).provider
+
+        # Check for vms with duplicate names in DB.
+        vms = cls.get_vms_by_name(name=arg.oldname, cloud=arg.cloud)
+
+        if len(vms) > 1:
+            users_choice = "y"
+
+            if not arg.force:
+                print("More than 1 vms found with the same name as {}.".format(server))
+                users_choice = input("Would you like to auto-order the new names? (y/n): ")
+
+            if users_choice.strip() == "y":
+                count = 1
+                for index in vms:
+                    count_new_name = "{0}{1}".format(arg.newname, count)
+                    # print(vms[index])
+
+                    cloud_provider.rename_vm(vms[index]["uuid"], count_new_name)
+
+                    print("Machine {0} with UUID {1} renamed to {2} on {3} cloud".format(vms[index]["name"],
+                                                                                         vms[index]["uuid"],
+                                                                                         count_new_name,
+                                                                                         cloud_provider.cloud))
+                    count += 1
+            elif users_choice.strip() == "n":
+                cloud_provider.rename_vm(arg.oldname, arg.newname)
+                print(
+                    "Machine {0} renamed to {1} on {2} Cloud...".format(arg.oldname, arg.newname, cloud_provider.cloud))
+            else:
+                Console.error("Invalid Choice.")
+                return
+        else:
+            cloud_provider.rename_vm(arg.oldname, arg.newname)
+            print("Machine {0} renamed to {1} on {2} Cloud...".format(arg.oldname, arg.newname, cloud_provider.cloud))
+
+        # Explicit refresh called after VM rename, to update db.
+        cls.refresh(cloud=arg.cloud)
 
     @classmethod
     def info(cls, **kwargs):
@@ -148,35 +304,79 @@ class Vm(ListResource):
         This method lists all VMs of the cloud
         """
 
+        arg = dotdict(kwargs)
+        if "name" in arg:
+            arg.name = arg.name
+
+        arg.output = arg.output or 'table'
+
+        # pprint (kwargs)
+        # prevent circular dependency
+        def vm_groups(vm):
+            """
+
+            :param vm: name of the vm
+            :return: a list of groups the vm is in
+            """
+
+            try:
+                query = {
+                    'kind': "group",
+                    'provider': 'general',
+                    "species": "vm",
+                    "member": vm,
+                    "scope": 'all',
+                    "output": 'dict'
+                }
+
+                d = cls.cm.find(**query)
+                groups_vm = set()
+                if d is not None and len(d) > 0:
+                    for vm in d:
+                        groups_vm.add(vm['name'])
+                return list(groups_vm)
+            except Exception as ex:
+                Console.error(ex.message)
+            return []
+
         try:
-            if "name_or_id" in kwargs and kwargs["name_or_id"] is not None:
-                if cls.isUuid(kwargs["name_or_id"]):
-                    elements = cls.cm.find("vm",
-                                           category=kwargs["cloud"],
-                                           uuid=kwargs["name_or_id"])
+            if "name" in arg and arg.name is not None:
+                if cls.isUuid(arg.name):
+                    elements = cls.cm.find(kind="vm",
+                                           category=arg.category,
+                                           uuid=arg.name)
                 else:
-                    elements = cls.cm.find("vm",
-                                           category=kwargs["cloud"],
-                                           label=kwargs["name_or_id"])
+                    elements = cls.cm.find(kind="vm",
+                                           category=arg.category,
+                                           label=arg.name)
             else:
-                elements = cls.cm.find("vm",
-                                       category=kwargs["cloud"])
+                elements = cls.cm.find(kind="vm",
+                                       category=arg.category)
+
+            if elements is None or len(elements) == 0:
+                return None
+
+            for elem in elements:
+                element = elem
+                name = element["name"]
+                groups = vm_groups(name)
+                element["group"] = ','.join(groups)
 
             # print(elements)
 
             # order = ['id', 'uuid', 'name', 'cloud']
-            (order, header) = CloudProvider(kwargs["cloud"]).get_attributes("vm")
+            (order, header) = CloudProvider(arg.category).get_attributes("vm")
 
             # order = None
-            if "name_or_id" in kwargs and kwargs["name_or_id"] is not None:
-                return attribute_printer(list(elements.values())[0],
-                                         output=kwargs["output_format"])
+            if "name" in arg and arg.name is not None:
+                return Printer.attribute(elements[0],
+                                         output=arg.output)
             else:
-                return dict_printer(elements,
-                                    order=order,
-                                    output=kwargs["output_format"])
+                return Printer.write(elements,
+                                     order=order,
+                                     output=arg.output)
         except Exception as ex:
-            Console.error(ex.message, ex)
+            Console.error(ex.message)
 
     @classmethod
     def clear(cls, **kwargs):
@@ -185,43 +385,45 @@ class Vm(ListResource):
     @classmethod
     def refresh(cls, **kwargs):
         # print("Inside refresh")
+
         return cls.cm.refresh("vm", kwargs["cloud"])
 
     @classmethod
     def status_from_cloud(cls, **kwargs):
         cloud_provider = CloudProvider(kwargs["cloud"]).provider
-        vm = cloud_provider.get_vm(name=kwargs["name_or_id"])
+        vm = cloud_provider.get_vm(name=kwargs["name"])
         return vm["status"]
 
     @classmethod
-    def set_vm_login_user(cls, name_or_id, cloud, username):
+    def set_login_user(cls, name=None, cloud=None, username=None):
 
-        if cls.isUuid(name_or_id):
-            uuid = name_or_id
+        # cls.cm.set(name, "username", username, kind="vm", scope="first")
+
+        vm = Vm.get(name, category=cloud)
+
+        if vm is None:
+            Console.error("VM could not be found", traceflag=False)
+            return
         else:
-            vm_data = cls.cm.find("vm", category=cloud, label=name_or_id)
-            if vm_data is None or len(vm_data) == 0:
-                raise RuntimeError("VM with label {} not found in database.".format(name_or_id))
-            uuid = list(vm_data.values())[0]["uuid"]
-
-        user_map_entry = cls.cm.find("VMUSERMAP", vm_uuid=uuid)
-
-        if user_map_entry is None or len(user_map_entry) == 0:
-            user_map_dict = cls.cm.db_obj_dict("VMUSERMAP", vm_uuid=uuid, username=username)
-            cls.cm.add_obj(user_map_dict)
-            cls.cm.save()
-        else:
-            cls.cm.update_vm_username(vm_uuid=uuid, username=username)
+            cls.cm.update(kind="vm",
+                          provider=vm["provider"],
+                          filter={'name': name},
+                          update={"username": username}
+                          )
 
     @classmethod
-    def get_vm_login_user(cls, name_or_id, cloud):
+    def get_login_user(cls, name, cloud):
+        print(name, cloud)
 
-        if cls.isUuid(name_or_id):
-            uuid = name_or_id
+        Console.error("this method is wrong implemented")
+
+        '''
+        if cls.isUuid(name):
+            uuid = name
         else:
-            vm_data = cls.cm.find("vm", category=cloud, label=name_or_id)
+            vm_data = cls.cm.find(kind="vm", category=cloud, label=name)
             if vm_data is None or len(vm_data) == 0:
-                raise RuntimeError("VM with label {} not found in database.".format(name_or_id))
+                raise RuntimeError("VM with label {} not found in database.".format(name))
             uuid = list(vm_data.values())[0]["uuid"]
 
         # print(uuid)
@@ -234,10 +436,21 @@ class Vm(ListResource):
             return None
         else:
             return list(user_map_entry.values())[0]["username"]
+        '''
 
     @classmethod
-    def get_last_vm(cls, cloud):
-        vm_data = cls.cm.find("vm", scope="first", category=cloud)
-        if vm_data is None or len(vm_data) == 0:
-            raise RuntimeError("VM data not found in database.")
-        return vm_data
+    def get_vm_public_ip(cls, vm_name, cloud):
+        """
+
+        :param vm_name: Name of the VM instance whose Public IP has to be retrieved from the DB
+        :param cloud: Libcloud supported Cloud provider name
+        :return: Public IP as a list
+        """
+        public_ip_list = []
+        vms = cls.get_vms_by_name(vm_name, cloud)
+        keys = vms.keys()
+        if keys is not None and len(keys) > 0:
+            public_ip = vms[keys[0]]["public_ips"]
+            if public_ip is not None and public_ip != "":
+                public_ip_list.append(public_ip)
+        return public_ip_list

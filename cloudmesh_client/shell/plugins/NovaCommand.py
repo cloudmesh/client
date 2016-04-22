@@ -3,7 +3,7 @@ import os
 
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.logger import LOGGER
-from cloudmesh_client.common.Printer import row_table
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.cloud.nova import Nova
 from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.shell.command import command
@@ -17,14 +17,13 @@ log = LOGGER(__file__)
 
 
 # noinspection PyBroadException
-class NovaCommand (PluginCommand, CloudPluginCommand):
-
+class NovaCommand(PluginCommand, CloudPluginCommand):
     topics = {"nova": "cloud"}
 
     def __init__(self, context):
         self.context = context
         if self.context.debug:
-            print ("init command nova")
+            print("init command nova")
 
     # noinspection PyUnusedLocal
     @command
@@ -56,12 +55,12 @@ class NovaCommand (PluginCommand, CloudPluginCommand):
 
         """
         # pprint(arguments)
-        cloud = arguments['CLOUD'] or Default.get_cloud()
+        cloud = arguments['CLOUD'] or Default.cloud
         if not cloud:
             Console.error("Default cloud not set!")
             return ""
 
-        group = arguments["--group"] or Default.get("group", category=cloud)
+        group = arguments["--group"] or Default.group
 
         if not group:
             Console.error("Default group not set!")
@@ -92,7 +91,7 @@ class NovaCommand (PluginCommand, CloudPluginCommand):
                     d[attribute] = None
                 if not arguments["--password"]:
                     d['OS_PASSWORD'] = "********"
-            print(row_table(d, order=None, labels=["Variable", "Value"]))
+            print(Printer.row_table(d, order=None, labels=["Variable", "Value"]))
             msg = "info. OK."
             Console.ok(msg)
             return ""
@@ -118,7 +117,9 @@ class NovaCommand (PluginCommand, CloudPluginCommand):
 
                 result = Shell.execute("nova", args)
 
-                print(Nova.remove_subjectAltName_warning(result))
+
+                print (result)
+                # print(Nova.remove_subjectAltName_warning(result))
 
                 """
                 If request for nova boot,
@@ -134,7 +135,7 @@ class NovaCommand (PluginCommand, CloudPluginCommand):
                     vm_id = fields[index]
 
                     # Add to group
-                    Group.add(name=group, type="vm", id=vm_id, category=cloud)
+                    Group.add(name=group, species="vm", member=vm_id, category=cloud)
             except Exception as ex:
                 Console.error("Error executing Nova command: {}".format(ex))
             return ""

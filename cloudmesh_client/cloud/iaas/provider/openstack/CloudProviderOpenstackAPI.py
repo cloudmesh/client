@@ -11,6 +11,7 @@ from keystoneclient import session
 from novaclient import client
 import requests
 import getpass
+from cloudmesh_client.shell.console import Console
 
 requests.packages.urllib3.disable_warnings()
 
@@ -29,22 +30,26 @@ def set_os_environ(cloudname):
             else:
                 os.environ[key] = value
     except Exception as e:
-        print(e)
+        Console.error("problem setting env")
 
 
 #
 # we already have a much better convert to dict function
 #
 
+
 # noinspection PyPep8Naming,PyUnusedLocal,PyUnusedLocal
 class CloudProviderOpenstackAPI(CloudProviderBase):
-    kind = "openstack" # BUG this should be cloud_type
+    cloud_type = "openstack"
     cloud_pwd = {}
 
     def __init__(self, cloud_name, cloud_details, user=None, flat=True):
         super(CloudProviderOpenstackAPI, self).__init__(cloud_name, user=user)
         self.flat = flat
-        self.kind = "openstack" # BUG this should be cloud_type
+        self.cloud_type = "openstack"
+        self.kind = ["image", "flavor", "vm", "quota", "limits", "usage", "key", "group"]
+        self.dbobject = ["image", "flavor", "vm", "quota", "limits", "usage", "key", "group"]
+
         self.provider = None
         self.default_image = None
         self.default_flavor = None
@@ -60,8 +65,12 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             d[index] = dict(value.__dict__["_info"])
             if 'links' in d[index]:
                 del d[index]['links']
-            if 'server_links' in d[index]:
-                del d[index]['server_links']
+            if 'server__links' in d[index]:
+                del d[index]['server__links']
+            if 'image__links' in d[index]:
+                del d[index]['image__links']
+            if 'flavor__links' in d[index]:
+                del d[index]['flavor__links']
 
             # If flat dict flag set, convert to flatdict
             if self.flat is True:
@@ -89,8 +98,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                           "project_domain_name"]
         authdict = {}
         # always required
-        authdict["auth_url"]=credentials["OS_AUTH_URL"]
-        authdict["password"]=credentials["OS_PASSWORD"]
+        authdict["auth_url"] = credentials["OS_AUTH_URL"]
+        authdict["password"] = credentials["OS_PASSWORD"]
 
         # setting automatically all available ones
         # CAUTION: MAY be causing conflict/error.
@@ -122,7 +131,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         elif "OS_PROJECT_DOMAIN_ID" in credentials:
             authdict["project_domain_name"] = credentials["OS_PROJECT_DOMAIN_ID"]
         '''
-        #pprint(authdict)
+        # pprint(authdict)
 
         ksauth = v3.Password(**authdict)
 
@@ -144,6 +153,9 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         elif os_password.lower() == "env":
             os_password = os.environ.get("OS_PASSWORD", getpass.getpass())
 
+        #
+        # TODO: pwd is not standing for passwd
+        #
         CloudProviderOpenstackAPI.cloud_pwd[cloudname]["pwd"] = os_password
         CloudProviderOpenstackAPI.cloud_pwd[cloudname]["status"] = "Active"
 
@@ -225,7 +237,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         # or read os.environ if set as "env".
         """
         os_password = credentials["OS_PASSWORD"]
-        if os_password.lower() == "readline":
+        if os_password.lower() in ["readline", "read", "tbd"]:
             os_password = getpass.getpass()
         elif os_password.lower() == "env":
             os_password = os.environ.get("OS_PASSWORD", getpass.getpass())
@@ -251,14 +263,103 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         """
         TODO.implement()
 
+    def list_key(self, cloudname, **kwargs):
+
+        # TODO: this needs to be move to the provider
+        _keys = self._to_dict(self.provider.keypairs.list())
+
+        for id in _keys:
+            key = _keys[id]
+
+            # key["type"], key["string"], key["comment"] = (key["keypair__public_key"] + " ").split(" ", 3)
+            # key["comment"] = key["comment"].strip()
+            key_segments = key["keypair__public_key"].split(" ")
+            key["type"] = key_segments[0]
+            key["string"] = key_segments[1]
+            key["comment"] = ''
+            if len(key_segments) == 3:
+                key["comment"] = key_segments[2]
+            elif len(key_segments) > 3:
+                key["comment"] = " ".join(key_segments[2:])
+
+        return _keys
+        # return self._to_dict(self.provider.keypairs.list())
+
     def list_flavor(self, cloudname, **kwargs):
-        return self._to_dict(self.provider.flavors.list())
+        d = self._to_dict(self.provider.flavors.list())
+        return d
 
     def list_image(self, cloudname, **kwargs):
-        return self._to_dict(self.provider.images.list())
+        d = self._to_dict(self.provider.images.list())
+        for e in d:
+            o = d[e]
+            if 'server__links' in o:
+                del o['server__links']
+        return d
 
     def list_secgroup(self, cloudname, **kwargs):
         return self._to_dict(self.provider.security_groups.list())
+
+    def list_secgroup_rules(self, cloudname):
+
+        groups = self.list_secgroup(cloudname)
+
+        rules = []
+
+        for id in groups:
+            group = groups[id]
+            for rule in group["rules"]:
+
+                if rule['ip_protocol'] is not None:
+
+                    element = {
+                        'fromPort': rule["from_port"],
+                        'toPort': rule["to_port"],
+                        'group': group["name"],
+                        'protocol': rule['ip_protocol'],
+                        'ruleid': rule['id'],
+                        'groupid': rule['parent_group_id']
+                    }
+
+                    if 'cidr' in rule['ip_range']:
+                        element['ipRange'] = rule['ip_range']['cidr']
+                    else:
+                        element['ip_range'] = None
+                    rules.append(element)
+        return rules
+
+    def create_secgroup(self, secgroup_name):
+        secgroup = self.provider.security_groups \
+            .create(name=secgroup_name,
+                    description="Security group {}".format(secgroup_name))
+
+        return secgroup
+
+    def add_secgroup_rule(self, **kwargs):
+        rule_id = self.provider.security_group_rules.create(kwargs["uuid"],
+                                                            ip_protocol=kwargs["protocol"],
+                                                            from_port=kwargs["from_port"],
+                                                            to_port=kwargs["to_port"],
+                                                            cidr=kwargs["cidr"])
+        return rule_id
+
+    def delete_secgroup(self, name):
+
+        groups = self.provider.security_groups.list()
+
+        if groups is not None:
+            for sec_group in groups:
+
+                # delete the secgroup in the cloud
+                if sec_group.name == name:
+                    self.provider.security_groups.delete(sec_group)
+        else:
+            print("Could not find security group [{}] in cloud [{}]"
+                  .format(name, self.cloud))
+
+    def delete_secgroup_rule(self, rule_id):
+        self.provider.security_group_rules.delete(rule_id)
+        return
 
     def list_vm(self, cloudname, **kwargs):
         vm_dict = self._to_dict(self.provider.servers.list())
@@ -268,22 +369,22 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         secgroup_list_dict = dict()
         for index in vm_dict:
             ip_detail_dict[index] = dict()
-            ip_detail_dict[index]["floating_ip"] = None
-            ip_detail_dict[index]["static_ip"] = None
+            ip_detail_dict[index][u"floating_ip"] = None
+            ip_detail_dict[index][u"static_ip"] = None
             for key in vm_dict[index]:
                 if key.startswith("addresses"):
                     for ip_detail in vm_dict[index][key]:
                         if ip_detail["OS-EXT-IPS:type"] is not None:
                             if ip_detail["OS-EXT-IPS:type"] == "fixed":
-                                ip_detail_dict[index]["static_ip"] = ip_detail["addr"]
+                                ip_detail_dict[index][u"static_ip"] = ip_detail["addr"]
                             elif ip_detail["OS-EXT-IPS:type"] == "floating":
-                                ip_detail_dict[index]["floating_ip"] = ip_detail["addr"]
+                                ip_detail_dict[index][u"floating_ip"] = ip_detail["addr"]
 
             secgroup_list_dict[index] = ""
 
             sec_index = 0
             if "security_groups" in vm_dict[index]:
-                for secgroup in vm_dict[index]["security_groups"]:
+                for secgroup in vm_dict[index][u"security_groups"]:
                     secgroup_list_dict[index] += secgroup["name"]
                     sec_index += 1
                     # Append comma if not the last element
@@ -291,9 +392,15 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                         secgroup_list_dict[index] += ","
 
         for index in vm_dict:
-            vm_dict[index]["floating_ip"] = ip_detail_dict[index]["floating_ip"]
-            vm_dict[index]["static_ip"] = ip_detail_dict[index]["static_ip"]
-            vm_dict[index]["security_ groups"] = secgroup_list_dict[index]
+            vm_dict[index][u"floating_ip"] = ip_detail_dict[index]["floating_ip"]
+            vm_dict[index][u"static_ip"] = ip_detail_dict[index]["static_ip"]
+            vm_dict[index][u"security_ groups"] = secgroup_list_dict[index]
+
+        for e in vm_dict:
+            o = vm_dict[e]
+            for link in ['server_links', 'flavor__links', 'image__links']:
+                if link in o:
+                    del o[link]
 
         return vm_dict
 
@@ -306,6 +413,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         """
         if self.isUuid(current_name):
             server = self.provider.servers.get(current_name)
+            print("Renaming VM ({})".format(current_name))
             server.update(name=new_name)
         else:
             # server = self.provider.servers.find(name=name)
@@ -339,11 +447,17 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
     def list_usage(self, cloudname, **kwargs):
         raise ValueError("list usage is not supported")
 
+    def list_console(self, name, length=None):
+        server = self.provider.servers.get(name)
+        log = server.get_console_output(length=None)
+        return log
+
     def boot_vm(self,
                 name,
+                group=None,
                 image=None,
                 flavor=None,
-                cloud="kilo",
+                cloud=None,
                 key=None,
                 secgroup=None,
                 meta=None,
@@ -361,10 +475,13 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         :param secgroup: Security group for the instance
         :param meta: A dict of arbitrary key/value metadata to store for this server
         """
-        if image is None:
-            image = self.default_image
-        if flavor is None:
-            flavor = self.default_flavor
+
+        if cloud is None:
+            Console.error("Cloud is not specified")
+            return None
+
+        image = image or self.default_image
+        flavor = flavor or self.default_flavor
 
         image_id = self.get_image_id(image)
         flavor_id = self.get_flavor_id(flavor)
@@ -384,15 +501,42 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     nics = [{"net-id": nic.id}]
                     break
 
-        server = self.provider.servers.create(name,
-                                              image_id,
-                                              flavor_id,
-                                              meta=meta,
-                                              key_name=key,
-                                              security_groups=secgroup,
-                                              nics=nics)
-        # return the server id
-        return server.__dict__["id"]
+        """
+        create(name, image, flavor, meta=None, files=None, reservation_id=None, min_count=None, max_count=None,
+          security_groups=None, userdata=None, key_name=None, availability_zone=None, block_device_mapping=None,
+          block_device_mapping_v2=None, nics=None, scheduler_hints=None, config_drive=None, disk_config=None,
+          admin_pass=None, access_ip_v4=None, access_ip_v6=None, **kwargs)
+        """
+        d = {
+            "name": name,
+            "image_id": image_id,
+            "flavor_id": flavor_id,
+            "meta": meta,
+            "key_name": key,
+            "security_groups": secgroup,
+            "nics": nics}
+        id = None
+        try:
+            server = self.provider.servers.create(name,
+                                                  image_id,
+                                                  flavor_id,
+                                                  meta=meta,
+                                                  key_name=key,
+                                                  security_groups=secgroup,
+                                                  nics=nics)
+            # return the server id
+            id = server.__dict__["id"]
+            return id
+        except Exception as e:
+            if "Invalid key_name provided." in str(e):
+                Console.error("Invalid key provided. "
+                              "Is the key loaded, the default key set properly and uploaded to the cloud?",
+                              traceflag=False)
+            else:
+                Console.error("Problem starting vm", traceflag=False)
+                Console.error(e.message)
+
+        return id
 
     def delete_vm(self, name, group=None, force=None):
         """
@@ -457,7 +601,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
     def get_ips(self, name, group=None, force=None):
         """
-        Returns the ip of the instance indicated by name_or_id
+        Returns the ip of the instance indicated by name
         :param name:
         :param group:
         :param force:
@@ -529,7 +673,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             try:
                 server.add_floating_ip(fip)
             except Exception as e:
-                print (e)
+                print(e)
                 self.provider.floating_ips.delete(floating_ip)
 
             ret = fip
@@ -589,21 +733,21 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
     # TODO: define this
     # noinspection PyProtectedMember,PyProtectedMember
-    def get_image_id(self, name_or_id):
+    def get_image_id(self, name):
 
         """
         finds the image based on a query
         TODO: details TBD
         """
-        return self.get_image(name=name_or_id)["id"]
+        return self.get_image(name=name)["id"]
 
-    def get_flavor_id(self, name_or_id):
+    def get_flavor_id(self, name):
 
         """
         finds the image based on a query
         TODO: details TBD
         """
-        return self.get_flavor(id=name_or_id)["id"]
+        return self.get_flavor(id=name)["id"]
 
     def isUuid(self, name):
         try:
@@ -638,50 +782,14 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             return self.provider.servers.find(name=vm_name,
                                               scope="first")._info
 
-    def create_secgroup(self, secgroup_name):
-        secgroup = self.provider.security_groups \
-            .create(name=secgroup_name,
-                    description="Security group {}".format(secgroup_name))
-
-        return secgroup
-
-    def add_secgroup_rule(self, **kwargs):
-        rule_id = self.provider.security_group_rules.create(kwargs["uuid"],
-                                                            ip_protocol=kwargs["protocol"],
-                                                            from_port=kwargs["from_port"],
-                                                            to_port=kwargs["to_port"],
-                                                            cidr=kwargs["cidr"])
-        return rule_id
-
-    def delete_secgroup(self, secgroup_name):
-        search_opts = {
-            'name': secgroup_name,
-        }
-
-        secgroups = self.provider.security_groups.list(search_opts=search_opts)
-        if secgroups is not None:
-            for sec_group in secgroups:
-                # delete the secgroup in the cloud
-                if sec_group.name == secgroup_name:
-                    self.provider.security_groups.delete(sec_group)
-        else:
-            print("Could not find security group [{}] in cloud [{}]"
-                  .format(secgroup_name, self.cloud))
-
-        return "Ok."
-
-    def delete_secgroup_rule(self, rule_id):
-        self.provider.security_group_rules.delete(rule_id)
-        return
-
     def attributes(self, kind):
 
         layout = {
             'flavor': {
                 'order': [
-                    'id',
+                    'cm_id',
                     'name',
-                    'user',
+                    #'user',
                     'ram',
                     'os_flv_disabled',
                     'vcpus',
@@ -690,13 +798,13 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'rxtx_factor',
                     'os_flv_ext_data',
                     'disk',
-                    'cloud',
-                    'uuid'
+                    'category',
+                    'updated_at'
                 ],
                 'header': [
                     'Id',
                     'Name',
-                    'User',
+                    #'User',
                     'RAM',
                     'Disabled',
                     'vCPUs',
@@ -706,21 +814,19 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'os_flv_ext_data',
                     'Disk',
                     'Cloud',
-                    'UUID'
+                    'updated'
                 ]
             },
             'image': {
                 'order': [
-                    'id',
+                    'cm_id',
                     'name',
                     'os_image_size',
                     'metadata__description',
                     'minDisk',
                     'minRam',
-                    'progress',
                     'status',
-                    'updated',
-                    'uuid'
+                    'category',
                 ],
                 'header': [
                     'id',
@@ -729,15 +835,55 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'description',
                     'minDisk',
                     'minRam',
-                    'progress',
                     'status',
-                    'updated',
-                    'uuid'
+                    'cloud',
                 ]
             },
             'vm': {
-                'order': None,
-                'header': None,
+                'order': [
+                    'cm_id',
+                    'group',
+                    'name',
+                    'status',
+                    'static_ip',
+                    'floating_ip',
+                    'image',
+                    'flavor',
+                    'username',
+                    'key',
+                    'project',
+                    'category',
+                    'updated_at',
+                    'user'
+                ],
+                'header': [
+                    'id',
+                    'group',
+                    'name',
+                    'status',
+                    'static_ip',
+                    'floating_ip',
+                    'username',
+                    'image',
+                    'flavor',
+                    'key',
+                    'project',
+                    'cloud',
+                    'updated_at',
+                    'user'
+                ]
+            },
+            'ip': {
+                'order': [
+                    'name',
+                    'static_ip',
+                    'floating_ip',
+                ],
+                'header': [
+                    'name',
+                    'static_ip',
+                    'floating_ip',
+                ]
             },
             'floating_ip': {
                 'order': [
@@ -745,16 +891,18 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     "ip",
                     "pool",
                     "fixed_ip",
-                    "id",
-                    "instance_id"
+                    # "id",
+                    # "instance_id",
+                    'cloud'
                 ],
                 'header': [
                     "instance_name",
                     "floating_ip",
                     "floating_ip_pool",
                     "fixed_ip",
-                    "floating_ip_id",
-                    "instance_id"
+                    # "floating_ip_id",
+                    # "instance_id",
+                    'cloud'
                 ],
             },
             'floating_ip_pool': {
@@ -767,12 +915,20 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             },
             'clouds': {
                 'order': [
+                    "id",
                     "cloud",
-                    "status"
+                    "default",
+                    "active",
+                    "status",
+                    "key"
                 ],
                 'header': [
-                    "cloud name",
-                    "status"
+                    "id",
+                    "Cloud",
+                    "Default",
+                    "Active",
+                    "Status",
+                    "Key"
                 ],
             },
             'limits': {
@@ -797,7 +953,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             },
             'secgroup': {
                 'order': [
-                    'id',
+                    'cm_id',
+                    'group',
                     'name',
                     'category',
                     'user',
@@ -805,17 +962,62 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'uuid'
                 ],
                 'header': [
-                    'id',
-                    'secgroup_name',
-                    'category',
-                    'user',
-                    'tenant_id',
-                    'secgroup_uuid'
+                    'Id',
+                    'Group'
+                    'Name',
+                    'Category',
+                    'User',
+                    'Tenant',
+                    'Uuid'
                 ]
             },
             'default': {
-                'order': None,
-                'header': None,
+                'order': [
+                    'user',
+                    'category',
+                    'name',
+                    'value',
+                    'created_at',
+                    'updated_at'
+                ],
+                'header': [
+                    'user',
+                    'category',
+                    'name',
+                    'value',
+                    'created_at',
+                    'updated_at'
+                ],
+            },
+            'group': {
+                'order': [
+                    "name",
+                    "member",
+                    "user",
+                    "category",
+                    "type"],
+                'header': [
+                    "name",
+                    "member",
+                    "user",
+                    "category",
+                    "type"]
+
+            },
+            'key': {
+                'order': [
+                    'category',
+                    'keypair__name',
+                    "type",
+                    "comment",
+                    "keypair__fingerprint"
+                ],
+                'header': [
+                    "Category",
+                    "Name",
+                    "Type",
+                    "Comment",
+                    "Fingerprint"]
             }
         }
 
@@ -826,39 +1028,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             order = None
             header = None
 
-        if kind == 'default':
-            order = ['user',
-                     'cloud',
-                     'name',
-                     'value',
-                     'created_at',
-                     'updated_at'
-                     ]
-        elif kind == 'vm':
-            order = [
-                'id',
-                'uuid',
-                'label',
-                'status',
-                'static_ip',
-                'floating_ip',
-                'key_name',
-                'project',
-                'user',
-                'cloud'
-            ]
-            header = [
-                'id',
-                'uuid',
-                'label',
-                'status',
-                'static_ip',
-                'floating_ip',
-                'key_name',
-                'project',
-                'user',
-                'cloud'
-            ]
         return order, header
 
 
@@ -873,3 +1042,5 @@ if __name__ == "__main__":
 
     d = {'name': '390792c3-66a0-4c83-a0d7-c81e1c787710'}
     pprint(cp.list_quota(cloudname))
+
+    pprint(cp.list_key(cloudname))

@@ -1,7 +1,8 @@
 from __future__ import print_function
-import textwrap
+
 import os
 import platform
+import textwrap
 
 try:  # python3
     from urllib.request import urlopen
@@ -11,39 +12,50 @@ except ImportError:  # python2
     from urllib import urlopen
 
 from cloudmesh_client.common.Shell import Shell
-from builtins import input
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict, Config
 from cloudmesh_client.common import Printer
-from cloudmesh_client.util import path_expand
+from cloudmesh_client.common.util import path_expand
 from builtins import input
-
+import cloudmesh_client
+from pprint import pprint
+import sys
+from cloudmesh_client.common.util import banner
 
 class Register(object):
-
     @classmethod
     def entry(cls, name):
-        return ValueError("not implemented yet")
 
-        '''
-        etc_yaml = ConfigDict("cloudmesh.yaml", etc=True)
+        banner("Register {}".format(name))
 
+        name = str(name)
+        etc_config = ConfigDict("cloudmesh.yaml", etc=True)
         config = ConfigDict("cloudmesh.yaml")
 
-        etc_data = etc_yaml[name]
-        yaml_data = config[name]
+        clouds = config["cloudmesh.clouds"]
+        clusters = config["cloudmesh.hpc.clusters"]
 
-        # recursive walk yaml fields
-        chanaged = False
-        for entry in etc_data:
-            old_value = value
-            if value of entry == "TBD"
-                print "ENTER": entryname, yaml_Data of entry
-                new_value = input
-                if old_value != new_value
-                    changed = True or changed
-        if changed wirte data to yaml file
-        '''
+        if name in clouds:
+            name = "cloudmesh.clouds.{}.credentials".format(name)
+        elif name in clusters:
+            name = "cloudmesh.hpc.clusters.{}.credentials".format(name)
+        elif not name.startswith("cloudmesh."):
+            name = "cloudmesh." + name
+
+        try:
+            etc = etc_config[name]
+            yaml = config[name]
+
+            # walk yaml
+            for key in etc:
+                if etc[key] == "TBD":
+                    result = input("Enter {:} ({:}): ".format(key, yaml[key]))
+                    if result != '':
+                        yaml[key] = result
+
+            config.save()
+        except Exception as e:
+            Console.error("Could not find {} in the yaml file".format(name), traceflag=False)
 
 
 class CloudRegister(object):
@@ -56,7 +68,7 @@ class CloudRegister(object):
             return None
 
     @classmethod
-    def list(cls, filename, info=False, output='table'):
+    def list(cls, filename, cloud, info=False, output='table'):
         """
         lists clouds from cloudmesh.yaml file
 
@@ -76,15 +88,19 @@ class CloudRegister(object):
                 "cloud": key,
                 "iaas": config["cloudmesh"]["clouds"][key]["cm_type"],
                 "version":
-                    config["cloudmesh"]["clouds"][key][
-                        "cm_type_version"] or "N/A"
+                    config["cloudmesh"]["clouds"][key]["cm_type_version"] or "",
+                # "active": "*" if key in config["cloudmesh"]["active"] else "",
+                "active": config["cloudmesh"]["active"].index(key) + 1 if key in config["cloudmesh"]["active"] else "",
+                "default": "*" if key == cloud else ""
             }
-        return Printer.dict_printer(d,
-                                    order=['id',
-                                           'cloud',
-                                           'iaas',
-                                           'version'],
-                                    output=output)
+        return Printer.Printer.write(d,
+                                     order=['id',
+                                            'default',
+                                            'cloud',
+                                            'iaas',
+                                            'version',
+                                            'active'],
+                                     output=output)
 
     @classmethod
     def list_ssh(cls):
@@ -100,8 +116,8 @@ class CloudRegister(object):
         for line in lines:
             if "Host " in line:
                 host = line.strip().replace("Host ", "", 1).replace(" ", "")
-                hosts.append(host)
-
+                dhost = {"host": host}
+                hosts.append(dhost)
         return hosts
 
     @classmethod
@@ -330,13 +346,12 @@ class CloudRegister(object):
                 "EC2_CERT": "{DEST}/cert.pem".format(**data),
                 "NOVA_CERT": "{DEST}/cacert.pem".format(**data),
                 "EUCALYPTUS_CERT": "{DEST}/cacert.pem".format(**data),
-                },
-                "default": {
-                    "flavor": "m1.small",
-                    "image": "None",
-                }
+            },
+            "default": {
+                "flavor": "m1.small",
+                "image": "None",
             }
-        from pprint import pprint
+        }
         config = ConfigDict("cloudmesh.yaml")
         config["cloudmesh"]["clouds"][cloud] = d
         config.save()
@@ -505,7 +520,7 @@ class CloudRegister(object):
         cm_heading = input(
             "Heading for the cloud (Default: {:} Cloud): ".format(cm_label)) or "{:} Cloud".format(cm_label)
 
-        cm_host = input("Cloud host name (Default: {:}): ".format(cloudname_suggest)) or "{:}"\
+        cm_host = input("Cloud host name (Default: {:}): ".format(cloudname_suggest)) or "{:}" \
             .format(cloudname_suggest)
 
         if provider is None:
@@ -516,7 +531,7 @@ class CloudRegister(object):
             cm_type = provider
 
         while cm_type not in ["openstack", "azure", "ec2"]:
-            print("\nSorry! Type of cloud '{:}' is invalid and should be one "
+            print("\nType of cloud '{:}' is invalid and should be one "
                   "of openstack/ azure/ ec2.\n"
                   .format(cm_type))
             cm_type = input("Type of the cloud- openstack/azure/ec2 "
@@ -565,5 +580,5 @@ class CloudRegister(object):
         :return:
         """
         config = ConfigDict("cloudmesh.yaml")
-        config['cloudmesh']['profile']['username'] = username
+        config['cloudmesh']['profile']['user'] = username
         config.save()

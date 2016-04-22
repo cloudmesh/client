@@ -60,7 +60,7 @@ class SyncCommand(PluginCommand, CloudPluginCommand):
                 --cloud=CLOUD   Sync with cloud
 
         """
-        cloudname = arguments["--cloud"] or Default.get_cloud()
+        cloudname = arguments["--cloud"] or Default.cloud
 
         if cloudname is None:
             Console.error("Default cloud has not been set!"

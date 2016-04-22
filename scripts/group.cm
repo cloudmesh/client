@@ -1,6 +1,6 @@
 register remote kilo
 
-# show teh defaukts
+# show the defaults
 cm default
 vm default
 

@@ -8,13 +8,15 @@
 # print (output)
 
 from __future__ import print_function
-import subprocess
+
 import glob
-import json
-import platform
 import os
-from cloudmesh_client.util import path_expand
-import zipfile,os.path
+import os.path
+import platform
+import subprocess
+import zipfile
+from cloudmesh_client.shell.console import Console
+from cloudmesh_client.common.util import path_expand
 
 
 class Shell(object):
@@ -46,7 +48,7 @@ class Shell(object):
 
     or do something more simple
 
-    ls = cls.execute('cmd', args...)   # i think that is what badi does
+    ls = cls.execute('cmd', args...)
 
     '''
 
@@ -147,8 +149,8 @@ class Shell(object):
         return cls.execute('nova', args)
 
     @classmethod
-    def ping(cls, *args):
-        return cls.execute('ping', args)
+    def ping(cls, host=None, count=1):
+        return cls.execute('ping', "-c {} {}".format(count, host))
 
     @classmethod
     def pwd(cls, *args):
@@ -296,16 +298,16 @@ class Shell(object):
         if 'windows' in t:
             # only for windows
             cls.find_cygwin_executables()
-            print ('\n'.join(cls.command['windows']))
+            print('\n'.join(cls.command['windows']))
         else:
-            print ("ERROR: this command is not supported for this OS")
+            print("ERROR: this command is not supported for this OS")
 
     @classmethod
     def operating_system(cls):
         return platform.system().lower()
 
     @classmethod
-    def execute(cls, cmd, arguments=""):
+    def execute(cls, cmd, arguments="", shell=False):
         """Run Shell command
 
         :param cmd: command to run
@@ -321,7 +323,7 @@ class Shell(object):
             os_command = [cmd]
         elif 'cygwin' in terminal:
             if not cls.command_exists(cmd):
-                print ("ERROR: the command could not be found", cmd)
+                print("ERROR: the command could not be found", cmd)
                 return
             else:
                 os_command = [cls.command[cls.operating_system()][cmd]]
@@ -333,13 +335,25 @@ class Shell(object):
         elif isinstance(arguments, str):
             os_command = os_command + arguments.split()
         else:
-            print ("ERROR: Wrong parameter type", type(arguments))
+            print("ERROR: Wrong parameter type", type(arguments))
 
-        result = subprocess.check_output(
-            os_command,
-            stderr=subprocess.STDOUT).rstrip()
-
-        return result.decode()
+        try:
+            if shell:
+                result = subprocess.check_output(
+                    os_command,
+                    stderr=subprocess.STDOUT,
+                    shell=True)
+            else:
+                result = subprocess.check_output(
+                    os_command,
+                    # shell=True,
+                    stderr=subprocess.STDOUT)
+        except:
+            Console.error("problem executing subprocess")
+        if result is None:
+            return result
+        else:
+            return result.strip().decode()
 
     @classmethod
     def mkdir(cls, newdir):
@@ -387,10 +401,10 @@ class Shell(object):
 def main():
     shell = Shell()
 
-    print (shell.terminal_type())
+    print(shell.terminal_type())
 
     r = shell.execute('pwd')  # copy line replace
-    print (r)
+    print(r)
 
     # shell.list()
 
@@ -406,19 +420,19 @@ def main():
         print ("---------------------")
     """
     r = shell.execute('ls', ["-l", "-a"])
-    print (r)
+    print(r)
 
     r = shell.execute('ls', "-l -a")
-    print (r)
+    print(r)
 
     r = shell.ls("-aux")
-    print (r)
+    print(r)
 
     r = shell.ls("-a", "-u", "-x")
-    print (r)
+    print(r)
 
     r = shell.pwd()
-    print (r)
+    print(r)
 
 
 if __name__ == "__main__":

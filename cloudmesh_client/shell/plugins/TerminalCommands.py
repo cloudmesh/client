@@ -1,14 +1,13 @@
 from __future__ import print_function
+
 import os
 import sys
-
 from builtins import input
-from cloudmesh_client.shell.command import command
-from cloudmesh_client.shell.console import Console
+
 from cloudmesh_client.shell.command import PluginCommand, ShellPluginCommand, \
     CometPluginCommand
-from cloudmesh_client.util import path_expand
-from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.shell.command import command
+from cloudmesh_client.shell.console import Console
 
 
 class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):

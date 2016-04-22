@@ -10,8 +10,10 @@ nosetests -v tests/cm_basic/test_shell.py
 
 """
 from __future__ import print_function
+
 from cloudmesh_client.common.Shell import Shell
-from cloudmesh_client.util import HEADING
+from cloudmesh_client.common.util import HEADING
+
 
 def run(command):
     parameter = command.split(" ")
@@ -20,23 +22,18 @@ def run(command):
     result = Shell.execute(shell_command, args)
     return str(result)
 
-class Test_shell():
+
+# noinspection PyMethodMayBeStatic,PyPep8Naming
+class Test_shell(object):
     """
 
     """
-
 
     def setup(self):
         pass
 
-
-
     def test_001(self):
-        """
-        check if we can run help
-        :return:
-        """
-        HEADING()
+        HEADING("check if we can run help:return: ")
         r = run("cm help")
         print(r)
         assert "Documented commands" in r

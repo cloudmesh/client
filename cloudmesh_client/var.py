@@ -1,14 +1,16 @@
 from __future__ import print_function
 
-from cloudmesh_client.common import Printer
-# from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
-from cloudmesh_client.cloud.ListResource import ListResource
+from cloudmesh_client.common.Printer import Printer
+from cloudmesh_client.db import CloudmeshDatabase
+# from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.ConfigDict import ConfigDict
+from .provider import Attributes
+from cloudmesh_client.shell.console import Console
+from cloudmesh_client.common.dotdict import dotdict
 
 
 # noinspection PyBroadException
-class Var(ListResource):
+class Var(object):
     """
     Cloudmesh contains the concept of defaults. Defaults can have
     categories (we will rename cloud to categories). A category can be a
@@ -18,14 +20,17 @@ class Var(ListResource):
 
     """
 
+    __kind__ = "var"
+    __provider__ = "general"
+
     cm = CloudmeshDatabase()
     """cm is  a static variable so that db is used uniformly."""
 
     @classmethod
     def list(cls,
-             format="table",
              order=None,
-             output=format):
+             header=None,
+             output='table'):
         """
         lists the default values in the specified format.
         TODO: This method has a bug as it uses format and output,
@@ -39,13 +44,17 @@ class Var(ListResource):
         :return:
         """
         if order is None:
-            order = ['name', 'value', 'user']
+            order, header = None, None
+            # order, header = Attributes(cls.__kind__, provider=cls.__provider__)
         try:
-            d = cls.cm.all("var")
-            return (Printer.dict_printer(d,
-                                         order=order,
-                                         output=format))
-        except:
+            result = cls.cm.all(provider=cls.__provider__, kind=cls.__kind__)
+
+            return (Printer.write(result,
+                                  order=order,
+                                  output=output))
+        except Exception as e:
+            Console.error("Error creating list", traceflag=False)
+            Console.error(e.message)
             return None
 
     #
@@ -53,7 +62,7 @@ class Var(ListResource):
     #
 
     @classmethod
-    def set(cls, key, value, user=None):
+    def set(cls, key, value, user=None, type='str'):
         """
         sets the default value for a given category
         :param key: the dictionary key of the value to store it at.
@@ -62,45 +71,25 @@ class Var(ListResource):
         :return:
         """
         try:
-            o = cls.get_object(key)
+            o = cls.get(name=key)
+            if o is not None:
+                cls.cm.update(kind=cls.__kind__,
+                              provider=cls.__provider__,
+                              filter={'name': key},
+                              update={'value': value,
+                                      'type': type})
 
-            me = cls.cm.user or user
-            if o is None:
-                o = cls.cm.db_obj_dict('var',
-                                       name=key,
-                                       value=value,
-                                       category="var",
-                                       user=me)
-                cls.cm.add_obj(o)
             else:
-                o.value = value
+                t = cls.cm.table(provider=cls.__provider__, kind=cls.__kind__)
+                o = t(name=key, value=value, type=type)
                 cls.cm.add(o)
-                # cls.cm.update(o)
             cls.cm.save()
-        except:
-            return None
+        except Exception as e:
+            Console.error("problem setting key value {}={}".format(key, value), traceflag=False)
+            Console.error(e.message)
 
     @classmethod
-    def get_object(cls, key):
-        """
-        returns the first object that matches the key in teh Default
-        database.
-
-        :param key: The dictionary key
-        :param category: The category
-        :return:
-        """
-        try:
-            arguments = {'name': key}
-            o = cls.cm.find('var',
-                            output='object',
-                            **arguments).first()
-            return o
-        except Exception:
-            return None
-
-    @classmethod
-    def get(cls, key):
+    def get(cls, name=None, output='dict', scope='first'):
         """
         returns the value of the first objects matching the key
         with the given category.
@@ -109,27 +98,16 @@ class Var(ListResource):
         :param category: The category
         :return:
         """
-        arguments = {'name': key}
-        o = cls.cm.find('var',
-                        output='dict',
-                        scope='first',
-                        **arguments)
-        if o is not None:
-            return o['value']
-        else:
-            return None
+        o = cls.cm.find(kind=cls.__kind__,
+                        provider=cls.__provider__,
+                        output=output,
+                        scope=scope,
+                        name=name)
+        return o
 
     @classmethod
-    def delete(cls, key):
-        try:
-            o = Var.get_object(key)
-            if o is not None:
-                cls.cm.delete(o)
-                return "Deletion. ok."
-            else:
-                return None
-        except:
-            return None
+    def delete(cls, name):
+        cls.cm.delete(name=name, provider=cls.__provider__, kind=cls.__kind__)
 
     @classmethod
     def clear(cls):
@@ -137,12 +115,4 @@ class Var(ListResource):
         deletes all default values in the database.
         :return:
         """
-        try:
-            d = cls.cm.all('var')
-            for item in d:
-                name = d[item]["name"]
-                cls.cm.delete_by_name('var', name)
-            cls.cm.save()
-        except:
-            return None
-
+        cls.cm.delete(provider=cls.__provider__, kind=cls.__kind__)

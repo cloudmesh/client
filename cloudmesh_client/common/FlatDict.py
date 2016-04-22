@@ -97,10 +97,11 @@ class FlatDict(dict):
     def __getattr__(self, attr):
         return self.get(attr)
 
+'''
 
 def main():
     d = {
-        'cm_cloud': 'kilo',
+        'cm_cloud': Default.cloud,
         'cm_update': '2015-06-18 22:11:48 UTC',
         'cm_user': 'gregor',
         'extra': {'created': '2015-05-21T20:37:10Z',
@@ -143,7 +144,7 @@ def main():
                   'flavorId': '1',
                   'hostId': '',
                   'imageId': 'abcd',
-                  'key_name': None,
+                  'key': None,
                   'metadata': {},
                   'password': '********',
                   'tenantId': '1234',
@@ -182,3 +183,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+'''

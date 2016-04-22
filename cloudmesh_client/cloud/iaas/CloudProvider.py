@@ -6,6 +6,7 @@ import requests
 from cloudmesh_client.common.Error import Error
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2 import CloudProviderLibcloudEC2
+from cloudmesh_client.shell.console import Console
 
 requests.packages.urllib3.disable_warnings()
 
@@ -16,9 +17,11 @@ class CloudProvider(CloudProviderBase):
 
         try:
             d = ConfigDict("cloudmesh.yaml")
-            if not cloudname in d["cloudmesh"]["clouds"]:
-                raise ValueError("the cloud {} is not defined in the yaml file. failed."
-                                 .format(cloudname))
+
+            if cloudname not in d["cloudmesh"]["clouds"]:
+                Console.error("the cloud {} is not defined in the yaml file. failed."
+                                 .format(cloudname), traceflag=False)
+                return
 
             cloud_details = d["cloudmesh"]["clouds"][cloudname]
 
@@ -40,7 +43,7 @@ class CloudProvider(CloudProviderBase):
 
             if cloud_details["cm_type"] == "azure":
                 raise ValueError("azure cloud provider yet implemented. failed.")
-                TODO.implement()
+                Console.TODO("Azure provider to be implemented")
 
         except Exception as e:
             Error.traceback(e)
@@ -55,7 +58,7 @@ def main():
     cloud = "kilo"
     provider = CloudProvider(cloud).provider
 
-    print (provider, type(provider))
+    print(provider, type(provider))
 
     # pprint (provider.__dict__)
     # pprint (dir(provider))
@@ -63,7 +66,7 @@ def main():
     r = provider.list_flavor(cloud)
     pprint(r)
 
-    for kind in ["flavor", "image", "vm", "limits", "quota"]:
+    for kind in ["flavor", "image", "vm", "key"]:  # "limits", "quota"]:
         r = provider.list(kind, cloud)
         pprint(r)
 

@@ -1,12 +1,12 @@
-from cloudmesh_client.shell.console import Console
-from cloudmesh_client.shell.command import command
-from cloudmesh_client.cloud.hpc.BatchProvider import BatchProvider
-from cloudmesh_client.default import Default
-from cloudmesh_client.util import yn_choice
 from cloudmesh_client.cloud.experiment import Experiment
+from cloudmesh_client.cloud.hpc.BatchProvider import BatchProvider
+from cloudmesh_client.common.Printer import Printer
+from cloudmesh_client.common.util import yn_choice
+from cloudmesh_client.default import Default
 from cloudmesh_client.shell.command import PluginCommand, HPCPluginCommand, \
     CometPluginCommand
-from cloudmesh_client.common.Printer import attribute_printer
+from cloudmesh_client.shell.command import command
+from cloudmesh_client.shell.console import Console
 
 
 # noinspection PyBroadException
@@ -126,7 +126,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
             Console.msg(batch.info(cluster, format))
 
         elif arguments['delete'] and arguments['all']:
-            group = arguments['--group'] or Default.get('group')
+            group = arguments['--group'] or Default.get(name='group')
             if group is None:
                 Console.error('set default group using: default group=<value> --cloud=general')
                 return
@@ -152,17 +152,17 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
         elif arguments["run"] and arguments["list"]:
             # hpc experiment list [--cluster=CLUSTER]
             if arguments["ID"]:
-                print ("# List of experiment {ID} on Cluster {CLUSTER}".format(**arguments))
+                print("# List of experiment {ID} on Cluster {CLUSTER}".format(**arguments))
                 result = Experiment.list(cluster, id=arguments["ID"], format="list")
                 if result is not None:
-                    print ("\n".join(result))
+                    print("\n".join(result))
                 else:
                     Console.error("Could not find experiment {ID} on {CLUSTER}".format(**arguments))
             else:
-                print ("# List of experiments on Cluster {CLUSTER}".format(**arguments))
+                print("# List of experiments on Cluster {CLUSTER}".format(**arguments))
                 ids = Experiment.list(cluster, id=None, format="list")
                 if ids is not None:
-                    print (", ".join([str(i) for i in ids]))
+                    print(", ".join([str(i) for i in ids]))
                 else:
                     Console.error("Could not find experiment {ID} on {CLUSTER}".format(**arguments))
 
@@ -198,26 +198,26 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
         elif arguments["run"] and arguments["output"]:
             # hpc experiment list [--cluster=CLUSTER]
             if arguments["ID"]:
-                print ("# List of experiment {ID} on Cluster {CLUSTER}".format(**arguments))
+                print("# List of experiment {ID} on Cluster {CLUSTER}".format(**arguments))
                 result = Experiment.output(cluster, id=arguments["ID"], format="list")
                 if result is not None:
-                    print ("\n".join(result))
+                    print("\n".join(result))
                 else:
                     Console.error("Could not find experiment {ID} on {CLUSTER}".format(**arguments))
             else:
-                print ("# List of experiments on Cluster {CLUSTER}".format(**arguments))
+                print("# List of experiments on Cluster {CLUSTER}".format(**arguments))
                 ids = Experiment.output(cluster, id=None, format="list")
                 if ids is not None:
-                    print (", ".join([str(i) for i in ids]))
+                    print(", ".join([str(i) for i in ids]))
                 else:
                     Console.error("Could not find experiment {ID} on {CLUSTER}".format(**arguments))
 
         elif arguments["run"]:
-            queue = arguments['--queue'] or Default.get('queue')
+            queue = arguments['--queue'] or Default.get(name='queue')
             # if not queue:
             #    Console.error('set default queue using: default queue=<value>')
             #    return
-            group = arguments['--group'] or Default.get('group')
+            group = arguments['--group'] or Default.get(name='group')
             if group is None:
                 Console.error('set default group using: default group=<value> --cloud=general')
                 return
@@ -232,7 +232,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
 
             result = batch.run(cluster, group, script, **arg_dict)
             if isinstance(result, dict):
-                print (attribute_printer(result))
+                print(Printer.attribute(result))
                 Console.ok("Experiment {count}: Started batch job {job_id} on {cluster}".format(**result))
             else:
                 Console.error(result)

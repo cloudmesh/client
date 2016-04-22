@@ -4,6 +4,7 @@ from novaclient import client
 import argparse
 # TODO: please use docopts even if its just a test
 
+
 class OpenStackProvider(object):
     # OpenStack Instance
     server = None
