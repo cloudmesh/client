@@ -227,7 +227,7 @@ class Cluster(object):
                     '''
                     data[index] = bnode
 
-                result_print = list_printer(data,
+                result_print = Printer.write(data,
                                       order=[
                                           "name",
                                           "state",
@@ -261,7 +261,7 @@ class Cluster(object):
 
                                       sort_keys=('cluster', 'mac'))
                 if "table" == format:
-                    result_print = list_printer(data,
+                    result_print = Printer.write(data,
                           order=[
                               "name",
                               "state",
@@ -295,7 +295,7 @@ class Cluster(object):
                           sort_keys=('cluster','mac'))
                     result += str(result_print)
                 else:
-                    result_print = list_printer(data,
+                    result_print = Printer.write(data,
                       order=[
                           "name",
                           "state",
@@ -478,7 +478,7 @@ class Cluster(object):
                 #anode["ip"] = "; ".join(ips)
             del bnode["interface"]
             data[index] = bnode
-        result += str(list_printer(data,
+        result += str(Printer.write(data,
                                    order=[
                                        "name",
                                        "state",
