@@ -802,7 +802,6 @@ class CloudmeshDatabase(object):
         if len(kwargs) == 0:
             result = cls.session.query(t).delete()
         else:
-            print ("HHHH", kwargs)
             result = cls.session.query(t).filter_by(**kwargs).delete()
         cls.save()
 
