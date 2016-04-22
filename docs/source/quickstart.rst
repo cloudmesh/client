@@ -42,7 +42,7 @@ assume you want to know more about the command `color`, say
 
 	     
 
-Deafults and VAriables
+Defaults and Variables
 ----------------------------------
 
 The cloudmesh shell contains a number of useful concepts. This
@@ -154,9 +154,11 @@ can set it with the following command:
 	     default group=experiment_a
 
 Next, you need to upload your ssh keys to the cloud. If you already
-have a key-pair you can use it, or else you can generate ssh keys using::
+have a key-pair you can use it, or else you can generate ssh keys using:
 
-    $ ssh-keygen -t rsa -C albert@gmail.com
+.. prompt:: bash $
+
+	    ssh-keygen -t rsa -C albert@gmail.com
 
 This will generate a keypair id_rsa.pub (public key) and id_rsa (private key)
 in the ~/.ssh/ directory. Next you need to add this key to cloudmesh
@@ -256,7 +258,7 @@ To associate a floating ip to an instance (albert-001) in our case, use:
 
 .. prompt:: cm, cm>
 
-	     network associate floating ip --instance=albert-001
+	     vm ip assign albert-001
 
 Listing VMs will now show you this floating ip:
 
@@ -280,14 +282,22 @@ Logging into the cloud is now as simple as:
 
 This should get you through to the ssh session to the VM.The user name
 to be used at login is either automatically detected and added to the
-vm information. If you like to change the username you can use the
+vm information. If you like to change the username for the login you can use the
 username parameter
 
 .. prompt:: cm, cm>
 
 	     vm login albert-001 --username=ubuntu
 
-Subsequent logins to this VM will than use the username ubuntu.
+To change the default username for a vm you can use the command
+
+.. prompt:: cm, cm>
+
+
+	    vm username ubuntu albert-001
+
+This will set the username for the vm `albert-001` to `ubuntu`
+
 
 To delete a VM, you use the vm name:
 
@@ -295,6 +305,41 @@ To delete a VM, you use the vm name:
 
 	     vm delete albert-001
 
+VM Quickstart
+-------------
+
+To summarize the steps to start a working cloudmesh client and prepare
+a simple default while using the `futuresystems.org` cloud use the commands:
+
+
+
+.. prompt:: cm, cm>
+
+	    cm add key --ssh
+	    cm register remote
+	    cm default cloud=kilo
+	    cm refresh on
+	    cm info
+
+Inspect the info and see if the settings satisfy your needs. Change
+them accordingly with the cloudmesh commands.
+
+Now booting and managing a vm is real simple
+
+.. prompt:: cm, cm>
+
+	    cm boot
+	    cm ip assign
+	    cm login
+
+And to delete the vm
+
+.. prompt:: cm, cm>
+
+	    cm delete --force
+
+	 
+	     
 HPC
 -----
 
