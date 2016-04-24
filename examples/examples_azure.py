@@ -27,10 +27,20 @@ result = sms.list_locations()
 for location in result:
     print(location.name)
 
+#
+# We need to place this into common I Think and reconciliate with FlatDict,
+# to be done later
+#
+#class FlatDict2(object):
+
 primitive = (int, str, bool, unicode, dict, list)
 
+# @classmethod
 def is_primitive(thing):
     return type(thing) in primitive
+
+# @classmethod
+# def convert(obj)
 
 def object_to_dict(obj):
     """
@@ -73,6 +83,8 @@ for hosted_service in result:
 
     for key, deployment in enumerate(hosted_service_detail.deployments):
         print("Dict of the VM Object",key)
+        # dictAA = FlatDict2.convert(deployment)
+
         dictAA = object_to_dict(deployment)
         pprint(dictAA)
         print("Flattened Dict of VM")
