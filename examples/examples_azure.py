@@ -2,7 +2,7 @@ from __future__ import print_function
 from azure import *
 from azure.servicemanagement import *
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_client.common.FlatDict import FlatDict
+from cloudmesh_client.common.FlatDict2 import FlatDict2
 
 from pprint import pprint
 
@@ -27,50 +27,6 @@ result = sms.list_locations()
 for location in result:
     print(location.name)
 
-#
-# We need to place this into common I Think and reconciliate with FlatDict,
-# to be done later
-#
-#class FlatDict2(object):
-
-primitive = (int, str, bool, unicode, dict, list)
-
-# @classmethod
-def is_primitive(thing):
-    return type(thing) in primitive
-
-# @classmethod
-# def convert(obj)
-
-def object_to_dict(obj):
-    """
-        This function converts Objects into Dictionary
-    """
-    dict_obj = dict()
-    if obj is not None:
-        if type(obj) == list:
-            dict_list = []
-            for inst in obj:
-                dict_list.append(object_to_dict(inst))
-            dict_obj["list"] = dict_list
-
-        elif not is_primitive(obj):
-            for key in obj.__dict__:
-                # is an object
-                if type(obj.__dict__[key]) == list:
-                    dict_list = []
-                    for inst in obj.__dict__[key]:
-                        dict_list.append(object_to_dict(inst))
-                    dict_obj[key] = dict_list
-                elif not is_primitive(obj.__dict__[key]):
-                    temp_dict = object_to_dict(obj.__dict__[key])
-                    dict_obj[key] = temp_dict
-                else:
-                    dict_obj[key] = obj.__dict__[key]
-        elif is_primitive(obj):
-            return obj
-    return dict_obj
-
 pprint("===========VM LIST============")
 
 ## http://azure-sdk-for-python.readthedocs.org/en/latest/_modules/azure/servicemanagement/models.html#HostedService
@@ -81,14 +37,20 @@ for hosted_service in result:
     pprint("Detail of:" + hosted_service.service_name)
     hosted_service_detail = sms.get_hosted_service_properties(hosted_service.service_name, embed_detail=True)
 
+    # flat_dict = _to_dict(hosted_service_detail)
+    flat_dict = FlatDict2.convert(hosted_service_detail)
+    pprint("PRINITNG FLATDICT")
+    pprint(flat_dict)
+    pprint("=======ENd PRINITNG FLATDICT")
     for key, deployment in enumerate(hosted_service_detail.deployments):
         print("Dict of the VM Object",key)
         # dictAA = FlatDict2.convert(deployment)
 
-        dictAA = object_to_dict(deployment)
-        pprint(dictAA)
-        print("Flattened Dict of VM")
-        pprint(FlatDict(dictAA))
+        # dictAA = object_to_dict(deployment)
+        # pprint(dictAA)
+        # print("Flattened Dict of VM")
+        # pprint(FlatDict(dictAA))
+
 
     # pprint(hosted_service_detail.deployments)
     # for deployment in hosted_service_detail.deployments:
