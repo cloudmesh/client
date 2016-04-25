@@ -60,4 +60,4 @@ for node in nodes:
 # Terminate VM
 boolean = driver.destroy_node(node, cloudname)
 # Delete Cloud Service
-boolean = ex_destroy_cloud_service(cloudname)
+boolean = driver.ex_destroy_cloud_service(cloudname)
