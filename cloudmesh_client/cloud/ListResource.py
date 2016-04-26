@@ -1,5 +1,5 @@
 from future.utils import with_metaclass
-
+from cloudmesh_client.common.Printer import Printer
 
 class ListResource(object):
     def _init__(self,
