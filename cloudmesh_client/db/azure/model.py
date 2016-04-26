@@ -47,29 +47,31 @@ class IMAGE_AZURE(CloudmeshMixin, CloudmeshDatabase.Base):
     __kind__ = 'image'
     __provider__ = "azure"
 
-    uuid = Column(String)
-    affinity_group = Column(String)
-    category = Column(String)
-    description = Column(String)
-    location = Column(String)
-    media_link = Column(String)
-    os = Column(String)
-    vm_image = Column(String)
-    id = Column(String)
+    uuid = Column(String)               # name
+    affinity_group = Column(String)     # affinity_group
+    category = Column(String)           # category
+    label = Column(String)              # label
+    description = Column(String)        # description
+    location = Column(String)           # location
+    media_link = Column(String)         # media_link
+    os = Column(String)                 # os
+    vm_image = Column(String)           # name
+    image_family = Column(String)       # image_family
 
     def __init__(self,
                  **kwargs):
         super(IMAGE_AZURE, self).set_defaults(**kwargs)
 
-        self.uuid = kwargs.get('uuid')
+        self.uuid = kwargs.get('name')
         self.affinity_group = kwargs.get('affinity_group')
         self.category = kwargs.get('category')
+        self.label = kwargs.get('label')
         self.description = kwargs.get('description')
         self.location = kwargs.get('location')
         self.media_link = kwargs.get('media_link')
         self.os = kwargs.get('os')
         self.vm_image = kwargs.get('vm_image')
-        self.id = kwargs.get('id')
+        self.image_family = kwargs.get('image_family')
 
 
 # noinspection PyPep8Naming
@@ -79,29 +81,65 @@ class FLAVOR_AZURE(CloudmeshMixin, CloudmeshDatabase.Base):
     __kind__ = 'flavor'
     __provider__ = "azure"
 
-    uuid = Column(String)
-    bandwidth = Column(String)
-    disk = Column(String)
-    driver = Column(String)
-    extra = Column(String)
-    cores = Column(String)
-    max_data_disks = Column(String)
-    id = Column(String)
-    name = Column(String)
-    price = Column(String)
-    ram = Column(String)
+    uuid = Column(String)                                       # name
+    label = Column(String)                                      # label
+    web_worker_resource_disk_size = Column(String)             # web_worker_resource_disk_size_in_mb
+    virtual_machine_resource_disk_size = Column(String)         # virtual_machine_resource_disk_size_in_mb
+    ram = Column(String)                                     # memory_in_mb
+    cores = Column(String)                                      # cores
+    max_data_disks = Column(String)                             # max_data_disk_count
+    name = Column(String)                                       # name
 
     def __init__(self,
                  **kwargs):
         super(FLAVOR_AZURE, self).set_defaults(**kwargs)
 
-        self.uuid = kwargs.get('uuid')
-        self.bandwidth = kwargs.get('bandwidth')
-        self.disk = kwargs.get('disk')
-        self.driver = kwargs.get('driver')
-        self.extra = kwargs.get('extra')
-        self.cores = kwargs.get('cores')
-        self.max_data_disks = kwargs.get('max_data_disks')
-        self.id = kwargs.get('id')
-        self.price = kwargs.get('price')
-        self.ram = kwargs.get('ram')
+        self.uuid = kwargs.get('name')
+        self.label = kwargs.get("label", None)
+        self.web_worker_resource_disk_size = kwargs.get("web_worker_resource_disk_size", None)
+        self.virtual_machine_resource_disk_size = kwargs.get("virtual_machine_resource_disk_size", None)
+        self.ram = kwargs.get("ram", None)
+        self.cores = kwargs.get("cores", None)
+        self.max_data_disks = kwargs.get("max_data_disks", None)
+        self.name = kwargs.get("name", None)
+
+
+class VM_AZURE(CloudmeshMixin, CloudmeshDatabase.Base):
+    __tablename__ = "vm_azure"
+
+    __kind__ = 'vm'
+    __provider__ = "azure"
+    __mergefields__ = ["username"]
+
+    username = Column(String)
+    uuid = Column(String)                   # deployments, deployments [ private_id ]
+    instance_name = Column(String)          # deployments, deployments [ name ]
+    cloud_service = Column(String)          # service_name
+    status = Column(String)                 # deployments, deployments [ status ]
+    public_ips = Column(String)             # deployments, deployments [ virtual_ips__virtual_ips, address]
+    private_ips = Column(String)            # deployments, deployments [ role_instance_list__role_instances, ip_address]
+    image_name = Column(String)             # deployments, deployments [role_list__roles[ os_virtual_hard_disk,source_image_name]]
+    resource_location = Column(String)      # hosted_service_properties,hosted_service_properties,ResourceLocation
+    deployment_slot = Column(String)        # deployments, deployments [ deployment_slot ]
+    dns_name = Column(String)               # deployments, deployments [ url ]
+    instance_size = Column(String)          # deployments, deployments [ role_instance_list__role_instances [ instance_size]]
+    media_link = Column(String)             # deployments, deployments [ role_list__roles[ os_virtual_hard_disk, media_link ]]
+    disk_name = Column(String)              # deployments, deployments [role_list__roles[ os_virtual_hard_disk,disk_name]]
+
+    def __init__(self, **kwargs):
+        super(VM_AZURE, self).set_defaults(**kwargs)
+
+        self.uuid = kwargs.get("id")
+        self.username = kwargs.get("username", None)
+        self.instance_name = kwargs.get("instance_name", None)
+        self.cloud_service = kwargs.get("cloud_service", None)
+        self.status = kwargs.get("status", None)
+        self.public_ips = kwargs.get("public_ips", None)
+        self.private_ips = kwargs.get("private_ips", None)
+        self.image_name = kwargs.get("image_name", None)
+        self.resource_location = kwargs.get("resource_location", None)
+        self.deployment_slot = kwargs.get("deployment_slot", None)
+        self.dns_name = kwargs.get("dns_name", None)
+        self.instance_size = kwargs.get("instance_size", None)
+        self.media_link = kwargs.get("media_link", None)
+        self.disk_name = kwargs.get("disk_name", None)

@@ -844,9 +844,9 @@ launcher
 Command - launcher::
 
       Usage:
-          launcher list [NAME] [--cloud=CLOUD] [--format=FORMAT] [--all]
+          launcher list [NAMES] [--cloud=CLOUD] [--format=FORMAT] [--source=db|dir]
           launcher add NAME SOURCE
-          launcher delete [NAME] [--cloud=CLOUD]
+          launcher delete [NAMES] [--cloud=CLOUD]
           launcher clear
           launcher run [NAME]
           launcher resume [NAME]
@@ -1212,12 +1212,15 @@ Command - register::
 
     Usage:
         register info
-        register new
+        register new [--force] [--dryrun]
         register clean [--force]
         register list ssh [--format=FORMAT]
         register list [--yaml=FILENAME][--info][--format=FORMAT]
         register cat [--yaml=FILENAME]
         register edit [--yaml=FILENAME]
+        register user [USERNAME]
+        register cloud [CLOUD] [--force]
+        register remote [CLOUD] [--force]
         register export HOST [--password] [--format=FORMAT]
         register source HOST
         register merge FILEPATH
@@ -1225,12 +1228,9 @@ Command - register::
         register check [--yaml=FILENAME]
         register test [--yaml=FILENAME]
         register json HOST
-        register remote [CLOUD] [--force]
         register env [--provider=PROVIDER]
-        register profile --username=[USERNAME]
-        register yaml ENTRY
-        register cloud [CLOUD] [--force]
         register ec2 CLOUD EC2ZIP
+        register ENTRY
 
     managing the registered clouds in the cloudmesh.yaml file.
     It looks for it in the current directory, and than in
@@ -1262,8 +1262,8 @@ Command - register::
     Description:
 
         register info
-            It looks out for the cloudmesh.yaml file in the current
-            directory, and then in ~/.cloudmesh
+            lists the clouds specified in the cloudmesh.yaml
+            file in the current directory, and then in ~/.cloudmesh
 
         register list [--yaml=FILENAME] [--name] [--info]
             lists the clouds specified in the cloudmesh.yaml file. If
@@ -1765,6 +1765,62 @@ Command - var::
 
     special vars date and time are defined
 
+vc
+----------------------------------------------------------------------
+Command - vc::
+
+    Usage:
+        vc key add KEYFILE NAMES [--username=USERNAME] [--proxy=PROXY]
+        vc key distribute NAMES [--username=USERNAME] [--proxy=PROXY]
+        vc key list NAMES [--usort] [--username=USERNAME] [--proxy=PROXY] [--format=FORMAT]
+        vc key proxy NAMES [--username=USERNAME] [--proxy=PROXY]
+
+    Options:
+       --format=FORMAT  the output format [default: table]
+
+    Description:
+
+        see examples
+
+    Examples:
+        cm vc key add keys.txt gregor-[001-010]
+            adds the keys in the file keys.txt to the authorized_keys file
+            in the user that is registered for the vm
+
+        cm vc key add keys.txt gregor-[001-010] --username=ubuntu
+            adds the keys in the file keys.txt to the authorized_keys file
+            in the user ubuntu for each of the vms
+
+        vc key distribute gregor-[001-010]
+            gathers the keys from the host gathers it into a single file
+            and adds them to the authorized keys file. Duplicated keys will
+            be ignored.
+
+        vc key list gregor-[001-010] [--usort]
+            creates a table with all keys in authorized_keys from all of the
+            remote machines. If the parameter usort is specified it only lists
+            the key once, but lists in the host column the list of all host on
+            which the key is stored
+
+        Proxy server
+
+            vc key proxy NAMES
+                sometimes you may not have enough floating IPs so it is possible to dedicate one machine
+                as a proxy server that has such a floating ip. The way this is done is that you need to set
+                up ssh tunnels via the proxy server in your  .ssh/config file. The command will print a
+                template that you could include in your .ssh/config file to gain easily access to your other
+                machines without floating ip. For example it will generate the following for a given PROXY host,
+                USERNAME, and vm1 is the name of the first vm in NAMES
+
+                Host vm1
+                    User  USERNAME
+                    Hostname PROXY
+                    ProxyCommand  ssh 10.1.1.2 nc %h %p
+                    ForwardX11 yes
+
+                Note: this is just a draft and will be improved upon discussion with the team
+
+
 verbose
 ----------------------------------------------------------------------
 Command - verbose::
@@ -1949,4 +2005,31 @@ Command - vm::
         convenient when you need a range of VMs e.g. sample[1-3]
         => ['sample1', 'sample2', 'sample3']
         sample[1-3,18] => ['sample1', 'sample2', 'sample3', 'sample18']
+
+
+workflow
+----------------------------------------------------------------------
+Command - workflow::
+
+    Usage:
+        workflow refresh [--cloud=CLOUD] [-v]
+        workflow list [ID] [--cloud=CLOUD] [--format=FORMAT] [--refresh] [-v]
+        workflow add NAME LOCATION
+        workflow delete NAMES
+        workflow status [NAMES]
+        workflow show NAMES
+
+        This lists out the workflows present for a cloud
+
+    Options:
+       --format=FORMAT  the output format [default: table]
+       --cloud=CLOUD    the cloud name
+       --refresh        refreshes the data before displaying it
+                        from the cloud
+
+    Examples:
+        cm workflow refresh
+        cm workflow list
+        cm workflow list --format=csv
+        cm workflow show 58c9552c-8d93-42c0-9dea-5f48d90a3188 --refresh
 

@@ -22,7 +22,7 @@ class Cluster(object):
     SECS_PER_DAY = 60 * 60 * 24
     STUCK_COMPUTESETS = ["submitted", "ending"]
     FINISHED_COMPUTESETS = ["completed", "failed"]
-    ACTIVE_COMPUTESETS = ["running", "running", "submitted", "created"]
+    ACTIVE_COMPUTESETS = ["running", "submitted", "created"]
     PENDING_COMPUTESETS = ["queued", "submitted", "created"]
 
     @staticmethod
@@ -112,7 +112,9 @@ class Cluster(object):
                               .format(id))
                 return result
             r = [r]
-
+        #
+        # stuck state included in cluster data via API
+        '''
         stuck_computesets = {}
         computesets = Comet.get_computeset()
         if computesets:
@@ -127,12 +129,25 @@ class Cluster(object):
                     for node in nodes:
                         stuck_computesets[cluster][node["name"]] = \
                             "{}({})".format(id, computeset["state"])
+        '''
+        #
+        # getting account/allocation for each computeset
+        # to display in the cluster view
+        computeset_account = {}
+        stuck_computesets = {}
+        computesets = Comet.get_computeset()
+        if computesets:
+            for computeset in computesets:
+                id = computeset["id"]
+                account = computeset["account"]
+                if id not in computeset_account:
+                    computeset_account[id] = account
 
         if r is not None:
             if format == "rest":
                 result = r
             else:
-
+                result = ''
                 data = []
 
                 empty = {
@@ -147,16 +162,24 @@ class Cluster(object):
                     'state': None,
                     'type': None,
                     'computeset': None,
-                    'kind': 'frontend'
+                    'kind': 'frontend',
+                    'admin_state': None
                 }
 
-                for cluster in r:
+                for cluster in sorted(r, key=lambda x: x["name"]):
 
                     clients = cluster["computes"]
                     for client in clients:
                         client["kind"] = "compute"
                     frontend = dict(empty)
                     frontend.update(cluster["frontend"])
+                    pubip = cluster["frontend"]["pub_ip"]
+                    frontend["ip"] = pubip
+                    frontend["admin_state"] = cluster["frontend"]["frontend_state"]
+                    result += "Cluster: %s\tFrontend: %s\tIP: %s\n" % \
+                                (cluster["name"],
+                                 cluster["frontend"]["name"],
+                                 pubip)
                     if len(clients) > 0:
                         frontend['cluster'] = clients[0]['cluster']
                     else:
@@ -176,16 +199,35 @@ class Cluster(object):
                             bnode["mac"] = "\n".join(macs)
                         else:
                             bnode["mac"] = ";".join(macs)
-                            # anode["ip"] = "; ".join(ips)
-                    del bnode["interface"]
 
+                        if "active_computeset_state" in anode and \
+                                    anode["active_computeset"] is not None and \
+                                    anode["active_computeset_state"] is not None:
+                            if anode["active_computeset_state"] != 'running':
+                                bnode["active_computeset"] = "%s(%s)" % \
+                                                    (anode["active_computeset"],
+                                                     anode["active_computeset_state"])
+                            else:
+                                if anode["active_computeset"] in computeset_account:
+                                    bnode["allocation"] = \
+                                        computeset_account[anode["active_computeset"]]
+
+                        if "compute_state" in anode:
+                            bnode["admin_state"] = anode["compute_state"]
+                        #anode["ip"] = "; ".join(ips)
+
+                    del bnode["interface"]
+                    #
+                    # stuck state included in cluster data via API
+                    '''
                     if bnode["cluster"] in stuck_computesets and \
                                     bnode["name"] in stuck_computesets[bnode["cluster"]]:
                         bnode["active_computeset"] = \
                             stuck_computesets[bnode["cluster"]][bnode["name"]]
+                    '''
                     data[index] = bnode
 
-                result = Printer.list(data,
+                result_print = Printer.write(data,
                                       order=[
                                           "name",
                                           "state",
@@ -197,7 +239,9 @@ class Cluster(object):
                                           "cluster",
                                           "memory",
                                           "disksize",
-                                          "active_computeset"
+                                          "active_computeset",
+                                          "allocation",
+                                          "admin_state"
                                       ],
                                       header=[
                                           "name",
@@ -209,10 +253,82 @@ class Cluster(object):
                                           "cluster",
                                           "RAM(M)",
                                           "disk(G)",
-                                          "computeset"
+                                          "computeset",
+                                          "allocation",
+                                          "admin_state"
                                       ],
                                       output=format,
+
                                       sort_keys=('cluster', 'mac'))
+                if "table" == format:
+                    result_print = Printer.write(data,
+                          order=[
+                              "name",
+                              "state",
+                              "kind",
+                              "type",
+                              "mac",
+                              #"ip",
+                              "cpus",
+                              "cluster",
+                              "memory",
+                              "disksize",
+                              "active_computeset",
+                              "allocation",
+                              "admin_state"
+                          ],
+                          header=[
+                              "name",
+                              "state",
+                              "kind",
+                              "type",
+                              "mac",
+                              "cpus",
+                              "cluster",
+                              "RAM(M)",
+                              "disk(G)",
+                              "computeset",
+                              "allocation",
+                              "admin_state"
+                          ],
+                          output=format,
+                          sort_keys=('cluster','mac'))
+                    result += str(result_print)
+                else:
+                    result_print = Printer.write(data,
+                      order=[
+                          "name",
+                          "state",
+                          "kind",
+                          "type",
+                          "mac",
+                          "ip",
+                          "cpus",
+                          "cluster",
+                          "memory",
+                          "disksize",
+                          "active_computeset",
+                          "allocation",
+                          "admin_state"
+                      ],
+                      header=[
+                          "name",
+                          "state",
+                          "kind",
+                          "type",
+                          "mac",
+                          "ip",
+                          "cpus",
+                          "cluster",
+                          "RAM(M)",
+                          "disk(G)",
+                          "computeset",
+                          "allocation",
+                          "admin_state"
+                      ],
+                      output=format,
+                      sort_keys=('cluster','mac'))
+                    result = result_print
             return result
 
     @staticmethod
@@ -270,107 +386,112 @@ class Cluster(object):
 
     @staticmethod
     def computeset(id=None, cluster=None, state=None, allocation=None):
-        computesets = Comet.get_computeset(id)
+        #
+        # state could be one of
+        # ['created' or 'submitted' or 'failed' or 'running' 
+        #   or 'cancelled' or 'ending' or 'completed']
+        computesets = Comet.get_computeset(id, state)
         if computesets is not None:
             if 'cluster' in computesets:
-                result = Cluster.output_computeset(computesets, state='ALL')
+                result = Cluster.output_computeset(computesets)
             else:
                 result = ''
                 for acomputeset in computesets:
                     result += Cluster.output_computeset(acomputeset,
                                                         cluster,
-                                                        state,
                                                         allocation)
         else:
             result = "No computeset exists with the specified ID"
         return result
 
     @staticmethod
-    def output_computeset(computesetdict, cluster=None, state=None, allocation=None):
+    def output_computeset(computesetdict, cluster=None, allocation=None):
         # print (cluster, state, allocation)
         result = ""
         # filter out based on query criteria
         if cluster and 'cluster' in computesetdict:
             if computesetdict["cluster"] != cluster:
                 return result
-        if state and 'state' in computesetdict:
-            if "ALL" != state and computesetdict["state"] != state:
-                return result
+        # no longer needing state filter as handled by API
+        # if state and 'state' in computesetdict:
+        #     if "ALL" != state and computesetdict["state"] != state:
+        #         return result
         if allocation and 'account' in computesetdict:
             if computesetdict["account"] != allocation:
                 return result
 
-        if (state and ("ALL" == state or computesetdict["state"] == state)) or \
-                (computesetdict["state"] not in Cluster.FINISHED_COMPUTESETS):
-            starttime = ''
-            endtime = ''
-            walltime = ''
-            runningTime = ''
-            remainingTime = ''
-            if 'walltime_mins' in computesetdict:
-                walltime = computesetdict["walltime_mins"]
-                walltime_seconds = walltime * 60
-                walltime = Cluster.format_ddd_hh_mm(walltime_seconds)
-            if 'start_time' in computesetdict and \
-                            computesetdict["start_time"] is not None:
-                start_seconds = int(computesetdict["start_time"])
-                end_seconds = start_seconds + walltime_seconds
-                if computesetdict["state"] in Cluster.FINISHED_COMPUTESETS \
-                        or computesetdict["state"] == 'ending':
-                    runningSecs = walltime_seconds
-                else:
-                    runningSecs = int(time.time()) - start_seconds
-                remainingSecs = walltime_seconds - runningSecs
-                starttime = time.strftime("%D %H:%M %Z",
-                                          time.localtime(start_seconds))
-                endtime = time.strftime("%D %H:%M %Z",
-                                        time.localtime(end_seconds))
-                runningTime = Cluster.format_ddd_hh_mm(runningSecs)
-                remainingTime = Cluster.format_ddd_hh_mm(remainingSecs)
+        # no longer needing state filter as handled by API
+        # if (state and ("ALL" == state or computesetdict["state"] == state)) or \
+        #    (computesetdict["state"] not in Cluster.FINISHED_COMPUTESETS):
+        starttime = ''
+        endtime = ''
+        walltime = ''
+        runningTime = ''
+        remainingTime = ''
+        if 'walltime_mins' in computesetdict:
+            walltime = computesetdict["walltime_mins"]
+            walltime_seconds = walltime * 60
+            walltime = Cluster.format_ddd_hh_mm(walltime_seconds)
+        if 'start_time' in computesetdict and \
+            computesetdict["start_time"] is not None:
+            start_seconds = int(computesetdict["start_time"])
+            end_seconds = start_seconds + walltime_seconds
+            if computesetdict["state"] in Cluster.FINISHED_COMPUTESETS \
+                or computesetdict["state"] == 'ending':
+                runningSecs = walltime_seconds
+            else:
+                runningSecs = int(time.time())-start_seconds
+            remainingSecs = walltime_seconds - runningSecs
+            starttime = time.strftime("%D %H:%M %Z",
+                                time.localtime(start_seconds))
+            endtime = time.strftime("%D %H:%M %Z",
+                                time.localtime(end_seconds))
+            runningTime = Cluster.format_ddd_hh_mm(runningSecs)
+            remainingTime = Cluster.format_ddd_hh_mm(remainingSecs)
 
-            result += "\nClusterID: {}\tComputesetID: {}\t State: {}\t\tAllocation: {}\n" \
-                      "Start (est): {}\t\tEnd (est): {}\n" \
-                      "Requested Time (ddd-hh:mm): {}\tRunning Time (est): {}\t\tRemaining Time (est): {}\n" \
-                .format(computesetdict["cluster"],
-                        computesetdict["id"],
-                        computesetdict["state"],
-                        computesetdict["account"],
-                        starttime,
-                        endtime,
-                        walltime,
-                        runningTime,
-                        remainingTime
-                        )
-            data = computesetdict["computes"]
-            for index, anode in enumerate(data):
-                bnode = dict(anode)
-                if "interface" in bnode:
-                    macs = []
-                    # ips = []
-                    for ipaddr in anode["interface"]:
-                        macs.append(ipaddr["mac"])
-                        # ips.append(ipaddr["ip"] or "N/A")
-                    if format == 'table':
-                        bnode["mac"] = "\n".join(macs)
-                    else:
-                        bnode["mac"] = ";".join(macs)
-                        # anode["ip"] = "; ".join(ips)
-                del bnode["interface"]
-                data[index] = bnode
-            result += str(Printer.list(data,
-                                       order=[
-                                           "name",
-                                           "state",
-                                           "type",
-                                           "mac",
-                                           # "ip",
-                                           "cpus",
-                                           "cluster",
-                                           "host",
-                                           "memory",
-                                       ],
-                                       output="table",
-                                       sort_keys='cluster'))
+        result += "\nClusterID: {}\tComputesetID: {}\t State: {}\t\tAllocation: {}\n" \
+                  "Start (est): {}\t\tEnd (est): {}\n"\
+                  "Requested Time (ddd-hh:mm): {}\tRunning Time (est): {}\t\tRemaining Time (est): {}\n"\
+                    .format(computesetdict["cluster"],
+                            computesetdict["id"],
+                            computesetdict["state"],
+                            computesetdict["account"],
+                            starttime,
+                            endtime,
+                            walltime,
+                            runningTime,
+                            remainingTime
+                            )
+        data = computesetdict["computes"]
+        for index, anode in enumerate(data):
+            bnode = dict(anode)
+            if "interface" in bnode:
+                macs = []
+                #ips = []
+                for ipaddr in anode["interface"]:
+                    macs.append(ipaddr["mac"])
+                    #ips.append(ipaddr["ip"] or "N/A")
+                if format=='table':
+                    bnode["mac"] = "\n".join(macs)
+                else:
+                    bnode["mac"] = ";".join(macs)
+                #anode["ip"] = "; ".join(ips)
+            del bnode["interface"]
+            data[index] = bnode
+        result += str(Printer.write(data,
+                                   order=[
+                                       "name",
+                                       "state",
+                                       "type",
+                                       "mac",
+                                       #"ip",
+                                       "cpus",
+                                       "cluster",
+                                       "host",
+                                       "memory",
+                                   ],
+                                   output="table",
+                                   sort_keys='cluster'))
         return result
 
     @staticmethod
@@ -508,7 +629,7 @@ class Cluster(object):
     def computeset_terminate(computesetid):
         ret = ''
         url = Comet.url("computeset/")
-        action = "poweroff"
+        action = "shutdown"
         puturl = "{:}{:}/{}".format(url, computesetid, action)
         # print (puturl)
         r = Comet.put(puturl)

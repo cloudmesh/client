@@ -15,6 +15,7 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.var import Var
 
 # noinspection PyPep8
+import cloudmesh_client
 from cloudmesh_client.default import Default
 from cloudmesh_client.common.util import get_python
 from cloudmesh_client.common.util import check_python
@@ -31,6 +32,7 @@ import cloudmesh_client.shell.plugins
 from cloudmesh_client.common.StopWatch import StopWatch
 
 from cloudmesh_client.db import CloudmeshDatabase
+from cloudmesh_client import setup_yaml
 
 cm = CloudmeshDatabase()
 
@@ -68,7 +70,7 @@ class ConsoleClasses(object):
 """
 
 
-# console = ConsoleFactory(PluginCommand)
+# console = ConsoleFactory(PluginCommand)https://www.rackmountsales.com/kvm-switches/kvm-switch-8-port-combo-usb-ps-2-kvm-switch-sun-imac-compatible-part-kvm-s8.html
 
 # noinspection PyBroadException,PyPep8Naming
 class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
@@ -183,6 +185,8 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
         # create_cloudmesh_yaml(filename)
 
+        setup_yaml()
+
         # Initialize Logging
         # LogUtil.initialize_logging()
 
@@ -219,6 +223,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         #
         # SET DEFAULT CLUSTER
         #
+        '''
         cluster = ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["active"][0]
 
         value = Default.get(name='cluster', category='general')
@@ -233,6 +238,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         else:
             cluster = value
         Default.set('cluster', cluster, category='general')
+        '''
 
         #
         # SET DEFAULT GROUP
