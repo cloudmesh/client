@@ -1,10 +1,10 @@
-import os
 from pprint import pprint
-from uuid import UUID
+
 from azure.servicemanagement import *
-from cloudmesh_client.common.ConfigDict import Config, ConfigDict
-from cloudmesh_client.common.AzureDict import AzureDict
+
 from cloudmesh_client.cloud.iaas.CloudProviderBase import CloudProviderBase
+from cloudmesh_client.cloud.iaas.provider.azure.AzureDict import AzureDict
+from cloudmesh_client.common.ConfigDict import ConfigDict
 
 
 class CloudProviderAzure(CloudProviderBase):
