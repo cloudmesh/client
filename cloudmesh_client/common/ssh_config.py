@@ -55,7 +55,6 @@ class ssh_config(object):
                     if host in hosts:
                         hosts[host][attribute] = value
                         # pass
-        print (hosts)
         self.hosts = hosts
 
     def list(self):
@@ -92,14 +91,14 @@ class ssh_config(object):
                  key="india",
                  host="india.futuresystems.org",
                  username=None,
-                 force=False):
-        print ("PPP")
+                 force=False,
+                 verbose=False):
         data = {
             "host": host,
             "key": key,
             "username": username
         }
-        if key in self.names():
+        if verbose and key in self.names():
             Console.error("{key} already in ~/.ssh/config".format(**data), traceflag=False)
             return ""
         else:
@@ -108,15 +107,16 @@ class ssh_config(object):
                 Hostname {host}
                 User {username}
             """.format(**data))
-
-            print (entry)
         try:
             with open(self.filename, "a") as config_ssh:
                 config_ssh.write(entry)
             config_ssh.close()
             self.load()
+            if verbose:
+                Console.ok("Added india to ~/.ssh/config")
         except Exception as e:
-            Console.error(e.message)
+            if verbose:
+                Console.error(e.message)
 
 
 if __name__ == "__main__":
