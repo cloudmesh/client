@@ -1,23 +1,23 @@
 from __future__ import print_function
-
+from azure.servicemanagement import *
+from pprint import pprint
+from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.cloud.iaas.provider.azure.AzureDict import AzureDict
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.iaas.CloudProviderBase import CloudProviderBase
 
-class CloudProviderOpenstackAPI(CloudProviderBase):
-    cloud_type = "openstack"
+
+class CloudProviderAzureAPI(CloudProviderBase):
 
     def __init__(self, cloud_name, cloud_details, user=None):
-        super(CloudProviderOpenstackAPI, self).__init__(cloud_name, user=user)
-
-        self.cloud_type = "openstack"
+        super(CloudProviderAzureAPI, self).__init__(cloud_name, user=user)
+        self.cloud_type = "azure"
         self.kind = ["image", "flavor", "vm"]
-
         self.provider = None
         self.default_image = None
         self.default_flavor = None
         self.cloud = None
         self.cloud_details = None
-
         self.initialize(cloud_name, cloud_details)
 
     def initialize(self, cloudname, user=None):
@@ -27,7 +27,24 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         :param user:
         :return:
         """
-        Console.TODO("not yet implemented")
+        confd = ConfigDict("cloudmesh.yaml")
+        cloudcred = confd['cloudmesh']['clouds']['azure']['credentials']
+        subscription_id = cloudcred['subscriptionid']
+        certificate_path = cloudcred['managementcertfile']
+        pprint("subscriptionid:"+subscription_id)
+        pprint("certificate_path:"+certificate_path)
+        self.provider = ServiceManagementService(subscription_id, certificate_path)
+        self.default_image = confd['cloudmesh']['clouds']['azure']['default']['image']
+        self.default_flavor = confd['cloudmesh']['clouds']['azure']['default']['flavor']
+        self.cloud = "azure"
+        self.cloud_details = confd['cloudmesh']['clouds']['azure']
+
+    def _to_dict(self, dict_list):
+        final_dict = dict()
+        for index, result_dict in enumerate(dict_list):
+            pprint("index"+str(index))
+            final_dict[index] = result_dict
+        return final_dict
 
     def list_flavor(self, cloudname, **kwargs):
         Console.TODO("not yet implemented")
@@ -36,7 +53,18 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         Console.TODO("not yet implemented")
 
     def list_vm(self, cloudname, **kwargs):
-        Console.TODO("not yet implemented")
+        pprint("In list_vm for Azure")
+        result = self.provider.list_hosted_services()
+        vm_dict_list = []
+        for hosted_service in result:
+            print('----------Service name: ' + hosted_service.service_name)
+            pprint("Detail of:" + hosted_service.service_name)
+            hosted_service_detail = self.provider.get_hosted_service_properties(hosted_service.service_name, embed_detail=True)
+            for key, deployment in enumerate(hosted_service_detail.deployments):
+                print("Dict of the VM Object", key)
+                vm_dict = AzureDict.convert_to_vm_dict(hosted_service, deployment)
+                vm_dict_list.append(vm_dict)
+        return self._to_dict(vm_dict_list)
 
     def list_secgroup_rules(self, cloudname):
         Console.TODO("not yet implemented")
@@ -63,6 +91,50 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
     def assign_ip(self, name):
         Console.TODO("not yet implemented")
 
+    def attributes(self, kind):
+        layout = {
+            'vm': {
+            'order': [
+                'id',
+                'uuid',
+                'label',
+                'status',
+                'public_ips',
+                'private_ips',
+                'image_name',
+                'key',
+                'availability',
+                'instance_type',
+                'user',
+                'category',
+                'updated_at'
+            ],
+            'header': [
+                'id',
+                'uuid',
+                'label',
+                'status',
+                'public_ips',
+                'private_ips',
+                'image_name',
+                'key',
+                'availability',
+                'instance_type',
+                'user',
+                'cloud',
+                'updated'
+            ]
+            }
+        }
+
+        if kind in layout:
+            order = layout[kind]['order']
+            header = layout[kind]['header']
+        else:
+            order = None
+            header = None
+
+        return order, header
     #
     # All other must methods defined bellow so we can discuss
     #

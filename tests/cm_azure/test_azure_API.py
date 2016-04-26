@@ -22,6 +22,10 @@ from cloudmesh_client.default import Default
 
 
 class Test_azure_API:
+    provider = None
+    credentials = None
+    clouddefault = None
+    cloud_name = "azure"
     data = dotdict({
         "cloud": Default.cloud,
         "format": "json",
@@ -43,29 +47,35 @@ class Test_azure_API:
         return str(result)
 
     def setup(self):
-        pass
+        cloud_name = "azure"
+        d = ConfigDict("cloudmesh.yaml")
+        cloud_details = d["cloudmesh"]["clouds"][cloud_name]
+        self.credentials = d["cloudmesh"]["clouds"][cloud_name]['credentials']
+        self.clouddefault = d["cloudmesh"]["clouds"][cloud_name]['default']
+        self.provider = CloudProviderAzureAPI(cloud_name, cloud_details)
+        self.cloud_name = "azure"
 
     # noinspection PyPep8Naming
     def tearDown(self):
         pass
 
     def test_001(self):
-        HEADING("azure API")
+        HEADING("List VMs")
+        pprint(self.provider.list_vm(self.cloud_name))
 
-        cloudname = 'azure'
-        d = ConfigDict("cloudmesh.yaml")
-        cloud_details = d["cloudmesh"]["clouds"][cloudname]
+    def test_002(self):
+        HEADING("List Images")
+        pprint(self.provider.list_image(self.cloud_name))
 
-        cp = CloudProviderAzureAPI(cloudname, cloud_details)
+    def test_003(self):
+        HEADING("List Flavors")
+        pprint(self.provider.list_flavor(self.cloud_name))
 
-        #pprint(cp.list_flavor(cloudname))
+    def test_004(self):
+        HEADING("List Secgroups")
+        pprint(self.provider.list_secgroup_rules(self.cloud_name))
 
-        # pprint(cp.list_image(cloudname))
 
-
-        pprint(cp.list_vm(cloudname))
-
-        #pprint(cp.list_quota(cloudname))
 
 # TODO: define tests to test each of the important methods defined in
 #           cp = CloudProviderAzureAPI(cloudname, cloud_details)
