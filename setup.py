@@ -44,6 +44,7 @@ if command is not None:
 requirements = [
     'pbr>1.6',
     'apache-libcloud',
+    'azure',
     'nose',
     'pytest',
     'colorama',
