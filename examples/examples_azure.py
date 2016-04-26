@@ -2,6 +2,7 @@ from __future__ import print_function
 from azure import *
 from azure.servicemanagement import *
 from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.common.FlatDict2 import FlatDict2
 
 from pprint import pprint
 
@@ -35,46 +36,68 @@ for hosted_service in result:
     print('----------Service name: ' + hosted_service.service_name)
     pprint("Detail of:" + hosted_service.service_name)
     hosted_service_detail = sms.get_hosted_service_properties(hosted_service.service_name, embed_detail=True)
-    pprint(hosted_service_detail.deployments)
-    for deployment in hosted_service_detail.deployments:
-        pprint("deployment_slot: "+deployment.deployment_slot)
-        pprint("status: "+deployment.status)
-        pprint("virtual_network_name: "+deployment.virtual_network_name)
-        pprint("configuration: "+deployment.configuration)
-        pprint("Extended:")
-        pprint(deployment.extended_properties)
 
-        for role in deployment.role_list:
-            pprint("Role name:"+role.role_name)
-            pprint("Role role_type:"+role.role_type)
-            pprint("Role os_version:"+role.os_version)
-            pprint("Role role_size:"+role.role_size)
-            pprint("Role image name:"+role.os_virtual_hard_disk.source_image_name)
-            pprint("Role image media_link:"+role.os_virtual_hard_disk.media_link)
-            pprint("Role image host_caching:"+role.os_virtual_hard_disk.host_caching)
-            if role.os_virtual_hard_disk.disk_label:
-                pprint("Role image disk_label:"+role.os_virtual_hard_disk.disk_label)
-            if role.os_virtual_hard_disk.os:
-                pprint("Role image os:"+role.os_virtual_hard_disk.os)
-            if role.os_virtual_hard_disk.remote_source_image_link:
-                pprint("Role image remote_source_image_link:"+role.os_virtual_hard_disk.remote_source_image_link)
-        for role_instance in deployment.role_instance_list:
-            pprint("Instance Name:"+role_instance.instance_name)
-            pprint("Instance Size:"+role_instance.instance_size)
-            pprint("Instance state details:"+role_instance.instance_state_details)
-            # pprint("Instance upgarde  details:"+role_instance.instance_upgrade_domain)
-        for virtual_ip in deployment.virtual_ips:
-            pprint("virtual IP: "+virtual_ip.address)
+    # flat_dict = _to_dict(hosted_service_detail)
+    flat_dict = FlatDict2.convert(hosted_service_detail)
+    pprint("PRINITNG FLATDICT")
+    pprint(flat_dict)
+    pprint("=======ENd PRINITNG FLATDICT")
+    for key, deployment in enumerate(hosted_service_detail.deployments):
+        print("Dict of the VM Object",key)
+        # dictAA = FlatDict2.convert(deployment)
 
-    print('Management URL: ' + hosted_service.url)
-    print('Location: ' + hosted_service.hosted_service_properties.location)
-    print('')
+        # dictAA = object_to_dict(deployment)
+        # pprint(dictAA)
+        # print("Flattened Dict of VM")
+        # pprint(FlatDict(dictAA))
+
+
+    # pprint(hosted_service_detail.deployments)
+    # for deployment in hosted_service_detail.deployments:
+    #     pprint("deployment_slot: "+deployment.deployment_slot)
+    #     pprint("status: "+deployment.status)
+    #     pprint("virtual_network_name: "+deployment.virtual_network_name)
+    #     pprint("configuration: "+deployment.configuration)
+    #     pprint("Extended:")
+    #     pprint(deployment.extended_properties)
+    #
+    #     for role in deployment.role_list:
+    #         pprint("Role name:"+role.role_name)
+    #         pprint("Role role_type:"+role.role_type)
+    #         pprint("Role os_version:"+role.os_version)
+    #         pprint("Role role_size:"+role.role_size)
+    #         pprint("Role image name:"+role.os_virtual_hard_disk.source_image_name)
+    #         pprint("Role image media_link:"+role.os_virtual_hard_disk.media_link)
+    #         pprint("Role image host_caching:"+role.os_virtual_hard_disk.host_caching)
+    #         if role.os_virtual_hard_disk.disk_label:
+    #             pprint("Role image disk_label:"+role.os_virtual_hard_disk.disk_label)
+    #         if role.os_virtual_hard_disk.os:
+    #             pprint("Role image os:"+role.os_virtual_hard_disk.os)
+    #         if role.os_virtual_hard_disk.remote_source_image_link:
+    #             pprint("Role image remote_source_image_link:"+role.os_virtual_hard_disk.remote_source_image_link)
+    #     for role_instance in deployment.role_instance_list:
+    #         pprint("Instance Name:"+role_instance.instance_name)
+    #         pprint("Instance Size:"+role_instance.instance_size)
+    #         pprint("Instance state details:"+role_instance.instance_state_details)
+    #         # pprint("Instance upgarde  details:"+role_instance.instance_upgrade_domain)
+    #     for virtual_ip in deployment.virtual_ips:
+    #         pprint("virtual IP: "+virtual_ip.address)
+    #
+    # print('Management URL: ' + hosted_service.url)
+    # print('Location: ' + hosted_service.hosted_service_properties.location)
+    # print('')
 
 pprint("=======IMAGES=======")
 
 ### IMAGES
 # result = sms.list_operating_systems()
 
+
+result = sms.list_os_images()
+
+for index, image in enumerate(result):
+    print("IMAGE ",index)
+    print(object_to_dict(image))
 # ## class OSImage
 #
 # result = sms.list_os_images()
@@ -101,13 +124,17 @@ pprint("=======IMAGES=======")
 pprint("============SIZES===========")
 result = sms.list_role_sizes()
 
-for role_size in result:
-    print('------Name: ' + role_size.name)
-    print('Label: ' + role_size.label)
-    print('Cores:', role_size.cores)
-    print('Memory: ', role_size.memory_in_mb)
-    print('supported_by_virtual_machines: ', role_size.supported_by_virtual_machines)
-    print('max_data_disk_count: ', role_size.max_data_disk_count)
+for index, role_size in enumerate(result):
+    print("SIZE ",index)
+    print(object_to_dict(role_size))
+
+# for role_size in result:
+#     print('------Name: ' + role_size.name)
+#     print('Label: ' + role_size.label)
+#     print('Cores:', role_size.cores)
+#     print('Memory: ', role_size.memory_in_mb)
+#     print('supported_by_virtual_machines: ', role_size.supported_by_virtual_machines)
+#     print('max_data_disk_count: ', role_size.max_data_disk_count)
 
 
 #### STORAGE
@@ -116,10 +143,14 @@ result = sms.list_storage_accounts()
 
 storage_service_name = ""
 for storage_service in result:
-    print('------service_name: ' + storage_service.service_name)
-    storage_service_name = storage_service.service_name
-    print('URL: ' + storage_service.url)
-    print('Storage Service Location:', storage_service.storage_service_properties.location)
+
+    print("STORAGE ", index)
+    print(object_to_dict(storage_service))
+
+    # print('------service_name: ' + storage_service.service_name)
+    # storage_service_name = storage_service.service_name
+    # print('URL: ' + storage_service.url)
+    # print('Storage Service Location:', storage_service.storage_service_properties.location)
 
 ###### Create VM
 
@@ -160,4 +191,7 @@ def create_vm(sms, storage_name  = "default_storage", os_disk_name = "test-disk-
 
 
 
-create_vm(sms, storage_service_name, 'test-disk')
+
+
+
+# create_vm(sms, storage_service_name, 'test-disk')

@@ -39,7 +39,8 @@ class Test_configdict:
         d = ConfigDict("cloudmesh.yaml",
                        verbose=True)
 
-        assert d["cloudmesh"]["profile"]["firstname"] == "TBD"
+        assert d["cloudmesh"]["profile"]["firstname"] != ""
+        assert len(d["cloudmesh"]["clouds"]) > 0
 
         try:
             d = ConfigDict("cloudmesh.yam",
@@ -47,7 +48,7 @@ class Test_configdict:
             print("the file cloudmesh.yam should not exists")
             assert False
         except Exception as e:
-            assert str(e).startswith("could not find")
+            assert str(e).startswith("Could not find")
 
     def test_002_set(self):
         HEADING("testing to set a value in the dict")

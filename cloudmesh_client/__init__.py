@@ -14,8 +14,8 @@ from .db.CloudmeshDatabase import *
 from .db.general.model import *
 from .db.libcloud.model import *
 from .db.openstack.model import *
-from .default import Default
-from .var import Var
+#from .default import Default
+#from .var import Var
 
 __version__ = cloudmesh_client.version.__version__
 

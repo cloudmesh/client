@@ -84,7 +84,7 @@ class Test_register:
     def test_005(self):
         HEADING("testing cm register cat")
         result = self.run("cm register cat")
-        assert "yaml_version:" in result
+        assert "version:" in result
 
     def test_006(self):
         HEADING("testing cm register cat --yaml={yaml}".format(**self.data))

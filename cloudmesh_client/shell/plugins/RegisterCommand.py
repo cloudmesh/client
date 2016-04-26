@@ -16,6 +16,8 @@ from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.default import Default
+from cloudmesh_client.common.dotdict import dotdict
+from stat import *
 
 # noinspection PyBroadException
 class RegisterCommand(PluginCommand, CloudPluginCommand):
@@ -35,12 +37,15 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
 
           Usage:
               register info
-              register new
+              register new [--force] [--dryrun]
               register clean [--force]
               register list ssh [--format=FORMAT]
               register list [--yaml=FILENAME][--info][--format=FORMAT]
               register cat [--yaml=FILENAME]
               register edit [--yaml=FILENAME]
+              register user [USERNAME]
+              register cloud [CLOUD] [--force]
+              register remote [CLOUD] [--force]
               register export HOST [--password] [--format=FORMAT]
               register source HOST
               register merge FILEPATH
@@ -48,12 +53,9 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
               register check [--yaml=FILENAME]
               register test [--yaml=FILENAME]
               register json HOST
-              register remote [CLOUD] [--force]
               register env [--provider=PROVIDER]
-              register profile --username=[USERNAME]
-              register yaml ENTRY
-              register cloud [CLOUD] [--force]
               register ec2 CLOUD EC2ZIP
+              register ENTRY
 
           managing the registered clouds in the cloudmesh.yaml file.
           It looks for it in the current directory, and than in
@@ -154,6 +156,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
               register username [USERNAME]
                   Sets the username in yaml with the value provided.
          """
+
         # from pprint import pprint
         # pprint(arguments)
 
@@ -207,16 +210,27 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
 
             import shutil
             import cloudmesh_client.etc
-            print(cloudmesh_client.etc.__file__)
-            filename = os.path.join(
-                os.path.dirname(cloudmesh_client.etc.__file__),
-                "cloudmesh.yaml")
-            Console.ok(filename)
-            yamlfile = path_expand("~/.cloudmesh/cloudmesh.yaml")
-            shutil.copyfile(filename, yamlfile)
-            print("copy ")
-            print("From: ", filename)
-            print("To:   ", yamlfile)
+
+            config = ConfigDict("cloudmesh.yaml")
+            data = dotdict({
+                'dir': cloudmesh_client.etc.__file__,
+                'filename': os.path.join(
+                    os.path.dirname(cloudmesh_client.etc.__file__),
+                    "cloudmesh.yaml"),
+                'yamlfile': path_expand("~/.cloudmesh/cloudmesh.yaml"),
+                'dryrun': arguments['--dryrun']
+            })
+            Console.ok(data.filename)
+            force = arguments["--force"]
+            if not force:
+                force = yn_choice("Would you like create a new configuration file at {}".format(data.yamlfile))
+            if force:
+                if not data.dryrun:
+                    config.make_a_copy(location=data.yamlfile)
+                    shutil.copyfile(data.filename, data.yamlfile)
+                print("copy ")
+                print("From: ", data.filename)
+                print("To:   ", data.yamlfile)
 
             # filename = _get_config_yaml_file(arguments)
             # if _exists(filename):
@@ -291,6 +305,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                 Console.error("File {} doesn't exist".format(filename))
             else:
                 d = CloudRegister.list(filename,
+                                       Default.cloud,
                                        info=info,
                                        output=output)
                 print(d)
@@ -375,7 +390,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
             cloud = arguments['CLOUD']
 
             if cloud is None:
-                #clouds =  [ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["active"][0]]
+                # clouds =  [ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["active"][0]]
                 clouds = ["kilo"]  # hardcode to kilo for now
 
             else:
@@ -454,13 +469,13 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                 export(cloud, "table")
             return ""
 
-        elif arguments['profile']:
-            username = arguments["--username"] or getpass.getuser()
+        elif arguments['user']:
+            username = arguments["USERNAME"] or getpass.getuser()
             CloudRegister.set_username(username)
-            Console.ok("Username {} set successfully in the yaml settings.".format(username))
+            Console.ok("Setting profile user to {} in the yaml file.".format(username))
             return ""
 
-        elif arguments['yaml']:
+        elif arguments['ENTRY'] is not None:
             name = arguments['ENTRY']
             Register.entry(name)
             return ""
@@ -470,4 +485,3 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
         CloudRegister.list(filename)
 
         pass
-

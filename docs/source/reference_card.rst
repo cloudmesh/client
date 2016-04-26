@@ -79,7 +79,10 @@ Comet
 +---------------------------------------+------------------------------------------------------------------------+
 | | Command                             | | Description                                                          |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet init_apiauth               | | Retrieve api key/secret and setup the configuration file             |
+| |                                     | | Configure comet endpoint and the authentication. This                |
+| | cm comet init                       | | will retrieve api key/secret and setup the configuration             |
+| |                                     | | file. A comet username/password is required and should               |
+| |                                     | | be obtained via sepearate channels.                                  |
 +---------------------------------------+------------------------------------------------------------------------+
 | | cm comet ll                         | | Summary list of clusters owned by the authenticated                  |
 | |                                     | | identity                                                             |
@@ -100,60 +103,65 @@ Comet
 | | cm comet power off vc4              | | Power off the frontend node of the specified cluster                 |
 | |                                     | | (vc4)                                                                |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet power on vc4 vm-vc4-[0-3]  | | Power on a set of compute nodes in one cluster (vc4)                 |
+| | cm comet start vc4 vm-vc4-[0-3]     | | Start a new set of compute nodes in one cluster (vc4).               |
+| |                                     | | The nodes will be put into a computeset once succeeded               |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet power on vc4 --count=4     | | Power on N (4) arbitrary node in one cluster (vc4)                   |
+| | cm comet start vc4 --count=4        | | Start an N (4) node computeset in one cluster (vc4)                  |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet power on vc4 vm-vc4-[0-3]  | | Power on a set of compute nodes in a cluster (vc4)                   |
-| |    --walltime=6h                    | | for a givenwalltime (30m, 3h, 2d, 1w, for 30 minutes,                |
-| |                                     | | 3 hours, 2 days, 1 week, respectively)                               |
+| | cm comet start vc4 vm-vc4-[0-3]     | | Start a set of compute nodes in a cluster (vc4), as                  |
+| |    --walltime=6h                    | | computeset, for a givenwalltime (30m, 3h, 2d, 1w, for                |
+| |                                     | | 30 minutes, 3 hours, 2 days, 1 week, respectively)                   |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet power on vc4 vm-vc4-[0-3]  | | Power on with allocation                                             |
+| | cm comet start vc4 vm-vc4-[0-3]     | | Start new set of compute nodes with allocation                       |
 | |    --allocation=YOUR_ALLOCATION     | |                                                                      |
++---------------------------------------+------------------------------------------------------------------------+
+| | cm comet start vc4 vm-vc4-7         | | Start a one-node computeset                                          |
 +---------------------------------------+------------------------------------------------------------------------+
 | | cm comet power off vc4 vm-vc4-[0,1] | | You can power off and back on individual nodes of                    |
 | | cm comet power on vc4 vm-vc4-0      | | an active computeset without impacting other nodes                   |
 | |                                     | | in the same computeset                                               |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet power on vc4 vm-vc4-7      | | Power on one node as a compute set                                   |
+| |                                     | | shutdown the whole computeset by specifying all nodes.               |
+| | cm comet power shutdown vc4         | | The nodes can be powered back on again if the                        |
+| |     vm-vc4-[0-3]                    | | requested walltime hasn't reached                                    |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet power off vc4 123          | | power off the whole computeset by specifying the                     |
-| |                                     | | cluster name (vc4) and computeset id (123)                           |
-+---------------------------------------+------------------------------------------------------------------------+
-| | cm comet power off vc4 vm-vc4-[0-3] | | power off the whole computeset by specifying all nodes               |
+| |                                     | | Gracefully shutdown all nodes in computeset 123 AND                  |
+| | cm comet terminate 123              | | terminate the resource reservation. A computeset will be             |
+| |                                     | | terminated automatically when requested walltime reached             |
 +---------------------------------------+------------------------------------------------------------------------+
 | | cm comet console vc4                | | Get console of the frontend                                          |
 +---------------------------------------+------------------------------------------------------------------------+
 | | cm comet console vc4 vm-vc4-0       | | Get console of a running node                                        |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet image list                 | | Get list of images available to you                                  |
+| | cm comet iso list                   | | Get list of images available to you                                  |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet image upload               | | Upload an image to the shared public directory on                    |
+| | cm comet iso upload                 | | Upload an image to the shared public directory on                    |
 | |    /path/to/your/image.iso          | | nucleus server                                                       |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet image upload               | | Upload an image to the shared public directory on                    |
+| | cm comet iso upload                 | | Upload an image to the shared public directory on                    |
 | |    /path/to/your/image.iso          | | nucleus server with a new image name                                 |
 | |    --imagename=newimagename.iso     | |                                                                      |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet image attach               | | Attach an image (newimagename.iso) to frontend of                    |
+| | cm comet iso attach                 | | Attach an image (newimagename.iso) to frontend of                    |
 | |    newimagename.iso vc2             | | a cluster (vc2)                                                      |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet image attach               | | Attach an image to a compute node (vm-vc2-0) for a                   |
+| | cm comet iso attach                 | | Attach an image to a compute node (vm-vc2-0) for a                   |
 | |    newimagename.iso vc2 vm-vc2-0    | | cluster (vc2)                                                        |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet image detach vc2           | | Detach the attached iso image from frontend of a                     |
+| | cm comet iso detach vc2             | | Detach the attached iso image from frontend of a                     |
 | |                                     | | cluster (vc2)                                                        |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet image detach vc2 vm-vc2-0  | | Detach the attached iso image from a compute node                    |
+| | cm comet iso detach vc2 vm-vc2-0    | | Detach the attached iso image from a compute node                    |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet image attach               | | Attach an image to a set of compute node, specified in               |
+| | cm comet iso attach                 | | Attach an image to a set of compute node, specified in               |
 | |    imagename.iso vc2 vm-vc2-[0-3]   | | hostlist format (vm-vc2-[0-3]) for a cluster (vc2)                   |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet image detach               | | Detach also works in bulk                                            |
+| | cm comet iso detach                 | | Detach also works in bulk                                            |
 | |    vc2 vm-vc2-[0-3]                 | |                                                                      |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet node rename vc2            | | Rename a compute node (vm-vc2-0) from a cluster (vc2)                |
-| |    vm-vc2-0 mynode0                 | | to a new name (mynode0)                                              |
+| | cm comet node rename vc2            | | Rename a list of compute node (vm-vc2-[0-3]) from a                  |
+| |    vm-vc2-[0-3] new-[0-3]           | | cluster (vc2) to a list of new names (new-[0-3]).                    |
+| |                                     | | In hostlist format.                                                  |
 +---------------------------------------+------------------------------------------------------------------------+
 
 
