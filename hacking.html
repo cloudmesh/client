@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Hacking &mdash; cloudmesh_client 4.1.5 documentation</title>
+  <title>Hacking &mdash; cloudmesh_client 4.2.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="index.html"/>
         <link rel="next" title="Appendix" href="appendix.html"/>
         <link rel="prev" title="API" href="api.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                4.1.5
+                4.2.2
               </div>
             
           
@@ -106,7 +106,7 @@
 <p class="caption"><span class="caption-text">Developer Manuals</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Hacking</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Hacking</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#contributing">Contributing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#prioritizaton">PRIORITIZATON</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#editor">Editor</a></li>
@@ -229,8 +229,8 @@ read a yaml file in order, make changes to it and write it back</p>
 </li>
 <li><p class="first">use nosetests and pytest for testing your programs</p>
 <p>An example is provided in <code class="docutils literal"><span class="pre">tests/test_sample.py</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nosetests</span> <span class="o">-</span><span class="n">v</span> <span class="o">--</span><span class="n">nocapture</span> <span class="n">tests</span><span class="o">/</span><span class="n">test_sample</span><span class="o">.</span><span class="n">py</span>
-<span class="n">py</span><span class="o">.</span><span class="n">test</span>  <span class="n">tests</span><span class="o">/</span><span class="n">test_sample</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>nosetests -v --nocapture tests/test_sample.py
+py.test  tests/test_sample.py
 </pre></div>
 </div>
 <p>you can copy this to <code class="docutils literal"><span class="pre">tests/test_yourfile.py</span></code> and then replace in
@@ -246,13 +246,13 @@ nosetests</p>
 changelogs automatically.  Thus you need to use a prefix in any
 commit. It includes the type and the user for which the commit is
 relevant.  Examples are:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">chg</span><span class="p">:</span> <span class="n">usr</span><span class="p">:</span>    <span class="n">simple</span> <span class="n">changes</span> <span class="n">relevant</span> <span class="k">for</span> <span class="n">users</span> <span class="p">(</span><span class="n">spelling</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">fix</span><span class="p">:</span> <span class="n">usr</span><span class="p">:</span>    <span class="n">major</span> <span class="n">changes</span> <span class="k">for</span> <span class="n">users</span>
-<span class="n">new</span><span class="p">:</span> <span class="n">usr</span><span class="p">:</span>    <span class="n">new</span> <span class="n">feature</span> <span class="k">for</span> <span class="n">users</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>chg: usr:    simple changes relevant for users (spelling, ...)
+fix: usr:    major changes for users
+new: usr:    new feature for users
 
-<span class="n">chg</span><span class="p">:</span> <span class="n">dev</span><span class="p">:</span>    <span class="n">simple</span> <span class="n">changes</span> <span class="n">relevant</span> <span class="k">for</span> <span class="n">developers</span> <span class="p">(</span><span class="n">spelling</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="n">fix</span><span class="p">:</span> <span class="n">dev</span><span class="p">:</span>    <span class="n">major</span> <span class="n">changes</span> <span class="k">for</span> <span class="n">developers</span>
-<span class="n">new</span><span class="p">:</span> <span class="n">dev</span><span class="p">:</span>    <span class="n">new</span> <span class="n">feature</span> <span class="k">for</span> <span class="n">developers</span>
+chg: dev:    simple changes relevant for developers (spelling, ...)
+fix: dev:    major changes for developers
+new: dev:    new feature for developers
 </pre></div>
 </div>
 </li>
@@ -264,12 +264,12 @@ make python 2 look more like python 3.  Be careful with dicts to
 make them not inefficient.</p>
 </li>
 <li><p class="first">iteritems:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">six</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">six</span>
 
 <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span> <span class="n">foo</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="mi">2</span> <span class="p">)</span>
 
 <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">six</span><span class="o">.</span><span class="n">iteritems</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
@@ -279,7 +279,7 @@ make them not inefficient.</p>
 <h2>PRIORITIZATON<a class="headerlink" href="#prioritizaton" title="Permalink to this headline">¶</a></h2>
 <p>Prioritizations of tasks can be established while using the first
 line of an issue body. Here you can use a tag such as:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">P</span><span class="p">:</span><span class="mi">1</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>P:1
 </pre></div>
 </div>
 <p>Where the number behind p identifies the priority. As normal github
@@ -303,11 +303,11 @@ dev branch, if you use the command:</p>
 </div></blockquote>
 <p>which easily renders in MD. If you are only interested in a particular milestone, you
 can fgrep for it:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">bin</span><span class="o">/</span><span class="n">git</span><span class="o">-</span><span class="n">priority</span><span class="p">,</span><span class="n">py</span> <span class="o">|</span> <span class="n">fgrep</span> <span class="n">priority</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>bin/git-priority,py | fgrep priority
 </pre></div>
 </div>
 <p>An example for sorting and selection is:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">bin</span><span class="o">/</span><span class="n">git</span><span class="o">-</span><span class="n">priority</span><span class="o">.</span><span class="n">py</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">-</span><span class="n">t</span> <span class="s2">&quot;|&quot;</span> <span class="o">-</span><span class="n">k</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">fgrep</span> <span class="n">priority</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>bin/git-priority.py | sort -t &quot;|&quot; -k 1 | fgrep priority
 </pre></div>
 </div>
 </div>
@@ -334,8 +334,8 @@ span.prompt1:before {
 <h4>Tox<a class="headerlink" href="#tox" title="Permalink to this headline">¶</a></h4>
 <p>We assume that you checked out the newest version from cloudmesh client
 and base from source and that they are located in:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">~/</span><span class="n">github</span><span class="o">/</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">base</span>
-<span class="o">~/</span><span class="n">github</span><span class="o">/</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">client</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>~/github/cloudmesh/base
+~/github/cloudmesh/client
 </pre></div>
 </div>
 <p>We assume you have tox installed</p>
@@ -400,7 +400,7 @@ Laszewski.</p>
 </pre></div>
 <div class="section" id="logging">
 <h3>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cloudmesh_client.common.LogUtil</span> <span class="k">import</span> <span class="n">LogUtil</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cloudmesh_client.common.LogUtil</span> <span class="kn">import</span> <span class="n">LogUtil</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">LogUtil</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span>
 <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Cloud: &quot;</span> <span class="o">+</span> <span class="n">cloud</span> <span class="o">+</span> <span class="s2">&quot;, Arguments: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">arguments</span><span class="p">))</span>
@@ -450,7 +450,7 @@ Laszewski.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.1.5',
+            VERSION:'4.2.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quickstart &mdash; cloudmesh_client 4.1.5 documentation</title>
+  <title>Quickstart &mdash; cloudmesh_client 4.2.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="index.html"/>
         <link rel="next" title="Reference Card" href="reference_card.html"/>
         <link rel="prev" title="Introduction" href="introduction.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                4.1.5
+                4.2.2
               </div>
             
           
@@ -88,7 +88,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Short Manuals</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Quickstart</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#help">Help</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#defaults-and-variables">Defaults and Variables</a></li>
@@ -184,9 +184,9 @@
 <p class="first admonition-title">Warning</p>
 <p class="last">This quickstart quide assumes that you have prepared your
 system according to the steps documented in the Section
-<a class="reference internal" href="system.html#preparation"><span class="std std-ref">Preparation</span></a>. We also strongly recommend you read
-the sections <a class="reference internal" href="installation.html#installation"><span class="std std-ref">Installation</span></a> and
-<a class="reference internal" href="configuration.html#configuration"><span class="std std-ref">Configuration</span></a>.</p>
+<a class="reference internal" href="system.html#preparation"><span>Preparation</span></a>. We also strongly recommend you read
+the sections <a class="reference internal" href="installation.html#installation"><span>Installation</span></a> and
+<a class="reference internal" href="configuration.html#configuration"><span>Configuration</span></a>.</p>
 </div>
 <div class="section" id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
@@ -197,12 +197,12 @@ yet uploaded the newest version to pypi. Instead, plase
 use the source install discussed in our manual</p>
 </div>
 <p>The setup of cloudmesh client is quite simple and can be done with:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">cloudmesh_client</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>pip install cloudmesh_client
 </pre></div>
 </div>
 <p>However, you may want to read carefully our setup guide and prepare
 your machine as your OS may not have the required packages installed
-by default (see: <a class="reference internal" href="system.html#preparation"><span class="std std-ref">Preparation</span></a>).</p>
+by default (see: <a class="reference internal" href="system.html#preparation"><span>Preparation</span></a>).</p>
 </div>
 <div class="section" id="help">
 <h2>Help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h2>
@@ -240,9 +240,9 @@ a cloud before display you can either use the command:</p>
 username and project in futuresystems using cloudmesh is easy. Only
 thing you need is an entry in the .ssh/config file with the machine
 name india, like follows:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Host</span> <span class="n">india</span>
-<span class="n">Hostname</span> <span class="n">india</span><span class="o">.</span><span class="n">futuresystems</span><span class="o">.</span><span class="n">org</span>
-<span class="n">User</span> <span class="n">albert</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Host india
+Hostname india.futuresystems.org
+User albert
 </pre></div>
 </div>
 <p>Next you can register the cloud(s) with:</p>
@@ -295,11 +295,11 @@ with:</p>
 </pre><p>You can list the keys in the key database by using:</p>
 <pre class="highlight"><span class="prompt1">key list</span>
 </pre><p>The output would look something like:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+--------+------------------+-------------------------------------+--------------+--------+</span>
-<span class="o">|</span> <span class="n">name</span>   <span class="o">|</span> <span class="n">comment</span>          <span class="o">|</span> <span class="n">uri</span>                                 <span class="o">|</span> <span class="n">fingerprint</span>  <span class="o">|</span> <span class="n">source</span> <span class="o">|</span>
-<span class="o">+--------+------------------+-------------------------------------+--------------+--------+</span>
-<span class="o">|</span> <span class="n">id_rsa</span> <span class="o">|</span> <span class="n">albert</span><span class="nd">@gmail</span><span class="o">.</span><span class="n">com</span> <span class="o">|</span> <span class="n">file</span><span class="p">:</span><span class="o">///</span><span class="n">home</span><span class="o">/</span><span class="n">albert</span><span class="o">/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span><span class="o">.</span><span class="n">pub</span> <span class="o">|</span> <span class="mi">64</span><span class="p">:</span><span class="n">aa</span><span class="p">:</span> <span class="o">....</span>  <span class="o">|</span> <span class="n">ssh</span>    <span class="o">|</span>
-<span class="o">+--------+------------------+-------------------------------------+--------------+--------+</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>+--------+------------------+-------------------------------------+--------------+--------+
+| name   | comment          | uri                                 | fingerprint  | source |
++--------+------------------+-------------------------------------+--------------+--------+
+| id_rsa | albert@gmail.com | file:///home/albert/.ssh/id_rsa.pub | 64:aa: ....  | ssh    |
++--------+------------------+-------------------------------------+--------------+--------+
 </pre></div>
 </div>
 <p>Next the key needs to be uploaded to the cloud. Here we take advantage
@@ -317,19 +317,19 @@ to start a new VM in the cloud. This section explains how to do that.</p>
 <p>First, make sure all defaults are correctly set.</p>
 <pre class="highlight"><span class="prompt1">vm default</span>
 </pre><p>The output will look somewhat similar to the following:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+-----------+---------------+</span>
-<span class="o">|</span> <span class="n">Attribute</span> <span class="o">|</span> <span class="n">Value</span>         <span class="o">|</span>
-<span class="o">+-----------+---------------+</span>
-<span class="o">|</span> <span class="n">secgroup</span>  <span class="o">|</span>               <span class="o">|</span>
-<span class="o">|</span> <span class="n">name</span>      <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">001</span>    <span class="o">|</span>
-<span class="o">|</span> <span class="n">image</span>     <span class="o">|</span> <span class="n">Ubuntu</span> <span class="mf">14.04</span>  <span class="o">|</span>
-<span class="o">|</span> <span class="n">cloud</span>     <span class="o">|</span> <span class="n">kilo</span>          <span class="o">|</span>
-<span class="o">|</span> <span class="n">group</span>     <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="n">group</span>    <span class="o">|</span>
-<span class="o">|</span> <span class="n">key</span>       <span class="o">|</span> <span class="n">id_rsa</span>        <span class="o">|</span>
-<span class="o">|</span> <span class="n">flavor</span>    <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">tiny</span>       <span class="o">|</span>
-<span class="o">|</span> <span class="n">login_key</span> <span class="o">|</span>               <span class="o">|</span>
-<span class="o">+-----------+---------------+</span>
-<span class="n">info</span><span class="o">.</span> <span class="n">OK</span><span class="o">.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>+-----------+---------------+
+| Attribute | Value         |
++-----------+---------------+
+| secgroup  |               |
+| name      | albert-001    |
+| image     | Ubuntu 14.04  |
+| cloud     | kilo          |
+| group     | test-group    |
+| key       | id_rsa        |
+| flavor    | m1.tiny       |
+| login_key |               |
++-----------+---------------+
+info. OK.
 </pre></div>
 </div>
 <p>Starting a VM now is as simple as executing a single command.</p>
@@ -339,11 +339,11 @@ You need to refresh the database before listing VMs.</p>
 <pre class="highlight"><span class="prompt1">vm refresh</span>
 <span class="prompt1">vm list</span>
 </pre><p>The output will look something like follows:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+----+--------------+------------+--------+-----------+-------------+----------+---------+--------+-------+</span>
-<span class="o">|</span> <span class="nb">id</span> <span class="o">|</span> <span class="n">uuid</span>         <span class="o">|</span> <span class="n">label</span>      <span class="o">|</span> <span class="n">status</span> <span class="o">|</span> <span class="n">static_ip</span> <span class="o">|</span> <span class="n">floating_ip</span> <span class="o">|</span> <span class="n">key_name</span> <span class="o">|</span> <span class="n">project</span> <span class="o">|</span> <span class="n">user</span>   <span class="o">|</span> <span class="n">cloud</span> <span class="o">|</span>
-<span class="o">+----+--------------+------------+--------+-----------+-------------+----------+---------+--------+-------+</span>
-<span class="o">|</span> <span class="mi">47</span> <span class="o">|</span> <span class="mi">8</span><span class="n">af4177f</span><span class="o">-...</span> <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">001</span> <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.37</span> <span class="o">|</span>             <span class="o">|</span> <span class="n">id_rsa</span>   <span class="o">|</span> <span class="n">fg478</span>   <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span>
-<span class="o">+----+--------------+------------+--------+-----------+-------------+----------+---------+--------+-------+</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>+----+--------------+------------+--------+-----------+-------------+----------+---------+--------+-------+
+| id | uuid         | label      | status | static_ip | floating_ip | key_name | project | user   | cloud |
++----+--------------+------------+--------+-----------+-------------+----------+---------+--------+-------+
+| 47 | 8af4177f-... | albert-001 | ACTIVE | 10.0.2.37 |             | id_rsa   | fg478   | albert | kilo  |
++----+--------------+------------+--------+-----------+-------------+----------+---------+--------+-------+
 </pre></div>
 </div>
 <p>Congratulations! you have now learnt how to set up cloudmesh, and use it to start a VM.
@@ -353,11 +353,11 @@ a public IP (also called floating IP).</p>
 <pre class="highlight"><span class="prompt1">vm ip assign albert-001</span>
 </pre><p>Listing VMs will now show you this floating ip:</p>
 <pre class="highlight"><span class="prompt1">vm list</span>
-</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+</span>
-<span class="o">|</span> <span class="nb">id</span> <span class="o">|</span> <span class="n">uuid</span>         <span class="o">|</span> <span class="n">label</span>      <span class="o">|</span> <span class="n">status</span> <span class="o">|</span> <span class="n">static_ip</span> <span class="o">|</span> <span class="n">floating_ip</span>  <span class="o">|</span> <span class="n">key_name</span> <span class="o">|</span> <span class="n">project</span> <span class="o">|</span> <span class="n">user</span>   <span class="o">|</span> <span class="n">cloud</span> <span class="o">|</span>
-<span class="o">+----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+</span>
-<span class="o">|</span> <span class="mi">47</span> <span class="o">|</span> <span class="mi">8</span><span class="n">af4177f</span><span class="o">-...</span> <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">001</span> <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.37</span> <span class="o">|</span> <span class="mf">152.25</span><span class="o">.</span><span class="mf">6.101</span> <span class="o">|</span> <span class="n">id_rsa</span>   <span class="o">|</span> <span class="n">fg478</span>   <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span>
-<span class="o">+----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+</span>
+</pre><div class="highlight-python"><div class="highlight"><pre><span></span>+----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+
+| id | uuid         | label      | status | static_ip | floating_ip  | key_name | project | user   | cloud |
++----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+
+| 47 | 8af4177f-... | albert-001 | ACTIVE | 10.0.2.37 | 152.25.6.101 | id_rsa   | fg478   | albert | kilo  |
++----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+
 </pre></div>
 </div>
 <p>Logging into the cloud is now as simple as:</p>
@@ -449,7 +449,7 @@ system further to for example list the output</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.1.5',
+            VERSION:'4.2.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

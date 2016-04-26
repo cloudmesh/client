@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Group Command &mdash; cloudmesh_client 4.1.5 documentation</title>
+  <title>Group Command &mdash; cloudmesh_client 4.2.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Color Command" href="command_ssh.html"/>
         <link rel="prev" title="Default Command" href="command_default.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.1.5
+                4.2.2
               </div>
             
           
@@ -102,7 +102,7 @@
 <li class="toctree-l3"><a class="reference internal" href="command_templates.html">Basic Commands and Options</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_colors.html">Color Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_default.html">Default Command</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Group Command</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="">Group Command</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#group-list">Group List</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#group-remove-member">Group Remove Member</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#group-add">Group Add</a></li>
@@ -208,7 +208,7 @@ A  group named default is defined if no other group is specified.</p>
 <div class="section" id="group-list">
 <h2>Group List<a class="headerlink" href="#group-list" title="Permalink to this headline">¶</a></h2>
 <p>Named groups can be listed with the following command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm group list
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group list
   +--------+----------+----------+----------+------+
   | name   | member   | user     | category | type |
   +--------+----------+----------+----------+------+
@@ -222,7 +222,7 @@ A  group named default is defined if no other group is specified.</p>
 </div>
 <p>To get details about a particular group with specific name you can use
 the info option:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm group list groupA
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group list groupA
   +--------+----------+----------+----------+------+
   | name   | member   | user     | category | type |
   +--------+----------+----------+----------+------+
@@ -237,7 +237,7 @@ the info option:</p>
 <h2>Group Remove Member<a class="headerlink" href="#group-remove-member" title="Permalink to this headline">¶</a></h2>
 <p>To remove a member such as a VM from a particular group, you can use
 the remove option:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm group remove test-002 --group=groupA
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group remove test-002 --group=groupA
   Successfully removed ID [test-002] from the group [groupA]
 
 $ cm group list groupA
@@ -253,7 +253,7 @@ $ cm group list groupA
 <div class="section" id="group-add">
 <h2>Group Add<a class="headerlink" href="#group-add" title="Permalink to this headline">¶</a></h2>
 <p>To add a vm to a group use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm group add test-002 --group=groupA
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group add test-002 --group=groupA
 Created a new group [groupA] and added ID [test-001] to it
 
 $ cm group list groupA
@@ -270,7 +270,7 @@ $ cm group list groupA
 <div class="section" id="group-copy">
 <h2>Group Copy<a class="headerlink" href="#group-copy" title="Permalink to this headline">¶</a></h2>
 <p>To copy a group use the command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm group copy groupA groupB
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group copy groupA groupB
 Created a new group [groupB] and added ID [test-001] to it
 
 $ cm group list groupC
@@ -287,7 +287,7 @@ $ cm group list groupC
 <div class="section" id="group-merge">
 <h2>Group Merge<a class="headerlink" href="#group-merge" title="Permalink to this headline">¶</a></h2>
 <p>Groups can be merged as follows:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm group merge groupA groupB groupC
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group merge groupA groupB groupC
 Merge of group [group01] &amp; [groupB] to group [groupC] ok.
 
 $ cm group list groupC
@@ -306,7 +306,7 @@ $ cm group list groupC
 <div class="section" id="group-delete">
 <h2>Group Delete<a class="headerlink" href="#group-delete" title="Permalink to this headline">¶</a></h2>
 <p>A named group can be easily deleted.:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm group delete groupC
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group delete groupC
 Deleting test-001.
 Deleting test-002.
 Deleting test-003.
@@ -365,7 +365,7 @@ and a deletion request is submitted to the appropriate cloud.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.1.5',
+            VERSION:'4.2.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

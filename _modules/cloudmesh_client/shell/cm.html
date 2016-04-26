@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.cm &mdash; cloudmesh_client 4.1.5 documentation</title>
+  <title>cloudmesh_client.shell.cm &mdash; cloudmesh_client 4.2.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.1.5 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                4.1.5
+                4.2.2
               </div>
             
           
@@ -188,6 +188,7 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_client.var</span> <span class="kn">import</span> <span class="n">Var</span>
 
 <span class="c1"># noinspection PyPep8</span>
+<span class="kn">import</span> <span class="nn">cloudmesh_client</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.util</span> <span class="kn">import</span> <span class="n">get_python</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.util</span> <span class="kn">import</span> <span class="n">check_python</span>
@@ -204,6 +205,7 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.StopWatch</span> <span class="kn">import</span> <span class="n">StopWatch</span>
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.db</span> <span class="kn">import</span> <span class="n">CloudmeshDatabase</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client</span> <span class="kn">import</span> <span class="n">setup_yaml</span>
 
 <span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">()</span>
 
@@ -241,7 +243,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 
-<span class="c1"># console = ConsoleFactory(PluginCommand)</span>
+<span class="c1"># console = ConsoleFactory(PluginCommand)https://www.rackmountsales.com/kvm-switches/kvm-switch-8-port-combo-usb-ps-2-kvm-switch-sun-imac-compatible-part-kvm-s8.html</span>
 
 <span class="c1"># noinspection PyBroadException,PyPep8Naming</span>
 <div class="viewcode-block" id="CloudmeshConsole"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.CloudmeshConsole">[docs]</a><span class="k">class</span> <span class="nc">CloudmeshConsole</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">Cmd</span><span class="p">,</span> <span class="n">PluginCommandClasses</span><span class="p">):</span>
@@ -355,6 +357,8 @@
         <span class="c1"># moved to import cloudmesh_client</span>
 
         <span class="c1"># create_cloudmesh_yaml(filename)</span>
+
+        <span class="n">setup_yaml</span><span class="p">()</span>
 
         <span class="c1"># Initialize Logging</span>
         <span class="c1"># LogUtil.initialize_logging()</span>
@@ -1064,7 +1068,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'4.1.5',
+            VERSION:'4.2.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
