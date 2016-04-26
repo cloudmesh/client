@@ -62,3 +62,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
     def assign_ip(self, name):
         Console.TODO("not yet implemented")
+
+    #
+    # All other must methods defined bellow so we can discuss
+    #
