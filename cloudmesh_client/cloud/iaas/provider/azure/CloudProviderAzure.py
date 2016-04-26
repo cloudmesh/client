@@ -1,3 +1,7 @@
+from __future__ import print_function
+
+# TODO: Please move this into CloudProviderAzureAPI.py and remove this class
+
 from pprint import pprint
 
 from azure.servicemanagement import *
