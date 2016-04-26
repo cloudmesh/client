@@ -6,7 +6,7 @@ import requests
 from cloudmesh_client.common.Error import Error
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2 import CloudProviderLibcloudEC2
-from cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzure import CloudProviderAzure
+from cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI import CloudProviderAzureAPI
 from cloudmesh_client.shell.console import Console
 
 requests.packages.urllib3.disable_warnings()
@@ -43,14 +43,13 @@ class CloudProvider(CloudProviderBase):
                 self.provider_class = CloudProviderLibcloudEC2
 
             if cloud_details["cm_type"] == "azure":
-                raise ValueError("azure cloud provider yet implemented. failed.")
-                Console.TODO("Azure provider to be implemented")
-                provider = CloudProviderAzure(
+                # raise ValueError("azure cloud provider yet implemented. failed.")
+                # Console.TODO("Azure provider to be implemented")
+                provider = CloudProviderAzureAPI(
                     cloudname,
-                    cloud_details,
-                    flat=flat)
+                    cloud_details)
                 self.provider = provider
-                self.provider_class = CloudProviderAzure
+                self.provider_class = CloudProviderAzureAPI
 
 
 
