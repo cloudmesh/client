@@ -129,7 +129,7 @@ class VM_AZURE(CloudmeshMixin, CloudmeshDatabase.Base):
     def __init__(self, **kwargs):
         super(VM_AZURE, self).set_defaults(**kwargs)
 
-        self.uuid = kwargs.get("private_id")
+        self.uuid = kwargs.get("id")
         self.username = kwargs.get("username", None)
         self.instance_name = kwargs.get("instance_name", None)
         self.cloud_service = kwargs.get("cloud_service", None)
