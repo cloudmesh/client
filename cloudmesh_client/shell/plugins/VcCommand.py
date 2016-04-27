@@ -80,6 +80,10 @@ class VcCommand(PluginCommand, CloudPluginCommand):
         arg.username = arguments["--username"]
         arg.proxy = arguments["--proxy"]
 
+
+        if arg.proxy:
+            Console.error("proxy not yet supported", traceflag=False)
+
         if arg.NAMES is not None:
             arg.names = Parameter.expand(arg.NAMES)
         else:

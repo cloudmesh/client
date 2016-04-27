@@ -278,7 +278,7 @@ Logging into the cloud is now as simple as:
 
 .. prompt:: cm, cm>
 
-	     vm login albert-001
+	     vm ssh albert-001
 
 This should get you through to the ssh session to the VM.The user name
 to be used at login is either automatically detected and added to the
@@ -287,7 +287,7 @@ username parameter
 
 .. prompt:: cm, cm>
 
-	     vm login albert-001 --username=ubuntu
+	     vm ssh albert-001 --username=ubuntu
 
 To change the default username for a vm you can use the command
 
@@ -330,7 +330,7 @@ Now booting and managing a vm is real simple
 
 	    cm boot
 	    cm ip assign
-	    cm login
+	    cm ssh
 
 And to delete the vm
 
