@@ -19,13 +19,9 @@ class Launcher(ListResource):
 
     @classmethod
     def list(cls, name=None, output='table'):
-
         # ignore names for now
-
         try:
-
             elements = cls.cm.find(kind="launcher", category='general', scope="all", output="dict")
-
             order = None
             header = None
 
@@ -39,7 +35,6 @@ class Launcher(ListResource):
 
     @classmethod
     def add(cls, name=None, source=None):
-
         d = {
             "kind": "launcher",
             "provider": "general",
@@ -50,7 +45,15 @@ class Launcher(ListResource):
         }
 
         cls.cm.add(d)
-        return "not yet implemented"
+        return "Launcher has been added: " + str(d);
+
+    @classmethod
+    def delete(cls, name=None, category=None):
+        try:
+            cls.cm.delete(kind="launcher", provider="general", name=name)
+        except Exception as ex:
+            Console.error(ex.message)
+            return ""
 
     @classmethod
     def run(cls, **kwargs):
