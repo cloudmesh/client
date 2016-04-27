@@ -586,8 +586,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             if servers == ['last']:
                 servers == [Default.vm]
 
-            print(servers)
-
             for server in servers:
                 Vm.delete(servers=[server], force=force)
 
