@@ -68,20 +68,19 @@ class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         """
 
         arg = dotdict(arguments)
-        arg.cloud = arguments["--cloud"] or Default.cloud
         if arg.NAMES is not None:
             arg.names = Parameter.expand(arg.NAMES)
         else:
             arg.names = None
         if arg.name == ['all']:
             arg.names = None
+        arg.cloud = arguments["--cloud"] or Default.cloud
         arg.output = arguments['--format'] or 'table'
-        arg.output = arguments['--source'] or 'db'
+        arg.source = arguments['--source'] or 'db'
         pprint (arg)
         
         # arg.cloud = arguments["--cloud"] or Default.cloud
         # c = arg.list
-        # print ("CCCC", c, arg.NAME, arg.cloud)
         # print ("Hallo {cloud} is list={list}".format(**arg))
         # launcher = Launcher(kind=None)
 
@@ -92,24 +91,17 @@ class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         result = ""
 
         if arguments["list"]:
-
-            arg.format = arguments.get("--format", "table")
-
+            print(arg.names)
             result = Launcher.list(name=arg.names, output=arg.output)
 
-        elif arg.add:
-
+        elif arguments["add"]:
             result = Launcher.add(name=arg.NAME, source=arg.SOURCE)
 
         elif arguments["delete"]:
-            if arg.name is not None:
-                result = Launcher.delete(name=arg.name, category=arg.cloud)
-            else:
-                result = Launcher.delete(name=None)
+            result = Launcher.delete(name=arg.names, category=arg.cloud)
 
         elif arguments["run"]:
             result = Launcher.run()
-
 
         elif arguments["resume"]:
             result = Launcher.resume(name=arg.name)
@@ -124,6 +116,6 @@ class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
             result = Launcher.clear(name=arg.name)
 
         elif arguments["refresh"]:
-            result = Launcher.refresh(name=name)
+            result = Launcher.refresh(name=arg.name)
 
         print(result)
