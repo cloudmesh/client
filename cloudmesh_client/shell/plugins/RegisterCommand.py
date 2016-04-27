@@ -18,6 +18,7 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.default import Default
 from cloudmesh_client.common.dotdict import dotdict
 from stat import *
+from cloudmesh_client.common.ssh_config import ssh_config
 
 # noinspection PyBroadException
 class RegisterCommand(PluginCommand, CloudPluginCommand):
@@ -472,7 +473,13 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
         elif arguments['user']:
             username = arguments["USERNAME"] or getpass.getuser()
             CloudRegister.set_username(username)
+
             Console.ok("Setting profile user to {} in the yaml file.".format(username))
+
+            hosts = ssh_config()
+
+            hosts.generate(key="india", username=username, verbose=True)
+
             return ""
 
         elif arguments['ENTRY'] is not None:

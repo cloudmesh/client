@@ -203,9 +203,14 @@ class ConfigDict(object):
         :return:
         """
         self.data = BaseConfigDict(filename=Config.path_expand(filename))
-        version = str(self.data["meta"]["version"])
-        if version not in self.versions:
-            Console.error("The yaml file version must be {}".format(', '.join(self.versions)))
+        try:
+            version = str(self.data["meta"]["version"])
+            if version not in self.versions:
+                Console.error("The yaml file version must be {}".format(', '.join(self.versions)))
+                sys.exit(1)
+        except Exception as e:
+            Console.error("Your yaml file ~/.cloudmesh/cloudmesh.yaml is not up to date.", traceflag=False)
+            Console.error(e.message, traceflag=False)
             sys.exit(1)
             # return self.data
 
