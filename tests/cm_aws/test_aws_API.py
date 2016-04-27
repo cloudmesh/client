@@ -13,7 +13,7 @@ nosetests -v tests/test_list.py
 from pprint import pprint
 
 from cloudmesh_client import ConfigDict
-from cloudmesh_client.cloud.iaas.provider.aws.CloudProviderawsAPI import CloudProviderawsAPI
+from cloudmesh_client.cloud.iaas.provider.aws.CloudProviderAwsAPI import CloudProviderAwsAPI
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.common.util import HEADING
@@ -56,7 +56,7 @@ class Test_aws_API:
         d = ConfigDict("cloudmesh.yaml")
         cloud_details = d["cloudmesh"]["clouds"][cloudname]
 
-        cp = CloudProviderawsAPI(cloudname, cloud_details)
+        cp = CloudProviderAwsAPI(cloudname, cloud_details)
 
         #pprint(cp.list_flavor(cloudname))
 
@@ -68,4 +68,4 @@ class Test_aws_API:
         #pprint(cp.list_quota(cloudname))
 
 # TODO: define tests to test each of the important methods defined in
-#           cp = CloudProviderawsAPI(cloudname, cloud_details)
+#           cp = CloudProviderAwsAPI(cloudname, cloud_details)
