@@ -209,7 +209,7 @@ class ConfigDict(object):
                 Console.error("The yaml file version must be {}".format(', '.join(self.versions)))
                 sys.exit(1)
         except Exception as e:
-            Console.error("Your yaml file is not up to date. Please update it.", traceflag=False)
+            Console.error("Your yaml file ~/.cloudmesh/cloudmesh.yaml is not up to date.", traceflag=False)
             Console.error(e.message, traceflag=False)
             sys.exit(1)
             # return self.data
