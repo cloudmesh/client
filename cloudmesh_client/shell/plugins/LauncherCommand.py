@@ -104,6 +104,7 @@ class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
             #    result = Launcher.delete(name=arg.name, category=arg.cloud)
             # else:
             #    result = Launcher.delete(name=None)
+
             for name in arg.names:
                 result = Launcher.delete(name=name, category=arg.cloud)
 
@@ -120,7 +121,7 @@ class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
             result = Launcher.details(name=arg.name)
 
         elif arguments["clear"]:
-            result = Launcher.clear(name=arg.name)
+            result = Launcher.clear()
 
         elif arguments["refresh"]:
             result = Launcher.refresh(name=arg.name)
