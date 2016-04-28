@@ -80,7 +80,7 @@ class Test_var(object):
         assert "myvar" in result
 
 
-def test_999(self):
+    def test_999(self):
         HEADING("clear the defaults")
 
         Var.clear()
