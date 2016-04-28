@@ -77,8 +77,10 @@ class Test_var(object):
         command = "cm banner $myvar"
         result = run(command)
         assert "myvalue" in result
+        assert "myvar" in result
 
-    def test_999(self):
+
+def test_999(self):
         HEADING("clear the defaults")
 
         Var.clear()
