@@ -3,7 +3,7 @@ Currently Worked on Issues
 
 | Assignee  | S   | Issues                | highest priority first                                                                                     |
 | --------- | --- | ------                | ---------------------------------------------------------------------------------------------------------- |
-|           | -   | [#169](../issues/169) | cm register yaml topic                                                                                     |
+|           | -   | [#169](../../issues/169) | cm register yaml topic                                                                                     |
 
 
 Open Issues
