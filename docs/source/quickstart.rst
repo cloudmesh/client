@@ -46,10 +46,9 @@ Defaults and Variables
 ----------------------------------
 
 The cloudmesh shell contains a number of useful concepts. This
-includes defaults, variables and configuration flags.
-While Variables are not saved between different instantiations of
-cloudmesh, defaults are saved. Thus the values of defaults can be used
-consistently between invocations.
+includes defaults, variables and configuration flags. Variables and
+defaults are saved in the cloudmesh database and can thus be uses in
+consecutive invocations.
 
 To set a default value, for example to set the default cloud to kilo use:
 
@@ -72,6 +71,26 @@ or
 .. prompt:: cm, cm>
 
 	     default refresh=True
+
+To use such values in variables, we can declare a variable to store the current value of a cloud in it as follows
+
+.. prompt:: cm, cm>
+
+	     var mycloud=default.cloud
+
+While the default value will always return the data stored in the default cache, the above
+command reads at time of invocation the value and stores it in the variable. If the default
+would be changed the variable still contains the old value. Through the separation of defults
+and variables we are supporting a very flexible mechanism to allow integration in scripts.
+
+To use a variable in a script we can simply use the variable with a $ infront of the name.
+
+.. prompt:: cm, cm>
+
+	     banner $mycloud
+
+
+
 
 	     
 Accessing Clouds

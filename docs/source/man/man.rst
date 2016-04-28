@@ -220,7 +220,7 @@ Command - comet::
        comet iso upload [--isoname=ISONAME] PATHISOFILE
        comet iso attach ISONAME CLUSTERID [COMPUTENODEIDS]
        comet iso detach CLUSTERID [COMPUTENODEIDS]
-       comet node rename CLUSTERID OLDNAME NEWNAME
+       comet node rename CLUSTERID OLDNAMES NEWNAMES
 
     Options:
         --format=FORMAT         Format is either table, json, yaml,
@@ -259,6 +259,10 @@ Command - comet::
                         e.g., vm-vc1-0
         ISONAME         Name of an iso image at remote server
         PATHISOFILE     The full path to the iso image file to be uploaded
+        OLDNAMES        The list of current node names to be renamed, in hostlist
+                        format. A single host is also acceptable.
+        NEWNAMES        The list of new names to rename to, in hostlist format.
+                        A single host is also acceptable.
 
 context
 ----------------------------------------------------------------------
@@ -1907,7 +1911,8 @@ Command - vm::
                    [--cloud=CLOUD]
                    [--format=FORMAT]
                    [--refresh]
-        vm login [NAME] [--username=USER]
+        vm ssh [NAME] [--username=USER]
+                 [--quiet]
                  [--ip=IP]
                  [--cloud=CLOUD]
                  [--key=KEY]
@@ -1991,7 +1996,7 @@ Command - vm::
         vm ip show [options...]
             show the ips of VMs
 
-        vm login [options...]
+        vm ssh [options...]
             login to a server or execute commands on it
 
         vm list [options...]
@@ -2006,6 +2011,8 @@ Command - vm::
         => ['sample1', 'sample2', 'sample3']
         sample[1-3,18] => ['sample1', 'sample2', 'sample3', 'sample18']
 
+    Quoting commands:
+        cm vm login gvonlasz-004 --command="uname -a"
 
 workflow
 ----------------------------------------------------------------------
