@@ -1,0 +1,467 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI &mdash; cloudmesh_client 4.2.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../../../../../../index.html"/>
+        <link rel="up" title="cloudmesh_client" href="../../../../../cloudmesh_client.html"/> 
+
+  
+  <script src="../../../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../../../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.2.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../prefix.html">Prefix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../comet.html">Comet Virtual Cluster</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../hackathon.html#python-guidelines">Python Guidelines</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../../../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../../../index.html">Module code</a> &raquo;</li>
+      
+          <li><a href="../../../../../cloudmesh_client.html">cloudmesh_client</a> &raquo;</li>
+      
+    <li>cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">uuid</span> <span class="kn">import</span> <span class="n">UUID</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.CloudProviderBase</span> <span class="kn">import</span> <span class="n">CloudProviderBase</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.todo</span> <span class="kn">import</span> <span class="n">TODO</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">ConfigDict</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.FlatDict</span> <span class="kn">import</span> <span class="n">FlatDict</span>
+<span class="kn">from</span> <span class="nn">keystoneclient.auth.identity</span> <span class="kn">import</span> <span class="n">v3</span>
+<span class="kn">from</span> <span class="nn">keystoneclient</span> <span class="kn">import</span> <span class="n">session</span>
+<span class="kn">from</span> <span class="nn">novaclient</span> <span class="kn">import</span> <span class="n">client</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">getpass</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
+
+
+<div class="viewcode-block" id="CloudProviderCometAPI"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI">[docs]</a><span class="k">class</span> <span class="nc">CloudProviderCometAPI</span><span class="p">(</span><span class="n">CloudProviderBase</span><span class="p">):</span>
+    <span class="n">cloud_type</span> <span class="o">=</span> <span class="s2">&quot;openstack&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloud_name</span><span class="p">,</span> <span class="n">cloud_details</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CloudProviderCometAPI</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">cloud_name</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flat</span> <span class="o">=</span> <span class="n">flat</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cloud_type</span> <span class="o">=</span> <span class="s2">&quot;comet&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="s2">&quot;group&quot;</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_image</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_flavor</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cloud</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cloud_details</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">cloud_name</span><span class="p">,</span> <span class="n">cloud_details</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CloudProviderCometAPI.initialize"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+        <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        self.cloud_details = d[&quot;cloudmesh&quot;][&quot;clouds&quot;][cloudname]</span>
+
+<span class="sd">        # pprint(self.cloud_details)</span>
+
+<span class="sd">        self.cloud = cloudname</span>
+<span class="sd">        self.default_flavor = self.cloud_details[&quot;default&quot;][&quot;flavor&quot;]</span>
+<span class="sd">        self.default_image = self.cloud_details[&quot;default&quot;][&quot;image&quot;]</span>
+<span class="sd">        self.tenant = self.cloud_details[&#39;credentials&#39;][&#39;OS_TENANT_NAME&#39;]</span>
+<span class="sd">        version = 2</span>
+<span class="sd">        credentials = self.cloud_details[&quot;credentials&quot;]</span>
+<span class="sd">        cert = False</span>
+<span class="sd">        if &quot;OS_CACERT&quot; in credentials:</span>
+<span class="sd">            if credentials[&quot;OS_CACERT&quot;] is not False:</span>
+<span class="sd">                cert = Config.path_expand(credentials[&quot;OS_CACERT&quot;])</span>
+<span class="sd">        auth_url = credentials[&quot;OS_AUTH_URL&quot;]</span>
+<span class="sd">        ksversion = auth_url.split(&quot;/&quot;)[-1]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        # GitHub issue 101</span>
+<span class="sd">        # mechanism to interactively ask for password</span>
+<span class="sd">        # when OS_PASSWORD set as &quot;readline&quot;,</span>
+<span class="sd">        # or read os.environ if set as &quot;env&quot;.</span>
+<span class="sd">        os_password = credentials[&quot;OS_PASSWORD&quot;]</span>
+<span class="sd">        if os_password.lower() in [&quot;readline&quot;, &quot;read&quot;, &quot;tbd&quot;]:</span>
+<span class="sd">            os_password = getpass.getpass()</span>
+<span class="sd">        elif os_password.lower() == &quot;env&quot;:</span>
+<span class="sd">            os_password = os.environ.get(&quot;OS_PASSWORD&quot;, getpass.getpass())</span>
+
+<span class="sd">        if &quot;v2.0&quot; == ksversion:</span>
+<span class="sd">            self.provider = client.Client(</span>
+<span class="sd">                version,</span>
+<span class="sd">                credentials[&quot;OS_USERNAME&quot;],</span>
+<span class="sd">                os_password,</span>
+<span class="sd">                credentials[&quot;OS_TENANT_NAME&quot;],</span>
+<span class="sd">                credentials[&quot;OS_AUTH_URL&quot;],</span>
+<span class="sd">                cert)</span>
+<span class="sd">        elif &quot;v3&quot; == ksversion:</span>
+<span class="sd">            sess = session.Session(auth=self._ksv3_auth(credentials),</span>
+<span class="sd">                                   verify=cert)</span>
+<span class="sd">            self.provider = client.Client(2, session=sess)</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="CloudProviderCometAPI.list_flavor"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.list_flavor">[docs]</a>    <span class="k">def</span> <span class="nf">list_flavor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># d = self._to_dict(self.provider.flavors.list())</span>
+        <span class="k">return</span> <span class="n">d</span></div>
+
+<div class="viewcode-block" id="CloudProviderCometAPI.list_image"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.list_image">[docs]</a>    <span class="k">def</span> <span class="nf">list_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># d = self._to_dict(self.provider.images.list())</span>
+        <span class="k">return</span> <span class="n">d</span></div>
+
+<div class="viewcode-block" id="CloudProviderCometAPI.list_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.list_vm">[docs]</a>    <span class="k">def</span> <span class="nf">list_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">None</span></div>
+
+<div class="viewcode-block" id="CloudProviderCometAPI.rename_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.rename_vm">[docs]</a>    <span class="k">def</span> <span class="nf">rename_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_name</span><span class="p">,</span> <span class="n">new_name</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="CloudProviderCometAPI.list_ips"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.list_ips">[docs]</a>    <span class="k">def</span> <span class="nf">list_ips</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="CloudProviderCometAPI.list_console"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.list_console">[docs]</a>    <span class="k">def</span> <span class="nf">list_console</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="n">server</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">servers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">log</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">get_console_output</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">log</span></div>
+
+<div class="viewcode-block" id="CloudProviderCometAPI.boot_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.boot_vm">[docs]</a>    <span class="k">def</span> <span class="nf">boot_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                <span class="n">name</span><span class="p">,</span>
+                <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">image</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">flavor</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">key</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">secgroup</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">meta</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">nics</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Spawns a VM instance on the cloud.</span>
+<span class="sd">        If image and flavor passed as none, it would consider the defaults specified in cloudmesh.yaml.</span>
+
+<span class="sd">        :param name: Name of the instance to be started</span>
+<span class="sd">        :param image: Image id to be used for the instance</span>
+<span class="sd">        :param flavor: Flavor to be used for the instance</span>
+<span class="sd">        :param cloud: Cloud on which to spawn the machine. Defaults to &#39;India&#39;.</span>
+<span class="sd">        :param key: Key to be used for the instance</span>
+<span class="sd">        :param secgroup: Security group for the instance</span>
+<span class="sd">        :param meta: A dict of arbitrary key/value metadata to store for this server</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">None</span></div>
+
+<div class="viewcode-block" id="CloudProviderCometAPI.delete_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.delete_vm">[docs]</a>    <span class="k">def</span> <span class="nf">delete_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deletes a machine on the target cloud indicated by the id or name</span>
+<span class="sd">        :param name: Name or ID of the instance to be deleted</span>
+<span class="sd">        :param group: Security group of the instance to be deleted</span>
+<span class="sd">        :param force: Force delete option</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">None</span></div>
+
+<div class="viewcode-block" id="CloudProviderCometAPI.start_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.start_vm">[docs]</a>    <span class="k">def</span> <span class="nf">start_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Starts a suspended machine on the target cloud indicated by the id or name</span>
+<span class="sd">        :param name: Name or ID of the instance to be deleted</span>
+<span class="sd">        :param group: Security group of the instance to be deleted</span>
+<span class="sd">        :param force: Force delete option</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isUuid</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+            <span class="n">server</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">servers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">server</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">servers</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="n">server</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CloudProviderCometAPI.stop_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.stop_vm">[docs]</a>    <span class="k">def</span> <span class="nf">stop_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Stops a machine on the target cloud indicated by the id or name</span>
+<span class="sd">        :param name: Name or ID of the instance to be deleted</span>
+<span class="sd">        :param group: Security group of the instance to be deleted</span>
+<span class="sd">        :param force: Force delete option</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isUuid</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+            <span class="n">server</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">servers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">server</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">servers</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="n">server</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CloudProviderCometAPI.get_ips"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.get_ips">[docs]</a>    <span class="k">def</span> <span class="nf">get_ips</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the ip of the instance indicated by name</span>
+<span class="sd">        :param name:</span>
+<span class="sd">        :param group:</span>
+<span class="sd">        :param force:</span>
+<span class="sd">        :return: IP address of the instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isUuid</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+            <span class="n">server</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">servers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">server</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">servers</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">servers</span><span class="o">.</span><span class="n">ips</span><span class="p">(</span><span class="n">server</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CloudProviderCometAPI.add_key"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.add_key">[docs]</a>    <span class="k">def</span> <span class="nf">add_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">public_key</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="CloudProviderCometAPI.delete_key"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.delete_key">[docs]</a>    <span class="k">def</span> <span class="nf">delete_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="CloudProviderCometAPI.get_image"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.get_image">[docs]</a>    <span class="k">def</span> <span class="nf">get_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="CloudProviderCometAPI.get_ip"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.get_ip">[docs]</a>    <span class="k">def</span> <span class="nf">get_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="CloudProviderCometAPI.get_flavor"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.get_flavor">[docs]</a>    <span class="k">def</span> <span class="nf">get_flavor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="CloudProviderCometAPI.get_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.get_vm">[docs]</a>    <span class="k">def</span> <span class="nf">get_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="CloudProviderCometAPI.attributes"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.attributes">[docs]</a>    <span class="k">def</span> <span class="nf">attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="n">kind</span> <span class="ow">in</span> <span class="n">layout</span><span class="p">:</span>
+            <span class="n">order</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="n">kind</span><span class="p">][</span><span class="s2">&quot;order&quot;</span><span class="p">]</span>
+            <span class="n">header</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="n">kind</span><span class="p">][</span><span class="s2">&quot;header&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">order</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="n">header</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="k">return</span> <span class="n">order</span><span class="p">,</span> <span class="n">header</span></div></div>
+
+
+<span class="c1"># CloudProviderBase.register(CloudProviderOpenstackAPI)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">cloudname</span> <span class="o">=</span> <span class="s1">&#39;kilo&#39;</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
+    <span class="n">cloud_details</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">][</span><span class="n">cloudname</span><span class="p">]</span>
+
+    <span class="n">cp</span> <span class="o">=</span> <span class="n">CloudProviderCometAPI</span><span class="p">(</span><span class="n">cloudname</span><span class="p">,</span> <span class="n">cloud_details</span><span class="p">)</span>
+
+    <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;390792c3-66a0-4c83-a0d7-c81e1c787710&#39;</span><span class="p">}</span>
+    <span class="n">pprint</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">list_quota</span><span class="p">(</span><span class="n">cloudname</span><span class="p">))</span>
+
+    <span class="n">pprint</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">list_key</span><span class="p">(</span><span class="n">cloudname</span><span class="p">))</span>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../../../',
+            VERSION:'4.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

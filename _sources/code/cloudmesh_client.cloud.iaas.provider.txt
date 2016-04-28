@@ -6,6 +6,9 @@ Subpackages
 
 .. toctree::
 
+    cloudmesh_client.cloud.iaas.provider.aws
+    cloudmesh_client.cloud.iaas.provider.azure
+    cloudmesh_client.cloud.iaas.provider.comet
     cloudmesh_client.cloud.iaas.provider.libcloud
     cloudmesh_client.cloud.iaas.provider.openstack
 

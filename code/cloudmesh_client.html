@@ -118,7 +118,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="">cloudmesh_client package</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">cloudmesh_client package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.cloud.html">cloudmesh_client.cloud package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.comet.html">cloudmesh_client.comet package</a></li>
@@ -227,6 +227,25 @@
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.iaas.html#subpackages">Subpackages</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="cloudmesh_client.cloud.iaas.provider.html">cloudmesh_client.cloud.iaas.provider package</a><ul>
 <li class="toctree-l6"><a class="reference internal" href="cloudmesh_client.cloud.iaas.provider.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="cloudmesh_client.cloud.iaas.provider.aws.html">cloudmesh_client.cloud.iaas.provider.aws package</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="cloudmesh_client.cloud.iaas.provider.aws.html#submodules">Submodules</a></li>
+<li class="toctree-l8"><a class="reference internal" href="cloudmesh_client.cloud.iaas.provider.aws.html#module-cloudmesh_client.cloud.iaas.provider.aws.CloudProviderAwsAPI">cloudmesh_client.cloud.iaas.provider.aws.CloudProviderAwsAPI module</a></li>
+<li class="toctree-l8"><a class="reference internal" href="cloudmesh_client.cloud.iaas.provider.aws.html#module-cloudmesh_client.cloud.iaas.provider.aws">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l7"><a class="reference internal" href="cloudmesh_client.cloud.iaas.provider.azure.html">cloudmesh_client.cloud.iaas.provider.azure package</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="cloudmesh_client.cloud.iaas.provider.azure.html#submodules">Submodules</a></li>
+<li class="toctree-l8"><a class="reference internal" href="cloudmesh_client.cloud.iaas.provider.azure.html#module-cloudmesh_client.cloud.iaas.provider.azure.AzureDict">cloudmesh_client.cloud.iaas.provider.azure.AzureDict module</a></li>
+<li class="toctree-l8"><a class="reference internal" href="cloudmesh_client.cloud.iaas.provider.azure.html#module-cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI">cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI module</a></li>
+<li class="toctree-l8"><a class="reference internal" href="cloudmesh_client.cloud.iaas.provider.azure.html#module-cloudmesh_client.cloud.iaas.provider.azure">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l7"><a class="reference internal" href="cloudmesh_client.cloud.iaas.provider.comet.html">cloudmesh_client.cloud.iaas.provider.comet package</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="cloudmesh_client.cloud.iaas.provider.comet.html#submodules">Submodules</a></li>
+<li class="toctree-l8"><a class="reference internal" href="cloudmesh_client.cloud.iaas.provider.comet.html#module-cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI">cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI module</a></li>
+<li class="toctree-l8"><a class="reference internal" href="cloudmesh_client.cloud.iaas.provider.comet.html#module-cloudmesh_client.cloud.iaas.provider.comet">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l7"><a class="reference internal" href="cloudmesh_client.cloud.iaas.provider.libcloud.html">cloudmesh_client.cloud.iaas.provider.libcloud package</a><ul>
 <li class="toctree-l8"><a class="reference internal" href="cloudmesh_client.cloud.iaas.provider.libcloud.html#submodules">Submodules</a></li>
 <li class="toctree-l8"><a class="reference internal" href="cloudmesh_client.cloud.iaas.provider.libcloud.html#module-cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud">cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud module</a></li>
@@ -300,6 +319,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.DictDB">cloudmesh_client.common.DictDB module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.Error">cloudmesh_client.common.Error module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.FlatDict">cloudmesh_client.common.FlatDict module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.FlatDict2">cloudmesh_client.common.FlatDict2 module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#cloudmesh-client-common-gitinfo-module">cloudmesh_client.common.GitInfo module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.LibcloudDict">cloudmesh_client.common.LibcloudDict module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.LogUtil">cloudmesh_client.common.LogUtil module</a></li>
@@ -477,7 +497,7 @@ rename the value to global).</p>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.cloud">
-<code class="descname">cloud</code><em class="property"> = 'cm'</em><a class="headerlink" href="#cloudmesh_client.default.Default.cloud" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cloud</code><em class="property"> = u'cm'</em><a class="headerlink" href="#cloudmesh_client.default.Default.cloud" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -492,7 +512,7 @@ rename the value to global).</p>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.debug">
-<code class="descname">debug</code><em class="property"> = False</em><a class="headerlink" href="#cloudmesh_client.default.Default.debug" title="Permalink to this definition">¶</a></dt>
+<code class="descname">debug</code><em class="property"> = True</em><a class="headerlink" href="#cloudmesh_client.default.Default.debug" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -502,7 +522,7 @@ rename the value to global).</p>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.flavor">
-<code class="descname">flavor</code><em class="property"> = 'm1.small'</em><a class="headerlink" href="#cloudmesh_client.default.Default.flavor" title="Permalink to this definition">¶</a></dt>
+<code class="descname">flavor</code><em class="property"> = u'm1.small'</em><a class="headerlink" href="#cloudmesh_client.default.Default.flavor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -536,12 +556,12 @@ If it is not present in db, it creates a new entry.
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.group">
-<code class="descname">group</code><em class="property"> = 'mygroup'</em><a class="headerlink" href="#cloudmesh_client.default.Default.group" title="Permalink to this definition">¶</a></dt>
+<code class="descname">group</code><em class="property"> = u'default'</em><a class="headerlink" href="#cloudmesh_client.default.Default.group" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.image">
-<code class="descname">image</code><em class="property"> = 'Ubuntu-Server-14.04-LTS'</em><a class="headerlink" href="#cloudmesh_client.default.Default.image" title="Permalink to this definition">¶</a></dt>
+<code class="descname">image</code><em class="property"> = u'Ubuntu-Server-14.04-LTS'</em><a class="headerlink" href="#cloudmesh_client.default.Default.image" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -561,7 +581,7 @@ If it is not present in db, it creates a new entry.
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.key">
-<code class="descname">key</code><em class="property"> = 'fuwang'</em><a class="headerlink" href="#cloudmesh_client.default.Default.key" title="Permalink to this definition">¶</a></dt>
+<code class="descname">key</code><em class="property"> = None</em><a class="headerlink" href="#cloudmesh_client.default.Default.key" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -607,12 +627,12 @@ it is a special category that is used for global values.</li>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.refresh">
-<code class="descname">refresh</code><em class="property"> = None</em><a class="headerlink" href="#cloudmesh_client.default.Default.refresh" title="Permalink to this definition">¶</a></dt>
+<code class="descname">refresh</code><em class="property"> = True</em><a class="headerlink" href="#cloudmesh_client.default.Default.refresh" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.secgroup">
-<code class="descname">secgroup</code><em class="property"> = 'fuwang-default'</em><a class="headerlink" href="#cloudmesh_client.default.Default.secgroup" title="Permalink to this definition">¶</a></dt>
+<code class="descname">secgroup</code><em class="property"> = u'gvonlasz-default'</em><a class="headerlink" href="#cloudmesh_client.default.Default.secgroup" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -780,12 +800,12 @@ it is a special category that is used for global values.</li>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.user">
-<code class="descname">user</code><em class="property"> = 'fuwang'</em><a class="headerlink" href="#cloudmesh_client.default.Default.user" title="Permalink to this definition">¶</a></dt>
+<code class="descname">user</code><em class="property"> = u'gvonlasz'</em><a class="headerlink" href="#cloudmesh_client.default.Default.user" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.vm">
-<code class="descname">vm</code><em class="property"> = 'fuwang-001'</em><a class="headerlink" href="#cloudmesh_client.default.Default.vm" title="Permalink to this definition">¶</a></dt>
+<code class="descname">vm</code><em class="property"> = u'gvonlasz-006'</em><a class="headerlink" href="#cloudmesh_client.default.Default.vm" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -832,7 +852,7 @@ it is a special category that is used for global values.</li>
 <code class="descclassname">cloudmesh_client.logger.</code><code class="descname">LOGGER</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/logger.html#LOGGER"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.logger.LOGGER" title="Permalink to this definition">¶</a></dt>
 <dd><p>creates a logger with the given name.</p>
 <p>You can use it as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">log</span> <span class="o">=</span> <span class="n">cloudmesh</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">LOGGER</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">log</span> <span class="o">=</span> <span class="n">cloudmesh</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">LOGGER</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span>
 <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;this is an error&quot;</span><span class="p">)</span>
 <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;this is an info&quot;</span><span class="p">)</span>
 <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;this is a warning&quot;</span><span class="p">)</span>

@@ -259,24 +259,24 @@
 <code class="descclassname">cloudmesh_client.cloud.hpc.BatchProvider.</code><code class="descname">BatchProvider</code><span class="sig-paren">(</span><em>name</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/hpc/BatchProvider.html#BatchProvider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.hpc.BatchProvider.BatchProvider" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a provider for a given batch system that is defined
 in the cloudmesh.yaml file. Here you find a section such as:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>hpc:
-    active:
-    - india
-    clusters:
-      india:
-        cm_heading: India HPC CLuster
-        cm_host: india
-        cm_label: indiahpc
-        cm_type: slurm
-        cm_type_version: 14.11.9
-        credentials:
-          username: TBD
-          project: None
-        default:
-          queue: delta
-          experiment_dir: /N/u/{username}/experiment
-          prefix:
-            username: null
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">hpc</span><span class="p">:</span>
+    <span class="n">active</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">india</span>
+    <span class="n">clusters</span><span class="p">:</span>
+      <span class="n">india</span><span class="p">:</span>
+        <span class="n">cm_heading</span><span class="p">:</span> <span class="n">India</span> <span class="n">HPC</span> <span class="n">CLuster</span>
+        <span class="n">cm_host</span><span class="p">:</span> <span class="n">india</span>
+        <span class="n">cm_label</span><span class="p">:</span> <span class="n">indiahpc</span>
+        <span class="n">cm_type</span><span class="p">:</span> <span class="n">slurm</span>
+        <span class="n">cm_type_version</span><span class="p">:</span> <span class="mf">14.11</span><span class="o">.</span><span class="mi">9</span>
+        <span class="n">credentials</span><span class="p">:</span>
+          <span class="n">username</span><span class="p">:</span> <span class="n">TBD</span>
+          <span class="n">project</span><span class="p">:</span> <span class="kc">None</span>
+        <span class="n">default</span><span class="p">:</span>
+          <span class="n">queue</span><span class="p">:</span> <span class="n">delta</span>
+          <span class="n">experiment_dir</span><span class="p">:</span> <span class="o">/</span><span class="n">N</span><span class="o">/</span><span class="n">u</span><span class="o">/</span><span class="p">{</span><span class="n">username</span><span class="p">}</span><span class="o">/</span><span class="n">experiment</span>
+          <span class="n">prefix</span><span class="p">:</span>
+            <span class="n">username</span><span class="p">:</span> <span class="n">null</span>
 </pre></div>
 </div>
 <p>You can define a new resource by copying this section under india and
@@ -284,7 +284,7 @@ give it a name according to your cluster. Fill out the username,
 and if appropirate define a project, which is the
 account this queue is charged under</p>
 <p>Ussage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">provider</span> <span class="o">=</span> <span class="n">BatchProvider</span><span class="p">(</span><span class="s2">&quot;india&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">provider</span> <span class="o">=</span> <span class="n">BatchProvider</span><span class="p">(</span><span class="s2">&quot;india&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Additional functions are defined as it inherits from BatchProviderBase

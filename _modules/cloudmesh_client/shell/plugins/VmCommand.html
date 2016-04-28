@@ -266,7 +266,8 @@
 <span class="sd">                           [--cloud=CLOUD]</span>
 <span class="sd">                           [--format=FORMAT]</span>
 <span class="sd">                           [--refresh]</span>
-<span class="sd">                vm login [NAME] [--username=USER]</span>
+<span class="sd">                vm ssh [NAME] [--username=USER]</span>
+<span class="sd">                         [--quiet]</span>
 <span class="sd">                         [--ip=IP]</span>
 <span class="sd">                         [--cloud=CLOUD]</span>
 <span class="sd">                         [--key=KEY]</span>
@@ -350,7 +351,7 @@
 <span class="sd">                vm ip show [options...]</span>
 <span class="sd">                    show the ips of VMs</span>
 
-<span class="sd">                vm login [options...]</span>
+<span class="sd">                vm ssh [options...]</span>
 <span class="sd">                    login to a server or execute commands on it</span>
 
 <span class="sd">                vm list [options...]</span>
@@ -365,6 +366,8 @@
 <span class="sd">                =&gt; [&#39;sample1&#39;, &#39;sample2&#39;, &#39;sample3&#39;]</span>
 <span class="sd">                sample[1-3,18] =&gt; [&#39;sample1&#39;, &#39;sample2&#39;, &#39;sample3&#39;, &#39;sample18&#39;]</span>
 
+<span class="sd">            Quoting commands:</span>
+<span class="sd">                cm vm login gvonlasz-004 --command=\&quot;uname -a\&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="sd">&quot;&quot;&quot;</span>
@@ -412,7 +415,7 @@
                 <span class="n">count</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_counter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">offset</span>
                 <span class="n">prefix</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">user</span>
                 <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">count</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Prefix and Count could not be retrieved correctly.&quot;</span><span class="p">)</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Prefix and Count could not be retrieved correctly.&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
                     <span class="k">return</span>
                 <span class="n">name</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="n">fill</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">name</span>
@@ -423,9 +426,9 @@
                 <span class="k">if</span> <span class="n">Vm</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">):</span>
                     <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;{:} OK.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;{:} failed&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;{:} failed&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">),</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem running VM refresh&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem running VM refresh&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
         <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">cloud</span>
 
@@ -456,6 +459,7 @@
         <span class="n">arg</span><span class="o">.</span><span class="n">refresh</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">refresh</span> <span class="ow">or</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--refresh&quot;</span><span class="p">]</span>
         <span class="n">arg</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--n&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">arg</span><span class="o">.</span><span class="n">dryrun</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--dryrun&quot;</span><span class="p">]</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--quiet&quot;</span><span class="p">]</span>
 
         <span class="c1">#</span>
         <span class="c1"># in many cases use NAMES</span>
@@ -516,7 +520,7 @@
                         <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
                 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem booting instance {name}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">vm_details</span><span class="p">))</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem booting instance {name}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">vm_details</span><span class="p">),</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">]:</span>
 
@@ -543,7 +547,7 @@
                 <span class="n">prefix</span> <span class="o">=</span> <span class="n">Username</span><span class="p">()</span>
 
                 <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">count</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Prefix and Count could not be retrieved correctly.&quot;</span><span class="p">)</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Prefix and Count could not be retrieved correctly.&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
                     <span class="k">return</span>
 
                 <span class="n">vm_name</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -564,7 +568,7 @@
                            <span class="s2">&quot;first install the defaults should be read from yaml.&quot;</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="c1"># Error.traceback(e)</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem listing defaults&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem listing defaults&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;ping&quot;</span><span class="p">]:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -588,7 +592,7 @@
                 <span class="k">print</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;console&quot;</span><span class="p">]:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -603,7 +607,7 @@
                 <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="c1"># Error.traceback(e)</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem retrieving status of the VM&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem retrieving status of the VM&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -614,7 +618,7 @@
                 <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="c1"># Error.traceback(e)</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem retrieving status of the VM&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem retrieving status of the VM&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;info&quot;</span><span class="p">]:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -627,7 +631,7 @@
                 <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="c1"># Error.traceback(e)</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem retrieving status of the VM&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem retrieving status of the VM&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;check&quot;</span><span class="p">]:</span>
 
@@ -678,10 +682,10 @@
                                     <span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
 
                 <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;not yet implemented. failed.&quot;</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="c1"># Error.traceback(e)</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem retrieving status of the VM&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem retrieving status of the VM&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -691,7 +695,7 @@
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">servers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="n">last_vm</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">vm</span>
                     <span class="k">if</span> <span class="n">last_vm</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No VM records in database. Please run vm refresh.&quot;</span><span class="p">)</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No VM records in database. Please run vm refresh.&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
                         <span class="k">return</span> <span class="s2">&quot;&quot;</span>
                     <span class="n">name</span> <span class="o">=</span> <span class="n">last_vm</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
                     <span class="c1"># print(name)</span>
@@ -703,7 +707,7 @@
 
                 <span class="c1"># if default cloud not set, return error</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set.&quot;</span><span class="p">)</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set.&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
                     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
                 <span class="n">Vm</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="n">servers</span><span class="o">=</span><span class="n">servers</span><span class="p">)</span>
@@ -712,7 +716,7 @@
                 <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="c1"># Error.traceback(e)</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem starting instances&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem starting instances&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -722,7 +726,7 @@
                 <span class="k">if</span> <span class="n">servers</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">servers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="n">last_vm</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">vm</span>
                     <span class="k">if</span> <span class="n">last_vm</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No VM records in database. Please run vm refresh.&quot;</span><span class="p">)</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No VM records in database. Please run vm refresh.&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
                         <span class="k">return</span> <span class="s2">&quot;&quot;</span>
                     <span class="n">name</span> <span class="o">=</span> <span class="n">last_vm</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
                     <span class="c1"># print(name)</span>
@@ -734,7 +738,7 @@
 
                 <span class="c1"># if default cloud not set, return error</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set.&quot;</span><span class="p">)</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set.&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
                     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
                 <span class="n">Vm</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="n">servers</span><span class="o">=</span><span class="n">servers</span><span class="p">)</span>
@@ -743,7 +747,7 @@
                 <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="c1"># Error.traceback(e)</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem stopping instances&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem stopping instances&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;refresh&quot;</span><span class="p">]:</span>
 
@@ -758,8 +762,6 @@
 
             <span class="k">if</span> <span class="n">servers</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;last&#39;</span><span class="p">]:</span>
                 <span class="n">servers</span> <span class="o">==</span> <span class="p">[</span><span class="n">Default</span><span class="o">.</span><span class="n">vm</span><span class="p">]</span>
-
-            <span class="k">print</span><span class="p">(</span><span class="n">servers</span><span class="p">)</span>
 
             <span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">servers</span><span class="p">:</span>
                 <span class="n">Vm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">servers</span><span class="o">=</span><span class="p">[</span><span class="n">server</span><span class="p">],</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
@@ -780,9 +782,6 @@
 
                 <span class="n">vm</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">(</span><span class="n">Vm</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">)[</span><span class="s2">&quot;dict&quot;</span><span class="p">])</span>
 
-                <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;FFFF&quot;</span><span class="p">,</span> <span class="n">vm</span><span class="o">.</span><span class="n">floating_ip</span><span class="p">)</span>
-                <span class="n">pprint</span><span class="p">(</span><span class="n">vm</span><span class="p">)</span>
-
                 <span class="k">if</span> <span class="n">vm</span><span class="o">.</span><span class="n">floating_ip</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
 
                     <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Assign IP to {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
@@ -792,7 +791,6 @@
                                                                       <span class="n">instance_id</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
 
                         <span class="n">Vm</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
-                        <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;OOOO&quot;</span><span class="p">,</span> <span class="n">floating_ip</span><span class="p">)</span>
 
                         <span class="k">if</span> <span class="n">floating_ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                             <span class="k">print</span><span class="p">(</span>
@@ -802,16 +800,16 @@
                             <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
                     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
 
-                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem assigning floating ips.&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem assigning floating ips.&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;VM {} already has a floating ip: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">vm</span><span class="o">.</span><span class="n">floating_ip</span><span class="p">))</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;VM {} already has a floating ip: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">vm</span><span class="o">.</span><span class="n">floating_ip</span><span class="p">),</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;ip&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;show&quot;</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAMES&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">Default</span><span class="o">.</span><span class="n">vm</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">]:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The default vm is not set.&quot;</span><span class="p">)</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The default vm is not set.&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
                     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">Default</span><span class="o">.</span><span class="n">vm</span><span class="p">]</span>
@@ -827,10 +825,13 @@
                 <span class="n">ips</span> <span class="o">=</span> <span class="n">Ip</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">output_format</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">)</span>
                 <span class="k">print</span> <span class="p">(</span><span class="n">ips</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem getting ip addresses for instance&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem getting ip addresses for instance&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;login&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;ssh&quot;</span><span class="p">]:</span>
 
+            <span class="k">def</span> <span class="nf">_print</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
             <span class="n">chameleon</span> <span class="o">=</span> <span class="s2">&quot;chameleon&quot;</span> <span class="ow">in</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">][</span><span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">][</span><span class="s2">&quot;cm_host&quot;</span><span class="p">]</span>
 
@@ -839,22 +840,19 @@
             <span class="k">else</span><span class="p">:</span>
 
                 <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">username</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Could not guess the username of the vm&quot;</span><span class="p">)</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Could not guess the username of the vm&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
                     <span class="k">return</span>
                 <span class="n">arg</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--username&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Image</span><span class="o">.</span><span class="n">guess_username</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">image</span><span class="p">)</span>
+            <span class="n">arg</span><span class="o">.</span><span class="n">command</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--command&quot;</span><span class="p">]</span>
 
             <span class="n">data</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">({</span>
                 <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">vm</span><span class="p">,</span>
                 <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
-                <span class="s1">&#39;cloud&#39;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">cloud</span>
+                <span class="s1">&#39;cloud&#39;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span>
+                <span class="s1">&#39;command&#39;</span><span class="p">:</span> <span class="n">arg</span><span class="o">.</span><span class="n">command</span>
             <span class="p">})</span>
 
-
-
-
-            <span class="n">pprint</span> <span class="p">(</span><span class="n">data</span><span class="p">)</span>
-
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Login {username}@{name} ...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">))</span>
+            <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;login {cloud}:{username}@{name}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">))</span>
 
             <span class="n">vm</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span>
 
@@ -863,7 +861,7 @@
             <span class="n">data</span><span class="o">.</span><span class="n">floating_ip</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">floating_ip</span>
             <span class="n">data</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">key</span>
 
-            <span class="k">print</span><span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+            <span class="n">_print</span><span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
 
 
             <span class="sd">&#39;&#39;&#39;</span>
@@ -892,37 +890,36 @@
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ip_addresses</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">ip</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ip_addresses</span><span class="p">:</span>
-                        <span class="k">print</span><span class="p">(</span>
-                            <span class="s2">&quot;ERROR: IP Address specified does not match with the host.&quot;</span><span class="p">)</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;IP Address specified does not match with the host.&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
                         <span class="k">return</span> <span class="s2">&quot;&quot;</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Determining IP Address to use with a ping test.&quot;</span><span class="p">)</span>
+                    <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;Determining IP Address to use with a ping test.&quot;</span><span class="p">)</span>
                     <span class="c1"># This part assumes that the ping is allowed to the machine.</span>
                     <span class="k">for</span> <span class="n">ipadd</span> <span class="ow">in</span> <span class="n">ip_addresses</span><span class="p">:</span>
-                        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Checking {:}...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ipadd</span><span class="p">))</span>
+                        <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;Checking {:}...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ipadd</span><span class="p">))</span>
                         <span class="k">try</span><span class="p">:</span>
                             <span class="n">socket</span><span class="o">.</span><span class="n">gethostbyaddr</span><span class="p">(</span><span class="n">ipadd</span><span class="p">)</span>
                             <span class="c1"># ip will be set if above command is successful.</span>
                             <span class="n">ip</span> <span class="o">=</span> <span class="n">ipadd</span>
                         <span class="k">except</span> <span class="n">socket</span><span class="o">.</span><span class="n">herror</span><span class="p">:</span>
-                            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cannot reach {:}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ipadd</span><span class="p">))</span>
+                            <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;Cannot reach {:}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ipadd</span><span class="p">))</span>
 
                 <span class="k">if</span> <span class="n">ip</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Unable to connect to the machine&quot;</span><span class="p">)</span>
+                    <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;Unable to connect to the machine&quot;</span><span class="p">)</span>
                     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;IP to be used is: {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ip</span><span class="p">))</span>
+                    <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;IP to be used is: {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ip</span><span class="p">))</span>
 
                 <span class="c1">#</span>
                 <span class="c1"># TODO: is thsi correctly implemented</span>
                 <span class="c1">#</span>
                 <span class="n">SecGroup</span><span class="o">.</span><span class="n">enable_ssh</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
-
-                <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Connecting to Instance at IP:&quot;</span> <span class="o">+</span> <span class="n">format</span><span class="p">(</span><span class="n">ip</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Connecting to Instance at IP:&quot;</span> <span class="o">+</span> <span class="n">format</span><span class="p">(</span><span class="n">ip</span><span class="p">))</span>
                 <span class="c1"># Constructing the ssh command to connect to the machine.</span>
                 <span class="n">sshcommand</span> <span class="o">=</span> <span class="s2">&quot;ssh&quot;</span>
-                <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                    <span class="n">sshcommand</span> <span class="o">+=</span> <span class="s2">&quot; -i {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+                <span class="c1"># if arg.key is not None:</span>
+                <span class="c1">#     sshcommand += &quot; -i {:}&quot;.format(arg.key)</span>
                 <span class="n">sshcommand</span> <span class="o">+=</span> <span class="s2">&quot; -o StrictHostKeyChecking=no&quot;</span>
                 <span class="n">sshcommand</span> <span class="o">+=</span> <span class="s2">&quot; {:}@{:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">ip</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">commands</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
@@ -931,7 +928,7 @@
                 <span class="c1"># print(sshcommand)</span>
                 <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">sshcommand</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No Public IPs found for the instance&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No Public IPs found for the instance&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;list&quot;</span><span class="p">]:</span>
 
@@ -972,7 +969,7 @@
                     <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">refresh</span><span class="p">:</span>
                         <span class="n">_refresh</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
 
-                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Listing VMs on Cloud: {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloud</span><span class="p">))</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Listing VMs on Cloud: {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloud</span><span class="p">))</span>
 
 
                     <span class="n">vms</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;raw&quot;</span><span class="p">)</span>
@@ -1005,10 +1002,10 @@
                                              <span class="n">output</span><span class="o">=</span><span class="n">_format</span><span class="p">)</span>
                               <span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;No data found with requested parameters.&quot;</span><span class="p">)</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No data found with requested parameters.&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="c1"># Error.traceback(e)</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem listing all instances&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem listing all instances&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;rename&quot;</span><span class="p">]:</span>
@@ -1038,7 +1035,7 @@
                     <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="c1"># Error.traceback(e)</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem deleting instances&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem deleting instances&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
 </pre></div>

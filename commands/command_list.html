@@ -103,7 +103,7 @@
 <li class="toctree-l3"><a class="reference internal" href="command_register.html">Register Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_cloud.html">Cloud Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_key.html">Key Command</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="">List Command</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">List Command</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#list-default">List Default</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#list-cloud-objects">list Cloud objects</a></li>
 </ul>
@@ -209,11 +209,11 @@ defaults, and available clouds.</p>
 <div class="section" id="list-default">
 <h2>List Default<a class="headerlink" href="#list-default" title="Permalink to this headline">¶</a></h2>
 <p>To list all default values you can use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm list --cloud general default
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm list --cloud general default
 </pre></div>
 </div>
 <p>To list the default values set in a particular cloud use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm list --cloud general default
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm list --cloud general default
   +-----------+---------+--------+----------+----------------------------+----------------------------+
   | user      | cloud   | name   | value    | created_at                 | updated_at                 |
   +-----------+---------+--------+----------+----------------------------+----------------------------+
@@ -225,7 +225,7 @@ defaults, and available clouds.</p>
 </pre></div>
 </div>
 <p>To specify a different format, such as json, use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm list --cloud general --format json default
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm list --cloud general --format json default
 {
       &quot;1&quot;: {
           &quot;cloud&quot;: &quot;general&quot;,
@@ -286,12 +286,12 @@ defaults, and available clouds.</p>
 <div class="section" id="list-cloud-objects">
 <h2>list Cloud objects<a class="headerlink" href="#list-cloud-objects" title="Permalink to this headline">¶</a></h2>
 <p>The list command can also be used to list cloud objects, thus you can use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>list image
-list flavor
-list quota
-list limits
-list usage
-list vm
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">list</span> <span class="n">image</span>
+<span class="nb">list</span> <span class="n">flavor</span>
+<span class="nb">list</span> <span class="n">quota</span>
+<span class="nb">list</span> <span class="n">limits</span>
+<span class="nb">list</span> <span class="n">usage</span>
+<span class="nb">list</span> <span class="n">vm</span>
 </pre></div>
 </div>
 </div>

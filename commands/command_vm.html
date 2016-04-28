@@ -105,7 +105,7 @@
 <li class="toctree-l3"><a class="reference internal" href="command_key.html">Key Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_list.html">List Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_secgroup.html">SecGroup Command</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="">VM Command</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">VM Command</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#listing-defaults">Listing Defaults</a></li>
 </ul>
 </li>
@@ -208,18 +208,18 @@ operations on various clouds available to Cloudmesh.</p>
 <div class="section" id="listing-defaults">
 <h2>Listing Defaults<a class="headerlink" href="#listing-defaults" title="Permalink to this headline">¶</a></h2>
 <p>You can have a list of relevant default attributes required for VM operations:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>+-----------+--------------------------------------+
-| Attribute | Value                                |
-+-----------+--------------------------------------+
-| secgroup  |                                      |
-| login_key | /home/albert/key/id_rsa              |
-| flavor    | 2                                    |
-| image     | 619b8942-2355-4aa2-jaa5-74b8f1751911 |
-| cloud     | kilo                                 |
-| name      | albert-015                           |
-| key       | albertkey                            |
-| group     | test                                 |
-+-----------+--------------------------------------+
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+-----------+--------------------------------------+</span>
+<span class="o">|</span> <span class="n">Attribute</span> <span class="o">|</span> <span class="n">Value</span>                                <span class="o">|</span>
+<span class="o">+-----------+--------------------------------------+</span>
+<span class="o">|</span> <span class="n">secgroup</span>  <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="n">login_key</span> <span class="o">|</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">albert</span><span class="o">/</span><span class="n">key</span><span class="o">/</span><span class="n">id_rsa</span>              <span class="o">|</span>
+<span class="o">|</span> <span class="n">flavor</span>    <span class="o">|</span> <span class="mi">2</span>                                    <span class="o">|</span>
+<span class="o">|</span> <span class="n">image</span>     <span class="o">|</span> <span class="mi">619</span><span class="n">b8942</span><span class="o">-</span><span class="mi">2355</span><span class="o">-</span><span class="mi">4</span><span class="n">aa2</span><span class="o">-</span><span class="n">jaa5</span><span class="o">-</span><span class="mi">74</span><span class="n">b8f1751911</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">cloud</span>     <span class="o">|</span> <span class="n">kilo</span>                                 <span class="o">|</span>
+<span class="o">|</span> <span class="n">name</span>      <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">015</span>                           <span class="o">|</span>
+<span class="o">|</span> <span class="n">key</span>       <span class="o">|</span> <span class="n">albertkey</span>                            <span class="o">|</span>
+<span class="o">|</span> <span class="n">group</span>     <span class="o">|</span> <span class="n">test</span>                                 <span class="o">|</span>
+<span class="o">+-----------+--------------------------------------+</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -236,14 +236,14 @@ operations on various clouds available to Cloudmesh.</p>
 <h3>Booting a VM instance<a class="headerlink" href="#booting-a-vm-instance" title="Permalink to this headline">¶</a></h3>
 <p>If you have all the required attributes (secgroup not mandatory) setup and listed in the vm defaults,
 then you can simply run the following to boot a vm.:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm vm boot
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm vm boot
 Machine albert-015 is being booted on kilo Cloud...
 Added ID [4a37b49a-9768-88cc-b988-01013701a8fb] to Group [test]
 info. OK.
 </pre></div>
 </div>
 <p>Else you may explicitly specify the attribute values in the arguments to the vm boot command.:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm vm boot --name=testvm --cloud=kilo --image=619b8942-2355-4aa2-jaa5-74b8f1751911 --flavor=2
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm vm boot --name=testvm --cloud=kilo --image=619b8942-2355-4aa2-jaa5-74b8f1751911 --flavor=2
 Machine testvm is being booted on kilo Cloud...
 </pre></div>
 </div>
@@ -252,22 +252,22 @@ Machine testvm is being booted on kilo Cloud...
 <h3>Listing a VM instances<a class="headerlink" href="#listing-a-vm-instances" title="Permalink to this headline">¶</a></h3>
 <p>You can list all the VM instances running on the cloud by &#8216;vm list&#8217; command
 like the one below:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>+----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+
-| id | uuid                                 | label                        | status    | static_ip   | floating_ip     | key_name                | project   | user      | cloud |
-+----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+
-| 10 | 21305503-2649-3664-8876-d825758c83f3 | albert-001                   | ACTIVE    | 10.20.99.xx | 140.123.44.xxx  | albert-key              | undefined | albert    | kilo  |
-| 9  | 94f01af3-ee2a-9887-b228-75627f358169 | albert-001                   | SHUTOFF   | 10.20.99.xx | 140.123.44.xxx  | albert-key              | undefined | albert    | kilo  |
-| 8  | 2f275d38-62af-1223-a04a-0456e0d6466f | albert-server-jzqc23pekfcu   | SUSPENDED | 10.20.99.xx | 140.123.44.xxx  | albert-india-key        | undefined | albert    | kilo  |
-| 7  | 6730c273-609f-9879-a481-313ff4200d82 | albert-server-ekbvvsmjyqlo   | ACTIVE    | 10.20.99.xx | 140.123.44.xxx  | albert-india-key        | undefined | albert    | kilo  |
-| 6  | fa3580f3-2dbd-d666-9178-326b39916c09 | albert-server-cdmelfaefggf   | ACTIVE    | 10.20.99.xx | 140.123.44.xxx  | albert-india-key        | undefined | albert    | kilo  |
-+----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+</span>
+<span class="o">|</span> <span class="nb">id</span> <span class="o">|</span> <span class="n">uuid</span>                                 <span class="o">|</span> <span class="n">label</span>                        <span class="o">|</span> <span class="n">status</span>    <span class="o">|</span> <span class="n">static_ip</span>   <span class="o">|</span> <span class="n">floating_ip</span>     <span class="o">|</span> <span class="n">key_name</span>                <span class="o">|</span> <span class="n">project</span>   <span class="o">|</span> <span class="n">user</span>      <span class="o">|</span> <span class="n">cloud</span> <span class="o">|</span>
+<span class="o">+----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+</span>
+<span class="o">|</span> <span class="mi">10</span> <span class="o">|</span> <span class="mi">21305503</span><span class="o">-</span><span class="mi">2649</span><span class="o">-</span><span class="mi">3664</span><span class="o">-</span><span class="mi">8876</span><span class="o">-</span><span class="n">d825758c83f3</span> <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">001</span>                   <span class="o">|</span> <span class="n">ACTIVE</span>    <span class="o">|</span> <span class="mf">10.20</span><span class="o">.</span><span class="mf">99.</span><span class="n">xx</span> <span class="o">|</span> <span class="mf">140.123</span><span class="o">.</span><span class="mf">44.</span><span class="n">xxx</span>  <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="n">key</span>              <span class="o">|</span> <span class="n">undefined</span> <span class="o">|</span> <span class="n">albert</span>    <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span>
+<span class="o">|</span> <span class="mi">9</span>  <span class="o">|</span> <span class="mi">94</span><span class="n">f01af3</span><span class="o">-</span><span class="n">ee2a</span><span class="o">-</span><span class="mi">9887</span><span class="o">-</span><span class="n">b228</span><span class="o">-</span><span class="mi">75627</span><span class="n">f358169</span> <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">001</span>                   <span class="o">|</span> <span class="n">SHUTOFF</span>   <span class="o">|</span> <span class="mf">10.20</span><span class="o">.</span><span class="mf">99.</span><span class="n">xx</span> <span class="o">|</span> <span class="mf">140.123</span><span class="o">.</span><span class="mf">44.</span><span class="n">xxx</span>  <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="n">key</span>              <span class="o">|</span> <span class="n">undefined</span> <span class="o">|</span> <span class="n">albert</span>    <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span>
+<span class="o">|</span> <span class="mi">8</span>  <span class="o">|</span> <span class="mi">2</span><span class="n">f275d38</span><span class="o">-</span><span class="mi">62</span><span class="n">af</span><span class="o">-</span><span class="mi">1223</span><span class="o">-</span><span class="n">a04a</span><span class="o">-</span><span class="mi">0456</span><span class="n">e0d6466f</span> <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">jzqc23pekfcu</span>   <span class="o">|</span> <span class="n">SUSPENDED</span> <span class="o">|</span> <span class="mf">10.20</span><span class="o">.</span><span class="mf">99.</span><span class="n">xx</span> <span class="o">|</span> <span class="mf">140.123</span><span class="o">.</span><span class="mf">44.</span><span class="n">xxx</span>  <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="n">india</span><span class="o">-</span><span class="n">key</span>        <span class="o">|</span> <span class="n">undefined</span> <span class="o">|</span> <span class="n">albert</span>    <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span>
+<span class="o">|</span> <span class="mi">7</span>  <span class="o">|</span> <span class="mi">6730</span><span class="n">c273</span><span class="o">-</span><span class="mi">609</span><span class="n">f</span><span class="o">-</span><span class="mi">9879</span><span class="o">-</span><span class="n">a481</span><span class="o">-</span><span class="mi">313</span><span class="n">ff4200d82</span> <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">ekbvvsmjyqlo</span>   <span class="o">|</span> <span class="n">ACTIVE</span>    <span class="o">|</span> <span class="mf">10.20</span><span class="o">.</span><span class="mf">99.</span><span class="n">xx</span> <span class="o">|</span> <span class="mf">140.123</span><span class="o">.</span><span class="mf">44.</span><span class="n">xxx</span>  <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="n">india</span><span class="o">-</span><span class="n">key</span>        <span class="o">|</span> <span class="n">undefined</span> <span class="o">|</span> <span class="n">albert</span>    <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span>
+<span class="o">|</span> <span class="mi">6</span>  <span class="o">|</span> <span class="n">fa3580f3</span><span class="o">-</span><span class="mi">2</span><span class="n">dbd</span><span class="o">-</span><span class="n">d666</span><span class="o">-</span><span class="mi">9178</span><span class="o">-</span><span class="mi">326</span><span class="n">b39916c09</span> <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">cdmelfaefggf</span>   <span class="o">|</span> <span class="n">ACTIVE</span>    <span class="o">|</span> <span class="mf">10.20</span><span class="o">.</span><span class="mf">99.</span><span class="n">xx</span> <span class="o">|</span> <span class="mf">140.123</span><span class="o">.</span><span class="mf">44.</span><span class="n">xxx</span>  <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="n">india</span><span class="o">-</span><span class="n">key</span>        <span class="o">|</span> <span class="n">undefined</span> <span class="o">|</span> <span class="n">albert</span>    <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span>
+<span class="o">+----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="stop-a-vm">
 <h3>Stop a VM<a class="headerlink" href="#stop-a-vm" title="Permalink to this headline">¶</a></h3>
 <p>You can stop a VM by supplying it&#8217;s label or UUID:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm vm stop testvm --cloud=kilo
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm vm stop testvm --cloud=kilo
 Machine testvm is being stopped on kilo Cloud...
 info. OK.
 </pre></div>
@@ -276,7 +276,7 @@ info. OK.
 <div class="section" id="start-a-vm">
 <h3>Start a VM<a class="headerlink" href="#start-a-vm" title="Permalink to this headline">¶</a></h3>
 <p>You can start a VM by supplying it&#8217;s label or UUID:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm vm start testvm --cloud=kilo
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm vm start testvm --cloud=kilo
 Machine testvm is being started on kilo Cloud...
 info. OK.
 </pre></div>
@@ -286,7 +286,7 @@ info. OK.
 <h3>Assign Floating IP to VM<a class="headerlink" href="#assign-floating-ip-to-vm" title="Permalink to this headline">¶</a></h3>
 <p>In order to access the vm from outside of the cloud private network, we need to assign a floating IP which can be
 accessed publicly:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm vm floating_ip_assign testvm --cloud=kilo
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm vm floating_ip_assign testvm --cloud=kilo
 Floating IP assigned to testvm successfully and it is: 149.165.158.XX
 </pre></div>
 </div>
@@ -294,7 +294,7 @@ Floating IP assigned to testvm successfully and it is: 149.165.158.XX
 <div class="section" id="retrieving-ip-address-details">
 <h3>Retrieving IP Address details<a class="headerlink" href="#retrieving-ip-address-details" title="Permalink to this headline">¶</a></h3>
 <p>You can get the IP address details of a VM by the following command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm vm ip_show testvm --cloud=kilo
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm vm ip_show testvm --cloud=kilo
 IP Addresses of instance testvm are as follows:-
 +---------+---------+----------------+
 | network | version | addr           |
@@ -308,7 +308,7 @@ IP Addresses of instance testvm are as follows:-
 <div class="section" id="login-to-vm">
 <h3>Login to VM<a class="headerlink" href="#login-to-vm" title="Permalink to this headline">¶</a></h3>
 <p>You can login to a VM in your target cloud:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm vm login testvm --user=albert --key=/location/id_rsa --cloud=kilo
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm vm login testvm --user=albert --key=/location/id_rsa --cloud=kilo
 Logging in into testvm machine...
 Determining IP Address to use with a ping test...
 Checking 10.23.2.XX...
@@ -351,7 +351,7 @@ albert@testvm:~$
 <div class="section" id="running-command-on-vm">
 <h3>Running command on VM<a class="headerlink" href="#running-command-on-vm" title="Permalink to this headline">¶</a></h3>
 <p>You can use the vm login to simply run a command on the target VM:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm vm login testvm --user=albert --key=/location/id_rsa --command=&quot;uname\ -a&quot; --cloud=kilo
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm vm login testvm --user=albert --key=/location/id_rsa --command=&quot;uname\ -a&quot; --cloud=kilo
 Logging in into testvm machine...
 Determining IP Address to use with a ping test...
 Checking 10.23.2.XX...
@@ -366,7 +366,7 @@ OS testvm &lt;VERSION&gt; #103-OS SMP Fri Aug 14 21:42:59 UTC 2015 &lt;BIT_SPEC&
 <div class="section" id="deleting-a-vm">
 <h3>Deleting a VM<a class="headerlink" href="#deleting-a-vm" title="Permalink to this headline">¶</a></h3>
 <p>You can delete a VM on the target cloud by using &#8216;vm delete&#8217; command as below:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm vm delete testvm --cloud=kilo
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm vm delete testvm --cloud=kilo
 Machine testvm is being deleted on kilo Cloud...
 </pre></div>
 </div>
@@ -374,7 +374,7 @@ Machine testvm is being deleted on kilo Cloud...
 <div class="section" id="renaming-a-vm">
 <h3>Renaming a VM<a class="headerlink" href="#renaming-a-vm" title="Permalink to this headline">¶</a></h3>
 <p>You can rename a VM on the target cloud by using &#8216;vm rename&#8217; command as below:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm vm rename testvm --new=testvm_renamed --cloud=kilo
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm vm rename testvm --new=testvm_renamed --cloud=kilo
 Renaming VM (testvm) : 5bd7911e2b-xxxx-xxxx-xxxx-xxxxxxx
 Machine testvm renamed to testvm_renamed on kilo Cloud...
 </pre></div>

@@ -1,0 +1,22 @@
+cloudmesh_client.cloud.iaas.provider.aws package
+================================================
+
+Submodules
+----------
+
+cloudmesh_client.cloud.iaas.provider.aws.CloudProviderAwsAPI module
+-------------------------------------------------------------------
+
+.. automodule:: cloudmesh_client.cloud.iaas.provider.aws.CloudProviderAwsAPI
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: cloudmesh_client.cloud.iaas.provider.aws
+    :members:
+    :undoc-members:
+    :show-inheritance:

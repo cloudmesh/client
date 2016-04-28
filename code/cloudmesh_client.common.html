@@ -123,13 +123,14 @@
 <li class="toctree-l2 current"><a class="reference internal" href="cloudmesh_client.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.cloud.html">cloudmesh_client.cloud package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.comet.html">cloudmesh_client.comet package</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="">cloudmesh_client.common package</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">cloudmesh_client.common package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.BaseConfigDict">cloudmesh_client.common.BaseConfigDict module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.ConfigDict">cloudmesh_client.common.ConfigDict module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.DictDB">cloudmesh_client.common.DictDB module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.Error">cloudmesh_client.common.Error module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.FlatDict">cloudmesh_client.common.FlatDict module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.FlatDict2">cloudmesh_client.common.FlatDict2 module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cloudmesh-client-common-gitinfo-module">cloudmesh_client.common.GitInfo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.LibcloudDict">cloudmesh_client.common.LibcloudDict module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.LogUtil">cloudmesh_client.common.LogUtil module</a></li>
@@ -924,6 +925,40 @@ at time of initialization.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-cloudmesh_client.common.FlatDict2">
+<span id="cloudmesh-client-common-flatdict2-module"></span><h2>cloudmesh_client.common.FlatDict2 module<a class="headerlink" href="#module-cloudmesh_client.common.FlatDict2" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.common.FlatDict2.FlatDict2">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.common.FlatDict2.</code><code class="descname">FlatDict2</code><a class="reference internal" href="../_modules/cloudmesh_client/common/FlatDict2.html#FlatDict2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.FlatDict2.FlatDict2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="classmethod">
+<dt id="cloudmesh_client.common.FlatDict2.FlatDict2.convert">
+<em class="property">classmethod </em><code class="descname">convert</code><span class="sig-paren">(</span><em>obj</em>, <em>flatten=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/FlatDict2.html#FlatDict2.convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.FlatDict2.FlatDict2.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function converts object into a Dict optionally Flattening it
+:param obj: Object to be converted
+:param flatten: boolean to specify if the dict has to be flattened
+:return dict: the dict of the object (Flattened or Un-flattened)</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.common.FlatDict2.FlatDict2.is_primitive">
+<em class="property">classmethod </em><code class="descname">is_primitive</code><span class="sig-paren">(</span><em>thing</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/FlatDict2.html#FlatDict2.is_primitive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.FlatDict2.FlatDict2.is_primitive" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.common.FlatDict2.FlatDict2.object_to_dict">
+<em class="property">classmethod </em><code class="descname">object_to_dict</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/FlatDict2.html#FlatDict2.object_to_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.FlatDict2.FlatDict2.object_to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function converts Objects into Dictionary</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.common.FlatDict2.FlatDict2.primitive">
+<code class="descname">primitive</code><em class="property"> = (&lt;type 'int'&gt;, &lt;type 'str'&gt;, &lt;type 'bool'&gt;, &lt;type 'unicode'&gt;, &lt;type 'dict'&gt;, &lt;type 'list'&gt;)</em><a class="headerlink" href="#cloudmesh_client.common.FlatDict2.FlatDict2.primitive" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="cloudmesh-client-common-gitinfo-module">
 <h2>cloudmesh_client.common.GitInfo module<a class="headerlink" href="#cloudmesh-client-common-gitinfo-module" title="Permalink to this headline">¶</a></h2>
 </div>
@@ -1277,7 +1312,7 @@ This specify the column(s) in the table for sorting.</li>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.common.Shell.Shell.command">
-<code class="descname">command</code><em class="property"> = {'darwin': {}, 'linux': {}, 'windows': {}}</em><a class="headerlink" href="#cloudmesh_client.common.Shell.Shell.command" title="Permalink to this definition">¶</a></dt>
+<code class="descname">command</code><em class="property"> = {'windows': {}, 'darwin': {}, 'linux': {}}</em><a class="headerlink" href="#cloudmesh_client.common.Shell.Shell.command" title="Permalink to this definition">¶</a></dt>
 <dd><p>big question for badi and others</p>
 <p>how do we now define dynamically functions based on a list that we want to support</p>
 <p>what we want is where args are multiple unlimited parameters to the function</p>
@@ -1732,7 +1767,7 @@ compatibility with pdsh/dshbak/SLURM et al.</p>
 <dl class="exception">
 <dt id="cloudmesh_client.common.hostlist.BadHostlist">
 <em class="property">exception </em><code class="descclassname">cloudmesh_client.common.hostlist.</code><code class="descname">BadHostlist</code><a class="reference internal" href="../_modules/cloudmesh_client/common/hostlist.html#BadHostlist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.hostlist.BadHostlist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></p>
 </dd></dl>
 
 <dl class="class">
@@ -1873,6 +1908,11 @@ and a functions reference. The function should not use parameters.
 <code class="descname">execute</code><span class="sig-paren">(</span><em>name</em>, <em>command</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/ssh_config.html#ssh_config.execute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.ssh_config.ssh_config.execute" title="Permalink to this definition">¶</a></dt>
 <dd><p>executes the command on the named host</p>
 </dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.common.ssh_config.ssh_config.generate">
+<code class="descname">generate</code><span class="sig-paren">(</span><em>key='india'</em>, <em>host='india.futuresystems.org'</em>, <em>username=None</em>, <em>force=False</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/ssh_config.html#ssh_config.generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.ssh_config.ssh_config.generate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="cloudmesh_client.common.ssh_config.ssh_config.list">
@@ -2021,7 +2061,7 @@ with ~ and environment variables.</td>
 <dt id="cloudmesh_client.common.util.banner">
 <code class="descclassname">cloudmesh_client.common.util.</code><code class="descname">banner</code><span class="sig-paren">(</span><em>txt=None</em>, <em>c='#'</em>, <em>debug=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/util.html#banner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.util.banner" title="Permalink to this definition">¶</a></dt>
 <dd><p>prints a banner of the form with a frame of # arround the txt:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">############################</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">############################</span>
 <span class="c1"># txt</span>
 <span class="c1">############################</span>
 </pre></div>
@@ -2116,7 +2156,7 @@ String matching only, does not do REs as currently implemented.</p>
 <dt id="cloudmesh_client.common.util.str_banner">
 <code class="descclassname">cloudmesh_client.common.util.</code><code class="descname">str_banner</code><span class="sig-paren">(</span><em>txt=None</em>, <em>c='#'</em>, <em>debug=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/util.html#str_banner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.util.str_banner" title="Permalink to this definition">¶</a></dt>
 <dd><p>prints a banner of the form with a frame of # arround the txt:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">############################</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">############################</span>
 <span class="c1"># txt</span>
 <span class="c1">############################</span>
 </pre></div>

@@ -90,7 +90,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference_card.html">Reference Card</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Example Scripts</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Example Scripts</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#comment">Comment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#terminal-commands">Terminal Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#executing-shell-commands">Executing Shell commands</a></li>
@@ -201,30 +201,30 @@ span.prompt1:before {
 <p>At this time comments are only detected based on the first characters
 in a line. A comment line starts either with <cite>#</cite>, <cite>//</cite> or <cite>/*</cite>.</p>
 <p><a class="reference external" href="scripts/comment.cm">comment.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span># test comment 1
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># test comment 1</span>
 
-// test comment 2
+<span class="o">//</span> <span class="n">test</span> <span class="n">comment</span> <span class="mi">2</span>
 
-/* test comment 3 */
+<span class="o">/*</span> <span class="n">test</span> <span class="n">comment</span> <span class="mi">3</span> <span class="o">*/</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="terminal-commands">
 <h2>Terminal Commands<a class="headerlink" href="#terminal-commands" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/terminal.cm">terminal.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>banner &quot;prints a banner with this text&quot;
-echo &quot;prints this text&quot;
-color ON
-echo -r BLACK &quot;prints in black &quot;
-echo -r BLUE &quot;prints in blue&quot;
-echo -r GREEN &quot;prints in green&quot;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">banner</span> <span class="s2">&quot;prints a banner with this text&quot;</span>
+<span class="n">echo</span> <span class="s2">&quot;prints this text&quot;</span>
+<span class="n">color</span> <span class="n">ON</span>
+<span class="n">echo</span> <span class="o">-</span><span class="n">r</span> <span class="n">BLACK</span> <span class="s2">&quot;prints in black &quot;</span>
+<span class="n">echo</span> <span class="o">-</span><span class="n">r</span> <span class="n">BLUE</span> <span class="s2">&quot;prints in blue&quot;</span>
+<span class="n">echo</span> <span class="o">-</span><span class="n">r</span> <span class="n">GREEN</span> <span class="s2">&quot;prints in green&quot;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="executing-shell-commands">
 <h2>Executing Shell commands<a class="headerlink" href="#executing-shell-commands" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/bash.cm">bash.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span># execute a shell command
+<div class="highlight-default"><div class="highlight"><pre><span></span># execute a shell command
 ! ls
 </pre></div>
 </div>
@@ -232,11 +232,11 @@ echo -r GREEN &quot;prints in green&quot;
 <div class="section" id="executing-python">
 <h2>Executing Python<a class="headerlink" href="#executing-python" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/py.cm">py.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>py a = &quot;hallo&quot;
-py print (a)
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">py</span> <span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;hallo&quot;</span>
+<span class="n">py</span> <span class="nb">print</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
 
-py n = 3
-py for i in range(0,n): print (i)
+<span class="n">py</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">py</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">):</span> <span class="nb">print</span> <span class="p">(</span><span class="n">i</span><span class="p">)</span>
 
 
 </pre></div>
@@ -245,7 +245,7 @@ py for i in range(0,n): print (i)
 <div class="section" id="variables">
 <h2>Variables<a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/var.cm">var.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>#
+<div class="highlight-default"><div class="highlight"><pre><span></span>#
 # TESTING VARIABLES
 #
 
@@ -273,47 +273,47 @@ echo $b
 <div class="section" id="group">
 <h2>Group<a class="headerlink" href="#group" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/group.cm">group.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>register remote kilo
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">register</span> <span class="n">remote</span> <span class="n">kilo</span>
 
-# show the defaults
-cm default
-vm default
+<span class="c1"># show the defaults</span>
+<span class="n">cm</span> <span class="n">default</span>
+<span class="n">vm</span> <span class="n">default</span>
 
-banner &quot;GROUP A&quot;
-# boot 3 vms in goup a
-default group=group_a
+<span class="n">banner</span> <span class="s2">&quot;GROUP A&quot;</span>
+<span class="c1"># boot 3 vms in goup a</span>
+<span class="n">default</span> <span class="n">group</span><span class="o">=</span><span class="n">group_a</span>
 
-vm boot
-vm boot
-vm boot
+<span class="n">vm</span> <span class="n">boot</span>
+<span class="n">vm</span> <span class="n">boot</span>
+<span class="n">vm</span> <span class="n">boot</span>
 
-vm list
+<span class="n">vm</span> <span class="nb">list</span>
 
-banner &quot;GROUP B&quot;
-# boot 3 vms in group b
-default group=group_b
+<span class="n">banner</span> <span class="s2">&quot;GROUP B&quot;</span>
+<span class="c1"># boot 3 vms in group b</span>
+<span class="n">default</span> <span class="n">group</span><span class="o">=</span><span class="n">group_b</span>
 
-vm boot
-vm boot
-vm boot
+<span class="n">vm</span> <span class="n">boot</span>
+<span class="n">vm</span> <span class="n">boot</span>
+<span class="n">vm</span> <span class="n">boot</span>
 
-vm list
+<span class="n">vm</span> <span class="nb">list</span>
 
-# delete all vms in group_a
-vm delete group_a
+<span class="c1"># delete all vms in group_a</span>
+<span class="n">vm</span> <span class="n">delete</span> <span class="n">group_a</span>
 
-banner &quot;GROUP C&quot;
-default group=group_c
+<span class="n">banner</span> <span class="s2">&quot;GROUP C&quot;</span>
+<span class="n">default</span> <span class="n">group</span><span class="o">=</span><span class="n">group_c</span>
 
-# create three vms in group_c
-py n = 3
-py for i in range(0,n): cm vm boot
+<span class="c1"># create three vms in group_c</span>
+<span class="n">py</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">py</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">):</span> <span class="n">cm</span> <span class="n">vm</span> <span class="n">boot</span>
 
-vm list
+<span class="n">vm</span> <span class="nb">list</span>
 
-# Cleanup
-vm delete group_b
-vm delete group_c
+<span class="c1"># Cleanup</span>
+<span class="n">vm</span> <span class="n">delete</span> <span class="n">group_b</span>
+<span class="n">vm</span> <span class="n">delete</span> <span class="n">group_c</span>
 
 </pre></div>
 </div>
@@ -321,38 +321,38 @@ vm delete group_c
 <div class="section" id="keys">
 <h2>Keys<a class="headerlink" href="#keys" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/key.cm">key.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>banner KEYS
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">banner</span> <span class="n">KEYS</span>
 
-key delete --all --force
+<span class="n">key</span> <span class="n">delete</span> <span class="o">--</span><span class="nb">all</span> <span class="o">--</span><span class="n">force</span>
 
-# TODO: does ~ expansion works?
-key add --name=test-key ~/.ssh/id_rsa.pub
+<span class="c1"># TODO: does ~ expansion works?</span>
+<span class="n">key</span> <span class="n">add</span> <span class="o">--</span><span class="n">name</span><span class="o">=</span><span class="n">test</span><span class="o">-</span><span class="n">key</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span><span class="o">.</span><span class="n">pub</span>
 
-key list
-key list --format=json
-key list --format=yaml
+<span class="n">key</span> <span class="nb">list</span>
+<span class="n">key</span> <span class="nb">list</span> <span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">json</span>
+<span class="n">key</span> <span class="nb">list</span> <span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">yaml</span>
 
-key list --source=cloudmesh
-key list --source=ssh
-key list --source=git
+<span class="n">key</span> <span class="nb">list</span> <span class="o">--</span><span class="n">source</span><span class="o">=</span><span class="n">cloudmesh</span>
+<span class="n">key</span> <span class="nb">list</span> <span class="o">--</span><span class="n">source</span><span class="o">=</span><span class="n">ssh</span>
+<span class="n">key</span> <span class="nb">list</span> <span class="o">--</span><span class="n">source</span><span class="o">=</span><span class="n">git</span>
 
-key get test-key
+<span class="n">key</span> <span class="n">get</span> <span class="n">test</span><span class="o">-</span><span class="n">key</span>
 
-default cloud
-key upload test-key
+<span class="n">default</span> <span class="n">cloud</span>
+<span class="n">key</span> <span class="n">upload</span> <span class="n">test</span><span class="o">-</span><span class="n">key</span>
 
-key map
+<span class="n">key</span> <span class="nb">map</span>
 
-# key delete --select
+<span class="c1"># key delete --select</span>
 
-key delete --all --force
+<span class="n">key</span> <span class="n">delete</span> <span class="o">--</span><span class="nb">all</span> <span class="o">--</span><span class="n">force</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="vms">
 <h2>VMs<a class="headerlink" href="#vms" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/vm.cm">vm.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>banner -r BLUE VM
+<div class="highlight-default"><div class="highlight"><pre><span></span>banner -r BLUE VM
 
 banner -r BLUE -c &quot;-&quot; Setup
 
@@ -426,7 +426,7 @@ default login_key=~/.ssh/id_rsa
 <div class="section" id="copy">
 <h2>Copy<a class="headerlink" href="#copy" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/sync.cm">sync.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>default cloud=kilo
+<div class="highlight-default"><div class="highlight"><pre><span></span>default cloud=kilo
 
 ! rm -r ~/cm_sync
 ! mkdir -p ~/cm_sync/put
@@ -443,7 +443,7 @@ sync get sync_dir ~/cm_sync/get
 <div class="section" id="security-groups">
 <h2>Security Groups<a class="headerlink" href="#security-groups" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/secgroup.cm">secgroup.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>default cloud=kilo
+<div class="highlight-default"><div class="highlight"><pre><span></span>default cloud=kilo
 var username=cloudmesh.profile.username
 var tenant=cloudmesh.clouds.$cloud.credentials.OS_TENANT_NAME
 var keyname=&quot;$username-key&quot;
@@ -484,18 +484,18 @@ secgroup list --tenant=$tenant
 <div class="section" id="nova">
 <h2>Nova<a class="headerlink" href="#nova" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/nova.cm">nova.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>banner NOVA
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">banner</span> <span class="n">NOVA</span>
 
-# this command should be avoided and you should use the vm command instead.
-# It is the same as ! nova ... but reads the configuration from the
-# cloudmesh.yaml file
+<span class="c1"># this command should be avoided and you should use the vm command instead.</span>
+<span class="c1"># It is the same as ! nova ... but reads the configuration from the</span>
+<span class="c1"># cloudmesh.yaml file</span>
 
-nova set kilo
+<span class="n">nova</span> <span class="nb">set</span> <span class="n">kilo</span>
 
-nova info
+<span class="n">nova</span> <span class="n">info</span>
 
-nova list
-nova image-list
+<span class="n">nova</span> <span class="nb">list</span>
+<span class="n">nova</span> <span class="n">image</span><span class="o">-</span><span class="nb">list</span>
 
 </pre></div>
 </div>
@@ -503,7 +503,7 @@ nova image-list
 <div class="section" id="network">
 <h2>Network<a class="headerlink" href="#network" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/network.cm">network.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>## lines that do not work but should are commented out for now with ##
+<div class="highlight-default"><div class="highlight"><pre><span></span>## lines that do not work but should are commented out for now with ##
 
 
 banner SET_DEFAULT_CLOUD_AND_GROUP
@@ -584,23 +584,23 @@ group delete demo_group
 <div class="section" id="hpc">
 <h2>HPC<a class="headerlink" href="#hpc" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/hpc.cm">hpc.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>default cloud=general
-default group=test
-default cluster=india
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">default</span> <span class="n">cloud</span><span class="o">=</span><span class="n">general</span>
+<span class="n">default</span> <span class="n">group</span><span class="o">=</span><span class="n">test</span>
+<span class="n">default</span> <span class="n">cluster</span><span class="o">=</span><span class="n">india</span>
 
-banner HPC
+<span class="n">banner</span> <span class="n">HPC</span>
 
-hpc info
+<span class="n">hpc</span> <span class="n">info</span>
 
-hpc queue
+<span class="n">hpc</span> <span class="n">queue</span>
 
-hpc run ~/test.sh --group=test1
+<span class="n">hpc</span> <span class="n">run</span> <span class="o">~/</span><span class="n">test</span><span class="o">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">group</span><span class="o">=</span><span class="n">test1</span>
 
-hpc run ~/test.sh --group=test1
+<span class="n">hpc</span> <span class="n">run</span> <span class="o">~/</span><span class="n">test</span><span class="o">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">group</span><span class="o">=</span><span class="n">test1</span>
 
-hpc status --job=6
+<span class="n">hpc</span> <span class="n">status</span> <span class="o">--</span><span class="n">job</span><span class="o">=</span><span class="mi">6</span>
 
-hpc delete all --group=test1
+<span class="n">hpc</span> <span class="n">delete</span> <span class="nb">all</span> <span class="o">--</span><span class="n">group</span><span class="o">=</span><span class="n">test1</span>
 
 
 </pre></div>
@@ -609,7 +609,7 @@ hpc delete all --group=test1
 <div class="section" id="cluster">
 <h2>Cluster<a class="headerlink" href="#cluster" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/cluster.cm">cluster.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>banner SET_DEFAULT_CLOUD_AND_GROUP
+<div class="highlight-default"><div class="highlight"><pre><span></span>banner SET_DEFAULT_CLOUD_AND_GROUP
 
 var cloud=kilo
 var group=demo_group
@@ -638,32 +638,32 @@ network create cluster --group=$group
 <div class="section" id="cloud">
 <h2>Cloud<a class="headerlink" href="#cloud" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/cloud.cm">cloud.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>banner DEFAULTS
-list default
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">banner</span> <span class="n">DEFAULTS</span>
+<span class="nb">list</span> <span class="n">default</span>
 
 
-banner LIST_CLOUDS
-cloud list
+<span class="n">banner</span> <span class="n">LIST_CLOUDS</span>
+<span class="n">cloud</span> <span class="nb">list</span>
 
 
-banner LOGON_TO_A_CLOUD
-cloud logon kilo
-cloud list
+<span class="n">banner</span> <span class="n">LOGON_TO_A_CLOUD</span>
+<span class="n">cloud</span> <span class="n">logon</span> <span class="n">kilo</span>
+<span class="n">cloud</span> <span class="nb">list</span>
 
 
-banner DEACTIVATE_A_CLOUD
-cloud deactivate kilo
-cloud list
+<span class="n">banner</span> <span class="n">DEACTIVATE_A_CLOUD</span>
+<span class="n">cloud</span> <span class="n">deactivate</span> <span class="n">kilo</span>
+<span class="n">cloud</span> <span class="nb">list</span>
 
 
-banner ACTIVATE_A_CLOUD
-cloud activate kilo
-cloud list
+<span class="n">banner</span> <span class="n">ACTIVATE_A_CLOUD</span>
+<span class="n">cloud</span> <span class="n">activate</span> <span class="n">kilo</span>
+<span class="n">cloud</span> <span class="nb">list</span>
 
 
-banner LOGOUT_FROM_CLOUD
-cloud logout kilo
-cloud list
+<span class="n">banner</span> <span class="n">LOGOUT_FROM_CLOUD</span>
+<span class="n">cloud</span> <span class="n">logout</span> <span class="n">kilo</span>
+<span class="n">cloud</span> <span class="nb">list</span>
 </pre></div>
 </div>
 </div>

@@ -214,11 +214,6 @@
 <em class="property">class </em><code class="descclassname">cloudmesh_client.db.azure.model.</code><code class="descname">FLAVOR_AZURE</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/azure/model.html#FLAVOR_AZURE"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.azure.model.FLAVOR_AZURE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="cloudmesh_client.db.html#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin" title="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
 <dl class="attribute">
-<dt id="cloudmesh_client.db.azure.model.FLAVOR_AZURE.bandwidth">
-<code class="descname">bandwidth</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.FLAVOR_AZURE.bandwidth" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="cloudmesh_client.db.azure.model.FLAVOR_AZURE.category">
 <code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.FLAVOR_AZURE.category" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -239,26 +234,6 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="cloudmesh_client.db.azure.model.FLAVOR_AZURE.disk">
-<code class="descname">disk</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.FLAVOR_AZURE.disk" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.azure.model.FLAVOR_AZURE.driver">
-<code class="descname">driver</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.FLAVOR_AZURE.driver" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.azure.model.FLAVOR_AZURE.extra">
-<code class="descname">extra</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.FLAVOR_AZURE.extra" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.azure.model.FLAVOR_AZURE.id">
-<code class="descname">id</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.FLAVOR_AZURE.id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="cloudmesh_client.db.azure.model.FLAVOR_AZURE.kind">
 <code class="descname">kind</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.FLAVOR_AZURE.kind" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -276,11 +251,6 @@
 <dl class="attribute">
 <dt id="cloudmesh_client.db.azure.model.FLAVOR_AZURE.name">
 <code class="descname">name</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.FLAVOR_AZURE.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.azure.model.FLAVOR_AZURE.price">
-<code class="descname">price</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.FLAVOR_AZURE.price" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -318,6 +288,16 @@
 <code class="descname">uuid</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.FLAVOR_AZURE.uuid" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.FLAVOR_AZURE.virtual_machine_resource_disk_size">
+<code class="descname">virtual_machine_resource_disk_size</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.FLAVOR_AZURE.virtual_machine_resource_disk_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.FLAVOR_AZURE.web_worker_resource_disk_size">
+<code class="descname">web_worker_resource_disk_size</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.FLAVOR_AZURE.web_worker_resource_disk_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -350,8 +330,8 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="cloudmesh_client.db.azure.model.IMAGE_AZURE.id">
-<code class="descname">id</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.IMAGE_AZURE.id" title="Permalink to this definition">¶</a></dt>
+<dt id="cloudmesh_client.db.azure.model.IMAGE_AZURE.image_family">
+<code class="descname">image_family</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.IMAGE_AZURE.image_family" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -417,6 +397,137 @@
 <dl class="attribute">
 <dt id="cloudmesh_client.db.azure.model.IMAGE_AZURE.vm_image">
 <code class="descname">vm_image</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.IMAGE_AZURE.vm_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.db.azure.model.</code><code class="descname">VM_AZURE</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/azure/model.html#VM_AZURE"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.db.html#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin" title="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.category">
+<code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.cloud_service">
+<code class="descname">cloud_service</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.cloud_service" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.cm_id">
+<code class="descname">cm_id</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.cm_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.created_at">
+<code class="descname">created_at</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.created_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.deployment_slot">
+<code class="descname">deployment_slot</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.deployment_slot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.disk_name">
+<code class="descname">disk_name</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.disk_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.dns_name">
+<code class="descname">dns_name</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.dns_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.image_name">
+<code class="descname">image_name</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.image_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.instance_name">
+<code class="descname">instance_name</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.instance_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.instance_size">
+<code class="descname">instance_size</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.instance_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.kind">
+<code class="descname">kind</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.label">
+<code class="descname">label</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.media_link">
+<code class="descname">media_link</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.media_link" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.name">
+<code class="descname">name</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.private_ips">
+<code class="descname">private_ips</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.private_ips" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.project">
+<code class="descname">project</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.project" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.provider">
+<code class="descname">provider</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.provider" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.public_ips">
+<code class="descname">public_ips</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.public_ips" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.resource_location">
+<code class="descname">resource_location</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.resource_location" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.status">
+<code class="descname">status</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.type">
+<code class="descname">type</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.updated_at">
+<code class="descname">updated_at</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.updated_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.user">
+<code class="descname">user</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.username">
+<code class="descname">username</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.username" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.azure.model.VM_AZURE.uuid">
+<code class="descname">uuid</code><a class="headerlink" href="#cloudmesh_client.db.azure.model.VM_AZURE.uuid" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

@@ -179,6 +179,7 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.Error</span> <span class="kn">import</span> <span class="n">Error</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.todo</span> <span class="kn">import</span> <span class="n">TODO</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2</span> <span class="kn">import</span> <span class="n">CloudProviderLibcloudEC2</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI</span> <span class="kn">import</span> <span class="n">CloudProviderAzureAPI</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
 
 <span class="n">requests</span><span class="o">.</span><span class="n">packages</span><span class="o">.</span><span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">()</span>
@@ -215,8 +216,15 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">provider_class</span> <span class="o">=</span> <span class="n">CloudProviderLibcloudEC2</span>
 
             <span class="k">if</span> <span class="n">cloud_details</span><span class="p">[</span><span class="s2">&quot;cm_type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;azure&quot;</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;azure cloud provider yet implemented. failed.&quot;</span><span class="p">)</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">TODO</span><span class="p">(</span><span class="s2">&quot;Azure provider to be implemented&quot;</span><span class="p">)</span>
+                <span class="c1"># raise ValueError(&quot;azure cloud provider yet implemented. failed.&quot;)</span>
+                <span class="c1"># Console.TODO(&quot;Azure provider to be implemented&quot;)</span>
+                <span class="n">provider</span> <span class="o">=</span> <span class="n">CloudProviderAzureAPI</span><span class="p">(</span>
+                    <span class="n">cloudname</span><span class="p">,</span>
+                    <span class="n">cloud_details</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="n">provider</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">provider_class</span> <span class="o">=</span> <span class="n">CloudProviderAzureAPI</span>
+
+
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>

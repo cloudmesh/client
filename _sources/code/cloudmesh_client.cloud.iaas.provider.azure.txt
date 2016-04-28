@@ -1,0 +1,30 @@
+cloudmesh_client.cloud.iaas.provider.azure package
+==================================================
+
+Submodules
+----------
+
+cloudmesh_client.cloud.iaas.provider.azure.AzureDict module
+-----------------------------------------------------------
+
+.. automodule:: cloudmesh_client.cloud.iaas.provider.azure.AzureDict
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI module
+-----------------------------------------------------------------------
+
+.. automodule:: cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: cloudmesh_client.cloud.iaas.provider.azure
+    :members:
+    :undoc-members:
+    :show-inheritance:
