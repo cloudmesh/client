@@ -10,6 +10,7 @@ from cloudmesh_client.shell.command import command, PluginCommand, \
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.hostlist import Parameter
 
+
 class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
     topics = {"launcher": "todo"}
 
@@ -77,8 +78,8 @@ class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         arg.cloud = arguments["--cloud"] or Default.cloud
         arg.output = arguments['--format'] or 'table'
         arg.source = arguments['--source'] or 'db'
-        pprint (arg)
-        
+        pprint(arg)
+
         # arg.cloud = arguments["--cloud"] or Default.cloud
         # c = arg.list
         # print ("Hallo {cloud} is list={list}".format(**arg))
@@ -98,7 +99,13 @@ class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
             result = Launcher.add(name=arg.NAME, source=arg.SOURCE)
 
         elif arguments["delete"]:
-            result = Launcher.delete(name=arg.names, category=arg.cloud)
+
+            # if arg.name is not None:
+            #    result = Launcher.delete(name=arg.name, category=arg.cloud)
+            # else:
+            #    result = Launcher.delete(name=None)
+            for name in arg.names:
+                result = Launcher.delete(name=name, category=arg.cloud)
 
         elif arguments["run"]:
             result = Launcher.run()
