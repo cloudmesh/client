@@ -45,7 +45,7 @@ class Launcher(ListResource):
         }
 
         cls.cm.add(d)
-        return "Launcher has been added: " + str(d);
+        return str(d.name)
 
     @classmethod
     def delete(cls, name=None, category=None):
