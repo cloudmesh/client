@@ -1,3 +1,13 @@
-#! /bin/sh
-make clean
-python setup.py install
+#!/usr/bin/env python
+
+import os
+
+if 'VIRTUAL_ENV' in os.environ:
+
+    os.system("make clean")
+    os.system("python setup.py install")
+
+else:
+
+    print("ERROR: Please install in a virtualenv")
+    print("       Consult the cloudmesh client manual")
