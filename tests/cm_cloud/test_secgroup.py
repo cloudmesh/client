@@ -148,6 +148,7 @@ class Test_secgroup:
             #          u'to_port': 80},
 
             for rule in rules:
+                pprint (rule)
                 if (db_rule["fromPort"] == str(rule['from_port']) and
                     db_rule["toPort"] == str(rule['to_port']) and
                     db_rule["protocol"] == rule['ip_protocol'] and
