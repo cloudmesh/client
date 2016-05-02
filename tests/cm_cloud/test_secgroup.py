@@ -101,67 +101,117 @@ class Test_secgroup:
         groups = None
         rules = provider.list_secgroup(data.cloud)
 
+        # passed
+        def add_group(cloud, groupname):
+            provider = CloudProvider(cloud).provider
+            return provider.create_secgroup(groupname)
+
+        # passed
+        def delete_group(cloud, groupname):
+            provider = CloudProvider(data.cloud).provider
+            return provider.delete_secgroup(groupname)
+
+        def add_rule(cloud, groupname, rulename):
+            ret = None
+            provider = CloudProvider(data.cloud).provider
+            # fetch rule from db
+            cm = CloudmeshDatabase()
+            db_rule = cm.find(kind="secgrouprule", category="general", name=rulename, scope='first', output='dict')
+            kwargs = db_rule
+            group = get_group(cloud, groupname)
+            if group:
+                groupid = group["id"]
+                kwargs["uuid"] = groupid
+                print (kwargs)
+                ret = provider.add_secgroup_rule(kwargs)
+            return ret
+
         def delete_rule(cloud, groupname, rulename):
             pass
 
-        def add_rule(cloud, groupname, rulename):
-            # fetch rule from db
-            Console.error("not implemented", traceflag=False)
+        # passed
+        def list_groups(cloud):
+            provider = CloudProvider(cloud).provider
+            groups = provider.list_secgroup(cloud)
+            return groups
 
-        def delete_group(cloud, groupname):
-            Console.error("not implemented", traceflag=False)
-
-        def add_group(cloud, groupname):
-            Console.error("not implemented", traceflag=False)
-
+        # passed
         def get_group(cloud, groupname):
-            Console.error("not implemented", traceflag=False)
+            provider = CloudProvider(cloud).provider
+            groups = provider.list_secgroup(cloud)
+            ret = None
+            for groupkey in groups:
+                group = groups[groupkey]
+                if group["name"] == groupname:
+                    ret = group
+                    break
+            return ret
 
-        def list_groups(cloud, groupname):
-            Console.error("not implemented", traceflag=False)
-
+        # passed
         def list_rules(cloud, groupname):
             provider = CloudProvider(cloud).provider
             groups = provider.list_secgroup(cloud)
             for id in groups:
                 group = groups[id]
                 if groupname == group["name"]:
-                    return group
+                    return group["rules"]
             return None
 
             Console.error("not implemented", traceflag=False)
 
+        # passed
         def get_rule(cloud, groupname, rulename):
             rules = list_rules(cloud, groupname)
             # find properties for db rule
 
             cm = CloudmeshDatabase()
-
             db_rule = cm.find(kind="secgrouprule", category="general", name=rulename, scope='first', output='dict')
-
-            print (type(db_rule))
-            pprint (db_rule)
 
             #db_rule = {u'from_port': 80,
             #          u'ip_protocol': u'tcp',
             #          u'ip_range': {u'cidr': u'0.0.0.0/0'},
             #          u'to_port': 80},
-
+            ruleid = None
             for rule in rules:
-                if (db_rule["fromPort"] == str(rule['from_port']) and
-                    db_rule["toPort"] == str(rule['to_port']) and
-                    db_rule["protocol"] == rule['ip_protocol'] and
-                    db_rule["cidr"] == rule['ip_range']['cidr']
-                    ):
-                    return rule['id'] #uuid for the rule
-            return None
+                if 'cidr' in rule['ip_range']:
+                    if (db_rule["fromPort"] == str(rule['from_port']) and
+                        db_rule["toPort"] == str(rule['to_port']) and
+                        db_rule["protocol"] == rule['ip_protocol'] and
+                        db_rule["cidr"] == rule['ip_range']['cidr']
+                        ):
+                        ruleid = rule['id'] #uuid for the rule
+            return ruleid
 
-        pprint(rules)
+        # testing each individual method defined in this test
+        #
+        # pprint (list_groups(data.cloud))
+        # pprint (get_group(data.cloud, "default"))
+        # pprint (list_rules(data.cloud, "default"))
+        # pprint (get_rule(data.cloud, "default", "ssh"))
 
-        pprint(list_rules(data.cloud, data.groupname))
+        '''
+        # testing adding and deleting groups
+        # all passed
+        print ("...should be None")
+        pprint(get_group(data.cloud, "fwtest"))
+        print ("...should return the newly created object")
+        pprint(add_group(data.cloud, "fwtest"))
+        print ("...should be NOT None")
+        pprint(get_group(data.cloud, "fwtest"))
+        print ("...deleting")
+        pprint(delete_group(data.cloud, "fwtest"))
+        print ("...should be None")
+        pprint(get_group(data.cloud, "fwtest"))
+        '''
 
-
-        pprint(get_rule(data.cloud, data.groupname, "ssh"))
-
-
-        pprint(get_rule(data.cloud, data.groupname, "ssh"))
+        ''' Not yet completed
+        # testing adding and deleting rules
+        print ("...should return the newly created object")
+        pprint(add_group(data.cloud, "fwtest"))
+        print ("...adding ssh rule")
+        pprint(add_rule(data.cloud, "fwtest", "ssh"))
+        print ("...listing the group. Should have the ssh rule int it")
+        pprint(get_group(data.cloud, "fwtest"))
+        print ("...deleting the testing group")
+        pprint(delete_group(data.cloud, "fwtest"))
+        '''
