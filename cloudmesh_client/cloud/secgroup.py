@@ -426,6 +426,21 @@ class SecGroup(ListResource):
             Console.error("delete group")
 
     @classmethod
+    def delete_rule_2(cls, cloud, groupname, rulename):
+
+        rule = None # find me based on groupname and rulename from db
+        # rule.group
+        # rule.fromPort ....
+
+        #get al rules for group from cloud
+        provider = CloudProvider(cloud).provider
+
+        groups = None
+        rules = provider.list_secgroup_rules(cloud)
+
+
+
+    @classmethod
     def delete_rule(cls, cloud, secgroup, from_port, to_port, protocol, cidr):
         try:
             args = {

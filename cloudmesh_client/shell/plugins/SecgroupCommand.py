@@ -153,6 +153,8 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
             self._delete(arg)
 
         elif arguments["upload"]:
+
+            # rewrite the _delete
             self._delete(arg)
             SecGroup.upload(cloud=arg.cloud, group=arg.GROUP)
 

@@ -17,6 +17,7 @@ from cloudmesh_client.common.util import HEADING
 from cloudmesh_client.common.util import banner
 from cloudmesh_client.default import Default
 
+from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 
 '''
 cm secgroup list
@@ -89,3 +90,14 @@ class Test_secgroup:
         assert self.data.group not in result
 
 
+    def test_003(self):
+
+        HEADING("secgroup api")
+
+        cloud = "cm"
+        provider = CloudProvider(cloud).provider
+
+        groups = None
+        rules = provider.list_secgroup(cloud)
+
+        print ("RRR", rules)
