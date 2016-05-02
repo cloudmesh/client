@@ -319,6 +319,11 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     "user": arg.user
                 })
 
+                vm_details.username = Image.guess_username_from_category(
+                    vm_details.cloud,
+                    vm_details.image,
+                    username=arg.username)
+
                 try:
 
                     if arg.dryrun:
@@ -411,14 +416,14 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     name = arguments["NAME"] or Default.vm
                     n = arguments["N"] or 1
 
-                print ("Ping:", name, str(n))
+                print("Ping:", name, str(n))
 
                 vm = dotdict(Vm.list(name=name, category=cloud, output="dict")["dict"])
 
                 ip = vm.floating_ip
 
                 result = Shell.ping(host=ip, count=n)
-                print (result)
+                print(result)
 
             except Exception as e:
                 Console.error(e.message, traceflag=False)
@@ -652,7 +657,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             try:
 
                 ips = Ip.list(cloud=arg.cloud, output=output_format, names=names)
-                print (ips)
+                print(ips)
             except Exception as e:
                 Console.error("Problem getting ip addresses for instance", traceflag=False)
 
@@ -662,7 +667,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 if arg.verbose:
                     Console.msg(msg)
 
-            chameleon = "chameleon" in ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"][arg.cloud]["cm_host"]
+            chameleon = "chameleon" in ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"][arg.cloud][
+                "cm_host"]
 
             if chameleon:
                 arg.username = "cc"
@@ -692,7 +698,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
             _print(Printer.attribute(data))
 
-
             '''
             if vm.username is None:
                 user_from_db = Vm.get_login_user(vm.name, vm.cloud)
@@ -705,7 +710,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
             ip = arguments["--ip"]
             commands = arguments["--command"]
-
 
             ip_addresses = []
 
@@ -740,9 +744,10 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     _print("IP to be used is: {:}".format(ip))
 
                 #
-                # TODO: is thsi correctly implemented
+                # TODO: is this correctly implemented
                 #
                 SecGroup.enable_ssh(cloud=cloud)
+
                 if arg.verbose:
                     Console.info("Connecting to Instance at IP:" + format(ip))
                 # Constructing the ssh command to connect to the machine.
@@ -772,8 +777,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             else:
                 arg.group = Parameter.expand(arguments["--group"])
 
-
-            arg.refresh =  arguments["--refresh"] or Default.refresh
+            arg.refresh = arguments["--refresh"] or Default.refresh
 
             if arg.NAMES is not None:
                 arg.names = Parameter.expand(arguments["NAMES"])
@@ -800,7 +804,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                     Console.ok("Listing VMs on Cloud: {:}".format(cloud))
 
-
                     vms = Vm.list(category=cloud, output="raw")
 
                     # print ("XXX", type(vms), vms)
@@ -814,21 +817,21 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                             result = []
                         else:
                             result = vms
-                    elif arg.group is not None and len(arg.group)>0:
+                    elif arg.group is not None and len(arg.group) > 0:
                         for vm in vms:
                             if vm["group"] in arg.group:
                                 result.append(vm)
-                    elif arg.names is not None and len(arg.names)>0:
+                    elif arg.names is not None and len(arg.names) > 0:
                         for vm in vms:
                             if vm["name"] in arg.names:
                                 result.append(vm)
 
                     if len(result) > 0:
-                        #print(result)
+                        # print(result)
                         (order, header) = CloudProvider(cloud).get_attributes("vm")
-                        print (Printer.write(result,
-                                             order=order,
-                                             output=_format)
+                        print(Printer.write(result,
+                                            order=order,
+                                            output=_format)
                               )
                     else:
                         Console.error("No data found with requested parameters.", traceflag=False)
