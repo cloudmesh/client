@@ -18,6 +18,8 @@ from cloudmesh_client.common.util import banner
 from cloudmesh_client.default import Default
 
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
+from pprint import pprint
+from cloudmesh_client.shell.console import Console
 
 '''
 cm secgroup list
@@ -100,4 +102,28 @@ class Test_secgroup:
         groups = None
         rules = provider.list_secgroup(cloud)
 
-        print ("RRR", rules)
+        def delete_rule(cloud, groupname, rulename):
+            pass
+
+        def add_rule(cloud, groupname, rulename)
+            # fetch rule from db
+
+        def delete_group(cloud, groupname):
+            Console.error("not implemented", traceflag=False)
+
+        def add_group(cloud, groupname):
+            Console.error("not implemented", traceflag=False)
+
+        def get_group(cloud, groupname):
+            Console.error("not implemented", traceflag=False)
+
+        def list_groups(cloud, groupname):
+            Console.error("not implemented", traceflag=False)
+
+        def get_rule(cloud, groupname, rulename):
+            Console.error("not implemented", traceflag=False)
+
+        def list_rules(cloud, groupname):
+            Console.error("not implemented", traceflag=False)
+
+        pprint (rules)
