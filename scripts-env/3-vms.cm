@@ -1,0 +1,27 @@
+#
+# GET 3 VMS WITH IP
+#
+vm boot
+vm ip assign 
+var vm1=default.vm
+
+vm boot
+vm ip assign 
+var vm2=default.vm
+
+vm boot
+vm ip assign 
+var vm3=default.vm
+
+#
+# TEST SSH
+#
+
+vm ssh $vm1 --command=hostname
+vm ssh $vm2 --command=hostname
+vm ssh $vm3 --command=hostname
+
+vm delete $vm1
+vm delete $vm2
+vm delete $vm2
+

@@ -318,7 +318,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     "username": arg.username,
                     "user": arg.user
                 })
-
+                # correct the username
                 vm_details.username = Image.guess_username_from_category(
                     vm_details.cloud,
                     vm_details.image,

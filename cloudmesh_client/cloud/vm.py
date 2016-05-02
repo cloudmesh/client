@@ -21,6 +21,7 @@ from cloudmesh_client.default import Default
 class Vm(ListResource):
     cm = CloudmeshDatabase()
 
+
     @classmethod
     def uuid(cls, name, category=None):
         vm = cls.get(name, category=category)

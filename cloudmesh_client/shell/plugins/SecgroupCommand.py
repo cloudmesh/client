@@ -16,6 +16,21 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
         if self.context.debug:
             print("init command secgroup")
 
+    def _delete(self, arg):
+        if arg.cloud is None:
+            Console.ok("Delete secgroup {GROUP}".format(**arg))
+            SecGroup.delete(group=arg.GROUP)
+        else:
+            Console.ok("Delete secgroup {cloud}:{GROUP}".format(**arg))
+            result = SecGroup.delete_secgroup(name=arg.GROUP, cloud=arg.cloud)
+            if result is not None:
+                Console.ok("Security Group={GROUP} in cloud={cloud} deleted successfully."
+                           .format(**arg))
+            else:
+                Console.error("Failed to delete Security Group={GROUP} in cloud={cloud}"
+                              .format(**arg))
+
+
     # noinspection PyUnusedLocal
     @command
     def do_secgroup(self, args, arguments):
@@ -134,22 +149,11 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
         # Delete a security-group
         elif arguments["delete"]:
-            # if no arguments read default
 
-            # If default not set, terminate
-            if arg.cloud is None:
-                SecGroup.delete(group=arg.GROUP)
-            else:
-                result = SecGroup.delete_secgroup(name=arg.GROUP, cloud=arg.cloud)
-                if result is not None:
-                    Console.ok("Security Group={GROUP} in cloud={cloud} deleted successfully."
-                           .format(**arg))
-                else:
-                    Console.error("Failed to delete Security Group={GROUP} in cloud={cloud}"
-                              .format(**arg))
+            self._delete(arg)
 
         elif arguments["upload"]:
-
+            self._delete(arg)
             SecGroup.upload(cloud=arg.cloud, group=arg.GROUP)
 
         return ""

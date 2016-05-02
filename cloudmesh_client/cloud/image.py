@@ -7,6 +7,7 @@ from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.default import Default
+from cloudmesh_client.common.ConfigDict import ConfigDict
 
 from pprint import pprint
 
@@ -51,6 +52,20 @@ class Image(ListResource):
             cls.refresh(cloud)
 
         return CloudProvider(cloud).details('image', cloud, id, format)
+
+    @classmethod
+    def guess_username_from_category(cls, category, image, username=None):
+        chameleon = "chameleon" in ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"][category]["cm_host"]
+        username = None
+        if chameleon:
+            username = "cc"
+        else:
+
+            if username is None:
+                Console.error("Could not guess the username of the vm", traceflag=False)
+                return
+            username = username or Image.guess_username(image)
+        return username
 
     @classmethod
     def guess_username(cls, vm_name, cloud=None, description=None):
