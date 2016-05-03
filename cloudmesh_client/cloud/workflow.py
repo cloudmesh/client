@@ -18,11 +18,10 @@ class Workflow(ListResource):
         :param cloud: the cloud name
         """
 
-        Console.TODO("this method is not yet implemented. dont implement this yet")
+        Console.error("workflow does not implement yet a refresh method")
         return
 
-
-        return cls.cm.refresh('workflow', cloud)
+        # return cls.cm.refresh('workflow', cloud)
 
     @classmethod
     def delete(cls, name):
