@@ -2,6 +2,7 @@ from __future__ import print_function
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase, CloudmeshMixin
 from sqlalchemy import Column, Date, Integer, String
 
+
 class WORKFLOW(CloudmeshMixin, CloudmeshDatabase.Base):
     """table to store default values
 
@@ -15,10 +16,17 @@ class WORKFLOW(CloudmeshMixin, CloudmeshDatabase.Base):
 
     status = Column(String)
     location = Column(String)
+    description = Column(String)
+    dependency = Column(String)
+    threads = Column(String) # we store this as string, you need to convert to and from string to use
 
     def __init__(self, **kwargs):
-        super(DEFAULT, self).set_defaults(**kwargs)
-        self.status = kwargs.status('value', 'defined')
+        super(WORKFLOW, self).set_defaults(**kwargs)
+        self.status = kwargs.get('status', 'defined')
+        self.description = kwargs.get('description', None)
+        self.dependency = kwargs.get('dependency', None)
+        self.threads = kwargs.get('threads', '1')
+
 
 class DEFAULT(CloudmeshMixin, CloudmeshDatabase.Base):
     """table to store default values
@@ -51,7 +59,6 @@ class VAR(CloudmeshMixin, CloudmeshDatabase.Base):
     value = Column(String)
 
     def __init__(self, **kwargs):
-
         super(VAR, self).set_defaults(**kwargs)
 
         self.value = str(kwargs.get('value'))
@@ -147,7 +154,7 @@ class SECGROUPRULE(CloudmeshMixin, CloudmeshDatabase.Base):
     __kind__ = 'secgrouprule'
     __provider__ = 'general'
 
-    group = Column(String)    # What is this is this name?
+    group = Column(String)  # What is this is this name?
     fromPort = Column(String)
     toPort = Column(String)
     protocol = Column(String)

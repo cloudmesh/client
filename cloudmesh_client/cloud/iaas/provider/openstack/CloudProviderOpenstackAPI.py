@@ -354,10 +354,10 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 if sec_group.name == name:
                     try:
                         self.provider.security_groups.delete(sec_group)
-                        Console.msg("Secgroup delete: {} {}".format(sec_group.name, sec_group.__dict__["uuid"]))
+                        Console.msg("Secgroup delete: {} {}".format(sec_group.name, sec_group.__dict__["id"]))
                     except Exception as e:
                         Console.error(e.message, traceflag=False)
-                        Console.error("Secgroup delete: {} {}".format(sec_group.name, sec_group.__dict__["uuid"]), traceflag=False)
+                        Console.error("Secgroup delete: {}".format(sec_group.name), traceflag=False)
 
         else:
             print("Could not find security group [{}] in cloud [{}]"
