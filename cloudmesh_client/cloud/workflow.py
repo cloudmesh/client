@@ -29,14 +29,11 @@ class Workflow(ListResource):
 
 
     @classmethod
-    def list(cls, name, live=False, format="table"):
+    def list(cls, name, format="table"):
         """
         This method lists all workflows of the cloud
         :param cloud: the cloud name
         """
-
-        Console.TODO("this method is not yet implemented")
-        return
 
         try:
 
