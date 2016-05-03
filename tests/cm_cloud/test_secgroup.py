@@ -113,23 +113,36 @@ class Test_secgroup:
             provider = CloudProvider(data.cloud).provider
             return provider.delete_secgroup(groupname)
 
+        # passed
         def add_rule(cloud, groupname, rulename):
             ret = None
             provider = CloudProvider(data.cloud).provider
             # fetch rule from db
             cm = CloudmeshDatabase()
             db_rule = cm.find(kind="secgrouprule", category="general", name=rulename, scope='first', output='dict')
-            kwargs = db_rule
+            kwargs = {}
+            kwargs["protocol"] = db_rule["protocol"]
+            kwargs["cidr"] = db_rule["cidr"]
+            kwargs["from_port"] = db_rule["fromPort"]
+            kwargs["to_port"] = db_rule["toPort"]
             group = get_group(cloud, groupname)
             if group:
                 groupid = group["id"]
                 kwargs["uuid"] = groupid
                 print (kwargs)
-                ret = provider.add_secgroup_rule(kwargs)
+                ret = provider.add_secgroup_rule(**kwargs)
             return ret
 
+        # passed
         def delete_rule(cloud, groupname, rulename):
-            pass
+            ret = None
+            provider = CloudProvider(data.cloud).provider
+            ruleid = get_rule(cloud, groupname, rulename)
+            if ruleid:
+                ret = provider.delete_secgroup_rule(ruleid)
+            else:
+                Console.error("Rule does not exist - Rule:{}, Group:{}".format(rulename, groupname))
+            return ret
 
         # passed
         def list_groups(cloud):
@@ -187,6 +200,8 @@ class Test_secgroup:
 
         # testing each individual method defined in this test
         #
+        # list/get of groups/rules
+        # all passed
         pprint (list_groups(data.cloud))
         print("dgroup", self.data.dgroup)
         dgroup = self.data.dgroup
@@ -194,13 +209,14 @@ class Test_secgroup:
         # pprint (list_rules(data.cloud, "default"))
         # pprint (get_rule(data.cloud, "default", "ssh"))
 
-        # testing adding and deleting groups
-        # all passed
         print ("...should be None")
         pprint(get_group(data.cloud, dgroup))
 
         '''
-
+        # testing adding and deleting groups
+        # all passed
+        print ("...should be None")
+        pprint(get_group(data.cloud, "fwtest"))
         print ("...should return the newly created object")
         pprint(add_group(data.cloud, "fwtest"))
         print ("...should be NOT None")
@@ -211,13 +227,18 @@ class Test_secgroup:
         pprint(get_group(data.cloud, "fwtest"))
         '''
 
-        ''' Not yet completed
+        '''
         # testing adding and deleting rules
+        # all passed
         print ("...should return the newly created object")
         pprint(add_group(data.cloud, "fwtest"))
         print ("...adding ssh rule")
         pprint(add_rule(data.cloud, "fwtest", "ssh"))
         print ("...listing the group. Should have the ssh rule int it")
+        pprint(get_group(data.cloud, "fwtest"))
+        print ("...deleting ssh rule")
+        pprint(delete_rule(data.cloud, "fwtest", "ssh"))
+        print ("...listing the group. ssh rule should be gone")
         pprint(get_group(data.cloud, "fwtest"))
         print ("...deleting the testing group")
         pprint(delete_group(data.cloud, "fwtest"))
