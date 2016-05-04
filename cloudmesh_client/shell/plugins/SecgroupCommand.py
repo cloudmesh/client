@@ -155,7 +155,10 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
         elif arguments["upload"]:
 
             # rewrite the _delete
-            self._delete(arg)
+            #
+            # upload does not implicitly deleting a secgroup anymore
+            # instead, it will check and update the rules only
+            # self._delete(arg)
             SecGroup.upload(cloud=arg.cloud, group=arg.GROUP)
 
         return ""

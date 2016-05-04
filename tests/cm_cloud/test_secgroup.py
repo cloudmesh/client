@@ -41,8 +41,11 @@ class Test_secgroup:
         "rules": {
             "rule_http": "80 80 tcp  0.0.0.0/0",
             "rule_https": "443 443 tcp  0.0.0.0/0",
-            "rule_ssh": "443 443 tcp  0.0.0.0/0",
-        }
+            "rule_ssh": "22 22 tcp  0.0.0.0/0",
+        },
+        "image": Default.get_image(category=Default.cloud),
+        "flavor": Default.get_flavor(category=Default.cloud),
+        "vm": "{}_testsecgroup".format(Default.user),
     })
     for rule in data.rules:
         data[rule] = data.rules[rule]
@@ -103,6 +106,7 @@ class Test_secgroup:
         groups = None
         rules = provider.list_secgroup(data.cloud)
 
+        """
         # passed
         def add_group(cloud, groupname):
             provider = CloudProvider(cloud).provider
@@ -172,8 +176,6 @@ class Test_secgroup:
                     return group["rules"]
             return None
 
-            Console.error("not implemented", traceflag=False)
-
         # passed
         def get_rule(cloud, groupname, rulename):
             rules = list_rules(cloud, groupname)
@@ -197,20 +199,21 @@ class Test_secgroup:
                         ):
                         ruleid = rule['id'] #uuid for the rule
             return ruleid
+        """
 
         # testing each individual method defined in this test
         #
         # list/get of groups/rules
         # all passed
-        pprint (list_groups(data.cloud))
-        print("dgroup", self.data.dgroup)
-        dgroup = self.data.dgroup
+        # pprint (list_groups(data.cloud))
+        # print("dgroup", self.data.dgroup)
+        # dgroup = self.data.dgroup
         # pprint (get_group(data.cloud, "default"))
         # pprint (list_rules(data.cloud, "default"))
         # pprint (get_rule(data.cloud, "default", "ssh"))
 
-        print ("...should be None")
-        pprint(get_group(data.cloud, dgroup))
+        # print ("...should be None")
+        # pprint(get_group(data.cloud, dgroup))
 
         '''
         # testing adding and deleting groups
@@ -243,3 +246,64 @@ class Test_secgroup:
         print ("...deleting the testing group")
         pprint(delete_group(data.cloud, "fwtest"))
         '''
+
+    def test_004(self):
+        '''
+        A through test of deleting/updating secgroups.
+        It creates in the db a testing group with 3 rules;
+        Uploading the secgroup to cloud;
+        booting a vm with this newly created group;
+        deleting the secgroup (should fail as being used);
+        updating rules for the secgroup
+        (should succeed - updating rules, but not creating duplicated group);
+        cleaning up...
+            delete the testing vm
+            deleting the testing secgroup
+        '''
+
+        HEADING("creating testing group in db and populate with rules")
+        for rule in self.data.rules:
+            command = "cm secgroup add  {} {} {}".format(self.data.group, rule, self.data["rules"][rule])
+            result = self.run(command)
+
+        HEADING("uploading the newly created secgroup to default cloud")
+        command = "cm secgroup upload {} --cloud={}".format(self.data.group, self.data.cloud)
+        result = self.run(command)
+
+        HEADING("listing secgroup in default cloud")
+        command = "cm secgroup list --cloud={}".format(self.data.cloud)
+        result = self.run(command)
+        assert "80" in result and self.data.group in result
+
+        HEADING("booting a vm with the test secgroup")
+        command = "cm vm boot --name={vm} --cloud={cloud} --image={image}" + \
+                  " --flavor={flavor} --secgroup={group}"
+        result = self.run(command)
+        assert "OK." in result
+
+        HEADING("cm secgroup delete ... Deleting a secgroup that is being used")
+        command = "cm secgroup delete {} --cloud={}".format(self.data.group, self.data.cloud)
+        result = self.run(command)
+        assert "ERROR" in result and "in use" in result
+
+        HEADING("adding new rule to the test secgroup (change in db)")
+        command = "cm secgroup add {} ssh 8765 8765 tcp 0.0.0.0/0".format(self.data.group)
+        result = self.run(command)
+        HEADING("updating the teseting secgroup in the default cloud (upload to cloud)")
+        command = "cm secgroup upload {} --cloud={}".format(self.data.group, self.data.cloud)
+        result = self.run(command)
+
+        HEADING("cm secgroup list --cloud={}".format(self.data.cloud))
+        command = "cm secgroup list --cloud={}".format(self.data.cloud)
+        result = self.run(command)
+        assert "8765" in result
+
+        HEADING("Cleaning up......")
+        HEADING("deleting the test vm and the test secgroup")
+        command = "cm vm delete {}".format(self.data.vm)
+        result = self.run(command)
+        command = "cm secgroup delete {} --cloud={}".format(self.data.group, self.data.cloud)
+        result = self.run(command)
+        command = "cm secgroup list --cloud={}".format(self.data.cloud)
+        result = self.run(command)
+        assert self.data.group not in result

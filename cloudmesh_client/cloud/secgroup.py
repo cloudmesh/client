@@ -88,7 +88,6 @@ class SecGroup(ListResource):
 
     @classmethod
     def upload(cls, cloud=None, group=None):
-
         if cloud is None:
             clouds = ConfigDict("cloudmesh.yaml")["cloudmesh"]["active"]
         else:
@@ -102,10 +101,21 @@ class SecGroup(ListResource):
             groups = list(groups)
         else:
             groups = [group]
-
-
-        for c in clouds:
+        for cloud in clouds:
             for g in groups:
+                cls.delete_all_rules_cloud(cloud, g)
+                group = cls.get(name=g, cloud=cloud)
+                group_cloud = cls.get_group_cloud(cloud, g)
+                if not group_cloud:
+                    cls.add_group_cloud(cloud, g)
+                rules = cls.list_rules(group=g, output="dict")
+
+                if rules:
+                    for ruleid in rules:
+                        rule = rules[ruleid]
+                        rulename = rule["name"]
+                        cls.add_rule_cloud(cloud, g, rulename)
+                '''
                 SecGroup.delete(category=c, group=g)
                 uuid = SecGroup.create(category=c, group=g)
                 for key in rules:
@@ -113,8 +123,7 @@ class SecGroup(ListResource):
                     if r["group"] == g:
                         SecGroup.add_rule(c,uuid,r["fromPort"],r["toPort"] , r['protocol'],r['cidr'])
                 # create group
-
-
+                '''
 
     @classmethod
     def create(cls, group=None, category=None):
@@ -193,7 +202,7 @@ class SecGroup(ListResource):
 
 
     @classmethod
-    def list_rules(cls, uuid=None, output='table'):
+    def list_rules(cls, group=None, output='table'):
         """
         This method gets the security group rules
         from the cloudmesh database
@@ -202,18 +211,18 @@ class SecGroup(ListResource):
         """
 
         try:
-            if uuid is None:
+            if group is None:
                 rules = cls.cm.find(kind="secgrouprule")
             else:
                 args = {
-                    "group": uuid
+                    "group": group
                 }
 
                 rules = cls.cm.find(kind="secgrouprule", **args)
 
             # check if rules exist
             if rules is None:
-                return "No rules for security group={} in the database. Try cm secgroup refresh.".format(uuid)
+                return "No rules for security group={} in the database. Try cm secgroup refresh.".format(group)
 
             # return table
             return (Printer.write(rules,
@@ -426,21 +435,6 @@ class SecGroup(ListResource):
             Console.error("delete group")
 
     @classmethod
-    def delete_rule_2(cls, cloud, groupname, rulename):
-
-        rule = None # find me based on groupname and rulename from db
-        # rule.group
-        # rule.fromPort ....
-
-        #get al rules for group from cloud
-        provider = CloudProvider(cloud).provider
-
-        groups = None
-        rules = provider.list_secgroup_rules(cloud)
-
-
-
-    @classmethod
     def delete_rule(cls, cloud, secgroup, from_port, to_port, protocol, cidr):
         try:
             args = {
@@ -493,6 +487,116 @@ class SecGroup(ListResource):
             Console.error("delete all rules")
 
         return
+
+    # new methods moved from the test_secgroup:3
+    # the operations are from the perspective on the cloud
+    # and does not make any change on local db
+    #
+    @classmethod
+    def add_group_cloud(cls, cloud, groupname):
+        provider = CloudProvider(cloud).provider
+        return provider.create_secgroup(groupname)
+
+    @classmethod
+    def delete_group_cloud(cls, cloud, groupname):
+        provider = CloudProvider(cloud).provider
+        return provider.delete_secgroup(groupname)
+
+    @classmethod
+    def add_rule_cloud(cls, cloud, groupname, rulename):
+        ret = None
+        provider = CloudProvider(cloud).provider
+        # fetch rule from db
+        db_rule = cls.cm.find(kind="secgrouprule",
+                              category="general",
+                              group=groupname,
+                              name=rulename,
+                              scope='first',
+                              output='dict')
+        kwargs = {}
+        kwargs["protocol"] = db_rule["protocol"]
+        kwargs["cidr"] = db_rule["cidr"]
+        kwargs["from_port"] = db_rule["fromPort"]
+        kwargs["to_port"] = db_rule["toPort"]
+        group = cls.get_group_cloud(cloud, groupname)
+        if group:
+            groupid = group["id"]
+            kwargs["uuid"] = groupid
+            ret = provider.add_secgroup_rule(**kwargs)
+        return ret
+
+    @classmethod
+    def delete_rule_cloud(cls, cloud, groupname, rulename):
+        ret = None
+        provider = CloudProvider(cloud).provider
+        ruleid = cls.get_rule_cloud(cloud, groupname, rulename)
+        if ruleid:
+            ret = provider.delete_secgroup_rule(ruleid)
+        #else:
+        #    Console.error("Rule does not exist - Rule:{}, Group:{}"\
+        #                  .format(rulename, groupname), traceflag=False)
+        return ret
+
+    @classmethod
+    def delete_all_rules_cloud(cls, cloud, groupname):
+        rules = cls.list_rules_cloud(cloud, groupname)
+        provider = CloudProvider(cloud).provider
+        if rules:
+            for rule in rules:
+                ruleid = rule['id']
+                provider.delete_secgroup_rule(ruleid)
+        return
+
+    @classmethod
+    def list_groups_cloud(cls, cloud):
+        provider = CloudProvider(cloud).provider
+        groups = provider.list_secgroup(cloud)
+        return groups
+
+    @classmethod
+    def get_group_cloud(cls, cloud, groupname):
+        provider = CloudProvider(cloud).provider
+        groups = provider.list_secgroup(cloud)
+        ret = None
+        for groupkey in groups:
+            group = groups[groupkey]
+            if group["name"] == groupname:
+                ret = group
+                break
+        return ret
+
+    @classmethod
+    def list_rules_cloud(cls, cloud, groupname):
+        provider = CloudProvider(cloud).provider
+        groups = provider.list_secgroup(cloud)
+        for id in groups:
+            group = groups[id]
+            if groupname == group["name"]:
+                return group["rules"]
+        return None
+
+    @classmethod
+    def get_rule_cloud(cls, cloud, groupname, rulename):
+        rules = cls.list_rules_cloud(cloud, groupname)
+        # find properties for db rule
+
+        db_rule = cls.cm.find(kind="secgrouprule",
+                              category="general",
+                              group=groupname,
+                              name=rulename,
+                              scope='first',
+                              output='dict')
+
+        ruleid = None
+        for rule in rules:
+            if 'cidr' in rule['ip_range']:
+                if (db_rule["fromPort"] == str(rule['from_port']) and
+                    db_rule["toPort"] == str(rule['to_port']) and
+                    db_rule["protocol"] == rule['ip_protocol'] and
+                    db_rule["cidr"] == rule['ip_range']['cidr']
+                    ):
+                    ruleid = rule['id'] #uuid for the rule
+        return ruleid
 
 
 if __name__ == '__main__':
