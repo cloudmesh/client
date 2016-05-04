@@ -307,7 +307,7 @@ class Shell(object):
         return platform.system().lower()
 
     @classmethod
-    def execute(cls, cmd, arguments="", shell=False):
+    def execute(cls, cmd, arguments="", shell=False, cwd=None):
         """Run Shell command
 
         :param cmd: command to run
@@ -337,17 +337,21 @@ class Shell(object):
         else:
             print("ERROR: Wrong parameter type", type(arguments))
 
+        if cwd is None:
+            cwd = os.getcwd()
         try:
             if shell:
                 result = subprocess.check_output(
                     os_command,
                     stderr=subprocess.STDOUT,
-                    shell=True)
+                    shell=True,
+                    cwd=cwd)
             else:
                 result = subprocess.check_output(
                     os_command,
                     # shell=True,
-                    stderr=subprocess.STDOUT)
+                    stderr=subprocess.STDOUT,
+                    cwd=cwd)
         except:
             Console.error("problem executing subprocess")
         if result is None:

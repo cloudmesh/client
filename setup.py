@@ -127,6 +127,7 @@ setup(
     entry_points={
         'console_scripts': [
             'cm = cloudmesh_client.shell.cm:main',
+            'cm-authors = cloudmesh_client.common.GitInfo:print_authors'
             # 'ghost = cloudmesh_client.shell.ghost:main',
         ],
     },

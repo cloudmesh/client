@@ -1,8 +1,8 @@
 """managing information from GIT"""
 from __future__ import print_function
 from pprint import pprint
-from cloudmesh.shell.Shell import Shell
-from cloudmesh_base.util import banner
+from cloudmesh_client.common.Shell import Shell
+from cloudmesh_client.common.util import banner
 
 
 class GitInfo(object):
@@ -52,12 +52,16 @@ class GitInfo(object):
             format_string = "'%aN' <%cE>"
         elif format_arg == 'dict':
             format_string = "%aN\t%cE"
-        result = Shell.sort(Shell.git("log",
+        #result = Shell.sort(Shell.git("log",
+        #                              "--all",
+        #                              "--format=" + format_string,
+        #                              _tty_in=True,
+        #                              _tty_out=False,
+        #                             _piped=True), "-u")
+        result = Shell.execute("git", ["log",
                                       "--all",
-                                      "--format=" + format_string,
-                                      _tty_in=True,
-                                      _tty_out=False,
-                                      _piped=True), "-u")
+                                      "--format=" + format_string])
+
 
         if format_arg is None:
             return result
@@ -75,7 +79,9 @@ class GitInfo(object):
 
         :param format_arg: if "dict" is specified a dict will be returned
         '''
-        result = Shell.git("shortlog", "-s", "-n", _tty_in=True, _tty_out=False)
+        #result = Shell.git("shortlog", "-s", "-n", _tty_in=True, _tty_out=False)
+        result = Shell.execute("git", ["shortlog", "-s", "-n"])
+
         if format_arg is None:
             return result
         elif format_arg == "dict":
@@ -162,6 +168,11 @@ class GitInfo(object):
             ]}
 
         return stats
+
+def print_authors():
+    gitinfo = GitInfo()
+    print(gitinfo.authors())
+
 
 if __name__ == "__main__":
     gitinfo = GitInfo()
