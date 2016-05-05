@@ -480,7 +480,7 @@
         <span class="k">return</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Shell.execute"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.Shell.Shell.execute">[docs]</a>    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">arguments</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Shell.execute"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.Shell.Shell.execute">[docs]</a>    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">arguments</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Run Shell command</span>
 
 <span class="sd">        :param cmd: command to run</span>
@@ -510,17 +510,21 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ERROR: Wrong parameter type&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">arguments</span><span class="p">))</span>
 
+        <span class="k">if</span> <span class="n">cwd</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">shell</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span>
                     <span class="n">os_command</span><span class="p">,</span>
                     <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">STDOUT</span><span class="p">,</span>
-                    <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+                    <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                    <span class="n">cwd</span><span class="o">=</span><span class="n">cwd</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span>
                     <span class="n">os_command</span><span class="p">,</span>
                     <span class="c1"># shell=True,</span>
-                    <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">STDOUT</span><span class="p">)</span>
+                    <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">STDOUT</span><span class="p">,</span>
+                    <span class="n">cwd</span><span class="o">=</span><span class="n">cwd</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;problem executing subprocess&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>

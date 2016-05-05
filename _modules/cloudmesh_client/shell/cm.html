@@ -271,7 +271,8 @@
 <span class="sd">        commands by the interpreter should stop.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># line = self.replace_vars(line)</span>
+
+        <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">replace_vars</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">line</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="s2">&quot;&quot;</span>
@@ -716,7 +717,7 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">msg</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span></div>
 
     <span class="c1"># noinspection PyUnusedLocal</span>
     <span class="c1"># BUG: this does not for some reason execute the arguments</span>
@@ -734,7 +735,7 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
     <span class="c1">#</span>
     <span class="c1"># VAR</span>
@@ -809,12 +810,13 @@
 
         <span class="n">newline</span> <span class="o">=</span> <span class="n">line</span>
 
-        <span class="n">variables</span> <span class="o">=</span> <span class="n">Var</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">format</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">)</span>
+        <span class="n">variables</span> <span class="o">=</span> <span class="n">Var</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">variables</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">:</span>
-                <span class="n">name</span> <span class="o">=</span> <span class="n">variables</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
-                <span class="n">value</span> <span class="o">=</span> <span class="n">variables</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span>
+                <span class="n">v</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">variables</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">variables</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">])</span>
                 <span class="n">newline</span> <span class="o">=</span> <span class="n">newline</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;$&quot;</span> <span class="o">+</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
         <span class="c1"># for v in os.environ:</span>
@@ -856,17 +858,20 @@
 
 <span class="sd">        special vars date and time are defined</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;list&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">arg</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="ow">or</span> <span class="n">arg</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="c1"># self._list_variables()</span>
             <span class="k">print</span><span class="p">(</span><span class="n">Var</span><span class="o">.</span><span class="n">list</span><span class="p">())</span>
             <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;NAME=VALUE&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="s2">&quot;=&quot;</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME=VALUE&quot;</span><span class="p">]:</span>
             <span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;time&quot;</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;now&quot;</span><span class="p">:</span>
                 <span class="n">value</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%H:%M:%S&quot;</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;date&quot;</span><span class="p">:</span>
                 <span class="n">value</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">value</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;default.&quot;</span><span class="p">):</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;default.&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">)</span>
             <span class="k">elif</span> <span class="s2">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>

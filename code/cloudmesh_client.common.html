@@ -131,7 +131,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.Error">cloudmesh_client.common.Error module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.FlatDict">cloudmesh_client.common.FlatDict module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.FlatDict2">cloudmesh_client.common.FlatDict2 module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cloudmesh-client-common-gitinfo-module">cloudmesh_client.common.GitInfo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.GitInfo">cloudmesh_client.common.GitInfo module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.LibcloudDict">cloudmesh_client.common.LibcloudDict module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.LogUtil">cloudmesh_client.common.LogUtil module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.Printer">cloudmesh_client.common.Printer module</a></li>
@@ -959,8 +959,110 @@ at time of initialization.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="cloudmesh-client-common-gitinfo-module">
-<h2>cloudmesh_client.common.GitInfo module<a class="headerlink" href="#cloudmesh-client-common-gitinfo-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-cloudmesh_client.common.GitInfo">
+<span id="cloudmesh-client-common-gitinfo-module"></span><h2>cloudmesh_client.common.GitInfo module<a class="headerlink" href="#module-cloudmesh_client.common.GitInfo" title="Permalink to this headline">¶</a></h2>
+<p>managing information from GIT</p>
+<dl class="class">
+<dt id="cloudmesh_client.common.GitInfo.GitInfo">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.common.GitInfo.</code><code class="descname">GitInfo</code><a class="reference internal" href="../_modules/cloudmesh_client/common/GitInfo.html#GitInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.GitInfo.GitInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>This class can be used to return some elementary information
+about the git hub directory.  This includes the:</p>
+<ul class="simple">
+<li>version number of the code</li>
+<li>the list of people contributing to the code</li>
+<li>emails of the people contributing</li>
+<li>a statistic about canged code by person</li>
+</ul>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">gitinfo</span> <span class="o">=</span> <span class="n">GitInfo</span><span class="p">()</span>
+<span class="nb">print</span> <span class="n">gitinfo</span><span class="o">.</span><span class="n">authors</span><span class="p">()</span>
+<span class="n">pprint</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">authors</span><span class="p">(</span><span class="s2">&quot;dict&quot;</span><span class="p">))</span>
+<span class="n">pprint</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">emails</span><span class="p">())</span>
+<span class="n">pprint</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">emails</span><span class="p">(</span><span class="s2">&quot;dict&quot;</span><span class="p">))</span>
+<span class="n">pprint</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
+<span class="nb">print</span> <span class="n">gitinfo</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="s2">&quot;laszewski@gmail.com&quot;</span><span class="p">)</span>
+<span class="n">stats</span> <span class="o">=</span> <span class="n">gitinfo</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+<span class="nb">print</span> <span class="n">stats</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="cloudmesh_client.common.GitInfo.GitInfo.authors">
+<code class="descname">authors</code><span class="sig-paren">(</span><em>format_arg=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/GitInfo.html#GitInfo.authors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.GitInfo.GitInfo.authors" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the authors of the authors either as a text or as a dict. The
+format is specified as an argument.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>format_arg</strong> &#8211; if &#8220;dict&#8221; is specified a dict will be returned</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.common.GitInfo.GitInfo.compute">
+<code class="descname">compute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/GitInfo.html#GitInfo.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.GitInfo.GitInfo.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>computes the statistic of all authors in a git repository and
+returns the result as a dict.
+:rtype: a dict with the values</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.common.GitInfo.GitInfo.emails">
+<code class="descname">emails</code><span class="sig-paren">(</span><em>format_arg=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/GitInfo.html#GitInfo.emails"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.GitInfo.GitInfo.emails" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the emails of the authors either as a text or as a dict. The
+format is specified as an argument.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>format_arg</strong> &#8211; if &#8220;dict&#8221; is specified a dict will be returned</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict or arry of e-mails dependent on format_arg</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.common.GitInfo.GitInfo.info">
+<code class="descname">info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/GitInfo.html#GitInfo.info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.GitInfo.GitInfo.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the information about authors, emails, and commits in a dict.
+:rtype: a dict with the information</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.common.GitInfo.GitInfo.stat">
+<code class="descname">stat</code><span class="sig-paren">(</span><em>email</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/GitInfo.html#GitInfo.stat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.GitInfo.GitInfo.stat" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a statistic of a git author with the given e_mail.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>email</strong> &#8211; name of the author</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">a dict with the statistics</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.common.GitInfo.GitInfo.version">
+<code class="descname">version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/GitInfo.html#GitInfo.version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.GitInfo.GitInfo.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>retruns the verison of the code from github
+:rtype: the git tags</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="cloudmesh_client.common.GitInfo.print_authors">
+<code class="descclassname">cloudmesh_client.common.GitInfo.</code><code class="descname">print_authors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/GitInfo.html#print_authors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.GitInfo.print_authors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="section" id="module-cloudmesh_client.common.LibcloudDict">
 <span id="cloudmesh-client-common-libclouddict-module"></span><h2>cloudmesh_client.common.LibcloudDict module<a class="headerlink" href="#module-cloudmesh_client.common.LibcloudDict" title="Permalink to this headline">¶</a></h2>
@@ -1348,7 +1450,7 @@ for c in commands:</p>
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.common.Shell.Shell.execute">
-<em class="property">classmethod </em><code class="descname">execute</code><span class="sig-paren">(</span><em>cmd</em>, <em>arguments=''</em>, <em>shell=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/Shell.html#Shell.execute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.Shell.Shell.execute" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">execute</code><span class="sig-paren">(</span><em>cmd</em>, <em>arguments=''</em>, <em>shell=False</em>, <em>cwd=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/Shell.html#Shell.execute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.Shell.Shell.execute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run Shell command</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

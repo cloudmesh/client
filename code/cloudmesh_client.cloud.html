@@ -816,6 +816,11 @@ in the cloudmesh database
 <dd></dd></dl>
 
 <dl class="classmethod">
+<dt id="cloudmesh_client.cloud.image.Image.guess_username_from_category">
+<em class="property">classmethod </em><code class="descname">guess_username_from_category</code><span class="sig-paren">(</span><em>category</em>, <em>image</em>, <em>username=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/image.html#Image.guess_username_from_category"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.image.Image.guess_username_from_category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
 <dt id="cloudmesh_client.cloud.image.Image.list">
 <em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>cloud</em>, <em>format='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/image.html#Image.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.image.Image.list" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method lists all images of the cloud
@@ -1086,6 +1091,11 @@ the database, then inserting new data
 <dl class="attribute">
 <dt id="cloudmesh_client.cloud.launcher.Launcher.cm">
 <code class="descname">cm</code><em class="property"> = &lt;cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase object&gt;</em><a class="headerlink" href="#cloudmesh_client.cloud.launcher.Launcher.cm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.launcher.Launcher.delete">
+<em class="property">classmethod </em><code class="descname">delete</code><span class="sig-paren">(</span><em>name=None</em>, <em>category=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/launcher.html#Launcher.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.launcher.Launcher.delete" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -1742,8 +1752,18 @@ project number.</p>
 <em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.secgroup.</code><code class="descname">SecGroup</code><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.cloud.ListResource.ListResource" title="cloudmesh_client.cloud.ListResource.ListResource"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.cloud.ListResource.ListResource</span></code></a></p>
 <dl class="classmethod">
+<dt id="cloudmesh_client.cloud.secgroup.SecGroup.add_group_cloud">
+<em class="property">classmethod </em><code class="descname">add_group_cloud</code><span class="sig-paren">(</span><em>cloud</em>, <em>groupname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.add_group_cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.add_group_cloud" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
 <dt id="cloudmesh_client.cloud.secgroup.SecGroup.add_rule">
 <em class="property">classmethod </em><code class="descname">add_rule</code><span class="sig-paren">(</span><em>cloud</em>, <em>secgroup_uuid</em>, <em>from_port</em>, <em>to_port</em>, <em>protocol</em>, <em>cidr</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.add_rule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.add_rule" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.secgroup.SecGroup.add_rule_cloud">
+<em class="property">classmethod </em><code class="descname">add_rule_cloud</code><span class="sig-paren">(</span><em>cloud</em>, <em>groupname</em>, <em>rulename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.add_rule_cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.add_rule_cloud" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -1795,8 +1815,23 @@ d[i][&#8220;Description&#8221;] = obj.description</div></blockquote>
 <dd></dd></dl>
 
 <dl class="classmethod">
+<dt id="cloudmesh_client.cloud.secgroup.SecGroup.delete_all_rules_cloud">
+<em class="property">classmethod </em><code class="descname">delete_all_rules_cloud</code><span class="sig-paren">(</span><em>cloud</em>, <em>groupname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.delete_all_rules_cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.delete_all_rules_cloud" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.secgroup.SecGroup.delete_group_cloud">
+<em class="property">classmethod </em><code class="descname">delete_group_cloud</code><span class="sig-paren">(</span><em>cloud</em>, <em>groupname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.delete_group_cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.delete_group_cloud" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
 <dt id="cloudmesh_client.cloud.secgroup.SecGroup.delete_rule">
 <em class="property">classmethod </em><code class="descname">delete_rule</code><span class="sig-paren">(</span><em>cloud</em>, <em>secgroup</em>, <em>from_port</em>, <em>to_port</em>, <em>protocol</em>, <em>cidr</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.delete_rule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.delete_rule" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.secgroup.SecGroup.delete_rule_cloud">
+<em class="property">classmethod </em><code class="descname">delete_rule_cloud</code><span class="sig-paren">(</span><em>cloud</em>, <em>groupname</em>, <em>rulename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.delete_rule_cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.delete_rule_cloud" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -1820,6 +1855,16 @@ with given name filtered by cloud.
 </dd></dl>
 
 <dl class="classmethod">
+<dt id="cloudmesh_client.cloud.secgroup.SecGroup.get_group_cloud">
+<em class="property">classmethod </em><code class="descname">get_group_cloud</code><span class="sig-paren">(</span><em>cloud</em>, <em>groupname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.get_group_cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.get_group_cloud" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.secgroup.SecGroup.get_rule_cloud">
+<em class="property">classmethod </em><code class="descname">get_rule_cloud</code><span class="sig-paren">(</span><em>cloud</em>, <em>groupname</em>, <em>rulename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.get_rule_cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.get_rule_cloud" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
 <dt id="cloudmesh_client.cloud.secgroup.SecGroup.list">
 <em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>group=None</em>, <em>name=None</em>, <em>category='general'</em>, <em>output='table'</em>, <em>scope='all'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.list" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method queries the database to fetch list of secgroups
@@ -1829,13 +1874,23 @@ filtered by cloud.
 </dd></dl>
 
 <dl class="classmethod">
+<dt id="cloudmesh_client.cloud.secgroup.SecGroup.list_groups_cloud">
+<em class="property">classmethod </em><code class="descname">list_groups_cloud</code><span class="sig-paren">(</span><em>cloud</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.list_groups_cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.list_groups_cloud" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
 <dt id="cloudmesh_client.cloud.secgroup.SecGroup.list_rules">
-<em class="property">classmethod </em><code class="descname">list_rules</code><span class="sig-paren">(</span><em>uuid=None</em>, <em>output='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.list_rules"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.list_rules" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">list_rules</code><span class="sig-paren">(</span><em>group=None</em>, <em>output='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.list_rules"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.list_rules" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method gets the security group rules
 from the cloudmesh database
 :param uuid:
 :return:</p>
 </dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.secgroup.SecGroup.list_rules_cloud">
+<em class="property">classmethod </em><code class="descname">list_rules_cloud</code><span class="sig-paren">(</span><em>cloud</em>, <em>groupname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/secgroup.html#SecGroup.list_rules_cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.secgroup.SecGroup.list_rules_cloud" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.secgroup.SecGroup.refresh">
@@ -2107,7 +2162,7 @@ with the given category.</p>
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.workflow.Workflow.list">
-<em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>name</em>, <em>live=False</em>, <em>format='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/workflow.html#Workflow.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.workflow.Workflow.list" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>name</em>, <em>format='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/workflow.html#Workflow.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.workflow.Workflow.list" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method lists all workflows of the cloud
 :param cloud: the cloud name</p>
 </dd></dl>

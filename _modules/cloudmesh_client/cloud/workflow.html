@@ -191,11 +191,10 @@
 <span class="sd">        :param cloud: the cloud name</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">Console</span><span class="o">.</span><span class="n">TODO</span><span class="p">(</span><span class="s2">&quot;this method is not yet implemented. dont implement this yet&quot;</span><span class="p">)</span>
-        <span class="k">return</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;workflow does not implement yet a refresh method&quot;</span><span class="p">)</span>
+        <span class="k">return</span></div>
 
-
-        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="s1">&#39;workflow&#39;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span></div>
+        <span class="c1"># return cls.cm.refresh(&#39;workflow&#39;, cloud)</span>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Workflow.delete"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.workflow.Workflow.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
@@ -203,14 +202,11 @@
 
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Workflow.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.workflow.Workflow.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">live</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="Workflow.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.workflow.Workflow.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method lists all workflows of the cloud</span>
 <span class="sd">        :param cloud: the cloud name</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="n">Console</span><span class="o">.</span><span class="n">TODO</span><span class="p">(</span><span class="s2">&quot;this method is not yet implemented&quot;</span><span class="p">)</span>
-        <span class="k">return</span>
 
         <span class="k">try</span><span class="p">:</span>
 

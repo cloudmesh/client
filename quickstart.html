@@ -220,10 +220,9 @@ assume you want to know more about the command <cite>color</cite>, say</p>
 <div class="section" id="defaults-and-variables">
 <h2>Defaults and Variables<a class="headerlink" href="#defaults-and-variables" title="Permalink to this headline">¶</a></h2>
 <p>The cloudmesh shell contains a number of useful concepts. This
-includes defaults, variables and configuration flags.
-While Variables are not saved between different instantiations of
-cloudmesh, defaults are saved. Thus the values of defaults can be used
-consistently between invocations.</p>
+includes defaults, variables and configuration flags. Variables and
+defaults are saved in the cloudmesh database and can thus be uses in
+consecutive invocations.</p>
 <p>To set a default value, for example to set the default cloud to kilo use:</p>
 <pre class="highlight"><span class="prompt1">default cloud=kilo</span>
 </pre><p>Some defaults are also set via special commands to make the use more prominent.
@@ -233,6 +232,14 @@ a cloud before display you can either use the command:</p>
 <pre class="highlight"><span class="prompt1">refresh on</span>
 </pre><p>or</p>
 <pre class="highlight"><span class="prompt1">default refresh=True</span>
+</pre><p>To use such values in variables, we can declare a variable to store the current value of a cloud in it as follows</p>
+<pre class="highlight"><span class="prompt1">var mycloud=default.cloud</span>
+</pre><p>While the default value will always return the data stored in the default cache, the above
+command reads at time of invocation the value and stores it in the variable. If the default
+would be changed the variable still contains the old value. Through the separation of defults
+and variables we are supporting a very flexible mechanism to allow integration in scripts.</p>
+<p>To use a variable in a script we can simply use the variable with a $ infront of the name.</p>
+<pre class="highlight"><span class="prompt1">banner $mycloud</span>
 </pre></div>
 <div class="section" id="accessing-clouds">
 <h2>Accessing Clouds<a class="headerlink" href="#accessing-clouds" title="Permalink to this headline">¶</a></h2>

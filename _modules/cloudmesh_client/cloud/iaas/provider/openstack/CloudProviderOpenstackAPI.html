@@ -517,7 +517,7 @@
         <span class="k">return</span> <span class="n">rule_id</span></div>
 
 <div class="viewcode-block" id="CloudProviderOpenstackAPI.delete_secgroup"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.delete_secgroup">[docs]</a>    <span class="k">def</span> <span class="nf">delete_secgroup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-
+        <span class="n">ret</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="n">groups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">security_groups</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">groups</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
@@ -525,14 +525,21 @@
 
                 <span class="c1"># delete the secgroup in the cloud</span>
                 <span class="k">if</span> <span class="n">sec_group</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">security_groups</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">sec_group</span><span class="p">)</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">security_groups</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">sec_group</span><span class="p">)</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s2">&quot;Secgroup delete: {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sec_group</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">sec_group</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]))</span>
+                    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Secgroup delete: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sec_group</span><span class="o">.</span><span class="n">name</span><span class="p">),</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
         <span class="k">else</span><span class="p">:</span>
             <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Could not find security group [{}] in cloud [{}]&quot;</span>
-                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cloud</span><span class="p">))</span></div>
+                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cloud</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">ret</span></div>
 
 <div class="viewcode-block" id="CloudProviderOpenstackAPI.delete_secgroup_rule"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.delete_secgroup_rule">[docs]</a>    <span class="k">def</span> <span class="nf">delete_secgroup_rule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule_id</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">security_group_rules</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">rule_id</span><span class="p">)</span>
-        <span class="k">return</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">security_group_rules</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">rule_id</span><span class="p">)</span></div>
+        <span class="c1">#return</span>
 
 <div class="viewcode-block" id="CloudProviderOpenstackAPI.list_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_vm">[docs]</a>    <span class="k">def</span> <span class="nf">list_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">vm_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">servers</span><span class="o">.</span><span class="n">list</span><span class="p">())</span>
