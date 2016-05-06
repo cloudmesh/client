@@ -121,7 +121,7 @@ class CloudProviderAzureAPI(CloudProviderBase):
         print("group name:", group)
         print("image name:", image)
         print("flavor name:", flavor)
-        print("key name:", key)
+        # print("key name:", key)
         location = 'Central US'
         self.provider.create_hosted_service(service_name=name,
                                     label=name,

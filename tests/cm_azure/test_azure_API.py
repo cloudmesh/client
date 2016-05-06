@@ -72,8 +72,12 @@ class Test_azure_API:
         pprint(self.provider.list_flavor(self.cloud_name))
 
     def test_004(self):
-        HEADING("List Secgroups")
-        pprint(self.provider.list_secgroup_rules(self.cloud_name))
+        HEADING("Create VM test")
+        vm_name = "test-001"
+        image_id = self.clouddefault["image"]
+        flavor_id = self.clouddefault["flavor"]
+        self.provider.boot_vm(name=vm_name, image=image_id, flavor=flavor_id)
+        # pprint(self.provider.list_secgroup_rules(self.cloud_name))
 
 
 
