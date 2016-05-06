@@ -5,7 +5,7 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.cloud.iaas.provider.azure.AzureDict import AzureDict
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.iaas.CloudProviderBase import CloudProviderBase
-
+import base64
 
 class CloudProviderAzureAPI(CloudProviderBase):
 
@@ -85,6 +85,27 @@ class CloudProviderAzureAPI(CloudProviderBase):
     def list_secgroup(self, cloudname):
         Console.TODO("not yet implemented")
 
+    def add_certificate(self, service_name, certificate_path):
+        # cert_data_path = "/Users/supreeth/.ssh/azure/mycer.pfx"
+        with open(certificate_path, "rb") as bfile:
+            print("Adding the certificate")
+            cert_data = base64.b64encode(bfile.read())
+            cert_format = 'pfx'
+            cert_password = ''
+            cert_res = self.provider.add_service_certificate(service_name=service_name,
+                                data=cert_data,
+                                certificate_format=cert_format,
+                                password=cert_password)
+            print(cert_res)
+            self.provider.wait_for_operation_status(cert_res.request_id, timeout=30)
+
+    def _get_storage_name(self):
+        result = self.provider.list_storage_accounts()
+        for storage_service in result:
+            storage_service_name = storage_service.service_name
+            print("storage_service_name found ", storage_service_name)
+        return storage_service_name
+
     def boot_vm(self,
                 name,
                 group=None,
@@ -96,7 +117,39 @@ class CloudProviderAzureAPI(CloudProviderBase):
                 meta=None,
                 nics=None,
                 **kwargs):
-        Console.TODO("not yet implemented")
+        print("VM name:", name)
+        print("group name:", group)
+        print("image name:", image)
+        print("flavor name:", flavor)
+        print("key name:", key)
+        location = 'Central US'
+        self.provider.create_hosted_service(service_name=name,
+                                    label=name,
+                                    location=location)
+        storage_name = self._get_storage_name()
+        media_link='https://{0}.blob.core.windows.net/vhds/{1}.vhd'.format(
+                        storage_name,
+                        name)
+        os_hd = OSVirtualHardDisk(image, media_link)
+        linux_config = LinuxConfigurationSet(name, 'azureuser', 'Sups$2105', False)
+        network = ConfigurationSet()
+        network.configuration_set_type = 'NetworkConfiguration'
+        network.input_endpoints.input_endpoints.append(
+            ConfigurationSetInputEndpoint('SSH', 'tcp', '22', '22'))
+        print("Starting the VM on ", media_link)
+        try:
+            self.provider.create_virtual_machine_deployment(service_name=name,
+            deployment_name=name,
+            deployment_slot='production',
+            label=name,
+            role_name=name,
+            system_config=linux_config,
+            os_virtual_hard_disk=os_hd,
+            network_config=network,
+            role_size=flavor)
+        except (RuntimeError, TypeError, NameError) as e:
+            print("Exception in starting the VM",e)
+        return name
 
     def delete_vm(self, name, group=None, force=None):
         Console.TODO("not yet implemented")
