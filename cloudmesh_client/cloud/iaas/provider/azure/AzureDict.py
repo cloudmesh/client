@@ -41,3 +41,24 @@ class AzureDict(object):
 
         # vm_dict['resource_location'] = hosted_service_dict['hosted_service_properties']['hosted_service_properties']['ResourceLocation']
         return vm_dict
+
+
+    @classmethod
+    def convert_to_image_dict(cls, image_obj):
+        image_dict = dict()
+        image_dict['id'] = image_obj.name
+        image_dict_values = FlatDict2.convert(image_obj)
+        for key in image_dict_values:
+            image_dict[key] = image_dict_values[key]
+        return image_dict
+
+
+    @classmethod
+    def convert_to_flavor_dict(cls, flavor_obj):
+        flavor_dict = dict()
+        flavor_dict['id'] = flavor_obj.name
+        flavor_dict_values = FlatDict2.convert(flavor_obj)
+        for key in flavor_dict_values:
+            flavor_dict[key] = flavor_dict_values[key]
+        return flavor_dict
+

@@ -3,7 +3,7 @@ from azure import *
 from azure.servicemanagement import *
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.FlatDict2 import FlatDict2
-
+import base64
 from pprint import pprint
 
 confd = ConfigDict("cloudmesh.yaml")
@@ -36,14 +36,16 @@ for hosted_service in result:
     print('----------Service name: ' + hosted_service.service_name)
     pprint("Detail of:" + hosted_service.service_name)
     hosted_service_detail = sms.get_hosted_service_properties(hosted_service.service_name, embed_detail=True)
+    pprint("PRINITNG FLATDICT")
+    flat_dict = FlatDict2.convert(hosted_service_detail, False)
+    # pprint(flat_dict)
+    pprint("=======ENd PRINITNG FLATDICT")
 
     # flat_dict = _to_dict(hosted_service_detail)
-    flat_dict = FlatDict2.convert(hosted_service_detail)
-    pprint("PRINITNG FLATDICT")
-    pprint(flat_dict)
-    pprint("=======ENd PRINITNG FLATDICT")
+
     for key, deployment in enumerate(hosted_service_detail.deployments):
-        print("Dict of the VM Object",key)
+        print("Dict of the VM Object", key)
+
         # dictAA = FlatDict2.convert(deployment)
 
         # dictAA = object_to_dict(deployment)
@@ -96,8 +98,8 @@ pprint("=======IMAGES=======")
 result = sms.list_os_images()
 
 for index, image in enumerate(result):
-    print("IMAGE ",index)
-    print(object_to_dict(image))
+    print("IMAGE ", index)
+    # print(FlatDict2.convert(image), False)
 # ## class OSImage
 #
 # result = sms.list_os_images()
@@ -125,8 +127,9 @@ pprint("============SIZES===========")
 result = sms.list_role_sizes()
 
 for index, role_size in enumerate(result):
-    print("SIZE ",index)
-    print(object_to_dict(role_size))
+    print("SIZE ", index)
+    print(FlatDict2.convert(role_size), False)
+    # print(object_to_dict(role_size))
 
 # for role_size in result:
 #     print('------Name: ' + role_size.name)
@@ -145,7 +148,10 @@ storage_service_name = ""
 for storage_service in result:
 
     print("STORAGE ", index)
-    print(object_to_dict(storage_service))
+    storage_dict = FlatDict2.convert(storage_service)
+    print(storage_dict, False)
+    storage_service_name = storage_dict['service_name']
+    # print(object_to_dict(storage_service))
 
     # print('------service_name: ' + storage_service.service_name)
     # storage_service_name = storage_service.service_name
@@ -155,13 +161,33 @@ for storage_service in result:
 ###### Create VM
 
 def create_vm(sms, storage_name  = "default_storage", os_disk_name = "test-disk-name"):
-    name = 'test-sup-vm'
-    location = 'East US'
+
+
+    name = 'sup-vm-ssh-3'
+    location = 'Central US'
+    sms.create_hosted_service(service_name=name,
+                                label=name,
+                                location=location)
+
+    # Add the certificate to the hosted service
+    cert_data_path = "/Users/supreeth/.ssh/azure/mycer.pfx"
+    with open(cert_data_path, "rb") as bfile:
+        print("Adding the certificate")
+        cert_data = base64.b64encode(bfile.read())
+        cert_format = 'pfx'
+        cert_password = ''
+        cert_res = sms.add_service_certificate(service_name=name,
+                            data=cert_data,
+                            certificate_format=cert_format,
+                            password=cert_password)
+        print(cert_res)
+        sms.wait_for_operation_status(cert_res.request_id, timeout=30)
+
+
+
     pprint("---------CREATING A NEW VM-------")
     #Set the location
-    sms.create_hosted_service(service_name=name,
-        label=name,
-        location=location)
+
 
     # Name of an os image as returned by list_os_images
    # image_name = 'OpenLogic__OpenLogic-CentOS-62-20120531-en-us-30GB.vhd'
@@ -176,9 +202,26 @@ def create_vm(sms, storage_name  = "default_storage", os_disk_name = "test-disk-
     print("Hosting on media link", media_link)
     # Linux VM configuration, you can use WindowsConfigurationSet
     # for a Windows VM instead
-    linux_config = LinuxConfigurationSet('test-ubuntu-lat', 'username', 'password', True)
+
+    SERVICE_CERT_THUMBPRINT = '97A9EAB9903EBDD0775B3D3BD1780271988B4224'
+    linux_config = LinuxConfigurationSet('sup-vm-ssh-2', 'azureuser', 'password', True)
+    linux_config.ssh = SSH()
+    public_key = PublicKey(SERVICE_CERT_THUMBPRINT, '/Users/supreeth/.ssh/azure/mycer.pub')
+    linux_config.ssh.public_keys.public_keys.append(public_key)
+    pair = KeyPair(SERVICE_CERT_THUMBPRINT, '/Users/supreeth/.ssh/azure/mycer.pem')
+    linux_config.ssh.key_pairs.key_pairs.append(pair)
+
 
     os_hd = OSVirtualHardDisk(image_name, media_link)
+
+
+    # Endpint configuration
+    network = ConfigurationSet()
+    network.configuration_set_type = 'NetworkConfiguration'
+    network.input_endpoints.input_endpoints.append(
+        ConfigurationSetInputEndpoint('SSH', 'tcp', '22', '22'))
+
+
 
     sms.create_virtual_machine_deployment(service_name=name,
     deployment_name=name,
@@ -187,11 +230,12 @@ def create_vm(sms, storage_name  = "default_storage", os_disk_name = "test-disk-
     role_name=name,
     system_config=linux_config,
     os_virtual_hard_disk=os_hd,
-    role_size='Basic_A0')
+    network_config=network,
+    role_size='Basic_A1')
 
 
 
 
 
 
-# create_vm(sms, storage_service_name, 'test-disk')
+create_vm(sms, storage_service_name, 'test-disk-2')

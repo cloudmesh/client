@@ -70,7 +70,7 @@ class IMAGE_AZURE(CloudmeshMixin, CloudmeshDatabase.Base):
         self.location = kwargs.get('location')
         self.media_link = kwargs.get('media_link')
         self.os = kwargs.get('os')
-        self.vm_image = kwargs.get('vm_image')
+        self.vm_image = kwargs.get('name')
         self.image_family = kwargs.get('image_family')
 
 
@@ -96,11 +96,11 @@ class FLAVOR_AZURE(CloudmeshMixin, CloudmeshDatabase.Base):
 
         self.uuid = kwargs.get('name')
         self.label = kwargs.get("label", None)
-        self.web_worker_resource_disk_size = kwargs.get("web_worker_resource_disk_size", None)
-        self.virtual_machine_resource_disk_size = kwargs.get("virtual_machine_resource_disk_size", None)
-        self.ram = kwargs.get("ram", None)
+        self.web_worker_resource_disk_size = kwargs.get("web_worker_resource_disk_size_in_mb", None)
+        self.virtual_machine_resource_disk_size = kwargs.get("virtual_machine_resource_disk_size_in_mb", None)
+        self.ram = kwargs.get("memory_in_mb", None)
         self.cores = kwargs.get("cores", None)
-        self.max_data_disks = kwargs.get("max_data_disks", None)
+        self.max_data_disks = kwargs.get("max_data_disk_count", None)
         self.name = kwargs.get("name", None)
 
 
