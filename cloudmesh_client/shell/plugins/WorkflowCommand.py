@@ -25,7 +25,7 @@ class WorkflowCommand(PluginCommand, CloudPluginCommand):
                 workflow refresh [--cloud=CLOUD] [-v]
                 workflow list [ID] [NAME] [--cloud=CLOUD] [--format=FORMAT] [--refresh] [-v]
                 workflow add NAME LOCATION
-                workflow delete [NAME]
+                workflow delete ID
                 workflow status [NAMES]
                 workflow show ID
                 workflow save NAME WORKFLOWSTR
@@ -107,7 +107,7 @@ class WorkflowCommand(PluginCommand, CloudPluginCommand):
                     # Console.msg(result)
                     # Console.msg(result[0])
                     Console.msg(result[0]['workflow_str'])
-                    entry_point(result[0]['workflow_str'])
+                    # entry_point(result[0]['workflow_str'])
                     Console.msg("All Set to execute")
 
         elif arguments["save"]:
