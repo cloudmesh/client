@@ -95,6 +95,9 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                            [--cloud=CLOUD]
                            [--format=FORMAT]
                            [--refresh]
+                vm ip inventory [NAMES]
+                                [--header=HEADER]
+                                [--file=FILE]
                 vm ssh [NAME] [--username=USER]
                          [--quiet]
                          [--ip=IP]
@@ -639,6 +642,38 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 else:
                     Console.error("VM {} already has a floating ip: {}".format(name, vm.floating_ip), traceflag=False)
 
+        elif arguments["ip"] and arguments["inventory"]:
+            if arguments["NAMES"] is None:
+                if str(Default.vm) in ['None', None]:
+                    Console.error("The default vm is not set.", traceflag=False)
+                    return ""
+                else:
+                    names = [Default.vm]
+            else:
+                names = Parameter.expand(arguments["NAMES"])
+
+            header = arguments["--header"] or "[servers]"
+            filename = arguments["--file"] or "inventory.txt"
+
+            try:
+
+                ips = Ip.list(cloud=arg.cloud, output="dict", names=names)
+                result = header + "\n"
+                if ips is not None:
+                    for id in ips:
+                        vm = ips[id]
+                        result += str(vm["floating_ip"]) + "\n"
+                Console.ok("Creating inventory file: {}".format(filename))
+
+                Console.ok(result)
+
+                with open(filename, 'w') as f:
+                    f.write(result)
+
+
+
+            except Exception as e:
+                Console.error("Problem getting ip addresses for instance")
 
         elif arguments["ip"] and arguments["show"]:
             if arguments["NAMES"] is None:

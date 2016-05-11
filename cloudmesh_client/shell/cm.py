@@ -34,6 +34,8 @@ from cloudmesh_client.common.StopWatch import StopWatch
 from cloudmesh_client.db import CloudmeshDatabase
 from cloudmesh_client import setup_yaml
 
+
+
 cm = CloudmeshDatabase()
 
 
@@ -765,6 +767,8 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             Console.error("could not execute the last command")
 
     do_h = do_history
+
+
 
 
 def simple():
