@@ -18,22 +18,27 @@ class Workflow(ListResource):
         :param cloud: the cloud name
         """
 
-        Console.error("workflow does not implement yet a refresh method")
+        Console.TODO("this method is not yet implemented. dont implement this yet")
         return
 
-        # return cls.cm.refresh('workflow', cloud)
+
+        return cls.cm.refresh('workflow', cloud)
 
     @classmethod
-    def delete(cls, name):
-        pass
-
+    def delete(cls,cloud, id):
+        print (id)
+        cls.cm.delete(kind="workflow", category='general' ,cm_id =id)
+        return True
 
     @classmethod
-    def list(cls, name, format="table"):
+    def list(cls, name, live=False, format="table"):
         """
         This method lists all workflows of the cloud
         :param cloud: the cloud name
         """
+
+        # Console.TODO("this method is not yet implemented")
+        # return
 
         try:
 
@@ -44,6 +49,7 @@ class Workflow(ListResource):
             # (order, header) = CloudProvider(cloud).get_attributes("workflow")
             order = None
             header= None
+            # Console.msg(elements)
             return Printer.write(elements,
                                  order=order,
                                  header=header,
@@ -53,8 +59,40 @@ class Workflow(ListResource):
 
     @classmethod
     def details(cls, cloud, id, live=False, format="table"):
+        elements = cls.cm.find(kind="workflow", category='general' ,cm_id =id)
+        Console.msg(elements)
+        order = None
+        header= None
+        # Console.TODO("this method is not yet implemented")
+        return Printer.write(elements,
+                                 order=order,
+                                 header=header,
+                                 output=format)
 
-        Console.TODO("this method is not yet implemented")
-        return None
+    @classmethod
+    def save(cls, cloud, name, str):
+        workflow = {
+                "category": "general",
+                "kind": "workflow",
+                "name": name,
+                "workflow_str": str
+        }
 
+        cls.cm.add(workflow, replace=False)
+        cls.cm.save()
 
+        return "Workflow saved in database!"
+
+    @classmethod
+    def run(cls,cloud,id):
+        elements = cls.cm.find(kind="workflow", category='general', cm_id = id)
+        Console.msg(elements)
+        order = None
+        Console.msg("Executing")
+        header= None
+        return elements
+        # Console.TODO("this method is not yet implemented")
+        # return Printer.write(elements,
+        #                          order=order,
+        #                          header=header,
+        #                          output=format)
