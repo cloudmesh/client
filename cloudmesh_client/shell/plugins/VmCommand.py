@@ -5,7 +5,7 @@ import getpass
 import socket
 
 import pyaml
-
+import time
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.vm import Vm
@@ -28,6 +28,7 @@ from pprint import pprint
 from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.cloud.image import Image
 from cloudmesh_client.cloud.ip import Ip
+from cloudmesh_client.common.util import search
 
 
 class VmCommand(PluginCommand, CloudPluginCommand):
@@ -87,7 +88,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 vm delete [NAMES]
                           [--group=GROUP]
                           [--cloud=CLOUD]
-                          [--force]
+                          [--keep]
                 vm ip assign [NAMES]
                           [--cloud=CLOUD]
                 vm ip show [NAMES]
@@ -110,7 +111,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         [--group=GROUP]
                         [--format=FORMAT]
                         [--refresh]
-                vm status [--cloud=CLOUD]
+                vm status [NAMES]
+                vm wait [--cloud=CLOUD] [--interval=SECONDS]
                 vm info [--cloud=CLOUD]
                         [--format=FORMAT]
                 vm check NAME
@@ -450,12 +452,45 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             try:
                 cloud_provider = CloudProvider(cloud).provider
                 vm_list = cloud_provider.list_vm(cloud)
-                print("Status of VM {} is {}".format(vm_list[0]["name"], vm_list[0]["status"]))
-                msg = "info. OK."
-                Console.ok(msg)
+
+                vms = [vm_list[i]["name"] for i in vm_list ]
+                print ("V", vms)
+
+                pattern = arguments["NAMES"]
+                print ("PPP", pattern)
+                if pattern is not None:
+                    if "*" in pattern:
+                        print ("serach")
+                        names  = search(vms, pattern)
+                    else:
+                        names = Parameter.expand()
+                    print ("NNN", names)
+                    for i in vm_list:
+                        if vm_list[i]["name"] in names:
+                            print("{} {}".format(vm_list[i]["status"], vm_list[i]["name"]))
+                else:
+                    print("{} {}".format(vm_list[0]["status"], vm_list[0]["name"]))
             except Exception as e:
                 # Error.traceback(e)
-                Console.error("Problem retrieving status of the VM", traceflag=False)
+                Console.error("Problem retrieving status of the VM", traceflag=True)
+        elif arguments["wait"]:
+            interval = arguments["--interval"] or 1
+            try:
+                cloud_provider = CloudProvider(cloud).provider
+                for i in range(1,10):
+                    vm_list = cloud_provider.list_vm(cloud)
+                    time.sleep(float(1))
+                    d = {}
+                    for id in vm_list:
+                        vm = vm_list[id]
+                        d[vm["name"]] = vm["status"]
+                    print (d)
+                    print("{} {}".format(vm_list[0]["status"], vm_list[0]["name"]))
+                    if vm_list[0]["status"] in ['ACTIVE']:
+                        return
+            except Exception as e:
+                # Error.traceback(e)
+                Console.error("Problem retrieving status of the VM", traceflag=True)
 
         elif arguments["info"]:
             try:
@@ -593,7 +628,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
         elif arguments["delete"]:
 
             group = arguments["--group"]
-            force = arguments["--force"]
+            force = not arguments["--keep"]
             cloud = arguments["--cloud"]
             servers = Parameter.expand(arguments["NAMES"])
 

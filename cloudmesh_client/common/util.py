@@ -7,10 +7,18 @@ import shutil
 import collections
 # import pip
 import sys
+import re
 
 from builtins import input
 from past.builtins import basestring
 
+def search(lines, pattern):
+    test = re.compile(pattern)
+    result = []
+    for l in lines:
+        if test.match(l):
+            result.append(l)
+    return result
 
 def grep(pattern, filename):
     """Very simple grep that returns the first matching line in a file.
