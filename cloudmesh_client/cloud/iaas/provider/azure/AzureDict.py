@@ -6,7 +6,7 @@ class AzureDict(object):
 
     @classmethod
     def convert_to_vm_dict(cls, hosted_service_obj, deployment_obj):
-        pprint("In convert_to_vm_dict")
+        # pprint("In convert_to_vm_dict")
         vm_dict = dict()
 
         # option1: fetching from the objects directly
@@ -18,12 +18,12 @@ class AzureDict(object):
         vm_dict['dns_name'] = deployment_obj.url
         if deployment_obj.virtual_ips is not None and len(deployment_obj.virtual_ips.virtual_ips) > 0:
             vm_dict['public_ips'] = deployment_obj.virtual_ips.virtual_ips[0].address
-            pprint((deployment_obj.virtual_ips.virtual_ips)[0].address)
+            # pprint((deployment_obj.virtual_ips.virtual_ips)[0].address)
 
         # option2: Using dict to fetch
         hosted_service_dict = FlatDict2.convert(hosted_service_obj)
         deployment_dict = FlatDict2.convert(deployment_obj)
-        pprint(deployment_dict)
+        # pprint(deployment_dict)
 
         # vm_dict['id'] = deployment_dict['private_id']
         # vm_dict['name'] = deployment_dict['name']

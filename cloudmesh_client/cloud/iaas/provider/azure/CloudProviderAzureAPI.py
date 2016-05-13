@@ -6,6 +6,8 @@ from cloudmesh_client.cloud.iaas.provider.azure.AzureDict import AzureDict
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.iaas.CloudProviderBase import CloudProviderBase
 import base64
+import sys
+import traceback
 
 class CloudProviderAzureAPI(CloudProviderBase):
 
@@ -23,6 +25,7 @@ class CloudProviderAzureAPI(CloudProviderBase):
     def initialize(self, cloudname, user=None):
         """
         reads the details for the initialization from the cloudname defined in the yaml file
+        Azure cloud requires subscription_id and service management certificate to initialize the provider
         :param cloudname:
         :param user:
         :return:
@@ -56,7 +59,6 @@ class CloudProviderAzureAPI(CloudProviderBase):
         return self._to_dict(flavor_dict_list)
 
     def list_image(self, cloudname, **kwargs):
-
         result = self.provider.list_os_images()
         image_dict_list = []
         for index, image in enumerate(result):
@@ -66,11 +68,16 @@ class CloudProviderAzureAPI(CloudProviderBase):
         return self._to_dict(image_dict_list)
 
     def list_vm(self, cloudname, **kwargs):
+        """
+            List the VMs or Deployments in Azure Cloud
+        :param cloudname:
+        :param kwargs:
+        :return:
+        """
         # pprint("In list_vm for Azure")
         result = self.provider.list_hosted_services()
         vm_dict_list = []
         for hosted_service in result:
-            # print('----------Service name: ' + hosted_service.service_name)
             pprint("Detail of:" + hosted_service.service_name)
             hosted_service_detail = self.provider.get_hosted_service_properties(hosted_service.service_name, embed_detail=True)
             for key, deployment in enumerate(hosted_service_detail.deployments):
@@ -86,9 +93,14 @@ class CloudProviderAzureAPI(CloudProviderBase):
         Console.TODO("not yet implemented")
 
     def add_certificate(self, service_name, certificate_path):
-        # cert_data_path = "/Users/supreeth/.ssh/azure/mycer.pfx"
+        """
+
+        :param service_name: Hosted service name in Azure cloud to which the certificate needs to be added
+        :param certificate_path: PFX(PKCS encoded) certificate Path
+        :return:
+        """
         with open(certificate_path, "rb") as bfile:
-            print("Adding the certificate")
+            print("Adding the PFX certificate")
             cert_data = base64.b64encode(bfile.read())
             cert_format = 'pfx'
             cert_password = ''
@@ -100,11 +112,16 @@ class CloudProviderAzureAPI(CloudProviderBase):
             self.provider.wait_for_operation_status(cert_res.request_id, timeout=30)
 
     def _get_storage_name(self):
+        """
+            Fetches the default storage service name from the Azure cloud
+        :return:
+        """
         result = self.provider.list_storage_accounts()
-        for storage_service in result:
-            storage_service_name = storage_service.service_name
-            print("storage_service_name found ", storage_service_name)
-        return storage_service_name
+        if len(result) > 0:
+            print("storage_service_name found ", result[0].service_name)
+            return result[0].service_name
+        Console.error("No Storage Accounts found")
+        return None
 
     def boot_vm(self,
                 name,
@@ -112,31 +129,76 @@ class CloudProviderAzureAPI(CloudProviderBase):
                 image=None,
                 flavor=None,
                 cloud=None,
-                key=None,
+                cert_thumbprint=None,
+                pub_key_path=None,
+                cert_path=None,
+                pfx_path=None,
                 secgroup=None,
                 meta=None,
                 nics=None,
                 **kwargs):
-        print("VM name:", name)
-        print("group name:", group)
-        print("image name:", image)
-        print("flavor name:", flavor)
-        # print("key name:", key)
-        location = 'Central US'
-        self.provider.create_hosted_service(service_name=name,
+        """
+            Boots up a new VM Instance.
+            Steps involved: creating a hosted(Cloud) Service, adding the PFX certificate file,
+            get default storage name, creating a configuration set, adding an endpoint(SSH by default),
+            and finally creating a VM deployment
+
+        :param name: Hosted Service Name and VM instance name
+        :param group:
+        :param image:
+        :param flavor:
+        :param cloud:
+        :param cert_thumbprint:
+        :param pub_key_path:
+        :param cert_path:
+        :param pfx_path:
+        :param secgroup:
+        :param meta:
+        :param nics:
+        :param kwargs:
+        :return:
+        """
+        location = ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"]["azure"]["default"]["location"] or 'Central US'
+        try:
+            self.provider.create_hosted_service(service_name=name,
                                     label=name,
                                     location=location)
+        except:
+            traceback.print_exc()
+            pprint("Error creating hosted service")
+        pprint("cert_thumbprint"+cert_thumbprint)
+        pprint("pub_key_path"+pub_key_path)
+        pprint("cert_path"+cert_path)
+        pprint("pfx_path"+pfx_path)
+        pprint("Certificate adding")
+        self.add_certificate(name, pfx_path)
+        pprint("Certificate added")
         storage_name = self._get_storage_name()
-        media_link='https://{0}.blob.core.windows.net/vhds/{1}.vhd'.format(
+        media_link = 'https://{0}.blob.core.windows.net/vhds/{1}.vhd'.format(
                         storage_name,
                         name)
         os_hd = OSVirtualHardDisk(image, media_link)
-        linux_config = LinuxConfigurationSet(name, 'azureuser', 'Sups$2105', False)
+
+        username = ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"]["azure"]["default"]["username"]
+        password = ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"]["azure"]["default"]["password"]
+        # pprint("Username:"+username)
+        # pprint("password:"+password)
+
+        # TODO: current case handles only for linux guest VMs, implementation needed for Windows VMs
+        linux_config = LinuxConfigurationSet(name, username, password, False)
+        linux_config.ssh = SSH()
+        public_key = PublicKey(cert_thumbprint, pub_key_path)
+        linux_config.ssh.public_keys.public_keys.append(public_key)
+        pair = KeyPair(cert_thumbprint, cert_path)
+        linux_config.ssh.key_pairs.key_pairs.append(pair)
+
+        # Endpoint configuration
         network = ConfigurationSet()
         network.configuration_set_type = 'NetworkConfiguration'
         network.input_endpoints.input_endpoints.append(
             ConfigurationSetInputEndpoint('SSH', 'tcp', '22', '22'))
-        print("Starting the VM on ", media_link)
+
+        # print("Starting the VM on ", media_link)
         try:
             self.provider.create_virtual_machine_deployment(service_name=name,
             deployment_name=name,
@@ -147,9 +209,32 @@ class CloudProviderAzureAPI(CloudProviderBase):
             os_virtual_hard_disk=os_hd,
             network_config=network,
             role_size=flavor)
-        except (RuntimeError, TypeError, NameError) as e:
-            print("Exception in starting the VM",e)
+        except:
+            e = sys.exc_info()[0]
+            pprint("Exception in starting the VM", e)
         return name
+
+    def get_ips(self, name, group=None, force=None):
+        """
+        Returns the ip of the instance indicated by name
+        :param name:
+        :param group:
+        :param force:
+        :return: IP address of the instance
+        """
+        pprint("In get_ips::")
+        result = self.provider.list_hosted_services()
+        for hosted_service in result:
+            # pprint("Detail of:" + hosted_service.service_name)
+            hosted_service_detail = self.provider.get_hosted_service_properties(hosted_service.service_name, embed_detail=True)
+            for key, deployment in enumerate(hosted_service_detail.deployments):
+                vm_dict = AzureDict.convert_to_vm_dict(hosted_service, deployment)
+                instance_name = vm_dict['instance_name']
+                if instance_name == name:
+                    vip_list = []
+                    vip_list.append(vm_dict['public_ips'])
+                    return vip_list
+        return None
 
     def delete_vm(self, name, group=None, force=None):
         Console.TODO("not yet implemented")
