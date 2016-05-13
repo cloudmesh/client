@@ -306,7 +306,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
         if arguments["boot"]:
 
             arg.username = arguments["--username"] or Image.guess_username(arg.image)
-
             is_name_provided = arg.name is not None
 
             arg.user = Default.user
@@ -328,7 +327,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     vm_details.cloud,
                     vm_details.image,
                     username=arg.username)
-
                 try:
 
                     if arg.dryrun:
@@ -742,8 +740,9 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
             if chameleon:
                 arg.username = "cc"
+            elif arg.cloud == "azure":
+                arg.username = ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"]["azure"]["default"]["username"]
             else:
-
                 if arg.username is None:
                     Console.error("Could not guess the username of the vm", traceflag=False)
                     return
@@ -761,10 +760,11 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
             vm = Vm.get(data.name, category=data.cloud)
 
+
             Vm.set_login_user(name=data.name, cloud=data.cloud, username=data.username)
 
             data.floating_ip = vm.floating_ip
-            data.key = Default.key
+            data.key = arguments["--key"] or Default.key
 
             _print(Printer.attribute(data))
 
@@ -801,7 +801,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     for ipadd in ip_addresses:
                         _print("Checking {:}...".format(ipadd))
                         try:
-                            socket.gethostbyaddr(ipadd)
+                            # Evading ping test, as ping is not enabled for VMs on Azure cloud
+                            # socket.gethostbyaddr(ipadd)
                             # ip will be set if above command is successful.
                             ip = ipadd
                         except socket.herror:
@@ -816,14 +817,15 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 #
                 # TODO: is this correctly implemented
                 #
-                SecGroup.enable_ssh(cloud=cloud)
+                if not cloud == 'azure':
+                    SecGroup.enable_ssh(cloud=cloud)
 
                 if arg.verbose:
                     Console.info("Connecting to Instance at IP:" + format(ip))
                 # Constructing the ssh command to connect to the machine.
                 sshcommand = "ssh"
-                # if arg.key is not None:
-                #     sshcommand += " -i {:}".format(arg.key)
+                if arg.key is not None:
+                    sshcommand += " -i {:}".format(arg.key)
                 sshcommand += " -o StrictHostKeyChecking=no"
                 sshcommand += " {:}@{:}".format(data.username, ip)
                 if commands is not None:

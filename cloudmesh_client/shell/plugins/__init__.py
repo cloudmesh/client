@@ -7,6 +7,7 @@ from cloudmesh_client.shell.plugins.GroupCommand import GroupCommand
 from cloudmesh_client.shell.plugins.HpcCommand import HpcCommand
 from cloudmesh_client.shell.plugins.ImageCommand import ImageCommand
 from cloudmesh_client.shell.plugins.InventoryCommand import InventoryCommand
+from cloudmesh_client.shell.plugins.AkeyCommand import AkeyCommand
 from cloudmesh_client.shell.plugins.KeyCommand import KeyCommand
 from cloudmesh_client.shell.plugins.LimitsCommand import LimitsCommand
 from cloudmesh_client.shell.plugins.ListCommand import ListCommand

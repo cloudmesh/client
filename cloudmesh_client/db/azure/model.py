@@ -117,6 +117,7 @@ class VM_AZURE(CloudmeshMixin, CloudmeshDatabase.Base):
     cloud_service = Column(String)          # service_name
     status = Column(String)                 # deployments, deployments [ status ]
     public_ips = Column(String)             # deployments, deployments [ virtual_ips__virtual_ips, address]
+    floating_ip = Column(String)
     private_ips = Column(String)            # deployments, deployments [ role_instance_list__role_instances, ip_address]
     image_name = Column(String)             # deployments, deployments [role_list__roles[ os_virtual_hard_disk,source_image_name]]
     resource_location = Column(String)      # hosted_service_properties,hosted_service_properties,ResourceLocation
@@ -135,6 +136,7 @@ class VM_AZURE(CloudmeshMixin, CloudmeshDatabase.Base):
         self.cloud_service = kwargs.get("cloud_service", None)
         self.status = kwargs.get("status", None)
         self.public_ips = kwargs.get("public_ips", None)
+        self.floating_ip = kwargs.get("floating_ip", None)
         self.private_ips = kwargs.get("private_ips", None)
         self.image_name = kwargs.get("image_name", None)
         self.resource_location = kwargs.get("resource_location", None)
@@ -143,3 +145,25 @@ class VM_AZURE(CloudmeshMixin, CloudmeshDatabase.Base):
         self.instance_size = kwargs.get("instance_size", None)
         self.media_link = kwargs.get("media_link", None)
         self.disk_name = kwargs.get("disk_name", None)
+
+class KEY_AZURE(CloudmeshMixin, CloudmeshDatabase.Base):
+    __tablename__ = "key_azure"
+
+    __kind__ = 'key_azure'
+    __provider__ = 'azure'
+
+    name = Column(String)
+    certificate = Column(String)
+    fingerprint = Column(String, unique=True)
+    key_path = Column(String)
+    pfx_path = Column(String)
+
+    def __init__(self, **kwargs):
+        super(KEY_AZURE, self).set_defaults(**kwargs)
+
+        self.name = kwargs.get("name")
+        self.certificate = kwargs.get("certificate")
+        self.fingerprint = kwargs.get("fingerprint")
+        self.key_path = kwargs.get("key_path")
+        self.pfx_path = kwargs.get("pfx_path")
+

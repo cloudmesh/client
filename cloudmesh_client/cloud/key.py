@@ -20,7 +20,7 @@ from cloudmesh_client.common.SSHkey import SSHkey
 import os
 from os.path import expanduser
 import requests
-
+import subprocess
 
 # noinspection PyPep8Naming
 class Key(ListResource):
@@ -278,6 +278,47 @@ class Key(ListResource):
                                  output=format)
         except Exception as ex:
             Console.error(ex.message)
+
+    @classmethod
+    def run_command(cls, cmd):
+        """ Runs a command in a shell, returns the result"""
+        p = subprocess.Popen(cmd, shell=True,
+                         stdout=subprocess.PIPE)
+        return p.stdout.read()
+
+    @classmethod
+    def add_azure_key_to_db(cls, key_name, key_path, certificate_path, pfx_path):
+        """
+            Adds the public key to the existing database model and adds the certificate, key and
+            fingerprint into the azure key database model.
+        :param key_name: Key name to be added
+        :param key_path: Public key path
+        :param certificate_path: Certificate file path(PEM file)
+        :param pfx_path: PKCS encoded certificate path
+        :return:
+        """
+        pprint("add_azure_key_to_db")
+        # Add to the current DB
+        cls.add_from_path(key_path,
+                            key_name,
+                            source="ssh",
+                            uri="file://" + key_path)
+
+        # Add certificate to the new DB
+        fingerprint_cmd = "openssl x509 -in "+certificate_path+" -sha1 -noout -fingerprint | sed s/://g"
+        # print("fingerprint_cmd:", fingerprint_cmd)
+        fingerprint = cls.run_command(fingerprint_cmd)
+        fingerprint = fingerprint.split('=')[1]
+        fingerprint = fingerprint.rstrip('\n')
+        # pprint("Certificate Fingerprint="+fingerprint)
+        key_azure_obj = {
+            "kind": "key_azure",
+            "name": key_name,
+            "fingerprint": fingerprint,
+            "certificate": certificate_path,
+            "key_path": key_path,
+            "pfx_path": pfx_path}
+        cls.cm.add(key_azure_obj)
 
     @classmethod
     def clear(cls, **kwargs):

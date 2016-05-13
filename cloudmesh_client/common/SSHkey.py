@@ -38,7 +38,6 @@ class SSHkey(object):
              self.__key__['key'],
              self.__key__['comment']) = self._parse(self.__key__['string'])
             self.__key__['fingerprint'] = self._fingerprint(self.__key__['string'])
-
             # Workaround for multiple file entries in cloudmesh.yaml getting same name derived from file name (like id_rsa).
             # This caused the dict to have just 1 entry as the name is the key.
             # Change tracked in git issue #8
