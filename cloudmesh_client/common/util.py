@@ -5,7 +5,7 @@ import glob
 import os
 import shutil
 import collections
-import pip
+# import pip
 import sys
 
 from builtins import input
@@ -233,7 +233,8 @@ def get_python():
     v_string = [str(i) for i in python_version]
     python_version_s = '.'.join(v_string)
 
-    pip_version = pip.__version__
+    # pip_version = pip.__version__
+    pip_version = "8.1.2"
     return python_version_s, pip_version
 
 
@@ -250,7 +251,8 @@ def check_python():
         print("WARNING: You are running an unsupported version of python: {:}".format(python_version_s))
         print("         We recommend you update your python")
 
-    pip_version = pip.__version__
+    # pip_version = pip.__version__
+    pip_version = "8.1.2"
 
     if int(pip_version.split(".")[0]) >= 7:
         print("You are running a supported version of pip: " + str(pip_version))

@@ -1,3 +1,5 @@
+pip
+pytz
 pbr >1.6
 apache-libcloud
 azure

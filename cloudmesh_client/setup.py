@@ -3,7 +3,7 @@ from __future__ import print_function
 import os
 import sys
 
-import pip
+# import pip
 import yaml
 from setuptools.command.install import install
 
@@ -71,6 +71,7 @@ def get_version_from_git():
 
 
 def check_pip():
+    '''
     major = int(pip.__version__.split(".")[0])
     if major < 7:
         print("")
@@ -80,7 +81,8 @@ def check_pip():
         print("             pip install pip -U")
         print("")
         sys.exit()
-
+    '''
+    pass
 
 def makefile(tag, **kwargs):
     script = "\n".join(yaml.load(make)[tag])

@@ -16,6 +16,9 @@ doc: man
 	cd docs; make html
 	cp -r scripts docs/build/html
 
+#pex:
+#    pex  -r <`pip freeze`  -e cloudmesh_client.shell.cm.main  -o my_virtualenv.pex
+
 d:
 	rm -rf build
 	pip uninstall -y cloudmesh_client
@@ -97,6 +100,7 @@ clean:
 	find . -name '*.pyc' -delete
 	-pip uninstall cloudmesh_client -y
 	rm -rf .tox
+	rm -f *.whl
 
 ######################################################################
 # TAGGING

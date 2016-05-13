@@ -42,6 +42,8 @@ if command is not None:
     os.system(command)
 
 requirements = [
+    'pip',
+    'pytz',
     'pbr>1.6',
     'apache-libcloud',
     'azure',

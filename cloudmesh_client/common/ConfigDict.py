@@ -173,7 +173,6 @@ class ConfigDict(object):
         """
 
         self.data = None
-
         if etc:
             import cloudmesh_client.etc
             load_order = [os.path.dirname(cloudmesh_client.etc.__file__)]
@@ -182,6 +181,7 @@ class ConfigDict(object):
             self.load_order = [".", os.path.join("~", ".cloudmesh")]
         else:
             self.load_order = load_order
+
         for path in self.load_order:
             name = Config.path_expand(os.path.join(path, filename))
             if verbose:
@@ -192,6 +192,7 @@ class ConfigDict(object):
                 self.load(name)
                 self.filename = name
                 return
+
         # Create default yaml file
         raise ValueError("Could not find file {:} in {:}".format(filename, self.load_order))
 
