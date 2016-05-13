@@ -29,7 +29,7 @@ from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.cloud.image import Image
 from cloudmesh_client.cloud.ip import Ip
 from cloudmesh_client.common.util import search
-
+from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
 class VmCommand(PluginCommand, CloudPluginCommand):
     topics = {"vm": "cloud"}
@@ -89,6 +89,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                           [--group=GROUP]
                           [--cloud=CLOUD]
                           [--keep]
+                          [--dryrun]
                 vm ip assign [NAMES]
                           [--cloud=CLOUD]
                 vm ip show [NAMES]
@@ -237,6 +238,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     print(Cluster.rename_node(clusterid, oldname, newname))
         """
 
+        cm = CloudmeshDatabase()
+
         def _print_dict(d, header=None, output='table'):
             return Printer.write(d, order=["id", "name", "status"], output=output, sort_keys=True)
 
@@ -263,6 +266,24 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     Console.error("{:} failed".format(msg), traceflag=False)
             except Exception as e:
                 Console.error("Problem running VM refresh", traceflag=False)
+
+        def _get_vm_names():
+
+            vm_list  = cm.find(kind="vm")
+
+            vms = [vm["name"] for vm in vm_list]
+
+            names = pattern = arguments["NAMES"]
+            if pattern is not None:
+                if "*" in pattern:
+                    names = search(vms, pattern)
+                else:
+                    names = Parameter.expand(names)
+
+            if names == ['last'] or names is None:
+                names == [Default.vm]
+
+            return vm_list, names
 
         cloud = arguments["--cloud"] or Default.cloud
 
@@ -455,14 +476,12 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 print ("V", vms)
 
                 pattern = arguments["NAMES"]
-                print ("PPP", pattern)
                 if pattern is not None:
                     if "*" in pattern:
                         print ("serach")
                         names  = search(vms, pattern)
                     else:
                         names = Parameter.expand()
-                    print ("NNN", names)
                     for i in vm_list:
                         if vm_list[i]["name"] in names:
                             print("{} {}".format(vm_list[i]["status"], vm_list[i]["name"]))
@@ -472,7 +491,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 # Error.traceback(e)
                 Console.error("Problem retrieving status of the VM", traceflag=True)
         elif arguments["wait"]:
-            interval = arguments["--interval"] or 1
+            interval = arguments["--interval"] or 5
             try:
                 cloud_provider = CloudProvider(cloud).provider
                 for i in range(1,10):
@@ -625,19 +644,22 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["delete"]:
 
+            dryrun = arguments["--dryrun"]
             group = arguments["--group"]
             force = not arguments["--keep"]
             cloud = arguments["--cloud"]
-            servers = Parameter.expand(arguments["NAMES"])
+            vms, servers = _get_vm_names()
 
-            if servers == ['last']:
-                servers == [Default.vm]
+            if servers in [None, []]:
+                Console.error("No vms found.", traceflag=False)
+                return ""
 
             for server in servers:
-                Vm.delete(servers=[server], force=force)
+                if dryrun:
+                    Console.ok("Dryrun: delete {}".format(server))
+                else:
+                   Vm.delete(servers=[server], force=force)
 
-            msg = "info. OK."
-            Console.ok(msg)
             return ""
 
         elif arguments["ip"] and arguments["assign"]:
@@ -675,27 +697,31 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 else:
                     Console.error("VM {} already has a floating ip: {}".format(name, vm.floating_ip), traceflag=False)
 
+
         elif arguments["ip"] and arguments["inventory"]:
-            if arguments["NAMES"] is None:
+
+            vms, names = _get_vm_names()
+
+            if names in [None, []]:
                 if str(Default.vm) in ['None', None]:
                     Console.error("The default vm is not set.", traceflag=False)
                     return ""
                 else:
                     names = [Default.vm]
-            else:
-                names = Parameter.expand(arguments["NAMES"])
 
             header = arguments["--header"] or "[servers]"
             filename = arguments["--file"] or "inventory.txt"
 
             try:
+                vm_ips = []
+                for vm in vms:
+                    if  vm["name"] in names:
+                        print (vm["name"])
+                        vm_ips.append(vm["floating_ip"])
 
-                ips = Ip.list(cloud=arg.cloud, output="dict", names=names)
                 result = header + "\n"
-                if ips is not None:
-                    for id in ips:
-                        vm = ips[id]
-                        result += str(vm["floating_ip"]) + "\n"
+
+                result += '\n'.join(vm_ips)
                 Console.ok("Creating inventory file: {}".format(filename))
 
                 Console.ok(result)
@@ -706,7 +732,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
 
             except Exception as e:
-                Console.error("Problem getting ip addresses for instance")
+                Console.error("Problem getting ip addresses for instance", traceflag=True)
 
         elif arguments["ip"] and arguments["show"]:
             if arguments["NAMES"] is None:

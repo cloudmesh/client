@@ -13,10 +13,11 @@ from builtins import input
 from past.builtins import basestring
 
 def search(lines, pattern):
-    test = re.compile(pattern)
+    p = pattern.replace("*", ".*")
+    test = re.compile(p)
     result = []
     for l in lines:
-        if test.match(l):
+        if test.search(l):
             result.append(l)
     return result
 
