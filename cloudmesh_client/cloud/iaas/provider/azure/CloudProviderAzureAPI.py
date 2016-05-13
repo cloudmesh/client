@@ -166,10 +166,14 @@ class CloudProviderAzureAPI(CloudProviderBase):
         except:
             traceback.print_exc()
             pprint("Error creating hosted service")
+        pprint("service name"+name)
+        pprint("location name"+location)
         pprint("cert_thumbprint"+cert_thumbprint)
         pprint("pub_key_path"+pub_key_path)
         pprint("cert_path"+cert_path)
         pprint("pfx_path"+pfx_path)
+        pprint("Image"+image)
+        pprint("Flavor"+flavor)
         pprint("Certificate adding")
         self.add_certificate(name, pfx_path)
         pprint("Certificate added")
@@ -181,8 +185,8 @@ class CloudProviderAzureAPI(CloudProviderBase):
 
         username = ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"]["azure"]["default"]["username"]
         password = ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"]["azure"]["default"]["password"]
-        # pprint("Username:"+username)
-        # pprint("password:"+password)
+        pprint("Username:"+username)
+        pprint("password:"+password)
 
         # TODO: current case handles only for linux guest VMs, implementation needed for Windows VMs
         linux_config = LinuxConfigurationSet(name, username, password, False)
@@ -198,9 +202,9 @@ class CloudProviderAzureAPI(CloudProviderBase):
         network.input_endpoints.input_endpoints.append(
             ConfigurationSetInputEndpoint('SSH', 'tcp', '22', '22'))
 
-        # print("Starting the VM on ", media_link)
+        print("Starting the VM on ", media_link)
         try:
-            self.provider.create_virtual_machine_deployment(service_name=name,
+            vm_create_result = self.provider.create_virtual_machine_deployment(service_name=name,
             deployment_name=name,
             deployment_slot='production',
             label=name,
@@ -209,9 +213,12 @@ class CloudProviderAzureAPI(CloudProviderBase):
             os_virtual_hard_disk=os_hd,
             network_config=network,
             role_size=flavor)
+            # pprint(vm_create_result)
+            self.provider.wait_for_operation_status(vm_create_result.request_id, timeout=30)
+            Console.info("VM boot up successful.ok.")
         except:
-            e = sys.exc_info()[0]
-            pprint("Exception in starting the VM", e)
+            traceback.print_exc()
+            pprint("Exception in starting the VM")
         return name
 
     def get_ips(self, name, group=None, force=None):
@@ -237,7 +244,17 @@ class CloudProviderAzureAPI(CloudProviderBase):
         return None
 
     def delete_vm(self, name, group=None, force=None):
-        Console.TODO("not yet implemented")
+        """
+            Delete a VM instance whose hosted service name and instance name is given by name
+        :param name:
+        :param group:
+        :param force:
+        :return:
+        """
+        self.provider.delete_deployment(service_name=name,
+                                        deployment_name=name)
+        self.provider.delete_hosted_service(service_name=name)
+        Console.info("Delete Success.ok.")
 
     def assign_ip(self, name):
         Console.TODO("not yet implemented")

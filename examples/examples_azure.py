@@ -204,7 +204,7 @@ def create_vm(sms, storage_name  = "default_storage", os_disk_name = "test-disk-
     # for a Windows VM instead
 
     SERVICE_CERT_THUMBPRINT = '97A9EAB9903EBDD0775B3D3BD1780271988B4224'
-    linux_config = LinuxConfigurationSet('sup-vm-ssh-2', 'azureuser', 'password', True)
+    linux_config = LinuxConfigurationSet('sup-vm-ssh-2', 'azureuser', 'Pass$1234', True)
     linux_config.ssh = SSH()
     public_key = PublicKey(SERVICE_CERT_THUMBPRINT, '/Users/supreeth/.ssh/azure/mycer.pub')
     linux_config.ssh.public_keys.public_keys.append(public_key)

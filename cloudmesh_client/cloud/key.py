@@ -319,6 +319,7 @@ class Key(ListResource):
             "key_path": key_path,
             "pfx_path": pfx_path}
         cls.cm.add(key_azure_obj)
+        Console.info("Azure key added.ok.")
 
     @classmethod
     def clear(cls, **kwargs):
