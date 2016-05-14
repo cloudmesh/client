@@ -350,6 +350,28 @@ class CloudProviderLibcloud(CloudProviderBase):
         # Console.info("Key :")
         # pprint(key)
         self.provider.create_node(name=name, image=image, size=flavor, ex_keyname=key)
+        Console.info("VM boot up success.ok.")
+
+    def delete_vm(self, name, group=None, force=None):
+        """
+            Delete a VM instance whose instance name is given by name
+        :param name:
+        :param group:
+        :param force:
+        :return:
+        """
+        pprint("Delete VM for "+name)
+        nodes_list = self.provider.list_nodes()
+        node_obj = None
+        for node in nodes_list:
+            if node.name == name:
+                node_obj = node
+                break
+        if node_obj is not None:
+            self.provider.destroy_node(node_obj)
+            Console.info("VM delete success.ok.")
+        else:
+            Console.error("No valid node found with the name "+name)
 
     def add_key_to_cloud(self, name, public_key):
         """
