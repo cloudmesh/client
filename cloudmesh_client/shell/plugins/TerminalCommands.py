@@ -8,7 +8,7 @@ from cloudmesh_client.shell.command import PluginCommand, ShellPluginCommand, \
     CometPluginCommand
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
-
+import time
 
 class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
     topics = {"clear": "shell",
@@ -34,6 +34,19 @@ class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
         Clears the screen."""
 
         sys.stdout.write(os.popen('clear').read())
+
+    # noinspection PyUnusedLocal
+    @command
+    def do_sleep(self, args, arguments):
+        """
+        Usage:
+            sleep SECONDS
+
+        Clears the screen."""
+
+        seconds = arguments["SECONDS"]
+        time.sleep(float(seconds))
+
 
     # noinspection PyUnusedLocal
     @command

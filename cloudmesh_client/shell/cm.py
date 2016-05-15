@@ -34,6 +34,8 @@ from cloudmesh_client.common.StopWatch import StopWatch
 from cloudmesh_client.db import CloudmeshDatabase
 from cloudmesh_client import setup_yaml
 
+
+
 cm = CloudmeshDatabase()
 
 
@@ -98,7 +100,8 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         commands by the interpreter should stop.
 
         """
-        # line = self.replace_vars(line)
+
+        line = self.replace_vars(line)
 
         if line is None:
             return ""
@@ -543,7 +546,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         try:
             os.system(command)
         except Exception as e:
-            print(e)
+            Console.error(e.msg, traceflag=False)
 
     # noinspection PyUnusedLocal
     # BUG: this does not for some reason execute the arguments
@@ -561,7 +564,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         try:
             os.system(command)
         except Exception as e:
-            print(e)
+            Console.error(e, traceflag=False)
 
     #
     # VAR
@@ -636,12 +639,13 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
         newline = line
 
-        variables = Var.list(format="dict")
+        variables = Var.list(output='dict')
 
         if len(variables) is not None:
             for v in variables:
-                name = variables[v]["name"]
-                value = variables[v]["value"]
+                v = str(v)
+                name = str(variables[v]["name"])
+                value = str(variables[v]["value"])
                 newline = newline.replace("$" + name, value)
 
         # for v in os.environ:
@@ -683,17 +687,20 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
         special vars date and time are defined
         """
+
         if arguments['list'] or arg == '' or arg is None:
             # self._list_variables()
             print(Var.list())
             return ""
-
         elif arguments['NAME=VALUE'] and "=" in arguments["NAME=VALUE"]:
             (variable, value) = arg.split('=', 1)
             if value == "time" or value == "now":
                 value = datetime.datetime.now().strftime("%H:%M:%S")
             elif value == "date":
                 value = datetime.datetime.now().strftime("%Y-%m-%d")
+            elif value.startswith("default."):
+                name = value.replace("default.", "")
+                value = Default.get(name=name, category="general")
             elif "." in value:
                 try:
                     config = ConfigDict("cloudmesh.yaml")
@@ -760,6 +767,8 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             Console.error("could not execute the last command")
 
     do_h = do_history
+
+
 
 
 def simple():

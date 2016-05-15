@@ -42,8 +42,11 @@ if command is not None:
     os.system(command)
 
 requirements = [
+    'pip',
+    'pytz',
     'pbr>1.6',
     'apache-libcloud',
+    'azure',
     'nose',
     'pytest',
     'colorama',
@@ -126,6 +129,7 @@ setup(
     entry_points={
         'console_scripts': [
             'cm = cloudmesh_client.shell.cm:main',
+            'cm-authors = cloudmesh_client.common.GitInfo:print_authors'
             # 'ghost = cloudmesh_client.shell.ghost:main',
         ],
     },

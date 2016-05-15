@@ -28,7 +28,7 @@ class List(object):
         try:
 
             # get the model object
-            table = cm.get_table(kind)
+            table = cls.cm.get_table(kind)
 
             filter = {}
             if cloud is not None:

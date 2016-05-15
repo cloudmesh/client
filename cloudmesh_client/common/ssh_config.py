@@ -2,7 +2,8 @@ from __future__ import print_function
 import os
 from cloudmesh_client.common.Shell import Shell
 import json
-
+from textwrap import dedent
+from cloudmesh_client.shell.console import Console
 
 class ssh_config(object):
     def __init__(self, filename=None):
@@ -34,6 +35,7 @@ class ssh_config(object):
         with open(self.filename) as f:
             content = f.readlines()
         content = [" ".join(x.split()).strip('\n').lstrip().split(' ', 1) for x in content]
+
         # removes duplicated spaces, and splits in two fields, removes leading spaces
         hosts = {}
         host = "NA"
@@ -43,7 +45,7 @@ class ssh_config(object):
             else:
                 attribute = line[0]
                 value = line[1]
-                if attribute in ['Host ', 'host ']:
+                if attribute.lower().strip() in ['Host', 'host']:
                     host = value
                     hosts[host] = {'host': host}
                 else:
@@ -85,13 +87,57 @@ class ssh_config(object):
         else:
             return None
 
+    def generate(self,
+                 key="india",
+                 host="india.futuresystems.org",
+                 username=None,
+                 force=False,
+                 verbose=False):
+        data = {
+            "host": host,
+            "key": key,
+            "username": username
+        }
+        if verbose and key in self.names():
+            Console.error("{key} already in ~/.ssh/config".format(**data), traceflag=False)
+            return ""
+        else:
+            entry = dedent("""
+            Host {key}
+                Hostname {host}
+                User {username}
+            """.format(**data))
+        try:
+            with open(self.filename, "a") as config_ssh:
+                config_ssh.write(entry)
+            config_ssh.close()
+            self.load()
+            if verbose:
+                Console.ok("Added india to ~/.ssh/config")
+        except Exception as e:
+            if verbose:
+                Console.error(e.message)
+
 
 if __name__ == "__main__":
+
+    from cloudmesh_client.common.ConfigDict import ConfigDict
+
     hosts = ssh_config()
+
+    user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.user"]
+    print ("User:", user)
+
+    hosts.generate(key="india", username=user)
+    print (hosts.filename)
+
     print(hosts.list())
     print(hosts)
 
-    # hosts.login("india")
+
+    import sys; sys.exit()
+
+
 
     r = hosts.execute("india", "hostname")
     print(r)
@@ -101,3 +147,6 @@ if __name__ == "__main__":
 
     r = hosts.local("hostname")
     print(r)
+
+    # hosts.login("india")
+

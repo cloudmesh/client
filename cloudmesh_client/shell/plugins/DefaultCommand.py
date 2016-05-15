@@ -183,5 +183,5 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
             if result is None:
                 Console.error("No default values found")
             else:
-                Console.ok("Default value for {} is {}".format(key, result))
+                Console.ok("{}".format(result))
             return ""

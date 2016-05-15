@@ -344,7 +344,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         return rule_id
 
     def delete_secgroup(self, name):
-
+        ret = None
         groups = self.provider.security_groups.list()
 
         if groups is not None:
@@ -352,14 +352,21 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
                 # delete the secgroup in the cloud
                 if sec_group.name == name:
-                    self.provider.security_groups.delete(sec_group)
+                    try:
+                        ret = self.provider.security_groups.delete(sec_group)
+                        Console.msg("Secgroup delete: {} {}".format(sec_group.name, sec_group.__dict__["id"]))
+                    except Exception as e:
+                        Console.error(e.message, traceflag=False)
+                        Console.error("Secgroup delete: {}".format(sec_group.name), traceflag=False)
+
         else:
             print("Could not find security group [{}] in cloud [{}]"
                   .format(name, self.cloud))
+        return ret
 
     def delete_secgroup_rule(self, rule_id):
-        self.provider.security_group_rules.delete(rule_id)
-        return
+        return self.provider.security_group_rules.delete(rule_id)
+        #return
 
     def list_vm(self, cloudname, **kwargs):
         vm_dict = self._to_dict(self.provider.servers.list())

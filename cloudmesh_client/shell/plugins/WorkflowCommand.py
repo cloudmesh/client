@@ -6,6 +6,7 @@ from cloudmesh_client.default import Default
 from pprint import pprint
 from cloudmesh_client.common.hostlist import Parameter
 from cloudmesh_client.common.dotdict import dotdict
+# from cloudmesh_client.cloud.workflowexec import *
 
 class WorkflowCommand(PluginCommand, CloudPluginCommand):
     topics = {"workflow": "todo"}
@@ -23,12 +24,15 @@ class WorkflowCommand(PluginCommand, CloudPluginCommand):
 
             Usage:
                 workflow refresh [--cloud=CLOUD] [-v]
-                workflow list [ID] [--cloud=CLOUD] [--format=FORMAT] [--refresh] [-v]
+                workflow list [ID] [NAME] [--cloud=CLOUD] [--format=FORMAT] [--refresh] [-v]
                 workflow add NAME LOCATION
-                workflow delete NAMES
+                workflow delete ID
                 workflow status [NAMES]
-                workflow show NAMES
-
+                workflow show ID
+                workflow save NAME WORKFLOWSTR
+                workflow run NAME
+                workflow service start
+                workflow service stop
                 This lists out the workflows present for a cloud
 
             Options:
@@ -42,6 +46,7 @@ class WorkflowCommand(PluginCommand, CloudPluginCommand):
                 cm workflow list
                 cm workflow list --format=csv
                 cm workflow show 58c9552c-8d93-42c0-9dea-5f48d90a3188 --refresh
+                cm workflow run workflow1
 
         """
 
@@ -72,24 +77,15 @@ class WorkflowCommand(PluginCommand, CloudPluginCommand):
                 return ""
 
         if arguments["list"]:
-
             id = arguments['ID']
             live = arguments['--refresh']
             output_format = arguments["--format"]
 
-            counter = 0
-
             result = None
-            while counter < 2:
-                if id is None:
-                    result = Workflow.list(cloud, output_format)
-                else:
-                    result = Workflow.details(cloud, id, live, output_format)
-                if counter == 0 and result is None:
-                    if not Workflow.refresh(cloud):
-                        msg = "Refresh workflow for cloud {:}.".format(cloud)
-                        Console.error("{:} failed.".format(msg))
-                counter += 1
+            if id is None:
+                result = Workflow.list(cloud, output_format)
+            else:
+                result = Workflow.details(cloud, id, live, output_format)
 
             if result is None:
                 Console.error("No workflow(s) found. Failed.")
@@ -98,4 +94,50 @@ class WorkflowCommand(PluginCommand, CloudPluginCommand):
             return ""
 
         elif arguments["show"]:
+            workflow_id = arguments["ID"]
             Console.ok("I executed show")
+            # Console.msg(workflow_id)
+            if workflow_id is None:
+                Console.msg("Please enter a Workflow Id to execute workflow")
+            else:
+                result = Workflow.run(cloud,workflow_id)
+                # print (result)
+                if result is None:
+                    Console.msg("Use workflow list to view existing workflows or do workflow save to save a new one")
+                else:
+                    # Console.msg(result)
+                    # Console.msg(result[0])
+                    Console.msg(result[0]['workflow_str'])
+                    # entry_point(result[0]['workflow_str'])
+                    Console.msg("All Set to execute")
+
+        elif arguments["save"]:
+            workflow_name = arguments["NAME"]
+            workflow_str = arguments["WORKFLOWSTR"]
+
+            result = Workflow.save(cloud=cloud,
+                                   name=workflow_name,
+                                   str=workflow_str)
+            if result is not None:
+                Console.ok(result)
+            else:
+                Console.error("Failed to save workflow!")
+        elif arguments["run"]:
+            Console.msg("Execute Run")
+            workflow_name = arguments["NAME"]
+            # cm_id = arguments["ID"]
+
+            result = Workflow.run(cloud,name=workflow_name)
+
+        elif arguments["delete"]:
+            workflow_id = arguments["ID"]
+
+            result = Workflow.delete(cloud,workflow_id)
+            if result is not None:
+                Console.msg(result)
+            else:
+                Console.error("Failed to save workflow!")
+        elif arguments["service"] and arguments["start"]:
+            # Console.msg()
+            # mkdir -pf ~/.cloudmesh/workflow
+            pass

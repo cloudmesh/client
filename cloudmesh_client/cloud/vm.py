@@ -15,11 +15,12 @@ from builtins import input
 from pprint import pprint
 from cloudmesh_client.cloud.network import Network
 from cloudmesh_client.default import Default
-
+import traceback
 
 # noinspection PyPep8Naming
 class Vm(ListResource):
     cm = CloudmeshDatabase()
+
 
     @classmethod
     def uuid(cls, name, category=None):
@@ -84,8 +85,15 @@ class Vm(ListResource):
 
             # Handle Azure Specific Output
             if cloud_details["cm_type"] == "azure":
-                Console.TODO("azure ip dict yet to be implemented")
-                TODO.implement()
+                index = 0
+                ipaddr = {}
+                for ip in ip_addr:
+                    ipaddr[index] = {}
+                    ipaddr[index]["network"] = ip
+                    ipaddr[index]["version"] = 'ipv4'
+                    ipaddr[index]["addr"] = ip
+                    index += 1
+                return ipaddr
 
         except Exception as e:
             Error.error("error in vm construct dict", traceback=True)
@@ -117,7 +125,7 @@ class Vm(ListResource):
         else:
             nics = None
 
-        d = dotdict({
+        basic_dict = {
             "cloud": arg.cloud,
             "name": arg.name,
             "image": arg.image,
@@ -132,7 +140,34 @@ class Vm(ListResource):
                      'key': arg.key,
                      'category': arg.cloud
                     }
-        })
+        }
+
+        # Special case for Azure where certificate details needs to be added
+        if arg.cloud == "azure":
+            kwargs = dict()
+            kwargs['kind'] = "key_azure"
+            db_result = cls.cm.find(**kwargs)
+            # pprint("Key DB results")
+            key_result = None
+            try:
+                for key in db_result:
+                    if key['name'] == arg.key:
+                        pprint("Found the key")
+                        key_result = key
+                        break
+                if key_result is not None:
+                    new_dict_items = dict()
+                    new_dict_items['cert_thumbprint'] = key_result['fingerprint']
+                    new_dict_items['pub_key_path'] = key_result['key_path']
+                    new_dict_items['cert_path'] = key_result['certificate']
+                    new_dict_items['pfx_path'] = key_result['pfx_path']
+                    basic_dict.update(new_dict_items)
+                else:
+                    pprint("None found in DB")
+            except:
+                traceback.print_exc()
+                pprint("Exception while processing azure boot arguments")
+        d = dotdict(basic_dict)
 
         Console.ok("Machine {name} is being booted on cloud {cloud} ...".format(**arg))
 

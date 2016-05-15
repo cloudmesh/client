@@ -5,7 +5,7 @@ import getpass
 import socket
 
 import pyaml
-
+import time
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.vm import Vm
@@ -28,7 +28,8 @@ from pprint import pprint
 from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.cloud.image import Image
 from cloudmesh_client.cloud.ip import Ip
-
+from cloudmesh_client.common.util import search
+from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
 class VmCommand(PluginCommand, CloudPluginCommand):
     topics = {"vm": "cloud"}
@@ -53,6 +54,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         [--image=IMAGE]
                         [--flavor=FLAVOR]
                         [--group=GROUP]
+                        [--public]
                         [--secgroup=SECGROUP]
                         [--key=KEY]
                         [--dryrun]
@@ -62,6 +64,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         [--image=IMAGE]
                         [--flavor=FLAVOR]
                         [--group=GROUP]
+                        [--public]
                         [--secgroup=SECGROUP]
                         [--key=KEY]
                         [--dryrun]
@@ -85,7 +88,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 vm delete [NAMES]
                           [--group=GROUP]
                           [--cloud=CLOUD]
-                          [--force]
+                          [--keep]
+                          [--dryrun]
                 vm ip assign [NAMES]
                           [--cloud=CLOUD]
                 vm ip show [NAMES]
@@ -93,7 +97,11 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                            [--cloud=CLOUD]
                            [--format=FORMAT]
                            [--refresh]
-                vm login [NAME] [--username=USER]
+                vm ip inventory [NAMES]
+                                [--header=HEADER]
+                                [--file=FILE]
+                vm ssh [NAME] [--username=USER]
+                         [--quiet]
                          [--ip=IP]
                          [--cloud=CLOUD]
                          [--key=KEY]
@@ -104,7 +112,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         [--group=GROUP]
                         [--format=FORMAT]
                         [--refresh]
-                vm status [--cloud=CLOUD]
+                vm status [NAMES]
+                vm wait [--cloud=CLOUD] [--interval=SECONDS]
                 vm info [--cloud=CLOUD]
                         [--format=FORMAT]
                 vm check NAME
@@ -177,7 +186,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 vm ip show [options...]
                     show the ips of VMs
 
-                vm login [options...]
+                vm ssh [options...]
                     login to a server or execute commands on it
 
                 vm list [options...]
@@ -192,6 +201,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 => ['sample1', 'sample2', 'sample3']
                 sample[1-3,18] => ['sample1', 'sample2', 'sample3', 'sample18']
 
+            Quoting commands:
+                cm vm login gvonlasz-004 --command=\"uname -a\"
         """
 
         """
@@ -227,6 +238,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     print(Cluster.rename_node(clusterid, oldname, newname))
         """
 
+        cm = CloudmeshDatabase()
+
         def _print_dict(d, header=None, output='table'):
             return Printer.write(d, order=["id", "name", "status"], output=output, sort_keys=True)
 
@@ -239,7 +252,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 count = Default.get_counter(name='name') + offset
                 prefix = Default.user
                 if prefix is None or count is None:
-                    Console.error("Prefix and Count could not be retrieved correctly.")
+                    Console.error("Prefix and Count could not be retrieved correctly.", traceflag=False)
                     return
                 name = prefix + "-" + str(count).zfill(fill)
             return name
@@ -250,9 +263,27 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 if Vm.refresh(cloud=cloud):
                     Console.ok("{:} OK.".format(msg))
                 else:
-                    Console.error("{:} failed".format(msg))
+                    Console.error("{:} failed".format(msg), traceflag=False)
             except Exception as e:
-                Console.error("Problem running VM refresh")
+                Console.error("Problem running VM refresh", traceflag=False)
+
+        def _get_vm_names():
+
+            vm_list  = cm.find(kind="vm")
+
+            vms = [vm["name"] for vm in vm_list]
+
+            names = pattern = arguments["NAMES"]
+            if pattern is not None:
+                if "*" in pattern:
+                    names = search(vms, pattern)
+                else:
+                    names = Parameter.expand(names)
+
+            if names == ['last'] or names is None:
+                names == [Default.vm]
+
+            return vm_list, names
 
         cloud = arguments["--cloud"] or Default.cloud
 
@@ -283,6 +314,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
         arg.refresh = Default.refresh or arguments["--refresh"]
         arg.count = int(arguments["--n"] or 1)
         arg.dryrun = arguments["--dryrun"]
+        arg.verbose = not arguments["--quiet"]
 
         #
         # in many cases use NAMES
@@ -295,7 +327,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
         if arguments["boot"]:
 
             arg.username = arguments["--username"] or Image.guess_username(arg.image)
-
             is_name_provided = arg.name is not None
 
             arg.user = Default.user
@@ -312,7 +343,11 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     "username": arg.username,
                     "user": arg.user
                 })
-
+                # correct the username
+                vm_details.username = Image.guess_username_from_category(
+                    vm_details.cloud,
+                    vm_details.image,
+                    username=arg.username)
                 try:
 
                     if arg.dryrun:
@@ -343,7 +378,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         Console.ok(msg)
 
                 except Exception as e:
-                    Console.error("Problem booting instance {name}".format(**vm_details))
+                    Console.error("Problem booting instance {name}".format(**vm_details), traceflag=False)
 
         elif arguments["username"]:
 
@@ -370,7 +405,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 prefix = Username()
 
                 if prefix is None or count is None:
-                    Console.error("Prefix and Count could not be retrieved correctly.")
+                    Console.error("Prefix and Count could not be retrieved correctly.", traceflag=False)
                     return
 
                 vm_name = prefix + "-" + str(count).zfill(3)
@@ -391,7 +426,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                            "first install the defaults should be read from yaml.")
             except Exception as e:
                 # Error.traceback(e)
-                Console.error("Problem listing defaults")
+                Console.error("Problem listing defaults", traceflag=False)
 
         elif arguments["ping"]:
             try:
@@ -405,17 +440,17 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     name = arguments["NAME"] or Default.vm
                     n = arguments["N"] or 1
 
-                print ("Ping:", name, str(n))
+                print("Ping:", name, str(n))
 
                 vm = dotdict(Vm.list(name=name, category=cloud, output="dict")["dict"])
 
                 ip = vm.floating_ip
 
                 result = Shell.ping(host=ip, count=n)
-                print (result)
+                print(result)
 
             except Exception as e:
-                Console.error(e.message)
+                Console.error(e.message, traceflag=False)
 
         elif arguments["console"]:
             try:
@@ -430,18 +465,49 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 Console.ok(msg)
             except Exception as e:
                 # Error.traceback(e)
-                Console.error("Problem retrieving status of the VM")
+                Console.error("Problem retrieving status of the VM", traceflag=False)
 
         elif arguments["status"]:
             try:
                 cloud_provider = CloudProvider(cloud).provider
                 vm_list = cloud_provider.list_vm(cloud)
-                print("Status of VM {} is {}".format(vm_list[0]["name"], vm_list[0]["status"]))
-                msg = "info. OK."
-                Console.ok(msg)
+
+                vms = [vm_list[i]["name"] for i in vm_list ]
+                print ("V", vms)
+
+                pattern = arguments["NAMES"]
+                if pattern is not None:
+                    if "*" in pattern:
+                        print ("serach")
+                        names  = search(vms, pattern)
+                    else:
+                        names = Parameter.expand()
+                    for i in vm_list:
+                        if vm_list[i]["name"] in names:
+                            print("{} {}".format(vm_list[i]["status"], vm_list[i]["name"]))
+                else:
+                    print("{} {}".format(vm_list[0]["status"], vm_list[0]["name"]))
             except Exception as e:
                 # Error.traceback(e)
-                Console.error("Problem retrieving status of the VM")
+                Console.error("Problem retrieving status of the VM", traceflag=True)
+        elif arguments["wait"]:
+            interval = arguments["--interval"] or 5
+            try:
+                cloud_provider = CloudProvider(cloud).provider
+                for i in range(1,10):
+                    vm_list = cloud_provider.list_vm(cloud)
+                    time.sleep(float(1))
+                    d = {}
+                    for id in vm_list:
+                        vm = vm_list[id]
+                        d[vm["name"]] = vm["status"]
+                    print (d)
+                    print("{} {}".format(vm_list[0]["status"], vm_list[0]["name"]))
+                    if vm_list[0]["status"] in ['ACTIVE']:
+                        return
+            except Exception as e:
+                # Error.traceback(e)
+                Console.error("Problem retrieving status of the VM", traceflag=True)
 
         elif arguments["info"]:
             try:
@@ -454,7 +520,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 Console.ok(msg)
             except Exception as e:
                 # Error.traceback(e)
-                Console.error("Problem retrieving status of the VM")
+                Console.error("Problem retrieving status of the VM", traceflag=False)
 
         elif arguments["check"]:
 
@@ -505,10 +571,10 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                                     sort_keys=True))
 
                 msg = "not yet implemented. failed."
-                Console.error(msg)
+                Console.error(msg, traceflag=False)
             except Exception as e:
                 # Error.traceback(e)
-                Console.error("Problem retrieving status of the VM")
+                Console.error("Problem retrieving status of the VM", traceflag=False)
 
         elif arguments["start"]:
             try:
@@ -518,7 +584,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 if len(servers) == 0:
                     last_vm = Default.vm
                     if last_vm is None:
-                        Console.error("No VM records in database. Please run vm refresh.")
+                        Console.error("No VM records in database. Please run vm refresh.", traceflag=False)
                         return ""
                     name = last_vm["name"]
                     # print(name)
@@ -530,7 +596,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 # if default cloud not set, return error
                 if not cloud:
-                    Console.error("Default cloud not set.")
+                    Console.error("Default cloud not set.", traceflag=False)
                     return ""
 
                 Vm.start(cloud=cloud, servers=servers)
@@ -539,7 +605,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 Console.ok(msg)
             except Exception as e:
                 # Error.traceback(e)
-                Console.error("Problem starting instances")
+                Console.error("Problem starting instances", traceflag=False)
 
         elif arguments["stop"]:
             try:
@@ -549,7 +615,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 if servers is None or len(servers) == 0:
                     last_vm = Default.vm
                     if last_vm is None:
-                        Console.error("No VM records in database. Please run vm refresh.")
+                        Console.error("No VM records in database. Please run vm refresh.", traceflag=False)
                         return ""
                     name = last_vm["name"]
                     # print(name)
@@ -561,7 +627,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 # if default cloud not set, return error
                 if not cloud:
-                    Console.error("Default cloud not set.")
+                    Console.error("Default cloud not set.", traceflag=False)
                     return ""
 
                 Vm.stop(cloud=cloud, servers=servers)
@@ -570,7 +636,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 Console.ok(msg)
             except Exception as e:
                 # Error.traceback(e)
-                Console.error("Problem stopping instances")
+                Console.error("Problem stopping instances", traceflag=False)
 
         elif arguments["refresh"]:
 
@@ -578,21 +644,22 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["delete"]:
 
+            dryrun = arguments["--dryrun"]
             group = arguments["--group"]
-            force = arguments["--force"]
+            force = not arguments["--keep"]
             cloud = arguments["--cloud"]
-            servers = Parameter.expand(arguments["NAMES"])
+            vms, servers = _get_vm_names()
 
-            if servers == ['last']:
-                servers == [Default.vm]
-
-            print(servers)
+            if servers in [None, []]:
+                Console.error("No vms found.", traceflag=False)
+                return ""
 
             for server in servers:
-                Vm.delete(servers=[server], force=force)
+                if dryrun:
+                    Console.ok("Dryrun: delete {}".format(server))
+                else:
+                   Vm.delete(servers=[server], force=force)
 
-            msg = "info. OK."
-            Console.ok(msg)
             return ""
 
         elif arguments["ip"] and arguments["assign"]:
@@ -607,9 +674,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 vm = dotdict(Vm.list(name=name, category=cloud, output="dict")["dict"])
 
-                print ("FFFF", vm.floating_ip)
-                pprint(vm)
-
                 if vm.floating_ip is None:
 
                     Console.ok("Assign IP to {}".format(name))
@@ -619,7 +683,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                                                                       instance_id=name)
 
                         Vm.refresh(cloud=cloud)
-                        print ("OOOO", floating_ip)
 
                         if floating_ip is not None:
                             print(
@@ -629,16 +692,52 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                             Console.ok(msg)
                     except Exception as e:
 
-                        Console.error("Problem assigning floating ips.", traceflag=True)
+                        Console.error("Problem assigning floating ips.", traceflag=False)
 
                 else:
-                    Console.error("VM {} already has a floating ip: {}".format(name, vm.floating_ip))
+                    Console.error("VM {} already has a floating ip: {}".format(name, vm.floating_ip), traceflag=False)
 
+
+        elif arguments["ip"] and arguments["inventory"]:
+
+            vms, names = _get_vm_names()
+
+            if names in [None, []]:
+                if str(Default.vm) in ['None', None]:
+                    Console.error("The default vm is not set.", traceflag=False)
+                    return ""
+                else:
+                    names = [Default.vm]
+
+            header = arguments["--header"] or "[servers]"
+            filename = arguments["--file"] or "inventory.txt"
+
+            try:
+                vm_ips = []
+                for vm in vms:
+                    if  vm["name"] in names:
+                        print (vm["name"])
+                        vm_ips.append(vm["floating_ip"])
+
+                result = header + "\n"
+
+                result += '\n'.join(vm_ips)
+                Console.ok("Creating inventory file: {}".format(filename))
+
+                Console.ok(result)
+
+                with open(filename, 'w') as f:
+                    f.write(result)
+
+
+
+            except Exception as e:
+                Console.error("Problem getting ip addresses for instance", traceflag=True)
 
         elif arguments["ip"] and arguments["show"]:
             if arguments["NAMES"] is None:
                 if str(Default.vm) in ['None', None]:
-                    Console.error("The default vm is not set.")
+                    Console.error("The default vm is not set.", traceflag=False)
                     return ""
                 else:
                     names = [Default.vm]
@@ -652,46 +751,48 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             try:
 
                 ips = Ip.list(cloud=arg.cloud, output=output_format, names=names)
-                print (ips)
+                print(ips)
             except Exception as e:
-                Console.error("Problem getting ip addresses for instance")
+                Console.error("Problem getting ip addresses for instance", traceflag=False)
 
-        elif arguments["login"]:
+        elif arguments["ssh"]:
 
+            def _print(msg):
+                if arg.verbose:
+                    Console.msg(msg)
 
-            chameleon = "chameleon" in ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"][arg.cloud]["cm_host"]
+            chameleon = "chameleon" in ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"][arg.cloud][
+                "cm_host"]
 
             if chameleon:
                 arg.username = "cc"
+            elif arg.cloud == "azure":
+                arg.username = ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"]["azure"]["default"]["username"]
             else:
-
                 if arg.username is None:
-                    Console.error("Could not guess the username of the vm")
+                    Console.error("Could not guess the username of the vm", traceflag=False)
                     return
                 arg.username = arguments["--username"] or Image.guess_username(arg.image)
+            arg.command = arguments["--command"]
 
             data = dotdict({
                 'name': arguments["NAME"] or Default.vm,
                 'username': arg.username,
-                'cloud': arg.cloud
+                'cloud': arg.cloud,
+                'command': arg.command
             })
 
-
-
-
-            pprint (data)
-
-            print("Login {username}@{name} ...".format(**data))
+            _print("login {cloud}:{username}@{name}".format(**data))
 
             vm = Vm.get(data.name, category=data.cloud)
+
 
             Vm.set_login_user(name=data.name, cloud=data.cloud, username=data.username)
 
             data.floating_ip = vm.floating_ip
-            data.key = Default.key
+            data.key = arguments["--key"] or Default.key
 
-            print(Printer.attribute(data))
-
+            _print(Printer.attribute(data))
 
             '''
             if vm.username is None:
@@ -706,7 +807,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             ip = arguments["--ip"]
             commands = arguments["--command"]
 
-
             ip_addresses = []
 
             cloud_provider = CloudProvider(cloud).provider
@@ -719,33 +819,35 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             if len(ip_addresses) > 0:
                 if ip is not None:
                     if ip not in ip_addresses:
-                        print(
-                            "ERROR: IP Address specified does not match with the host.")
+                        Console.error("IP Address specified does not match with the host.", traceflag=False)
                         return ""
                 else:
-                    print("Determining IP Address to use with a ping test.")
+                    _print("Determining IP Address to use with a ping test.")
                     # This part assumes that the ping is allowed to the machine.
                     for ipadd in ip_addresses:
-                        print("Checking {:}...".format(ipadd))
+                        _print("Checking {:}...".format(ipadd))
                         try:
-                            socket.gethostbyaddr(ipadd)
+                            # Evading ping test, as ping is not enabled for VMs on Azure cloud
+                            # socket.gethostbyaddr(ipadd)
                             # ip will be set if above command is successful.
                             ip = ipadd
                         except socket.herror:
-                            print("Cannot reach {:}.".format(ipadd))
+                            _print("Cannot reach {:}.".format(ipadd))
 
                 if ip is None:
-                    print("Unable to connect to the machine")
+                    _print("Unable to connect to the machine")
                     return ""
                 else:
-                    print("IP to be used is: {:}".format(ip))
+                    _print("IP to be used is: {:}".format(ip))
 
                 #
-                # TODO: is thsi correctly implemented
+                # TODO: is this correctly implemented
                 #
-                SecGroup.enable_ssh(cloud=cloud)
+                if not cloud == 'azure':
+                    SecGroup.enable_ssh(cloud=cloud)
 
-                Console.info("Connecting to Instance at IP:" + format(ip))
+                if arg.verbose:
+                    Console.info("Connecting to Instance at IP:" + format(ip))
                 # Constructing the ssh command to connect to the machine.
                 sshcommand = "ssh"
                 if arg.key is not None:
@@ -758,7 +860,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 # print(sshcommand)
                 os.system(sshcommand)
             else:
-                Console.error("No Public IPs found for the instance")
+                Console.error("No Public IPs found for the instance", traceflag=False)
 
         elif arguments["list"]:
 
@@ -773,8 +875,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             else:
                 arg.group = Parameter.expand(arguments["--group"])
 
-
-            arg.refresh =  arguments["--refresh"] or Default.refresh
+            arg.refresh = arguments["--refresh"] or Default.refresh
 
             if arg.NAMES is not None:
                 arg.names = Parameter.expand(arguments["NAMES"])
@@ -799,8 +900,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     if arg.refresh:
                         _refresh(cloud)
 
-                    print("Listing VMs on Cloud: {:}".format(cloud))
-
+                    Console.ok("Listing VMs on Cloud: {:}".format(cloud))
 
                     vms = Vm.list(category=cloud, output="raw")
 
@@ -815,27 +915,27 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                             result = []
                         else:
                             result = vms
-                    elif arg.group is not None and len(arg.group)>0:
+                    elif arg.group is not None and len(arg.group) > 0:
                         for vm in vms:
                             if vm["group"] in arg.group:
                                 result.append(vm)
-                    elif arg.names is not None and len(arg.names)>0:
+                    elif arg.names is not None and len(arg.names) > 0:
                         for vm in vms:
                             if vm["name"] in arg.names:
                                 result.append(vm)
 
                     if len(result) > 0:
-                        #print(result)
+                        # print(result)
                         (order, header) = CloudProvider(cloud).get_attributes("vm")
-                        print (Printer.write(result,
-                                             order=order,
-                                             output=_format)
+                        print(Printer.write(result,
+                                            order=order,
+                                            output=_format)
                               )
                     else:
-                        print("No data found with requested parameters.")
+                        Console.error("No data found with requested parameters.", traceflag=False)
             except Exception as e:
                 # Error.traceback(e)
-                Console.error("Problem listing all instances")
+                Console.error("Problem listing all instances", traceflag=False)
 
 
         elif arguments["rename"]:
@@ -865,6 +965,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     Console.ok(msg)
             except Exception as e:
                 # Error.traceback(e)
-                Console.error("Problem deleting instances")
+                Console.error("Problem deleting instances", traceflag=False)
 
         return ""

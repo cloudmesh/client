@@ -22,9 +22,9 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 
 
 # noinspection PyPep8Naming
-class Test_libcloud_api(object):
+class Test_libcloud_aws:
     """
-        This class tests the lib cloud connection to chameleon
+        This class tests the lib cloud connection to aws
     """
 
     def test_001(self):
@@ -39,6 +39,7 @@ class Test_libcloud_api(object):
         self.driver = cls(
             self.credentials['EC2_ACCESS_KEY'],
             self.credentials['EC2_SECRET_KEY'])
+        assert True
 
     def test_002(self):
         """list VMs"""
@@ -74,9 +75,9 @@ class Test_libcloud_api(object):
         """launch a new VM"""
         name = "{:}-libcloud".format(self.credentials['userid'])
         # TODO: BUG: self.image self.size, not set
-        node = self.driver.create_node(name=name,
-                                       image=self.image,
-                                       size=self.size)
+        self.node = self.driver.create_node(name=name,
+                                       image=self.myimage,
+                                       size=self.myflavor)
         assert True
 
     def test_008(self):

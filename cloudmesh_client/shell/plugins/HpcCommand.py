@@ -108,7 +108,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
                 """
 
         format = arguments['--format']
-        cluster = arguments['--cluster'] or Default.get_cluster()
+        cluster = arguments['--cluster'] or Default.cluster
         arguments["CLUSTER"] = cluster
 
         if cluster is None:

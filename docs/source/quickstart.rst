@@ -46,10 +46,9 @@ Defaults and Variables
 ----------------------------------
 
 The cloudmesh shell contains a number of useful concepts. This
-includes defaults, variables and configuration flags.
-While Variables are not saved between different instantiations of
-cloudmesh, defaults are saved. Thus the values of defaults can be used
-consistently between invocations.
+includes defaults, variables and configuration flags. Variables and
+defaults are saved in the cloudmesh database and can thus be uses in
+consecutive invocations.
 
 To set a default value, for example to set the default cloud to kilo use:
 
@@ -72,6 +71,26 @@ or
 .. prompt:: cm, cm>
 
 	     default refresh=True
+
+To use such values in variables, we can declare a variable to store the current value of a cloud in it as follows
+
+.. prompt:: cm, cm>
+
+	     var mycloud=default.cloud
+
+While the default value will always return the data stored in the default cache, the above
+command reads at time of invocation the value and stores it in the variable. If the default
+would be changed the variable still contains the old value. Through the separation of defults
+and variables we are supporting a very flexible mechanism to allow integration in scripts.
+
+To use a variable in a script we can simply use the variable with a $ infront of the name.
+
+.. prompt:: cm, cm>
+
+	     banner $mycloud
+
+
+
 
 	     
 Accessing Clouds
@@ -278,7 +297,7 @@ Logging into the cloud is now as simple as:
 
 .. prompt:: cm, cm>
 
-	     vm login albert-001
+	     vm ssh albert-001
 
 This should get you through to the ssh session to the VM.The user name
 to be used at login is either automatically detected and added to the
@@ -287,7 +306,7 @@ username parameter
 
 .. prompt:: cm, cm>
 
-	     vm login albert-001 --username=ubuntu
+	     vm ssh albert-001 --username=ubuntu
 
 To change the default username for a vm you can use the command
 
@@ -330,7 +349,7 @@ Now booting and managing a vm is real simple
 
 	    cm boot
 	    cm ip assign
-	    cm login
+	    cm ssh
 
 And to delete the vm
 
@@ -338,7 +357,72 @@ And to delete the vm
 
 	    cm delete --force
 
-	 
+Microsoft Azure
+----------------
+
+To connect to the Azure cloud, you need your Azure subscription ID
+and a valid management certificate. You can obtain your subscription ID through the Azure classic portal.
+
+Steps to generate management certificate:
+    You actually need to create two certificates, one for the server (a .cer file)
+    and one for the client (a .pem file).
+    1. To create the .pem file, execute this:
+    openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem
+    2. To create the .cer certificate, execute this:
+    openssl x509 -inform pem -in mycert.pem -outform der -out mycert.cer
+
+This subscription ID and Management certificate path has to be added in the cloudmesh.yaml file.
+Ex:
+    credentials:
+                managementcertfile: <pem-certificate-path>
+                subscriptionid: <subscription-id>
+
+Default Azure Location will be "Central US", but it is configurable in cloudmesh.yaml file.
+
+Other than the regular commands, there is one extra command(Akey) in Azure which is needed to create VMs with
+certificates and SSH keys.
+
+Akey Command Syntax:
+    akey add --name=key-name --pub=pub-key-path --cert=pem-certificate-file-path --pfx=pfx-file-path
+
+To create a new VM deployment in Azure cloud with an SSH key it is mandatory to have a certificate associated with it.
+Steps to create a Key pair and a certificate:
+
+    1. Create a RSA key and self signed certificate:
+    openssl req -x509 -newkey rsa:2048 -keyout mycer.key -out mycer.pem -days 365 -nodes
+
+
+    2. Create PFX:
+    openssl pkcs12 -export -out mycer.pfx -inkey mycer.key -in mycer.pem
+
+
+    3. Create Public key from Private key:
+    ssh-keygen -y -f mycer.key > mycer.pub
+
+
+Some sample commands:
+
+1. To fetch the List of VMs:
+    cm default cloud=azure
+    cm vm refresh
+    cm vm list
+
+2. To fetch the list of Images:
+    cm default cloud=azure
+    cm image refresh
+    cm image list
+
+3. To fetch the list of Flavors:
+    cm default cloud=azure
+    cm flavor refresh
+    cm flavor list
+
+4. To create a new VM instance and SSH to that instance:
+    cm akey add --name=test-key --pub="mycer.pub" --cert="mycer.pem" --pfx="mycer.pfx"
+    cm default key=test-key
+    cm vm boot
+    cm vm ssh username-001 --key=mycer.key
+
 	     
 HPC
 -----

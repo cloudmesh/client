@@ -1,5 +1,14 @@
 Commands
 ======================================================================
+akey
+----------------------------------------------------------------------
+Command - akey::
+
+    Usage:
+    akey
+    akey list
+    akey add --name=key-name --pub=pub-key-path --cert=certificate-file-path --pfx=pfx-file-path
+
 banner
 ----------------------------------------------------------------------
 Command - banner::
@@ -220,7 +229,7 @@ Command - comet::
        comet iso upload [--isoname=ISONAME] PATHISOFILE
        comet iso attach ISONAME CLUSTERID [COMPUTENODEIDS]
        comet iso detach CLUSTERID [COMPUTENODEIDS]
-       comet node rename CLUSTERID OLDNAME NEWNAME
+       comet node rename CLUSTERID OLDNAMES NEWNAMES
 
     Options:
         --format=FORMAT         Format is either table, json, yaml,
@@ -259,6 +268,10 @@ Command - comet::
                         e.g., vm-vc1-0
         ISONAME         Name of an iso image at remote server
         PATHISOFILE     The full path to the iso image file to be uploaded
+        OLDNAMES        The list of current node names to be renamed, in hostlist
+                        format. A single host is also acceptable.
+        NEWNAMES        The list of new names to rename to, in hostlist format.
+                        A single host is also acceptable.
 
 context
 ----------------------------------------------------------------------
@@ -1565,6 +1578,14 @@ shell_exec
 Command - shell_exec::
 
     Command documentation shell_exec missing, help_shell_exec
+sleep
+----------------------------------------------------------------------
+Command - sleep::
+
+    Usage:
+        sleep SECONDS
+
+    Clears the screen.
 ssh
 ----------------------------------------------------------------------
 Command - ssh::
@@ -1867,6 +1888,7 @@ Command - vm::
                 [--image=IMAGE]
                 [--flavor=FLAVOR]
                 [--group=GROUP]
+                [--public]
                 [--secgroup=SECGROUP]
                 [--key=KEY]
                 [--dryrun]
@@ -1876,6 +1898,7 @@ Command - vm::
                 [--image=IMAGE]
                 [--flavor=FLAVOR]
                 [--group=GROUP]
+                [--public]
                 [--secgroup=SECGROUP]
                 [--key=KEY]
                 [--dryrun]
@@ -1899,7 +1922,8 @@ Command - vm::
         vm delete [NAMES]
                   [--group=GROUP]
                   [--cloud=CLOUD]
-                  [--force]
+                  [--keep]
+                  [--dryrun]
         vm ip assign [NAMES]
                   [--cloud=CLOUD]
         vm ip show [NAMES]
@@ -1907,7 +1931,11 @@ Command - vm::
                    [--cloud=CLOUD]
                    [--format=FORMAT]
                    [--refresh]
-        vm login [NAME] [--username=USER]
+        vm ip inventory [NAMES]
+                        [--header=HEADER]
+                        [--file=FILE]
+        vm ssh [NAME] [--username=USER]
+                 [--quiet]
                  [--ip=IP]
                  [--cloud=CLOUD]
                  [--key=KEY]
@@ -1918,7 +1946,8 @@ Command - vm::
                 [--group=GROUP]
                 [--format=FORMAT]
                 [--refresh]
-        vm status [--cloud=CLOUD]
+        vm status [NAMES]
+        vm wait [--cloud=CLOUD] [--interval=SECONDS]
         vm info [--cloud=CLOUD]
                 [--format=FORMAT]
         vm check NAME
@@ -1991,7 +2020,7 @@ Command - vm::
         vm ip show [options...]
             show the ips of VMs
 
-        vm login [options...]
+        vm ssh [options...]
             login to a server or execute commands on it
 
         vm list [options...]
@@ -2006,6 +2035,8 @@ Command - vm::
         => ['sample1', 'sample2', 'sample3']
         sample[1-3,18] => ['sample1', 'sample2', 'sample3', 'sample18']
 
+    Quoting commands:
+        cm vm login gvonlasz-004 --command="uname -a"
 
 workflow
 ----------------------------------------------------------------------
@@ -2013,12 +2044,15 @@ Command - workflow::
 
     Usage:
         workflow refresh [--cloud=CLOUD] [-v]
-        workflow list [ID] [--cloud=CLOUD] [--format=FORMAT] [--refresh] [-v]
+        workflow list [ID] [NAME] [--cloud=CLOUD] [--format=FORMAT] [--refresh] [-v]
         workflow add NAME LOCATION
-        workflow delete NAMES
+        workflow delete ID
         workflow status [NAMES]
-        workflow show NAMES
-
+        workflow show ID
+        workflow save NAME WORKFLOWSTR
+        workflow run NAME
+        workflow service start
+        workflow service stop
         This lists out the workflows present for a cloud
 
     Options:
@@ -2032,4 +2066,5 @@ Command - workflow::
         cm workflow list
         cm workflow list --format=csv
         cm workflow show 58c9552c-8d93-42c0-9dea-5f48d90a3188 --refresh
+        cm workflow run workflow1
 
