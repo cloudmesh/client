@@ -9,7 +9,6 @@ import os
 import sys
 from builtins import input
 
-
 # noinspection PyUnusedLocal,PyBroadException
 class CometCommand(PluginCommand, CometPluginCommand):
     topics = {"comet": "comet"}
@@ -30,6 +29,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                comet ll [CLUSTERID] [--format=FORMAT]
                comet cluster [CLUSTERID]
                              [--format=FORMAT]
+                             [--sort=SORTKEY]
                comet computeset [COMPUTESETID]
                             [--allocation=ALLOCATION]
                             [--cluster=CLUSTERID]
@@ -50,6 +50,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 --format=FORMAT         Format is either table, json, yaml,
                                         csv, rest
                                         [default: table]
+                --sort=SORTKEY          Sorting key for the table view
                 --count=NUMNODES        Number of nodes to be powered on.
                                         When this option is used, the comet system
                                         will find a NUMNODES number of arbitrary nodes
@@ -257,7 +258,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
 
         """
         if arguments["init"]:
-            print("Initializing the comet configuration file...")
+            print ("Initializing the comet configuration file...")
             config = ConfigDict("cloudmesh.yaml")
             # for unit testing only.
             cometConf = config["cloudmesh.comet"]
@@ -266,7 +267,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
             if "endpoints" in cometConf.keys():
                 endpoints = cometConf["endpoints"].keys()
                 if len(endpoints) < 1:
-                    Console.error("No service endpoints available."
+                    Console.error("No service endpoints available."\
                                   " Please check the config template")
                     return ""
             if "username" in cometConf.keys():
@@ -354,7 +355,8 @@ class CometCommand(PluginCommand, CometPluginCommand):
         elif arguments["cluster"]:
 
             cluster_id = arguments["CLUSTERID"]
-            print(Cluster.list(cluster_id, format=output_format))
+            sortkey = arguments["--sort"]
+            print(Cluster.list(cluster_id, format=output_format, sort=sortkey))
 
         elif arguments["computeset"]:
             computeset_id = arguments["COMPUTESETID"] or None
@@ -362,7 +364,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
             state = arguments["--state"] or None
             allocation = arguments["--allocation"] or None
             cluster = arguments["--cluster"] or None
-            print(Cluster.computeset(computeset_id, cluster, state, allocation))
+            print (Cluster.computeset(computeset_id, cluster, state, allocation))
         elif arguments["start"]:
             clusterid = arguments["CLUSTERID"]
             numnodes = arguments["--count"] or None
@@ -374,7 +376,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 allocations = cluster[0]['allocations']
             except:
                 # print (cluster)
-                Console.error("No allocation available for the specified cluster."
+                Console.error("No allocation available for the specified cluster."\
                               "Please check with the comet help team")
                 return ""
 
@@ -397,7 +399,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                     return ""
                 numnodes = param
             else:
-                Console.error("You have to specify either the count of nodes, "
+                Console.error("You have to specify either the count of nodes, " \
                               "or the names of nodes in hostlist format")
                 return ""
 
@@ -407,7 +409,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
             # validating walltime and allocation parameters
             walltime = Cluster.convert_to_mins(walltime)
             if not walltime:
-                print("No valid walltime specified. "
+                print("No valid walltime specified. " \
                       "Using system default (2 days)")
             if not allocation:
                 if len(allocations) == 1:
@@ -459,7 +461,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 action = "shutdown"
             else:
                 action = None
-            print(Cluster.power(clusterid,
+            print (Cluster.power(clusterid,
                                 subject,
                                 param,
                                 action)
@@ -478,7 +480,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                     if iso.startswith("public/"):
                         iso = iso.split("/")[1]
                     idx += 1
-                    print("{}: {}".format(idx, iso))
+                    print ("{}: {}".format(idx, iso))
             if arguments["upload"]:
                 isofile = arguments["PATHISOFILE"]
                 isofile = os.path.abspath(isofile)
@@ -488,7 +490,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                     else:
                         filename = os.path.basename(isofile)
                 else:
-                    print("File does not exist - {}" \
+                    print ("File does not exist - {}" \
                           .format(arguments["PATHISOFILE"]))
                     return ""
                 print(Comet.upload_iso(filename, isofile))

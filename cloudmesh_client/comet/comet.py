@@ -13,7 +13,9 @@ import webbrowser
 from builtins import input
 from pprint import pprint
 
+
 import requests
+from requests.auth import HTTPBasicAuth
 from httpsig.requests_auth import HTTPSignatureAuth
 from requests.auth import HTTPBasicAuth
 
@@ -568,7 +570,6 @@ class Comet(object):
 
         user = input("Comet nucleus username [%s]: " \
                      % defaultUser)
-
         if not user:
             user = defaultUser
         password = getpass.getpass()
@@ -592,7 +593,6 @@ class Comet(object):
         else:
             Console.error("Error getting api key. "
                           "Please check your username/password", traceflag=False)
-
 
 def main():
     comet = Comet()

@@ -24,6 +24,55 @@ class Cluster(object):
     FINISHED_COMPUTESETS = ["completed", "failed"]
     ACTIVE_COMPUTESETS = ["running", "submitted", "created"]
     PENDING_COMPUTESETS = ["queued", "submitted", "created"]
+    CLUSTER_ORDER=[
+                  "name",
+                  "state",
+                  "kind",
+                  "type",
+                  "mac",
+                  "ip",
+                  "cpus",
+                  "cluster",
+                  "memory",
+                  "disksize",
+                  "active_computeset",
+                  "allocation",
+                  "admin_state"
+                    ]
+    CLUSTER_HEADER=[
+                  "name",
+                  "state",
+                  "kind",
+                  "type",
+                  "mac",
+                  "ip",
+                  "cpus",
+                  "cluster",
+                  "RAM(M)",
+                  "disk(G)",
+                  "computeset",
+                  "allocation",
+                  "admin_state"
+                    ]
+    '''
+    CLUSTER_SORT_KEY=[
+                      "name",
+                      "state",
+                      "kind",
+                      "type",
+                      "mac",
+                      "ip",
+                      "cpus",
+                      "cluster",
+                      "ram",
+                      "disk",
+                      "computeset",
+                      "allocation",
+                      "admin_state"]
+    '''
+    CLUSTER_SORT_KEY=CLUSTER_HEADER[:]
+    CLUSTER_SORT_KEY[CLUSTER_HEADER.index("RAM(M)")] = "ram"
+    CLUSTER_SORT_KEY[CLUSTER_HEADER.index("disk(G)")] = "disk"
 
     @staticmethod
     def simple_list(id=None, format="table"):
@@ -92,7 +141,7 @@ class Cluster(object):
             return result
 
     @staticmethod
-    def list(id=None, format="table"):
+    def list(id=None, format="table", sort=None):
 
         def check_for_error(r):
             if r is not None:
@@ -143,6 +192,21 @@ class Cluster(object):
                 if id not in computeset_account:
                     computeset_account[id] = account
 
+        stuck_computesets = {}
+        computesets = Comet.get_computeset()
+        if computesets:
+            for computeset in computesets:
+                if computeset["state"] in Cluster.STUCK_COMPUTESETS:
+                    cluster = computeset["cluster"]
+                    id = computeset["id"]
+                    nodes = computeset["computes"]
+
+                    if cluster not in stuck_computesets:
+                        stuck_computesets[cluster] = {}
+                    for node in nodes:
+                        stuck_computesets[cluster][node["name"]] = \
+                            "{}({})".format (id, computeset["state"])
+
         if r is not None:
             if format == "rest":
                 result = r
@@ -161,7 +225,7 @@ class Cluster(object):
                     'name': None,
                     'state': None,
                     'type': None,
-                    'computeset': None,
+                    'active_computeset': None,
                     'kind': 'frontend',
                     'admin_state': None
                 }
@@ -215,6 +279,8 @@ class Cluster(object):
                         if "compute_state" in anode:
                             bnode["admin_state"] = anode["compute_state"]
                         #anode["ip"] = "; ".join(ips)
+                        if "ip" not in bnode:
+                            bnode["ip"] = None
 
                     del bnode["interface"]
                     #
@@ -227,107 +293,29 @@ class Cluster(object):
                     '''
                     data[index] = bnode
 
-                result_print = Printer.write(data,
-                                      order=[
-                                          "name",
-                                          "state",
-                                          "kind",
-                                          "type",
-                                          "mac",
-                                          # "ip",
-                                          "cpus",
-                                          "cluster",
-                                          "memory",
-                                          "disksize",
-                                          "active_computeset",
-                                          "allocation",
-                                          "admin_state"
-                                      ],
-                                      header=[
-                                          "name",
-                                          "state",
-                                          "kind",
-                                          "type",
-                                          "mac",
-                                          "cpus",
-                                          "cluster",
-                                          "RAM(M)",
-                                          "disk(G)",
-                                          "computeset",
-                                          "allocation",
-                                          "admin_state"
-                                      ],
-                                      output=format,
-
-                                      sort_keys=('cluster', 'mac'))
+                sort_keys = ('cluster','mac')
+                if sort:
+                    if sort in Cluster.CLUSTER_SORT_KEY:
+                        # print (sort)
+                        idx = Cluster.CLUSTER_SORT_KEY.index(sort)
+                        # print (idx)
+                        sortkey = Cluster.CLUSTER_ORDER[idx]
+                        # print (sortkey)
+                        sort_keys = (sortkey,)
+                        # print (sort_keys)
                 if "table" == format:
                     result_print = Printer.write(data,
-                          order=[
-                              "name",
-                              "state",
-                              "kind",
-                              "type",
-                              "mac",
-                              #"ip",
-                              "cpus",
-                              "cluster",
-                              "memory",
-                              "disksize",
-                              "active_computeset",
-                              "allocation",
-                              "admin_state"
-                          ],
-                          header=[
-                              "name",
-                              "state",
-                              "kind",
-                              "type",
-                              "mac",
-                              "cpus",
-                              "cluster",
-                              "RAM(M)",
-                              "disk(G)",
-                              "computeset",
-                              "allocation",
-                              "admin_state"
-                          ],
-                          output=format,
-                          sort_keys=('cluster','mac'))
+                                                 order=Cluster.CLUSTER_ORDER,
+                                                 header=Cluster.CLUSTER_HEADER,
+                                                 output=format,
+                                                 sort_keys=sort_keys)
                     result += str(result_print)
                 else:
                     result_print = Printer.write(data,
-                      order=[
-                          "name",
-                          "state",
-                          "kind",
-                          "type",
-                          "mac",
-                          "ip",
-                          "cpus",
-                          "cluster",
-                          "memory",
-                          "disksize",
-                          "active_computeset",
-                          "allocation",
-                          "admin_state"
-                      ],
-                      header=[
-                          "name",
-                          "state",
-                          "kind",
-                          "type",
-                          "mac",
-                          "ip",
-                          "cpus",
-                          "cluster",
-                          "RAM(M)",
-                          "disk(G)",
-                          "computeset",
-                          "allocation",
-                          "admin_state"
-                      ],
-                      output=format,
-                      sort_keys=('cluster','mac'))
+                                                 order=Cluster.CLUSTER_ORDER,
+                                                 header=Cluster.CLUSTER_HEADER,
+                                                 output=format,
+                                                 sort_keys=sort_keys)
                     result = result_print
             return result
 
@@ -339,7 +327,7 @@ class Cluster(object):
         while i < len(allocations_sorted) + 1:
             for j in range(0, Cluster.N_ALLOCATIONS_PER_LINE):
                 if i < len(allocations_sorted) + 1:
-                    print("{}: {}".format(i, allocations_sorted[i - 1]),
+                    print ("{}: {}".format(i, allocations_sorted[i - 1]),
                           end="\t")
                     i += 1
             print("")
@@ -500,6 +488,7 @@ class Cluster(object):
         secs = time_duration_secs % Cluster.SECS_PER_DAY
         hh = secs // 3600
         mm = (secs % 3600) // 60
+
         if ddd != 0:
             ret = "%s-%02d:%02d" % (ddd, hh, mm)
         else:
