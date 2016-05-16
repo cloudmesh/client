@@ -381,7 +381,7 @@ class Cluster(object):
         computesets = Comet.get_computeset(id, state)
         if computesets is not None:
             if 'cluster' in computesets:
-                result = Cluster.output_computeset(computesets, state='ALL')
+                result = Cluster.output_computeset(computesets)
             else:
                 result = ''
                 for acomputeset in computesets:
