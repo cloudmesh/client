@@ -13,7 +13,7 @@ The manual page of the `nova` command can be found at: `Nova <../man/man.html#no
 Setting the Target Cloud
 ----------------------------------------------------------------------
 
-You may set the target cloud on which the nova command should run as follows::
+You may set the target cloud on which the nova command should run as follows:
 
 .. prompt:: bash, cm>
 	      
@@ -28,7 +28,7 @@ Note that if you do not set a target cloud, default cloud considered is 'india'.
 Getting the Cloud Info
 ----------------------------------------------------------------------
 
-You may get the cloud info in the following manner::
+You may get the cloud info in the following manner:
 
 .. prompt:: bash, cm>
 	      
@@ -48,7 +48,8 @@ You may get the cloud info in the following manner::
     | OS_PASSWORD    | ********                                               |
     +----------------+--------------------------------------------------------+
 
-By default it gives the 'india' cloud info. To check for specific cloud, here is an example for kilo cloud::
+By default it gives the 'india' cloud info. To check for specific cloud,
+here is an example for kilo cloud:
 
 .. prompt:: bash, cm>
 	      
@@ -71,9 +72,9 @@ Running openstack nova commands
 ----------------------------------------------------------------------
 
 The syntax is  the same as what is used for openstack nova.
-Following are couple of examples::
+Following are couple of examples:
 
-Listing images::
+Listing images:
 
 .. prompt:: bash, cm>
 	      
@@ -106,7 +107,7 @@ Listing images::
     | 58c9552c-8d93-42c0-9dea-5f48d90a3188 | ubuntu12-cometworker1                   | ACTIVE | 55458942-1d8f-4a54-af10-8e01c47953ea |
     +--------------------------------------+-----------------------------------------+--------+--------------------------------------+
 
-Listing flavors::
+Listing flavors:
 
 .. prompt:: bash, cm>
 	      
