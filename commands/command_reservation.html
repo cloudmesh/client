@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Reservation Command &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>Reservation Command &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Inventory Command" href="command_inventory.html"/>
         <link rel="prev" title="Comet Virtual Cluster" href="command_comet.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -206,55 +206,68 @@ and contains a start and end point. We currently store named virtual
 machines into a reservation for named clouds. Reservations are similar
 to groups just that they have a time frame associated with them. A
 timeless reservation is like a group.</p>
-<p>The manual page of the key command can be found at: <a class="reference external" href="../man/man.html#reservation">reservation</a></p>
+<p>The manual page of the <cite>reservation</cite> command can be found at: <a class="reference external" href="../man/man.html#reservation">reservation</a></p>
 <div class="section" id="adding-a-reservation">
 <h2>Adding a reservation<a class="headerlink" href="#adding-a-reservation" title="Permalink to this headline">¶</a></h2>
-<p>Please note that you have to escape the whitespaces with &#8216;\&#8217; for commmand line arguments such as &#8216;&#8211;start&#8217;, &#8216;&#8211;end&#8217;.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm reservation add --name=test3 --start=&#39;10/31/1988\ at\ 8:09\ pm&#39; --end=&#39;10/21/2015\ at\ 9:00\ pm&#39; --user=albert --project=cloudmesh --hosts=host001 --description=desc
-Reservation test3 added successfully
-info. OK.
+<p>Please note that you have to escape the whitespaces with &#8216;\&#8217; for commmand line arguments such as &#8216;&#8211;start&#8217;, &#8216;&#8211;end&#8217;.
+:</p>
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "cm> ";
+}
+</style><span class="prompt1">reservation add --name=test3 --start=&#39;10/31/1988\ at\ 8:09\</span>
+<span class="prompt1">pm&#39; --end=&#39;10/21/2015\ at\ 9:00\</span>
+<span class="prompt1">pm&#39; --user=albert --project=cloudmesh --hosts=host001</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">description</span><span class="o">=</span>
+<span class="n">desc</span>
+<span class="n">Reservation</span> <span class="n">test3</span> <span class="n">added</span> <span class="n">successfully</span>
+<span class="n">info</span><span class="o">.</span> <span class="n">OK</span><span class="o">.</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="list-reservation">
 <h2>List Reservation<a class="headerlink" href="#list-reservation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm reservation list
-+----+-------+-----------------+-----------------+--------+-----------+---------+-------------+-------+
-| id | name  | start_time      | end_time        | user   | project   | hosts   | description | cloud |
-+----+-------+-----------------+-----------------+--------+-----------+---------+-------------+-------+
-| 1  | test3 | 10-31-1988 20:9 | 10-21-2015 21:0 | albert | cloudmesh | host001 | desc        | comet |
-+----+-------+-----------------+-----------------+--------+-----------+---------+-------------+-------+
+<pre class="highlight"><span class="prompt1">reservation list</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+----+-------+-----------------+-----------------+--------+-----------+---------+-------------+-------+</span>
+<span class="o">|</span> <span class="nb">id</span> <span class="o">|</span> <span class="n">name</span>  <span class="o">|</span> <span class="n">start_time</span>      <span class="o">|</span> <span class="n">end_time</span>        <span class="o">|</span> <span class="n">user</span>   <span class="o">|</span> <span class="n">project</span>   <span class="o">|</span> <span class="n">hosts</span>   <span class="o">|</span> <span class="n">description</span> <span class="o">|</span> <span class="n">cloud</span> <span class="o">|</span>
+<span class="o">+----+-------+-----------------+-----------------+--------+-----------+---------+-------------+-------+</span>
+<span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="n">test3</span> <span class="o">|</span> <span class="mi">10</span><span class="o">-</span><span class="mi">31</span><span class="o">-</span><span class="mi">1988</span> <span class="mi">20</span><span class="p">:</span><span class="mi">9</span> <span class="o">|</span> <span class="mi">10</span><span class="o">-</span><span class="mi">21</span><span class="o">-</span><span class="mi">2015</span> <span class="mi">21</span><span class="p">:</span><span class="mi">0</span> <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span> <span class="n">cloudmesh</span> <span class="o">|</span> <span class="n">host001</span> <span class="o">|</span> <span class="n">desc</span>        <span class="o">|</span> <span class="n">comet</span> <span class="o">|</span>
+<span class="o">+----+-------+-----------------+-----------------+--------+-----------+---------+-------------+-------+</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="update-reservation">
 <h2>Update Reservation<a class="headerlink" href="#update-reservation" title="Permalink to this headline">¶</a></h2>
 <p>Please note that you have to escape the whitespaces with &#8216;\&#8217; for command line arguments such as &#8216;&#8211;start&#8217;, &#8216;&#8211;end&#8217;.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm reservation update --name=test3 --project=cloudnauts
-Reservation test3 updated successfully
-info. OK.
+<pre class="highlight"><span class="prompt1">reservation update --name=test3 --project=cloudnauts</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Reservation</span> <span class="n">test3</span> <span class="n">updated</span> <span class="n">successfully</span>
+<span class="n">info</span><span class="o">.</span> <span class="n">OK</span><span class="o">.</span>
 </pre></div>
 </div>
 <p>Verify by listing:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm reservation list
-+----+-------+----------------+----------------+--------+------------+---------+-------------+-------+
-| id | name  | start_time     | end_time       | user   | project    | hosts   | description | cloud |
-+----+-------+----------------+----------------+--------+------------+---------+-------------+-------+
-| 1  | test3 | 1-1-1901 19:30 | 12-31-2021 0:0 | albert | cloudnauts | host001 | desc        | comet |
-+----+-------+----------------+----------------+--------+------------+---------+-------------+-------+
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">prompt</span><span class="p">::</span> <span class="n">bash</span><span class="p">,</span> <span class="n">cm</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<blockquote>
+<div>reservation list</div></blockquote>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+----+-------+----------------+----------------+--------+------------+---------+-------------+-------+</span>
+<span class="o">|</span> <span class="nb">id</span> <span class="o">|</span> <span class="n">name</span>  <span class="o">|</span> <span class="n">start_time</span>     <span class="o">|</span> <span class="n">end_time</span>       <span class="o">|</span> <span class="n">user</span>   <span class="o">|</span> <span class="n">project</span>    <span class="o">|</span> <span class="n">hosts</span>   <span class="o">|</span> <span class="n">description</span> <span class="o">|</span> <span class="n">cloud</span> <span class="o">|</span>
+<span class="o">+----+-------+----------------+----------------+--------+------------+---------+-------------+-------+</span>
+<span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="n">test3</span> <span class="o">|</span> <span class="mi">1</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">1901</span> <span class="mi">19</span><span class="p">:</span><span class="mi">30</span> <span class="o">|</span> <span class="mi">12</span><span class="o">-</span><span class="mi">31</span><span class="o">-</span><span class="mi">2021</span> <span class="mi">0</span><span class="p">:</span><span class="mi">0</span> <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span> <span class="n">cloudnauts</span> <span class="o">|</span> <span class="n">host001</span> <span class="o">|</span> <span class="n">desc</span>        <span class="o">|</span> <span class="n">comet</span> <span class="o">|</span>
+<span class="o">+----+-------+----------------+----------------+--------+------------+---------+-------------+-------+</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="delete-reservation">
 <h2>Delete Reservation<a class="headerlink" href="#delete-reservation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm reservation delete --name=test3
-info. OK.
+<pre class="highlight"><span class="prompt1">reservation delete --name=test3</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">info</span><span class="o">.</span> <span class="n">OK</span><span class="o">.</span>
 </pre></div>
 </div>
-<p>Verify by listing:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm reservation list
-None
-info. OK.
+<p>Verify by listing</p>
+<pre class="highlight"><span class="prompt1">reservation list</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="kc">None</span>
+<span class="n">info</span><span class="o">.</span> <span class="n">OK</span><span class="o">.</span>
 </pre></div>
 </div>
 </div>
@@ -300,7 +313,7 @@ info. OK.
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

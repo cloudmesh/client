@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.iaas.provider.azure.AzureDict &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>cloudmesh_client.cloud.iaas.provider.azure.AzureDict &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../../../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../../../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -179,7 +179,7 @@
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="AzureDict.convert_to_vm_dict"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.azure.html#cloudmesh_client.cloud.iaas.provider.azure.AzureDict.AzureDict.convert_to_vm_dict">[docs]</a>    <span class="k">def</span> <span class="nf">convert_to_vm_dict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">hosted_service_obj</span><span class="p">,</span> <span class="n">deployment_obj</span><span class="p">):</span>
-        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;In convert_to_vm_dict&quot;</span><span class="p">)</span>
+        <span class="c1"># pprint(&quot;In convert_to_vm_dict&quot;)</span>
         <span class="n">vm_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
         <span class="c1"># option1: fetching from the objects directly</span>
@@ -191,12 +191,12 @@
         <span class="n">vm_dict</span><span class="p">[</span><span class="s1">&#39;dns_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">deployment_obj</span><span class="o">.</span><span class="n">url</span>
         <span class="k">if</span> <span class="n">deployment_obj</span><span class="o">.</span><span class="n">virtual_ips</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">deployment_obj</span><span class="o">.</span><span class="n">virtual_ips</span><span class="o">.</span><span class="n">virtual_ips</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">vm_dict</span><span class="p">[</span><span class="s1">&#39;public_ips&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">deployment_obj</span><span class="o">.</span><span class="n">virtual_ips</span><span class="o">.</span><span class="n">virtual_ips</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">address</span>
-            <span class="n">pprint</span><span class="p">((</span><span class="n">deployment_obj</span><span class="o">.</span><span class="n">virtual_ips</span><span class="o">.</span><span class="n">virtual_ips</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">address</span><span class="p">)</span>
+            <span class="c1"># pprint((deployment_obj.virtual_ips.virtual_ips)[0].address)</span>
 
         <span class="c1"># option2: Using dict to fetch</span>
         <span class="n">hosted_service_dict</span> <span class="o">=</span> <span class="n">FlatDict2</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">hosted_service_obj</span><span class="p">)</span>
         <span class="n">deployment_dict</span> <span class="o">=</span> <span class="n">FlatDict2</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">deployment_obj</span><span class="p">)</span>
-        <span class="n">pprint</span><span class="p">(</span><span class="n">deployment_dict</span><span class="p">)</span>
+        <span class="c1"># pprint(deployment_dict)</span>
 
         <span class="c1"># vm_dict[&#39;id&#39;] = deployment_dict[&#39;private_id&#39;]</span>
         <span class="c1"># vm_dict[&#39;name&#39;] = deployment_dict[&#39;name&#39;]</span>
@@ -213,7 +213,28 @@
         <span class="c1">#         vm_dict[&#39;image_name&#39;] = deployment_dict[&#39;role_list__roles&#39;][0][&#39;os_virtual_hard_disk&#39;][&#39;source_image_name&#39;]</span>
 
         <span class="c1"># vm_dict[&#39;resource_location&#39;] = hosted_service_dict[&#39;hosted_service_properties&#39;][&#39;hosted_service_properties&#39;][&#39;ResourceLocation&#39;]</span>
-        <span class="k">return</span> <span class="n">vm_dict</span></div></div>
+        <span class="k">return</span> <span class="n">vm_dict</span></div>
+
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="AzureDict.convert_to_image_dict"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.azure.html#cloudmesh_client.cloud.iaas.provider.azure.AzureDict.AzureDict.convert_to_image_dict">[docs]</a>    <span class="k">def</span> <span class="nf">convert_to_image_dict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">image_obj</span><span class="p">):</span>
+        <span class="n">image_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="n">image_dict</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">image_obj</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">image_dict_values</span> <span class="o">=</span> <span class="n">FlatDict2</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">image_obj</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">image_dict_values</span><span class="p">:</span>
+            <span class="n">image_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">image_dict_values</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">image_dict</span></div>
+
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="AzureDict.convert_to_flavor_dict"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.azure.html#cloudmesh_client.cloud.iaas.provider.azure.AzureDict.AzureDict.convert_to_flavor_dict">[docs]</a>    <span class="k">def</span> <span class="nf">convert_to_flavor_dict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">flavor_obj</span><span class="p">):</span>
+        <span class="n">flavor_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="n">flavor_dict</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">flavor_obj</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">flavor_dict_values</span> <span class="o">=</span> <span class="n">FlatDict2</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">flavor_obj</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">flavor_dict_values</span><span class="p">:</span>
+            <span class="n">flavor_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">flavor_dict_values</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">flavor_dict</span></div></div>
+
 </pre></div>
 
            </div>
@@ -246,7 +267,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../../../',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

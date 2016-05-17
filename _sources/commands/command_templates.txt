@@ -60,7 +60,7 @@ clouds it may be inconvenient to specify the name of the cloud every
 time, thus we have introduced the concept of a default cloud. The
 default cloud can be set with the command:
 
-.. prompt:: bash
+.. prompt:: bash, cm>
 
     default cloud CLOUDNAME
 
@@ -99,24 +99,28 @@ Help
 
 To see the list of all available commands use the command:
 
-.. prompt:: bash
 
-   cm help
+.. prompt:: bash, cm>
+	    
+   help
 
+   
 The commands are sorted by topic, while the first list gives all
 commands in alphabetical order. To opbtain an individual man page
 simply say:
 
-.. prompt:: bash
 
-       cm help COMMAND
-
+.. prompt:: bash, cm>
+	    
+       help COMMAND
+   
+       
 where command is the command you which to get the help message for. To
 optain the manual pages of all commands yo can use the command:
 
-.. prompt:: bash
+.. prompt:: bash, cm>
 
-   cm man
+   man
 
 which will print all man pages out.
 
@@ -185,38 +189,44 @@ The current list of commands contains:
 Elementary Commands
 -------------------
 
-We have build in some convenience commands into the shell that include comments and execution of cm scripts.
+We have build in some convenience commands into the shell that include
+comments and execution of cm scripts.
 
 Comments
 ^^^^^^^^^
 
-Comments are identified by the first characters in a command line. We allow the following comment charater identification
-strings::
+Comments are identified by the first characters in a command line. We
+allow the following comment charater identification strings::
 
    #
    /*
    //
 
-If comments are to be done over multiple lines in a cloudmesh script, they have to be done for each line. If a space or other
- character is in front of a comment string, the it will not be considered as a comment.
+If comments are to be done over multiple lines in a cloudmesh script,
+they have to be done for each line. If a space or other character is
+in front of a comment string, the it will not be considered as a
+comment.
 
 Cloudmesh File Execution
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Multiple cloudmesh commands can be placed in a single file. We recommend that you use the ending `.cm`. You can satrt the
-execution of such a file with:
+Multiple cloudmesh commands can be placed in a single file. We
+recommend that you use the ending `.cm`. You can satrt the execution
+of such a file with:
 
 .. prompt:: bash
 
    cm filename.cm
 
-A cloudmesh file could itself include references to other cloudmesh files. They can be started in one of two ways. You can
-use the `exec` command::
+A cloudmesh file could itself include references to other cloudmesh
+files. They can be started in one of two ways. You can use the `exec`
+command::
 
    $ cm
    cm> exec filename.cm
 
-or you can use simply the filename. Cloudmesh will check if the filename exists and than execute it::
+or you can use simply the filename. Cloudmesh will check if the
+filename exists and than execute it::
 
    $ cm
    cm> filename.cm
@@ -225,32 +235,48 @@ or you can use simply the filename. Cloudmesh will check if the filename exists 
 Python
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can execute a python command as follows::
+You can execute a python command as follows:
 
-    cm> py COMMAND
-
+.. prompt:: bash, cm>
+	    
+    py COMMAND
+    
 where command is the command you like to execute
 
 
 Quitting the shell
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To quit the shell you can use either the commands::
+To quit the shell you can use either the commands:
 
-  cm> q
-  cm> quit
-  cm> EOF
 
+.. prompt:: bash, cm>
+	    
+  q
+
+.. prompt:: bash, cm>
+	       
+   quit
+
+
+.. prompt:: bash, cm>
+	       
+   EOF
+
+   
+	    
 Manual Pages
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Often you will run in the situation where you may have to create a
 list of manual pages for your commands for your users. To simplify
 that we have not provided this in Unix Man format, but simply in RST
-format. You can type in the command::
+format. You can type in the command:
 
-  cm> man
-
+.. prompt:: bash, cm>
+	    
+  man
+  
 and it will print you in RST format a list of all commands available
 to you for your cmd3 shell. This naturally you could put into a sphinx
 documentation to create a nice user manual for your users.
@@ -281,27 +307,36 @@ Variables
 
 Cloudmesh client contains the ability to use variables within the shell.
 Variables are preserved between calls to cm. To see a list of all variables,
-use the command::
+use the command:
 
-  var list
+.. prompt:: bash, cm>
+	    
+	    var list
 
-To set variable values you can use::
+To set variable values you can use:
 
-    cm> var name=value
+.. prompt:: bash
+
+	    var name=value
 
 which will set the variable with the given name to the specified value.
 In case the value specifies an entry in the cloudmesh.yaml file it will
-be read from it and put into the named variable. For example the command::
+be read from it and put into the named variable. For example the
+command:
 
-    cm> var username=cloudmesh.profile.username
+.. prompt:: bash
+
+	    var username=cloudmesh.profile.username
 
 Will create a variable username and get the value form the yaml file
 specified by its object hierarchy.
 
 To use the content of the variable, simple use it on the shell with a
-dollar sign such as::
+dollar sign such as:
 
-  cm> banner $name
+.. prompt:: bash
+
+	    banner $name
 
 In this example a banner will be created that contains the value of the
 variable name. Note that the variables `$date` and `$time` are predefined
@@ -309,30 +344,49 @@ and give the current date and time and are updated at the time they are called.
 
 As `cm` can also be used in a terminal, many terminal use a $ to indicate
 variables for this terminal/shell. In order to mask this you will need to
-use the ' ' or the \ sign. Thus, ::
+use the ' ' or the `\` sign:
 
-    $ cm banner '$name'
-    $ cm banner \$name
+.. prompt:: bash, cm>
 
+	    banner '$name'
+
+.. prompt:: bash, cm>
+		
+	    banner \$name
+
+   
+	    
 will result in the ability to ue the cloudmesh shell variables. If you
 However want to use the terminal shell variables such as `$HOME` you can
-access them directly::
+access them directly:
 
-    $ cm banner $HOME
+.. prompt:: bash, cm>
+	    
+    banner $HOME
 
+    
 Special syntax detection of variables allow also easy use of operating
-system/terminal variables while prepending them with os. Thus::
+system/terminal variables while prepending them with os. Thus:
 
-    cm> banner $HOME
-    cm> banner $os.HOME
+.. prompt:: bash, cm>
+	    
+    banner $HOME
 
+.. prompt:: bash, cm>
+		
+   banner $os.HOME
+   
+	    
 Will be the same the advantage is that with os. we clearly mark an os
 systems variable that we like to access and no confusion between internal
 cloudmesh shell and OS variables occur. Furthermore variables defined in the
-cloudmesh yaml file can be directly accessed while using the . notation. Thus::
+cloudmesh yaml file can be directly accessed while using the . notation. Thus:
 
-  cm> banner $cloudmesh.profile.username
+.. prompt:: bash, cm>
+	      
+  banner $cloudmesh.profile.username
 
+  
 Will print a banner with the username being `myusername` as defined in the
 yaml hierarchy under given this example::
 
@@ -344,10 +398,10 @@ yaml hierarchy under given this example::
 To show the usage of the different variables in one line, please review the
 following example:
 
-.. prompt:: bash
+.. prompt:: bash, cm>
 
-    cm var a=hello
-    cm banner '$a-[0-100] $os.HOME $cloudmesh.profile.username'
+    var a=hello
+    banner '$a-[0-100] $os.HOME $cloudmesh.profile.username'
 
 This will print, where albert is your username::
 
@@ -362,29 +416,43 @@ Sometimes it is a good idea to measure the time it takes to execute a
 particular command. For this reason we have a timer command that can switch
 on and off this behaviour.
 
-::
-
+.. prompt:: bash, cm>
+	    
    timer on
+
+.. prompt:: bash, cm>
+	       
    timer off
 
+   
 switches the timer on or off. If the timer is switched on every command will
 be followed with the time it takes toe execute that command. Special named
 timers can be defined and used.
 
-::
+.. prompt:: bash, cm>
+	    
+	    timer start mytimer
 
-   timer start mytimer
 
-   timer stop mytimer
-   timer print mytimer
+.. prompt:: bash, cm>
+	       
+	    timer stop mytimer
 
+
+.. prompt:: bash, cm>
+	       
+	    timer print mytimer
+
+   
+	       
 Intuitive start, stop, and print options can be used. A timer will be reset
 with
 
-::
-
+.. prompt:: bash, cm>
+	    
    timer reset mytimer
 
+   
 
 
 

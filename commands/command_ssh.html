@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Color Command &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>Ssh Command &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Select Command" href="command_select.html"/>
         <link rel="prev" title="Group Command" href="command_group.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -102,8 +102,9 @@
 <li class="toctree-l3"><a class="reference internal" href="command_templates.html">Basic Commands and Options</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_colors.html">Color Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_default.html">Default Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_info.html">Info Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html">Group Command</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Color Command</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Ssh Command</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#lists">Lists</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#executing-command">Executing Command</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#register">Register</a></li>
@@ -178,7 +179,7 @@
       
           <li><a href="index.html">User Manual</a> &raquo;</li>
       
-    <li>Color Command</li>
+    <li>Ssh Command</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -192,45 +193,51 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="color-command">
-<h1>Color Command<a class="headerlink" href="#color-command" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="ssh-command">
+<h1>Ssh Command<a class="headerlink" href="#ssh-command" title="Permalink to this headline">¶</a></h1>
 <p>Often the ssh command needs to be used to login to remote machines. As the
 interaction with such machines could be frequent via the ssh command, it is
 often a good idea to include them into the ~/.ssh/config file. To simplify
 interaction, we provide a simple ssh command in cloudmesh.</p>
-<p>The manual page of the group command can be found at: <a class="reference external" href="../man/man.html#ssh">ssh</a></p>
+<p>The manual page of the <cite>ssh</cite> command can be found at: <a class="reference external" href="../man/man.html#ssh">ssh</a></p>
 <div class="section" id="lists">
 <h2>Lists<a class="headerlink" href="#lists" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="nb">list</span>
-    <span class="n">lists</span> <span class="n">the</span> <span class="n">hostsnames</span>  <span class="n">that</span> <span class="n">are</span> <span class="n">present</span> <span class="ow">in</span> <span class="n">the</span>
-    <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">config</span> <span class="n">file</span>
-
-<span class="n">ssh</span> <span class="n">cat</span>
-    <span class="n">prints</span> <span class="n">the</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">config</span> <span class="n">file</span>
-
-<span class="n">ssh</span> <span class="n">table</span>
-    <span class="n">prints</span> <span class="n">contents</span> <span class="n">of</span> <span class="n">the</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">config</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">table</span> <span class="nb">format</span>
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "cm> ";
+}
+</style><span class="prompt1">ssh list</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">lists</span> <span class="n">the</span> <span class="n">hostsnames</span>  <span class="n">that</span> <span class="n">are</span> <span class="n">present</span> <span class="ow">in</span> <span class="n">the</span>
+<span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">config</span> <span class="n">file</span>
+</pre></div>
+</div>
+<pre class="highlight"><span class="prompt1">ssh cat</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">prints</span> <span class="n">the</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">config</span> <span class="n">file</span>
+</pre></div>
+</div>
+<pre class="highlight"><span class="prompt1">ssh table</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">prints</span> <span class="n">contents</span> <span class="n">of</span> <span class="n">the</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">config</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">table</span> <span class="nb">format</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="executing-command">
 <h2>Executing Command<a class="headerlink" href="#executing-command" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="n">ARGUMENTS</span>
-    <span class="n">executes</span> <span class="n">the</span> <span class="n">ssh</span> <span class="n">command</span> <span class="k">with</span> <span class="n">the</span> <span class="n">given</span> <span class="n">arguments</span>
-    <span class="n">Example</span><span class="p">:</span>
-        <span class="n">ssh</span> <span class="n">myhost</span>
+<pre class="highlight"><span class="prompt1">ssh ARGUMENTS</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">executes</span> <span class="n">the</span> <span class="n">ssh</span> <span class="n">command</span> <span class="k">with</span> <span class="n">the</span> <span class="n">given</span> <span class="n">arguments</span>
+<span class="n">Example</span><span class="p">:</span>
+    <span class="n">ssh</span> <span class="n">myhost</span>
 
-            <span class="n">conducts</span> <span class="n">an</span> <span class="n">ssh</span> <span class="n">login</span> <span class="n">to</span> <span class="n">myhost</span> <span class="k">if</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">defined</span> <span class="ow">in</span>
-            <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">config</span> <span class="n">file</span>
+        <span class="n">conducts</span> <span class="n">an</span> <span class="n">ssh</span> <span class="n">login</span> <span class="n">to</span> <span class="n">myhost</span> <span class="k">if</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">defined</span> <span class="ow">in</span>
+        <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">config</span> <span class="n">file</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="register">
 <h2>Register<a class="headerlink" href="#register" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="n">register</span> <span class="n">NAME</span> <span class="n">PARAMETERS</span>
-    <span class="n">registers</span> <span class="n">a</span> <span class="n">host</span> <span class="n">i</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">config</span> <span class="n">file</span>
-    <span class="n">Parameters</span> <span class="n">are</span> <span class="n">attribute</span><span class="o">=</span><span class="n">value</span> <span class="n">pairs</span>
-    <span class="n">Note</span><span class="p">:</span> <span class="n">Note</span> <span class="n">yet</span> <span class="n">implemented</span>
+<pre class="highlight"><span class="prompt1">ssh register NAME PARAMETERS</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">registers</span> <span class="n">a</span> <span class="n">host</span> <span class="n">i</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">config</span> <span class="n">file</span>
+<span class="n">Parameters</span> <span class="n">are</span> <span class="n">attribute</span><span class="o">=</span><span class="n">value</span> <span class="n">pairs</span>
+<span class="n">Note</span><span class="p">:</span> <span class="n">Note</span> <span class="n">yet</span> <span class="n">implemented</span>
 </pre></div>
 </div>
 </div>
@@ -276,7 +283,7 @@ interaction, we provide a simple ssh command in cloudmesh.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

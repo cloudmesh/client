@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Sync Command &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>Sync Command &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Limits Command" href="command_limits.html"/>
         <link rel="prev" title="Network Command" href="command_network.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -202,33 +202,38 @@
             
   <div class="section" id="sync-command">
 <h1>Sync Command<a class="headerlink" href="#sync-command" title="Permalink to this headline">¶</a></h1>
-<p>The sync command provides an API that allows users to sync
+<p>The sync command provides an API that allows users to synchronise
 a local directory with a directory on any remote machine on the cloud.
-Sync command can be used to pull in data from the remote host, or
+The sync command can be used to pull in data from the remote host, or
 send data from local machine to remote host.</p>
-<p>The manual page of the network command can be found at: <cite>sync &lt;../man/man.html#sync&gt;</cite></p>
+<p>The manual page of the network command can be
+found at: <a class="reference external" href="../man/man.html#sync">sync</a></p>
 <div class="section" id="sync-file-on-local-machine-with-remote-machine-on-cloud">
 <h2>Sync file on local machine with remote machine on cloud<a class="headerlink" href="#sync-file-on-local-machine-with-remote-machine-on-cloud" title="Permalink to this headline">¶</a></h2>
 <p>To sync a file from local machine to remote use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm sync put ubuntu_file.txt sync_dir
-  Please enter putty private key(ppk) file path: ~/.ssh/id_rsa_ppk.ppk
-  Passphrase for key &quot;imported-openssh-key&quot;:
-  ubuntu_file.txt           | 0 kB |   0.0 kB/s | ETA: 00:00:00 | 100%
-  Successuly synced local and remote directories.
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "cm> ";
+}
+</style><span class="prompt1">sync put ubuntu_file.txt sync_dir</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Please</span> <span class="n">enter</span> <span class="n">putty</span> <span class="n">private</span> <span class="n">key</span><span class="p">(</span><span class="n">ppk</span><span class="p">)</span> <span class="n">file</span> <span class="n">path</span><span class="p">:</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa_ppk</span><span class="o">.</span><span class="n">ppk</span>
+<span class="n">Passphrase</span> <span class="k">for</span> <span class="n">key</span> <span class="s2">&quot;imported-openssh-key&quot;</span><span class="p">:</span>
+<span class="n">ubuntu_file</span><span class="o">.</span><span class="n">txt</span>           <span class="o">|</span> <span class="mi">0</span> <span class="n">kB</span> <span class="o">|</span>   <span class="mf">0.0</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span> <span class="n">ETA</span><span class="p">:</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">100</span><span class="o">%</span>
+<span class="n">Successuly</span> <span class="n">synced</span> <span class="n">local</span> <span class="ow">and</span> <span class="n">remote</span> <span class="n">directories</span><span class="o">.</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="sync-file-from-remote-machine-on-cloud-to-local-machine">
 <h2>Sync file from remote machine on cloud to local machine<a class="headerlink" href="#sync-file-from-remote-machine-on-cloud-to-local-machine" title="Permalink to this headline">¶</a></h2>
 <p>To sync a file from remote machine to local use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm sync get sync_dir/* ./cm_sync/
-  Please enter putty private key(ppk) file path: ~/.ssh/id_rsa_ppk.ppk
-  Passphrase for key &quot;imported-openssh-key&quot;:
-  my_text.txt               | 0 kB |   0.0 kB/s | ETA: 00:00:00 | 100%
-  my_text_2.txt             | 0 kB |   0.0 kB/s | ETA: 00:00:00 | 100%
-  ex1.txt                   | 0 kB |   0.0 kB/s | ETA: 00:00:00 | 100%
-  ubuntu_file.txt           | 0 kB |   0.0 kB/s | ETA: 00:00:00 | 100%
-  Successuly synced local and remote directories.
+<pre class="highlight"><span class="prompt1">sync get sync_dir/* ./cm_sync/</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Please</span> <span class="n">enter</span> <span class="n">putty</span> <span class="n">private</span> <span class="n">key</span><span class="p">(</span><span class="n">ppk</span><span class="p">)</span> <span class="n">file</span> <span class="n">path</span><span class="p">:</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa_ppk</span><span class="o">.</span><span class="n">ppk</span>
+<span class="n">Passphrase</span> <span class="k">for</span> <span class="n">key</span> <span class="s2">&quot;imported-openssh-key&quot;</span><span class="p">:</span>
+<span class="n">my_text</span><span class="o">.</span><span class="n">txt</span>               <span class="o">|</span> <span class="mi">0</span> <span class="n">kB</span> <span class="o">|</span>   <span class="mf">0.0</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span> <span class="n">ETA</span><span class="p">:</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">100</span><span class="o">%</span>
+<span class="n">my_text_2</span><span class="o">.</span><span class="n">txt</span>             <span class="o">|</span> <span class="mi">0</span> <span class="n">kB</span> <span class="o">|</span>   <span class="mf">0.0</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span> <span class="n">ETA</span><span class="p">:</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">100</span><span class="o">%</span>
+<span class="n">ex1</span><span class="o">.</span><span class="n">txt</span>                   <span class="o">|</span> <span class="mi">0</span> <span class="n">kB</span> <span class="o">|</span>   <span class="mf">0.0</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span> <span class="n">ETA</span><span class="p">:</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">100</span><span class="o">%</span>
+<span class="n">ubuntu_file</span><span class="o">.</span><span class="n">txt</span>           <span class="o">|</span> <span class="mi">0</span> <span class="n">kB</span> <span class="o">|</span>   <span class="mf">0.0</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span> <span class="o">|</span> <span class="n">ETA</span><span class="p">:</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">100</span><span class="o">%</span>
+<span class="n">Successuly</span> <span class="n">synced</span> <span class="n">local</span> <span class="ow">and</span> <span class="n">remote</span> <span class="n">directories</span><span class="o">.</span>
 </pre></div>
 </div>
 </div>
@@ -274,7 +279,7 @@ send data from local machine to remote host.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -7,7 +7,7 @@ capability of setting the target cloud. However, we recommend not using
 the command and instead use the cloudmesh command sas they allow for
 information caching
 
-The manual page of the key command can be found at: `Nova <../man/man.html#nova>`_
+The manual page of the `nova` command can be found at: `Nova <../man/man.html#nova>`_
 
 
 Setting the Target Cloud
@@ -15,8 +15,13 @@ Setting the Target Cloud
 
 You may set the target cloud on which the nova command should run as follows::
 
-    $ cm nova set india
-    india is set
+.. prompt:: bash, cm>
+	      
+    nova set india
+
+::
+   
+   india is set
 
 Note that if you do not set a target cloud, default cloud considered is 'india'.
 
@@ -25,7 +30,12 @@ Getting the Cloud Info
 
 You may get the cloud info in the following manner::
 
-    $ cm nova info
+.. prompt:: bash, cm>
+	      
+    nova info
+
+::
+   
     WARNING: OS environment variable OS_REGION not found
     +----------------+--------------------------------------------------------+
     | Variable       | Value                                                  |
@@ -40,7 +50,12 @@ You may get the cloud info in the following manner::
 
 By default it gives the 'india' cloud info. To check for specific cloud, here is an example for kilo cloud::
 
-    $ cm nova info kilo
+.. prompt:: bash, cm>
+	      
+    nova info kilo
+
+::
+   
     +----------------+------------------------------------------------+
     | Variable       | Value                                          |
     +----------------+------------------------------------------------+
@@ -60,7 +75,12 @@ Following are couple of examples::
 
 Listing images::
 
-    $ cm nova image-list
+.. prompt:: bash, cm>
+	      
+    nova image-list
+
+::
+   
     Cloud = india
     +--------------------------------------+-----------------------------------------+--------+--------------------------------------+
     | ID                                   | Name                                    | Status | Server                               |
@@ -88,7 +108,12 @@ Listing images::
 
 Listing flavors::
 
-    $ cm nova flavor-list
+.. prompt:: bash, cm>
+	      
+    nova flavor-list
+
+::
+   
     Cloud = india
     +----+----------------+-----------+------+-----------+------+-------+-------------+-----------+
     | ID | Name           | Memory_MB | Disk | Ephemeral | Swap | VCPUs | RXTX_Factor | Is_Public |

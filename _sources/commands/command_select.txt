@@ -3,15 +3,19 @@ Select Command
 
 Select Command is used to interactively set a default image/ flavor/ cloud/ key.
 
-The manual page of the key command can be found at: `SELECT <../man/man.html#select>`_
+The manual page of the `select` command can be found at: `select <../man/man.html#select>`_
 
 Setting default image
 ^^^^^^^^^^^^^^^^^^^^^^
 
-You can select the default image with the following simple command::
+You can select the default image with the following simple command:
 
-    $ cm select image
+.. prompt:: bash, cm>
+	    
+    select image
 
+::
+    
     Select an Image
     ===============
 
@@ -32,10 +36,14 @@ You can select the default image with the following simple command::
 Setting default flavor
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-You can select the default flavor with the following simple command::
+You can select the default flavor with the following simple command:
 
-    $ cm select flavor
+.. prompt:: bash, cm>
+	    
+    select flavor
 
+::
+    
     Select a Flavor
     ===============
 
@@ -54,10 +62,17 @@ You can select the default flavor with the following simple command::
 Setting default cloud
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-You can select the default cloud with the following simple command::
+You can select the default cloud with the following simple command:
 
-    $ cm select cloud
+   
 
+
+.. prompt:: bash, cm>
+	    
+    select cloud
+
+::
+   
     Select a cloud
     ==============
 
@@ -79,7 +94,7 @@ You can select the default cloud with the following simple command::
 Setting default key
 ^^^^^^^^^^^^^^^^^^^^
 
-You can select the default key with the following simple command::
+You can select the default key with the following simple command:
 
     $ cm select key
 

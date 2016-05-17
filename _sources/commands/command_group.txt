@@ -8,16 +8,21 @@ clouds. Most often groups are used to aggregate virtual machines in
 groups and than manage these groups of virtual machines.
 A  group named default is defined if no other group is specified.
 
-The manual page of the group command can be found at:
+The manual page of the `group` command can be found at:
 `group <../man/man.html#group>`_
 
 
 Group List
 ^^^^^^^^^^^
 
-Named groups can be listed with the following command::
+Named groups can be listed with the following command:
 
-  $ cm group list
+.. prompt:: bash, cm>
+	    
+  group list
+
+::
+   
     +--------+----------+----------+----------+------+
     | name   | member   | user     | category | type |
     +--------+----------+----------+----------+------+
@@ -30,9 +35,14 @@ Named groups can be listed with the following command::
 
 
 To get details about a particular group with specific name you can use
-the info option::
+the info option:
 
-  $ cm group list groupA
+.. prompt:: bash, cm>
+	    
+  group list groupA
+
+::
+   
     +--------+----------+----------+----------+------+
     | name   | member   | user     | category | type |
     +--------+----------+----------+----------+------+
@@ -45,12 +55,21 @@ Group Remove Member
 ^^^^^^^^^^^^^^^^^^^^
 
 To remove a member such as a VM from a particular group, you can use
-the remove option::
+the remove option:
 
-  $ cm group remove test-002 --group=groupA
-    Successfully removed ID [test-002] from the group [groupA]
+.. prompt:: bash, cm>
+	    
+  group remove test-002 --group=groupA
 
-  $ cm group list groupA
+::
+   
+  Successfully removed ID [test-002] from the group [groupA]
+
+.. prompt:: bash, cm>  
+  group list groupA
+
+::
+   
     +--------+----------+----------+----------+------+
     | name   | member   | user     | category | type |
     +--------+----------+----------+----------+------+
@@ -61,12 +80,22 @@ the remove option::
 Group Add
 ^^^^^^^^^^
 
-To add a vm to a group use::
+To add a vm to a group use:
 
-  $ cm group add test-002 --group=groupA
+.. prompt:: bash, cm>
+	    
+  group add test-002 --group=groupA
+
+::
+   
   Created a new group [groupA] and added ID [test-001] to it
 
-  $ cm group list groupA
+.. prompt:: bash, cm>
+	    
+  group list groupA
+
+::
+   
     +--------+----------+----------+----------+------+
     | name   | member   | user     | category | type |
     +--------+----------+----------+----------+------+
@@ -78,12 +107,22 @@ To add a vm to a group use::
 Group Copy
 ^^^^^^^^^^^
 
-To copy a group use the command::
+To copy a group use the command:
 
-  $ cm group copy groupA groupB
+.. prompt:: bash, cm>
+	    
+  group copy groupA groupB
+
+::
+   
   Created a new group [groupB] and added ID [test-001] to it
 
-  $ cm group list groupC
+.. prompt:: bash, cm>  
+
+	    group list groupC
+
+::
+
     +--------+----------+----------+----------+------+
     | name   | member   | user     | category | type |
     +--------+----------+----------+----------+------+
@@ -96,12 +135,22 @@ To copy a group use the command::
 Group Merge
 ^^^^^^^^^^^^
 
-Groups can be merged as follows::
+Groups can be merged as follows:
 
-  $ cm group merge groupA groupB groupC
+.. prompt:: bash, cm>
+	    
+  group merge groupA groupB groupC
+
+::
+   
   Merge of group [group01] & [groupB] to group [groupC] ok.
 
-  $ cm group list groupC
+.. prompt:: bash, cm>
+	    
+  group list groupC
+
+::
+   
     +--------+----------+----------+----------+------+
     | name   | member   | user     | category | type |
     +--------+----------+----------+----------+------+
@@ -115,16 +164,26 @@ Groups can be merged as follows::
 Group Delete
 ^^^^^^^^^^^^^
 
-A named group can be easily deleted.::
+A named group can be easily deleted.:
 
-  $ cm group delete groupC
+.. prompt:: bash, cm>
+	    
+  group delete groupC
+
+::
+   
   Deleting test-001.
   Deleting test-002.
   Deleting test-003.
   Deleting test-004.
   Deleting test-005.
 
-  $ cm group list groupC
+.. prompt:: bash, cm>
+	    
+  group list groupC
+
+::
+   
   ERROR: No group with name groupC found in the cloudmesh database!
 
 .. warning:: When a group is deleted, all the instances (vms) are deleted,

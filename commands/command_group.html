@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Group Command &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>Group Command &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,10 +30,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Color Command" href="command_ssh.html"/>
-        <link rel="prev" title="Default Command" href="command_default.html"/> 
+        <link rel="prev" title="Info Command" href="command_info.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -102,6 +102,7 @@
 <li class="toctree-l3"><a class="reference internal" href="command_templates.html">Basic Commands and Options</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_colors.html">Color Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_default.html">Default Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_info.html">Info Command</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Group Command</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#group-list">Group List</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#group-remove-member">Group Remove Member</a></li>
@@ -203,33 +204,37 @@ perform actions on them. Groups may contain objects from different
 clouds. Most often groups are used to aggregate virtual machines in
 groups and than manage these groups of virtual machines.
 A  group named default is defined if no other group is specified.</p>
-<p>The manual page of the group command can be found at:
+<p>The manual page of the <cite>group</cite> command can be found at:
 <a class="reference external" href="../man/man.html#group">group</a></p>
 <div class="section" id="group-list">
 <h2>Group List<a class="headerlink" href="#group-list" title="Permalink to this headline">¶</a></h2>
 <p>Named groups can be listed with the following command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm group list
-  +--------+----------+----------+----------+------+
-  | name   | member   | user     | category | type |
-  +--------+----------+----------+----------+------+
-  | groupA | test-001 | albert   | kilo     | vm   |
-  | groupA | test-002 | albert   | kilo     | vm   |
-  | groupA | test-003 | albert   | kilo     | vm   |
-  | groupB | test-004 | albert   | kilo     | vm   |
-  | groupB | test-005 | albert   | kilo     | vm   |
-  +--------+----------+----------+----------+------+
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "cm> ";
+}
+</style><span class="prompt1">group list</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+--------+----------+----------+----------+------+</span>
+<span class="o">|</span> <span class="n">name</span>   <span class="o">|</span> <span class="n">member</span>   <span class="o">|</span> <span class="n">user</span>     <span class="o">|</span> <span class="n">category</span> <span class="o">|</span> <span class="nb">type</span> <span class="o">|</span>
+<span class="o">+--------+----------+----------+----------+------+</span>
+<span class="o">|</span> <span class="n">groupA</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="mi">001</span> <span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">kilo</span>     <span class="o">|</span> <span class="n">vm</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">groupA</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="mi">002</span> <span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">kilo</span>     <span class="o">|</span> <span class="n">vm</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">groupA</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="mi">003</span> <span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">kilo</span>     <span class="o">|</span> <span class="n">vm</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">groupB</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="mi">004</span> <span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">kilo</span>     <span class="o">|</span> <span class="n">vm</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">groupB</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="mi">005</span> <span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">kilo</span>     <span class="o">|</span> <span class="n">vm</span>   <span class="o">|</span>
+<span class="o">+--------+----------+----------+----------+------+</span>
 </pre></div>
 </div>
 <p>To get details about a particular group with specific name you can use
 the info option:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm group list groupA
-  +--------+----------+----------+----------+------+
-  | name   | member   | user     | category | type |
-  +--------+----------+----------+----------+------+
-  | groupA | test-001 | albert   | kilo     | vm   |
-  | groupA | test-002 | albert   | kilo     | vm   |
-  | groupA | test-003 | albert   | kilo     | vm   |
-  +--------+----------+----------+----------+------+
+<pre class="highlight"><span class="prompt1">group list groupA</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+--------+----------+----------+----------+------+</span>
+<span class="o">|</span> <span class="n">name</span>   <span class="o">|</span> <span class="n">member</span>   <span class="o">|</span> <span class="n">user</span>     <span class="o">|</span> <span class="n">category</span> <span class="o">|</span> <span class="nb">type</span> <span class="o">|</span>
+<span class="o">+--------+----------+----------+----------+------+</span>
+<span class="o">|</span> <span class="n">groupA</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="mi">001</span> <span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">kilo</span>     <span class="o">|</span> <span class="n">vm</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">groupA</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="mi">002</span> <span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">kilo</span>     <span class="o">|</span> <span class="n">vm</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">groupA</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="mi">003</span> <span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">kilo</span>     <span class="o">|</span> <span class="n">vm</span>   <span class="o">|</span>
+<span class="o">+--------+----------+----------+----------+------+</span>
 </pre></div>
 </div>
 </div>
@@ -237,84 +242,88 @@ the info option:</p>
 <h2>Group Remove Member<a class="headerlink" href="#group-remove-member" title="Permalink to this headline">¶</a></h2>
 <p>To remove a member such as a VM from a particular group, you can use
 the remove option:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm group remove test-002 --group=groupA
-  Successfully removed ID [test-002] from the group [groupA]
-
-$ cm group list groupA
-  +--------+----------+----------+----------+------+
-  | name   | member   | user     | category | type |
-  +--------+----------+----------+----------+------+
-  | groupA | test-001 | albert   | kilo     | vm   |
-  | groupA | test-003 | albert   | kilo     | vm   |
-  +--------+----------+----------+----------+------+
+<pre class="highlight"><span class="prompt1">group remove test-002 --group=groupA</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Successfully</span> <span class="n">removed</span> <span class="n">ID</span> <span class="p">[</span><span class="n">test</span><span class="o">-</span><span class="mi">002</span><span class="p">]</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">group</span> <span class="p">[</span><span class="n">groupA</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+--------+----------+----------+----------+------+</span>
+<span class="o">|</span> <span class="n">name</span>   <span class="o">|</span> <span class="n">member</span>   <span class="o">|</span> <span class="n">user</span>     <span class="o">|</span> <span class="n">category</span> <span class="o">|</span> <span class="nb">type</span> <span class="o">|</span>
+<span class="o">+--------+----------+----------+----------+------+</span>
+<span class="o">|</span> <span class="n">groupA</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="mi">001</span> <span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">kilo</span>     <span class="o">|</span> <span class="n">vm</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">groupA</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="mi">003</span> <span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">kilo</span>     <span class="o">|</span> <span class="n">vm</span>   <span class="o">|</span>
+<span class="o">+--------+----------+----------+----------+------+</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="group-add">
 <h2>Group Add<a class="headerlink" href="#group-add" title="Permalink to this headline">¶</a></h2>
 <p>To add a vm to a group use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm group add test-002 --group=groupA
-Created a new group [groupA] and added ID [test-001] to it
-
-$ cm group list groupA
-  +--------+----------+----------+----------+------+
-  | name   | member   | user     | category | type |
-  +--------+----------+----------+----------+------+
-  | groupA | test-001 | albert   | kilo     | vm   |
-  | groupA | test-002 | albert   | kilo     | vm   |
-  | groupA | test-003 | albert   | kilo     | vm   |
-  +--------+----------+----------+----------+------+
+<pre class="highlight"><span class="prompt1">group add test-002 --group=groupA</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Created</span> <span class="n">a</span> <span class="n">new</span> <span class="n">group</span> <span class="p">[</span><span class="n">groupA</span><span class="p">]</span> <span class="ow">and</span> <span class="n">added</span> <span class="n">ID</span> <span class="p">[</span><span class="n">test</span><span class="o">-</span><span class="mi">001</span><span class="p">]</span> <span class="n">to</span> <span class="n">it</span>
+</pre></div>
+</div>
+<pre class="highlight"><span class="prompt1">group list groupA</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+--------+----------+----------+----------+------+</span>
+<span class="o">|</span> <span class="n">name</span>   <span class="o">|</span> <span class="n">member</span>   <span class="o">|</span> <span class="n">user</span>     <span class="o">|</span> <span class="n">category</span> <span class="o">|</span> <span class="nb">type</span> <span class="o">|</span>
+<span class="o">+--------+----------+----------+----------+------+</span>
+<span class="o">|</span> <span class="n">groupA</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="mi">001</span> <span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">kilo</span>     <span class="o">|</span> <span class="n">vm</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">groupA</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="mi">002</span> <span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">kilo</span>     <span class="o">|</span> <span class="n">vm</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">groupA</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="mi">003</span> <span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">kilo</span>     <span class="o">|</span> <span class="n">vm</span>   <span class="o">|</span>
+<span class="o">+--------+----------+----------+----------+------+</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="group-copy">
 <h2>Group Copy<a class="headerlink" href="#group-copy" title="Permalink to this headline">¶</a></h2>
 <p>To copy a group use the command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm group copy groupA groupB
-Created a new group [groupB] and added ID [test-001] to it
-
-$ cm group list groupC
-  +--------+----------+----------+----------+------+
-  | name   | member   | user     | category | type |
-  +--------+----------+----------+----------+------+
-  | groupC | test-001 | albert   | kilo     | vm   |
-  | groupC | test-002 | albert   | kilo     | vm   |
-  | groupC | test-003 | albert   | kilo     | vm   |
-  +--------+----------+----------+----------+------+
+<pre class="highlight"><span class="prompt1">group copy groupA groupB</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Created</span> <span class="n">a</span> <span class="n">new</span> <span class="n">group</span> <span class="p">[</span><span class="n">groupB</span><span class="p">]</span> <span class="ow">and</span> <span class="n">added</span> <span class="n">ID</span> <span class="p">[</span><span class="n">test</span><span class="o">-</span><span class="mi">001</span><span class="p">]</span> <span class="n">to</span> <span class="n">it</span>
+</pre></div>
+</div>
+<pre class="highlight"><span class="prompt1">group list groupC</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+--------+----------+----------+----------+------+</span>
+<span class="o">|</span> <span class="n">name</span>   <span class="o">|</span> <span class="n">member</span>   <span class="o">|</span> <span class="n">user</span>     <span class="o">|</span> <span class="n">category</span> <span class="o">|</span> <span class="nb">type</span> <span class="o">|</span>
+<span class="o">+--------+----------+----------+----------+------+</span>
+<span class="o">|</span> <span class="n">groupC</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="mi">001</span> <span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">kilo</span>     <span class="o">|</span> <span class="n">vm</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">groupC</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="mi">002</span> <span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">kilo</span>     <span class="o">|</span> <span class="n">vm</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">groupC</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="mi">003</span> <span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">kilo</span>     <span class="o">|</span> <span class="n">vm</span>   <span class="o">|</span>
+<span class="o">+--------+----------+----------+----------+------+</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="group-merge">
 <h2>Group Merge<a class="headerlink" href="#group-merge" title="Permalink to this headline">¶</a></h2>
 <p>Groups can be merged as follows:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm group merge groupA groupB groupC
-Merge of group [group01] &amp; [groupB] to group [groupC] ok.
-
-$ cm group list groupC
-  +--------+----------+----------+----------+------+
-  | name   | member   | user     | category | type |
-  +--------+----------+----------+----------+------+
-  | groupC | test-001 | albert   | kilo     | vm   |
-  | groupC | test-002 | albert   | kilo     | vm   |
-  | groupC | test-003 | albert   | kilo     | vm   |
-  | groupC | test-004 | albert   | kilo     | vm   |
-  | groupC | test-005 | albert   | kilo     | vm   |
-  +--------+----------+----------+----------+------+
+<pre class="highlight"><span class="prompt1">group merge groupA groupB groupC</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Merge</span> <span class="n">of</span> <span class="n">group</span> <span class="p">[</span><span class="n">group01</span><span class="p">]</span> <span class="o">&amp;</span> <span class="p">[</span><span class="n">groupB</span><span class="p">]</span> <span class="n">to</span> <span class="n">group</span> <span class="p">[</span><span class="n">groupC</span><span class="p">]</span> <span class="n">ok</span><span class="o">.</span>
+</pre></div>
+</div>
+<pre class="highlight"><span class="prompt1">group list groupC</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+--------+----------+----------+----------+------+</span>
+<span class="o">|</span> <span class="n">name</span>   <span class="o">|</span> <span class="n">member</span>   <span class="o">|</span> <span class="n">user</span>     <span class="o">|</span> <span class="n">category</span> <span class="o">|</span> <span class="nb">type</span> <span class="o">|</span>
+<span class="o">+--------+----------+----------+----------+------+</span>
+<span class="o">|</span> <span class="n">groupC</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="mi">001</span> <span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">kilo</span>     <span class="o">|</span> <span class="n">vm</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">groupC</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="mi">002</span> <span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">kilo</span>     <span class="o">|</span> <span class="n">vm</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">groupC</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="mi">003</span> <span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">kilo</span>     <span class="o">|</span> <span class="n">vm</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">groupC</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="mi">004</span> <span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">kilo</span>     <span class="o">|</span> <span class="n">vm</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">groupC</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="mi">005</span> <span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">kilo</span>     <span class="o">|</span> <span class="n">vm</span>   <span class="o">|</span>
+<span class="o">+--------+----------+----------+----------+------+</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="group-delete">
 <h2>Group Delete<a class="headerlink" href="#group-delete" title="Permalink to this headline">¶</a></h2>
 <p>A named group can be easily deleted.:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm group delete groupC
-Deleting test-001.
-Deleting test-002.
-Deleting test-003.
-Deleting test-004.
-Deleting test-005.
-
-$ cm group list groupC
-ERROR: No group with name groupC found in the cloudmesh database!
+<pre class="highlight"><span class="prompt1">group delete groupC</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Deleting</span> <span class="n">test</span><span class="o">-</span><span class="mf">001.</span>
+<span class="n">Deleting</span> <span class="n">test</span><span class="o">-</span><span class="mf">002.</span>
+<span class="n">Deleting</span> <span class="n">test</span><span class="o">-</span><span class="mf">003.</span>
+<span class="n">Deleting</span> <span class="n">test</span><span class="o">-</span><span class="mf">004.</span>
+<span class="n">Deleting</span> <span class="n">test</span><span class="o">-</span><span class="mf">005.</span>
+</pre></div>
+</div>
+<pre class="highlight"><span class="prompt1">group list groupC</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span>ERROR: No group with name groupC found in the cloudmesh database!
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -335,7 +344,7 @@ and a deletion request is submitted to the appropriate cloud.</p>
         <a href="command_ssh.html" class="btn btn-neutral float-right" title="Color Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="command_default.html" class="btn btn-neutral" title="Default Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="command_info.html" class="btn btn-neutral" title="Info Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -365,7 +374,7 @@ and a deletion request is submitted to the appropriate cloud.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Limits Command &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>Limits Command &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Quota Command" href="command_quota.html"/>
         <link rel="prev" title="Sync Command" href="command_sync.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -201,7 +201,7 @@
             
   <div class="section" id="limits-command">
 <h1>Limits Command<a class="headerlink" href="#limits-command" title="Permalink to this headline">¶</a></h1>
-<p>The manual page of the limits command can be found at: <a class="reference external" href="../man/man.html#limits">Limits</a></p>
+<p>The manual page of the <cite>limits</cite> command can be found at: <a class="reference external" href="../man/man.html#limits">limits</a></p>
 <p>Accounts may be pre-configured with a set of thresholds(or limits) to manage
 capacity and prevent abuse of the system. Limits command gives a description
 of the limits set for each resource along with the total number of resources
@@ -209,54 +209,58 @@ used.</p>
 <div class="section" id="limits-list">
 <h2>limits list<a class="headerlink" href="#limits-list" title="Permalink to this headline">¶</a></h2>
 <p>To list the limits on a default project/tenant you can use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm limits list
-  +-------------------------+-------+
-  | Name                    | Value |
-  +-------------------------+-------+
-  | maxImageMeta            | 128   |
-  | maxPersonality          | 5     |
-  | maxPersonalitySize      | 10240 |
-  | maxSecurityGroupRules   | 20    |
-  | maxSecurityGroups       | 10    |
-  | maxServerGroupMembers   | 10    |
-  | maxServerGroups         | 10    |
-  | maxServerMeta           | 128   |
-  | maxTotalCores           | 20    |
-  | maxTotalFloatingIps     | 10    |
-  | maxTotalInstances       | 10    |
-  | maxTotalKeypairs        | 100   |
-  | maxTotalRAMSize         | 51200 |
-  | totalCoresUsed          | 4     |
-  | totalFloatingIpsUsed    | 0     |
-  | totalInstancesUsed      | 4     |
-  | totalRAMUsed            | 8192  |
-  | totalSecurityGroupsUsed | 1     |
-  | totalServerGroupsUsed   | 0     |
-  +-------------------------+-------+
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "cm> ";
+}
+</style><span class="prompt1">limits list</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+-------------------------+-------+</span>
+<span class="o">|</span> <span class="n">Name</span>                    <span class="o">|</span> <span class="n">Value</span> <span class="o">|</span>
+<span class="o">+-------------------------+-------+</span>
+<span class="o">|</span> <span class="n">maxImageMeta</span>            <span class="o">|</span> <span class="mi">128</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">maxPersonality</span>          <span class="o">|</span> <span class="mi">5</span>     <span class="o">|</span>
+<span class="o">|</span> <span class="n">maxPersonalitySize</span>      <span class="o">|</span> <span class="mi">10240</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">maxSecurityGroupRules</span>   <span class="o">|</span> <span class="mi">20</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="n">maxSecurityGroups</span>       <span class="o">|</span> <span class="mi">10</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="n">maxServerGroupMembers</span>   <span class="o">|</span> <span class="mi">10</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="n">maxServerGroups</span>         <span class="o">|</span> <span class="mi">10</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="n">maxServerMeta</span>           <span class="o">|</span> <span class="mi">128</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">maxTotalCores</span>           <span class="o">|</span> <span class="mi">20</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="n">maxTotalFloatingIps</span>     <span class="o">|</span> <span class="mi">10</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="n">maxTotalInstances</span>       <span class="o">|</span> <span class="mi">10</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="n">maxTotalKeypairs</span>        <span class="o">|</span> <span class="mi">100</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">maxTotalRAMSize</span>         <span class="o">|</span> <span class="mi">51200</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">totalCoresUsed</span>          <span class="o">|</span> <span class="mi">4</span>     <span class="o">|</span>
+<span class="o">|</span> <span class="n">totalFloatingIpsUsed</span>    <span class="o">|</span> <span class="mi">0</span>     <span class="o">|</span>
+<span class="o">|</span> <span class="n">totalInstancesUsed</span>      <span class="o">|</span> <span class="mi">4</span>     <span class="o">|</span>
+<span class="o">|</span> <span class="n">totalRAMUsed</span>            <span class="o">|</span> <span class="mi">8192</span>  <span class="o">|</span>
+<span class="o">|</span> <span class="n">totalSecurityGroupsUsed</span> <span class="o">|</span> <span class="mi">1</span>     <span class="o">|</span>
+<span class="o">|</span> <span class="n">totalServerGroupsUsed</span>   <span class="o">|</span> <span class="mi">0</span>     <span class="o">|</span>
+<span class="o">+-------------------------+-------+</span>
 </pre></div>
 </div>
 <p>To export it in csv format, mention the format as csv:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm limits list --format=csv
-Name,Value
-maxServerMeta,128
-maxPersonality,5
-totalServerGroupsUsed,0
-maxImageMeta,128
-maxPersonalitySize,10240
-maxTotalRAMSize,51200
-maxTotalKeypairs,100
-maxSecurityGroupRules,20
-maxServerGroups,10
-totalCoresUsed,4
-totalRAMUsed,8192
-maxSecurityGroups,10
-totalFloatingIpsUsed,0
-totalInstancesUsed,4
-totalSecurityGroupsUsed,1
-maxTotalFloatingIps,10
-maxTotalInstances,10
-maxTotalCores,20
-maxServerGroupMembers,10
+<pre class="highlight"><span class="prompt1">limits list --format=csv</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Name</span><span class="p">,</span><span class="n">Value</span>
+<span class="n">maxServerMeta</span><span class="p">,</span><span class="mi">128</span>
+<span class="n">maxPersonality</span><span class="p">,</span><span class="mi">5</span>
+<span class="n">totalServerGroupsUsed</span><span class="p">,</span><span class="mi">0</span>
+<span class="n">maxImageMeta</span><span class="p">,</span><span class="mi">128</span>
+<span class="n">maxPersonalitySize</span><span class="p">,</span><span class="mi">10240</span>
+<span class="n">maxTotalRAMSize</span><span class="p">,</span><span class="mi">51200</span>
+<span class="n">maxTotalKeypairs</span><span class="p">,</span><span class="mi">100</span>
+<span class="n">maxSecurityGroupRules</span><span class="p">,</span><span class="mi">20</span>
+<span class="n">maxServerGroups</span><span class="p">,</span><span class="mi">10</span>
+<span class="n">totalCoresUsed</span><span class="p">,</span><span class="mi">4</span>
+<span class="n">totalRAMUsed</span><span class="p">,</span><span class="mi">8192</span>
+<span class="n">maxSecurityGroups</span><span class="p">,</span><span class="mi">10</span>
+<span class="n">totalFloatingIpsUsed</span><span class="p">,</span><span class="mi">0</span>
+<span class="n">totalInstancesUsed</span><span class="p">,</span><span class="mi">4</span>
+<span class="n">totalSecurityGroupsUsed</span><span class="p">,</span><span class="mi">1</span>
+<span class="n">maxTotalFloatingIps</span><span class="p">,</span><span class="mi">10</span>
+<span class="n">maxTotalInstances</span><span class="p">,</span><span class="mi">10</span>
+<span class="n">maxTotalCores</span><span class="p">,</span><span class="mi">20</span>
+<span class="n">maxServerGroupMembers</span><span class="p">,</span><span class="mi">10</span>
 </pre></div>
 </div>
 </div>
@@ -302,7 +306,7 @@ maxServerGroupMembers,10
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

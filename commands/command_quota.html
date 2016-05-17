@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quota Command &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>Quota Command &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Usage Command" href="command_usage.html"/>
         <link rel="prev" title="Limits Command" href="command_limits.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -205,48 +205,52 @@
 addresses one can obtain, or how many cores a user can have. To get an
 overview of the quotas set for a user in a project we are providing a
 quota command.</p>
-<p>The manual page of the quota command can be found at: <a class="reference external" href="../man/man.html#quota">Quota</a></p>
+<p>The manual page of the <cite>quota</cite> command can be found at: <a class="reference external" href="../man/man.html#quota">quota</a></p>
 <div class="section" id="quota-list">
 <h2>quota list<a class="headerlink" href="#quota-list" title="Permalink to this headline">¶</a></h2>
 <p>To list the quota limit on a default project/tenant you can use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm quota list
-  +-----------------------------+-------+
-  | Quota                       | Limit |
-  +-----------------------------+-------+
-  | fixed_ips                   | -1    |
-  | floating_ips                | 10    |
-  | instances                   | 10    |
-  | security_groups             | 10    |
-  | server_group_members        | 10    |
-  | server_groups               | 10    |
-  | key_pairs                   | 100   |
-  | injected_file_content_bytes | 10240 |
-  | metadata_items              | 128   |
-  | cores                       | 20    |
-  | security_group_rules        | 20    |
-  | injected_file_path_bytes    | 255   |
-  | injected_files              | 5     |
-  | ram                         | 51200 |
-  +-----------------------------+-------+
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "cm> ";
+}
+</style><span class="prompt1">quota list</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+-----------------------------+-------+</span>
+<span class="o">|</span> <span class="n">Quota</span>                       <span class="o">|</span> <span class="n">Limit</span> <span class="o">|</span>
+<span class="o">+-----------------------------+-------+</span>
+<span class="o">|</span> <span class="n">fixed_ips</span>                   <span class="o">|</span> <span class="o">-</span><span class="mi">1</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="n">floating_ips</span>                <span class="o">|</span> <span class="mi">10</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="n">instances</span>                   <span class="o">|</span> <span class="mi">10</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="n">security_groups</span>             <span class="o">|</span> <span class="mi">10</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="n">server_group_members</span>        <span class="o">|</span> <span class="mi">10</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="n">server_groups</span>               <span class="o">|</span> <span class="mi">10</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="n">key_pairs</span>                   <span class="o">|</span> <span class="mi">100</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">injected_file_content_bytes</span> <span class="o">|</span> <span class="mi">10240</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">metadata_items</span>              <span class="o">|</span> <span class="mi">128</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">cores</span>                       <span class="o">|</span> <span class="mi">20</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="n">security_group_rules</span>        <span class="o">|</span> <span class="mi">20</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="n">injected_file_path_bytes</span>    <span class="o">|</span> <span class="mi">255</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">injected_files</span>              <span class="o">|</span> <span class="mi">5</span>     <span class="o">|</span>
+<span class="o">|</span> <span class="n">ram</span>                         <span class="o">|</span> <span class="mi">51200</span> <span class="o">|</span>
+<span class="o">+-----------------------------+-------+</span>
 </pre></div>
 </div>
-<p>To export it in csv format,:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm quota list --format=csv
-Quota,Limit
-instances,10
-cores,20
-ram,51200
-floating_ips,10
-fixed_ips,-1
-metadata_items,128
-injected_files,5
-injected_file_content_bytes,10240
-injected_file_path_bytes,255
-key_pairs,100
-security_groups,10
-security_group_rules,20
-server_groups,10
-server_group_members,10
+<p>To export it in csv format:</p>
+<pre class="highlight"><span class="prompt1">quota list --format=csv</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Quota</span><span class="p">,</span><span class="n">Limit</span>
+<span class="n">instances</span><span class="p">,</span><span class="mi">10</span>
+<span class="n">cores</span><span class="p">,</span><span class="mi">20</span>
+<span class="n">ram</span><span class="p">,</span><span class="mi">51200</span>
+<span class="n">floating_ips</span><span class="p">,</span><span class="mi">10</span>
+<span class="n">fixed_ips</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span>
+<span class="n">metadata_items</span><span class="p">,</span><span class="mi">128</span>
+<span class="n">injected_files</span><span class="p">,</span><span class="mi">5</span>
+<span class="n">injected_file_content_bytes</span><span class="p">,</span><span class="mi">10240</span>
+<span class="n">injected_file_path_bytes</span><span class="p">,</span><span class="mi">255</span>
+<span class="n">key_pairs</span><span class="p">,</span><span class="mi">100</span>
+<span class="n">security_groups</span><span class="p">,</span><span class="mi">10</span>
+<span class="n">security_group_rules</span><span class="p">,</span><span class="mi">20</span>
+<span class="n">server_groups</span><span class="p">,</span><span class="mi">10</span>
+<span class="n">server_group_members</span><span class="p">,</span><span class="mi">10</span>
 </pre></div>
 </div>
 </div>
@@ -292,7 +296,7 @@ server_group_members,10
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

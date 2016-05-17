@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Flavor Command &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>Flavor Command &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Image Command" href="command_image.html"/>
         <link rel="prev" title="Nova Command" href="command_nova.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -203,36 +203,40 @@
             
   <div class="section" id="flavor-command">
 <h1>Flavor Command<a class="headerlink" href="#flavor-command" title="Permalink to this headline">¶</a></h1>
-<p>The manual page of the flavor command can be found at: <a class="reference external" href="../man/man.html#flavor">Flavor</a></p>
+<p>The manual page of the <cite>flavor</cite> command can be found at: <a class="reference external" href="../man/man.html#flavor">Flavor</a></p>
 <p>Flavors define the compute, memory, and storage capacity of nova computing instances.
 To put it simply, a flavor is an available hardware configuration for a server. It
-defines the �size� of a virtual server that can be launched</p>
+defines the <cite>size</cite> of a virtual server that can be launched</p>
 <div class="section" id="refresh">
 <h2>Refresh<a class="headerlink" href="#refresh" title="Permalink to this headline">¶</a></h2>
 <p>The refresh command would update the local database with the latest flavors.
 To refresh flavors of a cloud, do the following:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$cm flavor refresh --cloud=kilo
-Refresh flavor for cloud kilo. ok
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "cm> ";
+}
+</style><span class="prompt1">flavor refresh --cloud=kilo</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Refresh</span> <span class="n">flavor</span> <span class="k">for</span> <span class="n">cloud</span> <span class="n">kilo</span><span class="o">.</span> <span class="n">ok</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="list">
 <h2>List<a class="headerlink" href="#list" title="Permalink to this headline">¶</a></h2>
 <p>To list the set of flavors of a cloud, do the following:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$cm flavor list --cloud=kilo
-+----+----------------+--------+-------+----------+-------+------+--------+-------------+-----------------+------+-------+------+
-| Id | Name           | User   | RAM   | Disabled | vCPUs | Swap | Access | rxtx_factor | os_flv_ext_data | Disk | Cloud | UUID |
-+----+----------------+--------+-------+----------+-------+------+--------+-------------+-----------------+------+-------+------+
-| 1  | m1.tiny        | albert | 512   | 0        | 1     |      | 1      | 1.0         | 0               | 0    | kilo  | 1    |
-| 5  | m1.xlarge      | albert | 16384 | 0        | 8     |      | 1      | 1.0         | 0               | 160  | kilo  | 5    |
-| 9  | m1.xlarge_e200 | albert | 16384 | 0        | 8     |      | 1      | 1.0         | 200             | 160  | kilo  | 9    |
-| 2  | m1.small       | albert | 2048  | 0        | 1     |      | 1      | 1.0         | 0               | 20   | kilo  | 2    |
-| 6  | m1.small_e30   | albert | 2048  | 0        | 1     |      | 1      | 1.0         | 30              | 20   | kilo  | 6    |
-| 3  | m1.medium      | albert | 4096  | 0        | 2     |      | 1      | 1.0         | 0               | 40   | kilo  | 3    |
-| 7  | m1.medium_e60  | albert | 4096  | 0        | 2     |      | 1      | 1.0         | 60              | 40   | kilo  | 7    |
-| 4  | m1.large       | albert | 8192  | 0        | 4     |      | 1      | 1.0         | 0               | 80   | kilo  | 4    |
-| 8  | m1.large_e100  | albert | 8192  | 0        | 4     |      | 1      | 1.0         | 100             | 80   | kilo  | 8    |
-+----+----------------+--------+-------+----------+-------+------+--------+-------------+-----------------+------+-------+------+
+<pre class="highlight"><span class="prompt1">flavor list --cloud=kilo</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+----+----------------+--------+-------+----------+-------+------+--------+-------------+-----------------+------+-------+------+</span>
+<span class="o">|</span> <span class="n">Id</span> <span class="o">|</span> <span class="n">Name</span>           <span class="o">|</span> <span class="n">User</span>   <span class="o">|</span> <span class="n">RAM</span>   <span class="o">|</span> <span class="n">Disabled</span> <span class="o">|</span> <span class="n">vCPUs</span> <span class="o">|</span> <span class="n">Swap</span> <span class="o">|</span> <span class="n">Access</span> <span class="o">|</span> <span class="n">rxtx_factor</span> <span class="o">|</span> <span class="n">os_flv_ext_data</span> <span class="o">|</span> <span class="n">Disk</span> <span class="o">|</span> <span class="n">Cloud</span> <span class="o">|</span> <span class="n">UUID</span> <span class="o">|</span>
+<span class="o">+----+----------------+--------+-------+----------+-------+------+--------+-------------+-----------------+------+-------+------+</span>
+<span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">tiny</span>        <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span> <span class="mi">512</span>   <span class="o">|</span> <span class="mi">0</span>        <span class="o">|</span> <span class="mi">1</span>     <span class="o">|</span>      <span class="o">|</span> <span class="mi">1</span>      <span class="o">|</span> <span class="mf">1.0</span>         <span class="o">|</span> <span class="mi">0</span>               <span class="o">|</span> <span class="mi">0</span>    <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span> <span class="mi">1</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="mi">5</span>  <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">xlarge</span>      <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span> <span class="mi">16384</span> <span class="o">|</span> <span class="mi">0</span>        <span class="o">|</span> <span class="mi">8</span>     <span class="o">|</span>      <span class="o">|</span> <span class="mi">1</span>      <span class="o">|</span> <span class="mf">1.0</span>         <span class="o">|</span> <span class="mi">0</span>               <span class="o">|</span> <span class="mi">160</span>  <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span> <span class="mi">5</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="mi">9</span>  <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">xlarge_e200</span> <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span> <span class="mi">16384</span> <span class="o">|</span> <span class="mi">0</span>        <span class="o">|</span> <span class="mi">8</span>     <span class="o">|</span>      <span class="o">|</span> <span class="mi">1</span>      <span class="o">|</span> <span class="mf">1.0</span>         <span class="o">|</span> <span class="mi">200</span>             <span class="o">|</span> <span class="mi">160</span>  <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span> <span class="mi">9</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="mi">2</span>  <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">small</span>       <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span> <span class="mi">2048</span>  <span class="o">|</span> <span class="mi">0</span>        <span class="o">|</span> <span class="mi">1</span>     <span class="o">|</span>      <span class="o">|</span> <span class="mi">1</span>      <span class="o">|</span> <span class="mf">1.0</span>         <span class="o">|</span> <span class="mi">0</span>               <span class="o">|</span> <span class="mi">20</span>   <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span> <span class="mi">2</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="mi">6</span>  <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">small_e30</span>   <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span> <span class="mi">2048</span>  <span class="o">|</span> <span class="mi">0</span>        <span class="o">|</span> <span class="mi">1</span>     <span class="o">|</span>      <span class="o">|</span> <span class="mi">1</span>      <span class="o">|</span> <span class="mf">1.0</span>         <span class="o">|</span> <span class="mi">30</span>              <span class="o">|</span> <span class="mi">20</span>   <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span> <span class="mi">6</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="mi">3</span>  <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">medium</span>      <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span> <span class="mi">4096</span>  <span class="o">|</span> <span class="mi">0</span>        <span class="o">|</span> <span class="mi">2</span>     <span class="o">|</span>      <span class="o">|</span> <span class="mi">1</span>      <span class="o">|</span> <span class="mf">1.0</span>         <span class="o">|</span> <span class="mi">0</span>               <span class="o">|</span> <span class="mi">40</span>   <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span> <span class="mi">3</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="mi">7</span>  <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">medium_e60</span>  <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span> <span class="mi">4096</span>  <span class="o">|</span> <span class="mi">0</span>        <span class="o">|</span> <span class="mi">2</span>     <span class="o">|</span>      <span class="o">|</span> <span class="mi">1</span>      <span class="o">|</span> <span class="mf">1.0</span>         <span class="o">|</span> <span class="mi">60</span>              <span class="o">|</span> <span class="mi">40</span>   <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span> <span class="mi">7</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="mi">4</span>  <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">large</span>       <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span> <span class="mi">8192</span>  <span class="o">|</span> <span class="mi">0</span>        <span class="o">|</span> <span class="mi">4</span>     <span class="o">|</span>      <span class="o">|</span> <span class="mi">1</span>      <span class="o">|</span> <span class="mf">1.0</span>         <span class="o">|</span> <span class="mi">0</span>               <span class="o">|</span> <span class="mi">80</span>   <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span> <span class="mi">4</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="mi">8</span>  <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">large_e100</span>  <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span> <span class="mi">8192</span>  <span class="o">|</span> <span class="mi">0</span>        <span class="o">|</span> <span class="mi">4</span>     <span class="o">|</span>      <span class="o">|</span> <span class="mi">1</span>      <span class="o">|</span> <span class="mf">1.0</span>         <span class="o">|</span> <span class="mi">100</span>             <span class="o">|</span> <span class="mi">80</span>   <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span> <span class="mi">8</span>    <span class="o">|</span>
+<span class="o">+----+----------------+--------+-------+----------+-------+------+--------+-------------+-----------------+------+-------+------+</span>
 </pre></div>
 </div>
 </div>
@@ -240,29 +244,29 @@ Refresh flavor for cloud kilo. ok
 <h2>List Details<a class="headerlink" href="#list-details" title="Permalink to this headline">¶</a></h2>
 <p>To list the details of a flavor, give in the id, uuid or name of the flavor. In case latest information is needed,
 the &#8211;refresh option can be used which would update the local database:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$cm flavor list 1 --cloud=kilo
-+-----------------+---------------------+
-| Attribute       | Value               |
-+-----------------+---------------------+
-| id              | 1                   |
-| swap            |                     |
-| os_flv_disabled | 0                   |
-| os_flv_ext_data | 0                   |
-| disk            | 0                   |
-| os_flavor_acces | 1                   |
-| vcpus           | 1                   |
-| uuid            | 1                   |
-| rxtx_factor     | 1.0                 |
-| created_at      | 2015-11-11 13:38:31 |
-| updated_at      | 2015-11-11 13:38:31 |
-| ram             | 512                 |
-| user            | albert              |
-| kind            | flavor              |
-| cloud           | kilo                |
-| name            | m1.tiny             |
-| label           | m1.tiny             |
-| project         | undefined           |
-+-----------------+---------------------+
+<pre class="highlight"><span class="prompt1">flavor list 1 --cloud=kilo</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+-----------------+---------------------+</span>
+<span class="o">|</span> <span class="n">Attribute</span>       <span class="o">|</span> <span class="n">Value</span>               <span class="o">|</span>
+<span class="o">+-----------------+---------------------+</span>
+<span class="o">|</span> <span class="nb">id</span>              <span class="o">|</span> <span class="mi">1</span>                   <span class="o">|</span>
+<span class="o">|</span> <span class="n">swap</span>            <span class="o">|</span>                     <span class="o">|</span>
+<span class="o">|</span> <span class="n">os_flv_disabled</span> <span class="o">|</span> <span class="mi">0</span>                   <span class="o">|</span>
+<span class="o">|</span> <span class="n">os_flv_ext_data</span> <span class="o">|</span> <span class="mi">0</span>                   <span class="o">|</span>
+<span class="o">|</span> <span class="n">disk</span>            <span class="o">|</span> <span class="mi">0</span>                   <span class="o">|</span>
+<span class="o">|</span> <span class="n">os_flavor_acces</span> <span class="o">|</span> <span class="mi">1</span>                   <span class="o">|</span>
+<span class="o">|</span> <span class="n">vcpus</span>           <span class="o">|</span> <span class="mi">1</span>                   <span class="o">|</span>
+<span class="o">|</span> <span class="n">uuid</span>            <span class="o">|</span> <span class="mi">1</span>                   <span class="o">|</span>
+<span class="o">|</span> <span class="n">rxtx_factor</span>     <span class="o">|</span> <span class="mf">1.0</span>                 <span class="o">|</span>
+<span class="o">|</span> <span class="n">created_at</span>      <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span> <span class="mi">13</span><span class="p">:</span><span class="mi">38</span><span class="p">:</span><span class="mi">31</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">updated_at</span>      <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span> <span class="mi">13</span><span class="p">:</span><span class="mi">38</span><span class="p">:</span><span class="mi">31</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">ram</span>             <span class="o">|</span> <span class="mi">512</span>                 <span class="o">|</span>
+<span class="o">|</span> <span class="n">user</span>            <span class="o">|</span> <span class="n">albert</span>              <span class="o">|</span>
+<span class="o">|</span> <span class="n">kind</span>            <span class="o">|</span> <span class="n">flavor</span>              <span class="o">|</span>
+<span class="o">|</span> <span class="n">cloud</span>           <span class="o">|</span> <span class="n">kilo</span>                <span class="o">|</span>
+<span class="o">|</span> <span class="n">name</span>            <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">tiny</span>             <span class="o">|</span>
+<span class="o">|</span> <span class="n">label</span>           <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">tiny</span>             <span class="o">|</span>
+<span class="o">|</span> <span class="n">project</span>         <span class="o">|</span> <span class="n">undefined</span>           <span class="o">|</span>
+<span class="o">+-----------------+---------------------+</span>
 </pre></div>
 </div>
 </div>
@@ -308,7 +312,7 @@ the &#8211;refresh option can be used which would update the local database:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins package &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>cloudmesh_client.shell.plugins package &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client.shell package" href="cloudmesh_client.shell.html"/>
         <link rel="next" title="cloudmesh_client.system package" href="cloudmesh_client.system.html"/>
         <link rel="prev" title="cloudmesh_client.shell package" href="cloudmesh_client.shell.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -126,6 +126,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.db.html">cloudmesh_client.db package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.etc.html">cloudmesh_client.etc package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.extend.html">cloudmesh_client.extend package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.provider.html">cloudmesh_client.provider package</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="cloudmesh_client.shell.html">cloudmesh_client.shell package</a><ul class="current">
 <li class="toctree-l4 current"><a class="reference internal" href="cloudmesh_client.shell.html#subpackages">Subpackages</a></li>
@@ -144,6 +145,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.main">cloudmesh_client.main module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.setup">cloudmesh_client.setup module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.shell_commad">cloudmesh_client.shell_commad module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.var">cloudmesh_client.var module</a></li>
@@ -209,6 +211,31 @@
 <h1>cloudmesh_client.shell.plugins package<a class="headerlink" href="#cloudmesh-client-shell-plugins-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cloudmesh_client.shell.plugins.AkeyCommand">
+<span id="cloudmesh-client-shell-plugins-akeycommand-module"></span><h2>cloudmesh_client.shell.plugins.AkeyCommand module<a class="headerlink" href="#module-cloudmesh_client.shell.plugins.AkeyCommand" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.shell.plugins.AkeyCommand.AkeyCommand">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.plugins.AkeyCommand.</code><code class="descname">AkeyCommand</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/AkeyCommand.html#AkeyCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.AkeyCommand.AkeyCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.shell.html#cloudmesh_client.shell.command.PluginCommand" title="cloudmesh_client.shell.command.PluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.PluginCommand</span></code></a>, <a class="reference internal" href="cloudmesh_client.shell.html#cloudmesh_client.shell.command.CloudPluginCommand" title="cloudmesh_client.shell.command.CloudPluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.CloudPluginCommand</span></code></a></p>
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.AkeyCommand.AkeyCommand.do_akey">
+<code class="descname">do_akey</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.AkeyCommand.AkeyCommand.do_akey" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span>
+<span class="n">akey</span>
+<span class="n">akey</span> <span class="nb">list</span>
+<span class="n">akey</span> <span class="n">add</span> <span class="o">--</span><span class="n">name</span><span class="o">=</span><span class="n">key</span><span class="o">-</span><span class="n">name</span> <span class="o">--</span><span class="n">pub</span><span class="o">=</span><span class="n">pub</span><span class="o">-</span><span class="n">key</span><span class="o">-</span><span class="n">path</span> <span class="o">--</span><span class="n">cert</span><span class="o">=</span><span class="n">certificate</span><span class="o">-</span><span class="n">file</span><span class="o">-</span><span class="n">path</span> <span class="o">--</span><span class="n">pfx</span><span class="o">=</span><span class="n">pfx</span><span class="o">-</span><span class="n">file</span><span class="o">-</span><span class="n">path</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.shell.plugins.AkeyCommand.AkeyCommand.topics">
+<code class="descname">topics</code><em class="property"> = {'akey': 'security'}</em><a class="headerlink" href="#cloudmesh_client.shell.plugins.AkeyCommand.AkeyCommand.topics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-cloudmesh_client.shell.plugins.Bar">
 <span id="cloudmesh-client-shell-plugins-bar-module"></span><h2>cloudmesh_client.shell.plugins.Bar module<a class="headerlink" href="#module-cloudmesh_client.shell.plugins.Bar" title="Permalink to this headline">¶</a></h2>
@@ -488,6 +515,7 @@
    <span class="n">comet</span> <span class="n">ll</span> <span class="p">[</span><span class="n">CLUSTERID</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span>
    <span class="n">comet</span> <span class="n">cluster</span> <span class="p">[</span><span class="n">CLUSTERID</span><span class="p">]</span>
                  <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span>
+                 <span class="p">[</span><span class="o">--</span><span class="n">sort</span><span class="o">=</span><span class="n">SORTKEY</span><span class="p">]</span>
    <span class="n">comet</span> <span class="n">computeset</span> <span class="p">[</span><span class="n">COMPUTESETID</span><span class="p">]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">allocation</span><span class="o">=</span><span class="n">ALLOCATION</span><span class="p">]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">cluster</span><span class="o">=</span><span class="n">CLUSTERID</span><span class="p">]</span>
@@ -508,6 +536,7 @@
     <span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span>         <span class="n">Format</span> <span class="ow">is</span> <span class="n">either</span> <span class="n">table</span><span class="p">,</span> <span class="n">json</span><span class="p">,</span> <span class="n">yaml</span><span class="p">,</span>
                             <span class="n">csv</span><span class="p">,</span> <span class="n">rest</span>
                             <span class="p">[</span><span class="n">default</span><span class="p">:</span> <span class="n">table</span><span class="p">]</span>
+    <span class="o">--</span><span class="n">sort</span><span class="o">=</span><span class="n">SORTKEY</span>          <span class="n">Sorting</span> <span class="n">key</span> <span class="k">for</span> <span class="n">the</span> <span class="n">table</span> <span class="n">view</span>
     <span class="o">--</span><span class="n">count</span><span class="o">=</span><span class="n">NUMNODES</span>        <span class="n">Number</span> <span class="n">of</span> <span class="n">nodes</span> <span class="n">to</span> <span class="n">be</span> <span class="n">powered</span> <span class="n">on</span><span class="o">.</span>
                             <span class="n">When</span> <span class="n">this</span> <span class="n">option</span> <span class="ow">is</span> <span class="n">used</span><span class="p">,</span> <span class="n">the</span> <span class="n">comet</span> <span class="n">system</span>
                             <span class="n">will</span> <span class="n">find</span> <span class="n">a</span> <span class="n">NUMNODES</span> <span class="n">number</span> <span class="n">of</span> <span class="n">arbitrary</span> <span class="n">nodes</span>
@@ -2440,6 +2469,16 @@ existing cloudmesh database.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands.do_sleep">
+<code class="descname">do_sleep</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands.do_sleep" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Usage:</dt>
+<dd>sleep SECONDS</dd>
+</dl>
+<p>Clears the screen.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands.do_verbose">
 <code class="descname">do_verbose</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands.do_verbose" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
@@ -2728,7 +2767,8 @@ toggled.</p>
     <span class="n">vm</span> <span class="n">delete</span> <span class="p">[</span><span class="n">NAMES</span><span class="p">]</span>
               <span class="p">[</span><span class="o">--</span><span class="n">group</span><span class="o">=</span><span class="n">GROUP</span><span class="p">]</span>
               <span class="p">[</span><span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUD</span><span class="p">]</span>
-              <span class="p">[</span><span class="o">--</span><span class="n">force</span><span class="p">]</span>
+              <span class="p">[</span><span class="o">--</span><span class="n">keep</span><span class="p">]</span>
+              <span class="p">[</span><span class="o">--</span><span class="n">dryrun</span><span class="p">]</span>
     <span class="n">vm</span> <span class="n">ip</span> <span class="n">assign</span> <span class="p">[</span><span class="n">NAMES</span><span class="p">]</span>
               <span class="p">[</span><span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUD</span><span class="p">]</span>
     <span class="n">vm</span> <span class="n">ip</span> <span class="n">show</span> <span class="p">[</span><span class="n">NAMES</span><span class="p">]</span>
@@ -2736,6 +2776,9 @@ toggled.</p>
                <span class="p">[</span><span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUD</span><span class="p">]</span>
                <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span>
                <span class="p">[</span><span class="o">--</span><span class="n">refresh</span><span class="p">]</span>
+    <span class="n">vm</span> <span class="n">ip</span> <span class="n">inventory</span> <span class="p">[</span><span class="n">NAMES</span><span class="p">]</span>
+                    <span class="p">[</span><span class="o">--</span><span class="n">header</span><span class="o">=</span><span class="n">HEADER</span><span class="p">]</span>
+                    <span class="p">[</span><span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">FILE</span><span class="p">]</span>
     <span class="n">vm</span> <span class="n">ssh</span> <span class="p">[</span><span class="n">NAME</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">username</span><span class="o">=</span><span class="n">USER</span><span class="p">]</span>
              <span class="p">[</span><span class="o">--</span><span class="n">quiet</span><span class="p">]</span>
              <span class="p">[</span><span class="o">--</span><span class="n">ip</span><span class="o">=</span><span class="n">IP</span><span class="p">]</span>
@@ -2748,7 +2791,8 @@ toggled.</p>
             <span class="p">[</span><span class="o">--</span><span class="n">group</span><span class="o">=</span><span class="n">GROUP</span><span class="p">]</span>
             <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span>
             <span class="p">[</span><span class="o">--</span><span class="n">refresh</span><span class="p">]</span>
-    <span class="n">vm</span> <span class="n">status</span> <span class="p">[</span><span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUD</span><span class="p">]</span>
+    <span class="n">vm</span> <span class="n">status</span> <span class="p">[</span><span class="n">NAMES</span><span class="p">]</span>
+    <span class="n">vm</span> <span class="n">wait</span> <span class="p">[</span><span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUD</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">interval</span><span class="o">=</span><span class="n">SECONDS</span><span class="p">]</span>
     <span class="n">vm</span> <span class="n">info</span> <span class="p">[</span><span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUD</span><span class="p">]</span>
             <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span>
     <span class="n">vm</span> <span class="n">check</span> <span class="n">NAME</span>
@@ -2884,12 +2928,15 @@ toggled.</p>
 <code class="descname">do_workflow</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.WorkflowCommand.WorkflowCommand.do_workflow" title="Permalink to this definition">¶</a></dt>
 <dd><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span>
     <span class="n">workflow</span> <span class="n">refresh</span> <span class="p">[</span><span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUD</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">v</span><span class="p">]</span>
-    <span class="n">workflow</span> <span class="nb">list</span> <span class="p">[</span><span class="n">ID</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUD</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">refresh</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">v</span><span class="p">]</span>
+    <span class="n">workflow</span> <span class="nb">list</span> <span class="p">[</span><span class="n">ID</span><span class="p">]</span> <span class="p">[</span><span class="n">NAME</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUD</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">refresh</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">v</span><span class="p">]</span>
     <span class="n">workflow</span> <span class="n">add</span> <span class="n">NAME</span> <span class="n">LOCATION</span>
-    <span class="n">workflow</span> <span class="n">delete</span> <span class="n">NAMES</span>
+    <span class="n">workflow</span> <span class="n">delete</span> <span class="n">ID</span>
     <span class="n">workflow</span> <span class="n">status</span> <span class="p">[</span><span class="n">NAMES</span><span class="p">]</span>
-    <span class="n">workflow</span> <span class="n">show</span> <span class="n">NAMES</span>
-
+    <span class="n">workflow</span> <span class="n">show</span> <span class="n">ID</span>
+    <span class="n">workflow</span> <span class="n">save</span> <span class="n">NAME</span> <span class="n">WORKFLOWSTR</span>
+    <span class="n">workflow</span> <span class="n">run</span> <span class="n">NAME</span>
+    <span class="n">workflow</span> <span class="n">service</span> <span class="n">start</span>
+    <span class="n">workflow</span> <span class="n">service</span> <span class="n">stop</span>
     <span class="n">This</span> <span class="n">lists</span> <span class="n">out</span> <span class="n">the</span> <span class="n">workflows</span> <span class="n">present</span> <span class="k">for</span> <span class="n">a</span> <span class="n">cloud</span>
 
 <span class="n">Options</span><span class="p">:</span>
@@ -2903,6 +2950,7 @@ toggled.</p>
     <span class="n">cm</span> <span class="n">workflow</span> <span class="nb">list</span>
     <span class="n">cm</span> <span class="n">workflow</span> <span class="nb">list</span> <span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">csv</span>
     <span class="n">cm</span> <span class="n">workflow</span> <span class="n">show</span> <span class="mi">58</span><span class="n">c9552c</span><span class="o">-</span><span class="mi">8</span><span class="n">d93</span><span class="o">-</span><span class="mi">42</span><span class="n">c0</span><span class="o">-</span><span class="mi">9</span><span class="n">dea</span><span class="o">-</span><span class="mi">5</span><span class="n">f48d90a3188</span> <span class="o">--</span><span class="n">refresh</span>
+    <span class="n">cm</span> <span class="n">workflow</span> <span class="n">run</span> <span class="n">workflow1</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -2960,7 +3008,7 @@ toggled.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

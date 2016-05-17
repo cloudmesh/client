@@ -11,6 +11,7 @@ Subpackages
     cloudmesh_client.common
     cloudmesh_client.db
     cloudmesh_client.etc
+    cloudmesh_client.extend
     cloudmesh_client.provider
     cloudmesh_client.shell
     cloudmesh_client.system
@@ -38,6 +39,14 @@ cloudmesh_client.logger module
 ------------------------------
 
 .. automodule:: cloudmesh_client.logger
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.main module
+----------------------------
+
+.. automodule:: cloudmesh_client.main
     :members:
     :undoc-members:
     :show-inheritance:

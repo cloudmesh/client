@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Default Command &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>Default Command &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,9 +30,9 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
-        <link rel="next" title="Group Command" href="command_group.html"/>
+        <link rel="next" title="Info Command" href="command_info.html"/>
         <link rel="prev" title="Color Command" href="command_colors.html"/> 
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -108,6 +108,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#deleting-default-values">deleting default values</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="command_info.html">Info Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html">Group Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_ssh.html">Color Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_select.html">Select Command</a></li>
@@ -195,7 +196,7 @@
             
   <div class="section" id="default-command">
 <h1>Default Command<a class="headerlink" href="#default-command" title="Permalink to this headline">¶</a></h1>
-<p>The manual page of the group command can be found at: <a class="reference external" href="../man/man.html#default">default</a></p>
+<p>The manual page of the <cite>default</cite> command can be found at: <a class="reference external" href="../man/man.html#default">default</a></p>
 <p>Cloudmesh has the ability to manage easily multiple clouds.
 One of the key concepts to make the list of such clouds
 easier is the introduction of defaults for each cloud or globally.
@@ -209,24 +210,28 @@ cloud that is found in the yaml file and the default group is set to
 <div class="section" id="default-list">
 <h2>default list<a class="headerlink" href="#default-list" title="Permalink to this headline">¶</a></h2>
 <p>All the current default values can by listed with &#8211;all option:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ default list --all
-+--------+-----------+-------+-------+
-| user   | cloud     | name  | value |
-+--------+-----------+-------+-------+
-| albert | chameleon | image | abc   |
-| albert | general   | cloud | azure |
-| albert | general   | image | zyx   |
-+--------+-----------+-------+-------+
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "cm> ";
+}
+</style><span class="prompt1">default list --all</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+--------+-----------+-------+-------+</span>
+<span class="o">|</span> <span class="n">user</span>   <span class="o">|</span> <span class="n">cloud</span>     <span class="o">|</span> <span class="n">name</span>  <span class="o">|</span> <span class="n">value</span> <span class="o">|</span>
+<span class="o">+--------+-----------+-------+-------+</span>
+<span class="o">|</span> <span class="n">albert</span> <span class="o">|</span> <span class="n">chameleon</span> <span class="o">|</span> <span class="n">image</span> <span class="o">|</span> <span class="n">abc</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">albert</span> <span class="o">|</span> <span class="n">general</span>   <span class="o">|</span> <span class="n">cloud</span> <span class="o">|</span> <span class="n">azure</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">albert</span> <span class="o">|</span> <span class="n">general</span>   <span class="o">|</span> <span class="n">image</span> <span class="o">|</span> <span class="n">zyx</span>   <span class="o">|</span>
+<span class="o">+--------+-----------+-------+-------+</span>
 </pre></div>
 </div>
 <p>You can also add a &#8211;cloud=CLOUD option to see the defaults set
 for a cloud:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ default list --cloud=chameleon
-+--------+-----------+-------+-------+
-| user   | cloud     | name  | value |
-+--------+-----------+-------+-------+
-| albert | chameleon | image | abc   |
-+--------+-----------+-------+-------+
+<pre class="highlight"><span class="prompt1">default list --cloud=chameleon</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+--------+-----------+-------+-------+</span>
+<span class="o">|</span> <span class="n">user</span>   <span class="o">|</span> <span class="n">cloud</span>     <span class="o">|</span> <span class="n">name</span>  <span class="o">|</span> <span class="n">value</span> <span class="o">|</span>
+<span class="o">+--------+-----------+-------+-------+</span>
+<span class="o">|</span> <span class="n">albert</span> <span class="o">|</span> <span class="n">chameleon</span> <span class="o">|</span> <span class="n">image</span> <span class="o">|</span> <span class="n">abc</span>   <span class="o">|</span>
+<span class="o">+--------+-----------+-------+-------+</span>
 </pre></div>
 </div>
 </div>
@@ -234,14 +239,14 @@ for a cloud:</p>
 <h2>set default values<a class="headerlink" href="#set-default-values" title="Permalink to this headline">¶</a></h2>
 <p>To add a default value, type in a key=value pair. If no &#8211;cloud is specified,
 it adds the value to the general/global cloud:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ default image=xyz
-Successfully added value: xyz for key: image
+<pre class="highlight"><span class="prompt1">default image=xyz</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Successfully</span> <span class="n">added</span> <span class="n">value</span><span class="p">:</span> <span class="n">xyz</span> <span class="k">for</span> <span class="n">key</span><span class="p">:</span> <span class="n">image</span>
 </pre></div>
 </div>
 <p>With the &#8211;cloud=CLOUD option, defaults can be set for a particular
 cloud:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ default image=xyz --cloud=chameleon
-Successfully added value: xyz for key: image
+<pre class="highlight"><span class="prompt1">default image=xyz --cloud=chameleon</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Successfully</span> <span class="n">added</span> <span class="n">value</span><span class="p">:</span> <span class="n">xyz</span> <span class="k">for</span> <span class="n">key</span><span class="p">:</span> <span class="n">image</span>
 </pre></div>
 </div>
 </div>
@@ -249,14 +254,14 @@ Successfully added value: xyz for key: image
 <h2>looking up default values<a class="headerlink" href="#looking-up-default-values" title="Permalink to this headline">¶</a></h2>
 <p>To loop up a default value set, type in the key. If no &#8211;cloud option is
 specified, it returns the value of the general/global cloud:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm default image
-Default value for image is xyz
+<pre class="highlight"><span class="prompt1">default image</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Default</span> <span class="n">value</span> <span class="k">for</span> <span class="n">image</span> <span class="ow">is</span> <span class="n">xyz</span>
 </pre></div>
 </div>
 <p>With the &#8211;cloud=CLOUD option, defaults can be looked up for a particular
 cloud:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ default image --cloud=chameleon
-Default value for image is xyz
+<pre class="highlight"><span class="prompt1">default image --cloud=chameleon</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Default</span> <span class="n">value</span> <span class="k">for</span> <span class="n">image</span> <span class="ow">is</span> <span class="n">xyz</span>
 </pre></div>
 </div>
 </div>
@@ -264,14 +269,14 @@ Default value for image is xyz
 <h2>deleting default values<a class="headerlink" href="#deleting-default-values" title="Permalink to this headline">¶</a></h2>
 <p>To delete a default value, type in delete followed by the key. If no &#8211;cloud
 option is specified, it deletes the value of the general/global cloud:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ default delete image
-Deleted key image for cloud general
+<pre class="highlight"><span class="prompt1">default delete image</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Deleted</span> <span class="n">key</span> <span class="n">image</span> <span class="k">for</span> <span class="n">cloud</span> <span class="n">general</span>
 </pre></div>
 </div>
 <p>With the &#8211;cloud=CLOUD option, defaults can be deleted for a particular
 cloud:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ default delete image --cloud=chameleon
-Deleted key image for cloud chameleon
+<pre class="highlight"><span class="prompt1">default delete image --cloud=chameleon</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Deleted</span> <span class="n">key</span> <span class="n">image</span> <span class="k">for</span> <span class="n">cloud</span> <span class="n">chameleon</span>
 </pre></div>
 </div>
 </div>
@@ -284,7 +289,7 @@ Deleted key image for cloud chameleon
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="command_group.html" class="btn btn-neutral float-right" title="Group Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="command_info.html" class="btn btn-neutral float-right" title="Info Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="command_colors.html" class="btn btn-neutral" title="Color Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -317,7 +322,7 @@ Deleted key image for cloud chameleon
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

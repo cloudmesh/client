@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.setup &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>cloudmesh_client.setup &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -176,7 +176,7 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
-<span class="kn">import</span> <span class="nn">pip</span>
+<span class="c1"># import pip</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
 <span class="kn">from</span> <span class="nn">setuptools.command.install</span> <span class="kn">import</span> <span class="n">install</span>
 
@@ -244,16 +244,18 @@
 
 
 <div class="viewcode-block" id="check_pip"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.setup.check_pip">[docs]</a><span class="k">def</span> <span class="nf">check_pip</span><span class="p">():</span>
-    <span class="n">major</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pip</span><span class="o">.</span><span class="n">__version__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="k">if</span> <span class="n">major</span> <span class="o">&lt;</span> <span class="mi">7</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;    ERROR: Pip version&quot;</span><span class="p">,</span> <span class="n">pip</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="s2">&quot;is to old.&quot;</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;    Tip:   Please update pip with &quot;</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;             pip install pip -U&quot;</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span></div>
-
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    major = int(pip.__version__.split(&quot;.&quot;)[0])</span>
+<span class="sd">    if major &lt; 7:</span>
+<span class="sd">        print(&quot;&quot;)</span>
+<span class="sd">        print(&quot;    ERROR: Pip version&quot;, pip.__version__, &quot;is to old.&quot;)</span>
+<span class="sd">        print(&quot;    Tip:   Please update pip with &quot;)</span>
+<span class="sd">        print(&quot;&quot;)</span>
+<span class="sd">        print(&quot;             pip install pip -U&quot;)</span>
+<span class="sd">        print(&quot;&quot;)</span>
+<span class="sd">        sys.exit()</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="makefile"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.setup.makefile">[docs]</a><span class="k">def</span> <span class="nf">makefile</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="n">script</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">make</span><span class="p">)[</span><span class="n">tag</span><span class="p">])</span>
@@ -306,7 +308,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

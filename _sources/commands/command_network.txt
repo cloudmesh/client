@@ -6,21 +6,28 @@ and define network connectivity and addressing in the cloud.
 Network command handles the creation and management of a virtual networking infrastructure,
 including networks, fixed & floating ips.
 
-The manual page of the network command can be found at: `network <../man/man.html#network>`
+The manual page of the `network` command can be found at: `network <../man/man.html#network>`__
 
 
 ..note:: We assume you have your default cloud set,
-          via the default command::
+         via the default command:
 
-            $ cm default cloud=kilo
+	 .. prompt:: bash, cm>
+
+		     default cloud=kilo
 
 
 List Floating IP Pools
 -----------------------
 
-To list the floating ip pools in your cloud network use::
+To list the floating ip pools in your cloud network use:
 
-  $ cm network list floating pool
+.. prompt:: bash, cm>
+	    
+  network list floating pool
+
+::
+   
     +------------------+
     | floating_ip_pool |
     +------------------+
@@ -31,9 +38,14 @@ To list the floating ip pools in your cloud network use::
 List Floating IP Addresses
 ---------------------------
 
-To list the floating ip addresses in you cloud use::
+To list the floating ip addresses in you cloud use:
 
-  $ cm network list floating ip
+.. prompt:: bash, cm>
+	    
+  network list floating ip
+
+::
+   
     +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
     | instance_name | floating_ip     | floating_ip_pool | fixed_ip  | floating_ip_id                       | instance_id                          |
     +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
@@ -42,9 +54,14 @@ To list the floating ip addresses in you cloud use::
     +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
 
 
-To view the floating ip details for a particular instance, use::
+To view the floating ip details for a particular instance, use:
 
-  $ cm network list floating ip --instance=albert-004
+.. prompt:: bash, cm>
+	    
+  network list floating ip --instance=albert-004
+
+::
+   
     +---------------+--------------------------------------+
     | name          | value                                |
     +---------------+--------------------------------------+
@@ -60,9 +77,14 @@ To view the floating ip details for a particular instance, use::
     +---------------+--------------------------------------+
 
 
-To view details of a particular floating ip address, use::
+To view details of a particular floating ip address, use:
 
-  $ cm network list floating ip 100.165.123.111
+.. prompt:: bash, cm>
+	    
+  network list floating ip 100.165.123.111
+
+::
+   
     +---------------+--------------------------------------+
     | name          | value                                |
     +---------------+--------------------------------------+
@@ -81,12 +103,23 @@ To view details of a particular floating ip address, use::
 Create Floating IP Addresses
 -----------------------------
 
-To create a floating ip address under a floating pool, use::
+To create a floating ip address under a floating pool, use:
 
-  $ cm network create floating ip --pool=ext-net
-    Created new floating IP [100.165.123.112]
+.. prompt:: bash, cm>
+	    
+  network create floating ip --pool=ext-net
 
-  $ cm network list floating ip
+::
+   
+  Created new floating IP [100.165.123.112]
+
+
+.. prompt:: bash, cm>
+	      
+  network list floating ip
+
+::
+   
     +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
     | instance_name | floating_ip     | floating_ip_pool | fixed_ip  | floating_ip_id                       | instance_id                          |
     +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
@@ -99,12 +132,24 @@ To create a floating ip address under a floating pool, use::
 Delete Floating IP Addresses
 -----------------------------
 
-To delete a floating ip address, use::
+To delete a floating ip address, use:
 
-  $ cm network delete floating ip 100.165.123.112
-    Floating IP [100.165.123.112] deleted successfully!
+.. prompt:: bash, cm>
+	    
+  network delete floating ip 100.165.123.112
+   
+::
+   
+   Floating IP [100.165.123.112] deleted successfully!
 
-  $ cm network list floating ip
+
+
+.. prompt:: bash, cm>
+	       
+  network list floating ip
+
+::
+   
     +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
     | instance_name | floating_ip     | floating_ip_pool | fixed_ip  | floating_ip_id                       | instance_id                          |
     +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
@@ -117,12 +162,23 @@ Associate Floating IP Address with an Instance
 -----------------------------------------------
 
 To automatically generate a floating ip address
-and associate it with an instance, use::
+and associate it with an instance, use:
 
-  $ cm network associate floating ip --instance=albert-009
-    Created and assigned Floating IP [100.165.123.113] to instance [albert-009].
+.. prompt:: bash, cm>
+	    
+  network associate floating ip --instance=albert-009
 
-  $ cm network list floating ip
+::
+   
+  Created and assigned Floating IP [100.165.123.113] to instance [albert-009].
+
+
+.. prompt:: bash, cm>
+	      
+  network list floating ip
+
+::
+   
     +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
     | instance_name | floating_ip     | floating_ip_pool | fixed_ip  | floating_ip_id                       | instance_id                          |
     +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
@@ -133,12 +189,22 @@ and associate it with an instance, use::
 
 
 Alternatively, you can also specify the floating ip address
-that you want to associate with an instance::
+that you want to associate with an instance:
 
-  $ cm network associate floating ip --instance=albert-008 100.165.123.112
-    Associated Floating IP [100.165.123.112] to instance [albert-008].
+.. prompt:: bash, cm>
+	    
+  network associate floating ip --instance=albert-008 100.165.123.112
 
-  $ cm network list floating ip
+::
+   
+  Associated Floating IP [100.165.123.112] to instance [albert-008].
+
+.. prompt:: bash, cm>
+	      
+  network list floating ip
+
+::
+  
     +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
     | instance_name | floating_ip     | floating_ip_pool | fixed_ip  | floating_ip_id                       | instance_id                          |
     +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
@@ -153,12 +219,23 @@ Disassociate Floating IP Address from an Instance
 --------------------------------------------------
 
 To automatically detect the floating ip address associated with an instance
-& disassociate it from that instance, use::
+& disassociate it from that instance, use:
 
-  $ cm network disassociate floating ip --instance=albert-009
-    Disassociated Floating IP [100.165.123.113] from instance [albert-009].
 
-  $ cm network list floating ip
+.. prompt:: bash, cm>
+	    
+  network disassociate floating ip --instance=albert-009
+
+::
+   
+  Disassociated Floating IP [100.165.123.113] from instance [albert-009].
+
+.. prompt:: bash, cm>
+	      
+  network list floating ip
+
+::
+  
     +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
     | instance_name | floating_ip     | floating_ip_pool | fixed_ip  | floating_ip_id                       | instance_id                          |
     +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
@@ -168,12 +245,22 @@ To automatically detect the floating ip address associated with an instance
     | albert-008    | 100.165.123.112 | ext-net          | 10.0.2.12 | c45beca5-cd34-4e3d-4r34-34b8ac64td42 | 2ds345f4-2d4r-44b9-933f-342432fd3fcc |
     +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
 
-Alternatively, you could also specify the floating ip address to dissociate::
+Alternatively, you could also specify the floating ip address to dissociate:
 
-  $ cm network disassociate floating ip 100.165.123.113
-    Disassociated Floating IP [100.165.123.113] from instance [albert-009].
+.. prompt:: bash, cm>
+	    
+  network disassociate floating ip 100.165.123.113
 
-  $ cm network list floating ip
+::
+   
+  Disassociated Floating IP [100.165.123.113] from instance [albert-009].
+
+.. prompt:: bash, cm>
+	      
+  network list floating ip
+
+::
+   
     +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
     | instance_name | floating_ip     | floating_ip_pool | fixed_ip  | floating_ip_id                       | instance_id                          |
     +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+

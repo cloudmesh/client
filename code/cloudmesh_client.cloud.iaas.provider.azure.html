@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.iaas.provider.azure package &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>cloudmesh_client.cloud.iaas.provider.azure package &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client.cloud.iaas.provider package" href="cloudmesh_client.cloud.iaas.provider.html"/>
         <link rel="next" title="cloudmesh_client.cloud.iaas.provider.comet package" href="cloudmesh_client.cloud.iaas.provider.comet.html"/>
         <link rel="prev" title="cloudmesh_client.cloud.iaas.provider.aws package" href="cloudmesh_client.cloud.iaas.provider.aws.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -156,6 +156,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.db.html">cloudmesh_client.db package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.etc.html">cloudmesh_client.etc package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.extend.html">cloudmesh_client.extend package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.provider.html">cloudmesh_client.provider package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.shell.html">cloudmesh_client.shell package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.system.html">cloudmesh_client.system package</a></li>
@@ -165,6 +166,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.main">cloudmesh_client.main module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.setup">cloudmesh_client.setup module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.shell_commad">cloudmesh_client.shell_commad module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.var">cloudmesh_client.var module</a></li>
@@ -242,6 +244,16 @@
 <em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.iaas.provider.azure.AzureDict.</code><code class="descname">AzureDict</code><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/azure/AzureDict.html#AzureDict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.azure.AzureDict.AzureDict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="classmethod">
+<dt id="cloudmesh_client.cloud.iaas.provider.azure.AzureDict.AzureDict.convert_to_flavor_dict">
+<em class="property">classmethod </em><code class="descname">convert_to_flavor_dict</code><span class="sig-paren">(</span><em>flavor_obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/azure/AzureDict.html#AzureDict.convert_to_flavor_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.azure.AzureDict.AzureDict.convert_to_flavor_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.iaas.provider.azure.AzureDict.AzureDict.convert_to_image_dict">
+<em class="property">classmethod </em><code class="descname">convert_to_image_dict</code><span class="sig-paren">(</span><em>image_obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/azure/AzureDict.html#AzureDict.convert_to_image_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.azure.AzureDict.AzureDict.convert_to_image_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
 <dt id="cloudmesh_client.cloud.iaas.provider.azure.AzureDict.AzureDict.convert_to_vm_dict">
 <em class="property">classmethod </em><code class="descname">convert_to_vm_dict</code><span class="sig-paren">(</span><em>hosted_service_obj</em>, <em>deployment_obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/azure/AzureDict.html#AzureDict.convert_to_vm_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.azure.AzureDict.AzureDict.convert_to_vm_dict" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -256,6 +268,26 @@
 <em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI.</code><code class="descname">CloudProviderAzureAPI</code><span class="sig-paren">(</span><em>cloud_name</em>, <em>cloud_details</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/azure/CloudProviderAzureAPI.html#CloudProviderAzureAPI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI.CloudProviderAzureAPI" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase" title="cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase</span></code></a></p>
 <dl class="method">
+<dt id="cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI.CloudProviderAzureAPI.add_certificate">
+<code class="descname">add_certificate</code><span class="sig-paren">(</span><em>service_name</em>, <em>certificate_path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/azure/CloudProviderAzureAPI.html#CloudProviderAzureAPI.add_certificate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI.CloudProviderAzureAPI.add_certificate" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>service_name</strong> &#8211; Hosted service name in Azure cloud to which the certificate needs to be added</li>
+<li><strong>certificate_path</strong> &#8211; PFX(PKCS encoded) certificate Path</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI.CloudProviderAzureAPI.assign_ip">
 <code class="descname">assign_ip</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/azure/CloudProviderAzureAPI.html#CloudProviderAzureAPI.assign_ip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI.CloudProviderAzureAPI.assign_ip" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -267,18 +299,78 @@
 
 <dl class="method">
 <dt id="cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI.CloudProviderAzureAPI.boot_vm">
-<code class="descname">boot_vm</code><span class="sig-paren">(</span><em>name</em>, <em>group=None</em>, <em>image=None</em>, <em>flavor=None</em>, <em>cloud=None</em>, <em>key=None</em>, <em>secgroup=None</em>, <em>meta=None</em>, <em>nics=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/azure/CloudProviderAzureAPI.html#CloudProviderAzureAPI.boot_vm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI.CloudProviderAzureAPI.boot_vm" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">boot_vm</code><span class="sig-paren">(</span><em>name</em>, <em>group=None</em>, <em>image=None</em>, <em>flavor=None</em>, <em>cloud=None</em>, <em>cert_thumbprint=None</em>, <em>pub_key_path=None</em>, <em>cert_path=None</em>, <em>pfx_path=None</em>, <em>secgroup=None</em>, <em>meta=None</em>, <em>nics=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/azure/CloudProviderAzureAPI.html#CloudProviderAzureAPI.boot_vm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI.CloudProviderAzureAPI.boot_vm" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div>Boots up a new VM Instance.
+Steps involved: creating a hosted(Cloud) Service, adding the PFX certificate file,
+get default storage name, creating a configuration set, adding an endpoint(SSH by default),
+and finally creating a VM deployment</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; Hosted Service Name and VM instance name</li>
+<li><strong>group</strong> &#8211; </li>
+<li><strong>image</strong> &#8211; </li>
+<li><strong>flavor</strong> &#8211; </li>
+<li><strong>cloud</strong> &#8211; </li>
+<li><strong>cert_thumbprint</strong> &#8211; </li>
+<li><strong>pub_key_path</strong> &#8211; </li>
+<li><strong>cert_path</strong> &#8211; </li>
+<li><strong>pfx_path</strong> &#8211; </li>
+<li><strong>secgroup</strong> &#8211; </li>
+<li><strong>meta</strong> &#8211; </li>
+<li><strong>nics</strong> &#8211; </li>
+<li><strong>kwargs</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI.CloudProviderAzureAPI.delete_vm">
 <code class="descname">delete_vm</code><span class="sig-paren">(</span><em>name</em>, <em>group=None</em>, <em>force=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/azure/CloudProviderAzureAPI.html#CloudProviderAzureAPI.delete_vm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI.CloudProviderAzureAPI.delete_vm" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><blockquote>
+<div>Delete a VM instance whose hosted service name and instance name is given by name</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; </li>
+<li><strong>group</strong> &#8211; </li>
+<li><strong>force</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI.CloudProviderAzureAPI.get_ips">
+<code class="descname">get_ips</code><span class="sig-paren">(</span><em>name</em>, <em>group=None</em>, <em>force=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/azure/CloudProviderAzureAPI.html#CloudProviderAzureAPI.get_ips"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI.CloudProviderAzureAPI.get_ips" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the ip of the instance indicated by name
+:param name:
+:param group:
+:param force:
+:return: IP address of the instance</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI.CloudProviderAzureAPI.initialize">
 <code class="descname">initialize</code><span class="sig-paren">(</span><em>cloudname</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/azure/CloudProviderAzureAPI.html#CloudProviderAzureAPI.initialize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI.CloudProviderAzureAPI.initialize" title="Permalink to this definition">¶</a></dt>
 <dd><p>reads the details for the initialization from the cloudname defined in the yaml file
+Azure cloud requires subscription_id and service management certificate to initialize the provider
 :param cloudname:
 :param user:
 :return:</p>
@@ -307,7 +399,24 @@
 <dl class="method">
 <dt id="cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI.CloudProviderAzureAPI.list_vm">
 <code class="descname">list_vm</code><span class="sig-paren">(</span><em>cloudname</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/azure/CloudProviderAzureAPI.html#CloudProviderAzureAPI.list_vm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI.CloudProviderAzureAPI.list_vm" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><blockquote>
+<div>List the VMs or Deployments in Azure Cloud</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cloudname</strong> &#8211; </li>
+<li><strong>kwargs</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
@@ -357,7 +466,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

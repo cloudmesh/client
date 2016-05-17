@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>List Command &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>List Command &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="SecGroup Command" href="command_secgroup.html"/>
         <link rel="prev" title="Key Command" href="command_key.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -114,7 +114,6 @@
 <li class="toctree-l3"><a class="reference internal" href="command_flavor.html">Flavor Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_image.html">Image Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_network.html">Network Command</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_sync.html">Sync Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_limits.html">Limits Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_quota.html">Quota Command</a></li>
@@ -205,94 +204,99 @@
 <p>The cloudmesh list command provides you with the ability to easily
 list information in regards to virtual machines, images, flavors,
 defaults, and available clouds.</p>
-<p>The manual page of the list command can be found at: <a class="reference external" href="../man/man.html#list">list</a></p>
+<p>The manual page of the <cite>list</cite> command can be found at: <a class="reference external" href="../man/man.html#list">list</a></p>
 <div class="section" id="list-default">
 <h2>List Default<a class="headerlink" href="#list-default" title="Permalink to this headline">¶</a></h2>
 <p>To list all default values you can use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm list --cloud general default
-</pre></div>
-</div>
-<p>To list the default values set in a particular cloud use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm list --cloud general default
-  +-----------+---------+--------+----------+----------------------------+----------------------------+
-  | user      | cloud   | name   | value    | created_at                 | updated_at                 |
-  +-----------+---------+--------+----------+----------------------------+----------------------------+
-  | albert    | general | tenant | fg478    | 2015-09-21 02:24:31.978000 | 2015-09-21 02:24:31.978000 |
-  | albert    | general | cloud  | india    | 2015-09-21 02:25:00.781000 | 2015-09-21 02:25:00.781000 |
-  | albert    | general | group  | group001 | 2015-09-23 21:53:04        | 2015-09-23 21:53:04        |
-  | albert    | general | format | table    | 2015-09-23 21:53:16        | 2015-09-23 21:53:16        |
-  +-----------+---------+--------+----------+----------------------------+----------------------------+
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "cm> ";
+}
+</style><span class="prompt1">list --cloud general default</span>
+</pre><p>To list the default values set in a particular cloud use:</p>
+<pre class="highlight"><span class="prompt1">list --cloud general default</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+-----------+---------+--------+----------+----------------------------+----------------------------+</span>
+<span class="o">|</span> <span class="n">user</span>      <span class="o">|</span> <span class="n">cloud</span>   <span class="o">|</span> <span class="n">name</span>   <span class="o">|</span> <span class="n">value</span>    <span class="o">|</span> <span class="n">created_at</span>                 <span class="o">|</span> <span class="n">updated_at</span>                 <span class="o">|</span>
+<span class="o">+-----------+---------+--------+----------+----------------------------+----------------------------+</span>
+<span class="o">|</span> <span class="n">albert</span>    <span class="o">|</span> <span class="n">general</span> <span class="o">|</span> <span class="n">tenant</span> <span class="o">|</span> <span class="n">fg478</span>    <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">21</span> <span class="mi">02</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span><span class="mf">31.978000</span> <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">21</span> <span class="mi">02</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span><span class="mf">31.978000</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">albert</span>    <span class="o">|</span> <span class="n">general</span> <span class="o">|</span> <span class="n">cloud</span>  <span class="o">|</span> <span class="n">india</span>    <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">21</span> <span class="mi">02</span><span class="p">:</span><span class="mi">25</span><span class="p">:</span><span class="mf">00.781000</span> <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">21</span> <span class="mi">02</span><span class="p">:</span><span class="mi">25</span><span class="p">:</span><span class="mf">00.781000</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">albert</span>    <span class="o">|</span> <span class="n">general</span> <span class="o">|</span> <span class="n">group</span>  <span class="o">|</span> <span class="n">group001</span> <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">23</span> <span class="mi">21</span><span class="p">:</span><span class="mi">53</span><span class="p">:</span><span class="mi">04</span>        <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">23</span> <span class="mi">21</span><span class="p">:</span><span class="mi">53</span><span class="p">:</span><span class="mi">04</span>        <span class="o">|</span>
+<span class="o">|</span> <span class="n">albert</span>    <span class="o">|</span> <span class="n">general</span> <span class="o">|</span> <span class="nb">format</span> <span class="o">|</span> <span class="n">table</span>    <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">23</span> <span class="mi">21</span><span class="p">:</span><span class="mi">53</span><span class="p">:</span><span class="mi">16</span>        <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">23</span> <span class="mi">21</span><span class="p">:</span><span class="mi">53</span><span class="p">:</span><span class="mi">16</span>        <span class="o">|</span>
+<span class="o">+-----------+---------+--------+----------+----------------------------+----------------------------+</span>
 </pre></div>
 </div>
 <p>To specify a different format, such as json, use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm list --cloud general --format json default
-{
-      &quot;1&quot;: {
-          &quot;cloud&quot;: &quot;general&quot;,
-          &quot;created_at&quot;: &quot;2015-09-21 02:24:31.978000&quot;,
-          &quot;id&quot;: &quot;1&quot;,
-          &quot;kind&quot;: &quot;default&quot;,
-          &quot;label&quot;: &quot;tenant&quot;,
-          &quot;name&quot;: &quot;tenant&quot;,
-          &quot;project&quot;: &quot;undefined&quot;,
-          &quot;type&quot;: &quot;string&quot;,
-          &quot;updated_at&quot;: &quot;2015-09-21 02:24:31.978000&quot;,
-          &quot;user&quot;: &quot;albert&quot;,
-          &quot;value&quot;: &quot;fg478&quot;
-      },
-      &quot;2&quot;: {
-          &quot;cloud&quot;: &quot;general&quot;,
-          &quot;created_at&quot;: &quot;2015-09-21 02:25:00.781000&quot;,
-          &quot;id&quot;: &quot;2&quot;,
-          &quot;kind&quot;: &quot;default&quot;,
-          &quot;label&quot;: &quot;cloud&quot;,
-          &quot;name&quot;: &quot;cloud&quot;,
-          &quot;project&quot;: &quot;undefined&quot;,
-          &quot;type&quot;: &quot;string&quot;,
-          &quot;updated_at&quot;: &quot;2015-09-21 02:25:00.781000&quot;,
-          &quot;user&quot;: &quot;albert&quot;,
-          &quot;value&quot;: &quot;india&quot;
-      },
-      &quot;3&quot;: {
-          &quot;cloud&quot;: &quot;general&quot;,
-          &quot;created_at&quot;: &quot;2015-09-23 21:53:04&quot;,
-          &quot;id&quot;: &quot;3&quot;,
-          &quot;kind&quot;: &quot;default&quot;,
-          &quot;label&quot;: &quot;group&quot;,
-          &quot;name&quot;: &quot;group&quot;,
-          &quot;project&quot;: &quot;undefined&quot;,
-          &quot;type&quot;: &quot;string&quot;,
-          &quot;updated_at&quot;: &quot;2015-09-23 21:53:04&quot;,
-          &quot;user&quot;: &quot;albert&quot;,
-          &quot;value&quot;: &quot;group001&quot;
-      },
-      &quot;4&quot;: {
-          &quot;cloud&quot;: &quot;general&quot;,
-          &quot;created_at&quot;: &quot;2015-09-23 21:53:16&quot;,
-          &quot;id&quot;: &quot;4&quot;,
-          &quot;kind&quot;: &quot;default&quot;,
-          &quot;label&quot;: &quot;format&quot;,
-          &quot;name&quot;: &quot;format&quot;,
-          &quot;project&quot;: &quot;undefined&quot;,
-          &quot;type&quot;: &quot;string&quot;,
-          &quot;updated_at&quot;: &quot;2015-09-23 21:53:16&quot;,
-          &quot;user&quot;: &quot;albert&quot;,
-          &quot;value&quot;: &quot;table&quot;
-      }
-}
+<pre class="highlight"><span class="prompt1">list --cloud general --format json default</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+      <span class="s2">&quot;1&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;cloud&quot;</span><span class="p">:</span> <span class="s2">&quot;general&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2015-09-21 02:24:31.978000&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;tenant&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;tenant&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;project&quot;</span><span class="p">:</span> <span class="s2">&quot;undefined&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2015-09-21 02:24:31.978000&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;albert&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;fg478&quot;</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;2&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;cloud&quot;</span><span class="p">:</span> <span class="s2">&quot;general&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2015-09-21 02:25:00.781000&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;cloud&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;cloud&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;project&quot;</span><span class="p">:</span> <span class="s2">&quot;undefined&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2015-09-21 02:25:00.781000&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;albert&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;india&quot;</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;3&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;cloud&quot;</span><span class="p">:</span> <span class="s2">&quot;general&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2015-09-23 21:53:04&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;group&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;group&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;project&quot;</span><span class="p">:</span> <span class="s2">&quot;undefined&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2015-09-23 21:53:04&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;albert&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;group001&quot;</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;4&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;cloud&quot;</span><span class="p">:</span> <span class="s2">&quot;general&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2015-09-23 21:53:16&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;4&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;format&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;format&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;project&quot;</span><span class="p">:</span> <span class="s2">&quot;undefined&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2015-09-23 21:53:16&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;albert&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;table&quot;</span>
+      <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="list-cloud-objects">
 <h2>list Cloud objects<a class="headerlink" href="#list-cloud-objects" title="Permalink to this headline">¶</a></h2>
-<p>The list command can also be used to list cloud objects, thus you can use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">list</span> <span class="n">image</span>
-<span class="nb">list</span> <span class="n">flavor</span>
-<span class="nb">list</span> <span class="n">quota</span>
-<span class="nb">list</span> <span class="n">limits</span>
-<span class="nb">list</span> <span class="n">usage</span>
-<span class="nb">list</span> <span class="n">vm</span>
-</pre></div>
+<p>The list command can also be used to list cloud objects, thus you can
+use:</p>
+<pre class="highlight"><span class="prompt1">list image</span>
+<span class="prompt1">list flavor</span>
+<span class="prompt1">list quota</span>
+<span class="prompt1">list limits</span>
+<span class="prompt1">list usage</span>
+<span class="prompt1">list vm</span>
+</pre><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">not everything may be implemented yet.</p>
 </div>
 </div>
 </div>
@@ -337,7 +341,7 @@ defaults, and available clouds.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

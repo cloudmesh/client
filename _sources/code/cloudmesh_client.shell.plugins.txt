@@ -4,6 +4,14 @@ cloudmesh_client.shell.plugins package
 Submodules
 ----------
 
+cloudmesh_client.shell.plugins.AkeyCommand module
+-------------------------------------------------
+
+.. automodule:: cloudmesh_client.shell.plugins.AkeyCommand
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.shell.plugins.Bar module
 -----------------------------------------
 

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Cloudmesh Client Toolkit &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>Cloudmesh Client Toolkit &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="#"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="#"/>
         <link rel="next" title="Prefix" href="prefix.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -233,6 +233,7 @@ process of integrating them back into the client.</p>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#accessing-clouds">Accessing Clouds</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#virtual-machines">Virtual Machines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#vm-quickstart">VM Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#microsoft-azure">Microsoft Azure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#hpc">HPC</a></li>
 </ul>
 </li>
@@ -269,6 +270,7 @@ process of integrating them back into the client.</p>
 <p class="caption"><span class="caption-text">User Manuals</span><a class="headerlink" href="#user-manuals" title="Permalink to this toctree">¶</a></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="upgrade.html">Upgrade</a></li>
 <li class="toctree-l2"><a class="reference internal" href="system.html">Preparation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a></li>
@@ -283,6 +285,7 @@ process of integrating them back into the client.</p>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#akey">akey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#banner">banner</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#check">check</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#clear">clear</a></li>
@@ -330,6 +333,7 @@ process of integrating them back into the client.</p>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#server">server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#shell">shell</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#shell-exec">shell_exec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#sleep">sleep</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#ssh">ssh</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#submit">submit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#sync">sync</a></li>
@@ -693,6 +697,7 @@ process of integrating them back into the client.</p>
 <li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.common.html#module-cloudmesh_client.common.BaseConfigDict">cloudmesh_client.common.BaseConfigDict module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.common.html#module-cloudmesh_client.common.ConfigDict">cloudmesh_client.common.ConfigDict module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.common.html#module-cloudmesh_client.common.DictDB">cloudmesh_client.common.DictDB module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.common.html#module-cloudmesh_client.common.DynamicClass">cloudmesh_client.common.DynamicClass module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.common.html#module-cloudmesh_client.common.Error">cloudmesh_client.common.Error module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.common.html#module-cloudmesh_client.common.FlatDict">cloudmesh_client.common.FlatDict module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.common.html#module-cloudmesh_client.common.FlatDict2">cloudmesh_client.common.FlatDict2 module</a></li>
@@ -727,6 +732,13 @@ process of integrating them back into the client.</p>
 <li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.etc.html#module-cloudmesh_client.etc">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="code/cloudmesh_client.extend.html">cloudmesh_client.extend package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.extend.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.extend.html#module-cloudmesh_client.extend.my">cloudmesh_client.extend.my module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.extend.html#module-cloudmesh_client.extend.summary">cloudmesh_client.extend.summary module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.extend.html#module-cloudmesh_client.extend">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="code/cloudmesh_client.provider.html">cloudmesh_client.provider package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.provider.html#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.provider.html#module-cloudmesh_client.provider">Module contents</a></li>
@@ -755,6 +767,7 @@ process of integrating them back into the client.</p>
 <li class="toctree-l2"><a class="reference internal" href="code/cloudmesh_client.html#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code/cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code/cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code/cloudmesh_client.html#module-cloudmesh_client.main">cloudmesh_client.main module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code/cloudmesh_client.html#module-cloudmesh_client.setup">cloudmesh_client.setup module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code/cloudmesh_client.html#module-cloudmesh_client.shell_commad">cloudmesh_client.shell_commad module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code/cloudmesh_client.html#module-cloudmesh_client.var">cloudmesh_client.var module</a></li>
@@ -856,7 +869,7 @@ process of integrating them back into the client.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

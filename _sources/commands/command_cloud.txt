@@ -4,17 +4,22 @@ Cloud Command
 The cloud command provides an API that allows users to login to
 a cloud, activate a cloud, deactivate a cloud & logout from a cloud.
 
-The manual page of the network command can be found at: `cloud <../man/man.html#cloud>`
-
+The manual page of the `sync` command can be found at: 
+`cloud <../man/man.html#cloud>`_
 
 
 List status of all clouds
 --------------------------
 
 To list status of all clouds registered in the
-cloudmesh.yaml file use::
+cloudmesh.yaml file use:
 
-  cm> cloud list
+.. prompt:: bash, cm>  
+
+	    cloud list
+
+::
+   
     +------------+------------+
     | cloud name | status     |
     +------------+------------+
@@ -28,17 +33,32 @@ cloudmesh.yaml file use::
 Login to a single/multiple clouds
 ----------------------------------
 
-To logon to a cloud use::
+To logon to a cloud use:
 
-  cm> cloud logon kilo
+.. prompt:: bash, cm>  
+  
+  cloud logon kilo
+
+::
+   
     Logged into cloud: kilo
 
-You can logon to multiple clouds::
+You can logon to multiple clouds:
 
-  cm> cloud logon kilo
-    Logged into cloud: kilo
+.. prompt:: bash, cm>
+	    
+   cloud logon kilo
 
-  cm> cloud list
+::
+
+   Logged into cloud: kilo
+
+.. prompt:: bash, cm>
+
+  cloud list
+
+::
+   
     +------------+------------+
     | cloud name | status     |
     +------------+------------+
@@ -51,12 +71,22 @@ You can logon to multiple clouds::
 Deactivate a cloud
 -------------------
 
-To deactivate a cloud use::
+To deactivate a cloud use:
 
-  cm> cloud deactivate kilo
-    Deactivated cloud: kilo
+.. prompt:: bash, cm>
+	    
+  cloud deactivate kilo
 
-  cm> cloud list
+::
+   
+  Deactivated cloud: kilo
+
+.. prompt:: bash, cm>
+	    
+  cloud list
+
+::
+   
     +------------+------------+
     | cloud name | status     |
     +------------+------------+
@@ -69,12 +99,22 @@ To deactivate a cloud use::
 Activate a cloud
 -----------------
 
-To activate a cloud use::
+To activate a cloud use:
 
-  cm> cloud activate kilo
-    Activated cloud: kilo
+.. prompt:: bash, cm>
+	    
+  cloud activate kilo
 
-  cm> cloud list
+::
+   
+  Activated cloud: kilo
+
+.. prompt:: bash, cm>
+	    
+  cloud list
+
+::
+
     +------------+------------+
     | cloud name | status     |
     +------------+------------+
@@ -87,15 +127,30 @@ To activate a cloud use::
 Log out from a cloud
 ---------------------
 
-To log out from a cloud use::
+To log out from a cloud use:
 
-  cm> cloud logout kilo
-    Logged out of cloud: kilo
+.. prompt:: bash, cm>
+	    
+  cloud logout kilo
 
-  cm> cloud logout kilo
-    Logged out of cloud: kilo
+::
+   
+  Logged out of cloud: kilo
 
-  cm> cloud list
+.. prompt:: bash, cm>
+	    
+  cloud logout kilo
+
+::
+   
+  Logged out of cloud: kilo
+
+.. prompt:: bash, cm>  
+  
+  cloud list
+
+::
+      
     +------------+------------+
     | cloud name | status     |
     +------------+------------+

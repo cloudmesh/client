@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Nova Command &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>Nova Command &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Flavor Command" href="command_flavor.html"/>
         <link rel="prev" title="VM Command" href="command_vm.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -115,12 +115,6 @@
 <li class="toctree-l3"><a class="reference internal" href="command_flavor.html">Flavor Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_image.html">Image Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_network.html">Network Command</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Nova Command</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#setting-the-target-cloud">Setting the Target Cloud</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#getting-the-cloud-info">Getting the Cloud Info</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#running-openstack-nova-commands">Running openstack nova commands</a></li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="command_sync.html">Sync Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_limits.html">Limits Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_quota.html">Quota Command</a></li>
@@ -213,12 +207,16 @@ openstack nova command on the target cloud. This also provides you with the
 capability of setting the target cloud. However, we recommend not using
 the command and instead use the cloudmesh command sas they allow for
 information caching</p>
-<p>The manual page of the key command can be found at: <a class="reference external" href="../man/man.html#nova">Nova</a></p>
+<p>The manual page of the <cite>nova</cite> command can be found at: <a class="reference external" href="../man/man.html#nova">Nova</a></p>
 <div class="section" id="setting-the-target-cloud">
 <h2>Setting the Target Cloud<a class="headerlink" href="#setting-the-target-cloud" title="Permalink to this headline">¶</a></h2>
 <p>You may set the target cloud on which the nova command should run as follows:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm nova set india
-india is set
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">prompt</span><span class="p">::</span> <span class="n">bash</span><span class="p">,</span> <span class="n">cm</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<blockquote>
+<div>nova set india</div></blockquote>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">india</span> <span class="ow">is</span> <span class="nb">set</span>
 </pre></div>
 </div>
 <p>Note that if you do not set a target cloud, default cloud considered is &#8216;india&#8217;.</p>
@@ -226,32 +224,40 @@ india is set
 <div class="section" id="getting-the-cloud-info">
 <h2>Getting the Cloud Info<a class="headerlink" href="#getting-the-cloud-info" title="Permalink to this headline">¶</a></h2>
 <p>You may get the cloud info in the following manner:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm nova info
-WARNING: OS environment variable OS_REGION not found
-+----------------+--------------------------------------------------------+
-| Variable       | Value                                                  |
-+----------------+--------------------------------------------------------+
-| OS_REGION      | None                                                   |
-| OS_USERNAME    | albert                                                 |
-| OS_CACERT      | /home/albert/.cloudmesh/clouds/india/kilo/cacert.pem   |
-| OS_TENANT_NAME | fg478                                                  |
-| OS_AUTH_URL    | https://i5r.idp.iu.futuregrid.org:5000/v2.0            |
-| OS_PASSWORD    | ********                                               |
-+----------------+--------------------------------------------------------+
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">prompt</span><span class="p">::</span> <span class="n">bash</span><span class="p">,</span> <span class="n">cm</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<blockquote>
+<div>nova info</div></blockquote>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">WARNING</span><span class="p">:</span> <span class="n">OS</span> <span class="n">environment</span> <span class="n">variable</span> <span class="n">OS_REGION</span> <span class="ow">not</span> <span class="n">found</span>
+<span class="o">+----------------+--------------------------------------------------------+</span>
+<span class="o">|</span> <span class="n">Variable</span>       <span class="o">|</span> <span class="n">Value</span>                                                  <span class="o">|</span>
+<span class="o">+----------------+--------------------------------------------------------+</span>
+<span class="o">|</span> <span class="n">OS_REGION</span>      <span class="o">|</span> <span class="kc">None</span>                                                   <span class="o">|</span>
+<span class="o">|</span> <span class="n">OS_USERNAME</span>    <span class="o">|</span> <span class="n">albert</span>                                                 <span class="o">|</span>
+<span class="o">|</span> <span class="n">OS_CACERT</span>      <span class="o">|</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">albert</span><span class="o">/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">clouds</span><span class="o">/</span><span class="n">india</span><span class="o">/</span><span class="n">kilo</span><span class="o">/</span><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">OS_TENANT_NAME</span> <span class="o">|</span> <span class="n">fg478</span>                                                  <span class="o">|</span>
+<span class="o">|</span> <span class="n">OS_AUTH_URL</span>    <span class="o">|</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">i5r</span><span class="o">.</span><span class="n">idp</span><span class="o">.</span><span class="n">iu</span><span class="o">.</span><span class="n">futuregrid</span><span class="o">.</span><span class="n">org</span><span class="p">:</span><span class="mi">5000</span><span class="o">/</span><span class="n">v2</span><span class="o">.</span><span class="mi">0</span>            <span class="o">|</span>
+<span class="o">|</span> <span class="n">OS_PASSWORD</span>    <span class="o">|</span> <span class="o">********</span>                                               <span class="o">|</span>
+<span class="o">+----------------+--------------------------------------------------------+</span>
 </pre></div>
 </div>
 <p>By default it gives the &#8216;india&#8217; cloud info. To check for specific cloud, here is an example for kilo cloud:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm nova info kilo
-+----------------+------------------------------------------------+
-| Variable       | Value                                          |
-+----------------+------------------------------------------------+
-| OS_REGION      | None                                           |
-| OS_USERNAME    | TBD                                            |
-| OS_CACERT      | TBD                                            |
-| OS_TENANT_NAME | TBD                                            |
-| OS_AUTH_URL    | https://i5r.idp.iu.futuresystems.org:5000/v2.0 |
-| OS_PASSWORD    | ********                                       |
-+----------------+------------------------------------------------+
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">prompt</span><span class="p">::</span> <span class="n">bash</span><span class="p">,</span> <span class="n">cm</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<blockquote>
+<div>nova info kilo</div></blockquote>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+----------------+------------------------------------------------+</span>
+<span class="o">|</span> <span class="n">Variable</span>       <span class="o">|</span> <span class="n">Value</span>                                          <span class="o">|</span>
+<span class="o">+----------------+------------------------------------------------+</span>
+<span class="o">|</span> <span class="n">OS_REGION</span>      <span class="o">|</span> <span class="kc">None</span>                                           <span class="o">|</span>
+<span class="o">|</span> <span class="n">OS_USERNAME</span>    <span class="o">|</span> <span class="n">TBD</span>                                            <span class="o">|</span>
+<span class="o">|</span> <span class="n">OS_CACERT</span>      <span class="o">|</span> <span class="n">TBD</span>                                            <span class="o">|</span>
+<span class="o">|</span> <span class="n">OS_TENANT_NAME</span> <span class="o">|</span> <span class="n">TBD</span>                                            <span class="o">|</span>
+<span class="o">|</span> <span class="n">OS_AUTH_URL</span>    <span class="o">|</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">i5r</span><span class="o">.</span><span class="n">idp</span><span class="o">.</span><span class="n">iu</span><span class="o">.</span><span class="n">futuresystems</span><span class="o">.</span><span class="n">org</span><span class="p">:</span><span class="mi">5000</span><span class="o">/</span><span class="n">v2</span><span class="o">.</span><span class="mi">0</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">OS_PASSWORD</span>    <span class="o">|</span> <span class="o">********</span>                                       <span class="o">|</span>
+<span class="o">+----------------+------------------------------------------------+</span>
 </pre></div>
 </div>
 </div>
@@ -260,49 +266,57 @@ WARNING: OS environment variable OS_REGION not found
 <p>The syntax is  the same as what is used for openstack nova.
 Following are couple of examples:</p>
 <p>Listing images:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm nova image-list
-Cloud = india
-+--------------------------------------+-----------------------------------------+--------+--------------------------------------+
-| ID                                   | Name                                    | Status | Server                               |
-+--------------------------------------+-----------------------------------------+--------+--------------------------------------+
-| 619b8942-2355-4aa2-bae3-74b8f1751911 | CentOS-7                                | ACTIVE |                                      |
-| f63a996c-ea69-4a56-830e-c190bca2f828 | VM with Cloudmesh Configured Completely | ACTIVE | 8b7ce3bf-f797-4e8e-903c-6a0de81b063c |
-| 7ddc3366-73bf-453a-a813-43514030bf2e | badi/centos-7-2015-06-01                | ACTIVE |                                      |
-| c3c5b676-be53-4237-a40f-451d4c6e572e | badi/ubuntu-14.04-2015-06-01            | ACTIVE |                                      |
-| f2c2bbda-8bc1-4f02-a2e8-60014da66689 | cloudmesh/ipynb-n-java                  | ACTIVE |                                      |
-| 186592ce-eed5-4631-bc0c-7022eccd8508 | fg464/hadoop-b649                       | ACTIVE | 63a2cf03-a6cf-4d8a-95c1-250eb71f1ebc |
-| 364bd53b-87d3-4ac6-8e41-af540301f0cd | futuresystems/centos-7                  | ACTIVE |                                      |
-| 58e5d678-79ec-4a4d-9aa8-37975b7f40ac | futuresystems/fedora-21                 | ACTIVE |                                      |
-| a59833a2-60c9-47f0-b333-4e0bc071ac3a | futuresystems/hadoop-v2                 | ACTIVE | f01633b1-76b0-47b5-915e-eaae4559ba60 |
-| 367de5c7-3a30-4bad-b316-1a2afa17d794 | futuresystems/ubuntu-12.04              | ACTIVE |                                      |
-| 66708636-5ed6-4908-b36a-f5a69f8ac7ee | futuresystems/ubuntu-14.04              | ACTIVE |                                      |
-| 0f787e59-6ff9-466c-aaf6-cd3f3c9350d0 | kilitbilgi/ubuntu_14_10_desktop         | ACTIVE |                                      |
-| 5337a50d-4418-4c1f-9741-5c31bf03e267 | lee212/CoreOS                           | ACTIVE |                                      |
-| 132c961f-bca8-4942-a2c5-a8f60f84aea9 | lee212/CoreOS-Alpha                     | ACTIVE |                                      |
-| e8acb8e0-fbc9-44e4-9b31-3c38fc9c25ae | lee212/boot2docker                      | ACTIVE |                                      |
-| b073ddce-747d-4c66-8152-70118a4e5781 | mooc-backup                             | ACTIVE | 805da4cb-a14f-4465-841f-124346cf3bde |
-| 85fdb68e-8bd3-4e5e-bb4e-f286298f4fe6 | said/ubuntu15                           | ACTIVE |                                      |
-| e3d5fcf5-1b40-48df-9098-3c03a682421e | slaves_ubuntu_14_04                     | ACTIVE |                                      |
-| 58c9552c-8d93-42c0-9dea-5f48d90a3188 | ubuntu12-cometworker1                   | ACTIVE | 55458942-1d8f-4a54-af10-8e01c47953ea |
-+--------------------------------------+-----------------------------------------+--------+--------------------------------------+
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">prompt</span><span class="p">::</span> <span class="n">bash</span><span class="p">,</span> <span class="n">cm</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<blockquote>
+<div>nova image-list</div></blockquote>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Cloud</span> <span class="o">=</span> <span class="n">india</span>
+<span class="o">+--------------------------------------+-----------------------------------------+--------+--------------------------------------+</span>
+<span class="o">|</span> <span class="n">ID</span>                                   <span class="o">|</span> <span class="n">Name</span>                                    <span class="o">|</span> <span class="n">Status</span> <span class="o">|</span> <span class="n">Server</span>                               <span class="o">|</span>
+<span class="o">+--------------------------------------+-----------------------------------------+--------+--------------------------------------+</span>
+<span class="o">|</span> <span class="mi">619</span><span class="n">b8942</span><span class="o">-</span><span class="mi">2355</span><span class="o">-</span><span class="mi">4</span><span class="n">aa2</span><span class="o">-</span><span class="n">bae3</span><span class="o">-</span><span class="mi">74</span><span class="n">b8f1751911</span> <span class="o">|</span> <span class="n">CentOS</span><span class="o">-</span><span class="mi">7</span>                                <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="n">f63a996c</span><span class="o">-</span><span class="n">ea69</span><span class="o">-</span><span class="mi">4</span><span class="n">a56</span><span class="o">-</span><span class="mi">830</span><span class="n">e</span><span class="o">-</span><span class="n">c190bca2f828</span> <span class="o">|</span> <span class="n">VM</span> <span class="k">with</span> <span class="n">Cloudmesh</span> <span class="n">Configured</span> <span class="n">Completely</span> <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span> <span class="mi">8</span><span class="n">b7ce3bf</span><span class="o">-</span><span class="n">f797</span><span class="o">-</span><span class="mi">4</span><span class="n">e8e</span><span class="o">-</span><span class="mi">903</span><span class="n">c</span><span class="o">-</span><span class="mi">6</span><span class="n">a0de81b063c</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">7</span><span class="n">ddc3366</span><span class="o">-</span><span class="mi">73</span><span class="n">bf</span><span class="o">-</span><span class="mi">453</span><span class="n">a</span><span class="o">-</span><span class="n">a813</span><span class="o">-</span><span class="mi">43514030</span><span class="n">bf2e</span> <span class="o">|</span> <span class="n">badi</span><span class="o">/</span><span class="n">centos</span><span class="o">-</span><span class="mi">7</span><span class="o">-</span><span class="mi">2015</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span>                <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="n">c3c5b676</span><span class="o">-</span><span class="n">be53</span><span class="o">-</span><span class="mi">4237</span><span class="o">-</span><span class="n">a40f</span><span class="o">-</span><span class="mi">451</span><span class="n">d4c6e572e</span> <span class="o">|</span> <span class="n">badi</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">-</span><span class="mf">14.04</span><span class="o">-</span><span class="mi">2015</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span>            <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="n">f2c2bbda</span><span class="o">-</span><span class="mi">8</span><span class="n">bc1</span><span class="o">-</span><span class="mi">4</span><span class="n">f02</span><span class="o">-</span><span class="n">a2e8</span><span class="o">-</span><span class="mi">60014</span><span class="n">da66689</span> <span class="o">|</span> <span class="n">cloudmesh</span><span class="o">/</span><span class="n">ipynb</span><span class="o">-</span><span class="n">n</span><span class="o">-</span><span class="n">java</span>                  <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="mi">186592</span><span class="n">ce</span><span class="o">-</span><span class="n">eed5</span><span class="o">-</span><span class="mi">4631</span><span class="o">-</span><span class="n">bc0c</span><span class="o">-</span><span class="mi">7022</span><span class="n">eccd8508</span> <span class="o">|</span> <span class="n">fg464</span><span class="o">/</span><span class="n">hadoop</span><span class="o">-</span><span class="n">b649</span>                       <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span> <span class="mi">63</span><span class="n">a2cf03</span><span class="o">-</span><span class="n">a6cf</span><span class="o">-</span><span class="mi">4</span><span class="n">d8a</span><span class="o">-</span><span class="mi">95</span><span class="n">c1</span><span class="o">-</span><span class="mi">250</span><span class="n">eb71f1ebc</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">364</span><span class="n">bd53b</span><span class="o">-</span><span class="mi">87</span><span class="n">d3</span><span class="o">-</span><span class="mi">4</span><span class="n">ac6</span><span class="o">-</span><span class="mi">8</span><span class="n">e41</span><span class="o">-</span><span class="n">af540301f0cd</span> <span class="o">|</span> <span class="n">futuresystems</span><span class="o">/</span><span class="n">centos</span><span class="o">-</span><span class="mi">7</span>                  <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="mi">58</span><span class="n">e5d678</span><span class="o">-</span><span class="mi">79</span><span class="n">ec</span><span class="o">-</span><span class="mi">4</span><span class="n">a4d</span><span class="o">-</span><span class="mi">9</span><span class="n">aa8</span><span class="o">-</span><span class="mi">37975</span><span class="n">b7f40ac</span> <span class="o">|</span> <span class="n">futuresystems</span><span class="o">/</span><span class="n">fedora</span><span class="o">-</span><span class="mi">21</span>                 <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="n">a59833a2</span><span class="o">-</span><span class="mi">60</span><span class="n">c9</span><span class="o">-</span><span class="mi">47</span><span class="n">f0</span><span class="o">-</span><span class="n">b333</span><span class="o">-</span><span class="mi">4</span><span class="n">e0bc071ac3a</span> <span class="o">|</span> <span class="n">futuresystems</span><span class="o">/</span><span class="n">hadoop</span><span class="o">-</span><span class="n">v2</span>                 <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span> <span class="n">f01633b1</span><span class="o">-</span><span class="mi">76</span><span class="n">b0</span><span class="o">-</span><span class="mi">47</span><span class="n">b5</span><span class="o">-</span><span class="mi">915</span><span class="n">e</span><span class="o">-</span><span class="n">eaae4559ba60</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">367</span><span class="n">de5c7</span><span class="o">-</span><span class="mi">3</span><span class="n">a30</span><span class="o">-</span><span class="mi">4</span><span class="n">bad</span><span class="o">-</span><span class="n">b316</span><span class="o">-</span><span class="mi">1</span><span class="n">a2afa17d794</span> <span class="o">|</span> <span class="n">futuresystems</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">-</span><span class="mf">12.04</span>              <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="mi">66708636</span><span class="o">-</span><span class="mi">5</span><span class="n">ed6</span><span class="o">-</span><span class="mi">4908</span><span class="o">-</span><span class="n">b36a</span><span class="o">-</span><span class="n">f5a69f8ac7ee</span> <span class="o">|</span> <span class="n">futuresystems</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">-</span><span class="mf">14.04</span>              <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="mi">0</span><span class="n">f787e59</span><span class="o">-</span><span class="mi">6</span><span class="n">ff9</span><span class="o">-</span><span class="mi">466</span><span class="n">c</span><span class="o">-</span><span class="n">aaf6</span><span class="o">-</span><span class="n">cd3f3c9350d0</span> <span class="o">|</span> <span class="n">kilitbilgi</span><span class="o">/</span><span class="n">ubuntu_14_10_desktop</span>         <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="mi">5337</span><span class="n">a50d</span><span class="o">-</span><span class="mi">4418</span><span class="o">-</span><span class="mi">4</span><span class="n">c1f</span><span class="o">-</span><span class="mi">9741</span><span class="o">-</span><span class="mi">5</span><span class="n">c31bf03e267</span> <span class="o">|</span> <span class="n">lee212</span><span class="o">/</span><span class="n">CoreOS</span>                           <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="mi">132</span><span class="n">c961f</span><span class="o">-</span><span class="n">bca8</span><span class="o">-</span><span class="mi">4942</span><span class="o">-</span><span class="n">a2c5</span><span class="o">-</span><span class="n">a8f60f84aea9</span> <span class="o">|</span> <span class="n">lee212</span><span class="o">/</span><span class="n">CoreOS</span><span class="o">-</span><span class="n">Alpha</span>                     <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="n">e8acb8e0</span><span class="o">-</span><span class="n">fbc9</span><span class="o">-</span><span class="mi">44</span><span class="n">e4</span><span class="o">-</span><span class="mi">9</span><span class="n">b31</span><span class="o">-</span><span class="mi">3</span><span class="n">c38fc9c25ae</span> <span class="o">|</span> <span class="n">lee212</span><span class="o">/</span><span class="n">boot2docker</span>                      <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="n">b073ddce</span><span class="o">-</span><span class="mi">747</span><span class="n">d</span><span class="o">-</span><span class="mi">4</span><span class="n">c66</span><span class="o">-</span><span class="mi">8152</span><span class="o">-</span><span class="mi">70118</span><span class="n">a4e5781</span> <span class="o">|</span> <span class="n">mooc</span><span class="o">-</span><span class="n">backup</span>                             <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span> <span class="mi">805</span><span class="n">da4cb</span><span class="o">-</span><span class="n">a14f</span><span class="o">-</span><span class="mi">4465</span><span class="o">-</span><span class="mi">841</span><span class="n">f</span><span class="o">-</span><span class="mi">124346</span><span class="n">cf3bde</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">85</span><span class="n">fdb68e</span><span class="o">-</span><span class="mi">8</span><span class="n">bd3</span><span class="o">-</span><span class="mi">4</span><span class="n">e5e</span><span class="o">-</span><span class="n">bb4e</span><span class="o">-</span><span class="n">f286298f4fe6</span> <span class="o">|</span> <span class="n">said</span><span class="o">/</span><span class="n">ubuntu15</span>                           <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="n">e3d5fcf5</span><span class="o">-</span><span class="mi">1</span><span class="n">b40</span><span class="o">-</span><span class="mi">48</span><span class="n">df</span><span class="o">-</span><span class="mi">9098</span><span class="o">-</span><span class="mi">3</span><span class="n">c03a682421e</span> <span class="o">|</span> <span class="n">slaves_ubuntu_14_04</span>                     <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="mi">58</span><span class="n">c9552c</span><span class="o">-</span><span class="mi">8</span><span class="n">d93</span><span class="o">-</span><span class="mi">42</span><span class="n">c0</span><span class="o">-</span><span class="mi">9</span><span class="n">dea</span><span class="o">-</span><span class="mi">5</span><span class="n">f48d90a3188</span> <span class="o">|</span> <span class="n">ubuntu12</span><span class="o">-</span><span class="n">cometworker1</span>                   <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span> <span class="mi">55458942</span><span class="o">-</span><span class="mi">1</span><span class="n">d8f</span><span class="o">-</span><span class="mi">4</span><span class="n">a54</span><span class="o">-</span><span class="n">af10</span><span class="o">-</span><span class="mi">8</span><span class="n">e01c47953ea</span> <span class="o">|</span>
+<span class="o">+--------------------------------------+-----------------------------------------+--------+--------------------------------------+</span>
 </pre></div>
 </div>
 <p>Listing flavors:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm nova flavor-list
-Cloud = india
-+----+----------------+-----------+------+-----------+------+-------+-------------+-----------+
-| ID | Name           | Memory_MB | Disk | Ephemeral | Swap | VCPUs | RXTX_Factor | Is_Public |
-+----+----------------+-----------+------+-----------+------+-------+-------------+-----------+
-| 1  | m1.tiny        | 512       | 0    | 0         |      | 1     | 1.0         | True      |
-| 2  | m1.small       | 2048      | 20   | 0         |      | 1     | 1.0         | True      |
-| 3  | m1.medium      | 4096      | 40   | 0         |      | 2     | 1.0         | True      |
-| 4  | m1.large       | 8192      | 80   | 0         |      | 4     | 1.0         | True      |
-| 5  | m1.xlarge      | 16384     | 160  | 0         |      | 8     | 1.0         | True      |
-| 6  | m1.small_e30   | 2048      | 20   | 30        |      | 1     | 1.0         | True      |
-| 7  | m1.medium_e60  | 4096      | 40   | 60        |      | 2     | 1.0         | True      |
-| 8  | m1.large_e100  | 8192      | 80   | 100       |      | 4     | 1.0         | True      |
-| 9  | m1.xlarge_e200 | 16384     | 160  | 200       |      | 8     | 1.0         | True      |
-+----+----------------+-----------+------+-----------+------+-------+-------------+-----------+
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">prompt</span><span class="p">::</span> <span class="n">bash</span><span class="p">,</span> <span class="n">cm</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<blockquote>
+<div>nova flavor-list</div></blockquote>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Cloud</span> <span class="o">=</span> <span class="n">india</span>
+<span class="o">+----+----------------+-----------+------+-----------+------+-------+-------------+-----------+</span>
+<span class="o">|</span> <span class="n">ID</span> <span class="o">|</span> <span class="n">Name</span>           <span class="o">|</span> <span class="n">Memory_MB</span> <span class="o">|</span> <span class="n">Disk</span> <span class="o">|</span> <span class="n">Ephemeral</span> <span class="o">|</span> <span class="n">Swap</span> <span class="o">|</span> <span class="n">VCPUs</span> <span class="o">|</span> <span class="n">RXTX_Factor</span> <span class="o">|</span> <span class="n">Is_Public</span> <span class="o">|</span>
+<span class="o">+----+----------------+-----------+------+-----------+------+-------+-------------+-----------+</span>
+<span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">tiny</span>        <span class="o">|</span> <span class="mi">512</span>       <span class="o">|</span> <span class="mi">0</span>    <span class="o">|</span> <span class="mi">0</span>         <span class="o">|</span>      <span class="o">|</span> <span class="mi">1</span>     <span class="o">|</span> <span class="mf">1.0</span>         <span class="o">|</span> <span class="kc">True</span>      <span class="o">|</span>
+<span class="o">|</span> <span class="mi">2</span>  <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">small</span>       <span class="o">|</span> <span class="mi">2048</span>      <span class="o">|</span> <span class="mi">20</span>   <span class="o">|</span> <span class="mi">0</span>         <span class="o">|</span>      <span class="o">|</span> <span class="mi">1</span>     <span class="o">|</span> <span class="mf">1.0</span>         <span class="o">|</span> <span class="kc">True</span>      <span class="o">|</span>
+<span class="o">|</span> <span class="mi">3</span>  <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">medium</span>      <span class="o">|</span> <span class="mi">4096</span>      <span class="o">|</span> <span class="mi">40</span>   <span class="o">|</span> <span class="mi">0</span>         <span class="o">|</span>      <span class="o">|</span> <span class="mi">2</span>     <span class="o">|</span> <span class="mf">1.0</span>         <span class="o">|</span> <span class="kc">True</span>      <span class="o">|</span>
+<span class="o">|</span> <span class="mi">4</span>  <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">large</span>       <span class="o">|</span> <span class="mi">8192</span>      <span class="o">|</span> <span class="mi">80</span>   <span class="o">|</span> <span class="mi">0</span>         <span class="o">|</span>      <span class="o">|</span> <span class="mi">4</span>     <span class="o">|</span> <span class="mf">1.0</span>         <span class="o">|</span> <span class="kc">True</span>      <span class="o">|</span>
+<span class="o">|</span> <span class="mi">5</span>  <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">xlarge</span>      <span class="o">|</span> <span class="mi">16384</span>     <span class="o">|</span> <span class="mi">160</span>  <span class="o">|</span> <span class="mi">0</span>         <span class="o">|</span>      <span class="o">|</span> <span class="mi">8</span>     <span class="o">|</span> <span class="mf">1.0</span>         <span class="o">|</span> <span class="kc">True</span>      <span class="o">|</span>
+<span class="o">|</span> <span class="mi">6</span>  <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">small_e30</span>   <span class="o">|</span> <span class="mi">2048</span>      <span class="o">|</span> <span class="mi">20</span>   <span class="o">|</span> <span class="mi">30</span>        <span class="o">|</span>      <span class="o">|</span> <span class="mi">1</span>     <span class="o">|</span> <span class="mf">1.0</span>         <span class="o">|</span> <span class="kc">True</span>      <span class="o">|</span>
+<span class="o">|</span> <span class="mi">7</span>  <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">medium_e60</span>  <span class="o">|</span> <span class="mi">4096</span>      <span class="o">|</span> <span class="mi">40</span>   <span class="o">|</span> <span class="mi">60</span>        <span class="o">|</span>      <span class="o">|</span> <span class="mi">2</span>     <span class="o">|</span> <span class="mf">1.0</span>         <span class="o">|</span> <span class="kc">True</span>      <span class="o">|</span>
+<span class="o">|</span> <span class="mi">8</span>  <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">large_e100</span>  <span class="o">|</span> <span class="mi">8192</span>      <span class="o">|</span> <span class="mi">80</span>   <span class="o">|</span> <span class="mi">100</span>       <span class="o">|</span>      <span class="o">|</span> <span class="mi">4</span>     <span class="o">|</span> <span class="mf">1.0</span>         <span class="o">|</span> <span class="kc">True</span>      <span class="o">|</span>
+<span class="o">|</span> <span class="mi">9</span>  <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">xlarge_e200</span> <span class="o">|</span> <span class="mi">16384</span>     <span class="o">|</span> <span class="mi">160</span>  <span class="o">|</span> <span class="mi">200</span>       <span class="o">|</span>      <span class="o">|</span> <span class="mi">8</span>     <span class="o">|</span> <span class="mf">1.0</span>         <span class="o">|</span> <span class="kc">True</span>      <span class="o">|</span>
+<span class="o">+----+----------------+-----------+------+-----------+------+-------+-------------+-----------+</span>
 </pre></div>
 </div>
 <p>Following is the link for openstack nova command manual:-</p>
@@ -350,7 +364,7 @@ Cloud = india
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

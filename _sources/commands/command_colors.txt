@@ -4,7 +4,7 @@ Color Command
 You can toggle the color of the cloudmesh shell console
 by using the color command.
 
-The manual page of the group command can be found at: `group
+The manual page of the `color` command can be found at: `color
 <../man/man.html#color>`_
 
 
@@ -12,21 +12,43 @@ The manual page of the group command can be found at: `group
 Color ON/TRUE
 ^^^^^^^^^^^^^^
 
-Turn the color mode ON::
+Turn the color mode on:
 
-  $ cm color ON
-    Color True
 
-  $ cm color TRUE
-    Color True
+.. prompt:: bash, cm>
+	    
+  color ON
+
+::
+     
+  Color True
+
+.. prompt:: bash, cm>
+
+   color TRUE
+
+::
+
+   Color True
 
 Color OFF/FALSE
 ^^^^^^^^^^^^^^^^
 
-Turn the color mode OFF::
+Turn the color mode OFF:
 
-  $ cm color OFF
-    Color False
+.. prompt:: bash, cm>
+	    
+  color OFF
 
-  $ cm color FALSE
-    Color False
+::  
+
+   Color False
+
+
+.. prompt:: bash, cm>
+
+  color FALSE
+
+::
+   
+  Color False

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quickstart &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>Quickstart &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="index.html"/>
         <link rel="next" title="Reference Card" href="reference_card.html"/>
         <link rel="prev" title="Introduction" href="introduction.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -95,6 +95,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#accessing-clouds">Accessing Clouds</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#virtual-machines">Virtual Machines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#vm-quickstart">VM Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#microsoft-azure">Microsoft Azure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#hpc">HPC</a></li>
 </ul>
 </li>
@@ -398,6 +399,82 @@ them accordingly with the cloudmesh commands.</p>
 </pre><p>And to delete the vm</p>
 <pre class="highlight"><span class="prompt1">cm delete --force</span>
 </pre></div>
+<div class="section" id="microsoft-azure">
+<h2>Microsoft Azure<a class="headerlink" href="#microsoft-azure" title="Permalink to this headline">¶</a></h2>
+<p>To connect to the Azure cloud, you need your Azure subscription ID
+and a valid management certificate. You can obtain your subscription ID through the Azure classic portal.</p>
+<dl class="docutils">
+<dt>Steps to generate management certificate:</dt>
+<dd>You actually need to create two certificates, one for the server (a .cer file)
+and one for the client (a .pem file).
+1. To create the .pem file, execute this:
+openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem
+2. To create the .cer certificate, execute this:
+openssl x509 -inform pem -in mycert.pem -outform der -out mycert.cer</dd>
+</dl>
+<p>This subscription ID and Management certificate path has to be added in the cloudmesh.yaml file.
+Ex:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>credentials:</dt>
+<dd>managementcertfile: &lt;pem-certificate-path&gt;
+subscriptionid: &lt;subscription-id&gt;</dd>
+</dl>
+</div></blockquote>
+<p>Default Azure Location will be &#8220;Central US&#8221;, but it is configurable in cloudmesh.yaml file.</p>
+<p>Other than the regular commands, there is one extra command(Akey) in Azure which is needed to create VMs with
+certificates and SSH keys.</p>
+<dl class="docutils">
+<dt>Akey Command Syntax:</dt>
+<dd>akey add &#8211;name=key-name &#8211;pub=pub-key-path &#8211;cert=pem-certificate-file-path &#8211;pfx=pfx-file-path</dd>
+</dl>
+<p>To create a new VM deployment in Azure cloud with an SSH key it is mandatory to have a certificate associated with it.
+Steps to create a Key pair and a certificate:</p>
+<blockquote>
+<div><p>1. Create a RSA key and self signed certificate:
+openssl req -x509 -newkey rsa:2048 -keyout mycer.key -out mycer.pem -days 365 -nodes</p>
+<p>2. Create PFX:
+openssl pkcs12 -export -out mycer.pfx -inkey mycer.key -in mycer.pem</p>
+<p>3. Create Public key from Private key:
+ssh-keygen -y -f mycer.key &gt; mycer.pub</p>
+</div></blockquote>
+<p>Some sample commands:</p>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt>To fetch the List of VMs:</dt>
+<dd><p class="first last">cm default cloud=azure
+cm vm refresh
+cm vm list</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>To fetch the list of Images:</dt>
+<dd><p class="first last">cm default cloud=azure
+cm image refresh
+cm image list</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>To fetch the list of Flavors:</dt>
+<dd><p class="first last">cm default cloud=azure
+cm flavor refresh
+cm flavor list</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>To create a new VM instance and SSH to that instance:</dt>
+<dd><p class="first last">cm akey add &#8211;name=test-key &#8211;pub=&#8221;mycer.pub&#8221; &#8211;cert=&#8221;mycer.pem&#8221; &#8211;pfx=&#8221;mycer.pfx&#8221;
+cm default key=test-key
+cm vm boot
+cm vm ssh username-001 &#8211;key=mycer.key</p>
+</dd>
+</dl>
+</li>
+</ol>
+</div>
 <div class="section" id="hpc">
 <h2>HPC<a class="headerlink" href="#hpc" title="Permalink to this headline">¶</a></h2>
 <p>In order to use the HPC experiment management functionality, you must
@@ -456,7 +533,7 @@ system further to for example list the output</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -1,7 +1,7 @@
 Image Command
 ======================================================================
 
-The manual page of the image command can be found at: `Image
+The manual page of the `image` command can be found at: `Image
 <../man/man.html#image>`_
 
 An image is a collection of files used to create or rebuild a server
@@ -10,33 +10,47 @@ Refresh
 ----------------------------------------------------------------------
 
 The refresh command would update the local database with the latest images.
-To refresh images of a cloud (in this example, kilo), do the following::
+To refresh images of a cloud (in this example, kilo), do the following:
 
+.. prompt:: bash, cm>
+  
     $cm image refresh --cloud=kilo
-    Refresh image for cloud kilo. ok.
+
+::
+
+   Refresh image for cloud kilo. ok.
 
 List
 ----------------------------------------------------------------------
 
-To list the set of images of a cloud, do the following::
+To list the set of images of a cloud, do the following:
+
+.. prompt:: bash, cm>
 
     $cm image list --cloud=kilo
-    +----+---------------+----------------------+------------------------------+---------+--------+-----------------------------------------+----------+--------+----------------------+
-    | id | size          | created              | description                  | minDisk | minRam | name                                    | progress | status | updated              |
-    +----+---------------+----------------------+------------------------------+---------+--------+-----------------------------------------+----------+--------+----------------------+
-    | 1  | 158443520     | 2015-03-23T20:50:29Z |                              | 0       | 0      | XXX                                     | 100      | ACTIVE | 2015-03-23T20:50:33Z |
-    | 2  | 1270546432    | 2015-03-26T18:15:47Z |                              | 20      | 0      | YYY                                     | 100      | ACTIVE | 2015-03-26T18:17:41Z |
-    | 3  | 4845404160    | 2015-03-26T20:05:29Z |                              | 40      | 0      | mooc-backup                             | 100      | ACTIVE | 2015-03-27T20:57:02Z |
-    +----+---------------+----------------------+------------------------------+---------+--------+-----------------------------------------+----------+--------+----------------------+
+
+::
+   
+    +----+---------------+----------------------+--------------+---------+--------+-----------------+----------+--------+----------------------+
+    | id | size          | created              | description  | minDisk | minRam | name            | progress | status | updated              |
+    +----+---------------+----------------------+--------------+---------+--------+-----------------+----------+--------+----------------------+
+    | 1  | 158443520     | 2015-03-23T20:50:29Z |              | 0       | 0      | XXX             | 100      | ACTIVE | 2015-03-23T20:50:33Z |
+    | 2  | 1270546432    | 2015-03-26T18:15:47Z |              | 20      | 0      | YYY             | 100      | ACTIVE | 2015-03-26T18:17:41Z |
+    | 3  | 4845404160    | 2015-03-26T20:05:29Z |              | 40      | 0      | mooc-backup     | 100      | ACTIVE | 2015-03-27T20:57:02Z |
+    +----+---------------+----------------------+--------------+---------+--------+-----------------+----------+--------+----------------------+
 
 List Details
 ----------------------------------------------------------------------
 
 To list the details of an image, give in the id, uuid or name of the image. In case latest information is needed,
-the --refresh option can be used which would update the local database::
+the --refresh option can be used which would update the local database:
 
+.. prompt:: bash, cm>
 
     $cm image list 12 --cloud=kilo
+
+::
+   
     +--------------------------------------+--------------------------------------+
     | Attribute                            | Value                                |
     +--------------------------------------+--------------------------------------+

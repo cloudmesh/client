@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Image Command &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>Image Command &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Network Command" href="command_network.html"/>
         <link rel="prev" title="Flavor Command" href="command_flavor.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -203,28 +203,32 @@
             
   <div class="section" id="image-command">
 <h1>Image Command<a class="headerlink" href="#image-command" title="Permalink to this headline">¶</a></h1>
-<p>The manual page of the image command can be found at: <a class="reference external" href="../man/man.html#image">Image</a></p>
+<p>The manual page of the <cite>image</cite> command can be found at: <a class="reference external" href="../man/man.html#image">Image</a></p>
 <p>An image is a collection of files used to create or rebuild a server</p>
 <div class="section" id="refresh">
 <h2>Refresh<a class="headerlink" href="#refresh" title="Permalink to this headline">¶</a></h2>
 <p>The refresh command would update the local database with the latest images.
 To refresh images of a cloud (in this example, kilo), do the following:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$cm image refresh --cloud=kilo
-Refresh image for cloud kilo. ok.
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "cm> ";
+}
+</style><span class="prompt1">$cm image refresh --cloud=kilo</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Refresh</span> <span class="n">image</span> <span class="k">for</span> <span class="n">cloud</span> <span class="n">kilo</span><span class="o">.</span> <span class="n">ok</span><span class="o">.</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="list">
 <h2>List<a class="headerlink" href="#list" title="Permalink to this headline">¶</a></h2>
 <p>To list the set of images of a cloud, do the following:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$cm image list --cloud=kilo
-+----+---------------+----------------------+------------------------------+---------+--------+-----------------------------------------+----------+--------+----------------------+
-| id | size          | created              | description                  | minDisk | minRam | name                                    | progress | status | updated              |
-+----+---------------+----------------------+------------------------------+---------+--------+-----------------------------------------+----------+--------+----------------------+
-| 1  | 158443520     | 2015-03-23T20:50:29Z |                              | 0       | 0      | XXX                                     | 100      | ACTIVE | 2015-03-23T20:50:33Z |
-| 2  | 1270546432    | 2015-03-26T18:15:47Z |                              | 20      | 0      | YYY                                     | 100      | ACTIVE | 2015-03-26T18:17:41Z |
-| 3  | 4845404160    | 2015-03-26T20:05:29Z |                              | 40      | 0      | mooc-backup                             | 100      | ACTIVE | 2015-03-27T20:57:02Z |
-+----+---------------+----------------------+------------------------------+---------+--------+-----------------------------------------+----------+--------+----------------------+
+<pre class="highlight"><span class="prompt1">$cm image list --cloud=kilo</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+----+---------------+----------------------+--------------+---------+--------+-----------------+----------+--------+----------------------+</span>
+<span class="o">|</span> <span class="nb">id</span> <span class="o">|</span> <span class="n">size</span>          <span class="o">|</span> <span class="n">created</span>              <span class="o">|</span> <span class="n">description</span>  <span class="o">|</span> <span class="n">minDisk</span> <span class="o">|</span> <span class="n">minRam</span> <span class="o">|</span> <span class="n">name</span>            <span class="o">|</span> <span class="n">progress</span> <span class="o">|</span> <span class="n">status</span> <span class="o">|</span> <span class="n">updated</span>              <span class="o">|</span>
+<span class="o">+----+---------------+----------------------+--------------+---------+--------+-----------------+----------+--------+----------------------+</span>
+<span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="mi">158443520</span>     <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">23</span><span class="n">T20</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="n">Z</span> <span class="o">|</span>              <span class="o">|</span> <span class="mi">0</span>       <span class="o">|</span> <span class="mi">0</span>      <span class="o">|</span> <span class="n">XXX</span>             <span class="o">|</span> <span class="mi">100</span>      <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">23</span><span class="n">T20</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">33</span><span class="n">Z</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">2</span>  <span class="o">|</span> <span class="mi">1270546432</span>    <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">26</span><span class="n">T18</span><span class="p">:</span><span class="mi">15</span><span class="p">:</span><span class="mi">47</span><span class="n">Z</span> <span class="o">|</span>              <span class="o">|</span> <span class="mi">20</span>      <span class="o">|</span> <span class="mi">0</span>      <span class="o">|</span> <span class="n">YYY</span>             <span class="o">|</span> <span class="mi">100</span>      <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">26</span><span class="n">T18</span><span class="p">:</span><span class="mi">17</span><span class="p">:</span><span class="mi">41</span><span class="n">Z</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">3</span>  <span class="o">|</span> <span class="mi">4845404160</span>    <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">26</span><span class="n">T20</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">29</span><span class="n">Z</span> <span class="o">|</span>              <span class="o">|</span> <span class="mi">40</span>      <span class="o">|</span> <span class="mi">0</span>      <span class="o">|</span> <span class="n">mooc</span><span class="o">-</span><span class="n">backup</span>     <span class="o">|</span> <span class="mi">100</span>      <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">27</span><span class="n">T20</span><span class="p">:</span><span class="mi">57</span><span class="p">:</span><span class="mi">02</span><span class="n">Z</span> <span class="o">|</span>
+<span class="o">+----+---------------+----------------------+--------------+---------+--------+-----------------+----------+--------+----------------------+</span>
 </pre></div>
 </div>
 </div>
@@ -232,48 +236,48 @@ Refresh image for cloud kilo. ok.
 <h2>List Details<a class="headerlink" href="#list-details" title="Permalink to this headline">¶</a></h2>
 <p>To list the details of an image, give in the id, uuid or name of the image. In case latest information is needed,
 the &#8211;refresh option can be used which would update the local database:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$cm image list 12 --cloud=kilo
-+--------------------------------------+--------------------------------------+
-| Attribute                            | Value                                |
-+--------------------------------------+--------------------------------------+
-| metadata__ramdisk_id                 | None                                 |
-| metadata__description                | None                                 |
-| metadata__kernel_id                  | None                                 |
-| id                                   | 12                                   |
-| metadata__instance_type_ephemeral_gb | 0                                    |
-| minRam                               | 0                                    |
-| metadata__instance_type_swap         | 0                                    |
-| metadata__instance_type_vcpus        | 1                                    |
-| metadata__instance_type_rxtx_factor  | 1.0                                  |
-| progress                             | 100                                  |
-| os_image_size                        | 1977483264                           |
-| metadata__instance_type_flavorid     | 2                                    |
-| metadata__instance_type_root_gb      | 20                                   |
-| minDisk                              | 20                                   |
-| created                              | 2015-05-23T20:45:51Z                 |
-| updated                              | 2015-05-23T20:51:12Z                 |
-| updated_at                           | 2015-11-11 00:29:55                  |
-| created_at                           | 2015-11-11 00:29:55                  |
-| metadata__instance_type_memory_mb    | 2048                                 |
-| metadata__instance_type_id           | 5                                    |
-| metadata__base_image_ref             | 6a6a3474-8194-44ac-9f56-70cb93207f21 |
-| status                               | ACTIVE                               |
-| metadata__network_allocated          | True                                 |
-| uuid                                 | a59833a2-60c9-47f0-b333-4e0bc071ac3a |
-| metadata__image_state                | available                            |
-| metadata__user_id                    | b13b62690e984c7586df1cdd2df07b5f     |
-| metadata__owner_id                   | c713809dee494dccac34fcd02e012acb     |
-| user                                 | albert                               |
-| metadata__instance_uuid              | f01633b1-76b0-47b5-915e-eaae4559ba60 |
-| label                                | ZZZ                                  |
-| name                                 | ZZZ                                  |
-| kind                                 | image                                |
-| cloud                                | kilo                                 |
-| metadata__instance_type_name         | m1.small                             |
-| metadata__image_location             | snapshot                             |
-| metadata__image_type                 | snapshot                             |
-| project                              | undefined                            |
-+--------------------------------------+--------------------------------------+
+<pre class="highlight"><span class="prompt1">$cm image list 12 --cloud=kilo</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+--------------------------------------+--------------------------------------+</span>
+<span class="o">|</span> <span class="n">Attribute</span>                            <span class="o">|</span> <span class="n">Value</span>                                <span class="o">|</span>
+<span class="o">+--------------------------------------+--------------------------------------+</span>
+<span class="o">|</span> <span class="n">metadata__ramdisk_id</span>                 <span class="o">|</span> <span class="kc">None</span>                                 <span class="o">|</span>
+<span class="o">|</span> <span class="n">metadata__description</span>                <span class="o">|</span> <span class="kc">None</span>                                 <span class="o">|</span>
+<span class="o">|</span> <span class="n">metadata__kernel_id</span>                  <span class="o">|</span> <span class="kc">None</span>                                 <span class="o">|</span>
+<span class="o">|</span> <span class="nb">id</span>                                   <span class="o">|</span> <span class="mi">12</span>                                   <span class="o">|</span>
+<span class="o">|</span> <span class="n">metadata__instance_type_ephemeral_gb</span> <span class="o">|</span> <span class="mi">0</span>                                    <span class="o">|</span>
+<span class="o">|</span> <span class="n">minRam</span>                               <span class="o">|</span> <span class="mi">0</span>                                    <span class="o">|</span>
+<span class="o">|</span> <span class="n">metadata__instance_type_swap</span>         <span class="o">|</span> <span class="mi">0</span>                                    <span class="o">|</span>
+<span class="o">|</span> <span class="n">metadata__instance_type_vcpus</span>        <span class="o">|</span> <span class="mi">1</span>                                    <span class="o">|</span>
+<span class="o">|</span> <span class="n">metadata__instance_type_rxtx_factor</span>  <span class="o">|</span> <span class="mf">1.0</span>                                  <span class="o">|</span>
+<span class="o">|</span> <span class="n">progress</span>                             <span class="o">|</span> <span class="mi">100</span>                                  <span class="o">|</span>
+<span class="o">|</span> <span class="n">os_image_size</span>                        <span class="o">|</span> <span class="mi">1977483264</span>                           <span class="o">|</span>
+<span class="o">|</span> <span class="n">metadata__instance_type_flavorid</span>     <span class="o">|</span> <span class="mi">2</span>                                    <span class="o">|</span>
+<span class="o">|</span> <span class="n">metadata__instance_type_root_gb</span>      <span class="o">|</span> <span class="mi">20</span>                                   <span class="o">|</span>
+<span class="o">|</span> <span class="n">minDisk</span>                              <span class="o">|</span> <span class="mi">20</span>                                   <span class="o">|</span>
+<span class="o">|</span> <span class="n">created</span>                              <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">23</span><span class="n">T20</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mi">51</span><span class="n">Z</span>                 <span class="o">|</span>
+<span class="o">|</span> <span class="n">updated</span>                              <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">23</span><span class="n">T20</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">12</span><span class="n">Z</span>                 <span class="o">|</span>
+<span class="o">|</span> <span class="n">updated_at</span>                           <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span> <span class="mi">00</span><span class="p">:</span><span class="mi">29</span><span class="p">:</span><span class="mi">55</span>                  <span class="o">|</span>
+<span class="o">|</span> <span class="n">created_at</span>                           <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span> <span class="mi">00</span><span class="p">:</span><span class="mi">29</span><span class="p">:</span><span class="mi">55</span>                  <span class="o">|</span>
+<span class="o">|</span> <span class="n">metadata__instance_type_memory_mb</span>    <span class="o">|</span> <span class="mi">2048</span>                                 <span class="o">|</span>
+<span class="o">|</span> <span class="n">metadata__instance_type_id</span>           <span class="o">|</span> <span class="mi">5</span>                                    <span class="o">|</span>
+<span class="o">|</span> <span class="n">metadata__base_image_ref</span>             <span class="o">|</span> <span class="mi">6</span><span class="n">a6a3474</span><span class="o">-</span><span class="mi">8194</span><span class="o">-</span><span class="mi">44</span><span class="n">ac</span><span class="o">-</span><span class="mi">9</span><span class="n">f56</span><span class="o">-</span><span class="mi">70</span><span class="n">cb93207f21</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">status</span>                               <span class="o">|</span> <span class="n">ACTIVE</span>                               <span class="o">|</span>
+<span class="o">|</span> <span class="n">metadata__network_allocated</span>          <span class="o">|</span> <span class="kc">True</span>                                 <span class="o">|</span>
+<span class="o">|</span> <span class="n">uuid</span>                                 <span class="o">|</span> <span class="n">a59833a2</span><span class="o">-</span><span class="mi">60</span><span class="n">c9</span><span class="o">-</span><span class="mi">47</span><span class="n">f0</span><span class="o">-</span><span class="n">b333</span><span class="o">-</span><span class="mi">4</span><span class="n">e0bc071ac3a</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">metadata__image_state</span>                <span class="o">|</span> <span class="n">available</span>                            <span class="o">|</span>
+<span class="o">|</span> <span class="n">metadata__user_id</span>                    <span class="o">|</span> <span class="n">b13b62690e984c7586df1cdd2df07b5f</span>     <span class="o">|</span>
+<span class="o">|</span> <span class="n">metadata__owner_id</span>                   <span class="o">|</span> <span class="n">c713809dee494dccac34fcd02e012acb</span>     <span class="o">|</span>
+<span class="o">|</span> <span class="n">user</span>                                 <span class="o">|</span> <span class="n">albert</span>                               <span class="o">|</span>
+<span class="o">|</span> <span class="n">metadata__instance_uuid</span>              <span class="o">|</span> <span class="n">f01633b1</span><span class="o">-</span><span class="mi">76</span><span class="n">b0</span><span class="o">-</span><span class="mi">47</span><span class="n">b5</span><span class="o">-</span><span class="mi">915</span><span class="n">e</span><span class="o">-</span><span class="n">eaae4559ba60</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">label</span>                                <span class="o">|</span> <span class="n">ZZZ</span>                                  <span class="o">|</span>
+<span class="o">|</span> <span class="n">name</span>                                 <span class="o">|</span> <span class="n">ZZZ</span>                                  <span class="o">|</span>
+<span class="o">|</span> <span class="n">kind</span>                                 <span class="o">|</span> <span class="n">image</span>                                <span class="o">|</span>
+<span class="o">|</span> <span class="n">cloud</span>                                <span class="o">|</span> <span class="n">kilo</span>                                 <span class="o">|</span>
+<span class="o">|</span> <span class="n">metadata__instance_type_name</span>         <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">small</span>                             <span class="o">|</span>
+<span class="o">|</span> <span class="n">metadata__image_location</span>             <span class="o">|</span> <span class="n">snapshot</span>                             <span class="o">|</span>
+<span class="o">|</span> <span class="n">metadata__image_type</span>                 <span class="o">|</span> <span class="n">snapshot</span>                             <span class="o">|</span>
+<span class="o">|</span> <span class="n">project</span>                              <span class="o">|</span> <span class="n">undefined</span>                            <span class="o">|</span>
+<span class="o">+--------------------------------------+--------------------------------------+</span>
 </pre></div>
 </div>
 </div>
@@ -319,7 +323,7 @@ the &#8211;refresh option can be used which would update the local database:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

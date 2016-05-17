@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.common package &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>cloudmesh_client.common package &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client package" href="cloudmesh_client.html"/>
         <link rel="next" title="cloudmesh_client.db package" href="cloudmesh_client.db.html"/>
         <link rel="prev" title="cloudmesh_client.comet package" href="cloudmesh_client.comet.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -128,6 +128,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.BaseConfigDict">cloudmesh_client.common.BaseConfigDict module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.ConfigDict">cloudmesh_client.common.ConfigDict module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.DictDB">cloudmesh_client.common.DictDB module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.DynamicClass">cloudmesh_client.common.DynamicClass module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.Error">cloudmesh_client.common.Error module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.FlatDict">cloudmesh_client.common.FlatDict module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.FlatDict2">cloudmesh_client.common.FlatDict2 module</a></li>
@@ -153,6 +154,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.db.html">cloudmesh_client.db package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.etc.html">cloudmesh_client.etc package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.extend.html">cloudmesh_client.extend package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.provider.html">cloudmesh_client.provider package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.shell.html">cloudmesh_client.shell package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.system.html">cloudmesh_client.system package</a></li>
@@ -162,6 +164,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.main">cloudmesh_client.main module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.setup">cloudmesh_client.setup module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.shell_commad">cloudmesh_client.shell_commad module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.var">cloudmesh_client.var module</a></li>
@@ -807,6 +810,35 @@ operators that are allowed are = and, or</p>
 </tbody>
 </table>
 </dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cloudmesh_client.common.DynamicClass">
+<span id="cloudmesh-client-common-dynamicclass-module"></span><h2>cloudmesh_client.common.DynamicClass module<a class="headerlink" href="#module-cloudmesh_client.common.DynamicClass" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.common.DynamicClass.DynamicClass">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.common.DynamicClass.</code><code class="descname">DynamicClass</code><a class="reference internal" href="../_modules/cloudmesh_client/common/DynamicClass.html#DynamicClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.DynamicClass.DynamicClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="classmethod">
+<dt id="cloudmesh_client.common.DynamicClass.DynamicClass.add_classmethod">
+<em class="property">classmethod </em><code class="descname">add_classmethod</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/DynamicClass.html#DynamicClass.add_classmethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.DynamicClass.DynamicClass.add_classmethod" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.common.DynamicClass.DynamicClass.add_instance_method">
+<code class="descname">add_instance_method</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/DynamicClass.html#DynamicClass.add_instance_method"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.DynamicClass.DynamicClass.add_instance_method" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.common.DynamicClass.DynamicClass.load_classmethod">
+<em class="property">classmethod </em><code class="descname">load_classmethod</code><span class="sig-paren">(</span><em>location</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/DynamicClass.html#DynamicClass.load_classmethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.DynamicClass.DynamicClass.load_classmethod" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.common.DynamicClass.DynamicClass.load_instancemethod">
+<code class="descname">load_instancemethod</code><span class="sig-paren">(</span><em>location</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/DynamicClass.html#DynamicClass.load_instancemethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.DynamicClass.DynamicClass.load_instancemethod" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -2255,6 +2287,11 @@ String matching only, does not do REs as currently implemented.</p>
 <dd></dd></dl>
 
 <dl class="function">
+<dt id="cloudmesh_client.common.util.search">
+<code class="descclassname">cloudmesh_client.common.util.</code><code class="descname">search</code><span class="sig-paren">(</span><em>lines</em>, <em>pattern</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/util.html#search"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.util.search" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="cloudmesh_client.common.util.str_banner">
 <code class="descclassname">cloudmesh_client.common.util.</code><code class="descname">str_banner</code><span class="sig-paren">(</span><em>txt=None</em>, <em>c='#'</em>, <em>debug=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/util.html#str_banner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.util.str_banner" title="Permalink to this definition">¶</a></dt>
 <dd><p>prints a banner of the form with a frame of # arround the txt:</p>
@@ -2390,7 +2427,7 @@ digit or arithmetic e.g. +5 or -3 can be used</dd>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Network Command &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>Network Command &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Sync Command" href="command_sync.html"/>
         <link rel="prev" title="Image Command" href="command_image.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -118,7 +118,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#disassociate-floating-ip-address-from-an-instance">Disassociate Floating IP Address from an Instance</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_sync.html">Sync Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_limits.html">Limits Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_quota.html">Quota Command</a></li>
@@ -210,104 +209,108 @@
 and define network connectivity and addressing in the cloud.
 Network command handles the creation and management of a virtual networking infrastructure,
 including networks, fixed &amp; floating ips.</p>
-<p>The manual page of the network command can be found at: <cite>network &lt;../man/man.html#network&gt;</cite></p>
+<p>The manual page of the <cite>network</cite> command can be found at: <a class="reference external" href="../man/man.html#network">network</a></p>
 <dl class="docutils">
 <dt>..note:: We assume you have your default cloud set,</dt>
 <dd><p class="first">via the default command:</p>
-<div class="last highlight-default"><div class="highlight"><pre><span></span>$ cm default cloud=kilo
-</pre></div>
-</div>
-</dd>
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "cm> ";
+}
+</style><span class="prompt1">default cloud=kilo</span>
+</pre></dd>
 </dl>
 <div class="section" id="list-floating-ip-pools">
 <h2>List Floating IP Pools<a class="headerlink" href="#list-floating-ip-pools" title="Permalink to this headline">¶</a></h2>
 <p>To list the floating ip pools in your cloud network use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm network list floating pool
-  +------------------+
-  | floating_ip_pool |
-  +------------------+
-  | ext-net          |
-  +------------------+
+<pre class="highlight"><span class="prompt1">network list floating pool</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+------------------+</span>
+<span class="o">|</span> <span class="n">floating_ip_pool</span> <span class="o">|</span>
+<span class="o">+------------------+</span>
+<span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>
+<span class="o">+------------------+</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="list-floating-ip-addresses">
 <h2>List Floating IP Addresses<a class="headerlink" href="#list-floating-ip-addresses" title="Permalink to this headline">¶</a></h2>
 <p>To list the floating ip addresses in you cloud use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm network list floating ip
-  +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
-  | instance_name | floating_ip     | floating_ip_pool | fixed_ip  | floating_ip_id                       | instance_id                          |
-  +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
-  |               | 100.165.123.110 | ext-net          |           | 3e0915a9-f190-324d-8b56-4c2fd2a0d97b |                                      |
-  | albert-004    | 100.165.123.111 | ext-net          | 10.0.2.10 | 58fbeca5-aad3-2f44-af23-0bb8ac60dc89 | a183b85f-2d4r-44b9-933f-64562380286f |
-  +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
+<pre class="highlight"><span class="prompt1">network list floating ip</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
+<span class="o">|</span> <span class="n">instance_name</span> <span class="o">|</span> <span class="n">floating_ip</span>     <span class="o">|</span> <span class="n">floating_ip_pool</span> <span class="o">|</span> <span class="n">fixed_ip</span>  <span class="o">|</span> <span class="n">floating_ip_id</span>                       <span class="o">|</span> <span class="n">instance_id</span>                          <span class="o">|</span>
+<span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
+<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.110</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mi">3</span><span class="n">e0915a9</span><span class="o">-</span><span class="n">f190</span><span class="o">-</span><span class="mi">324</span><span class="n">d</span><span class="o">-</span><span class="mi">8</span><span class="n">b56</span><span class="o">-</span><span class="mi">4</span><span class="n">c2fd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">004</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.111</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.10</span> <span class="o">|</span> <span class="mi">58</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">2</span><span class="n">f44</span><span class="o">-</span><span class="n">af23</span><span class="o">-</span><span class="mi">0</span><span class="n">bb8ac60dc89</span> <span class="o">|</span> <span class="n">a183b85f</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">64562380286</span><span class="n">f</span> <span class="o">|</span>
+<span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
 </pre></div>
 </div>
 <p>To view the floating ip details for a particular instance, use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm network list floating ip --instance=albert-004
-  +---------------+--------------------------------------+
-  | name          | value                                |
-  +---------------+--------------------------------------+
-  | fixed_ip      | 10.0.2.10                            |
-  | ip            | 100.165.123.111                      |
-  | id            | 58fbeca5-aad3-2f44-af23-0bb8ac60dc89 |
-  | instance_id   | a183b85f-2d4r-44b9-933f-64562380286f |
-  | pool          | ext-net                              |
-  | project       | fg478                                |
-  | user          | albert                               |
-  | instance_name | albert-004                           |
-  | cloud         | kilo                                 |
-  +---------------+--------------------------------------+
+<pre class="highlight"><span class="prompt1">network list floating ip --instance=albert-004</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+---------------+--------------------------------------+</span>
+<span class="o">|</span> <span class="n">name</span>          <span class="o">|</span> <span class="n">value</span>                                <span class="o">|</span>
+<span class="o">+---------------+--------------------------------------+</span>
+<span class="o">|</span> <span class="n">fixed_ip</span>      <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.10</span>                            <span class="o">|</span>
+<span class="o">|</span> <span class="n">ip</span>            <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.111</span>                      <span class="o">|</span>
+<span class="o">|</span> <span class="nb">id</span>            <span class="o">|</span> <span class="mi">58</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">2</span><span class="n">f44</span><span class="o">-</span><span class="n">af23</span><span class="o">-</span><span class="mi">0</span><span class="n">bb8ac60dc89</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">instance_id</span>   <span class="o">|</span> <span class="n">a183b85f</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">64562380286</span><span class="n">f</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">pool</span>          <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>                              <span class="o">|</span>
+<span class="o">|</span> <span class="n">project</span>       <span class="o">|</span> <span class="n">fg478</span>                                <span class="o">|</span>
+<span class="o">|</span> <span class="n">user</span>          <span class="o">|</span> <span class="n">albert</span>                               <span class="o">|</span>
+<span class="o">|</span> <span class="n">instance_name</span> <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">004</span>                           <span class="o">|</span>
+<span class="o">|</span> <span class="n">cloud</span>         <span class="o">|</span> <span class="n">kilo</span>                                 <span class="o">|</span>
+<span class="o">+---------------+--------------------------------------+</span>
 </pre></div>
 </div>
 <p>To view details of a particular floating ip address, use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm network list floating ip 100.165.123.111
-  +---------------+--------------------------------------+
-  | name          | value                                |
-  +---------------+--------------------------------------+
-  | fixed_ip      | 10.0.2.10                            |
-  | ip            | 100.165.123.111                      |
-  | id            | 58fbeca5-aad3-2f44-af23-0bb8ac60dc89 |
-  | instance_id   | a183b85f-2d4r-44b9-933f-64562380286f |
-  | pool          | ext-net                              |
-  | project       | fg478                                |
-  | user          | albert                               |
-  | instance_name | albert-004                           |
-  | cloud         | kilo                                 |
-  +---------------+--------------------------------------+
+<pre class="highlight"><span class="prompt1">network list floating ip 100.165.123.111</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+---------------+--------------------------------------+</span>
+<span class="o">|</span> <span class="n">name</span>          <span class="o">|</span> <span class="n">value</span>                                <span class="o">|</span>
+<span class="o">+---------------+--------------------------------------+</span>
+<span class="o">|</span> <span class="n">fixed_ip</span>      <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.10</span>                            <span class="o">|</span>
+<span class="o">|</span> <span class="n">ip</span>            <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.111</span>                      <span class="o">|</span>
+<span class="o">|</span> <span class="nb">id</span>            <span class="o">|</span> <span class="mi">58</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">2</span><span class="n">f44</span><span class="o">-</span><span class="n">af23</span><span class="o">-</span><span class="mi">0</span><span class="n">bb8ac60dc89</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">instance_id</span>   <span class="o">|</span> <span class="n">a183b85f</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">64562380286</span><span class="n">f</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">pool</span>          <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>                              <span class="o">|</span>
+<span class="o">|</span> <span class="n">project</span>       <span class="o">|</span> <span class="n">fg478</span>                                <span class="o">|</span>
+<span class="o">|</span> <span class="n">user</span>          <span class="o">|</span> <span class="n">albert</span>                               <span class="o">|</span>
+<span class="o">|</span> <span class="n">instance_name</span> <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">004</span>                           <span class="o">|</span>
+<span class="o">|</span> <span class="n">cloud</span>         <span class="o">|</span> <span class="n">kilo</span>                                 <span class="o">|</span>
+<span class="o">+---------------+--------------------------------------+</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="create-floating-ip-addresses">
 <h2>Create Floating IP Addresses<a class="headerlink" href="#create-floating-ip-addresses" title="Permalink to this headline">¶</a></h2>
 <p>To create a floating ip address under a floating pool, use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm network create floating ip --pool=ext-net
-  Created new floating IP [100.165.123.112]
-
-$ cm network list floating ip
-  +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
-  | instance_name | floating_ip     | floating_ip_pool | fixed_ip  | floating_ip_id                       | instance_id                          |
-  +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
-  |               | 100.165.123.110 | ext-net          |           | 3e0915a9-f190-324d-8b56-4c2fd2a0d97b |                                      |
-  |               | 100.165.123.112 | ext-net          |           | 2cd915a9-f191-762d-2456-24dcd2a0d97b |                                      |
-  | albert-004    | 100.165.123.111 | ext-net          | 10.0.2.10 | 58fbeca5-aad3-2f44-af23-0bb8ac60dc89 | a183b85f-2d4r-44b9-933f-64562380286f |
-  +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
+<pre class="highlight"><span class="prompt1">network create floating ip --pool=ext-net</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Created</span> <span class="n">new</span> <span class="n">floating</span> <span class="n">IP</span> <span class="p">[</span><span class="mf">100.165</span><span class="o">.</span><span class="mf">123.112</span><span class="p">]</span>
+</pre></div>
+</div>
+<pre class="highlight"><span class="prompt1">network list floating ip</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
+<span class="o">|</span> <span class="n">instance_name</span> <span class="o">|</span> <span class="n">floating_ip</span>     <span class="o">|</span> <span class="n">floating_ip_pool</span> <span class="o">|</span> <span class="n">fixed_ip</span>  <span class="o">|</span> <span class="n">floating_ip_id</span>                       <span class="o">|</span> <span class="n">instance_id</span>                          <span class="o">|</span>
+<span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
+<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.110</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mi">3</span><span class="n">e0915a9</span><span class="o">-</span><span class="n">f190</span><span class="o">-</span><span class="mi">324</span><span class="n">d</span><span class="o">-</span><span class="mi">8</span><span class="n">b56</span><span class="o">-</span><span class="mi">4</span><span class="n">c2fd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.112</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mi">2</span><span class="n">cd915a9</span><span class="o">-</span><span class="n">f191</span><span class="o">-</span><span class="mi">762</span><span class="n">d</span><span class="o">-</span><span class="mi">2456</span><span class="o">-</span><span class="mi">24</span><span class="n">dcd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">004</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.111</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.10</span> <span class="o">|</span> <span class="mi">58</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">2</span><span class="n">f44</span><span class="o">-</span><span class="n">af23</span><span class="o">-</span><span class="mi">0</span><span class="n">bb8ac60dc89</span> <span class="o">|</span> <span class="n">a183b85f</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">64562380286</span><span class="n">f</span> <span class="o">|</span>
+<span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="delete-floating-ip-addresses">
 <h2>Delete Floating IP Addresses<a class="headerlink" href="#delete-floating-ip-addresses" title="Permalink to this headline">¶</a></h2>
 <p>To delete a floating ip address, use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm network delete floating ip 100.165.123.112
-  Floating IP [100.165.123.112] deleted successfully!
-
-$ cm network list floating ip
-  +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
-  | instance_name | floating_ip     | floating_ip_pool | fixed_ip  | floating_ip_id                       | instance_id                          |
-  +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
-  |               | 100.165.123.110 | ext-net          |           | 3e0915a9-f190-324d-8b56-4c2fd2a0d97b |                                      |
-  | albert-004    | 100.165.123.111 | ext-net          | 10.0.2.10 | 58fbeca5-aad3-2f44-af23-0bb8ac60dc89 | a183b85f-2d4r-44b9-933f-64562380286f |
-  +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
+<pre class="highlight"><span class="prompt1">network delete floating ip 100.165.123.112</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span>Floating IP [100.165.123.112] deleted successfully!
+</pre></div>
+</div>
+<pre class="highlight"><span class="prompt1">network list floating ip</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
+<span class="o">|</span> <span class="n">instance_name</span> <span class="o">|</span> <span class="n">floating_ip</span>     <span class="o">|</span> <span class="n">floating_ip_pool</span> <span class="o">|</span> <span class="n">fixed_ip</span>  <span class="o">|</span> <span class="n">floating_ip_id</span>                       <span class="o">|</span> <span class="n">instance_id</span>                          <span class="o">|</span>
+<span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
+<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.110</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mi">3</span><span class="n">e0915a9</span><span class="o">-</span><span class="n">f190</span><span class="o">-</span><span class="mi">324</span><span class="n">d</span><span class="o">-</span><span class="mi">8</span><span class="n">b56</span><span class="o">-</span><span class="mi">4</span><span class="n">c2fd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">004</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.111</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.10</span> <span class="o">|</span> <span class="mi">58</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">2</span><span class="n">f44</span><span class="o">-</span><span class="n">af23</span><span class="o">-</span><span class="mi">0</span><span class="n">bb8ac60dc89</span> <span class="o">|</span> <span class="n">a183b85f</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">64562380286</span><span class="n">f</span> <span class="o">|</span>
+<span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
 </pre></div>
 </div>
 </div>
@@ -315,33 +318,35 @@ $ cm network list floating ip
 <h2>Associate Floating IP Address with an Instance<a class="headerlink" href="#associate-floating-ip-address-with-an-instance" title="Permalink to this headline">¶</a></h2>
 <p>To automatically generate a floating ip address
 and associate it with an instance, use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm network associate floating ip --instance=albert-009
-  Created and assigned Floating IP [100.165.123.113] to instance [albert-009].
-
-$ cm network list floating ip
-  +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
-  | instance_name | floating_ip     | floating_ip_pool | fixed_ip  | floating_ip_id                       | instance_id                          |
-  +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
-  |               | 100.165.123.110 | ext-net          |           | 3e0915a9-f190-324d-8b56-4c2fd2a0d97b |                                      |
-  | albert-004    | 100.165.123.111 | ext-net          | 10.0.2.10 | 58fbeca5-aad3-2f44-af23-0bb8ac60dc89 | a183b85f-2d4r-44b9-933f-64562380286f |
-  | albert-009    | 100.165.123.113 | ext-net          | 10.0.2.11 | 34fbeca5-aad3-4er5-ag21-34b8ac60dc85 | e433b85f-2d4r-44b9-933f-64562380285r |
-  +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
+<pre class="highlight"><span class="prompt1">network associate floating ip --instance=albert-009</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Created</span> <span class="ow">and</span> <span class="n">assigned</span> <span class="n">Floating</span> <span class="n">IP</span> <span class="p">[</span><span class="mf">100.165</span><span class="o">.</span><span class="mf">123.113</span><span class="p">]</span> <span class="n">to</span> <span class="n">instance</span> <span class="p">[</span><span class="n">albert</span><span class="o">-</span><span class="mi">009</span><span class="p">]</span><span class="o">.</span>
+</pre></div>
+</div>
+<pre class="highlight"><span class="prompt1">network list floating ip</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
+<span class="o">|</span> <span class="n">instance_name</span> <span class="o">|</span> <span class="n">floating_ip</span>     <span class="o">|</span> <span class="n">floating_ip_pool</span> <span class="o">|</span> <span class="n">fixed_ip</span>  <span class="o">|</span> <span class="n">floating_ip_id</span>                       <span class="o">|</span> <span class="n">instance_id</span>                          <span class="o">|</span>
+<span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
+<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.110</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mi">3</span><span class="n">e0915a9</span><span class="o">-</span><span class="n">f190</span><span class="o">-</span><span class="mi">324</span><span class="n">d</span><span class="o">-</span><span class="mi">8</span><span class="n">b56</span><span class="o">-</span><span class="mi">4</span><span class="n">c2fd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">004</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.111</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.10</span> <span class="o">|</span> <span class="mi">58</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">2</span><span class="n">f44</span><span class="o">-</span><span class="n">af23</span><span class="o">-</span><span class="mi">0</span><span class="n">bb8ac60dc89</span> <span class="o">|</span> <span class="n">a183b85f</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">64562380286</span><span class="n">f</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">009</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.113</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.11</span> <span class="o">|</span> <span class="mi">34</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">4</span><span class="n">er5</span><span class="o">-</span><span class="n">ag21</span><span class="o">-</span><span class="mi">34</span><span class="n">b8ac60dc85</span> <span class="o">|</span> <span class="n">e433b85f</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">64562380285</span><span class="n">r</span> <span class="o">|</span>
+<span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
 </pre></div>
 </div>
 <p>Alternatively, you can also specify the floating ip address
 that you want to associate with an instance:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm network associate floating ip --instance=albert-008 100.165.123.112
-  Associated Floating IP [100.165.123.112] to instance [albert-008].
-
-$ cm network list floating ip
-  +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
-  | instance_name | floating_ip     | floating_ip_pool | fixed_ip  | floating_ip_id                       | instance_id                          |
-  +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
-  |               | 100.165.123.110 | ext-net          |           | 3e0915a9-f190-324d-8b56-4c2fd2a0d97b |                                      |
-  | albert-004    | 100.165.123.111 | ext-net          | 10.0.2.10 | 58fbeca5-aad3-2f44-af23-0bb8ac60dc89 | a183b85f-2d4r-44b9-933f-64562380286f |
-  | albert-008    | 100.165.123.112 | ext-net          | 10.0.2.12 | c45beca5-cd34-4e3d-4r34-34b8ac64td42 | 2ds345f4-2d4r-44b9-933f-342432fd3fcc |
-  | albert-009    | 100.165.123.113 | ext-net          | 10.0.2.11 | 34fbeca5-aad3-4er5-ag21-34b8ac60dc85 | e433b85f-2d4r-44b9-933f-64562380285r |
-  +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
+<pre class="highlight"><span class="prompt1">network associate floating ip --instance=albert-008 100.165.123.112</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Associated</span> <span class="n">Floating</span> <span class="n">IP</span> <span class="p">[</span><span class="mf">100.165</span><span class="o">.</span><span class="mf">123.112</span><span class="p">]</span> <span class="n">to</span> <span class="n">instance</span> <span class="p">[</span><span class="n">albert</span><span class="o">-</span><span class="mi">008</span><span class="p">]</span><span class="o">.</span>
+</pre></div>
+</div>
+<pre class="highlight"><span class="prompt1">network list floating ip</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
+<span class="o">|</span> <span class="n">instance_name</span> <span class="o">|</span> <span class="n">floating_ip</span>     <span class="o">|</span> <span class="n">floating_ip_pool</span> <span class="o">|</span> <span class="n">fixed_ip</span>  <span class="o">|</span> <span class="n">floating_ip_id</span>                       <span class="o">|</span> <span class="n">instance_id</span>                          <span class="o">|</span>
+<span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
+<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.110</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mi">3</span><span class="n">e0915a9</span><span class="o">-</span><span class="n">f190</span><span class="o">-</span><span class="mi">324</span><span class="n">d</span><span class="o">-</span><span class="mi">8</span><span class="n">b56</span><span class="o">-</span><span class="mi">4</span><span class="n">c2fd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">004</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.111</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.10</span> <span class="o">|</span> <span class="mi">58</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">2</span><span class="n">f44</span><span class="o">-</span><span class="n">af23</span><span class="o">-</span><span class="mi">0</span><span class="n">bb8ac60dc89</span> <span class="o">|</span> <span class="n">a183b85f</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">64562380286</span><span class="n">f</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">008</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.112</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.12</span> <span class="o">|</span> <span class="n">c45beca5</span><span class="o">-</span><span class="n">cd34</span><span class="o">-</span><span class="mi">4</span><span class="n">e3d</span><span class="o">-</span><span class="mi">4</span><span class="n">r34</span><span class="o">-</span><span class="mi">34</span><span class="n">b8ac64td42</span> <span class="o">|</span> <span class="mi">2</span><span class="n">ds345f4</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">342432</span><span class="n">fd3fcc</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">009</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.113</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.11</span> <span class="o">|</span> <span class="mi">34</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">4</span><span class="n">er5</span><span class="o">-</span><span class="n">ag21</span><span class="o">-</span><span class="mi">34</span><span class="n">b8ac60dc85</span> <span class="o">|</span> <span class="n">e433b85f</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">64562380285</span><span class="n">r</span> <span class="o">|</span>
+<span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
 </pre></div>
 </div>
 </div>
@@ -349,33 +354,35 @@ $ cm network list floating ip
 <h2>Disassociate Floating IP Address from an Instance<a class="headerlink" href="#disassociate-floating-ip-address-from-an-instance" title="Permalink to this headline">¶</a></h2>
 <p>To automatically detect the floating ip address associated with an instance
 &amp; disassociate it from that instance, use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm network disassociate floating ip --instance=albert-009
-  Disassociated Floating IP [100.165.123.113] from instance [albert-009].
-
-$ cm network list floating ip
-  +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
-  | instance_name | floating_ip     | floating_ip_pool | fixed_ip  | floating_ip_id                       | instance_id                          |
-  +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
-  |               | 100.165.123.110 | ext-net          |           | 3e0915a9-f190-324d-8b56-4c2fd2a0d97b |                                      |
-  |               | 100.165.123.113 | ext-net          |           | 34fbeca5-aad3-4er5-ag21-34b8ac60dc85 |                                      |
-  | albert-004    | 100.165.123.111 | ext-net          | 10.0.2.10 | 58fbeca5-aad3-2f44-af23-0bb8ac60dc89 | a183b85f-2d4r-44b9-933f-64562380286f |
-  | albert-008    | 100.165.123.112 | ext-net          | 10.0.2.12 | c45beca5-cd34-4e3d-4r34-34b8ac64td42 | 2ds345f4-2d4r-44b9-933f-342432fd3fcc |
-  +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
+<pre class="highlight"><span class="prompt1">network disassociate floating ip --instance=albert-009</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Disassociated</span> <span class="n">Floating</span> <span class="n">IP</span> <span class="p">[</span><span class="mf">100.165</span><span class="o">.</span><span class="mf">123.113</span><span class="p">]</span> <span class="kn">from</span> <span class="nn">instance</span> <span class="p">[</span><span class="n">albert</span><span class="o">-</span><span class="mi">009</span><span class="p">]</span><span class="o">.</span>
+</pre></div>
+</div>
+<pre class="highlight"><span class="prompt1">network list floating ip</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
+<span class="o">|</span> <span class="n">instance_name</span> <span class="o">|</span> <span class="n">floating_ip</span>     <span class="o">|</span> <span class="n">floating_ip_pool</span> <span class="o">|</span> <span class="n">fixed_ip</span>  <span class="o">|</span> <span class="n">floating_ip_id</span>                       <span class="o">|</span> <span class="n">instance_id</span>                          <span class="o">|</span>
+<span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
+<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.110</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mi">3</span><span class="n">e0915a9</span><span class="o">-</span><span class="n">f190</span><span class="o">-</span><span class="mi">324</span><span class="n">d</span><span class="o">-</span><span class="mi">8</span><span class="n">b56</span><span class="o">-</span><span class="mi">4</span><span class="n">c2fd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.113</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mi">34</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">4</span><span class="n">er5</span><span class="o">-</span><span class="n">ag21</span><span class="o">-</span><span class="mi">34</span><span class="n">b8ac60dc85</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">004</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.111</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.10</span> <span class="o">|</span> <span class="mi">58</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">2</span><span class="n">f44</span><span class="o">-</span><span class="n">af23</span><span class="o">-</span><span class="mi">0</span><span class="n">bb8ac60dc89</span> <span class="o">|</span> <span class="n">a183b85f</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">64562380286</span><span class="n">f</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">008</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.112</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.12</span> <span class="o">|</span> <span class="n">c45beca5</span><span class="o">-</span><span class="n">cd34</span><span class="o">-</span><span class="mi">4</span><span class="n">e3d</span><span class="o">-</span><span class="mi">4</span><span class="n">r34</span><span class="o">-</span><span class="mi">34</span><span class="n">b8ac64td42</span> <span class="o">|</span> <span class="mi">2</span><span class="n">ds345f4</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">342432</span><span class="n">fd3fcc</span> <span class="o">|</span>
+<span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
 </pre></div>
 </div>
 <p>Alternatively, you could also specify the floating ip address to dissociate:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm network disassociate floating ip 100.165.123.113
-  Disassociated Floating IP [100.165.123.113] from instance [albert-009].
-
-$ cm network list floating ip
-  +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
-  | instance_name | floating_ip     | floating_ip_pool | fixed_ip  | floating_ip_id                       | instance_id                          |
-  +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
-  |               | 100.165.123.110 | ext-net          |           | 3e0915a9-f190-324d-8b56-4c2fd2a0d97b |                                      |
-  |               | 100.165.123.113 | ext-net          |           | 34fbeca5-aad3-4er5-ag21-34b8ac60dc85 |                                      |
-  | albert-004    | 100.165.123.111 | ext-net          | 10.0.2.10 | 58fbeca5-aad3-2f44-af23-0bb8ac60dc89 | a183b85f-2d4r-44b9-933f-64562380286f |
-  | albert-008    | 100.165.123.112 | ext-net          | 10.0.2.12 | c45beca5-cd34-4e3d-4r34-34b8ac64td42 | 2ds345f4-2d4r-44b9-933f-342432fd3fcc |
-  +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
+<pre class="highlight"><span class="prompt1">network disassociate floating ip 100.165.123.113</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Disassociated</span> <span class="n">Floating</span> <span class="n">IP</span> <span class="p">[</span><span class="mf">100.165</span><span class="o">.</span><span class="mf">123.113</span><span class="p">]</span> <span class="kn">from</span> <span class="nn">instance</span> <span class="p">[</span><span class="n">albert</span><span class="o">-</span><span class="mi">009</span><span class="p">]</span><span class="o">.</span>
+</pre></div>
+</div>
+<pre class="highlight"><span class="prompt1">network list floating ip</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
+<span class="o">|</span> <span class="n">instance_name</span> <span class="o">|</span> <span class="n">floating_ip</span>     <span class="o">|</span> <span class="n">floating_ip_pool</span> <span class="o">|</span> <span class="n">fixed_ip</span>  <span class="o">|</span> <span class="n">floating_ip_id</span>                       <span class="o">|</span> <span class="n">instance_id</span>                          <span class="o">|</span>
+<span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
+<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.110</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mi">3</span><span class="n">e0915a9</span><span class="o">-</span><span class="n">f190</span><span class="o">-</span><span class="mi">324</span><span class="n">d</span><span class="o">-</span><span class="mi">8</span><span class="n">b56</span><span class="o">-</span><span class="mi">4</span><span class="n">c2fd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.113</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mi">34</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">4</span><span class="n">er5</span><span class="o">-</span><span class="n">ag21</span><span class="o">-</span><span class="mi">34</span><span class="n">b8ac60dc85</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">004</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.111</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.10</span> <span class="o">|</span> <span class="mi">58</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">2</span><span class="n">f44</span><span class="o">-</span><span class="n">af23</span><span class="o">-</span><span class="mi">0</span><span class="n">bb8ac60dc89</span> <span class="o">|</span> <span class="n">a183b85f</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">64562380286</span><span class="n">f</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">008</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.112</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.12</span> <span class="o">|</span> <span class="n">c45beca5</span><span class="o">-</span><span class="n">cd34</span><span class="o">-</span><span class="mi">4</span><span class="n">e3d</span><span class="o">-</span><span class="mi">4</span><span class="n">r34</span><span class="o">-</span><span class="mi">34</span><span class="n">b8ac64td42</span> <span class="o">|</span> <span class="mi">2</span><span class="n">ds345f4</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">342432</span><span class="n">fd3fcc</span> <span class="o">|</span>
+<span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -439,7 +446,7 @@ but you need to have admin privilidges in your account.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

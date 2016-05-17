@@ -1,5 +1,14 @@
 Commands
 ======================================================================
+akey
+----------------------------------------------------------------------
+Command - akey::
+
+    Usage:
+    akey
+    akey list
+    akey add --name=key-name --pub=pub-key-path --cert=certificate-file-path --pfx=pfx-file-path
+
 banner
 ----------------------------------------------------------------------
 Command - banner::
@@ -206,6 +215,7 @@ Command - comet::
        comet ll [CLUSTERID] [--format=FORMAT]
        comet cluster [CLUSTERID]
                      [--format=FORMAT]
+                     [--sort=SORTKEY]
        comet computeset [COMPUTESETID]
                     [--allocation=ALLOCATION]
                     [--cluster=CLUSTERID]
@@ -226,6 +236,7 @@ Command - comet::
         --format=FORMAT         Format is either table, json, yaml,
                                 csv, rest
                                 [default: table]
+        --sort=SORTKEY          Sorting key for the table view
         --count=NUMNODES        Number of nodes to be powered on.
                                 When this option is used, the comet system
                                 will find a NUMNODES number of arbitrary nodes
@@ -1569,6 +1580,14 @@ shell_exec
 Command - shell_exec::
 
     Command documentation shell_exec missing, help_shell_exec
+sleep
+----------------------------------------------------------------------
+Command - sleep::
+
+    Usage:
+        sleep SECONDS
+
+    Clears the screen.
 ssh
 ----------------------------------------------------------------------
 Command - ssh::
@@ -1905,7 +1924,8 @@ Command - vm::
         vm delete [NAMES]
                   [--group=GROUP]
                   [--cloud=CLOUD]
-                  [--force]
+                  [--keep]
+                  [--dryrun]
         vm ip assign [NAMES]
                   [--cloud=CLOUD]
         vm ip show [NAMES]
@@ -1913,6 +1933,9 @@ Command - vm::
                    [--cloud=CLOUD]
                    [--format=FORMAT]
                    [--refresh]
+        vm ip inventory [NAMES]
+                        [--header=HEADER]
+                        [--file=FILE]
         vm ssh [NAME] [--username=USER]
                  [--quiet]
                  [--ip=IP]
@@ -1925,7 +1948,8 @@ Command - vm::
                 [--group=GROUP]
                 [--format=FORMAT]
                 [--refresh]
-        vm status [--cloud=CLOUD]
+        vm status [NAMES]
+        vm wait [--cloud=CLOUD] [--interval=SECONDS]
         vm info [--cloud=CLOUD]
                 [--format=FORMAT]
         vm check NAME
@@ -2022,12 +2046,15 @@ Command - workflow::
 
     Usage:
         workflow refresh [--cloud=CLOUD] [-v]
-        workflow list [ID] [--cloud=CLOUD] [--format=FORMAT] [--refresh] [-v]
+        workflow list [ID] [NAME] [--cloud=CLOUD] [--format=FORMAT] [--refresh] [-v]
         workflow add NAME LOCATION
-        workflow delete NAMES
+        workflow delete ID
         workflow status [NAMES]
-        workflow show NAMES
-
+        workflow show ID
+        workflow save NAME WORKFLOWSTR
+        workflow run NAME
+        workflow service start
+        workflow service stop
         This lists out the workflows present for a cloud
 
     Options:
@@ -2041,4 +2068,5 @@ Command - workflow::
         cm workflow list
         cm workflow list --format=csv
         cm workflow show 58c9552c-8d93-42c0-9dea-5f48d90a3188 --refresh
+        cm workflow run workflow1
 

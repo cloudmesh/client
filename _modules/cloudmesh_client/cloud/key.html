@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.key &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>cloudmesh_client.cloud.key &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -193,7 +193,7 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">expanduser</span>
 <span class="kn">import</span> <span class="nn">requests</span>
-
+<span class="kn">import</span> <span class="nn">subprocess</span>
 
 <span class="c1"># noinspection PyPep8Naming</span>
 <div class="viewcode-block" id="Key"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key">[docs]</a><span class="k">class</span> <span class="nc">Key</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
@@ -453,6 +453,48 @@
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Key.run_command"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.run_command">[docs]</a>    <span class="k">def</span> <span class="nf">run_command</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cmd</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Runs a command in a shell, returns the result&quot;&quot;&quot;</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                         <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Key.add_azure_key_to_db"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.add_azure_key_to_db">[docs]</a>    <span class="k">def</span> <span class="nf">add_azure_key_to_db</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">key_name</span><span class="p">,</span> <span class="n">key_path</span><span class="p">,</span> <span class="n">certificate_path</span><span class="p">,</span> <span class="n">pfx_path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Adds the public key to the existing database model and adds the certificate, key and</span>
+<span class="sd">            fingerprint into the azure key database model.</span>
+<span class="sd">        :param key_name: Key name to be added</span>
+<span class="sd">        :param key_path: Public key path</span>
+<span class="sd">        :param certificate_path: Certificate file path(PEM file)</span>
+<span class="sd">        :param pfx_path: PKCS encoded certificate path</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;add_azure_key_to_db&quot;</span><span class="p">)</span>
+        <span class="c1"># Add to the current DB</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">add_from_path</span><span class="p">(</span><span class="n">key_path</span><span class="p">,</span>
+                            <span class="n">key_name</span><span class="p">,</span>
+                            <span class="n">source</span><span class="o">=</span><span class="s2">&quot;ssh&quot;</span><span class="p">,</span>
+                            <span class="n">uri</span><span class="o">=</span><span class="s2">&quot;file://&quot;</span> <span class="o">+</span> <span class="n">key_path</span><span class="p">)</span>
+
+        <span class="c1"># Add certificate to the new DB</span>
+        <span class="n">fingerprint_cmd</span> <span class="o">=</span> <span class="s2">&quot;openssl x509 -in &quot;</span><span class="o">+</span><span class="n">certificate_path</span><span class="o">+</span><span class="s2">&quot; -sha1 -noout -fingerprint | sed s/://g&quot;</span>
+        <span class="c1"># print(&quot;fingerprint_cmd:&quot;, fingerprint_cmd)</span>
+        <span class="n">fingerprint</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">run_command</span><span class="p">(</span><span class="n">fingerprint_cmd</span><span class="p">)</span>
+        <span class="n">fingerprint</span> <span class="o">=</span> <span class="n">fingerprint</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">fingerprint</span> <span class="o">=</span> <span class="n">fingerprint</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="c1"># pprint(&quot;Certificate Fingerprint=&quot;+fingerprint)</span>
+        <span class="n">key_azure_obj</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;key_azure&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">key_name</span><span class="p">,</span>
+            <span class="s2">&quot;fingerprint&quot;</span><span class="p">:</span> <span class="n">fingerprint</span><span class="p">,</span>
+            <span class="s2">&quot;certificate&quot;</span><span class="p">:</span> <span class="n">certificate_path</span><span class="p">,</span>
+            <span class="s2">&quot;key_path&quot;</span><span class="p">:</span> <span class="n">key_path</span><span class="p">,</span>
+            <span class="s2">&quot;pfx_path&quot;</span><span class="p">:</span> <span class="n">pfx_path</span><span class="p">}</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">key_azure_obj</span><span class="p">)</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Azure key added.ok.&quot;</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Key.clear"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
 
@@ -593,7 +635,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

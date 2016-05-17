@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud package &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>cloudmesh_client.cloud package &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client package" href="cloudmesh_client.html"/>
         <link rel="next" title="cloudmesh_client.cloud.hpc package" href="cloudmesh_client.cloud.hpc.html"/>
         <link rel="prev" title="cloudmesh_client package" href="cloudmesh_client.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -156,6 +156,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.db.html">cloudmesh_client.db package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.etc.html">cloudmesh_client.etc package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.extend.html">cloudmesh_client.extend package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.provider.html">cloudmesh_client.provider package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.shell.html">cloudmesh_client.shell package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.system.html">cloudmesh_client.system package</a></li>
@@ -165,6 +166,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.main">cloudmesh_client.main module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.setup">cloudmesh_client.setup module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.shell_commad">cloudmesh_client.shell_commad module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.var">cloudmesh_client.var module</a></li>
@@ -914,6 +916,31 @@ the database, then inserting new data
 <em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.key.</code><code class="descname">Key</code><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.cloud.ListResource.ListResource" title="cloudmesh_client.cloud.ListResource.ListResource"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.cloud.ListResource.ListResource</span></code></a></p>
 <dl class="classmethod">
+<dt id="cloudmesh_client.cloud.key.Key.add_azure_key_to_db">
+<em class="property">classmethod </em><code class="descname">add_azure_key_to_db</code><span class="sig-paren">(</span><em>key_name</em>, <em>key_path</em>, <em>certificate_path</em>, <em>pfx_path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key.add_azure_key_to_db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.add_azure_key_to_db" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div>Adds the public key to the existing database model and adds the certificate, key and
+fingerprint into the azure key database model.</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>key_name</strong> &#8211; Key name to be added</li>
+<li><strong>key_path</strong> &#8211; Public key path</li>
+<li><strong>certificate_path</strong> &#8211; Certificate file path(PEM file)</li>
+<li><strong>pfx_path</strong> &#8211; PKCS encoded certificate path</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
 <dt id="cloudmesh_client.cloud.key.Key.add_from_path">
 <em class="property">classmethod </em><code class="descname">add_from_path</code><span class="sig-paren">(</span><em>path</em>, <em>keyname=None</em>, <em>user=None</em>, <em>source=None</em>, <em>uri=None</em>, <em>store=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key.add_from_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.add_from_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds the key to the database based on the path</p>
@@ -1058,6 +1085,12 @@ the database, then inserting new data
 <dt id="cloudmesh_client.cloud.key.Key.refresh">
 <em class="property">classmethod </em><code class="descname">refresh</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key.refresh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.refresh" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.key.Key.run_command">
+<em class="property">classmethod </em><code class="descname">run_command</code><span class="sig-paren">(</span><em>cmd</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/key.html#Key.run_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.key.Key.run_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs a command in a shell, returns the result</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.key.Key.select">
@@ -2152,7 +2185,7 @@ with the given category.</p>
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.workflow.Workflow.delete">
-<em class="property">classmethod </em><code class="descname">delete</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/workflow.html#Workflow.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.workflow.Workflow.delete" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">delete</code><span class="sig-paren">(</span><em>cloud</em>, <em>id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/workflow.html#Workflow.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.workflow.Workflow.delete" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -2162,7 +2195,7 @@ with the given category.</p>
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.workflow.Workflow.list">
-<em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>name</em>, <em>format='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/workflow.html#Workflow.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.workflow.Workflow.list" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>name</em>, <em>live=False</em>, <em>format='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/workflow.html#Workflow.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.workflow.Workflow.list" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method lists all workflows of the cloud
 :param cloud: the cloud name</p>
 </dd></dl>
@@ -2174,6 +2207,16 @@ with the given category.</p>
 the database, then inserting new data
 :param cloud: the cloud name</p>
 </dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.workflow.Workflow.run">
+<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><em>cloud</em>, <em>id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/workflow.html#Workflow.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.workflow.Workflow.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.workflow.Workflow.save">
+<em class="property">classmethod </em><code class="descname">save</code><span class="sig-paren">(</span><em>cloud</em>, <em>name</em>, <em>str</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/workflow.html#Workflow.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.workflow.Workflow.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -2223,7 +2266,7 @@ the database, then inserting new data
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

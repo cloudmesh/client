@@ -23,6 +23,7 @@ Shell Commands
    command_templates
    command_colors
    command_default
+   command_info
    command_group
    command_ssh
    command_select
@@ -46,7 +47,6 @@ Cloud Commands
    command_flavor
    command_image
    command_network
-   command_nova
    command_sync
    command_limits
    command_quota

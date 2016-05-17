@@ -28,6 +28,14 @@ cloudmesh_client.common.DictDB module
     :undoc-members:
     :show-inheritance:
 
+cloudmesh_client.common.DynamicClass module
+-------------------------------------------
+
+.. automodule:: cloudmesh_client.common.DynamicClass
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.common.Error module
 ------------------------------------
 

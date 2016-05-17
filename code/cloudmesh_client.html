@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client package &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>cloudmesh_client package &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../index.html"/>
         <link rel="next" title="cloudmesh_client.cloud package" href="cloudmesh_client.cloud.html"/>
         <link rel="prev" title="Docker" href="../docker.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -125,6 +125,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.db.html">cloudmesh_client.db package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.etc.html">cloudmesh_client.etc package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.extend.html">cloudmesh_client.extend package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.provider.html">cloudmesh_client.provider package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.shell.html">cloudmesh_client.shell package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.system.html">cloudmesh_client.system package</a></li>
@@ -134,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-cloudmesh_client.main">cloudmesh_client.main module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-cloudmesh_client.setup">cloudmesh_client.setup module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-cloudmesh_client.shell_commad">cloudmesh_client.shell_commad module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-cloudmesh_client.var">cloudmesh_client.var module</a></li>
@@ -317,6 +319,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.BaseConfigDict">cloudmesh_client.common.BaseConfigDict module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.ConfigDict">cloudmesh_client.common.ConfigDict module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.DictDB">cloudmesh_client.common.DictDB module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.DynamicClass">cloudmesh_client.common.DynamicClass module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.Error">cloudmesh_client.common.Error module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.FlatDict">cloudmesh_client.common.FlatDict module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.FlatDict2">cloudmesh_client.common.FlatDict2 module</a></li>
@@ -377,6 +380,13 @@
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.etc.html#module-cloudmesh_client.etc">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="cloudmesh_client.extend.html">cloudmesh_client.extend package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.extend.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.extend.html#module-cloudmesh_client.extend.my">cloudmesh_client.extend.my module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.extend.html#module-cloudmesh_client.extend.summary">cloudmesh_client.extend.summary module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.extend.html#module-cloudmesh_client.extend">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="cloudmesh_client.provider.html">cloudmesh_client.provider package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.provider.html#subpackages">Subpackages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.provider.general.html">cloudmesh_client.provider.general package</a><ul>
@@ -406,6 +416,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.html#subpackages">Subpackages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.shell.plugins.html">cloudmesh_client.shell.plugins package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.AkeyCommand">cloudmesh_client.shell.plugins.AkeyCommand module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.Bar">cloudmesh_client.shell.plugins.Bar module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.CheckCommand">cloudmesh_client.shell.plugins.CheckCommand module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.CloudCommand">cloudmesh_client.shell.plugins.CloudCommand module</a></li>
@@ -502,7 +513,7 @@ rename the value to global).</p>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.cluster">
-<code class="descname">cluster</code><em class="property"> = u'india'</em><a class="headerlink" href="#cloudmesh_client.default.Default.cluster" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cluster</code><em class="property"> = None</em><a class="headerlink" href="#cloudmesh_client.default.Default.cluster" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -512,7 +523,7 @@ rename the value to global).</p>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.debug">
-<code class="descname">debug</code><em class="property"> = False</em><a class="headerlink" href="#cloudmesh_client.default.Default.debug" title="Permalink to this definition">¶</a></dt>
+<code class="descname">debug</code><em class="property"> = True</em><a class="headerlink" href="#cloudmesh_client.default.Default.debug" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -561,7 +572,7 @@ If it is not present in db, it creates a new entry.
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.image">
-<code class="descname">image</code><em class="property"> = u'Ubuntu-Server-14.04-LTS'</em><a class="headerlink" href="#cloudmesh_client.default.Default.image" title="Permalink to this definition">¶</a></dt>
+<code class="descname">image</code><em class="property"> = u'CC-CentOS7'</em><a class="headerlink" href="#cloudmesh_client.default.Default.image" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -805,7 +816,7 @@ it is a special category that is used for global values.</li>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.vm">
-<code class="descname">vm</code><em class="property"> = u'gvonlasz-010'</em><a class="headerlink" href="#cloudmesh_client.default.Default.vm" title="Permalink to this definition">¶</a></dt>
+<code class="descname">vm</code><em class="property"> = u'gvonlasz-002'</em><a class="headerlink" href="#cloudmesh_client.default.Default.vm" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -875,6 +886,9 @@ it is a special category that is used for global values.</li>
 </dd></dl>
 
 </div>
+<div class="section" id="module-cloudmesh_client.main">
+<span id="cloudmesh-client-main-module"></span><h2>cloudmesh_client.main module<a class="headerlink" href="#module-cloudmesh_client.main" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="module-cloudmesh_client.setup">
 <span id="cloudmesh-client-setup-module"></span><h2>cloudmesh_client.setup module<a class="headerlink" href="#module-cloudmesh_client.setup" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
@@ -885,7 +899,17 @@ it is a special category that is used for global values.</li>
 <dl class="function">
 <dt id="cloudmesh_client.setup.check_pip">
 <code class="descclassname">cloudmesh_client.setup.</code><code class="descname">check_pip</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/setup.html#check_pip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.setup.check_pip" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>major = int(pip.__version__.split(&#8221;.&#8221;)[0])
+if major &lt; 7:</p>
+<blockquote>
+<div>print(&#8220;&#8221;)
+print(&#8221;    ERROR: Pip version&#8221;, pip.__version__, &#8220;is to old.&#8221;)
+print(&#8221;    Tip:   Please update pip with &#8221;)
+print(&#8220;&#8221;)
+print(&#8221;             pip install pip -U&#8221;)
+print(&#8220;&#8221;)
+sys.exit()</div></blockquote>
+</dd></dl>
 
 <dl class="function">
 <dt id="cloudmesh_client.setup.get_version_from_git">
@@ -1062,7 +1086,7 @@ it is a special category that is used for global values.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -1,0 +1,30 @@
+cloudmesh_client.extend package
+===============================
+
+Submodules
+----------
+
+cloudmesh_client.extend.my module
+---------------------------------
+
+.. automodule:: cloudmesh_client.extend.my
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.extend.summary module
+--------------------------------------
+
+.. automodule:: cloudmesh_client.extend.summary
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: cloudmesh_client.extend
+    :members:
+    :undoc-members:
+    :show-inheritance:

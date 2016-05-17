@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Select Command &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>Select Command &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Register Command" href="command_register.html"/>
         <link rel="prev" title="Color Command" href="command_ssh.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -102,6 +102,7 @@
 <li class="toctree-l3"><a class="reference internal" href="command_templates.html">Basic Commands and Options</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_colors.html">Color Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_default.html">Default Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_info.html">Info Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html">Group Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_ssh.html">Color Command</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Select Command</a><ul>
@@ -196,96 +197,92 @@
   <div class="section" id="select-command">
 <h1>Select Command<a class="headerlink" href="#select-command" title="Permalink to this headline">¶</a></h1>
 <p>Select Command is used to interactively set a default image/ flavor/ cloud/ key.</p>
-<p>The manual page of the key command can be found at: <a class="reference external" href="../man/man.html#select">SELECT</a></p>
+<p>The manual page of the <cite>select</cite> command can be found at: <a class="reference external" href="../man/man.html#select">select</a></p>
 <div class="section" id="setting-default-image">
 <h2>Setting default image<a class="headerlink" href="#setting-default-image" title="Permalink to this headline">¶</a></h2>
 <p>You can select the default image with the following simple command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm select image
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "cm> ";
+}
+</style><span class="prompt1">select image</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Select</span> <span class="n">an</span> <span class="n">Image</span>
+<span class="o">===============</span>
 
-Select an Image
-===============
-
-    1 - image-1
-    2 - fedora
-    3 - CentOS7
-    4 - ubuntu-custom
-    5 - Ubuntu-15.10-64
-    6 - Ubuntu-14.04-64
-    7 - cirros
-    q - quit
+    <span class="mi">1</span> <span class="o">-</span> <span class="n">image</span><span class="o">-</span><span class="mi">1</span>
+    <span class="mi">2</span> <span class="o">-</span> <span class="n">fedora</span>
+    <span class="mi">3</span> <span class="o">-</span> <span class="n">CentOS7</span>
+    <span class="mi">4</span> <span class="o">-</span> <span class="n">ubuntu</span><span class="o">-</span><span class="n">custom</span>
+    <span class="mi">5</span> <span class="o">-</span> <span class="n">Ubuntu</span><span class="o">-</span><span class="mf">15.10</span><span class="o">-</span><span class="mi">64</span>
+    <span class="mi">6</span> <span class="o">-</span> <span class="n">Ubuntu</span><span class="o">-</span><span class="mf">14.04</span><span class="o">-</span><span class="mi">64</span>
+    <span class="mi">7</span> <span class="o">-</span> <span class="n">cirros</span>
+    <span class="n">q</span> <span class="o">-</span> <span class="n">quit</span>
 
 
-Select between 1 - 7: 5
-choice 5 selected.
-Selected image Ubuntu-15.10-64
+<span class="n">Select</span> <span class="n">between</span> <span class="mi">1</span> <span class="o">-</span> <span class="mi">7</span><span class="p">:</span> <span class="mi">5</span>
+<span class="n">choice</span> <span class="mi">5</span> <span class="n">selected</span><span class="o">.</span>
+<span class="n">Selected</span> <span class="n">image</span> <span class="n">Ubuntu</span><span class="o">-</span><span class="mf">15.10</span><span class="o">-</span><span class="mi">64</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="setting-default-flavor">
 <h2>Setting default flavor<a class="headerlink" href="#setting-default-flavor" title="Permalink to this headline">¶</a></h2>
 <p>You can select the default flavor with the following simple command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm select flavor
+<pre class="highlight"><span class="prompt1">select flavor</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Select</span> <span class="n">a</span> <span class="n">Flavor</span>
+<span class="o">===============</span>
 
-Select a Flavor
-===============
-
-    1 - tiny
-    2 - small
-    3 - medium
-    4 - large
-    5 - xlarge
-    q - quit
+    <span class="mi">1</span> <span class="o">-</span> <span class="n">tiny</span>
+    <span class="mi">2</span> <span class="o">-</span> <span class="n">small</span>
+    <span class="mi">3</span> <span class="o">-</span> <span class="n">medium</span>
+    <span class="mi">4</span> <span class="o">-</span> <span class="n">large</span>
+    <span class="mi">5</span> <span class="o">-</span> <span class="n">xlarge</span>
+    <span class="n">q</span> <span class="o">-</span> <span class="n">quit</span>
 
 
-Select between 1 - 5: 3
-choice 3 selected.
-Selected flavor medium
+<span class="n">Select</span> <span class="n">between</span> <span class="mi">1</span> <span class="o">-</span> <span class="mi">5</span><span class="p">:</span> <span class="mi">3</span>
+<span class="n">choice</span> <span class="mi">3</span> <span class="n">selected</span><span class="o">.</span>
+<span class="n">Selected</span> <span class="n">flavor</span> <span class="n">medium</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="setting-default-cloud">
 <h2>Setting default cloud<a class="headerlink" href="#setting-default-cloud" title="Permalink to this headline">¶</a></h2>
 <p>You can select the default cloud with the following simple command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm select cloud
+<pre class="highlight"><span class="prompt1">select cloud</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Select</span> <span class="n">a</span> <span class="n">cloud</span>
+<span class="o">==============</span>
 
-Select a cloud
-==============
-
-    1 - kilo
-    2 - chameleon
-    3 - cybera-c
-    4 - cybera-e
-    5 - aws
-    6 - chameleon-ec2
-    7 - azure
-    q - quit
-
+    <span class="mi">1</span> <span class="o">-</span> <span class="n">kilo</span>
+    <span class="mi">2</span> <span class="o">-</span> <span class="n">chameleon</span>
+    <span class="mi">3</span> <span class="o">-</span> <span class="n">cybera</span><span class="o">-</span><span class="n">c</span>
+    <span class="mi">4</span> <span class="o">-</span> <span class="n">cybera</span><span class="o">-</span><span class="n">e</span>
+    <span class="mi">5</span> <span class="o">-</span> <span class="n">aws</span>
+    <span class="mi">6</span> <span class="o">-</span> <span class="n">chameleon</span><span class="o">-</span><span class="n">ec2</span>
+    <span class="mi">7</span> <span class="o">-</span> <span class="n">azure</span>
+    <span class="n">q</span> <span class="o">-</span> <span class="n">quit</span>
 
 
-Select between 1 - 7: 2
-choice 2 selected.
-Selected cloud chameleon
+
+<span class="n">Select</span> <span class="n">between</span> <span class="mi">1</span> <span class="o">-</span> <span class="mi">7</span><span class="p">:</span> <span class="mi">2</span>
+<span class="n">choice</span> <span class="mi">2</span> <span class="n">selected</span><span class="o">.</span>
+<span class="n">Selected</span> <span class="n">cloud</span> <span class="n">chameleon</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="setting-default-key">
 <h2>Setting default key<a class="headerlink" href="#setting-default-key" title="Permalink to this headline">¶</a></h2>
 <p>You can select the default key with the following simple command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm select key
-
-Select a Key
-============
-
-    1 - albert-key
-    2 - customkey
-    q - quit
-
-
-Select between 1 - 2: 1
+<blockquote>
+<div><p>$ cm select key</p>
+<blockquote>
+<div>1 - albert-key
+2 - customkey
+q - quit</div></blockquote>
+<p>Select between 1 - 2: 1
 choice 1 selected.
-Selected key albert-key
-</pre></div>
-</div>
+Selected key albert-key</p>
+</div></blockquote>
 </div>
 </div>
 
@@ -329,7 +326,7 @@ Selected key albert-key
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

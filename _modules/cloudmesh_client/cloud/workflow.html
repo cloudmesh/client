@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.workflow &mdash; cloudmesh_client 4.2.2 documentation</title>
+  <title>cloudmesh_client.cloud.workflow &mdash; cloudmesh_client 4.2.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.2 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                4.2.2
+                4.2.4
               </div>
             
           
@@ -191,22 +191,27 @@
 <span class="sd">        :param cloud: the cloud name</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;workflow does not implement yet a refresh method&quot;</span><span class="p">)</span>
-        <span class="k">return</span></div>
+        <span class="n">Console</span><span class="o">.</span><span class="n">TODO</span><span class="p">(</span><span class="s2">&quot;this method is not yet implemented. dont implement this yet&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
 
-        <span class="c1"># return cls.cm.refresh(&#39;workflow&#39;, cloud)</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Workflow.delete"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.workflow.Workflow.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="k">pass</span></div>
-
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="s1">&#39;workflow&#39;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Workflow.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.workflow.Workflow.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="Workflow.delete"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.workflow.Workflow.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span><span class="n">cloud</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="k">print</span> <span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;workflow&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s1">&#39;general&#39;</span> <span class="p">,</span><span class="n">cm_id</span> <span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">True</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Workflow.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.workflow.Workflow.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">live</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method lists all workflows of the cloud</span>
 <span class="sd">        :param cloud: the cloud name</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Console.TODO(&quot;this method is not yet implemented&quot;)</span>
+        <span class="c1"># return</span>
 
         <span class="k">try</span><span class="p">:</span>
 
@@ -217,6 +222,7 @@
             <span class="c1"># (order, header) = CloudProvider(cloud).get_attributes(&quot;workflow&quot;)</span>
             <span class="n">order</span> <span class="o">=</span> <span class="bp">None</span>
             <span class="n">header</span><span class="o">=</span> <span class="bp">None</span>
+            <span class="c1"># Console.msg(elements)</span>
             <span class="k">return</span> <span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span>
                                  <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
                                  <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
@@ -226,11 +232,43 @@
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Workflow.details"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.workflow.Workflow.details">[docs]</a>    <span class="k">def</span> <span class="nf">details</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">live</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
+        <span class="n">elements</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;workflow&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s1">&#39;general&#39;</span> <span class="p">,</span><span class="n">cm_id</span> <span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">header</span><span class="o">=</span> <span class="bp">None</span>
+        <span class="c1"># Console.TODO(&quot;this method is not yet implemented&quot;)</span>
+        <span class="k">return</span> <span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span>
+                                 <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
+                                 <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
+                                 <span class="n">output</span><span class="o">=</span><span class="n">format</span><span class="p">)</span></div>
 
-        <span class="n">Console</span><span class="o">.</span><span class="n">TODO</span><span class="p">(</span><span class="s2">&quot;this method is not yet implemented&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">None</span></div></div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Workflow.save"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.workflow.Workflow.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">workflow</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;general&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;workflow&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+                <span class="s2">&quot;workflow_str&quot;</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="p">}</span>
 
+        <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">workflow</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
+        <span class="k">return</span> <span class="s2">&quot;Workflow saved in database!&quot;</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Workflow.run"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.workflow.Workflow.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span><span class="n">cloud</span><span class="p">,</span><span class="nb">id</span><span class="p">):</span>
+        <span class="n">elements</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;workflow&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s1">&#39;general&#39;</span><span class="p">,</span> <span class="n">cm_id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">)</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s2">&quot;Executing&quot;</span><span class="p">)</span>
+        <span class="n">header</span><span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span> <span class="n">elements</span></div></div>
+        <span class="c1"># Console.TODO(&quot;this method is not yet implemented&quot;)</span>
+        <span class="c1"># return Printer.write(elements,</span>
+        <span class="c1">#                          order=order,</span>
+        <span class="c1">#                          header=header,</span>
+        <span class="c1">#                          output=format)</span>
 </pre></div>
 
            </div>
@@ -263,7 +301,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'4.2.2',
+            VERSION:'4.2.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
