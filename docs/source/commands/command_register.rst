@@ -38,7 +38,7 @@ you can simply say:
     register openrc.sh
    
     
-.. todo:: verify if this works [ERROR]
+.. warning:: verify if this works [ERROR]
 
 On chameleoncloud.org you can for example go to the horizon web interface and
 download the credentials in the security panel.
@@ -60,7 +60,7 @@ clouds, or delete templates of clouds that you do not use. We have
 several different types of clouds that we support. This includes
 OpenStack, AWS, and Azure clouds.
 
-.. todo:: at this time we have not integrated our AWS and Azure IaaS
+.. warning:: at this time we have not integrated our AWS and Azure IaaS
 	  abstractions in the new cloudmesh client. We will make them
 	  available in future.
 
@@ -91,7 +91,7 @@ To edit the file, you can use the command:
 	    
   register edit
 
-.. todo:: [ERROR] Need to set 'EDITOR' in environ
+.. warning:: [ERROR] Need to set 'EDITOR' in environ
 
 register list
 -------------
@@ -128,7 +128,7 @@ clouds.:
     | 7  |         | azure         | azure     |         |        |
     +----+---------+---------------+-----------+---------+--------+
 
-.. todo:: SAME as 'register info'?
+.. warning:: SAME as 'register info'?
 
 To list only the names, please use the command:
 
@@ -149,7 +149,7 @@ To list only the names, please use the command:
     | kilo  |
     +-------+
 
-.. todo:: NOT valid command anymore
+.. warning:: NOT valid command anymore
 
 As we also have to sometimes login to some remote hosts it is
 convenient to reuse the ssh command for that. ssh has the advantage of
@@ -228,7 +228,7 @@ Which will look like this::
     | OS_OPENRC             | ~/.cloudmesh/clouds/india/kilo/openrc.sh |
     +-----------------------+------------------------------------------+
 
-.. todo:: ERROR
+.. warning:: ERROR
 
 The default view returns a openrc.sh file:
 
@@ -250,7 +250,7 @@ The output contains an rc file example::
     export OS_PASSWORD=********
     export OS_PROJECT_NAME=fg1234
 
-.. todo:: ERROR
+.. warning:: ERROR
 
 The passwords will be masked with eight stars: `********`.
 In case you like also to see the password you can use the --password flag.
@@ -259,7 +259,7 @@ In case you like also to see the password you can use the --password flag.
 register merge 
 ----------------
 
-.. todo:: the description of what this is doing was ambigous, we need
+.. warning:: the description of what this is doing was ambigous, we need
 	  to clarify if it only replaces to do or actually add things
 	  that do not exist, or just overwrites.
 	  
@@ -269,7 +269,7 @@ simply have to specify the location of the file that you like to merge
 into the existing yaml file. However, please be careful, as it will
 overwrite the contents in ~/.cloudmesh/cloudmesh.yaml
 
-.. todo:: We used to have a .bak.# when we modified the yaml file, do
+.. warning:: We used to have a .bak.# when we modified the yaml file, do
 	  you still have this
 
 Hence the command 

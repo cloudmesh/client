@@ -98,7 +98,7 @@ To specify a different format, such as json, use:
         }
   }
 
-..todo:: 'json' format still printed out a table
+.. warning:: 'json' format still printed out a table
 
 list Cloud objects
 --------------------
@@ -117,6 +117,6 @@ use:
 
 .. note:: not everything may be implemented yet.
 
-..todo:: image, flavor, vm all have empty data, if not refreshed/populated
+.. warning:: image, flavor, vm all have empty data, if not refreshed/populated
 via other commands? quota, limits and usage not yet implemented (NOT valid command)
 

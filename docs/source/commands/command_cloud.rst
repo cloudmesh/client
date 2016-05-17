@@ -72,7 +72,7 @@ You can logon to multiple clouds:
     | kilo       | Active     |
     +------------+------------+
 
-.. todo:: logon does not give error but after that the status in
+.. warning:: logon does not give error but after that the status in
 'cloud list' does not show the cloud as 'Active'. Maybe a duplication
 when we have a new column 'Active' in addition to 'Status'?
 
@@ -117,7 +117,7 @@ To activate a cloud use:
    
   Activated cloud: kilo
 
-.. todo:: KeyError: 'kilo' when trying to deactivate kilo
+.. warning:: KeyError: 'kilo' when trying to deactivate kilo
 
 .. prompt:: bash, cm>
 	    
@@ -170,5 +170,5 @@ To log out from a cloud use:
     | kilo       | Logged Out |
     +------------+------------+
 
-.. todo:: Logged out in 'Status' column and the 'Active' column may
+.. warning:: Logged out in 'Status' column and the 'Active' column may
 be duplicated and conflicting with each other.
