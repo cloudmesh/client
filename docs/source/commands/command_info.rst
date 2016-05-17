@@ -5,7 +5,9 @@ The manual page of the `info` command can be found at: `info
 <../man/man.html#info>`_
 
 Cloudmesh has a number of important defaults. They are a subset of all
-default commands and can be listed with the command `info:
+default commands and can be listed with the command `info. To view all
+default values you can use the ` default list` command can be found at: `info
+<../man/man.html#info>`_. Here is the info command in action:
 
 .. prompt:: bash, cm>
 

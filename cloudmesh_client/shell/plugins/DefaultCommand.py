@@ -37,7 +37,7 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
           Options:
              --cloud=CLOUD    the name of the cloud
              --format=FORMAT  the output format. Values include
-                              table, json, csv, yaml. [default: table]
+                              table, json, csv, yaml.
              --all            lists all the default values
 
         Description:
@@ -138,7 +138,7 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
             cloud = arguments["--cloud"] or Default.get(name="cloud", category="general") or "general"
 
         if arguments["list"]:
-            output_format = arguments["--format"]
+            output_format = arguments["--format"] or Default.output or 'table'
 
             if arguments['--all'] or arguments["--cloud"] is None:
                 cloud = None
