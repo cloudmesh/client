@@ -41,7 +41,7 @@ class Default(object):
              category=None,
              order=None,
              header=None,
-             output='table'):
+             output=None):
         """
         lists the default values in the specified format.
         TODO: This method has a bug as it uses format and output,
@@ -62,6 +62,8 @@ class Default(object):
             #         'value',
             #         'updated_at']
             # order, header = Attributes(cls.__kind__, provider=cls.__provider__)
+        if output is None:
+            output = Default.output or 'table'
         try:
             if category is None:
                 result = cls.cm.all(kind=cls.__kind__)
@@ -69,7 +71,7 @@ class Default(object):
                 result = cls.cm.all(category=category, kind=cls.__kind__)
 
             table = Printer.write(result,
-                                  output='table')
+                                  output=output)
             return table
         except Exception as e:
             Console.error("Error creating list", traceflag=False)
@@ -211,6 +213,11 @@ class Default(object):
     def loglevel(cls):
         return cls.get(name="loglevel")
 
+    @readable_classproperty
+    def output(cls):
+        return cls.get(name="output")
+
+
     @classmethod
     def set_loglevel(cls, level):
         level = level or 'debug'
@@ -263,6 +270,11 @@ class Default(object):
 
         cls.set(name, str(value), type='int')
         cls.set(name, str(value), type='int')
+
+    @classmethod
+    def set_output(cls, value):
+        cls.output("output", value)
+
 
     @classmethod
     def set_user(cls, value):

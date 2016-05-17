@@ -315,7 +315,7 @@ Command - default::
       Options:
          --cloud=CLOUD    the name of the cloud
          --format=FORMAT  the output format. Values include
-                          table, json, csv, yaml. [default: table]
+                          table, json, csv, yaml.
          --all            lists all the default values
 
     Description:
