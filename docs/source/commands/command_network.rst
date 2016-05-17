@@ -9,7 +9,7 @@ including networks, fixed & floating ips.
 The manual page of the `network` command can be found at: `network <../man/man.html#network>`__
 
 
-..note:: We assume you have your default cloud set,
+.. note:: We assume you have your default cloud set,
          via the default command:
 
 	 .. prompt:: bash, cm>
@@ -76,6 +76,7 @@ To view the floating ip details for a particular instance, use:
     | cloud         | kilo                                 |
     +---------------+--------------------------------------+
 
+.. warning:: Specifying --instance failed with error
 
 To view details of a particular floating ip address, use:
 
@@ -99,6 +100,7 @@ To view details of a particular floating ip address, use:
     | cloud         | kilo                                 |
     +---------------+--------------------------------------+
 
+.. warning:: failed with error
 
 Create Floating IP Addresses
 -----------------------------
@@ -142,7 +144,7 @@ To delete a floating ip address, use:
    
    Floating IP [100.165.123.112] deleted successfully!
 
-
+.. warning:: deletion failed with error
 
 .. prompt:: bash, cm>
 	       
@@ -199,6 +201,8 @@ that you want to associate with an instance:
    
   Associated Floating IP [100.165.123.112] to instance [albert-008].
 
+.. warning:: FAILED. find_assign_floating_ip() got an unexpected keyword argument 'floating_ip'
+
 .. prompt:: bash, cm>
 	      
   network list floating ip
@@ -230,6 +234,8 @@ To automatically detect the floating ip address associated with an instance
    
   Disassociated Floating IP [100.165.123.113] from instance [albert-009].
 
+.. warning:: FAILED with error: object of type 'NoneType' has no len()
+
 .. prompt:: bash, cm>
 	      
   network list floating ip
@@ -254,6 +260,8 @@ Alternatively, you could also specify the floating ip address to dissociate:
 ::
    
   Disassociated Floating IP [100.165.123.113] from instance [albert-009].
+
+.. warning:: NOT valid command
 
 .. prompt:: bash, cm>
 	      
