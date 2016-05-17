@@ -15,23 +15,24 @@ def z_b(cls, args):
 class A(DynamicClass):
     pass
 
-a = A()
-a.add_instance_method(my_i)
-a.my_i("i am my_i")
+if __name__ == "__main__":
+    a = A()
+    a.add_instance_method(my_i)
+    a.my_i("i am my_i")
 
-A.add_classmethod(my_c)
-a.my_c("i am my_c")
+    A.add_classmethod(my_c)
+    a.my_c("i am my_c")
 
-A.load_classmethod("cloudmesh_client.extend.my.my_cc")
-a.my_cc("i am my_cc")
+    A.load_classmethod("cloudmesh_client.extend.my.my_cc")
+    a.my_cc("i am my_cc")
 
-b = A()
+    b = A()
 
-b.my_cc("i am my_cc")
+    b.my_cc("i am my_cc")
 
-A.z_b = z_b
+    A.z_b = z_b
 
-A().z_b("i am z_b")
+    A().z_b("i am z_b")
 
-A.load_classmethod("cloudmesh_client.extend.my.my_ccc")
-A().my_ccc("YOURS")
+    A.load_classmethod("cloudmesh_client.extend.my.my_ccc")
+    A().my_ccc("YOURS")

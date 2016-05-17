@@ -1,2 +1,4 @@
 import requests
-print("HELLO WORLD!!")
+if __name__ == "__main__":
+
+    print("HELLO WORLD!!")
