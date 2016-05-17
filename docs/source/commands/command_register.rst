@@ -38,7 +38,7 @@ you can simply say:
     register openrc.sh
    
     
-.. todo:: verify if this works
+.. todo:: verify if this works [ERROR]
 
 On chameleoncloud.org you can for example go to the horizon web interface and
 download the credentials in the security panel.
@@ -91,6 +91,7 @@ To edit the file, you can use the command:
 	    
   register edit
 
+.. todo:: [ERROR] Need to set 'EDITOR' in environ
 
 register list
 -------------
@@ -114,13 +115,20 @@ clouds.:
    
     Clouds specified in the configuration file ~/.cloudmesh\cloudmesh.yaml
 
-    +-------+-----------+---------+
-    | Name  | Iaas      | Version |
-    +-------+-----------+---------+
-    | azure | azure     | N/A     |
-    | aws   | ec2       | N/A     |
-    | kilo  | openstack | kilo    |
-    +-------+-----------+---------+
+    +----+---------+---------------+-----------+---------+--------+
+    | id | default | cloud         | iaas      | version | active |
+    +----+---------+---------------+-----------+---------+--------+
+    | 0  |         | cm            | openstack | kilo    | 2      |
+    | 1  | *       | kilo          | openstack | kilo    | 1      |
+    | 2  |         | chameleon     | openstack | kilo    |        |
+    | 3  |         | cybera-c      | openstack | kilo    |        |
+    | 4  |         | cybera-e      | openstack | kilo    |        |
+    | 5  |         | aws           | ec2       |         |        |
+    | 6  |         | chameleon-ec2 | ec2       | ec2     |        |
+    | 7  |         | azure         | azure     |         |        |
+    +----+---------+---------------+-----------+---------+--------+
+
+.. todo:: SAME as 'register info'?
 
 To list only the names, please use the command:
 
@@ -140,6 +148,8 @@ To list only the names, please use the command:
     | india |
     | kilo  |
     +-------+
+
+.. todo:: NOT valid command anymore
 
 As we also have to sometimes login to some remote hosts it is
 convenient to reuse the ssh command for that. ssh has the advantage of
@@ -218,6 +228,8 @@ Which will look like this::
     | OS_OPENRC             | ~/.cloudmesh/clouds/india/kilo/openrc.sh |
     +-----------------------+------------------------------------------+
 
+.. todo:: ERROR
+
 The default view returns a openrc.sh file:
 
 .. prompt:: bash, cm>
@@ -238,6 +250,7 @@ The output contains an rc file example::
     export OS_PASSWORD=********
     export OS_PROJECT_NAME=fg1234
 
+.. todo:: ERROR
 
 The passwords will be masked with eight stars: `********`.
 In case you like also to see the password you can use the --password flag.

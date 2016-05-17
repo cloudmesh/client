@@ -12,29 +12,38 @@ Listing Defaults
 
 You can have a list of relevant default attributes required for VM operations::
 
-    +-----------+--------------------------------------+
-    | Attribute | Value                                |
-    +-----------+--------------------------------------+
-    | secgroup  |                                      |
-    | login_key | /home/albert/key/id_rsa              |
-    | flavor    | 2                                    |
-    | image     | 619b8942-2355-4aa2-jaa5-74b8f1751911 |
-    | cloud     | kilo                                 |
-    | name      | albert-015                           |
-    | key       | albertkey                            |
-    | group     | test                                 |
-    +-----------+--------------------------------------+
+    $cm register export kilo --format=table
 
-- secgroup - Security Group to be provided for VM boot.
-- login_key - Path to private key required for VM login.
+    +-------------+-----------------+
+    | Attribute   | Value           |
+    +-------------+-----------------+
+    | cloud       | kilo            |
+    | key         | albert          |
+    | user        | albert          |
+    | vm          |                 |
+    | group       | default         |
+    | secgroup    | albert-default  |
+    | counter     | 1               |
+    | image       | Ubuntu-14.04-64 |
+    | flavor      | m1.small        |
+    | refresh     | None            |
+    | debug       | True            |
+    | interactive | None            |
+    | purge       | None            |
+    +-------------+-----------------+
+- cloud - Current active cloud
+- key - Key name from db used for VM boot
+- user - User name for the current active cloud
+- group - Group for the VM to be booted
+- secgroup - Security Group to be provided for VM boot
+- counter - the count to be used in the VM name
 - flavor - Flavor ID required for VM boot.
 - image - Image ID required for VM boot.
-- cloud - Target Cloud.
-- name - Name of the VM to be booted. This is in format
-  <username>-<count>. Username retrieved from cloudmesh.yaml, count
-  retrieved from a counter in database.
-- key - Key name from db used for VM boot.
-- group - Group for the VM to be booted.
+- refresh - If refresh flag is set
+- debug - if debug flag is set
+- interactive - if interactive flag is set
+- purge - if the purge flag is set. This determines if a 'delete' on the cloud
+will also delete the records from the local db
 
 
 Booting a VM instance
@@ -49,19 +58,36 @@ then you can simply run the following to boot a vm.:
 
 ::
    
-    Machine albert-015 is being booted on kilo Cloud...
-    Added ID [4a37b49a-9768-88cc-b988-01013701a8fb] to Group [test]
+    Machine albert-001 is being booted on cloud cm ...
+    +-----------+--------------------------------+
+    | Attribute | Value                          |
+    +-----------+--------------------------------+
+    | cloud     | cm                             |
+    | flavor    | m1.small                       |
+    | image     | Ubuntu-Server-14.04-LTS        |
+    | key       | albert                         |
+    | meta      | +                              |
+    |   -       | category: cm                   |
+    |   -       | kind: cloudmesh                |
+    |   -       | group: default                 |
+    |   -       | image: Ubuntu-Server-14.04-LTS |
+    |   -       | key: albert                    |
+    |   -       | flavor: m1.small               |
+    | name      | albert-001                     |
+    | nics      |                                |
+    | secgroup  | +                              |
+    |   -       | albert-default                 |
+    +-----------+--------------------------------+
     info. OK.
 
 Else you may explicitly specify the attribute values in the arguments to the vm boot command.:
 
 .. prompt:: bash, cm>
 	    
-    vm
+    vm boot --name=testvm --cloud=kilo --image=619b8942-2355-4aa2-jaa5-74b8f175
+    1911 --flavor=2
 
 ::
-    boot --name=testvm --cloud=kilo --image=619b8942-2355-4aa2-jaa5-74b8f175
-    1911 --flavor=2
     Machine testvm is being booted on kilo Cloud...
 
 Listing a VM instances
@@ -95,6 +121,9 @@ You can stop a VM by supplying it's label or UUID:
     Machine testvm is being stopped on kilo Cloud...
     info. OK.
 
+..todo:: ERROR: Problem stopping instances
+
+
 Start a VM
 -----------
 
@@ -117,11 +146,14 @@ accessed publicly:
 
 .. prompt:: bash, cm>
 	    
-    vm floating_ip_assign testvm --cloud=kilo
+    vm ip assign testvm
 
 ::
    
     Floating IP assigned to testvm successfully and it is: 149.165.158.XX
+
+..todo:: seems working, bug to 'non unique match' error, while 'cm vm list --refresh'
+does not indicate so. The problem might be in 'cm vm list' and/or 'refresh'
 
 Retrieving IP Address details
 ------------------------------
@@ -130,17 +162,18 @@ You can get the IP address details of a VM by the following command:
 
 .. prompt:: bash, cm>
 	    
-    vm ip_show testvm --cloud=kilo
+    vm ip show testvm
 
 ::
    
-    IP Addresses of instance testvm are as follows:-
-    +---------+---------+----------------+
-    | network | version | addr           |
-    +---------+---------+----------------+
-    | int-net | 4       | 10.23.2.XX     |
-    | int-net | 4       | 149.165.158.XX |
-    +---------+---------+----------------+
+    +--------------+--------------+-----------------+
+    | name         | static_ip    | floating_ip     |
+    +--------------+--------------+-----------------+
+    | albert-001   | 192.168.0.74 | 12x.11x.11x.12x |
+    +--------------+--------------+-----------------+
+
+..note:: The real floating IP has been masked in this example, while the command
+shows the true IPs.
 
 Login to VM
 ------------
@@ -189,6 +222,7 @@ You can login to a VM in your target cloud:
 
     albert@testvm:~$
 
+..todo:: login not working anymore
 
 Running command on VM
 ----------------------
@@ -209,6 +243,8 @@ You can use the vm login to simply run a command on the target VM:
   IP to be used is: 149.165.159.XX
   Enter passphrase for key '/location/id_rsa':
   OS testvm <VERSION> #103-OS SMP Fri Aug 14 21:42:59 UTC 2015 <BIT_SPEC> OS
+
+..todo:: depends on the login being working
 
 Deleting a VM
 --------------
@@ -237,4 +273,6 @@ You can rename a VM on the target cloud by using 'vm rename' command as below:
     Renaming VM (testvm) : 5bd7911e2b-xxxx-xxxx-xxxx-xxxxxxx
     Machine testvm renamed to testvm_renamed on kilo Cloud...
 
+..todo:: renamed on the remote cloud; but the local db shows two copies of the records.
+One for the old name, and one for the new name.
 
