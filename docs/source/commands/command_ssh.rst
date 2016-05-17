@@ -1,4 +1,4 @@
-Color Command
+Ssh Command
 ======================================================================
 
 Often the ssh command needs to be used to login to remote machines. As the
@@ -16,7 +16,8 @@ Lists
 
   ssh list
 
-::  
+::
+   
       lists the hostsnames  that are present in the
       ~/.ssh/config file
 
@@ -32,7 +33,8 @@ Lists
 	    
   ssh table
 
-::  
+::
+   
       prints contents of the ~/.ssh/config file in table format
 
 
@@ -43,7 +45,8 @@ Executing Command
 
   ssh ARGUMENTS
 
-::  
+::
+   
       executes the ssh command with the given arguments
       Example:
           ssh myhost

@@ -114,7 +114,7 @@ To create a floating ip address under a floating pool, use:
   Created new floating IP [100.165.123.112]
 
 
-  .. prompt:: bash, cm>
+.. prompt:: bash, cm>
 	      
   network list floating ip
 
@@ -173,7 +173,7 @@ and associate it with an instance, use:
   Created and assigned Floating IP [100.165.123.113] to instance [albert-009].
 
 
-  .. prompt:: bash, cm>
+.. prompt:: bash, cm>
 	      
   network list floating ip
 

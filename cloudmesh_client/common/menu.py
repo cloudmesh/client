@@ -24,7 +24,7 @@ def ascii_menu(title=None, menu_list=None):
         print(len(title) * "=")
         print()
         for label, function in menu_list:
-            print("    {0} - {1}".format(index, label))
+            print("    {0:>3} - {1}".format(index, label))
             index += 1
         print("    q - quit")
         print()
@@ -71,9 +71,9 @@ def menu_return_num(title=None, menu_list=None, tries=1, with_display=True):
         print(len(title) * "=")
         print()
         for label in menu_list:
-            print("    {0} - {1}".format(index, label))
+            print("    {0:>3} - {1}".format(index, label))
             index += 1
-        print("    q - quit")
+        print("      q - quit")
         print()
         print()
 

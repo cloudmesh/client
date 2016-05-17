@@ -47,7 +47,6 @@ Cloud Commands
    command_flavor
    command_image
    command_network
-   command_nova
    command_sync
    command_limits
    command_quota

@@ -10,7 +10,7 @@ it will show the resource list for the past one month.
 list
 ----------------------------------------------------------------------
 
-To list the list information::
+To list the list information:
 
 .. prompt:: bash, cm>
 	      

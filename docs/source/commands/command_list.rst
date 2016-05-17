@@ -101,7 +101,10 @@ To specify a different format, such as json, use:
 list Cloud objects
 --------------------
 
-The list command can also be used to list cloud objects, thus you can use:
+The list command can also be used to list cloud objects, thus you can
+use:
+
+.. prompt:: bash, cm>
 
     list image
     list flavor
@@ -110,5 +113,5 @@ The list command can also be used to list cloud objects, thus you can use:
     list usage
     list vm
 
-.. note: not everything may be implemented yet.
+.. note:: not everything may be implemented yet.
 

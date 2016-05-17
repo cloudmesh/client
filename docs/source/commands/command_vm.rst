@@ -10,7 +10,7 @@ The manual page of the `vm` command can be found at: `vm <../man/man.html#vm>`__
 Listing Defaults
 ^^^^^^^^^^^^^^^^^
 
-You can have a list of relevant default attributes required for VM operations:
+You can have a list of relevant default attributes required for VM operations::
 
     +-----------+--------------------------------------+
     | Attribute | Value                                |
@@ -30,7 +30,9 @@ You can have a list of relevant default attributes required for VM operations:
 - flavor - Flavor ID required for VM boot.
 - image - Image ID required for VM boot.
 - cloud - Target Cloud.
-- name - Name of the VM to be booted. This is in format <username>-<count>. Username retrieved from cloudmesh.yaml, count retrieved from a counter in database.
+- name - Name of the VM to be booted. This is in format
+  <username>-<count>. Username retrieved from cloudmesh.yaml, count
+  retrieved from a counter in database.
 - key - Key name from db used for VM boot.
 - group - Group for the VM to be booted.
 
@@ -66,7 +68,7 @@ Listing a VM instances
 -----------------------
 
 You can list all the VM instances running on the cloud by 'vm list' command
-like the one below:
+like the one below::
 
     +----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+
     | id | uuid                                 | label                        | status    | static_ip   | floating_ip     | key_name                | project   | user      | cloud |

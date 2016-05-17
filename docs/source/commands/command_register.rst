@@ -2,10 +2,11 @@ Register Command
 ======================================================================
 
 
-Registering different clouds with the cloudmesh register command is easy. We
- have a number of predefined templates that are stored in the ~/.cloudmesh
- .yaml file that you can use and modify. However for some clouds such as the
-  once at IU an easy registration exists if you have appropriate access.
+Registering different clouds with the cloudmesh register command is
+easy. We have a number of predefined templates that are stored in the
+~/.cloudmesh .yaml file that you can use and modify. However for some
+clouds such as the once at IU an easy registration exists if you have
+appropriate access.
 
 The manual page of the `register` command can be found at:
 `register <../man/man.html#register>`__
@@ -325,6 +326,7 @@ have the value TBD:
     register check
 
 ::
+   
       ERROR: The file has 11 values to be fixed
 	    
       email: TBD
@@ -354,7 +356,8 @@ It will return output in json format:
 	    
     register json azure
 
-::    
+::
+   
    {
         "cm_heading": "Microsoft Azure Virtual Machines",
         "cm_label": "waz",

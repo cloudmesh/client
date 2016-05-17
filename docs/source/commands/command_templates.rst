@@ -189,38 +189,44 @@ The current list of commands contains:
 Elementary Commands
 -------------------
 
-We have build in some convenience commands into the shell that include comments and execution of cm scripts.
+We have build in some convenience commands into the shell that include
+comments and execution of cm scripts.
 
 Comments
 ^^^^^^^^^
 
-Comments are identified by the first characters in a command line. We allow the following comment charater identification
-strings::
+Comments are identified by the first characters in a command line. We
+allow the following comment charater identification strings::
 
    #
    /*
    //
 
-If comments are to be done over multiple lines in a cloudmesh script, they have to be done for each line. If a space or other
- character is in front of a comment string, the it will not be considered as a comment.
+If comments are to be done over multiple lines in a cloudmesh script,
+they have to be done for each line. If a space or other character is
+in front of a comment string, the it will not be considered as a
+comment.
 
 Cloudmesh File Execution
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Multiple cloudmesh commands can be placed in a single file. We recommend that you use the ending `.cm`. You can satrt the
-execution of such a file with:
+Multiple cloudmesh commands can be placed in a single file. We
+recommend that you use the ending `.cm`. You can satrt the execution
+of such a file with:
 
 .. prompt:: bash
 
    cm filename.cm
 
-A cloudmesh file could itself include references to other cloudmesh files. They can be started in one of two ways. You can
-use the `exec` command::
+A cloudmesh file could itself include references to other cloudmesh
+files. They can be started in one of two ways. You can use the `exec`
+command::
 
    $ cm
    cm> exec filename.cm
 
-or you can use simply the filename. Cloudmesh will check if the filename exists and than execute it::
+or you can use simply the filename. Cloudmesh will check if the
+filename exists and than execute it::
 
    $ cm
    cm> filename.cm
@@ -301,27 +307,36 @@ Variables
 
 Cloudmesh client contains the ability to use variables within the shell.
 Variables are preserved between calls to cm. To see a list of all variables,
-use the command::
+use the command:
 
-  var list
+.. prompt:: bash, cm>
+	    
+	    var list
 
-To set variable values you can use::
+To set variable values you can use:
 
-    cm> var name=value
+.. prompt:: bash
+
+	    var name=value
 
 which will set the variable with the given name to the specified value.
 In case the value specifies an entry in the cloudmesh.yaml file it will
-be read from it and put into the named variable. For example the command::
+be read from it and put into the named variable. For example the
+command:
 
-    cm> var username=cloudmesh.profile.username
+.. prompt:: bash
+
+	    var username=cloudmesh.profile.username
 
 Will create a variable username and get the value form the yaml file
 specified by its object hierarchy.
 
 To use the content of the variable, simple use it on the shell with a
-dollar sign such as::
+dollar sign such as:
 
-  cm> banner $name
+.. prompt:: bash
+
+	    banner $name
 
 In this example a banner will be created that contains the value of the
 variable name. Note that the variables `$date` and `$time` are predefined
@@ -329,7 +344,7 @@ and give the current date and time and are updated at the time they are called.
 
 As `cm` can also be used in a terminal, many terminal use a $ to indicate
 variables for this terminal/shell. In order to mask this you will need to
-use the ' ' or the \ sign. Thus, :
+use the ' ' or the `\` sign:
 
 .. prompt:: bash, cm>
 
@@ -359,13 +374,13 @@ system/terminal variables while prepending them with os. Thus:
 
 .. prompt:: bash, cm>
 		
-`	    banner $os.HOME
+   banner $os.HOME
    
 	    
 Will be the same the advantage is that with os. we clearly mark an os
 systems variable that we like to access and no confusion between internal
 cloudmesh shell and OS variables occur. Furthermore variables defined in the
-cloudmesh yaml file can be directly accessed while using the . notation. Thus::
+cloudmesh yaml file can be directly accessed while using the . notation. Thus:
 
 .. prompt:: bash, cm>
 	      

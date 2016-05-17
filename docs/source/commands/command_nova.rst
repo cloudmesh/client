@@ -15,7 +15,7 @@ Setting the Target Cloud
 
 You may set the target cloud on which the nova command should run as follows::
 
-  .. prompt:: bash, cm>
+.. prompt:: bash, cm>
 	      
     nova set india
 
@@ -30,7 +30,7 @@ Getting the Cloud Info
 
 You may get the cloud info in the following manner::
 
-  .. prompt:: bash, cm>
+.. prompt:: bash, cm>
 	      
     nova info
 
@@ -50,7 +50,7 @@ You may get the cloud info in the following manner::
 
 By default it gives the 'india' cloud info. To check for specific cloud, here is an example for kilo cloud::
 
-  .. prompt:: bash, cm>
+.. prompt:: bash, cm>
 	      
     nova info kilo
 
@@ -75,7 +75,7 @@ Following are couple of examples::
 
 Listing images::
 
-  .. prompt:: bash, cm>
+.. prompt:: bash, cm>
 	      
     nova image-list
 
@@ -108,7 +108,7 @@ Listing images::
 
 Listing flavors::
 
-  .. prompt:: bash, cm>
+.. prompt:: bash, cm>
 	      
     nova flavor-list
 
