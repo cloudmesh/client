@@ -4,8 +4,8 @@ Cloud Command
 The cloud command provides an API that allows users to login to
 a cloud, activate a cloud, deactivate a cloud & logout from a cloud.
 
-The manual page of the network command can be found at: `cloud <../man/man.html#cloud>`
-
+The manual page of the network command can be found at: 
+`cloud <../man/man.html#cloud>`_
 
 
 List status of all clouds
