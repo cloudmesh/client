@@ -84,10 +84,10 @@ Else you may explicitly specify the attribute values in the arguments to the vm 
 
 .. prompt:: bash, cm>
 	    
-    vm boot --name=testvm --cloud=kilo --image=619b8942-2355-4aa2-jaa5-74b8f175
-    1911 --flavor=2
+    vm boot --name=testvm --cloud=kilo --image=619b8942-2355-4aa2-jaa5-74b8f1751911 --flavor=2
 
 ::
+    
     Machine testvm is being booted on kilo Cloud...
 
 Listing a VM instances
@@ -121,7 +121,7 @@ You can stop a VM by supplying it's label or UUID:
     Machine testvm is being stopped on kilo Cloud...
     info. OK.
 
-..todo:: ERROR: Problem stopping instances
+.. warning:: ERROR: Problem stopping instances
 
 
 Start a VM
@@ -152,7 +152,7 @@ accessed publicly:
    
     Floating IP assigned to testvm successfully and it is: 149.165.158.XX
 
-..todo:: seems working, bug to 'non unique match' error, while 'cm vm list --refresh'
+.. warning:: seems working, bug to 'non unique match' error, while 'cm vm list --refresh'
 does not indicate so. The problem might be in 'cm vm list' and/or 'refresh'
 
 Retrieving IP Address details
@@ -222,7 +222,7 @@ You can login to a VM in your target cloud:
 
     albert@testvm:~$
 
-..todo:: login not working anymore
+.. warning:: login not working anymore
 
 Running command on VM
 ----------------------
@@ -244,7 +244,7 @@ You can use the vm login to simply run a command on the target VM:
   Enter passphrase for key '/location/id_rsa':
   OS testvm <VERSION> #103-OS SMP Fri Aug 14 21:42:59 UTC 2015 <BIT_SPEC> OS
 
-..todo:: depends on the login being working
+.. warning:: depends on the login being working
 
 Deleting a VM
 --------------
@@ -273,6 +273,6 @@ You can rename a VM on the target cloud by using 'vm rename' command as below:
     Renaming VM (testvm) : 5bd7911e2b-xxxx-xxxx-xxxx-xxxxxxx
     Machine testvm renamed to testvm_renamed on kilo Cloud...
 
-..todo:: renamed on the remote cloud; but the local db shows two copies of the records.
+.. warning:: renamed on the remote cloud; but the local db shows two copies of the records.
 One for the old name, and one for the new name.
 

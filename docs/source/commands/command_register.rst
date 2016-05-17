@@ -1,4 +1,4 @@
-Register Command
+egister Command
 ======================================================================
 
 
@@ -50,6 +50,7 @@ than integrate them into the cloudmesh.yaml file. You can arbitrarily
 name the cloud/project but it must not yet have been used otherwise
 you are overwriting an existing cloud. Register commands such as `list`
 and `backup` will help you with the management
+
 
 On chameleoncloud.org you can for example go to the horizon web interface and
 download the credentials in the security panel.
@@ -156,8 +157,8 @@ As we also have to sometimes login to some remote hosts it is
 convenient to reuse the ssh command for that. ssh has the advantage of
 being able to use a config file in $HOME/.ssh/config. MOre information
 about ssh config files and their format can be found in the many web
-pages if you google for `ssh config`. In case you have defined 
-a host `india` in ~/.ssh/config in the following way::
+pages if you google for `ssh config`. In case you have defined a host
+`india` in ~/.ssh/config in the following way::
 
     Host india
         Hostname india.futuresystems.org
@@ -224,7 +225,7 @@ Which will look like this::
     | OS_OPENRC             | ~/.cloudmesh/clouds/india/kilo/openrc.sh |
     +-----------------------+------------------------------------------+
 
-.. todo:: ERROR
+.. warning:: ERROR
 
 The default view returns a openrc.sh file:
 
@@ -259,14 +260,18 @@ In case you like also to see the password you can use the `--password` flag.
 	      to clarify if it only replaces to do or actually add things
 	      that do not exist, or just overwrites.
 
-    IN case you have already a yaml file, form another project
+    In case you have already a yaml file, form another project
     you can merge two of them into the same cloudmesh yaml file. You
     simply have to specify the location of the file that you like to merge
     into the existing yaml file. However, please be careful, as it will
     overwrite the contents in ~/.cloudmesh/cloudmesh.yaml
 
-    .. todo:: We used to have a .bak.# when we modified the yaml file, do
-	      you still have this
+    .. warning:: the description of what this is doing was ambigous, we need
+	  to clarify if it only replaces to do or actually add things
+	  that do not exist, or just overwrites.
+	  
+    .. warning:: We used to have a .bak.# when we modified the yaml file, do
+	  you still have this
 
     Hence the command 
 

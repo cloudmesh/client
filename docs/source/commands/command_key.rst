@@ -122,7 +122,7 @@ option:
 
 .. note:: we do show an abbreviation of the key for illustration.    
 
-.. todo:: NOT valid command
+.. warning:: NOT valid command
 
 Get Keys
 ---------
@@ -176,7 +176,7 @@ interactively with the select option:
     choice 2 selected.
     Setting key: rsa as default.
 
-.. todo:: ERROR in key selection
+.. warning:: ERROR in key selection
     
 Delete Keys
 ------------
@@ -192,7 +192,7 @@ A named key can be deleted from the registry with the command, where
    
     Key demokey deleted successfully from database.
 
-.. todo:: DEBUG dict info included in the result.
+.. warning:: DEBUG dict info included in the result.
 
 Alternatively you can also interactively select it:
 
@@ -200,7 +200,7 @@ Alternatively you can also interactively select it:
 	    
     $ cm key delete --select
 
-.. todo:: ERROR in key selection
+.. warning:: ERROR in key selection
 
 To delete all keys from database use:
 
@@ -212,4 +212,4 @@ To delete all keys from database use:
    
     All keys from the database deleted successfully.
 
-.. todo:: DEBUG info included; Functionality NOT IMPLEMENTED.
+.. warning:: DEBUG info included; Functionality NOT IMPLEMENTED.
