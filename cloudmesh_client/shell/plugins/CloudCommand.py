@@ -108,7 +108,7 @@ class CloudCommand(PluginCommand, CloudPluginCommand):
             clouds = provider.list_clouds()
             default = Default.cloud
             active = ConfigDict("cloudmesh.yaml")["cloudmesh"]["active"]
-            key = Default.get_key()
+            key = Default.key
 
             def yes(state):
                 if state:
