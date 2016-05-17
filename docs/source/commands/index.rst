@@ -23,6 +23,7 @@ Shell Commands
    command_templates
    command_colors
    command_default
+   command_info
    command_group
    command_ssh
    command_select

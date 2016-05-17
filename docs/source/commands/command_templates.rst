@@ -60,7 +60,7 @@ clouds it may be inconvenient to specify the name of the cloud every
 time, thus we have introduced the concept of a default cloud. The
 default cloud can be set with the command:
 
-.. prompt:: bash
+.. prompt:: bash, cm>
 
     default cloud CLOUDNAME
 
@@ -99,24 +99,28 @@ Help
 
 To see the list of all available commands use the command:
 
-.. prompt:: bash
 
-   cm help
+.. prompt:: bash, cm>
+	    
+   help
 
+   
 The commands are sorted by topic, while the first list gives all
 commands in alphabetical order. To opbtain an individual man page
 simply say:
 
-.. prompt:: bash
 
-       cm help COMMAND
-
+.. prompt:: bash, cm>
+	    
+       help COMMAND
+   
+       
 where command is the command you which to get the help message for. To
 optain the manual pages of all commands yo can use the command:
 
-.. prompt:: bash
+.. prompt:: bash, cm>
 
-   cm man
+   man
 
 which will print all man pages out.
 
@@ -225,32 +229,48 @@ or you can use simply the filename. Cloudmesh will check if the filename exists 
 Python
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can execute a python command as follows::
+You can execute a python command as follows:
 
-    cm> py COMMAND
-
+.. prompt:: bash, cm>
+	    
+    py COMMAND
+    
 where command is the command you like to execute
 
 
 Quitting the shell
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To quit the shell you can use either the commands::
+To quit the shell you can use either the commands:
 
-  cm> q
-  cm> quit
-  cm> EOF
 
+.. prompt:: bash, cm>
+	    
+  q
+
+.. prompt:: bash, cm>
+	       
+   quit
+
+
+.. prompt:: bash, cm>
+	       
+   EOF
+
+   
+	    
 Manual Pages
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Often you will run in the situation where you may have to create a
 list of manual pages for your commands for your users. To simplify
 that we have not provided this in Unix Man format, but simply in RST
-format. You can type in the command::
+format. You can type in the command:
 
-  cm> man
-
+.. prompt:: bash, cm>
+	    
+  man
+  
 and it will print you in RST format a list of all commands available
 to you for your cmd3 shell. This naturally you could put into a sphinx
 documentation to create a nice user manual for your users.
@@ -309,30 +329,49 @@ and give the current date and time and are updated at the time they are called.
 
 As `cm` can also be used in a terminal, many terminal use a $ to indicate
 variables for this terminal/shell. In order to mask this you will need to
-use the ' ' or the \ sign. Thus, ::
+use the ' ' or the \ sign. Thus, :
 
-    $ cm banner '$name'
-    $ cm banner \$name
+.. prompt:: bash, cm>
 
+	    banner '$name'
+
+.. prompt:: bash, cm>
+		
+	    banner \$name
+
+   
+	    
 will result in the ability to ue the cloudmesh shell variables. If you
 However want to use the terminal shell variables such as `$HOME` you can
-access them directly::
+access them directly:
 
-    $ cm banner $HOME
+.. prompt:: bash, cm>
+	    
+    banner $HOME
 
+    
 Special syntax detection of variables allow also easy use of operating
-system/terminal variables while prepending them with os. Thus::
+system/terminal variables while prepending them with os. Thus:
 
-    cm> banner $HOME
-    cm> banner $os.HOME
+.. prompt:: bash, cm>
+	    
+    banner $HOME
 
+.. prompt:: bash, cm>
+		
+`	    banner $os.HOME
+   
+	    
 Will be the same the advantage is that with os. we clearly mark an os
 systems variable that we like to access and no confusion between internal
 cloudmesh shell and OS variables occur. Furthermore variables defined in the
 cloudmesh yaml file can be directly accessed while using the . notation. Thus::
 
-  cm> banner $cloudmesh.profile.username
+.. prompt:: bash, cm>
+	      
+  banner $cloudmesh.profile.username
 
+  
 Will print a banner with the username being `myusername` as defined in the
 yaml hierarchy under given this example::
 
@@ -344,10 +383,10 @@ yaml hierarchy under given this example::
 To show the usage of the different variables in one line, please review the
 following example:
 
-.. prompt:: bash
+.. prompt:: bash, cm>
 
-    cm var a=hello
-    cm banner '$a-[0-100] $os.HOME $cloudmesh.profile.username'
+    var a=hello
+    banner '$a-[0-100] $os.HOME $cloudmesh.profile.username'
 
 This will print, where albert is your username::
 
@@ -362,29 +401,43 @@ Sometimes it is a good idea to measure the time it takes to execute a
 particular command. For this reason we have a timer command that can switch
 on and off this behaviour.
 
-::
-
+.. prompt:: bash, cm>
+	    
    timer on
+
+.. prompt:: bash, cm>
+	       
    timer off
 
+   
 switches the timer on or off. If the timer is switched on every command will
 be followed with the time it takes toe execute that command. Special named
 timers can be defined and used.
 
-::
+.. prompt:: bash, cm>
+	    
+	    timer start mytimer
 
-   timer start mytimer
 
-   timer stop mytimer
-   timer print mytimer
+.. prompt:: bash, cm>
+	       
+	    timer stop mytimer
 
+
+.. prompt:: bash, cm>
+	       
+	    timer print mytimer
+
+   
+	       
 Intuitive start, stop, and print options can be used. A timer will be reset
 with
 
-::
-
+.. prompt:: bash, cm>
+	    
    timer reset mytimer
 
+   
 
 
 

@@ -6,16 +6,21 @@ addresses one can obtain, or how many cores a user can have. To get an
 overview of the quotas set for a user in a project we are providing a
 quota command.
 
-The manual page of the quota command can be found at: `Quota
+The manual page of the `quota` command can be found at: `quota
 <../man/man.html#quota>`_
 
 
 quota list
 ----------------------------------------------------------------------
 
-To list the quota limit on a default project/tenant you can use::
+To list the quota limit on a default project/tenant you can use:
 
-  $ cm quota list
+.. prompt:: bash, cm>
+	    
+  quota list
+
+::
+   
     +-----------------------------+-------+
     | Quota                       | Limit |
     +-----------------------------+-------+
@@ -35,9 +40,14 @@ To list the quota limit on a default project/tenant you can use::
     | ram                         | 51200 |
     +-----------------------------+-------+
 
-To export it in csv format,::
+To export it in csv format:
 
-    $ cm quota list --format=csv
+.. prompt:: bash, cm>
+	    
+    quota list --format=csv
+
+::
+   
     Quota,Limit
     instances,10
     cores,20

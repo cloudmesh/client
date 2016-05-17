@@ -15,24 +15,37 @@ machines into a reservation for named clouds. Reservations are similar
 to groups just that they have a time frame associated with them. A
 timeless reservation is like a group.
 
-The manual page of the key command can be found at: `reservation
-<../man/man.html#reservation>`_
+The manual page of the `reservation` command can be found at: `reservation
+<../man/man.html#reservation>`__
 
 
 Adding a reservation
 ----------------------------------------------------------------------
 Please note that you have to escape the whitespaces with '\\' for commmand line arguments such as '--start', '--end'.
-::
+:
 
-    $ cm reservation add --name=test3 --start='10/31/1988\ at\ 8:09\ pm' --end='10/21/2015\ at\ 9:00\ pm' --user=albert --project=cloudmesh --hosts=host001 --description=desc
+.. prompt:: bash, cm>
+	    
+    reservation add --name=test3 --start='10/31/1988\ at\ 8:09\
+    pm' --end='10/21/2015\ at\ 9:00\
+    pm' --user=albert --project=cloudmesh --hosts=host001
+
+::
+    --description=
+    desc
     Reservation test3 added successfully
     info. OK.
 
 List Reservation
 ----------------------------------------------------------------------
-::
 
-    $ cm reservation list
+
+.. prompt:: bash, cm>
+	    
+    reservation list
+
+::
+   
     +----+-------+-----------------+-----------------+--------+-----------+---------+-------------+-------+
     | id | name  | start_time      | end_time        | user   | project   | hosts   | description | cloud |
     +----+-------+-----------------+-----------------+--------+-----------+---------+-------------+-------+
@@ -42,15 +55,25 @@ List Reservation
 Update Reservation
 ----------------------------------------------------------------------
 Please note that you have to escape the whitespaces with '\\' for command line arguments such as '--start', '--end'.
-::
 
-    $ cm reservation update --name=test3 --project=cloudnauts
+
+.. prompt:: bash, cm>
+	    
+    reservation update --name=test3 --project=cloudnauts
+
+::
+   
     Reservation test3 updated successfully
     info. OK.
 
 Verify by listing::
 
-    $ cm reservation list
+.. prompt:: bash, cm>
+	      
+    reservation list
+
+::
+   
     +----+-------+----------------+----------------+--------+------------+---------+-------------+-------+
     | id | name  | start_time     | end_time       | user   | project    | hosts   | description | cloud |
     +----+-------+----------------+----------------+--------+------------+---------+-------------+-------+
@@ -59,13 +82,23 @@ Verify by listing::
 
 Delete Reservation
 ----------------------------------------------------------------------
+
+
+.. prompt:: bash, cm>
+	    
+    reservation delete --name=test3
+
 ::
+   
+   info. OK.
 
-    $ cm reservation delete --name=test3
-    info. OK.
+Verify by listing
 
-Verify by listing::
+.. prompt:: bash, cm>
+	    
+    reservation list
 
-    $ cm reservation list
+::
+   
     None
     info. OK.

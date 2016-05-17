@@ -1,7 +1,7 @@
 Default Command
 ======================================================================
 
-The manual page of the group command can be found at: `default
+The manual page of the `default` command can be found at: `default
 <../man/man.html#default>`_
 
 Cloudmesh has the ability to manage easily multiple clouds.
@@ -19,9 +19,14 @@ cloud that is found in the yaml file and the default group is set to
 default list
 ----------------------------------------------------------------------
 
-All the current default values can by listed with --all option::
+All the current default values can by listed with --all option:
 
-    $ default list --all
+.. prompt:: bash, cm>
+	    
+    default list --all
+
+::
+   
     +--------+-----------+-------+-------+
     | user   | cloud     | name  | value |
     +--------+-----------+-------+-------+
@@ -31,9 +36,14 @@ All the current default values can by listed with --all option::
     +--------+-----------+-------+-------+
 
 You can also add a --cloud=CLOUD option to see the defaults set
-for a cloud::
+for a cloud:
 
-    $ default list --cloud=chameleon
+.. prompt:: bash, cm>
+	    
+    default list --cloud=chameleon
+
+::
+   
     +--------+-----------+-------+-------+
     | user   | cloud     | name  | value |
     +--------+-----------+-------+-------+
@@ -43,42 +53,72 @@ for a cloud::
 set default values
 ----------------------------------------------------------------------
 To add a default value, type in a key=value pair. If no --cloud is specified,
-it adds the value to the general/global cloud::
+it adds the value to the general/global cloud:
 
-    $ default image=xyz
+.. prompt:: bash, cm>
+	    
+    default image=xyz
+
+::
+   
     Successfully added value: xyz for key: image
 
 With the --cloud=CLOUD option, defaults can be set for a particular
-cloud::
+cloud:
 
-    $ default image=xyz --cloud=chameleon
+.. prompt:: bash, cm>
+	    
+    default image=xyz --cloud=chameleon
+
+::
+   
     Successfully added value: xyz for key: image
 
 looking up default values
 ----------------------------------------------------------------------
 To loop up a default value set, type in the key. If no --cloud option is
-specified, it returns the value of the general/global cloud::
+specified, it returns the value of the general/global cloud:
 
-    $ cm default image
+.. prompt:: bash, cm>
+	    
+    default image
+
+::
+   
     Default value for image is xyz
 
 With the --cloud=CLOUD option, defaults can be looked up for a particular
-cloud::
+cloud:
 
-    $ default image --cloud=chameleon
+.. prompt:: bash, cm>
+	    
+    default image --cloud=chameleon
+
+::
+   
     Default value for image is xyz
 
 deleting default values
 ----------------------------------------------------------------------
 To delete a default value, type in delete followed by the key. If no --cloud
-option is specified, it deletes the value of the general/global cloud::
+option is specified, it deletes the value of the general/global cloud:
 
-    $ default delete image
+.. prompt:: bash, cm>
+	    
+    default delete image
+
+::
+   
     Deleted key image for cloud general
 
 With the --cloud=CLOUD option, defaults can be deleted for a particular
-cloud::
+cloud:
 
-    $ default delete image --cloud=chameleon
+.. prompt:: bash, cm>
+	    
+    default delete image --cloud=chameleon
+
+::
+   
     Deleted key image for cloud chameleon
 

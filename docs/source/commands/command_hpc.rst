@@ -6,7 +6,7 @@ in engineering, science and business using applications that require
 very high compute power and amplified bandwidth. The cloudmesh hpc
 command helps to easily manage hpc clusters.
 
-The manual page of the hpc command can be found at: `Hpc
+The manual page of the `hpc` command can be found at: `Hpc
 <../man/man.html#hpc>`_
 
 
@@ -18,18 +18,28 @@ The manual page of the hpc command can be found at: `Hpc
 
 
 Before we get started, we can set the default hpc cluster or use the
---cluster option. To set the default hpc cluster::
+--cluster option. To set the default hpc cluster:
 
+.. prompt:: bash, cm>
+	    
     $ cm default cluster=comet
+
+::
+   
     set in defaults cluster=comet. ok.
 
 
 hpc info
 ----------------------------------------------------------------------
 
-Returns the state of partitions and nodes on the hpc cluster::
+Returns the state of partitions and nodes on the hpc cluster:
 
-  $ cm hpc info
+.. prompt:: bash, cm>
+
+  hpc info
+
+::
+   
     +---------+-----------+-------+------------+-------+-------+----------------------------+---------------------+
     | cluster | partition | avail | timelimit  | nodes | state | nodelist                   | updated             |
     +---------+-----------+-------+------------+-------+-------+----------------------------+---------------------+
@@ -41,9 +51,14 @@ Returns the state of partitions and nodes on the hpc cluster::
 hpc queue
 ----------------------------------------------------------------------
 
-Reports the state of jobs or job sets::
+Reports the state of jobs or job sets:
 
-    $ cm hpc queue
+.. prompt:: bash, cm>
+
+    hpc queue
+
+::
+   
     +---------+---------+--------------+-------------------+-----------+----+------------+-------+---------------------+---------------------+
     | cluster | jobid   | partition    | name              | user      | st | time       | nodes | nodelist            | updated             |
     +---------+---------+--------------+-------------------+-----------+----+------------+-------+---------------------+---------------------+
@@ -57,9 +72,14 @@ Reports the state of jobs or job sets::
     +---------+---------+--------------+--------------------+-----------+----+------------+-------+--------------------+---------------------+
 
 To view the state of a specific job, use the --job=NAME option, where NAME can be the
-job id or the job name ::
+job id or the job name :
 
-    $ cm hpc queue --job=6
+.. prompt:: bash, cm>
+
+    hpc queue --job=6
+
+::
+   
     +---------+-------+-----------+-------------+-----------+----+------+-------+----------+---------------------+
     | cluster | jobid | partition | name        | user      | st | time | nodes | nodelist | updated             |
     +---------+-------+-----------+-------------+-----------+----+------+-------+----------+---------------------+
@@ -89,6 +109,8 @@ for consecutive execution of the experiment run.
 To run an experiment (in this case just a shell command `uname`) you
 can use the run command:
 
+.. prompt:: bash, cm>
+
   hpc run uname --cluster=india
 
 It will create on the cluster india a new experiment directory by
@@ -97,30 +119,42 @@ It will create on the cluster india a new experiment directory by
 
 One can also transfer a script for the experiment, for example:
 
+.. prompt:: bash, cm>
+
   hpc run <script_path> --cluster=india
 
 To list experiments that have been previously run you can use the
-command::
+command:
+
+.. prompt:: bash, cm>
 
   hpc run list
 
 To list the files in a particular experiment you can use the
-experiment number::
+experiment number:
+
+.. prompt:: bash, cm>
 
   hpc run list 11
 
 Now you will see what the experiment script has created and you will
-be able to fr example view the output of the script::
+be able to fr example view the output of the script:
+
+.. prompt:: bash, cm>
 
   hpc run output 11
 
-To delete an experiment you can say::
+To delete an experiment you can say:
+
+.. prompt:: bash, cm>
 
     hpc run rm 11
 
 However, be careful as deleting it will permanently delete the
 file. To delete all experiments (be extra careful) you can just omit
-the number::
+the number:
+
+.. prompt:: bash, cm>
 
     hpc run rm
 
@@ -130,15 +164,25 @@ In future we will provide the ability to add custom scripts.
 hpc delete
 ----------------------------------------------------------------------
 If for any reason, you need to kill a job that you have submitted, use the
-delete command with the job name or the job id::
+delete command with the job name or the job id:
 
-    $ hpc delete --job=1463
-    Job 1463 killed successfully
+.. prompt:: bash, cm>
+
+    hpc delete --job=1463
+
+::
+
+   Job 1463 killed successfully
 
 
-To delete all jobs from a group::
+To delete all jobs from a group:
 
-    $ hpc delete all
+.. prompt:: bash, cm>
+
+    hpc delete all
+
+::
+   
     All jobs for group test killed successfully
 
 The above command will delete all active jobs from the default group.

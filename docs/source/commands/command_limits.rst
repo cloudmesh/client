@@ -1,7 +1,7 @@
 Limits Command
 ======================================================================
 
-The manual page of the limits command can be found at: `Limits
+The manual page of the `limits` command can be found at: `limits
 <../man/man.html#limits>`_
 
 Accounts may be pre-configured with a set of thresholds(or limits) to manage
@@ -12,9 +12,14 @@ used.
 limits list
 ----------------------------------------------------------------------
 
-To list the limits on a default project/tenant you can use::
+To list the limits on a default project/tenant you can use:
 
-  $ cm limits list
+.. prompt:: bash, cm>
+	    
+  limits list
+
+::
+
     +-------------------------+-------+
     | Name                    | Value |
     +-------------------------+-------+
@@ -39,9 +44,14 @@ To list the limits on a default project/tenant you can use::
     | totalServerGroupsUsed   | 0     |
     +-------------------------+-------+
 
-To export it in csv format, mention the format as csv::
+To export it in csv format, mention the format as csv:
 
-    $ cm limits list --format=csv
+.. prompt:: bash, cm>
+	    
+    limits list --format=csv
+
+::
+   
     Name,Value
     maxServerMeta,128
     maxPersonality,5

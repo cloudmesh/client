@@ -5,12 +5,12 @@ VM Command is used to manage VM instances across clouds.
 It is like a one stop interface that can be used to perform various VM
 operations on various clouds available to Cloudmesh.
 
-The manual page of the key command can be found at: `VM <../man/man.html#vm>`_
+The manual page of the `vm` command can be found at: `vm <../man/man.html#vm>`__
 
 Listing Defaults
 ^^^^^^^^^^^^^^^^^
 
-You can have a list of relevant default attributes required for VM operations::
+You can have a list of relevant default attributes required for VM operations:
 
     +-----------+--------------------------------------+
     | Attribute | Value                                |
@@ -39,23 +39,34 @@ Booting a VM instance
 -----------------------
 
 If you have all the required attributes (secgroup not mandatory) setup and listed in the vm defaults,
-then you can simply run the following to boot a vm.::
+then you can simply run the following to boot a vm.:
 
-    $ cm vm boot
+.. prompt:: bash, cm>
+	    
+    vm boot
+
+::
+   
     Machine albert-015 is being booted on kilo Cloud...
     Added ID [4a37b49a-9768-88cc-b988-01013701a8fb] to Group [test]
     info. OK.
 
-Else you may explicitly specify the attribute values in the arguments to the vm boot command.::
+Else you may explicitly specify the attribute values in the arguments to the vm boot command.:
 
-    $ cm vm boot --name=testvm --cloud=kilo --image=619b8942-2355-4aa2-jaa5-74b8f1751911 --flavor=2
+.. prompt:: bash, cm>
+	    
+    vm
+
+::
+    boot --name=testvm --cloud=kilo --image=619b8942-2355-4aa2-jaa5-74b8f175
+    1911 --flavor=2
     Machine testvm is being booted on kilo Cloud...
 
 Listing a VM instances
 -----------------------
 
 You can list all the VM instances running on the cloud by 'vm list' command
-like the one below::
+like the one below:
 
     +----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+
     | id | uuid                                 | label                        | status    | static_ip   | floating_ip     | key_name                | project   | user      | cloud |
@@ -71,18 +82,28 @@ like the one below::
 Stop a VM
 ----------
 
-You can stop a VM by supplying it's label or UUID::
+You can stop a VM by supplying it's label or UUID:
 
-    $ cm vm stop testvm --cloud=kilo
+.. prompt:: bash, cm>
+	    
+    vm stop testvm --cloud=kilo
+
+::
+   
     Machine testvm is being stopped on kilo Cloud...
     info. OK.
 
 Start a VM
 -----------
 
-You can start a VM by supplying it's label or UUID::
+You can start a VM by supplying it's label or UUID:
 
-    $ cm vm start testvm --cloud=kilo
+.. prompt:: bash, cm>
+	    
+    vm start testvm --cloud=kilo
+
+::
+   
     Machine testvm is being started on kilo Cloud...
     info. OK.
 
@@ -90,17 +111,27 @@ Assign Floating IP to VM
 -------------------------
 
 In order to access the vm from outside of the cloud private network, we need to assign a floating IP which can be
-accessed publicly::
+accessed publicly:
 
-    $ cm vm floating_ip_assign testvm --cloud=kilo
+.. prompt:: bash, cm>
+	    
+    vm floating_ip_assign testvm --cloud=kilo
+
+::
+   
     Floating IP assigned to testvm successfully and it is: 149.165.158.XX
 
 Retrieving IP Address details
 ------------------------------
 
-You can get the IP address details of a VM by the following command::
+You can get the IP address details of a VM by the following command:
 
-    $ cm vm ip_show testvm --cloud=kilo
+.. prompt:: bash, cm>
+	    
+    vm ip_show testvm --cloud=kilo
+
+::
+   
     IP Addresses of instance testvm are as follows:-
     +---------+---------+----------------+
     | network | version | addr           |
@@ -111,9 +142,14 @@ You can get the IP address details of a VM by the following command::
 
 Login to VM
 ------------
-You can login to a VM in your target cloud::
+You can login to a VM in your target cloud:
 
-    $ cm vm login testvm --user=albert --key=/location/id_rsa --cloud=kilo
+.. prompt:: bash, cm>
+	    
+    vm login testvm --user=albert --key=/location/id_rsa --cloud=kilo
+
+::
+   
     Logging in into testvm machine...
     Determining IP Address to use with a ping test...
     Checking 10.23.2.XX...
@@ -155,9 +191,14 @@ You can login to a VM in your target cloud::
 Running command on VM
 ----------------------
 
-You can use the vm login to simply run a command on the target VM::
+You can use the vm login to simply run a command on the target VM:
 
-  $ cm vm login testvm --user=albert --key=/location/id_rsa --command="uname\ -a" --cloud=kilo
+.. prompt:: bash, cm>
+	    
+  vm login testvm --user=albert --key=/location/id_rsa --command="uname\ -a" --cloud=kilo
+
+::
+   
   Logging in into testvm machine...
   Determining IP Address to use with a ping test...
   Checking 10.23.2.XX...
@@ -170,17 +211,27 @@ You can use the vm login to simply run a command on the target VM::
 Deleting a VM
 --------------
 
-You can delete a VM on the target cloud by using 'vm delete' command as below::
+You can delete a VM on the target cloud by using 'vm delete' command as below:
 
-    $ cm vm delete testvm --cloud=kilo
-    Machine testvm is being deleted on kilo Cloud...
+.. prompt:: bash, cm>
+	    
+    vm delete testvm --cloud=kilo
+
+::
+   
+   Machine testvm is being deleted on kilo Cloud...
 
 Renaming a VM
 --------------
 
-You can rename a VM on the target cloud by using 'vm rename' command as below::
+You can rename a VM on the target cloud by using 'vm rename' command as below:
 
-    $ cm vm rename testvm --new=testvm_renamed --cloud=kilo
+.. prompt:: bash, cm>
+	    
+    vm rename testvm --new=testvm_renamed --cloud=kilo
+
+::
+   
     Renaming VM (testvm) : 5bd7911e2b-xxxx-xxxx-xxxx-xxxxxxx
     Machine testvm renamed to testvm_renamed on kilo Cloud...
 

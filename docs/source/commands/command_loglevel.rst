@@ -4,7 +4,7 @@ Loglevel Command
 The cloudmesh loglevel command provides you with the ability to easily
 switch on and control the level of logging.
 
-The manual page of the  command can be found at: `list
+The manual page of the  `loglevel` command can be found at: `loglevel
 <../man/man.html#loglevel>`_
 
 

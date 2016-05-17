@@ -5,20 +5,27 @@ The cloudmesh list command provides you with the ability to easily
 list information in regards to virtual machines, images, flavors,
 defaults, and available clouds.
 
-The manual page of the list command can be found at: `list
+The manual page of the `list` command can be found at: `list
 <../man/man.html#list>`_
 
 
 List Default
 ----------------------------------------------------------------------
 
-To list all default values you can use::
+To list all default values you can use:
 
-  $ cm list --cloud general default  
+.. prompt:: bash, cm>
+	    
+  list --cloud general default  
 
-To list the default values set in a particular cloud use::
+To list the default values set in a particular cloud use:
 
-  $ cm list --cloud general default
+.. prompt:: bash, cm>
+	    
+  list --cloud general default
+
+::
+   
     +-----------+---------+--------+----------+----------------------------+----------------------------+
     | user      | cloud   | name   | value    | created_at                 | updated_at                 |
     +-----------+---------+--------+----------+----------------------------+----------------------------+
@@ -28,9 +35,14 @@ To list the default values set in a particular cloud use::
     | albert    | general | format | table    | 2015-09-23 21:53:16        | 2015-09-23 21:53:16        |
     +-----------+---------+--------+----------+----------------------------+----------------------------+
 
-To specify a different format, such as json, use::
+To specify a different format, such as json, use:
 
-  $ cm list --cloud general --format json default
+.. prompt:: bash, cm>
+	    
+  list --cloud general --format json default
+
+::  
+
   {
         "1": {
             "cloud": "general",
@@ -89,7 +101,7 @@ To specify a different format, such as json, use::
 list Cloud objects
 --------------------
 
-The list command can also be used to list cloud objects, thus you can use::
+The list command can also be used to list cloud objects, thus you can use:
 
     list image
     list flavor

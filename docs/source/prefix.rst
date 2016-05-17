@@ -63,7 +63,7 @@ Authors
 -------
 
 .. include:: ../../AUTHORS
-
+   
 Conventions
 ------------
 

@@ -12,24 +12,34 @@ Any incoming traffic that is not matched by a rule is denied access by default.
 You can add rules to or remove rules from a security group,
 and you can modify rules for the default and any other security group.
 
-The manual page of the secgroup command can be found at: `secgroup
-<../man/man.html#secgroup>`_
+The manual page of the `secgroup` command can be found at: `secgroup
+<../man/man.html#secgroup>`__
 
 
 Security Group Create
 ----------------------
 
-To create a security group in cloudmesh for a cloud and tenant use::
+To create a security group in cloudmesh for a cloud and tenant use:
 
-  $ cm secgroup create --cloud india --tenant fg478 test-group02
-  Created a new security group [test-group02] with UUID [bd9cb15e-5fcf-11e5-85fd-d8eb97bdb464]
+.. prompt:: bash, cm>
+	    
+  secgroup create --cloud india --tenant fg478 test-group02
+
+::
+   
+   Created a new security group [test-group02] with UUID [bd9cb15e-5fcf-11e5-85fd-d8eb97bdb464]
 
 Security Group List
 --------------------
 
-To list Security Groups in cloudmesh for a cloud and tenant use::
+To list Security Groups in cloudmesh for a cloud and tenant use:
 
-  $ cm secgroup list --cloud india --tenant fg478
+.. prompt:: bash, cm>
+	    
+  secgroup list --cloud india --tenant fg478
+
+::
+   
     +--------------------------------------+--------------------------------------+----------------------------------------------------+
     | Id                                   | Name                                 | Description                                        |
     +--------------------------------------+--------------------------------------+----------------------------------------------------+
@@ -42,20 +52,36 @@ To list Security Groups in cloudmesh for a cloud and tenant use::
 Security Group Rule Add
 ------------------------
 
-To add a new rule to the security group use::
+To add a new rule to the security group use:
 
-  $ cm secgroup rules-add --cloud india --tenant fg478 test-group 80 80 tcp  0.0.0.0/0
-    Added rule [80 | 80 | tcp | 0.0.0.0/0] to secgroup [test-group]
+.. prompt:: bash, cm>
+	    
+  secgroup rules-add --cloud india --tenant fg478 test-group 80 80 tcp  0.0.0.0/0
 
-  $ cm secgroup rules-add --cloud india --tenant fg478 test-group 443 443 udp  0.0.0.0/0
-    Added rule [443 | 443 | udp | 0.0.0.0/0] to secgroup [test-group]
+::
+   
+   Added rule [80 | 80 | tcp | 0.0.0.0/0] to secgroup [test-group]
+
+.. prompt:: bash, cm>
+	       
+  secgroup rules-add --cloud india --tenant fg478 test-group 443 443 udp  0.0.0.0/0
+
+::
+
+    Added rule
+    [443 | 443 | udp | 0.0.0.0/0] to secgroup [test-group]
 
 Security Group Rules List
 --------------------------
 
-To list all the rules assigned to the security group use::
+To list all the rules assigned to the security group use:
 
-  $ cm secgroup rules-list --cloud india --tenant fg478 test-group
+.. prompt:: bash, cm>
+	    
+  secgroup rules-list --cloud india --tenant fg478 test-group
+
+::
+   
     +----------+-------+------------+----------+--------+----------+-----------+
     | user     | cloud | name       | fromPort | toPort | protocol | cidr      |
     +----------+-------+------------+----------+--------+----------+-----------+
@@ -66,12 +92,22 @@ To list all the rules assigned to the security group use::
 Security Group Rule Delete
 ---------------------------
 
-To delete a specific rule within a security group use::
+To delete a specific rule within a security group use:
 
-  $ cm secgroup rules-delete --cloud india --tenant fg478 test-group 80 80 tcp 0.0.0.0/0
-    Rule [80 | 80 | tcp | 0.0.0.0/0] deleted
+.. prompt:: bash, cm>
+	    
+  secgroup rules-delete --cloud india --tenant fg478 test-group 80 80 tcp 0.0.0.0/0
 
-  $ cm secgroup rules-list india fg478 test-group
+::
+   
+   Rule [80 | 80 | tcp | 0.0.0.0/0] deleted
+
+.. prompt:: bash, cm>
+	       
+  secgroup rules-list india fg478 test-group
+
+::
+   
     +----------+-------+--------------+----------+--------+----------+-----------+
     | user     | cloud | name         | fromPort | toPort | protocol | cidr      |
     +----------+-------+--------------+----------+--------+----------+-----------+
@@ -81,11 +117,21 @@ To delete a specific rule within a security group use::
 Security Group Delete
 ----------------------
 
-To delete an entire security group use::
+To delete an entire security group use:
 
-  $ cm secgroup delete --cloud india --tenant fg478 test-group
+.. prompt:: bash, cm>
+	    
+  secgroup delete --cloud india --tenant fg478 test-group
+
+::
+   
     Rule [443 | 443 | udp | 0.0.0.0/0] deleted
     Security Group [test-group] for cloud [india], & tenant [fg478] deleted
 
-  $ cm secgroup rules-list --cloud india --tenant fg478 test-group
-    ERROR: Security Group with label [test-group], cloud [india], & tenant [fg478] not found!
+.. prompt:: bash, cm>
+		
+  secgroup rules-list --cloud india --tenant fg478 test-group
+
+::
+   
+  ERROR: Security Group with label [test-group], cloud [india], & tenant [fg478] not found!

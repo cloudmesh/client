@@ -7,7 +7,7 @@ clouds or vms and easily use them. To do so we upload them into a key
 registry in which each key is uniquely named. We use these named keys
 when we start up virtual machines or log into remote machines.
 
-The manual page of the key command can be found at: `key
+The manual page of the `key` command can be found at: `key
 <../man/man.html#key>`_
 
 
@@ -18,9 +18,11 @@ It is imperative that users of clouds understand how to use ssh
 keys. There are many great resources in the internet that describes
 this topic in great deatail. We assume that you are familiare with ssh
 keys. IF not you shoudl stop here and read up on them and understand
-its use. To generate an id_rsa key, please use the command::
+its use. To generate an id_rsa key, please use the command:
 
-  $ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+.. prompt:: bash
+  
+  ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 
 When prompted for the filename press enter. Next it is imporatnt that
 you define a passphrase. **Do not** enter just return as this is an
@@ -42,9 +44,11 @@ unexeptable practice not tou use a password for accessing your vms.
 Adding a key to the database
 -----------------------------
 
-To add you ssh key to cloudmesh you can simply say::
+To add you ssh key to cloudmesh you can simply say:
 
-    $ cm key add --ssh
+.. prompt:: bash, cm>
+	    
+    key add --ssh
 
 
 Adding the ket to the cloud
@@ -54,15 +58,19 @@ Naturally you ned to let the clouds also know about this key, so you
 need to upload it. We assume that you have a unique name defined that
 can be used across all clouds. If not make sure you do so.
 
-Assume a cloud default is set than you can uploadthe key with::
+Assume a cloud default is set than you can uploadthe key with:
 
-  $ cm key upload
+.. prompt:: bash, cm>
+	    
+  key upload
 
 To upload it to anotherc cloud you can set the cloud default to the
 other cloud and repeat the upload command or you can explicitly
-specify the cloud with::
+specify the cloud with:
 
-  $ cm key upload --cloud=mycloud
+.. prompt:: bash, cm>
+	    
+  key upload --cloud=mycloud
 
 where mycloud is specified in the `~/.cludmesh/cloudmesh.yaml` file.
 
@@ -70,9 +78,14 @@ where mycloud is specified in the `~/.cludmesh/cloudmesh.yaml` file.
 List Keys
 ----------
 
-To list the keys in the registry you can use the command::
+To list the keys in the registry you can use the command:
 
-      $ cm key list
+.. prompt:: bash, cm>
+	    
+      key list
+
+::
+   
         +---------+------------------+---------------------------------+-------------------------------------------------+--------+
         | name    | comment          | uri                             | fingerprint                                     | source |
         +---------+------------------+---------------------------------+-------------------------------------------------+--------+
@@ -81,10 +94,15 @@ To list the keys in the registry you can use the command::
 
 
 To change the output format you can specify it with the --format
-option::
+option:
 
-  $ cm key list --format=json
-        "1": {
+.. prompt:: bash, cm>
+	    
+  key list --format=json
+
+::
+   
+  "1": {
             "comment": "albert@Zweistein",
             "kind": "key",
             "name": "demokey",
@@ -108,10 +126,15 @@ option::
 Get Keys
 ---------
 
-To get the fingerprint of a key you can obtain it with::
+To get the fingerprint of a key you can obtain it with:
 
- $ cm key get albert
-    alber: 4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39
+.. prompt:: bash, cm>
+	    
+ key get albert
+
+::
+   
+ alber: 4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39
 
 
 Default Keys
@@ -121,20 +144,25 @@ In many cases it is convenient to just use a default key that is
 set. The add command sets the key automatically. If you need to set it
 by hand you can use
 
-To mark key as default by name you can use the command::
+To mark key as default by name you can use the command:
 
-    $ cm default key=albert
+.. prompt:: bash, cm>
+	    
+    default key=albert
 
 
 Interactive Selection
 ---------------------
 
 In case you have many keys (which we do not recommend) we can set the default key also
-interactively with the select option::
+interactively with the select option:
 
-  
-    $ cm key default --select
+.. prompt:: bash, cm>
+	    
+    key default --select
 
+::
+   
     KEYS
     ====
 
@@ -152,20 +180,30 @@ Delete Keys
 ------------
 
 A named key can be deleted from the registry with the command, where
-'demokey' is the name of the key::
+'demokey' is the name of the key:
 
-    $ cm key delete albert
+.. prompt:: bash, cm>
+	    
+    key delete albert
+
+::
+   
     Key demokey deleted successfully from database.
-    info. OK.
 
-Alternatively you can also interactively select it::
+Alternatively you can also interactively select it:
 
+.. prompt:: bash, cm>
+	    
     $ cm key delete --select
 
-To delete all keys from database use::
+To delete all keys from database use:
 
-    $ cm key delete --all
+.. prompt:: bash, cm>
+	    
+    key delete --all
+
+::
+   
     All keys from the database deleted successfully.
-    info. OK.
 
 

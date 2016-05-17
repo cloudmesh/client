@@ -1,28 +1,38 @@
 Flavor Command
 ======================================================================
 
-The manual page of the flavor command can be found at: `Flavor
+The manual page of the `flavor` command can be found at: `Flavor
 <../man/man.html#flavor>`_
 
 Flavors define the compute, memory, and storage capacity of nova computing instances.
 To put it simply, a flavor is an available hardware configuration for a server. It
-defines the �size� of a virtual server that can be launched
+defines the `size` of a virtual server that can be launched
 
 Refresh
 ----------------------------------------------------------------------
 
 The refresh command would update the local database with the latest flavors.
-To refresh flavors of a cloud, do the following::
+To refresh flavors of a cloud, do the following:
 
-    $cm flavor refresh --cloud=kilo
+.. prompt:: bash, cm>
+	    
+    flavor refresh --cloud=kilo
+
+::
+   
     Refresh flavor for cloud kilo. ok
 
 List
 ----------------------------------------------------------------------
 
-To list the set of flavors of a cloud, do the following::
+To list the set of flavors of a cloud, do the following:
 
-    $cm flavor list --cloud=kilo
+.. prompt:: bash, cm>
+	    
+    flavor list --cloud=kilo
+
+::
+
     +----+----------------+--------+-------+----------+-------+------+--------+-------------+-----------------+------+-------+------+
     | Id | Name           | User   | RAM   | Disabled | vCPUs | Swap | Access | rxtx_factor | os_flv_ext_data | Disk | Cloud | UUID |
     +----+----------------+--------+-------+----------+-------+------+--------+-------------+-----------------+------+-------+------+
@@ -41,9 +51,14 @@ List Details
 ----------------------------------------------------------------------
 
 To list the details of a flavor, give in the id, uuid or name of the flavor. In case latest information is needed,
-the --refresh option can be used which would update the local database::
+the --refresh option can be used which would update the local database:
 
-    $cm flavor list 1 --cloud=kilo
+.. prompt:: bash, cm>
+	    
+   flavor list 1 --cloud=kilo
+
+::
+   
     +-----------------+---------------------+
     | Attribute       | Value               |
     +-----------------+---------------------+
