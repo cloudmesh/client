@@ -14,7 +14,7 @@ To refresh images of a cloud (in this example, kilo), do the following:
 
 .. prompt:: bash, cm>
   
-    $cm image refresh --cloud=kilo
+   image refresh --cloud=kilo
 
 ::
 
@@ -27,7 +27,7 @@ To list the set of images of a cloud, do the following:
 
 .. prompt:: bash, cm>
 
-    $cm image list --cloud=kilo
+    image list --cloud=kilo
 
 ::
    
@@ -47,7 +47,7 @@ the --refresh option can be used which would update the local database:
 
 .. prompt:: bash, cm>
 
-    $cm image list 12 --cloud=kilo
+    image list 12 --cloud=kilo
 
 ::
    
