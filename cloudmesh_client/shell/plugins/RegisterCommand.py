@@ -19,6 +19,8 @@ from cloudmesh_client.default import Default
 from cloudmesh_client.common.dotdict import dotdict
 from stat import *
 from cloudmesh_client.common.ssh_config import ssh_config
+from cloudmesh_client.common.util import backup_name
+from shutil import copy
 
 # noinspection PyBroadException
 class RegisterCommand(PluginCommand, CloudPluginCommand):
@@ -38,6 +40,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
 
           Usage:
               register info
+              register backup
               register new [--force] [--dryrun]
               register clean [--force]
               register list ssh [--format=FORMAT]
@@ -154,8 +157,8 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                   interactively. Default PROVIDER is openstack and HOSTNAME
                   is localhost.
 
-              register username [USERNAME]
-                  Sets the username in yaml with the value provided.
+              register user [USERNAME]
+                  Sets the user in yaml with the value provided.
          """
 
         # from pprint import pprint
@@ -185,7 +188,6 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
             else:
                 print(Printer.write(credentials, output=output))
                 # TODO: bug csv does not work
-            return ""
 
         if arguments["info"]:
 
@@ -204,6 +206,19 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
 
             else:
                 Console.error("File {} does not exist".format(filename))
+
+            return ""
+
+        elif arguments["backup"]:
+
+            name = backup_name("~/.cloudmesh/cloudmesh.yaml")
+            configfile = path_expand("~/.cloudmesh/cloudmesh.yaml")
+            print (name)
+            try:
+                copy(configfile, name)
+                Console.ok("Bakup copy created: {}. ok.".format(name))
+            except:
+                Console.error("Could not create a backup copy from {}".format(configfile))
 
             return ""
 
@@ -285,9 +300,9 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                     Console.ok("editing file " + filename)
                     os.system("{editor} {filename}".format(**data))
                 except:
-                    Console.error("No EDITOR variable set in shell.")
+                    Console.error("No operating system environment variable EDITOR set.", traceflag=False)
             else:
-                Console.error("File {} does not exist".format(filename))
+                Console.error("File {} does not exist".format(filename), traceflag=False)
             return ""
 
         elif arguments['list'] and arguments['ssh']:
@@ -324,7 +339,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
         elif arguments['merge']:
             filename = arguments['FILENAME']
             CloudRegister.from_file(filename)
-            return
+            return ""
 
         elif arguments['test']:
             filename = _get_config_yaml_file(arguments)
@@ -367,13 +382,16 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
 
             output = arguments['--format']
             host = arguments['HOST']
-
-            variables = list(os.environ)
-            for attribute in variables:
-                if attribute.startswith("OS_"):
-                    print("unset ", attribute)
-                    del os.environ[attribute]
-            export(host, output)
+            try:
+                variables = list(os.environ)
+                for attribute in variables:
+                    if attribute.startswith("OS_"):
+                        print("unset ", attribute)
+                        del os.environ[attribute]
+                export(host, output)
+            except:
+                Console.error ("The export may not include all values", traceflag=False)
+            return ""
 
         elif arguments['json']:
             host = arguments['HOST']
@@ -421,6 +439,8 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
             for cloud in clouds:
                 CloudRegister.ec2(cloud, zipfile)
                 export(cloud, "table")
+
+            return ""
 
         elif arguments['env']:
             try:

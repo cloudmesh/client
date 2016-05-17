@@ -11,6 +11,8 @@ appropriate access.
 The manual page of the `register` command can be found at:
 `register <../man/man.html#register>`__
 
+.. note:: in some of our examples we will be using the user name `albert`
+
 
 Quickstart for registration of some clouds
 ----------------------------------------------
@@ -31,14 +33,23 @@ More information about the cloud can be found at
 * https://portal.futuresystems.org
 
 To register an openstack cloud for which you have an existing openrc.sh file,
-you can simply say:
+you can simply source the rc file first and than use the `register
+env` command:
 
-.. prompt:: bash, cm>
-	    
-    register openrc.sh
-   
-    
-.. todo:: verify if this works [ERROR]
+.. prompt:: bash
+
+    $ source openrc.sh
+    $ register openrc.sh
+
+Top obtain such an openrc.sh file you can typically use the horizon
+GUI and download it via the security panel of the project. If you have
+multiple project you can donwload them one by one and repeat that
+process.
+The command will use the defaults created by the openrc.sh file and
+than integrate them into the cloudmesh.yaml file. You can arbitrarily
+name the cloud/project but it must not yet have been used otherwise
+you are overwriting an existing cloud. Register commands such as `list`
+and `backup` will help you with the management
 
 On chameleoncloud.org you can for example go to the horizon web interface and
 download the credentials in the security panel.
@@ -60,11 +71,9 @@ clouds, or delete templates of clouds that you do not use. We have
 several different types of clouds that we support. This includes
 OpenStack, AWS, and Azure clouds.
 
-.. todo:: at this time we have not integrated our AWS and Azure IaaS
-	  abstractions in the new cloudmesh client. We will make them
-	  available in future.
-
-.. note in some of our examples we will be using the user name `albert`
+.. warning:: at this time we have not integrated our AWS and Azure
+	     IaaS abstractions in the new cloudmesh client. We will
+	     make them available in future.
 
 As it may be inconvenient to edit this file and look at the yaml
 format, we provide several administrative commands. The command:
@@ -77,7 +86,10 @@ format, we provide several administrative commands. The command:
   
   File /Users/albert/.cloudmesh/cloudmesh.yaml exists. ok.
 
-identifies if the `cloudmesh.yaml` file exists.
+identifies if the `cloudmesh.yaml` file exists.  The `register info`
+command is very similar to the `register list` command but does not
+have as many options and is introduced for convenience.
+
 
 To view the contents of that file, you can cat it or use the command:
 
@@ -85,13 +97,20 @@ To view the contents of that file, you can cat it or use the command:
 	    
   register cat
   
-To edit the file, you can use the command:
+To edit the file you must have set the operating system variable
+EDITOR. This is ofeten done in Linux as part of the .bashrc file or
+explicitly with:
+
+.. prompt:: bash
+
+	    export EDITOR=emacs
+
+Once the EDITOR is set, you can use it with the the command:
 
 .. prompt:: bash, cm>
 	    
   register edit
 
-.. todo:: [ERROR] Need to set 'EDITOR' in environ
 
 register list
 -------------
@@ -113,7 +132,7 @@ clouds.:
 
 ::
    
-    Clouds specified in the configuration file ~/.cloudmesh\cloudmesh.yaml
+    Clouds specified in the configuration file ~/.cloudmesh/cloudmesh.yaml
 
     +----+---------+---------------+-----------+---------+--------+
     | id | default | cloud         | iaas      | version | active |
@@ -128,28 +147,10 @@ clouds.:
     | 7  |         | azure         | azure     |         |        |
     +----+---------+---------------+-----------+---------+--------+
 
-.. todo:: SAME as 'register info'?
+See also: `register info`.
 
-To list only the names, please use the command:
-
-.. prompt:: bash, cm>
-	    
-    register list --name
-
-::
-   
-    Clouds specified in the configuration file ~/.cloudmesh\cloudmesh.yaml
-
-    +-------+
-    | Name  |
-    +-------+
-    | azure |
-    | aws   |
-    | india |
-    | kilo  |
-    +-------+
-
-.. todo:: NOT valid command anymore
+register ssh
+------------
 
 As we also have to sometimes login to some remote hosts it is
 convenient to reuse the ssh command for that. ssh has the advantage of
@@ -186,20 +187,15 @@ The command:
 
 .. prompt:: bash, cm>
 	    
-  register remote HOSTNAME
+  register remote
   
 will copy and register a machine on which an openrc.sh file is located
 into the `cloudmesh.yaml` file. With cloudmesh we provide some default
 host, thus they are very easy to configure. This includes `kilo` our
-current clouds in our lab. To register them you can use the commands:
+current clouds in our lab.
 
-.. prompt:: bash, cm>
-	    
-   register reomte kilo
-
-   
 These commands will only work if you have an account on this
-machine and it is integrated into the ssh config file as discussed
+`india` and it is integrated into the ssh config file as discussed
 previously.
 
 register export
@@ -250,109 +246,106 @@ The output contains an rc file example::
     export OS_PASSWORD=********
     export OS_PROJECT_NAME=fg1234
 
-.. todo:: ERROR
 
 The passwords will be masked with eight stars: `********`.
-In case you like also to see the password you can use the --password flag.
+In case you like also to see the password you can use the `--password` flag.
+
+.. comment::
+
+    register merge 
+    ----------------
+
+    .. todo:: the description of what this is doing was ambigous, we need
+	      to clarify if it only replaces to do or actually add things
+	      that do not exist, or just overwrites.
+
+    IN case you have already a yaml file, form another project
+    you can merge two of them into the same cloudmesh yaml file. You
+    simply have to specify the location of the file that you like to merge
+    into the existing yaml file. However, please be careful, as it will
+    overwrite the contents in ~/.cloudmesh/cloudmesh.yaml
+
+    .. todo:: We used to have a .bak.# when we modified the yaml file, do
+	      you still have this
+
+    Hence the command 
+
+    .. prompt:: bash, cm>
+
+	register merge my_cloudmesh.yaml
+
+    This command allows the content from another yaml file to be merged into the
+    regular cloudmesh.yaml file. A backup of the old cloudmesh.yaml file is
+    created with an increased number.
+
+    .. note: The merge command is not tested
 
 
-register merge 
-----------------
 
-.. todo:: the description of what this is doing was ambigous, we need
-	  to clarify if it only replaces to do or actually add things
-	  that do not exist, or just overwrites.
-	  
-IN case you have already a yaml file, form another project
-you can merge two of them into the same cloudmesh yaml file. You
-simply have to specify the location of the file that you like to merge
-into the existing yaml file. However, please be careful, as it will
-overwrite the contents in ~/.cloudmesh/cloudmesh.yaml
-
-.. todo:: We used to have a .bak.# when we modified the yaml file, do
-	  you still have this
-
-Hence the command 
-
-.. prompt:: bash, cm>
-	    
-    register merge my_cloudmesh.yaml
-    
-This command allows the content from another yaml file to be merged into the
-regular cloudmesh.yaml file. A backup of the old cloudmesh.yaml file is
-created with an increased number.
-
-.. note: The merge command is not tested
-
-
-
-register form
+register CLOUD
 ---------------
 
 In some cases it is nice to have an interactive mechanism to fill out
-the missing yaml file information that is indicated with TBD. THis is
-useful, if you do not have an editor at hand. Thus you can use the command:
+the missing yaml file information that is indicated with TBD. This is
+useful, if you do not have an editor at hand. Thus you can use the
+command:
 
 .. prompt:: bash, cm>
 	    
-  register form
+  register CLOUD
   
-  
-It will interactively fills out the form wherever we find TBD:
+where cloud is the name of the cloud. Default names for the clouds can
+be found with the `register list` command.
+
+The `register CLOUD` command will interactively ask for the values and
+add them into your yaml file:
 
 .. prompt:: bash, cm>
 	    
-    register form 
+    register kilo
 
 ::
    
     Please enter email[TBD]:
-    Editing the credentials for cloud india
+    Editing the credentials for cloud kilo
     Please enter OS_TENANT_NAME[TBD]:
-    Editing the credentials for cloud aws
-    Please enter EC2_ACCESS_KEY[TBD]:
-    Please enter EC2_SECRET_KEY[TBD]:
-    Please enter keyname[TBD]:
-    Please enter userid[TBD]:
-    Editing the credentials for cloud azure
-    Please enter managementcertfile[TBD]:
-    Please enter servicecertfile[TBD]:
-    Please enter subscriptionid[TBD]:
-    Please enter thumbprint[TBD]:
+    ...
 
 
-register check
-----------------------------------------------------------------------
-
-To find any not filled out values, you can use the command:
-
-.. prompt:: bash, cm>
-	    
-  register check
-
-
-which hecks the yaml file for completness and list all fields that
-have the value TBD:
-
-.. prompt:: bash, cm>
-	    
-    register check
-
-::
+.. comment::
    
-      ERROR: The file has 11 values to be fixed
-	    
-      email: TBD
-      username: TBD
-      flavor: TBD
-      EC2_ACCESS_KEY: TBD
-      EC2_SECRET_KEY: TBD
-      keyname: TBD
-      userid: TBD
-      managementcertfile: TBD
-      servicecertfile: TBD
-      subscriptionid: TBD
-      thumbprint: TBD
+    register check
+    ----------------------------------------------------------------------
+
+    To find any not filled out values, you can use the command:
+
+    .. prompt:: bash, cm>
+
+      register check
+
+
+    which hecks the yaml file for completness and list all fields that
+    have the value TBD:
+
+    .. prompt:: bash, cm>
+
+	register check
+
+    ::
+
+	  ERROR: The file has 11 values to be fixed
+
+	  email: TBD
+	  username: TBD
+	  flavor: TBD
+	  EC2_ACCESS_KEY: TBD
+	  EC2_SECRET_KEY: TBD
+	  keyname: TBD
+	  userid: TBD
+	  managementcertfile: TBD
+	  servicecertfile: TBD
+	  subscriptionid: TBD
+	  thumbprint: TBD
 
 register json HOST
 ----------------------------------------------------------------------
@@ -390,16 +383,25 @@ It will return output in json format:
         "cm_type_version": null
     }
 
-register profile --username
+
+    
+register profile
 ----------------------------------------------------------------------
 
-Instead of modifying the profile username in the cloudmesh yaml file manually, this command provides a convenient way
-of setting the username through cm shell:
+Instead of modifying the profile username in the cloudmesh yaml file
+manually, this command provides a convenient way of setting the
+username through cm shell:
 
 .. prompt:: bash, cm>
-	    
-	register profile --username=albert
+
+   register profile
 
 ::
-   
-   Username albert set successfully in the yaml settings.
+
+   # ######################################################################
+   # Register profile
+   # ######################################################################
+   Enter firstname (TBD): Gregor
+   Enter lastname (TBD): von Laszewski    
+   Enter email (TBD): laszewski@gmail.com
+   Enter user (TBD): gregor
