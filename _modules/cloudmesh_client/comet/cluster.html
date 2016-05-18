@@ -247,6 +247,25 @@
     <span class="n">CLUSTER_SORT_KEY</span><span class="p">[</span><span class="n">CLUSTER_HEADER</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;RAM(M)&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">&quot;ram&quot;</span>
     <span class="n">CLUSTER_SORT_KEY</span><span class="p">[</span><span class="n">CLUSTER_HEADER</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;disk(G)&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">&quot;disk&quot;</span>
 
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    NODEINFO_ORDER=[</span>
+<span class="sd">                    &#39;cpus&#39;,</span>
+<span class="sd">                    &#39;disksize&#39;,</span>
+<span class="sd">                    &#39;dns1&#39;,</span>
+<span class="sd">                    &#39;dns2&#39;,</span>
+<span class="sd">                    &#39;frontend_state&#39;,</span>
+<span class="sd">                    &#39;gateway&#39;,</span>
+<span class="sd">                    &#39;interface&#39;,</span>
+<span class="sd">                    &#39;memory&#39;,</span>
+<span class="sd">                    &#39;name&#39;,</span>
+<span class="sd">                    &#39;ntp&#39;,</span>
+<span class="sd">                    &#39;pub_ip&#39;,</span>
+<span class="sd">                    &#39;pub_mac&#39;,</span>
+<span class="sd">                    &#39;pub_netmask&#39;,</span>
+<span class="sd">                    &#39;state&#39;,</span>
+<span class="sd">                    &#39;type&#39;]</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Cluster.simple_list"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.simple_list">[docs]</a>    <span class="k">def</span> <span class="nf">simple_list</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
@@ -948,6 +967,19 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;Request Accepted.&quot;</span>
         <span class="k">return</span> <span class="n">ret</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Cluster.node_info"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.node_info">[docs]</a>    <span class="k">def</span> <span class="nf">node_info</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">nodeid</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/{}/compute/{}/&quot;</span>
+                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/{}/frontend/&quot;</span>
+                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">))</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Printer</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">r</span><span class="p">,</span>
+                                 <span class="c1">#order=Cluster.NODEINFO_ORDER,</span>
+                                 <span class="n">output</span><span class="o">=</span><span class="n">format</span><span class="p">)</span></div>
 
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Cluster.delete"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">():</span>

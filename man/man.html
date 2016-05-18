@@ -465,11 +465,12 @@
    <span class="n">comet</span> <span class="n">terminate</span> <span class="n">COMPUTESETID</span>
    <span class="n">comet</span> <span class="n">power</span> <span class="p">(</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="o">|</span><span class="n">reboot</span><span class="o">|</span><span class="n">reset</span><span class="o">|</span><span class="n">shutdown</span><span class="p">)</span> <span class="n">CLUSTERID</span> <span class="p">[</span><span class="n">NODESPARAM</span><span class="p">]</span>
    <span class="n">comet</span> <span class="n">console</span> <span class="n">CLUSTERID</span> <span class="p">[</span><span class="n">COMPUTENODEID</span><span class="p">]</span>
+   <span class="n">comet</span> <span class="n">node</span> <span class="n">info</span> <span class="n">CLUSTERID</span> <span class="p">[</span><span class="n">COMPUTENODEID</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span>
+   <span class="n">comet</span> <span class="n">node</span> <span class="n">rename</span> <span class="n">CLUSTERID</span> <span class="n">OLDNAMES</span> <span class="n">NEWNAMES</span>
    <span class="n">comet</span> <span class="n">iso</span> <span class="nb">list</span>
    <span class="n">comet</span> <span class="n">iso</span> <span class="n">upload</span> <span class="p">[</span><span class="o">--</span><span class="n">isoname</span><span class="o">=</span><span class="n">ISONAME</span><span class="p">]</span> <span class="n">PATHISOFILE</span>
    <span class="n">comet</span> <span class="n">iso</span> <span class="n">attach</span> <span class="n">ISONAME</span> <span class="n">CLUSTERID</span> <span class="p">[</span><span class="n">COMPUTENODEIDS</span><span class="p">]</span>
    <span class="n">comet</span> <span class="n">iso</span> <span class="n">detach</span> <span class="n">CLUSTERID</span> <span class="p">[</span><span class="n">COMPUTENODEIDS</span><span class="p">]</span>
-   <span class="n">comet</span> <span class="n">node</span> <span class="n">rename</span> <span class="n">CLUSTERID</span> <span class="n">OLDNAMES</span> <span class="n">NEWNAMES</span>
 
 <span class="n">Options</span><span class="p">:</span>
     <span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span>         <span class="n">Format</span> <span class="ow">is</span> <span class="n">either</span> <span class="n">table</span><span class="p">,</span> <span class="n">json</span><span class="p">,</span> <span class="n">yaml</span><span class="p">,</span>
@@ -2341,7 +2342,6 @@ Description:
     <span class="n">cm</span> <span class="n">workflow</span> <span class="n">run</span> <span class="n">workflow1</span>
 </pre></div>
 </div>
-<p>Timer: 0.0145s (man)</p>
 </div>
 </div>
 

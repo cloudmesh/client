@@ -108,16 +108,15 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#cloud-commands">Cloud Commands</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html">Register Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html">egister Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_cloud.html">Cloud Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_key.html">Key Command</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_flavor.html">Flavor Command</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_image.html">Image Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_list.html">List Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_secgroup.html">SecGroup Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_vm.html">VM Command</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_advanced.html">Advanced Command Usage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_flavor.html">Flavor Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_image.html">Image Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_network.html">Network Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_sync.html">Sync Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_limits.html">Limits Command</a></li>
@@ -274,7 +273,8 @@ in alphabetical order in the Section ...</p>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="command_ssh.html">Ssh Command</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="command_ssh.html#lists">Lists</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_ssh.html#executing-commands">Executing Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_ssh.html#executing-command">Executing Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_ssh.html#register">Register</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="command_select.html">Select Command</a><ul>
@@ -291,7 +291,7 @@ in alphabetical order in the Section ...</p>
 <span id="section-cloud-commands"></span><h2>Cloud Commands<a class="headerlink" href="#cloud-commands" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="command_register.html">Register Command</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="command_register.html">egister Command</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="command_register.html#quickstart-for-registration-of-some-clouds">Quickstart for registration of some clouds</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_register.html#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_register.html#register-list">register list</a></li>
@@ -320,18 +320,6 @@ in alphabetical order in the Section ...</p>
 <li class="toctree-l2"><a class="reference internal" href="command_key.html#default-keys">Default Keys</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_key.html#interactive-selection">Interactive Selection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_key.html#delete-keys">Delete Keys</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="command_flavor.html">Flavor Command</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="command_flavor.html#refresh">Refresh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_flavor.html#list">List</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_flavor.html#list-details">List Details</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="command_image.html">Image Command</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="command_image.html#refresh">Refresh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_image.html#list">List</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_image.html#list-details">List Details</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="command_list.html">List Command</a><ul>
@@ -364,14 +352,22 @@ in alphabetical order in the Section ...</p>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="command_advanced.html">Advanced Command Usage</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="command_advanced.html#script-to-create-3-vms">Script to create 3 vms</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="command_nova.html">Nova Command</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="command_nova.html#setting-the-target-cloud">Setting the Target Cloud</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_nova.html#getting-the-cloud-info">Getting the Cloud Info</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_nova.html#running-openstack-nova-commands">Running openstack nova commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="command_flavor.html">Flavor Command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="command_flavor.html#refresh">Refresh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_flavor.html#list">List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_flavor.html#list-details">List Details</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="command_image.html">Image Command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="command_image.html#refresh">Refresh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_image.html#list">List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_image.html#list-details">List Details</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="command_network.html">Network Command</a><ul>

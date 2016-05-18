@@ -430,6 +430,16 @@ hard reboot the node (power off and then power on).</p>
 </div>
 <div class="section" id="other-commands">
 <h3>Other commands:<a class="headerlink" href="#other-commands" title="Permalink to this headline">¶</a></h3>
+<p>To obtain the detailed information of a node:</p>
+<pre class="highlight"><span class="prompt1">cm comet node info vc2</span>
+</pre><p>Gives your the information of the vc2 frontnode. This includes essential
+network configuration information if you want to rebuild the frontend
+node.</p>
+<pre class="highlight"><span class="prompt1">cm comet node info vc2 vm-vc2-0</span>
+</pre><p>Gives the detailed information of the specified compute node.</p>
+<p>By default it returned information in a table format. It also accepts
+the &#8211;format=FROMAT parameter so the result can be easily parsed while
+being used in scripting.</p>
 <p>You can also rename a compute node, or a list of nodes in batch:</p>
 <pre class="highlight"><span class="prompt1">cm comet node rename vc2 vm-vc2-0 mynode0</span>
 </pre><pre class="highlight"><span class="prompt1">cm comet node rename vc2 vm-vc2-<span class="o">[</span>0-7<span class="o">]</span> newname-<span class="o">[</span>0-7<span class="o">]</span></span>

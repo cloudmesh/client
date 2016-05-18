@@ -159,6 +159,9 @@ Comet
 | | cm comet iso detach                 | | Detach also works in bulk                                            |
 | |    vc2 vm-vc2-[0-3]                 | |                                                                      |
 +---------------------------------------+------------------------------------------------------------------------+
+| | cm comet node info vc2              | | List the detailed information of vc2 frontend node                   |
+| |                                     | |                                                                      |
++---------------------------------------+------------------------------------------------------------------------+
 | | cm comet node rename vc2            | | Rename a list of compute node (vm-vc2-[0-3]) from a                  |
 | |    vm-vc2-[0-3] new-[0-3]           | | cluster (vc2) to a list of new names (new-[0-3]).                    |
 | |                                     | | In hostlist format.                                                  |

@@ -181,6 +181,7 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">input</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 
 <span class="c1"># noinspection PyUnusedLocal,PyBroadException</span>
 <div class="viewcode-block" id="CometCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.CometCommand.CometCommand">[docs]</a><span class="k">class</span> <span class="nc">CometCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CometPluginCommand</span><span class="p">):</span>
@@ -213,11 +214,12 @@
 <span class="sd">               comet terminate COMPUTESETID</span>
 <span class="sd">               comet power (on|off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]</span>
 <span class="sd">               comet console CLUSTERID [COMPUTENODEID]</span>
+<span class="sd">               comet node info CLUSTERID [COMPUTENODEID] [--format=FORMAT]</span>
+<span class="sd">               comet node rename CLUSTERID OLDNAMES NEWNAMES</span>
 <span class="sd">               comet iso list</span>
 <span class="sd">               comet iso upload [--isoname=ISONAME] PATHISOFILE</span>
 <span class="sd">               comet iso attach ISONAME CLUSTERID [COMPUTENODEIDS]</span>
 <span class="sd">               comet iso detach CLUSTERID [COMPUTENODEIDS]</span>
-<span class="sd">               comet node rename CLUSTERID OLDNAMES NEWNAMES</span>
 
 <span class="sd">            Options:</span>
 <span class="sd">                --format=FORMAT         Format is either table, json, yaml,</span>
@@ -677,20 +679,11 @@
                 <span class="n">computenodeids</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;COMPUTENODEIDS&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
                 <span class="k">print</span><span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">detach_iso</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">computenodeids</span><span class="p">))</span>
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">]:</span>
-            <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            if arguments[&quot;rename&quot;]:</span>
-<span class="sd">                clusterid = arguments[&quot;CLUSTERID&quot;]</span>
-<span class="sd">                oldname = arguments[&quot;OLDNAME&quot;]</span>
-<span class="sd">                newname = arguments[&quot;NEWNAME&quot;]</span>
-<span class="sd">                if newname is None or newname == &#39;&#39;:</span>
-<span class="sd">                    print(&quot;New node name cannot be empty&quot;)</span>
-<span class="sd">                else:</span>
-<span class="sd">                    print(Cluster.rename_node(clusterid, oldname, newname))</span>
-
-<span class="sd">            &#39;&#39;&#39;</span>
-            <span class="c1"># bulk rename</span>
-
-            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;rename&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;info&quot;</span><span class="p">]:</span>
+                <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CLUSTERID&quot;</span><span class="p">]</span>
+                <span class="n">nodeid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;COMPUTENODEID&quot;</span><span class="p">]</span>
+                <span class="k">print</span> <span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">node_info</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="o">=</span><span class="n">nodeid</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">output_format</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;rename&quot;</span><span class="p">]:</span>
                 <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CLUSTERID&quot;</span><span class="p">]</span>
                 <span class="n">oldnames</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;OLDNAMES&quot;</span><span class="p">])</span>
                 <span class="n">newnames</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NEWNAMES&quot;</span><span class="p">])</span>
