@@ -74,6 +74,25 @@ class Cluster(object):
     CLUSTER_SORT_KEY[CLUSTER_HEADER.index("RAM(M)")] = "ram"
     CLUSTER_SORT_KEY[CLUSTER_HEADER.index("disk(G)")] = "disk"
 
+    '''
+    NODEINFO_ORDER=[
+                    'cpus',
+                    'disksize',
+                    'dns1',
+                    'dns2',
+                    'frontend_state',
+                    'gateway',
+                    'interface',
+                    'memory',
+                    'name',
+                    'ntp',
+                    'pub_ip',
+                    'pub_mac',
+                    'pub_netmask',
+                    'state',
+                    'type']
+    '''
+
     @staticmethod
     def simple_list(id=None, format="table"):
         result = ""
@@ -775,6 +794,19 @@ class Cluster(object):
             else:
                 ret = "Request Accepted."
         return ret
+
+    @staticmethod
+    def node_info(clusterid, nodeid=None, format='table'):
+        if nodeid:
+            url = Comet.url("cluster/{}/compute/{}/"
+                            .format(clusterid, nodeid))
+        else:
+            url = Comet.url("cluster/{}/frontend/"
+                            .format(clusterid))
+        r = Comet.get(url)
+        return Printer.attribute(r,
+                                 #order=Cluster.NODEINFO_ORDER,
+                                 output=format)
 
     @staticmethod
     def delete():
