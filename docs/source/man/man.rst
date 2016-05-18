@@ -1227,6 +1227,7 @@ Command - register::
 
     Usage:
         register info
+        register backup
         register new [--force] [--dryrun]
         register clean [--force]
         register list ssh [--format=FORMAT]
@@ -1343,8 +1344,8 @@ Command - register::
             interactively. Default PROVIDER is openstack and HOSTNAME
             is localhost.
 
-        register username [USERNAME]
-            Sets the username in yaml with the value provided.
+        register user [USERNAME]
+            Sets the user in yaml with the value provided.
 
 reservation
 ----------------------------------------------------------------------
@@ -2070,3 +2071,5 @@ Command - workflow::
         cm workflow show 58c9552c-8d93-42c0-9dea-5f48d90a3188 --refresh
         cm workflow run workflow1
 
+
+Timer: 0.0145s (man)

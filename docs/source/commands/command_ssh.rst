@@ -12,34 +12,34 @@ The manual page of the `ssh` command can be found at: `ssh
 Lists
 ^^^^^^^^^^^^^^
 
+To lists the hostsnames that are present in the `~/.ssh/config` file use
+the command
+
 .. prompt:: bash, cm>
 
   ssh list
 
-::
-   
-      lists the hostsnames  that are present in the
-      ~/.ssh/config file
+
+To list the contents of the `~/.ssh/config` file use the command
 
 .. prompt:: bash, cm>
 	    
   ssh cat
 
-::
-   
-      prints the ~/.ssh/config file
+Tos showcase a nice table you can use either of the commands
 
 .. prompt:: bash, cm>
 	    
   ssh table
+  ssh list --format=table
 
-::
-   
-      prints contents of the ~/.ssh/config file in table format
+  
 
-
-Executing Command
+Executing Commands
 ^^^^^^^^^^^^^^^^^^^
+
+To execute a command on a remote host you simply can use the ssh
+command eithe rin the shell or in cloudmesh client. 
 
 .. prompt:: bash, cm>
 
@@ -47,26 +47,28 @@ Executing Command
 
 ::
    
-      executes the ssh command with the given arguments
-      Example:
-          ssh myhost
+executes the ssh command with the given arguments
 
-              conducts an ssh login to myhost if it is defined in
-              ~/.ssh/config file
-
-
-Register
-^^^^^^^^^^^
-
-.. warning: Not yet implemented
+Example:
 
 .. prompt:: bash, cm>
+	    
+	    ssh myhost
 
-    ssh register NAME PARAMETERS
+conducts an ssh login to myhost if it is defined in ~/.ssh/config file
 
-::
-   
-    registers a host i ~/.ssh/config file
-    Parameters are attribute=value pairs
-    Note: Note yet implemented
+.. comment:
+
+    Register
+    ^^^^^^^^^^^
+
+    .. warning:: Not yet implemented
+
+    .. prompt:: bash, cm>
+
+	ssh register NAME PARAMETERS
+
+
+    The register command registers a host into the ~/.ssh/config file. Parameters
+    are attribute=value pairs Note: Note yet implemented
     

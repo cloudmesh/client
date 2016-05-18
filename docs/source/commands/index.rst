@@ -40,12 +40,13 @@ Cloud Commands
    command_register
    command_cloud
    command_key
+   command_flavor
+   command_image
    command_list
    command_secgroup
    command_vm
+   command_advanced
    command_nova
-   command_flavor
-   command_image
    command_network
    command_sync
    command_limits

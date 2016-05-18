@@ -98,16 +98,7 @@ class SecureShellCommand(PluginCommand, ShellPluginCommand, CometPluginCommand):
                 content = f.readlines()
             return "".join(content)
 
-        if arguments["list"]:
-
-            output_format = arguments["--format"]
-            banner('List SSH config hosts')
-            hosts = ssh_config()
-            for host in hosts.list():
-                print(host)
-
-        elif arguments["table"]:
-
+        def print_ssh_table(output):
             content = read(filename="~/.ssh/config").split("\n")
 
             entries = [
@@ -141,7 +132,7 @@ class SecureShellCommand(PluginCommand, ShellPluginCommand, CometPluginCommand):
                     attribute, value = line.strip().split(" ", 1)
                     entry[attribute.lower()] = value.strip()
 
-            pprint(entries)
+            # pprint(entries)
             order = ["host",
                      "hostname",
                      "user",
@@ -151,6 +142,26 @@ class SecureShellCommand(PluginCommand, ShellPluginCommand, CometPluginCommand):
                      "forwardx11"]
 
             print(Printer.list(entries, order=order))
+
+        if arguments["list"]:
+
+            output_format = arguments["--format"]
+
+            if output_format is None:
+                banner('List SSH config hosts')
+                hosts = ssh_config()
+                for host in hosts.list():
+                    print(host)
+            else:
+
+                print_ssh_table(output_format)
+
+            return ""
+
+        elif arguments["table"]:
+
+            print_ssh_table()
+            return ""
 
         elif arguments["cat"]:
 
