@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Ssh Command &mdash; cloudmesh_client 4.2.4 documentation</title>
+  <title>Ssh Command &mdash; cloudmesh_client 4.2.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.5 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Select Command" href="command_select.html"/>
         <link rel="prev" title="Group Command" href="command_group.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.2.4
+                4.2.5
               </div>
             
           
@@ -106,8 +106,7 @@
 <li class="toctree-l3"><a class="reference internal" href="command_group.html">Group Command</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Ssh Command</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#lists">Lists</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#executing-command">Executing Command</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#register">Register</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#executing-commands">Executing Commands</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="command_select.html">Select Command</a></li>
@@ -202,44 +201,28 @@ interaction, we provide a simple ssh command in cloudmesh.</p>
 <p>The manual page of the <cite>ssh</cite> command can be found at: <a class="reference external" href="../man/man.html#ssh">ssh</a></p>
 <div class="section" id="lists">
 <h2>Lists<a class="headerlink" href="#lists" title="Permalink to this headline">¶</a></h2>
+<p>To lists the hostsnames that are present in the <cite>~/.ssh/config</cite> file use
+the command</p>
 <pre class="highlight"><style type="text/css">
 span.prompt1:before {
   content: "cm> ";
 }
 </style><span class="prompt1">ssh list</span>
-</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">lists</span> <span class="n">the</span> <span class="n">hostsnames</span>  <span class="n">that</span> <span class="n">are</span> <span class="n">present</span> <span class="ow">in</span> <span class="n">the</span>
-<span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">config</span> <span class="n">file</span>
-</pre></div>
-</div>
+</pre><p>To list the contents of the <cite>~/.ssh/config</cite> file use the command</p>
 <pre class="highlight"><span class="prompt1">ssh cat</span>
-</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">prints</span> <span class="n">the</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">config</span> <span class="n">file</span>
-</pre></div>
-</div>
+</pre><p>Tos showcase a nice table you can use either of the commands</p>
 <pre class="highlight"><span class="prompt1">ssh table</span>
-</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">prints</span> <span class="n">contents</span> <span class="n">of</span> <span class="n">the</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">config</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">table</span> <span class="nb">format</span>
+<span class="prompt1">ssh list --format=table</span>
 </pre></div>
-</div>
-</div>
-<div class="section" id="executing-command">
-<h2>Executing Command<a class="headerlink" href="#executing-command" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="executing-commands">
+<h2>Executing Commands<a class="headerlink" href="#executing-commands" title="Permalink to this headline">¶</a></h2>
+<p>To execute a command on a remote host you simply can use the ssh
+command eithe rin the shell or in cloudmesh client.</p>
 <pre class="highlight"><span class="prompt1">ssh ARGUMENTS</span>
-</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">executes</span> <span class="n">the</span> <span class="n">ssh</span> <span class="n">command</span> <span class="k">with</span> <span class="n">the</span> <span class="n">given</span> <span class="n">arguments</span>
-<span class="n">Example</span><span class="p">:</span>
-    <span class="n">ssh</span> <span class="n">myhost</span>
-
-        <span class="n">conducts</span> <span class="n">an</span> <span class="n">ssh</span> <span class="n">login</span> <span class="n">to</span> <span class="n">myhost</span> <span class="k">if</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">defined</span> <span class="ow">in</span>
-        <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">config</span> <span class="n">file</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="register">
-<h2>Register<a class="headerlink" href="#register" title="Permalink to this headline">¶</a></h2>
-<pre class="highlight"><span class="prompt1">ssh register NAME PARAMETERS</span>
-</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">registers</span> <span class="n">a</span> <span class="n">host</span> <span class="n">i</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">config</span> <span class="n">file</span>
-<span class="n">Parameters</span> <span class="n">are</span> <span class="n">attribute</span><span class="o">=</span><span class="n">value</span> <span class="n">pairs</span>
-<span class="n">Note</span><span class="p">:</span> <span class="n">Note</span> <span class="n">yet</span> <span class="n">implemented</span>
-</pre></div>
-</div>
+</pre><p>executes the ssh command with the given arguments</p>
+<p>Example:</p>
+<pre class="highlight"><span class="prompt1">ssh myhost</span>
+</pre><p>conducts an ssh login to myhost if it is defined in ~/.ssh/config file</p>
 </div>
 </div>
 
@@ -283,7 +266,7 @@ span.prompt1:before {
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.2.4',
+            VERSION:'4.2.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -122,3 +122,94 @@ cloud:
    
     Deleted key image for cloud chameleon
 
+set a default cloud
+--------------------
+
+The default cloud can be set with the command
+
+.. prompt:: bash, cm>
+	    
+    default cloud=kilo
+
+where kilo is the name of the cloud that you have specifie din your
+cloudmesh yam file. Switching to a different cloud will aslo  switch
+the default image and flavor.
+
+Use the info command to confirm your settings to make sure they are as
+you expect.
+
+.. prompt:: bash, cm>
+	    
+    info
+
+Thus it is obvious that you can conveniently switch between the use of
+clouds by just adjusting the defaukt cloud so booting across
+heterogeneous clouds becomes easy:
+
+.. prompt:: bash, cm>
+
+    default cloud=kilo
+    vm boot
+
+    default cloud=chameleon
+    vm boot
+
+You have now two vms's one on kilo and one on chameleon.
+
+
+distributing defaults
+---------------------
+
+Naturally the use of defaults allows you to create your own customized
+cloudmesh.yaml files that includes a suitable set of default
+parameters for your use. This is especially useful in class settings
+where students may need a similar set to conduct their activities.
+
+In such cases you could host the customized yaml file on a web server
+or e-mail them to the students (under the assumption that you have not
+included any passwords which you should not do).
+
+Once done so the students can just copy the yaml file into the
+~/.cloudmesh directory and start their project. All they need to do
+is to prepare the environment with some very easy steps.
+
+.. prompt:: bash
+
+	    ssh-keygen -C yourname@example.com
+	    mkdir -p ~/.cloudmesh
+	    cp cloudmesh.yaml ~/.cloudmesh/cloudmesh.yaml
+	    cm register profile
+	    cm register remote    # only if you have an india account
+	    cm key add --ssh
+	    cm key upload
+
+To configure a cloud you can simply edit them. The perosn distributing
+the yaml file will let you know which clouds you should use
+
+.. prompt:: bash
+
+	    cm register kilo
+	    cm register chameleon
+	    cm default cloud=kilo
+
+From that point on managing a vm is simple
+	    
+	    cm vm boot
+	    cm vm ip assign
+	    
+To register new clouds (on which you have accounts) you can say
+
+.. prompt:: bash
+
+	    cm register chameleon
+
+To upload keys to other clouds such as chameleon use
+
+.. prompt:: bash
+
+	    cm key add —ssh —cloud=chameleon
+
+
+
+
+

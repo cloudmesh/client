@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Default Command &mdash; cloudmesh_client 4.2.4 documentation</title>
+  <title>Default Command &mdash; cloudmesh_client 4.2.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.2.5 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Info Command" href="command_info.html"/>
         <link rel="prev" title="Color Command" href="command_colors.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.2.4
+                4.2.5
               </div>
             
           
@@ -106,6 +106,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#set-default-values">set default values</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#looking-up-default-values">looking up default values</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#deleting-default-values">deleting default values</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#set-a-default-cloud">set a default cloud</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#distributing-defaults">distributing defaults</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="command_info.html">Info Command</a></li>
@@ -280,6 +282,63 @@ cloud:</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="set-a-default-cloud">
+<h2>set a default cloud<a class="headerlink" href="#set-a-default-cloud" title="Permalink to this headline">¶</a></h2>
+<p>The default cloud can be set with the command</p>
+<pre class="highlight"><span class="prompt1">default cloud=kilo</span>
+</pre><p>where kilo is the name of the cloud that you have specifie din your
+cloudmesh yam file. Switching to a different cloud will aslo  switch
+the default image and flavor.</p>
+<p>Use the info command to confirm your settings to make sure they are as
+you expect.</p>
+<pre class="highlight"><span class="prompt1">info</span>
+</pre><p>Thus it is obvious that you can conveniently switch between the use of
+clouds by just adjusting the defaukt cloud so booting across
+heterogeneous clouds becomes easy:</p>
+<pre class="highlight"><span class="prompt1">default cloud=kilo</span>
+<span class="prompt1">vm boot</span>
+<span class="prompt1"></span>
+<span class="prompt1">default cloud=chameleon</span>
+<span class="prompt1">vm boot</span>
+</pre><p>You have now two vms&#8217;s one on kilo and one on chameleon.</p>
+</div>
+<div class="section" id="distributing-defaults">
+<h2>distributing defaults<a class="headerlink" href="#distributing-defaults" title="Permalink to this headline">¶</a></h2>
+<p>Naturally the use of defaults allows you to create your own customized
+cloudmesh.yaml files that includes a suitable set of default
+parameters for your use. This is especially useful in class settings
+where students may need a similar set to conduct their activities.</p>
+<p>In such cases you could host the customized yaml file on a web server
+or e-mail them to the students (under the assumption that you have not
+included any passwords which you should not do).</p>
+<p>Once done so the students can just copy the yaml file into the
+~/.cloudmesh directory and start their project. All they need to do
+is to prepare the environment with some very easy steps.</p>
+<pre class="highlight"><style type="text/css">
+span.prompt2:before {
+  content: "$ ";
+}
+</style><span class="prompt2">ssh-keygen -C yourname@example.com</span>
+<span class="prompt2">mkdir -p ~/.cloudmesh</span>
+<span class="prompt2">cp cloudmesh.yaml ~/.cloudmesh/cloudmesh.yaml</span>
+<span class="prompt2">cm register profile</span>
+<span class="prompt2">cm register remote    <span class="c1"># only if you have an india account</span></span>
+<span class="prompt2">cm key add --ssh</span>
+<span class="prompt2">cm key upload</span>
+</pre><p>To configure a cloud you can simply edit them. The perosn distributing
+the yaml file will let you know which clouds you should use</p>
+<pre class="highlight"><span class="prompt2">cm register kilo</span>
+<span class="prompt2">cm register chameleon</span>
+<span class="prompt2">cm default <span class="nv">cloud</span><span class="o">=</span>kilo</span>
+</pre><p>From that point on managing a vm is simple</p>
+<blockquote>
+<div>cm vm boot
+cm vm ip assign</div></blockquote>
+<p>To register new clouds (on which you have accounts) you can say</p>
+<pre class="highlight"><span class="prompt2">cm register chameleon</span>
+</pre><p>To upload keys to other clouds such as chameleon use</p>
+<pre class="highlight"><span class="prompt2">cm key add —ssh —cloud<span class="o">=</span>chameleon</span>
+</pre></div>
 </div>
 
 
@@ -322,7 +381,7 @@ cloud:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.2.4',
+            VERSION:'4.2.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

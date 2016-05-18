@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Developer Notes &mdash; cloudmesh_client 4.2.5 documentation</title>
+  <title>Advanced Command Usage &mdash; cloudmesh_client 4.2.5 documentation</title>
   
 
   
@@ -31,9 +31,9 @@
 
   
     <link rel="top" title="cloudmesh_client 4.2.5 documentation" href="../index.html"/>
-        <link rel="up" title="Appendix" href="../appendix.html"/>
-        <link rel="next" title="OpenStack API Examples" href="notes.html"/>
-        <link rel="prev" title="Appendix" href="../appendix.html"/> 
+        <link rel="up" title="User Manual" href="index.html"/>
+        <link rel="next" title="Nova Command" href="command_nova.html"/>
+        <link rel="prev" title="VM Command" href="command_vm.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -95,9 +95,36 @@
 <li class="toctree-l1"><a class="reference internal" href="../comet.html">Comet Virtual Cluster</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Manuals</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../setup.html">Setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">User Manual</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#shell-commands">Shell Commands</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#cloud-commands">Cloud Commands</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="command_register.html">Register Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_cloud.html">Cloud Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_key.html">Key Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_flavor.html">Flavor Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_image.html">Image Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_list.html">List Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_secgroup.html">SecGroup Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_vm.html">VM Command</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Advanced Command Usage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#script-to-create-3-vms">Script to create 3 vms</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_network.html">Network Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_sync.html">Sync Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_limits.html">Limits Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_quota.html">Quota Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_usage.html">Usage Command</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#hpc-commands">HPC Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#comet-commands">Comet Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#proposed-commands">Proposed Commands</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Teaching</span></p>
@@ -110,16 +137,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../appendix.html">Appendix</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Developer Notes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="notes.html">OpenStack API Examples</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../changes.html">Changes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../todo.html">ToDos</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Future and Old</span></p>
 <ul>
@@ -164,13 +183,13 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-          <li><a href="../appendix.html">Appendix</a> &raquo;</li>
+          <li><a href="index.html">User Manual</a> &raquo;</li>
       
-    <li>Developer Notes</li>
+    <li>Advanced Command Usage</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/dev/index.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/commands/command_advanced.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -180,13 +199,75 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="developer-notes">
-<h1>Developer Notes<a class="headerlink" href="#developer-notes" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="notes.html">OpenStack API Examples</a></li>
+  <div class="section" id="advanced-command-usage">
+<h1>Advanced Command Usage<a class="headerlink" href="#advanced-command-usage" title="Permalink to this headline">¶</a></h1>
+<p>In this section we explain some very onvenient usage to create 3
+virtual machines and the corresponding inverntory.txt file for use
+with possible ansible scripts.</p>
+<p>The following commands are used in a cloudmesh script</p>
+<ul class="simple">
+<li><a class="reference external" href="../man/man.html#vm">vm</a></li>
+<li><a class="reference external" href="../man/man.html#var">var</a></li>
 </ul>
+<div class="section" id="script-to-create-3-vms">
+<h2>Script to create 3 vms<a class="headerlink" href="#script-to-create-3-vms" title="Permalink to this headline">¶</a></h2>
+<p>Let us assume the cloud is the chameleon cloud on which we like to
+create the vms. Than our script <cite>vms.cm</cite> looks as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>var cloud=chameleon
+
+refresh on
+debug off
+key add --ssh
+default cloud=$cloud
+secgroup upload --cloud=$cloud
+
+
+#
+# GET 3 VMS WITH IP
+#
+vm boot
+var vm1=default.vm
+
+vm boot
+var vm2=default.vm
+
+vm boot
+var vm3=default.vm
+
+#
+# WAIT FOR THE VMS
+#
+vm ip wait $vm1
+vm ip wait $vm2
+vm ip wait $vm3
+
+#
+# ASSIGN IPS
+#
+vm ip assign $vm1
+vm ip assign $vm2
+vm ip assign $vm3
+
+# CREATE THE INVENTORY
+
+vm ip inventory $vm1,$vm2,$vm3
+
+#
+# TEST SSH
+#
+
+vm ssh $vm1 --command=hostname
+vm ssh $vm2 --command=hostname
+vm ssh $vm3 --command=hostname
+</pre></div>
 </div>
+<p>To execute simply say</p>
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">cm vms.cm</span>
+</pre></div>
 </div>
 
 
@@ -196,10 +277,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="notes.html" class="btn btn-neutral float-right" title="OpenStack API Examples" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="command_nova.html" class="btn btn-neutral float-right" title="Nova Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../appendix.html" class="btn btn-neutral" title="Appendix" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="command_vm.html" class="btn btn-neutral" title="VM Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -96,8 +96,13 @@ Setting default key
 
 You can select the default key with the following simple command:
 
+
+.. prompt:: bash, cm>
+	    
     $ cm select key
 
+::
+   
     Select a Key
     ============
 
