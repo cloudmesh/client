@@ -384,6 +384,26 @@ hard reboot the node (power off and then power on).
 
 Other commands:
 ~~~~
+To obtain the detailed information of a node:
+
+.. prompt:: bash
+
+    cm comet node info vc2
+
+Gives your the information of the vc2 frontnode. This includes essential
+network configuration information if you want to rebuild the frontend
+node.
+
+.. prompt:: bash
+
+    cm comet node info vc2 vm-vc2-0
+
+Gives the detailed information of the specified compute node.
+
+By default it returned information in a table format. It also accepts
+the --format=FROMAT parameter so the result can be easily parsed while
+being used in scripting.
+
 You can also rename a compute node, or a list of nodes in batch:
 
 .. prompt:: bash

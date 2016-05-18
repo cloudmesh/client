@@ -8,6 +8,7 @@ import hostlist
 import os
 import sys
 from builtins import input
+from pprint import pprint
 
 # noinspection PyUnusedLocal,PyBroadException
 class CometCommand(PluginCommand, CometPluginCommand):
@@ -40,11 +41,12 @@ class CometCommand(PluginCommand, CometPluginCommand):
                comet terminate COMPUTESETID
                comet power (on|off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
                comet console CLUSTERID [COMPUTENODEID]
+               comet node info CLUSTERID [COMPUTENODEID] [--format=FORMAT]
+               comet node rename CLUSTERID OLDNAMES NEWNAMES
                comet iso list
                comet iso upload [--isoname=ISONAME] PATHISOFILE
                comet iso attach ISONAME CLUSTERID [COMPUTENODEIDS]
                comet iso detach CLUSTERID [COMPUTENODEIDS]
-               comet node rename CLUSTERID OLDNAMES NEWNAMES
 
             Options:
                 --format=FORMAT         Format is either table, json, yaml,
@@ -504,20 +506,11 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 computenodeids = arguments["COMPUTENODEIDS"] or None
                 print(Cluster.detach_iso(clusterid, computenodeids))
         elif arguments["node"]:
-            '''
-            if arguments["rename"]:
+            if arguments["info"]:
                 clusterid = arguments["CLUSTERID"]
-                oldname = arguments["OLDNAME"]
-                newname = arguments["NEWNAME"]
-                if newname is None or newname == '':
-                    print("New node name cannot be empty")
-                else:
-                    print(Cluster.rename_node(clusterid, oldname, newname))
-
-            '''
-            # bulk rename
-
-            if arguments["rename"]:
+                nodeid = arguments["COMPUTENODEID"]
+                print (Cluster.node_info(clusterid, nodeid=nodeid, format=output_format))
+            elif arguments["rename"]:
                 clusterid = arguments["CLUSTERID"]
                 oldnames = Parameter.expand(arguments["OLDNAMES"])
                 newnames = Parameter.expand(arguments["NEWNAMES"])
