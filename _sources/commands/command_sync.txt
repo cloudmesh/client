@@ -9,7 +9,9 @@ send data from local machine to remote host.
 The manual page of the network command can be
 found at: `sync <../man/man.html#sync>`__
 
-
+.. warning:: is this supposed to be syncing with all VMs in the
+    current target cloud? In my test it was trying to copy to
+    chameleoncloud.org when I set cm as the default cloud.
 
 Sync file on local machine with remote machine on cloud
 --------------------------------------------------------

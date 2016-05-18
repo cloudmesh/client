@@ -104,13 +104,12 @@
 <li class="toctree-l4"><a class="reference internal" href="#quickstart-for-registration-of-some-clouds">Quickstart for registration of some clouds</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#introduction">Introduction</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#register-list">register list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#register-ssh">register ssh</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#register-remote">register remote</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#register-export">register export</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#register-merge">register merge</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#register-form">register form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#register-check">register check</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#register-cloud">register CLOUD</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#register-json-host">register json HOST</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#register-profile-username">register profile &#8211;username</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#register-profile">register profile</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="command_cloud.html">Cloud Command</a></li>
@@ -216,6 +215,10 @@ clouds such as the once at IU an easy registration exists if you have
 appropriate access.</p>
 <p>The manual page of the <cite>register</cite> command can be found at:
 <a class="reference external" href="../man/man.html#register">register</a></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">in some of our examples we will be using the user name <cite>albert</cite></p>
+</div>
 <div class="section" id="quickstart-for-registration-of-some-clouds">
 <h2>Quickstart for registration of some clouds<a class="headerlink" href="#quickstart-for-registration-of-some-clouds" title="Permalink to this headline">¶</a></h2>
 <p>Please only use the quickstart if you know hat you are doing, otherwise,
@@ -232,12 +235,23 @@ span.prompt1:before {
 <li><a class="reference external" href="https://portal.futuresystems.org">https://portal.futuresystems.org</a></li>
 </ul>
 <p>To register an openstack cloud for which you have an existing openrc.sh file,
-you can simply say:</p>
-<pre class="highlight"><span class="prompt1">register openrc.sh</span>
-</pre><div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">verify if this works</p>
-</div>
+you can simply source the rc file first and than use the <cite>register
+env</cite> command:</p>
+<pre class="highlight"><style type="text/css">
+span.prompt2:before {
+  content: "$ ";
+}
+</style><span class="prompt2">$ <span class="nb">source</span> openrc.sh</span>
+<span class="prompt2">$ register openrc.sh</span>
+</pre><p>Top obtain such an openrc.sh file you can typically use the horizon
+GUI and download it via the security panel of the project. If you have
+multiple project you can donwload them one by one and repeat that
+process.
+The command will use the defaults created by the openrc.sh file and
+than integrate them into the cloudmesh.yaml file. You can arbitrarily
+name the cloud/project but it must not yet have been used otherwise
+you are overwriting an existing cloud. Register commands such as <cite>list</cite>
+and <cite>backup</cite> will help you with the management</p>
 <p>On chameleoncloud.org you can for example go to the horizon web interface and
 download the credentials in the security panel.</p>
 </div>
@@ -254,11 +268,11 @@ clouds. YOu can fill out the yaml file with your information, add new
 clouds, or delete templates of clouds that you do not use. We have
 several different types of clouds that we support. This includes
 OpenStack, AWS, and Azure clouds.</p>
-<div class="admonition-todo admonition" id="index-1">
-<p class="first admonition-title">Todo</p>
-<p class="last">at this time we have not integrated our AWS and Azure IaaS
-abstractions in the new cloudmesh client. We will make them
-available in future.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">at this time we have not integrated our AWS and Azure
+IaaS abstractions in the new cloudmesh client. We will
+make them available in future.</p>
 </div>
 <p>As it may be inconvenient to edit this file and look at the yaml
 format, we provide several administrative commands. The command:</p>
@@ -266,10 +280,16 @@ format, we provide several administrative commands. The command:</p>
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">File</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">albert</span><span class="o">/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">cloudmesh</span><span class="o">.</span><span class="n">yaml</span> <span class="n">exists</span><span class="o">.</span> <span class="n">ok</span><span class="o">.</span>
 </pre></div>
 </div>
-<p>identifies if the <cite>cloudmesh.yaml</cite> file exists.</p>
+<p>identifies if the <cite>cloudmesh.yaml</cite> file exists.  The <cite>register info</cite>
+command is very similar to the <cite>register list</cite> command but does not
+have as many options and is introduced for convenience.</p>
 <p>To view the contents of that file, you can cat it or use the command:</p>
 <pre class="highlight"><span class="prompt1">register cat</span>
-</pre><p>To edit the file, you can use the command:</p>
+</pre><p>To edit the file you must have set the operating system variable
+EDITOR. This is ofeten done in Linux as part of the .bashrc file or
+explicitly with:</p>
+<pre class="highlight"><span class="prompt2"><span class="nb">export</span> <span class="nv">EDITOR</span><span class="o">=</span>emacs</span>
+</pre><p>Once the EDITOR is set, you can use it with the the command:</p>
 <pre class="highlight"><span class="prompt1">register edit</span>
 </pre></div>
 <div class="section" id="register-list">
@@ -280,37 +300,32 @@ can use the command:</p>
 </pre><p>which will print a table with elementary information defined for the
 clouds.:</p>
 <pre class="highlight"><span class="prompt1">register list</span>
-</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Clouds</span> <span class="n">specified</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">configuration</span> <span class="n">file</span> <span class="o">~/.</span><span class="n">cloudmesh</span>\<span class="n">cloudmesh</span><span class="o">.</span><span class="n">yaml</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Clouds</span> <span class="n">specified</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">configuration</span> <span class="n">file</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">cloudmesh</span><span class="o">.</span><span class="n">yaml</span>
 
-<span class="o">+-------+-----------+---------+</span>
-<span class="o">|</span> <span class="n">Name</span>  <span class="o">|</span> <span class="n">Iaas</span>      <span class="o">|</span> <span class="n">Version</span> <span class="o">|</span>
-<span class="o">+-------+-----------+---------+</span>
-<span class="o">|</span> <span class="n">azure</span> <span class="o">|</span> <span class="n">azure</span>     <span class="o">|</span> <span class="n">N</span><span class="o">/</span><span class="n">A</span>     <span class="o">|</span>
-<span class="o">|</span> <span class="n">aws</span>   <span class="o">|</span> <span class="n">ec2</span>       <span class="o">|</span> <span class="n">N</span><span class="o">/</span><span class="n">A</span>     <span class="o">|</span>
-<span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span> <span class="n">openstack</span> <span class="o">|</span> <span class="n">kilo</span>    <span class="o">|</span>
-<span class="o">+-------+-----------+---------+</span>
+<span class="o">+----+---------+---------------+-----------+---------+--------+</span>
+<span class="o">|</span> <span class="nb">id</span> <span class="o">|</span> <span class="n">default</span> <span class="o">|</span> <span class="n">cloud</span>         <span class="o">|</span> <span class="n">iaas</span>      <span class="o">|</span> <span class="n">version</span> <span class="o">|</span> <span class="n">active</span> <span class="o">|</span>
+<span class="o">+----+---------+---------------+-----------+---------+--------+</span>
+<span class="o">|</span> <span class="mi">0</span>  <span class="o">|</span>         <span class="o">|</span> <span class="n">cm</span>            <span class="o">|</span> <span class="n">openstack</span> <span class="o">|</span> <span class="n">kilo</span>    <span class="o">|</span> <span class="mi">2</span>      <span class="o">|</span>
+<span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="o">*</span>       <span class="o">|</span> <span class="n">kilo</span>          <span class="o">|</span> <span class="n">openstack</span> <span class="o">|</span> <span class="n">kilo</span>    <span class="o">|</span> <span class="mi">1</span>      <span class="o">|</span>
+<span class="o">|</span> <span class="mi">2</span>  <span class="o">|</span>         <span class="o">|</span> <span class="n">chameleon</span>     <span class="o">|</span> <span class="n">openstack</span> <span class="o">|</span> <span class="n">kilo</span>    <span class="o">|</span>        <span class="o">|</span>
+<span class="o">|</span> <span class="mi">3</span>  <span class="o">|</span>         <span class="o">|</span> <span class="n">cybera</span><span class="o">-</span><span class="n">c</span>      <span class="o">|</span> <span class="n">openstack</span> <span class="o">|</span> <span class="n">kilo</span>    <span class="o">|</span>        <span class="o">|</span>
+<span class="o">|</span> <span class="mi">4</span>  <span class="o">|</span>         <span class="o">|</span> <span class="n">cybera</span><span class="o">-</span><span class="n">e</span>      <span class="o">|</span> <span class="n">openstack</span> <span class="o">|</span> <span class="n">kilo</span>    <span class="o">|</span>        <span class="o">|</span>
+<span class="o">|</span> <span class="mi">5</span>  <span class="o">|</span>         <span class="o">|</span> <span class="n">aws</span>           <span class="o">|</span> <span class="n">ec2</span>       <span class="o">|</span>         <span class="o">|</span>        <span class="o">|</span>
+<span class="o">|</span> <span class="mi">6</span>  <span class="o">|</span>         <span class="o">|</span> <span class="n">chameleon</span><span class="o">-</span><span class="n">ec2</span> <span class="o">|</span> <span class="n">ec2</span>       <span class="o">|</span> <span class="n">ec2</span>     <span class="o">|</span>        <span class="o">|</span>
+<span class="o">|</span> <span class="mi">7</span>  <span class="o">|</span>         <span class="o">|</span> <span class="n">azure</span>         <span class="o">|</span> <span class="n">azure</span>     <span class="o">|</span>         <span class="o">|</span>        <span class="o">|</span>
+<span class="o">+----+---------+---------------+-----------+---------+--------+</span>
 </pre></div>
 </div>
-<p>To list only the names, please use the command:</p>
-<pre class="highlight"><span class="prompt1">register list --name</span>
-</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Clouds</span> <span class="n">specified</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">configuration</span> <span class="n">file</span> <span class="o">~/.</span><span class="n">cloudmesh</span>\<span class="n">cloudmesh</span><span class="o">.</span><span class="n">yaml</span>
-
-<span class="o">+-------+</span>
-<span class="o">|</span> <span class="n">Name</span>  <span class="o">|</span>
-<span class="o">+-------+</span>
-<span class="o">|</span> <span class="n">azure</span> <span class="o">|</span>
-<span class="o">|</span> <span class="n">aws</span>   <span class="o">|</span>
-<span class="o">|</span> <span class="n">india</span> <span class="o">|</span>
-<span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span>
-<span class="o">+-------+</span>
-</pre></div>
+<p>See also: <cite>register info</cite>.</p>
 </div>
+<div class="section" id="register-ssh">
+<h2>register ssh<a class="headerlink" href="#register-ssh" title="Permalink to this headline">¶</a></h2>
 <p>As we also have to sometimes login to some remote hosts it is
 convenient to reuse the ssh command for that. ssh has the advantage of
 being able to use a config file in $HOME/.ssh/config. MOre information
 about ssh config files and their format can be found in the many web
-pages if you google for <cite>ssh config</cite>. In case you have defined
-a host <cite>india</cite> in ~/.ssh/config in the following way:</p>
+pages if you google for <cite>ssh config</cite>. In case you have defined a host
+<cite>india</cite> in ~/.ssh/config in the following way:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Host</span> <span class="n">india</span>
     <span class="n">Hostname</span> <span class="n">india</span><span class="o">.</span><span class="n">futuresystems</span><span class="o">.</span><span class="n">org</span>
     <span class="n">User</span> <span class="n">yourusername</span>
@@ -330,14 +345,13 @@ openrc.sh file. We are providing some very special helper functions, like
 for example obtain the openrc files from the FutureSystems
 cloud.</p>
 <p>The command:</p>
-<pre class="highlight"><span class="prompt1">register remote HOSTNAME</span>
+<pre class="highlight"><span class="prompt1">register remote</span>
 </pre><p>will copy and register a machine on which an openrc.sh file is located
 into the <cite>cloudmesh.yaml</cite> file. With cloudmesh we provide some default
 host, thus they are very easy to configure. This includes <cite>kilo</cite> our
-current clouds in our lab. To register them you can use the commands:</p>
-<pre class="highlight"><span class="prompt1">register reomte kilo</span>
-</pre><p>These commands will only work if you have an account on this
-machine and it is integrated into the ssh config file as discussed
+current clouds in our lab.</p>
+<p>These commands will only work if you have an account on this
+<cite>india</cite> and it is integrated into the ssh config file as discussed
 previously.</p>
 </div>
 <div class="section" id="register-export">
@@ -364,6 +378,10 @@ command export:</p>
 <span class="o">+-----------------------+------------------------------------------+</span>
 </pre></div>
 </div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">ERROR</p>
+</div>
 <p>The default view returns a openrc.sh file:</p>
 <pre class="highlight"><span class="prompt1">register export kilo</span>
 </pre><p>The output contains an rc file example:</p>
@@ -381,76 +399,24 @@ command export:</p>
 </pre></div>
 </div>
 <p>The passwords will be masked with eight stars: <cite>********</cite>.
-In case you like also to see the password you can use the &#8211;password flag.</p>
+In case you like also to see the password you can use the <cite>&#8211;password</cite> flag.</p>
 </div>
-<div class="section" id="register-merge">
-<h2>register merge<a class="headerlink" href="#register-merge" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="index-2">
-<p class="first admonition-title">Todo</p>
-<p class="last">the description of what this is doing was ambigous, we need
-to clarify if it only replaces to do or actually add things
-that do not exist, or just overwrites.</p>
-</div>
-<p>IN case you have already a yaml file, form another project
-you can merge two of them into the same cloudmesh yaml file. You
-simply have to specify the location of the file that you like to merge
-into the existing yaml file. However, please be careful, as it will
-overwrite the contents in ~/.cloudmesh/cloudmesh.yaml</p>
-<div class="admonition-todo admonition" id="index-3">
-<p class="first admonition-title">Todo</p>
-<p class="last">We used to have a .bak.# when we modified the yaml file, do
-you still have this</p>
-</div>
-<p>Hence the command</p>
-<pre class="highlight"><span class="prompt1">register merge my_cloudmesh.yaml</span>
-</pre><p>This command allows the content from another yaml file to be merged into the
-regular cloudmesh.yaml file. A backup of the old cloudmesh.yaml file is
-created with an increased number.</p>
-</div>
-<div class="section" id="register-form">
-<h2>register form<a class="headerlink" href="#register-form" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="register-cloud">
+<h2>register CLOUD<a class="headerlink" href="#register-cloud" title="Permalink to this headline">¶</a></h2>
 <p>In some cases it is nice to have an interactive mechanism to fill out
-the missing yaml file information that is indicated with TBD. THis is
-useful, if you do not have an editor at hand. Thus you can use the command:</p>
-<pre class="highlight"><span class="prompt1">register form</span>
-</pre><p>It will interactively fills out the form wherever we find TBD:</p>
-<pre class="highlight"><span class="prompt1">register form</span>
+the missing yaml file information that is indicated with TBD. This is
+useful, if you do not have an editor at hand. Thus you can use the
+command:</p>
+<pre class="highlight"><span class="prompt1">register CLOUD</span>
+</pre><p>where cloud is the name of the cloud. Default names for the clouds can
+be found with the <cite>register list</cite> command.</p>
+<p>The <cite>register CLOUD</cite> command will interactively ask for the values and
+add them into your yaml file:</p>
+<pre class="highlight"><span class="prompt1">register kilo</span>
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Please</span> <span class="n">enter</span> <span class="n">email</span><span class="p">[</span><span class="n">TBD</span><span class="p">]:</span>
-<span class="n">Editing</span> <span class="n">the</span> <span class="n">credentials</span> <span class="k">for</span> <span class="n">cloud</span> <span class="n">india</span>
+<span class="n">Editing</span> <span class="n">the</span> <span class="n">credentials</span> <span class="k">for</span> <span class="n">cloud</span> <span class="n">kilo</span>
 <span class="n">Please</span> <span class="n">enter</span> <span class="n">OS_TENANT_NAME</span><span class="p">[</span><span class="n">TBD</span><span class="p">]:</span>
-<span class="n">Editing</span> <span class="n">the</span> <span class="n">credentials</span> <span class="k">for</span> <span class="n">cloud</span> <span class="n">aws</span>
-<span class="n">Please</span> <span class="n">enter</span> <span class="n">EC2_ACCESS_KEY</span><span class="p">[</span><span class="n">TBD</span><span class="p">]:</span>
-<span class="n">Please</span> <span class="n">enter</span> <span class="n">EC2_SECRET_KEY</span><span class="p">[</span><span class="n">TBD</span><span class="p">]:</span>
-<span class="n">Please</span> <span class="n">enter</span> <span class="n">keyname</span><span class="p">[</span><span class="n">TBD</span><span class="p">]:</span>
-<span class="n">Please</span> <span class="n">enter</span> <span class="n">userid</span><span class="p">[</span><span class="n">TBD</span><span class="p">]:</span>
-<span class="n">Editing</span> <span class="n">the</span> <span class="n">credentials</span> <span class="k">for</span> <span class="n">cloud</span> <span class="n">azure</span>
-<span class="n">Please</span> <span class="n">enter</span> <span class="n">managementcertfile</span><span class="p">[</span><span class="n">TBD</span><span class="p">]:</span>
-<span class="n">Please</span> <span class="n">enter</span> <span class="n">servicecertfile</span><span class="p">[</span><span class="n">TBD</span><span class="p">]:</span>
-<span class="n">Please</span> <span class="n">enter</span> <span class="n">subscriptionid</span><span class="p">[</span><span class="n">TBD</span><span class="p">]:</span>
-<span class="n">Please</span> <span class="n">enter</span> <span class="n">thumbprint</span><span class="p">[</span><span class="n">TBD</span><span class="p">]:</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="register-check">
-<h2>register check<a class="headerlink" href="#register-check" title="Permalink to this headline">¶</a></h2>
-<p>To find any not filled out values, you can use the command:</p>
-<pre class="highlight"><span class="prompt1">register check</span>
-</pre><p>which hecks the yaml file for completness and list all fields that
-have the value TBD:</p>
-<pre class="highlight"><span class="prompt1">register check</span>
-</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ERROR</span><span class="p">:</span> <span class="n">The</span> <span class="n">file</span> <span class="n">has</span> <span class="mi">11</span> <span class="n">values</span> <span class="n">to</span> <span class="n">be</span> <span class="n">fixed</span>
-
-<span class="n">email</span><span class="p">:</span> <span class="n">TBD</span>
-<span class="n">username</span><span class="p">:</span> <span class="n">TBD</span>
-<span class="n">flavor</span><span class="p">:</span> <span class="n">TBD</span>
-<span class="n">EC2_ACCESS_KEY</span><span class="p">:</span> <span class="n">TBD</span>
-<span class="n">EC2_SECRET_KEY</span><span class="p">:</span> <span class="n">TBD</span>
-<span class="n">keyname</span><span class="p">:</span> <span class="n">TBD</span>
-<span class="n">userid</span><span class="p">:</span> <span class="n">TBD</span>
-<span class="n">managementcertfile</span><span class="p">:</span> <span class="n">TBD</span>
-<span class="n">servicecertfile</span><span class="p">:</span> <span class="n">TBD</span>
-<span class="n">subscriptionid</span><span class="p">:</span> <span class="n">TBD</span>
-<span class="n">thumbprint</span><span class="p">:</span> <span class="n">TBD</span>
+<span class="o">...</span>
 </pre></div>
 </div>
 </div>
@@ -484,12 +450,19 @@ representation by issueing the command:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="register-profile-username">
-<h2>register profile &#8211;username<a class="headerlink" href="#register-profile-username" title="Permalink to this headline">¶</a></h2>
-<p>Instead of modifying the profile username in the cloudmesh yaml file manually, this command provides a convenient way
-of setting the username through cm shell:</p>
-<pre class="highlight"><span class="prompt1">register profile --username=albert</span>
-</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Username</span> <span class="n">albert</span> <span class="nb">set</span> <span class="n">successfully</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">yaml</span> <span class="n">settings</span><span class="o">.</span>
+<div class="section" id="register-profile">
+<h2>register profile<a class="headerlink" href="#register-profile" title="Permalink to this headline">¶</a></h2>
+<p>Instead of modifying the profile username in the cloudmesh yaml file
+manually, this command provides a convenient way of setting the
+username through cm shell:</p>
+<pre class="highlight"><span class="prompt1">register profile</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># ######################################################################</span>
+<span class="c1"># Register profile</span>
+<span class="c1"># ######################################################################</span>
+<span class="n">Enter</span> <span class="n">firstname</span> <span class="p">(</span><span class="n">TBD</span><span class="p">):</span> <span class="n">Gregor</span>
+<span class="n">Enter</span> <span class="n">lastname</span> <span class="p">(</span><span class="n">TBD</span><span class="p">):</span> <span class="n">von</span> <span class="n">Laszewski</span>
+<span class="n">Enter</span> <span class="n">email</span> <span class="p">(</span><span class="n">TBD</span><span class="p">):</span> <span class="n">laszewski</span><span class="nd">@gmail</span><span class="o">.</span><span class="n">com</span>
+<span class="n">Enter</span> <span class="n">user</span> <span class="p">(</span><span class="n">TBD</span><span class="p">):</span> <span class="n">gregor</span>
 </pre></div>
 </div>
 </div>

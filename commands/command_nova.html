@@ -100,7 +100,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="index.html#shell-commands">Shell Commands</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#cloud-commands">Cloud Commands</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="command_register.html">Register Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html">egister Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_cloud.html">Cloud Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_key.html">Key Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_list.html">List Command</a></li>
@@ -211,12 +211,12 @@ information caching</p>
 <div class="section" id="setting-the-target-cloud">
 <h2>Setting the Target Cloud<a class="headerlink" href="#setting-the-target-cloud" title="Permalink to this headline">¶</a></h2>
 <p>You may set the target cloud on which the nova command should run as follows:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">prompt</span><span class="p">::</span> <span class="n">bash</span><span class="p">,</span> <span class="n">cm</span><span class="o">&gt;</span>
-</pre></div>
-</div>
-<blockquote>
-<div>nova set india</div></blockquote>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">india</span> <span class="ow">is</span> <span class="nb">set</span>
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "cm> ";
+}
+</style><span class="prompt1">nova set india</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">india</span> <span class="ow">is</span> <span class="nb">set</span>
 </pre></div>
 </div>
 <p>Note that if you do not set a target cloud, default cloud considered is &#8216;india&#8217;.</p>
@@ -224,12 +224,8 @@ information caching</p>
 <div class="section" id="getting-the-cloud-info">
 <h2>Getting the Cloud Info<a class="headerlink" href="#getting-the-cloud-info" title="Permalink to this headline">¶</a></h2>
 <p>You may get the cloud info in the following manner:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">prompt</span><span class="p">::</span> <span class="n">bash</span><span class="p">,</span> <span class="n">cm</span><span class="o">&gt;</span>
-</pre></div>
-</div>
-<blockquote>
-<div>nova info</div></blockquote>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">WARNING</span><span class="p">:</span> <span class="n">OS</span> <span class="n">environment</span> <span class="n">variable</span> <span class="n">OS_REGION</span> <span class="ow">not</span> <span class="n">found</span>
+<pre class="highlight"><span class="prompt1">nova info</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">WARNING</span><span class="p">:</span> <span class="n">OS</span> <span class="n">environment</span> <span class="n">variable</span> <span class="n">OS_REGION</span> <span class="ow">not</span> <span class="n">found</span>
 <span class="o">+----------------+--------------------------------------------------------+</span>
 <span class="o">|</span> <span class="n">Variable</span>       <span class="o">|</span> <span class="n">Value</span>                                                  <span class="o">|</span>
 <span class="o">+----------------+--------------------------------------------------------+</span>
@@ -242,13 +238,10 @@ information caching</p>
 <span class="o">+----------------+--------------------------------------------------------+</span>
 </pre></div>
 </div>
-<p>By default it gives the &#8216;india&#8217; cloud info. To check for specific cloud, here is an example for kilo cloud:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">prompt</span><span class="p">::</span> <span class="n">bash</span><span class="p">,</span> <span class="n">cm</span><span class="o">&gt;</span>
-</pre></div>
-</div>
-<blockquote>
-<div>nova info kilo</div></blockquote>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+----------------+------------------------------------------------+</span>
+<p>By default it gives the &#8216;india&#8217; cloud info. To check for specific cloud,
+here is an example for kilo cloud:</p>
+<pre class="highlight"><span class="prompt1">nova info kilo</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+----------------+------------------------------------------------+</span>
 <span class="o">|</span> <span class="n">Variable</span>       <span class="o">|</span> <span class="n">Value</span>                                          <span class="o">|</span>
 <span class="o">+----------------+------------------------------------------------+</span>
 <span class="o">|</span> <span class="n">OS_REGION</span>      <span class="o">|</span> <span class="kc">None</span>                                           <span class="o">|</span>
@@ -266,12 +259,8 @@ information caching</p>
 <p>The syntax is  the same as what is used for openstack nova.
 Following are couple of examples:</p>
 <p>Listing images:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">prompt</span><span class="p">::</span> <span class="n">bash</span><span class="p">,</span> <span class="n">cm</span><span class="o">&gt;</span>
-</pre></div>
-</div>
-<blockquote>
-<div>nova image-list</div></blockquote>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Cloud</span> <span class="o">=</span> <span class="n">india</span>
+<pre class="highlight"><span class="prompt1">nova image-list</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Cloud</span> <span class="o">=</span> <span class="n">india</span>
 <span class="o">+--------------------------------------+-----------------------------------------+--------+--------------------------------------+</span>
 <span class="o">|</span> <span class="n">ID</span>                                   <span class="o">|</span> <span class="n">Name</span>                                    <span class="o">|</span> <span class="n">Status</span> <span class="o">|</span> <span class="n">Server</span>                               <span class="o">|</span>
 <span class="o">+--------------------------------------+-----------------------------------------+--------+--------------------------------------+</span>
@@ -298,12 +287,8 @@ Following are couple of examples:</p>
 </pre></div>
 </div>
 <p>Listing flavors:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">prompt</span><span class="p">::</span> <span class="n">bash</span><span class="p">,</span> <span class="n">cm</span><span class="o">&gt;</span>
-</pre></div>
-</div>
-<blockquote>
-<div>nova flavor-list</div></blockquote>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Cloud</span> <span class="o">=</span> <span class="n">india</span>
+<pre class="highlight"><span class="prompt1">nova flavor-list</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Cloud</span> <span class="o">=</span> <span class="n">india</span>
 <span class="o">+----+----------------+-----------+------+-----------+------+-------+-------------+-----------+</span>
 <span class="o">|</span> <span class="n">ID</span> <span class="o">|</span> <span class="n">Name</span>           <span class="o">|</span> <span class="n">Memory_MB</span> <span class="o">|</span> <span class="n">Disk</span> <span class="o">|</span> <span class="n">Ephemeral</span> <span class="o">|</span> <span class="n">Swap</span> <span class="o">|</span> <span class="n">VCPUs</span> <span class="o">|</span> <span class="n">RXTX_Factor</span> <span class="o">|</span> <span class="n">Is_Public</span> <span class="o">|</span>
 <span class="o">+----+----------------+-----------+------+-----------+------+-------+-------------+-----------+</span>

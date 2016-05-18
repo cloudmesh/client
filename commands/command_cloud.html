@@ -33,7 +33,7 @@
     <link rel="top" title="cloudmesh_client 4.2.4 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Key Command" href="command_key.html"/>
-        <link rel="prev" title="Register Command" href="command_register.html"/> 
+        <link rel="prev" title="egister Command" href="command_register.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -100,7 +100,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="index.html#shell-commands">Shell Commands</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#cloud-commands">Cloud Commands</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="command_register.html">Register Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html">egister Command</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Cloud Command</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#list-status-of-all-clouds">List status of all clouds</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#login-to-a-single-multiple-clouds">Login to a single/multiple clouds</a></li>
@@ -117,7 +117,6 @@
 <li class="toctree-l3"><a class="reference internal" href="command_flavor.html">Flavor Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_image.html">Image Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_network.html">Network Command</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_sync.html">Sync Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_limits.html">Limits Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_quota.html">Quota Command</a></li>
@@ -218,14 +217,18 @@ span.prompt1:before {
   content: "cm> ";
 }
 </style><span class="prompt1">cloud list</span>
-</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+------------+------------+</span>
-<span class="o">|</span> <span class="n">cloud</span> <span class="n">name</span> <span class="o">|</span> <span class="n">status</span>     <span class="o">|</span>
-<span class="o">+------------+------------+</span>
-<span class="o">|</span> <span class="n">aws</span>        <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span>
-<span class="o">|</span> <span class="n">azure</span>      <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span>
-<span class="o">|</span> <span class="n">chameleon</span>  <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span>
-<span class="o">|</span> <span class="n">kilo</span>       <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span>
-<span class="o">+------------+------------+</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+----+---------------+---------+--------+------------+--------+</span>
+<span class="o">|</span> <span class="nb">id</span> <span class="o">|</span> <span class="n">Cloud</span>         <span class="o">|</span> <span class="n">Default</span> <span class="o">|</span> <span class="n">Active</span> <span class="o">|</span> <span class="n">Status</span>     <span class="o">|</span> <span class="n">Key</span>    <span class="o">|</span>
+<span class="o">+----+---------------+---------+--------+------------+--------+</span>
+<span class="o">|</span> <span class="mi">0</span>  <span class="o">|</span> <span class="n">cm</span>            <span class="o">|</span>         <span class="o">|</span> <span class="o">*</span>      <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="n">kilo</span>          <span class="o">|</span> <span class="o">*</span>       <span class="o">|</span> <span class="o">*</span>      <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">2</span>  <span class="o">|</span> <span class="n">chameleon</span>     <span class="o">|</span>         <span class="o">|</span>        <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">3</span>  <span class="o">|</span> <span class="n">cybera</span><span class="o">-</span><span class="n">c</span>      <span class="o">|</span>         <span class="o">|</span>        <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">4</span>  <span class="o">|</span> <span class="n">cybera</span><span class="o">-</span><span class="n">e</span>      <span class="o">|</span>         <span class="o">|</span>        <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">5</span>  <span class="o">|</span> <span class="n">aws</span>           <span class="o">|</span>         <span class="o">|</span>        <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">6</span>  <span class="o">|</span> <span class="n">chameleon</span><span class="o">-</span><span class="n">ec2</span> <span class="o">|</span>         <span class="o">|</span>        <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">7</span>  <span class="o">|</span> <span class="n">azure</span>         <span class="o">|</span>         <span class="o">|</span>        <span class="o">|</span> <span class="n">Logged</span> <span class="n">Out</span> <span class="o">|</span> <span class="n">albert</span> <span class="o">|</span>
+<span class="o">+----+---------------+---------+--------+------------+--------+</span>
 </pre></div>
 </div>
 </div>
@@ -252,6 +255,12 @@ span.prompt1:before {
 <span class="o">+------------+------------+</span>
 </pre></div>
 </div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">logon does not give error but after that the status in</p>
+</div>
+<p>&#8216;cloud list&#8217; does not show the cloud as &#8216;Active&#8217;. Maybe a duplication
+when we have a new column &#8216;Active&#8217; in addition to &#8216;Status&#8217;?</p>
 </div>
 <div class="section" id="deactivate-a-cloud">
 <h2>Deactivate a cloud<a class="headerlink" href="#deactivate-a-cloud" title="Permalink to this headline">¶</a></h2>
@@ -278,6 +287,10 @@ span.prompt1:before {
 <pre class="highlight"><span class="prompt1">cloud activate kilo</span>
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Activated</span> <span class="n">cloud</span><span class="p">:</span> <span class="n">kilo</span>
 </pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">KeyError: &#8216;kilo&#8217; when trying to deactivate kilo</p>
 </div>
 <pre class="highlight"><span class="prompt1">cloud list</span>
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+------------+------------+</span>
@@ -313,6 +326,11 @@ span.prompt1:before {
 <span class="o">+------------+------------+</span>
 </pre></div>
 </div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Logged out in &#8216;Status&#8217; column and the &#8216;Active&#8217; column may</p>
+</div>
+<p>be duplicated and conflicting with each other.</p>
 </div>
 </div>
 
@@ -326,7 +344,7 @@ span.prompt1:before {
         <a href="command_key.html" class="btn btn-neutral float-right" title="Key Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="command_register.html" class="btn btn-neutral" title="Register Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="command_register.html" class="btn btn-neutral" title="egister Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

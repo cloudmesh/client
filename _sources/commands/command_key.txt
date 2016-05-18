@@ -122,6 +122,7 @@ option:
 
 .. note:: we do show an abbreviation of the key for illustration.    
 
+.. warning:: NOT valid command
 
 Get Keys
 ---------
@@ -175,6 +176,7 @@ interactively with the select option:
     choice 2 selected.
     Setting key: rsa as default.
 
+.. warning:: ERROR in key selection
     
 Delete Keys
 ------------
@@ -190,11 +192,15 @@ A named key can be deleted from the registry with the command, where
    
     Key demokey deleted successfully from database.
 
+.. warning:: DEBUG dict info included in the result.
+
 Alternatively you can also interactively select it:
 
 .. prompt:: bash, cm>
 	    
     $ cm key delete --select
+
+.. warning:: ERROR in key selection
 
 To delete all keys from database use:
 
@@ -206,4 +212,4 @@ To delete all keys from database use:
    
     All keys from the database deleted successfully.
 
-
+.. warning:: DEBUG info included; Functionality NOT IMPLEMENTED.

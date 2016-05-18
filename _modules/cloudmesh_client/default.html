@@ -214,7 +214,7 @@
              <span class="n">category</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
              <span class="n">order</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
              <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-             <span class="n">output</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">):</span>
+             <span class="n">output</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        lists the default values in the specified format.</span>
 <span class="sd">        TODO: This method has a bug as it uses format and output,</span>
@@ -235,6 +235,8 @@
             <span class="c1">#         &#39;value&#39;,</span>
             <span class="c1">#         &#39;updated_at&#39;]</span>
             <span class="c1"># order, header = Attributes(cls.__kind__, provider=cls.__provider__)</span>
+        <span class="k">if</span> <span class="n">output</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">output</span> <span class="ow">or</span> <span class="s1">&#39;table&#39;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">category</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="n">cls</span><span class="o">.</span><span class="n">__kind__</span><span class="p">)</span>
@@ -242,7 +244,7 @@
                 <span class="n">result</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">cls</span><span class="o">.</span><span class="n">__kind__</span><span class="p">)</span>
 
             <span class="n">table</span> <span class="o">=</span> <span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">result</span><span class="p">,</span>
-                                  <span class="n">output</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">)</span>
+                                  <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">table</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error creating list&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
@@ -384,6 +386,11 @@
     <span class="k">def</span> <span class="nf">loglevel</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;loglevel&quot;</span><span class="p">)</span>
 
+    <span class="nd">@readable_classproperty</span>
+    <span class="k">def</span> <span class="nf">output</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;output&quot;</span><span class="p">)</span>
+
+
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.set_loglevel"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_loglevel">[docs]</a>    <span class="k">def</span> <span class="nf">set_loglevel</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
         <span class="n">level</span> <span class="o">=</span> <span class="n">level</span> <span class="ow">or</span> <span class="s1">&#39;debug&#39;</span>
@@ -436,6 +443,11 @@
 
         <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
         <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;int&#39;</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.set_output"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_output">[docs]</a>    <span class="k">def</span> <span class="nf">set_output</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="s2">&quot;output&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.set_user"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_user">[docs]</a>    <span class="k">def</span> <span class="nf">set_user</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>

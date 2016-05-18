@@ -2,16 +2,18 @@ Basic Commands and Options
 ======================================================================
 
 Cloudmesh contains a number of commands that makes the management of
-multiple heterogeneous clouds easier. In order to better manage the
-various clouds it is convenient to introduce a number of options and
-behaviors. This includes the following concepts.
-
+multiple heterogeneous clouds easier. The commands are defined in an
+uniform fashion and use for many some convenient built in options and
+behaviors. We describe them next. As they are general to many commands
+we have not described them in detail for each command that utilize
+them. You can check with the command manual pages for more details for
+each command.
 
 
 Format
 ----------------------------------------------------------------------
 
-Many commands have a format parameter that allows to provide output of
+Many commands have a `--format` parameter that allows to provide output of
 the command in various formats. These formats include:
 
 * json
@@ -23,27 +25,18 @@ The format can be changed on each command that supports it with::
 
    --format FORMAT
 
-where FORMAT is one of the values from the list above.
+where FORMAT is one of the values from the list above. In many cases
+the default format is set to `table`.
 
-.. todo:: setting a default format via defaults
+.. comment::
 
-Not yet done: It is also possible to set the default format for all
-commands that accept the format option. THis is done with the
-command:
+  .. prompt:: bash
+  
+      default format=FORMAT
 
-.. prompt:: bash
+  Once you have set it, the default format will be used for all commands
+  the do not explicitly set the format option on the commandline.
 
-    default format FORMAT
-
-Once you have set it, the default format will be used for all commands
-the do not explicitly set the format option on the commandline.
-
-To switch off this behavior and use the build in behavior for each
-command, we specify:
-
-.. prompt:: bash
-
-     default format False
 
 
 
@@ -51,48 +44,24 @@ Cloud
 ----------------------------------------------------------------------
 
 Many commands are specific to a particular cloud. this cloud can be
-set with the::
+set with the
+
+::
 
     --cloud CLOUD
 
-option for individual commands that support it. As we deal with many
-clouds it may be inconvenient to specify the name of the cloud every
-time, thus we have introduced the concept of a default cloud. The
-default cloud can be set with the command:
+option for individual commands that support it. As we often execute
+multiple commands on the same cloud consecutively, will be
+inconvenient to specify the name of the cloud every time, thus we have
+introduced the concept of a default cloud. The default cloud can be
+set with the command:
 
 .. prompt:: bash, cm>
 
-    default cloud CLOUDNAME
+    default cloud=CLOUDNAME
 
-where cloudname is the name of the cloud that we have registered with
-cloudmesh (see registration).
+where `CLOUDNAME` is the name of the cloud that we use 
 
-.. todo:: put link to registration here
-
-History
-----------------------------------------------------------------------
-
-The manual page of the history command can be found at:
-`register <../man/man.html#history>`_
-
-Not yet completed. As we may want to run multiple commands we also
-provide a history that can be invoked from cloudmesh to show which
-cloudmesh commands have been issued in the past. This allows a more
-easy review of past activities:
-
-.. prompt:: bash
-
-     cm history
-
-Commands in history are preceeded by a number. A past command can be
-reissued by appending the number to the history. Thus the command:
-
-.. prompt:: bash
-
-     cm history 3
-
-would execute the 3rd command in the command history. Instead of
-using the command history, you can also use the abbreviation `h`.
 
 Help
 ----------------------------------------------------------------------
@@ -106,7 +75,7 @@ To see the list of all available commands use the command:
 
    
 The commands are sorted by topic, while the first list gives all
-commands in alphabetical order. To opbtain an individual man page
+commands in alphabetical order. To obtain an individual man page
 simply say:
 
 
@@ -116,7 +85,7 @@ simply say:
    
        
 where command is the command you which to get the help message for. To
-optain the manual pages of all commands yo can use the command:
+obtain the manual pages of all commands yo can use the command:
 
 .. prompt:: bash, cm>
 
@@ -152,7 +121,7 @@ executed as a command shell. To enter the command shell, please type:
 You will see the prompt and can interactively execute some of the
 commands without needing to type in cm in front of each command.  To
 see the commands type help. To get help for an individual command type
-help COMMANDNAME.  You can quit the comamnd shell with the command
+help COMMANDNAME.  You can quit the command shell with the command
 quit.
 
 The current list of commands contains:
@@ -162,29 +131,47 @@ The current list of commands contains:
     cm help
 
 ::
+   
+    Documented commands (type help <command>):
+    ==========================================
+    EOF      comet    h          launcher  pause     reservation  ssh     verbose 
+    akey     context  help       limits    portal    reset        submit  version 
+    banner   debug    history    list      py        rsync        sync    vm      
+    check    default  hpc        load      q         secgroup     test    workflow
+    clear    echo     image      man       quit      select       timer 
+    cloud    exec     info       network   quota     server       usage 
+    cluster  flavor   inventory  nova      refresh   shell        var   
+    color    group    key        open      register  sleep        vc    
 
-    Documented commands (type help <topic>):
-    ========================================
-    EOF     cloud    group      key     man   pause  quota        secgroup  ssh
-    banner  context  help       limits  nova  q      register     select    version
-    clear   default  inventory  list    open  quit   reservation  server    vm
+    Undocumented commands:
+    ======================
+    shell_exec
+
+    Shell Commands
+    ==============
+    banner  color  echo  help     load  man   pause  q     refresh  var    
+    clear   debug  EOF   history  man   open  puase  quit  timer    version
+
+    System Commands
+    ===============
+    hpc  rsync  submit  sync
+
+    Comet Commands
+    ==============
+    comet
 
     Security Commands
     =================
     key  secgroup  ssh
 
-    Shell Commands
-    ==============
-    banner  clear  EOF  man  man  open  q
-
-    System Commands
-    ===============
-    inventory  reservation
-
     Cloud Commands
     ==============
-    cloud  default  group  limits  list  nova  quota  register  select  server  vm
+    cloud    flavor  image  limits  network  portal  register  select  test   vm
+    default  group   info   list    nova     quota   reset     server  usage
 
+
+The manual page of the `cm` command can be found at:
+`register <../man/man.html#cm>`__    
 
 Elementary Commands
 -------------------
@@ -196,23 +183,23 @@ Comments
 ^^^^^^^^^
 
 Comments are identified by the first characters in a command line. We
-allow the following comment charater identification strings::
+allow the following comment character identification strings::
 
    #
    /*
    //
 
 If comments are to be done over multiple lines in a cloudmesh script,
-they have to be done for each line. If a space or other character is
-in front of a comment string, the it will not be considered as a
-comment.
+they have to be done for each line at the very beginning. If a space
+or other character is in front of a comment string, then it will not
+be considered as a comment.
 
 Cloudmesh File Execution
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Multiple cloudmesh commands can be placed in a single file. We
-recommend that you use the ending `.cm`. You can satrt the execution
-of such a file with:
+Multiple cloudmesh commands can be placed in a single cloudmesh script
+file. We recommend that you use the ending `.cm`. You can start the
+execution of such a file with:
 
 .. prompt:: bash
 
@@ -269,9 +256,9 @@ Manual Pages
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Often you will run in the situation where you may have to create a
-list of manual pages for your commands for your users. To simplify
-that we have not provided this in Unix Man format, but simply in RST
-format. You can type in the command:
+list of manual pages for your commands. To simplify that we have not
+provided this in Unix Man format, but simply in RST format. You can
+type in the command:
 
 .. prompt:: bash, cm>
 	    
@@ -279,8 +266,12 @@ format. You can type in the command:
   
 and it will print you in RST format a list of all commands available
 to you for your cmd3 shell. This naturally you could put into a sphinx
-documentation to create a nice user manual for your users.
+documentation to create a nice user manual for your users
+automatically. IN fact we use this feature to create our manual pages.
 
+
+The manual page of the `man` command can be found at:
+`register <../man/man.html#man>`__
 
 Scripts
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -326,7 +317,7 @@ command:
 
 .. prompt:: bash
 
-	    var username=cloudmesh.profile.username
+	    var username=cloudmesh.profile.user
 
 Will create a variable username and get the value form the yaml file
 specified by its object hierarchy.
@@ -372,14 +363,7 @@ system/terminal variables while prepending them with os. Thus:
 	    
     banner $HOME
 
-.. prompt:: bash, cm>
-		
-   banner $os.HOME
-   
-	    
-Will be the same the advantage is that with os. we clearly mark an os
-systems variable that we like to access and no confusion between internal
-cloudmesh shell and OS variables occur. Furthermore variables defined in the
+Furthermore variables defined in the
 cloudmesh yaml file can be directly accessed while using the . notation. Thus:
 
 .. prompt:: bash, cm>
@@ -392,7 +376,7 @@ yaml hierarchy under given this example::
 
   cloudmesh:
     profile:
-      username: myusername
+      user: myusername
 
 
 To show the usage of the different variables in one line, please review the
@@ -401,7 +385,7 @@ following example:
 .. prompt:: bash, cm>
 
     var a=hello
-    banner '$a-[0-100] $os.HOME $cloudmesh.profile.username'
+    banner '$a-[0-100] $HOME $cloudmesh.profile.username'
 
 This will print, where albert is your username::
 
@@ -409,12 +393,16 @@ This will print, where albert is your username::
   # hallo-[0-100] /Users/albert albert
   ######################################################################
 
+
+The manual page of the `var` command can be found at:
+`register <../man/man.html#var>`__
+  
 Timers
 -------
 
 Sometimes it is a good idea to measure the time it takes to execute a
 particular command. For this reason we have a timer command that can switch
-on and off this behaviour.
+on and off this behavior.
 
 .. prompt:: bash, cm>
 	    
@@ -452,6 +440,34 @@ with
 	    
    timer reset mytimer
 
+
+The manual page of the `timer` command can be found at:
+`register <../man/man.html#timer>`__
+   
+History
+^^^^^^^
+.. warning:: This command has not yet been implemented and should not
+	     be used
+	     
+The manual page of the `history` command can be found at:
+`register <../man/man.html#history>`__
+
+The history command allows the execution of previously run commands.
+You can view them with 
+
+.. prompt:: bash, cm>
+
+     history
+
+Commands in history are proceeded by a number. A past command can be
+reissued by appending the number to the history. Thus the command:
+
+.. prompt:: bash, cm>
+
+     history 3
+
+would execute the 3rd command in the command history. Instead of
+using the command history, you can also use the abbreviation `h`.
    
 
 

@@ -100,7 +100,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="index.html#shell-commands">Shell Commands</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#cloud-commands">Cloud Commands</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="command_register.html">Register Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html">egister Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_cloud.html">Cloud Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_key.html">Key Command</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">List Command</a><ul>
@@ -283,6 +283,10 @@ span.prompt1:before {
 <span class="p">}</span>
 </pre></div>
 </div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">&#8216;json&#8217; format still printed out a table</p>
+</div>
 </div>
 <div class="section" id="list-cloud-objects">
 <h2>list Cloud objects<a class="headerlink" href="#list-cloud-objects" title="Permalink to this headline">¶</a></h2>
@@ -298,6 +302,11 @@ use:</p>
 <p class="first admonition-title">Note</p>
 <p class="last">not everything may be implemented yet.</p>
 </div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">image, flavor, vm all have empty data, if not refreshed/populated</p>
+</div>
+<p>via other commands? quota, limits and usage not yet implemented (NOT valid command)</p>
 </div>
 </div>
 

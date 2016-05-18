@@ -20,14 +20,18 @@ cloudmesh.yaml file use:
 
 ::
    
-    +------------+------------+
-    | cloud name | status     |
-    +------------+------------+
-    | aws        | Logged Out |
-    | azure      | Logged Out |
-    | chameleon  | Logged Out |
-    | kilo       | Logged Out |
-    +------------+------------+
+    +----+---------------+---------+--------+------------+--------+
+    | id | Cloud         | Default | Active | Status     | Key    |
+    +----+---------------+---------+--------+------------+--------+
+    | 0  | cm            |         | *      | Logged Out | albert |
+    | 1  | kilo          | *       | *      | Logged Out | albert |
+    | 2  | chameleon     |         |        | Logged Out | albert |
+    | 3  | cybera-c      |         |        | Logged Out | albert |
+    | 4  | cybera-e      |         |        | Logged Out | albert |
+    | 5  | aws           |         |        | Logged Out | albert |
+    | 6  | chameleon-ec2 |         |        | Logged Out | albert |
+    | 7  | azure         |         |        | Logged Out | albert |
+    +----+---------------+---------+--------+------------+--------+
 
 
 Login to a single/multiple clouds
@@ -67,6 +71,10 @@ You can logon to multiple clouds:
     | chameleon  | Logged Out |
     | kilo       | Active     |
     +------------+------------+
+
+.. warning:: logon does not give error but after that the status in
+'cloud list' does not show the cloud as 'Active'. Maybe a duplication
+when we have a new column 'Active' in addition to 'Status'?
 
 Deactivate a cloud
 -------------------
@@ -108,6 +116,8 @@ To activate a cloud use:
 ::
    
   Activated cloud: kilo
+
+.. warning:: KeyError: 'kilo' when trying to deactivate kilo
 
 .. prompt:: bash, cm>
 	    
@@ -159,3 +169,6 @@ To log out from a cloud use:
     | chameleon  | Logged Out |
     | kilo       | Logged Out |
     +------------+------------+
+
+.. warning:: Logged out in 'Status' column and the 'Active' column may
+be duplicated and conflicting with each other.

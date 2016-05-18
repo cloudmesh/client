@@ -100,7 +100,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="index.html#shell-commands">Shell Commands</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#cloud-commands">Cloud Commands</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="command_register.html">Register Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html">egister Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_cloud.html">Cloud Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_key.html">Key Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_list.html">List Command</a></li>
@@ -207,32 +207,42 @@ operations on various clouds available to Cloudmesh.</p>
 <div class="section" id="listing-defaults">
 <h2>Listing Defaults<a class="headerlink" href="#listing-defaults" title="Permalink to this headline">¶</a></h2>
 <p>You can have a list of relevant default attributes required for VM operations:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+-----------+--------------------------------------+</span>
-<span class="o">|</span> <span class="n">Attribute</span> <span class="o">|</span> <span class="n">Value</span>                                <span class="o">|</span>
-<span class="o">+-----------+--------------------------------------+</span>
-<span class="o">|</span> <span class="n">secgroup</span>  <span class="o">|</span>                                      <span class="o">|</span>
-<span class="o">|</span> <span class="n">login_key</span> <span class="o">|</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">albert</span><span class="o">/</span><span class="n">key</span><span class="o">/</span><span class="n">id_rsa</span>              <span class="o">|</span>
-<span class="o">|</span> <span class="n">flavor</span>    <span class="o">|</span> <span class="mi">2</span>                                    <span class="o">|</span>
-<span class="o">|</span> <span class="n">image</span>     <span class="o">|</span> <span class="mi">619</span><span class="n">b8942</span><span class="o">-</span><span class="mi">2355</span><span class="o">-</span><span class="mi">4</span><span class="n">aa2</span><span class="o">-</span><span class="n">jaa5</span><span class="o">-</span><span class="mi">74</span><span class="n">b8f1751911</span> <span class="o">|</span>
-<span class="o">|</span> <span class="n">cloud</span>     <span class="o">|</span> <span class="n">kilo</span>                                 <span class="o">|</span>
-<span class="o">|</span> <span class="n">name</span>      <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">015</span>                           <span class="o">|</span>
-<span class="o">|</span> <span class="n">key</span>       <span class="o">|</span> <span class="n">albertkey</span>                            <span class="o">|</span>
-<span class="o">|</span> <span class="n">group</span>     <span class="o">|</span> <span class="n">test</span>                                 <span class="o">|</span>
-<span class="o">+-----------+--------------------------------------+</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$cm register export kilo --format=table
+
++-------------+-----------------+
+| Attribute   | Value           |
++-------------+-----------------+
+| cloud       | kilo            |
+| key         | albert          |
+| user        | albert          |
+| vm          |                 |
+| group       | default         |
+| secgroup    | albert-default  |
+| counter     | 1               |
+| image       | Ubuntu-14.04-64 |
+| flavor      | m1.small        |
+| refresh     | None            |
+| debug       | True            |
+| interactive | None            |
+| purge       | None            |
++-------------+-----------------+
 </pre></div>
 </div>
 <ul class="simple">
-<li>secgroup - Security Group to be provided for VM boot.</li>
-<li>login_key - Path to private key required for VM login.</li>
+<li>cloud - Current active cloud</li>
+<li>key - Key name from db used for VM boot</li>
+<li>user - User name for the current active cloud</li>
+<li>group - Group for the VM to be booted</li>
+<li>secgroup - Security Group to be provided for VM boot</li>
+<li>counter - the count to be used in the VM name</li>
 <li>flavor - Flavor ID required for VM boot.</li>
 <li>image - Image ID required for VM boot.</li>
-<li>cloud - Target Cloud.</li>
-<li>name - Name of the VM to be booted. This is in format
-&lt;username&gt;-&lt;count&gt;. Username retrieved from cloudmesh.yaml, count
-retrieved from a counter in database.</li>
-<li>key - Key name from db used for VM boot.</li>
-<li>group - Group for the VM to be booted.</li>
+<li>refresh - If refresh flag is set</li>
+<li>debug - if debug flag is set</li>
+<li>interactive - if interactive flag is set</li>
+<li>purge - if the purge flag is set. This determines if a &#8216;delete&#8217; on the cloud</li>
 </ul>
+<p>will also delete the records from the local db</p>
 <div class="section" id="booting-a-vm-instance">
 <h3>Booting a VM instance<a class="headerlink" href="#booting-a-vm-instance" title="Permalink to this headline">¶</a></h3>
 <p>If you have all the required attributes (secgroup not mandatory) setup and listed in the vm defaults,
@@ -242,19 +252,34 @@ span.prompt1:before {
   content: "cm> ";
 }
 </style><span class="prompt1">vm boot</span>
-</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Machine</span> <span class="n">albert</span><span class="o">-</span><span class="mi">015</span> <span class="ow">is</span> <span class="n">being</span> <span class="n">booted</span> <span class="n">on</span> <span class="n">kilo</span> <span class="n">Cloud</span><span class="o">...</span>
-<span class="n">Added</span> <span class="n">ID</span> <span class="p">[</span><span class="mi">4</span><span class="n">a37b49a</span><span class="o">-</span><span class="mi">9768</span><span class="o">-</span><span class="mi">88</span><span class="n">cc</span><span class="o">-</span><span class="n">b988</span><span class="o">-</span><span class="mi">01013701</span><span class="n">a8fb</span><span class="p">]</span> <span class="n">to</span> <span class="n">Group</span> <span class="p">[</span><span class="n">test</span><span class="p">]</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Machine</span> <span class="n">albert</span><span class="o">-</span><span class="mi">001</span> <span class="ow">is</span> <span class="n">being</span> <span class="n">booted</span> <span class="n">on</span> <span class="n">cloud</span> <span class="n">cm</span> <span class="o">...</span>
+<span class="o">+-----------+--------------------------------+</span>
+<span class="o">|</span> <span class="n">Attribute</span> <span class="o">|</span> <span class="n">Value</span>                          <span class="o">|</span>
+<span class="o">+-----------+--------------------------------+</span>
+<span class="o">|</span> <span class="n">cloud</span>     <span class="o">|</span> <span class="n">cm</span>                             <span class="o">|</span>
+<span class="o">|</span> <span class="n">flavor</span>    <span class="o">|</span> <span class="n">m1</span><span class="o">.</span><span class="n">small</span>                       <span class="o">|</span>
+<span class="o">|</span> <span class="n">image</span>     <span class="o">|</span> <span class="n">Ubuntu</span><span class="o">-</span><span class="n">Server</span><span class="o">-</span><span class="mf">14.04</span><span class="o">-</span><span class="n">LTS</span>        <span class="o">|</span>
+<span class="o">|</span> <span class="n">key</span>       <span class="o">|</span> <span class="n">albert</span>                         <span class="o">|</span>
+<span class="o">|</span> <span class="n">meta</span>      <span class="o">|</span> <span class="o">+</span>                              <span class="o">|</span>
+<span class="o">|</span>   <span class="o">-</span>       <span class="o">|</span> <span class="n">category</span><span class="p">:</span> <span class="n">cm</span>                   <span class="o">|</span>
+<span class="o">|</span>   <span class="o">-</span>       <span class="o">|</span> <span class="n">kind</span><span class="p">:</span> <span class="n">cloudmesh</span>                <span class="o">|</span>
+<span class="o">|</span>   <span class="o">-</span>       <span class="o">|</span> <span class="n">group</span><span class="p">:</span> <span class="n">default</span>                 <span class="o">|</span>
+<span class="o">|</span>   <span class="o">-</span>       <span class="o">|</span> <span class="n">image</span><span class="p">:</span> <span class="n">Ubuntu</span><span class="o">-</span><span class="n">Server</span><span class="o">-</span><span class="mf">14.04</span><span class="o">-</span><span class="n">LTS</span> <span class="o">|</span>
+<span class="o">|</span>   <span class="o">-</span>       <span class="o">|</span> <span class="n">key</span><span class="p">:</span> <span class="n">albert</span>                    <span class="o">|</span>
+<span class="o">|</span>   <span class="o">-</span>       <span class="o">|</span> <span class="n">flavor</span><span class="p">:</span> <span class="n">m1</span><span class="o">.</span><span class="n">small</span>               <span class="o">|</span>
+<span class="o">|</span> <span class="n">name</span>      <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">001</span>                     <span class="o">|</span>
+<span class="o">|</span> <span class="n">nics</span>      <span class="o">|</span>                                <span class="o">|</span>
+<span class="o">|</span> <span class="n">secgroup</span>  <span class="o">|</span> <span class="o">+</span>                              <span class="o">|</span>
+<span class="o">|</span>   <span class="o">-</span>       <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="n">default</span>                 <span class="o">|</span>
+<span class="o">+-----------+--------------------------------+</span>
 <span class="n">info</span><span class="o">.</span> <span class="n">OK</span><span class="o">.</span>
 </pre></div>
 </div>
 <p>Else you may explicitly specify the attribute values in the arguments to the vm boot command.:</p>
-<pre class="highlight"><span class="prompt1">vm</span>
-</pre><dl class="docutils">
-<dt>::</dt>
-<dd>boot &#8211;name=testvm &#8211;cloud=kilo &#8211;image=619b8942-2355-4aa2-jaa5-74b8f175
-1911 &#8211;flavor=2
-Machine testvm is being booted on kilo Cloud...</dd>
-</dl>
+<pre class="highlight"><span class="prompt1">vm boot --name=testvm --cloud=kilo --image=619b8942-2355-4aa2-jaa5-74b8f1751911 --flavor=2</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Machine</span> <span class="n">testvm</span> <span class="ow">is</span> <span class="n">being</span> <span class="n">booted</span> <span class="n">on</span> <span class="n">kilo</span> <span class="n">Cloud</span><span class="o">...</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="listing-a-vm-instances">
 <h3>Listing a VM instances<a class="headerlink" href="#listing-a-vm-instances" title="Permalink to this headline">¶</a></h3>
@@ -280,6 +305,10 @@ like the one below:</p>
 <span class="n">info</span><span class="o">.</span> <span class="n">OK</span><span class="o">.</span>
 </pre></div>
 </div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">ERROR: Problem stopping instances</p>
+</div>
 </div>
 <div class="section" id="start-a-vm">
 <h3>Start a VM<a class="headerlink" href="#start-a-vm" title="Permalink to this headline">¶</a></h3>
@@ -294,24 +323,29 @@ like the one below:</p>
 <h3>Assign Floating IP to VM<a class="headerlink" href="#assign-floating-ip-to-vm" title="Permalink to this headline">¶</a></h3>
 <p>In order to access the vm from outside of the cloud private network, we need to assign a floating IP which can be
 accessed publicly:</p>
-<pre class="highlight"><span class="prompt1">vm floating_ip_assign testvm --cloud=kilo</span>
+<pre class="highlight"><span class="prompt1">vm ip assign testvm</span>
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Floating</span> <span class="n">IP</span> <span class="n">assigned</span> <span class="n">to</span> <span class="n">testvm</span> <span class="n">successfully</span> <span class="ow">and</span> <span class="n">it</span> <span class="ow">is</span><span class="p">:</span> <span class="mf">149.165</span><span class="o">.</span><span class="mf">158.</span><span class="n">XX</span>
 </pre></div>
 </div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">seems working, bug to &#8216;non unique match&#8217; error, while &#8216;cm vm list &#8211;refresh&#8217;</p>
+</div>
+<p>does not indicate so. The problem might be in &#8216;cm vm list&#8217; and/or &#8216;refresh&#8217;</p>
 </div>
 <div class="section" id="retrieving-ip-address-details">
 <h3>Retrieving IP Address details<a class="headerlink" href="#retrieving-ip-address-details" title="Permalink to this headline">¶</a></h3>
 <p>You can get the IP address details of a VM by the following command:</p>
-<pre class="highlight"><span class="prompt1">vm ip_show testvm --cloud=kilo</span>
-</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">IP</span> <span class="n">Addresses</span> <span class="n">of</span> <span class="n">instance</span> <span class="n">testvm</span> <span class="n">are</span> <span class="k">as</span> <span class="n">follows</span><span class="p">:</span><span class="o">-</span>
-<span class="o">+---------+---------+----------------+</span>
-<span class="o">|</span> <span class="n">network</span> <span class="o">|</span> <span class="n">version</span> <span class="o">|</span> <span class="n">addr</span>           <span class="o">|</span>
-<span class="o">+---------+---------+----------------+</span>
-<span class="o">|</span> <span class="nb">int</span><span class="o">-</span><span class="n">net</span> <span class="o">|</span> <span class="mi">4</span>       <span class="o">|</span> <span class="mf">10.23</span><span class="o">.</span><span class="mf">2.</span><span class="n">XX</span>     <span class="o">|</span>
-<span class="o">|</span> <span class="nb">int</span><span class="o">-</span><span class="n">net</span> <span class="o">|</span> <span class="mi">4</span>       <span class="o">|</span> <span class="mf">149.165</span><span class="o">.</span><span class="mf">158.</span><span class="n">XX</span> <span class="o">|</span>
-<span class="o">+---------+---------+----------------+</span>
+<pre class="highlight"><span class="prompt1">vm ip show testvm</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+--------------+--------------+-----------------+</span>
+<span class="o">|</span> <span class="n">name</span>         <span class="o">|</span> <span class="n">static_ip</span>    <span class="o">|</span> <span class="n">floating_ip</span>     <span class="o">|</span>
+<span class="o">+--------------+--------------+-----------------+</span>
+<span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">001</span>   <span class="o">|</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.74</span> <span class="o">|</span> <span class="mi">12</span><span class="n">x</span><span class="o">.</span><span class="mi">11</span><span class="n">x</span><span class="o">.</span><span class="mi">11</span><span class="n">x</span><span class="o">.</span><span class="mi">12</span><span class="n">x</span> <span class="o">|</span>
+<span class="o">+--------------+--------------+-----------------+</span>
 </pre></div>
 </div>
+<p>..note:: The real floating IP has been masked in this example, while the command
+shows the true IPs.</p>
 </div>
 <div class="section" id="login-to-vm">
 <h3>Login to VM<a class="headerlink" href="#login-to-vm" title="Permalink to this headline">¶</a></h3>
@@ -355,6 +389,10 @@ applicable law.
 albert@testvm:~$
 </pre></div>
 </div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">login not working anymore</p>
+</div>
 </div>
 <div class="section" id="running-command-on-vm">
 <h3>Running command on VM<a class="headerlink" href="#running-command-on-vm" title="Permalink to this headline">¶</a></h3>
@@ -369,6 +407,10 @@ albert@testvm:~$
 <span class="n">Enter</span> <span class="n">passphrase</span> <span class="k">for</span> <span class="n">key</span> <span class="s1">&#39;/location/id_rsa&#39;</span><span class="p">:</span>
 <span class="n">OS</span> <span class="n">testvm</span> <span class="o">&lt;</span><span class="n">VERSION</span><span class="o">&gt;</span> <span class="c1">#103-OS SMP Fri Aug 14 21:42:59 UTC 2015 &lt;BIT_SPEC&gt; OS</span>
 </pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">depends on the login being working</p>
 </div>
 </div>
 <div class="section" id="deleting-a-vm">
@@ -387,6 +429,11 @@ albert@testvm:~$
 <span class="n">Machine</span> <span class="n">testvm</span> <span class="n">renamed</span> <span class="n">to</span> <span class="n">testvm_renamed</span> <span class="n">on</span> <span class="n">kilo</span> <span class="n">Cloud</span><span class="o">...</span>
 </pre></div>
 </div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">renamed on the remote cloud; but the local db shows two copies of the records.</p>
+</div>
+<p>One for the old name, and one for the new name.</p>
 </div>
 </div>
 </div>

@@ -597,7 +597,7 @@ If it is not present in db, it creates a new entry.
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.default.Default.list">
-<em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>category=None</em>, <em>order=None</em>, <em>header=None</em>, <em>output='table'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/default.html#Default.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.default.Default.list" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>category=None</em>, <em>order=None</em>, <em>header=None</em>, <em>output=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/default.html#Default.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.default.Default.list" title="Permalink to this definition">¶</a></dt>
 <dd><p>lists the default values in the specified format.
 TODO: This method has a bug as it uses format and output,
 only one should be used.</p>
@@ -629,6 +629,11 @@ it is a special category that is used for global values.</li>
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.loglevel">
 <code class="descname">loglevel</code><em class="property"> = None</em><a class="headerlink" href="#cloudmesh_client.default.Default.loglevel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.default.Default.output">
+<code class="descname">output</code><em class="property"> = None</em><a class="headerlink" href="#cloudmesh_client.default.Default.output" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -757,6 +762,11 @@ it is a special category that is used for global values.</li>
 <dd></dd></dl>
 
 <dl class="classmethod">
+<dt id="cloudmesh_client.default.Default.set_output">
+<em class="property">classmethod </em><code class="descname">set_output</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/default.html#Default.set_output"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.default.Default.set_output" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
 <dt id="cloudmesh_client.default.Default.set_purge">
 <em class="property">classmethod </em><code class="descname">set_purge</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/default.html#Default.set_purge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.default.Default.set_purge" title="Permalink to this definition">¶</a></dt>
 <dd><p>sets the default for all clouds to refresh
@@ -806,7 +816,7 @@ it is a special category that is used for global values.</li>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.timer">
-<code class="descname">timer</code><em class="property"> = None</em><a class="headerlink" href="#cloudmesh_client.default.Default.timer" title="Permalink to this definition">¶</a></dt>
+<code class="descname">timer</code><em class="property"> = u'off'</em><a class="headerlink" href="#cloudmesh_client.default.Default.timer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
