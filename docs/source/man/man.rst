@@ -226,11 +226,12 @@ Command - comet::
        comet terminate COMPUTESETID
        comet power (on|off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
        comet console CLUSTERID [COMPUTENODEID]
+       comet node info CLUSTERID [COMPUTENODEID] [--format=FORMAT]
+       comet node rename CLUSTERID OLDNAMES NEWNAMES
        comet iso list
        comet iso upload [--isoname=ISONAME] PATHISOFILE
        comet iso attach ISONAME CLUSTERID [COMPUTENODEIDS]
        comet iso detach CLUSTERID [COMPUTENODEIDS]
-       comet node rename CLUSTERID OLDNAMES NEWNAMES
 
     Options:
         --format=FORMAT         Format is either table, json, yaml,
