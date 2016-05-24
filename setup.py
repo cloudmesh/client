@@ -21,8 +21,10 @@ import setuptools
 from setuptools import setup, find_packages
 import os
 import sys
-from cloudmesh_client import __version__
 import platform
+
+# don't use import to get the version as that causes a circular dependency
+exec(open('cloudmesh_client/version.py').read().strip())
 
 if sys.version_info < (2, 7, 10) or sys.version_info > (3, 0):
     print(70 * "#")
