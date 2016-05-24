@@ -1,0 +1,30 @@
+pip
+pytz
+pbr >1.6
+apache-libcloud
+azure
+nose
+pytest
+ansible
+pyreadline
+colorama
+future
+docopt
+pyaml
+pyyaml
+simplejson
+python-hostlist
+prettytable
+sqlalchemy
+urllib3
+requests >=2.8.1,<2.9.0
+sandman
+gitchangelog
+six >=1.9.0
+python-novaclient
+python-keystoneclient
+cloudmesh_timestring
+pycrypto
+httpsig
+jsonschema
+humanize
