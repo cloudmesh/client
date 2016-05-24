@@ -51,7 +51,7 @@ cloudmesh:
 setup:
 	python setup.py install
 
-dist: clean setup
+dist: clean
 	python setup.py sdist --formats=gztar,zip
 	python setup.py bdist
 	python setup.py bdist_wheel
@@ -98,7 +98,6 @@ clean:
 	rm -rf dist
 	find . -name '__pycache__' -delete
 	find . -name '*.pyc' -delete
-	-pip uninstall cloudmesh_client -y
 	rm -rf .tox
 	rm -f *.whl
 
