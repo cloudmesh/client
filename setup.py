@@ -43,38 +43,7 @@ if command is not None:
     print("Install readline")
     os.system(command)
 
-requirements = [
-    'pip',
-    'pytz',
-    'pbr>1.6',
-    'apache-libcloud',
-    'azure',
-    'nose',
-    'pytest',
-    'colorama',
-    'future',
-    'docopt',
-    'pyaml',
-    'pyyaml',
-    'simplejson',
-    'python-hostlist',
-    'prettytable',
-    'sqlalchemy',
-    'urllib3',
-    'requests',
-    'pycrypto',
-    'httpsig',
-    'sandman',
-    'gitchangelog',
-    'six',
-    'python-novaclient',
-    'python-keystoneclient',
-    'cloudmesh_timestring',
-    'wheel',
-    'tox',
-    'pytimeparse',
-    'humanize']
-
+requirements = map(str.strip, open('requirements.txt'))
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
