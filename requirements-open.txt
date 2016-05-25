@@ -1,0 +1,34 @@
+################################################################################
+# These requirements have no bounds and should be used during
+# development and testing
+################################################################################
+pip
+pytz
+pbr
+apache-libcloud
+azure
+nose
+pytest
+ansible
+pyreadline
+colorama
+future
+docopt
+pyaml
+pyyaml
+simplejson
+python-hostlist
+prettytable
+sqlalchemy
+urllib3
+requests
+sandman
+gitchangelog
+six
+python-novaclient
+python-keystoneclient
+cloudmesh_timestring
+pycrypto
+httpsig
+jsonschema
+humanize

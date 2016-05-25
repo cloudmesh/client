@@ -21,8 +21,10 @@ import setuptools
 from setuptools import setup, find_packages
 import os
 import sys
-from cloudmesh_client import __version__
 import platform
+
+# don't use import to get the version as that causes a circular dependency
+exec(open('cloudmesh_client/version.py').read().strip())
 
 if sys.version_info < (2, 7, 10) or sys.version_info > (3, 0):
     print(70 * "#")
@@ -41,38 +43,7 @@ if command is not None:
     print("Install readline")
     os.system(command)
 
-requirements = [
-    'pip',
-    'pytz',
-    'pbr>1.6',
-    'apache-libcloud',
-    'azure',
-    'nose',
-    'pytest',
-    'colorama',
-    'future',
-    'docopt',
-    'pyaml',
-    'pyyaml',
-    'simplejson',
-    'python-hostlist',
-    'prettytable',
-    'sqlalchemy',
-    'urllib3',
-    'requests',
-    'pycrypto',
-    'httpsig',
-    'sandman',
-    'gitchangelog',
-    'six',
-    'python-novaclient',
-    'python-keystoneclient',
-    'cloudmesh_timestring',
-    'wheel',
-    'tox',
-    'pytimeparse',
-    'humanize']
-
+requirements = map(str.strip, open('requirements.txt'))
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
