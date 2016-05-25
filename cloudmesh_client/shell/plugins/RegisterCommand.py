@@ -511,13 +511,19 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
 
             password = getpass.getpass("Please enter the password for {:}: ".format("chameleon", credentials.OS_PASSWORD))
 
-
-
             while True:
+
+                default = credentials.OS_USERNAME
+                username = input("Please enter the username for {:} [{}]: ".format("chameleon",
+                                                                                   default))
+                username = username or default
+
+
                 default = credentials.OS_PROJECT_NAME
                 project = input("Please enter the project id for {:} [{}]: ".format("chameleon",
                                                                                    default))
                 project = project or default
+
                 if project.isdigit():
                     project = "CH-{}".format(project)
                     break
@@ -533,6 +539,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
 
             credentials.OS_TENENT_ID = credentials.OS_PROJECT_NAME
             credentials.OS_TENENT_NAME = credentials.OS_PROJECT_NAME
+            credentials.OS_USERNAME = username
 
             config.save()
             return ""
