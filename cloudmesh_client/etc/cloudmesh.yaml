@@ -105,7 +105,7 @@ cloudmesh:
                 OS_TENANT_ID: TBD
                 OS_PROJECT_NAME: TBD
                 OS_USERNAME: TBD
-                OS_VERSION: kilo
+                OS_VERSION: liberty
                 OS_REGION_NAME: RegionOne
             default:
                 flavor: m1.small

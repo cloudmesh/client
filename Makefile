@@ -19,6 +19,10 @@ doc: man
 #pex:
 #    pex  -r <`pip freeze`  -e cloudmesh_client.shell.cm.main  -o my_virtualenv.pex
 
+watch:
+        watchmedo shell-command --patterns="*.rst" --recursive --command='make doc'
+
+
 d:
 	rm -rf build
 	pip uninstall -y cloudmesh_client

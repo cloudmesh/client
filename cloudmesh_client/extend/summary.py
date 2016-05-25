@@ -32,7 +32,9 @@ if __name__ == "__main__":
 
     A.z_b = z_b
 
+
     A().z_b("i am z_b")
 
     A.load_classmethod("cloudmesh_client.extend.my.my_ccc")
     A().my_ccc("YOURS")
+    # A.my_ccc("YOURS")

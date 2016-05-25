@@ -21,6 +21,7 @@ from stat import *
 from cloudmesh_client.common.ssh_config import ssh_config
 from cloudmesh_client.common.util import backup_name
 from shutil import copy
+import getpass
 
 # noinspection PyBroadException
 class RegisterCommand(PluginCommand, CloudPluginCommand):
@@ -500,6 +501,38 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
 
             hosts.generate(key="india", username=username, verbose=True)
 
+            return ""
+
+        elif arguments['ENTRY'].lower() in ['chameleon']:
+
+
+            config = ConfigDict("cloudmesh.yaml")
+            credentials = dotdict(config["cloudmesh.clouds.chameleon.credentials"])
+
+            password = getpass.getpass("Please enter the password for {:}:".format("chameleon", credentials.OS_PASSWORD))
+
+
+
+            while True:
+                project = input("Please enter the project id for {:}:".format("chameleon", credentials.OS_PROJECT_NAME))
+
+                if project.isdigit():
+                    project = "CH-{}".format(project)
+                    break
+                else:
+                    try:
+                        prefix, number = project.split("-")
+                        if not (prefix in ["CH"] and number.isdigit()):
+                            Console.error("This is not a valid Chameleon.org cloud project", traceflag=False)
+                        else:
+                            break
+                    except:
+                        Console.error("This is not a valid Chameleon.org cloud project", traceflag=False)
+
+            credentials.OS_TENENT_ID = credentials.OS_PROJECT_NAME
+            credentials.OS_TENENT_NAME = credentials.OS_PROJECT_NAME
+
+            config.save()
             return ""
 
         elif arguments['ENTRY'] is not None:

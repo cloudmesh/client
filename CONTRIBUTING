@@ -90,10 +90,13 @@ We will enhance the tools to print priority lists gradually as needed.
 
 an output will look like:
 
+  +------+------+----------------------+------------+------------+----------------------+
   | P    | N    | title                | assignee   | milestone  | labels               |
-  | ---- | ---- | -------------------- | ---------- | ---------- | -------------------- |
-  |    1 |  202 | cm refresh on/off    | gouravs... | 2016/03/31 | bug, Gourav          |
-  |  999 |  201 | cm cluster           | None       | priority   | Fugang, Gourav, G... |
+  +------+------+----------------------+------------+------------+----------------------+  
+  |    1 |  202 | cm refresh on/off    | gregor     | 2016/03/31 | bug, Gregor          |
+  +------+------+----------------------+------------+------------+----------------------+    
+  |  999 |  201 | cm cluster           | fugang     | priority   | Fugang               |
+  +------+------+----------------------+------------+------------+----------------------+    
 
 which easily renders in MD. If you are only interested in a particular milestone, you
 can fgrep for it::
