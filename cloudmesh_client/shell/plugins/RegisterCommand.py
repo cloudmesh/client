@@ -509,13 +509,15 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
             config = ConfigDict("cloudmesh.yaml")
             credentials = dotdict(config["cloudmesh.clouds.chameleon.credentials"])
 
-            password = getpass.getpass("Please enter the password for {:}:".format("chameleon", credentials.OS_PASSWORD))
+            password = getpass.getpass("Please enter the password for {:}: ".format("chameleon", credentials.OS_PASSWORD))
 
 
 
             while True:
-                project = input("Please enter the project id for {:}:".format("chameleon", credentials.OS_PROJECT_NAME))
-
+                default = credentials.OS_PROJECT_NAME
+                project = input("Please enter the project id for {:} [{}]: ".format("chameleon",
+                                                                                   default))
+                project = project or default
                 if project.isdigit():
                     project = "CH-{}".format(project)
                     break
