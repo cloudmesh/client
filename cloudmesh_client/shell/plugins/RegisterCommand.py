@@ -509,16 +509,12 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
             config = ConfigDict("cloudmesh.yaml")
             credentials = dotdict(config["cloudmesh.clouds.chameleon.credentials"])
 
-            password = getpass.getpass("Please enter the password for {:}: ".format("chameleon", credentials.OS_PASSWORD))
+            default = credentials.OS_USERNAME
+            username = input("Please enter the username for {:} [{}]: ".format("chameleon",
+                                                                               default))
+            username = username or default
 
             while True:
-
-                default = credentials.OS_USERNAME
-                username = input("Please enter the username for {:} [{}]: ".format("chameleon",
-                                                                                   default))
-                username = username or default
-
-
                 default = credentials.OS_PROJECT_NAME
                 project = input("Please enter the project id for {:} [{}]: ".format("chameleon",
                                                                                    default))
@@ -537,9 +533,12 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                     except:
                         Console.error("This is not a valid Chameleon.org cloud project", traceflag=False)
 
+            password = getpass.getpass("Please enter the password for {:}: ".format("chameleon", credentials.OS_PASSWORD))
+
             credentials.OS_TENENT_ID = credentials.OS_PROJECT_NAME
             credentials.OS_TENENT_NAME = credentials.OS_PROJECT_NAME
             credentials.OS_USERNAME = username
+            credentials.OS_PASSWORD = password
 
             config.save()
             return ""
