@@ -50,8 +50,19 @@ base directory. Please use the following commands
    cd client
    # make sure you have a virtualenv configured and activated
    # chose your branch and do either
-   python setup.py install
+   pip install -r requirements.txt
+   pip install .
 
+
+.. warning:: We do not at this time support the instalation with::
+	     
+	       python setup.py install
+
+             Instead we require you to use
+
+	       pip install .
+     
+   
 We have two branches in the code. The `master` branch and the `dev` branch.
 
 The master branch provides a snapshot of the code that should work and has
@@ -79,5 +90,7 @@ code from source. Please do not forget to update them accordingly
    export CLOUDMESH_HOME=$HOME/github/cloudmesh
    cd $CLOUDMESH_HOME/client
    git pull
-   python setup.py install
+   pip install -r requirements.txt
+   pip install .
+
 
