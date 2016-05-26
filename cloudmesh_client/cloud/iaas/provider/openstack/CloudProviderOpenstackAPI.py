@@ -148,10 +148,17 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         credentials = d["cloudmesh"]["clouds"][cloudname]["credentials"]
 
         os_password = credentials["OS_PASSWORD"]
+        prompt = "Password for cloud - {}:".format(cloudname)
         if os_password.lower() == "readline":
-            os_password = getpass.getpass()
+            if 'pwd' in CloudProviderOpenstackAPI.cloud_pwd[cloudname]:
+                os_password = CloudProviderOpenstackAPI.cloud_pwd[cloudname]["pwd"]
+            else:
+                os_password = getpass.getpass(prompt=prompt)
         elif os_password.lower() == "env":
-            os_password = os.environ.get("OS_PASSWORD", getpass.getpass())
+            if 'pwd' in CloudProviderOpenstackAPI.cloud_pwd[cloudname]:
+                os_password = CloudProviderOpenstackAPI.cloud_pwd[cloudname]["pwd"]
+            else:
+                os_password = os.environ.get("OS_PASSWORD", getpass.getpass(prompt=prompt))
 
         #
         # TODO: pwd is not standing for passwd
@@ -237,10 +244,24 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         # or read os.environ if set as "env".
         """
         os_password = credentials["OS_PASSWORD"]
+        prompt = "Password for cloud - {}:".format(cloudname)
         if os_password.lower() in ["readline", "read", "tbd"]:
-            os_password = getpass.getpass()
+            if cloudname in CloudProviderOpenstackAPI.cloud_pwd and \
+                        'pwd' in CloudProviderOpenstackAPI.cloud_pwd[cloudname]:
+                os_password = CloudProviderOpenstackAPI.cloud_pwd[cloudname]["pwd"]
+            else:
+                os_password = getpass.getpass(prompt=prompt)
         elif os_password.lower() == "env":
-            os_password = os.environ.get("OS_PASSWORD", getpass.getpass())
+            if cloudname in CloudProviderOpenstackAPI.cloud_pwd and \
+                        'pwd' in CloudProviderOpenstackAPI.cloud_pwd[cloudname]:
+                os_password = CloudProviderOpenstackAPI.cloud_pwd[cloudname]["pwd"]
+            else:
+                os_password = os.environ.get("OS_PASSWORD", getpass.getpass(prompt=prompt))
+
+        # store the password for this session
+        CloudProviderOpenstackAPI.cloud_pwd[cloudname] = {}
+        CloudProviderOpenstackAPI.cloud_pwd[cloudname]["pwd"] = os_password
+        CloudProviderOpenstackAPI.cloud_pwd[cloudname]["status"] = "Active"
 
         if "v2.0" == ksversion:
             self.provider = client.Client(

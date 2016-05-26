@@ -102,6 +102,7 @@ class SecGroup(ListResource):
         else:
             groups = [group]
         for cloud in clouds:
+            Console.msg("Uploading the groups/rules to cloud - {}...".format(cloud))
             for g in groups:
                 cls.delete_all_rules_cloud(cloud, g)
                 group = cls.get(name=g, cloud=cloud)
@@ -124,6 +125,8 @@ class SecGroup(ListResource):
                         SecGroup.add_rule(c,uuid,r["fromPort"],r["toPort"] , r['protocol'],r['cidr'])
                 # create group
                 '''
+            Console.msg("...done")
+        Console.info("All completed")
 
     @classmethod
     def create(cls, group=None, category=None):
