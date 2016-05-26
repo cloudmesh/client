@@ -316,6 +316,7 @@ class Shell(object):
         :return:
         """
         # print "--------------"
+        result = None
         terminal = cls.terminal_type()
         # print cls.command
         os_command = [cmd]
@@ -354,10 +355,9 @@ class Shell(object):
                     cwd=cwd)
         except:
             Console.error("problem executing subprocess")
-        if result is None:
-            return result
-        else:
-            return result.strip().decode()
+        if result is not None:
+            result = result.strip().decode()
+        return result
 
     @classmethod
     def mkdir(cls, newdir):
