@@ -82,7 +82,7 @@ is used):
 
 .. prompt:: bash
 
-    python setup.py install; nosetests -v --nocapture  tests/test_list.py:Test_list.test_001
+    pip install -U .; nosetests -v --nocapture  tests/test_list.py:Test_list.test_001
 
 
 Git

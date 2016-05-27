@@ -60,7 +60,7 @@ base directory. Please use the following commands
 
              Instead we require you to use
 
-	       pip install .
+	       pip install -U .
      
    
 We have two branches in the code. The `master` branch and the `dev` branch.
@@ -75,7 +75,7 @@ cloudmesh which you can get from the `dev` branch. To get the newest version iss
 
    git checkout dev
 
-before you call the command `python setup.py install`. For more information about git see the
+before you call the command `pip install -U .`. For more information about git see the
 github manual on the github.com web page.
 
 
