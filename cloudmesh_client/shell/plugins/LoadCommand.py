@@ -36,17 +36,12 @@ class LoadCommand(PluginCommand, CloudPluginCommand):
 
         """
         arg = dotdict(arguments)
-        print(arg)
 
         if arg.MODULE == "vbox":
             arg.MODULE = "cloudmesh_vagrant.cm_vbox.do_vbox"
 
         try:
-                print("LOADING VBOX", arg.MODULE)
-                arg.MODULE = "cloudmesh_vagrant.cm_vbox.do_vbox"
-                from pydoc import locate
-                # f = locate(arg.MODULE)
-                # print (f)
+                print("LOADING ->", arg.MODULE)
                 self.load_instancemethod(arg.MODULE)
 
         except:

@@ -366,9 +366,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
     def load_instancemethod(self, location):
         module_name, class_name = location.rsplit(".", 1)
-        print ("LOAD", module_name, class_name)
         f = getattr(importlib.import_module(module_name), class_name)
-        #self.add_instance_method(f)
         setattr(self, f.__name__, f)
 
     # noinspection PyUnusedLocal

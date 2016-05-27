@@ -1,2 +1,3 @@
 load vbox
-vbox help
+# vbox help
+vbox vm list
