@@ -34,7 +34,7 @@ from cloudmesh_client.common.StopWatch import StopWatch
 from cloudmesh_client.db import CloudmeshDatabase
 from cloudmesh_client import setup_yaml
 
-
+import importlib
 
 cm = CloudmeshDatabase()
 
@@ -363,6 +363,13 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
     def emptyline(self):
         return
+
+    def load_instancemethod(self, location):
+        module_name, class_name = location.rsplit(".", 1)
+        print ("LOAD", module_name, class_name)
+        f = getattr(importlib.import_module(module_name), class_name)
+        #self.add_instance_method(f)
+        setattr(self, f.__name__, f)
 
     # noinspection PyUnusedLocal
     def do_context(self, args):

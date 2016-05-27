@@ -4,7 +4,7 @@ from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.limits import Limits
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
-
+from cloudmesh_client.common.dotdict import dotdict
 
 class LoadCommand(PluginCommand, CloudPluginCommand):
     topics = {"load": "shell"}
@@ -21,49 +21,37 @@ class LoadCommand(PluginCommand, CloudPluginCommand):
         ::
 
             Usage:
-                load list [--format=FORMAT]
-                load reset
-                load --base=MODULE PLUGINS...
-                load --delete --base=MODULE PLUGINS...
+                load MODULE
 
-                loads a plugins into the cloudmesh command shell
-
-
-            OPTIONS:
-                --base=MODULE  the prefix of the modules [default: cloudmesh_client.shell.plugins]
-                --format=FORMAT  the output format
 
             ARGUMENTS:
-               PLUGINS        the list of plugins to be loaded
+               MODULE  The name of the module
+
+            PREDEFINED MODULE NAMES:
+               vbox    loads vbox command
 
             Examples:
-                cm load list
+                cm load cloudmesh_vagrant.cm_vbox.do_vbox
                     lists the plugins currently loaded
 
-                cm load reset
-                    unloads all plugins that are not part of the standard plugin
-                    load list
-
-                cm load load workflow graphviz
-                    loads the modules workflow and graphviz
-                    the plugins are classes defined with
-
-                        class CheckCommand(PluginCommand, CloudPluginCommand)
-
-                    If they are located in a different moduel, the module name can either be
-                    specified as part of the PLUGIN anem, or if
-                     multiple modules are loaded as part of the MODULE parameter
-
-                cm load list --format=csv
-                    list sthe loaded plugins in csv format
-
-                cm load --delete load workflow graphviz
-                    the oposite of load
-
-
         """
-        # print (arguments)
-        Console.error("This method is not yet implemented", traceflag=False)
+        arg = dotdict(arguments)
+        print(arg)
+
+        if arg.MODULE == "vbox":
+            arg.MODULE = "cloudmesh_vagrant.cm_vbox.do_vbox"
+
+        try:
+                print("LOADING VBOX", arg.MODULE)
+                arg.MODULE = "cloudmesh_vagrant.cm_vbox.do_vbox"
+                from pydoc import locate
+                # f = locate(arg.MODULE)
+                # print (f)
+                self.load_instancemethod(arg.MODULE)
+
+        except:
+            Console.error("Problem loading module {}".format(arg.MODULE),
+                          traceflag=True)
         return ""
 
 
