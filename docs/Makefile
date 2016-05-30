@@ -192,7 +192,7 @@ pseudoxml: manpages
 	@echo "Build finished. The pseudo-XML files are in $(BUILDDIR)/pseudoxml."
 
 manpages:
-	cd ..; python setup.py install
+	cd ..; pip install -U .
 	mkdir -p source/man
 	cm man > source/man/man.rst
 	../bin/clean_man_pages.py source/man/man.rst
