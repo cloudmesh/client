@@ -543,6 +543,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             "key_name": key,
             "security_groups": secgroup,
             "nics": nics}
+        # pprint (d)
         id = None
         try:
             server = self.provider.servers.create(name,

@@ -21,6 +21,17 @@ import traceback
 class Vm(ListResource):
     cm = CloudmeshDatabase()
 
+    @classmethod
+    def get_vm_name(cls, name=None, offset=0, fill=3):
+
+        if name is None:
+            count = Default.get_counter(name='name') + offset
+            prefix = Default.user
+            if prefix is None or count is None:
+                Console.error("Prefix and Count could not be retrieved correctly.", traceflag=False)
+                return
+            name = prefix + "-" + str(count).zfill(fill)
+        return name
 
     @classmethod
     def uuid(cls, name, category=None):
@@ -222,6 +233,10 @@ class Vm(ListResource):
             cloud_provider = CloudProvider(arg.cloud).provider
             for server in kwargs["servers"]:
                 vm = cls.cm.find(name=server, kind="vm", cloud=arg.cloud, scope="first")
+                #vm_by_id = cls.cm.find(cm_id=server, kind="vm", cloud=arg.cloud, scope="first")
+                #print (vm)
+                #print(vm_by_id)
+                #vm = vm or vm_by_id
                 if vm:
                     provider = vm["provider"]
                     cloud = vm["category"]

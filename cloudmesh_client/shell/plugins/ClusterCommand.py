@@ -1,6 +1,69 @@
 from __future__ import print_function
 from cloudmesh_client.shell.command import command, PluginCommand, CloudPluginCommand
 from cloudmesh_client.shell.console import Console
+from cloudmesh_client.common.dotdict import dotdict
+from cloudmesh_client.default import Default
+from pprint import pprint
+from cloudmesh_client.cloud.vm import Vm
+from cloudmesh_client.cloud.image import Image
+from cloudmesh_client.cloud.flavor import Flavor
+from cloudmesh_client.cloud.group import Group
+from cloudmesh_client.common.Printer import Printer
+
+def boot_from_args(arg):
+    arg.username = arg.username or Image.guess_username(arg.image)
+    is_name_provided = arg.name is not None
+
+    arg.user = Default.user
+
+    for index in range(0, arg.count):
+        vm_details = dotdict({
+            "cloud": arg.cloud,
+            "name": Vm.get_vm_name(arg.name, index),
+            "image": arg.image,
+            "flavor": arg.flavor,
+            "key": arg.key,
+            "secgroup": arg.secgroup,
+            "group": arg.group,
+            "username": arg.username,
+            "user": arg.user
+        })
+        # correct the username
+        vm_details.username = Image.guess_username_from_category(
+            vm_details.cloud,
+            vm_details.image,
+            username=arg.username)
+        try:
+
+            if arg.dryrun:
+                print(Printer.attribute(vm_details, output=arg.format))
+                msg = "dryrun info. OK."
+                Console.ok(msg)
+            else:
+                vm_id = Vm.boot(**vm_details)
+
+                if vm_id is None:
+                    msg = "info. failed."
+                    Console.error(msg, traceflag=False)
+                    return ""
+
+                # set name and counter in defaults
+                Default.set_vm(value=vm_details.name)
+                if is_name_provided is False:
+                    Default.incr_counter("name")
+
+                # Add to group
+                if vm_id is not None:
+                    Group.add(name=vm_details.group,
+                              species="vm",
+                              member=vm_details.name,
+                              category=vm_details.cloud)
+
+                msg = "info. OK."
+                Console.ok(msg)
+
+        except Exception as e:
+            Console.error("Problem booting instance {name}".format(**vm_details), traceflag=False)
 
 
 class ClusterCommand(PluginCommand, CloudPluginCommand):
@@ -82,5 +145,24 @@ class ClusterCommand(PluginCommand, CloudPluginCommand):
                                 detailed table
 
         """
+        arg = dotdict(arguments)
+
+        if arg.create:
+
+            arg.count = int(arguments["--count"]) or 1
+            arg.username = arguments["--login"]
+            arg.cloud = arguments["--cloud"] or Default.cloud
+            arg.image = arguments["--image"] or  Default.get(name="image", category=arg.cloud)
+            arg.flavor = arguments["--flavor"] or Default.get(name="flavor", category=arg.cloud)
+            arg.add = arguments["--add"]
+            arg.group = arg.NAME
+            arg.name = None
+            arg.key  = Default.key
+            arg.secgroup = Default.secgroup
+            pprint (arg)
+
+            boot_from_args(arg)
+
+
         Console.error("NOT YET IMPLEMENTED")
         return ""

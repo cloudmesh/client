@@ -221,3 +221,5 @@ cloudmesh:
     logging:
         file: ~/.cloudmesh/cloudmesh.log
         level: DEBUG
+    plugins:
+         - vbox: cloudmesh_vagrant cloudmesh_vagrant.cm_vbox.do_vbox

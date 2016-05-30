@@ -5,6 +5,8 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.limits import Limits
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 from cloudmesh_client.common.dotdict import dotdict
+from cloudmesh_client.common.ConfigDict import ConfigDict
+import os
 
 class LoadCommand(PluginCommand, CloudPluginCommand):
     topics = {"load": "shell"}
@@ -21,7 +23,7 @@ class LoadCommand(PluginCommand, CloudPluginCommand):
         ::
 
             Usage:
-                load MODULE
+                load MODULE [PYPI]
 
 
             ARGUMENTS:
@@ -37,8 +39,20 @@ class LoadCommand(PluginCommand, CloudPluginCommand):
         """
         arg = dotdict(arguments)
 
+        # importlib.import_module('matplotlib.text')
+
+        plugins = ConfigDict(filename="cloudmesh.yaml")
+
         if arg.MODULE == "vbox":
             arg.MODULE = "cloudmesh_vagrant.cm_vbox.do_vbox"
+            arg.PYPI = "cloudmesh_vagrant"
+
+        if arg.PYPI is not None:
+            try:
+                import cloudmesh_vagrant
+            except:
+                os.system("pip install cloudmesh_vagrant")
+
 
         try:
                 print("LOADING ->", arg.MODULE)
