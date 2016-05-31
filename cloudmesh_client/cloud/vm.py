@@ -300,6 +300,20 @@ class Vm(ListResource):
             raise RuntimeError("VM data not found in database.")
         return vm_data
 
+
+    @classmethod
+    def get_vms_by_group(cls, name):
+
+        group = cls.cm.find(kind="group", name=name)
+        return group
+
+    @classmethod
+    def get_vm(cls, name):
+
+        vm = cls.cm.find(kind="vm", name=name)
+
+        return vm
+
     @classmethod
     def rename(cls, **kwargs):
 

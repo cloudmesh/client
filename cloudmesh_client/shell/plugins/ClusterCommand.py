@@ -9,6 +9,10 @@ from cloudmesh_client.cloud.image import Image
 from cloudmesh_client.cloud.flavor import Flavor
 from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.common.Printer import Printer
+from cloudmesh_client.common.Shell import Shell
+from cloudmesh_client.common.ConfigDict import ConfigDict
+import os
+from cloudmesh_client.common.util import path_expand
 
 def boot_from_args(arg):
     arg.username = arg.username or Image.guess_username(arg.image)
@@ -85,7 +89,7 @@ class ClusterCommand(PluginCommand, CloudPluginCommand):
               cluster list NAME
                            [--format=FORMAT]
                            [--column=COLUMN]
-                           [--detail]
+                           [--short]
               cluster create NAME
                              [--count=COUNT]
                              [--login=USERNAME]
@@ -94,12 +98,17 @@ class ClusterCommand(PluginCommand, CloudPluginCommand):
                              [--flavor=FLAVOR]
                              [--add]
               cluster delete NAME
+              cluster setup NAME [--username]
 
           Description:
               with the help of the cluster command you can create a number
               of virtual machines that are integrated in a named virtual cluster.
               You will be able to login between the nodes of the virtual cluster
               while using public keys.
+
+              cluster setup NAME
+                sets up the keys between the cluster node as well as the machine that
+                executes the cm command
 
           Examples:
               cluster list
@@ -145,24 +154,212 @@ class ClusterCommand(PluginCommand, CloudPluginCommand):
                                 detailed table
 
         """
+
+        def get_vms(group_name):
+            groups = Vm.get_vms_by_group(group_name)
+            vms = []
+            for group in groups:
+                name = group["member"]
+                print(name)
+                vm = Vm.get_vm(name)
+                vm['cluster'] = group_name
+                vms.append(vm)
+            return vms
+
+        def _print(f):
+                print (f)
+
         arg = dotdict(arguments)
+
+        arg.format = arguments["--format"] or "table"
+        arg.count = int(arguments["--count"] or 1)
+        arg.username = arguments["--login"]
+        arg.cloud = arguments["--cloud"] or Default.cloud
+        arg.image = arguments["--image"] or Default.get(name="image", category=arg.cloud)
+        arg.flavor = arguments["--flavor"] or Default.get(name="flavor", category=arg.cloud)
+        arg.add = arguments["--add"]
+        arg.group = arg.NAME
+        arg.name = None
+        arg.key = Default.key
+        arg.secgroup = Default.secgroup
+        arg.group = arg.NAME
+        arg.short = arguments["--short"]
 
         if arg.create:
 
-            arg.count = int(arguments["--count"]) or 1
-            arg.username = arguments["--login"]
-            arg.cloud = arguments["--cloud"] or Default.cloud
-            arg.image = arguments["--image"] or  Default.get(name="image", category=arg.cloud)
-            arg.flavor = arguments["--flavor"] or Default.get(name="flavor", category=arg.cloud)
-            arg.add = arguments["--add"]
-            arg.group = arg.NAME
-            arg.name = None
-            arg.key  = Default.key
-            arg.secgroup = Default.secgroup
-            pprint (arg)
-
             boot_from_args(arg)
 
+        elif arg.list and arg.NAME is not None:
 
-        Console.error("NOT YET IMPLEMENTED")
+            if arg.short:
+
+                vms = Vm.get_vms_by_group(arg.group)
+
+                if vms is None:
+                    Console.error("no vms found for {}".format(arg.group))
+                else:
+
+                    print(Printer.list(vms,
+                               header=['Group', 'Vm'],
+                               order=['name', 'member'],
+                               output=arg.format))
+
+            else:
+
+                groups = Vm.get_vms_by_group(arg.group)
+
+                pprint(groups)
+
+                vms = []
+                for group in groups:
+                    name = group["member"]
+                    vm = Vm.get_vm(name)[0]
+                    vm['cluster'] = arg.group
+                    if vm is not None:
+                        vms.append(vm)
+
+                pprint(vms)
+
+
+                if vms is None:
+                    Console.error("no vms found for {}".format(arg.group))
+                else:
+
+                    print(Printer.list(vms,
+                                   order=['name', 'cluster', 'flavor', 'image', 'status', 'user_id', 'floating_ip'],
+                                   output=arg.format))
+
+
+        elif arg.setup:
+
+            def push(from_path, vm):
+                vm.ip = vm.floating_ip
+                if vm.ip is not None:
+                    if arg.verbose:
+                        Console.info("Connecting to Instance at IP:" + format(vm.ip))
+
+                    sshcommand = "scp"
+                    sshcommand += " -o StrictHostKeyChecking=no"
+                    sshcommand += " {:}".format(from_path)
+                    sshcommand += " {username}@{ip}:.ssh/authorized_keys".format(**vm)
+
+                    print(sshcommand)
+                    os.system(sshcommand)
+                else:
+                    Console.error("No Public IPs found for the instance", traceflag=False)
+
+
+            groups = Vm.get_vms_by_group(arg.group)
+
+            pprint (groups)
+
+            vms = []
+            for group in groups:
+                name = group["member"]
+                vm = Vm.get_vm(name)[0]
+                vm['cluster'] = arg.group
+                if vm is not None:
+                    vms.append(vm)
+
+            pprint(vms)
+
+            if vms is None:
+                Console.error("no vms found for {}".format(arg.group))
+            else:
+
+                print(Printer.list(vms,
+                           order=['name', 'cluster', 'flavor', 'image', 'status', 'user_id', 'floating_ip'],
+                           output=arg.format))
+
+                keys = ""
+                for vm in vms:
+                    vm = dotdict(vm)
+                    cloud = vm.category
+
+                    if vm.username is None:
+                        vm.username = arguments["--username"] or Image.guess_username(arg.image)
+
+
+
+                    chameleon = "chameleon" in ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"][cloud][
+                        "cm_host"]
+
+
+                    print ("C", chameleon)
+
+                    if chameleon:
+                        vm.username = "cc"
+                    elif vm.category == "azure":
+                        vm.username = ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"]["azure"]["default"][
+                        "username"]
+                    else:
+                        if vm.username is None:
+                            Console.error("Could not guess the username of the vm", traceflag=False)
+                            return
+
+
+                    Vm.set_login_user(name=vm.name, cloud=vm.category, username=vm.username)
+                    vm.ip = vm.floating_ip
+
+
+                    def execute(commands):
+                        if vm.ip is not None:
+                            if arg.verbose:
+                                Console.info("Connecting to Instance at IP:" + format(vm.ip))
+
+                            sshcommand = "ssh"
+                            if arg.key is not None:
+                                sshcommand += " -i {:}".format(arg.key)
+                            sshcommand += " -o StrictHostKeyChecking=no"
+                            sshcommand += " {username}@{ip}".format(**vm)
+                            sshcommand += " \'{:}\'".format(commands)
+
+                            print(sshcommand)
+                            os.system(sshcommand)
+                        else:
+                            Console.error("No Public IPs found for the instance", traceflag=False)
+
+                    def copy(commands):
+                        if vm.ip is not None:
+                            if arg.verbose:
+                                Console.info("Connecting to Instance at IP:" + format(vm.ip))
+
+                            sshcommand = "scp"
+                            sshcommand += " -o StrictHostKeyChecking=no"
+                            sshcommand += " {username}@{ip}".format(**vm)
+                            sshcommand += ":{:}".format(commands)
+
+                            print(sshcommand)
+                            os.system(sshcommand)
+                        else:
+                            Console.error("No Public IPs found for the instance", traceflag=False)
+
+
+                    def cat(filename):
+                        with open(path_expand(filename), 'r') as f:
+                            output = f.read()
+                        return output
+
+                    def write(filename, msg):
+                        with open(path_expand(filename), 'w') as f:
+                            output = f.write(msg)
+
+
+                    execute('cat /dev/zero | ssh-keygen -q -N ""')
+                    copy(".ssh/id_rsa.pub ~/.ssh/id_rsa_{name}.pub".format(**vm))
+
+                    output = "~/.ssh/id_rsa_{name}.pub".format(**vm)
+
+                    keys = keys + cat(output)
+
+                print ("WRITE KEYS")
+                keys = keys + cat("~/.ssh/id_rsa.pub")
+                output = "~/.ssh/id_rsa_{group}.pub".format(**arg)
+                write(output, keys)
+
+                print("PUSH KEYS")
+                for vm in vms:
+                    vm = dotdict(vm)
+                    push("~/.ssh/id_rsa_{group}.pub".format(**arg), vm)
+
         return ""
