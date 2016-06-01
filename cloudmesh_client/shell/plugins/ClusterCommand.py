@@ -99,6 +99,7 @@ class ClusterCommand(PluginCommand, CloudPluginCommand):
                              [--add]
               cluster delete NAME
               cluster setup NAME [--username]
+              cluster inventory NAME
 
           Description:
               with the help of the cluster command you can create a number
@@ -109,6 +110,18 @@ class ClusterCommand(PluginCommand, CloudPluginCommand):
               cluster setup NAME
                 sets up the keys between the cluster node as well as the machine that
                 executes the cm command
+
+              cluster inventory NAME
+                creates an inventory.txt file to be used by ansible in the current directory
+
+              cluster create NAME
+                 creates the virtual machines used for the cluster
+
+              cluster list NAME
+                 lists selected details of the vms for the cluster
+
+              cluster delete NAME
+                  remove the cluster and its VMs
 
           Examples:
               cluster list
@@ -125,12 +138,6 @@ class ClusterCommand(PluginCommand, CloudPluginCommand):
                   5. set image of VMs, e.g. default image
                   6. set flavor of VMs, e.g. default flavor
                   7. Make sure to use a new unused group name
-
-              cluster list NAME
-                  show the detailed information about the cluster VMs
-
-              cluster delete NAME
-                  remove the cluster and its VMs
 
           Arguments:
               NAME              cluster name or group name
@@ -169,6 +176,10 @@ class ClusterCommand(PluginCommand, CloudPluginCommand):
         def _print(f):
                 print (f)
 
+        def write(filename, msg):
+            with open(path_expand(filename), 'w') as f:
+                output = f.write(msg)
+
         arg = dotdict(arguments)
 
         arg.format = arguments["--format"] or "table"
@@ -188,6 +199,29 @@ class ClusterCommand(PluginCommand, CloudPluginCommand):
         if arg.create:
 
             boot_from_args(arg)
+
+        elif arg.inventory:
+
+            group = Vm.get_vms_by_group(arg.group)
+
+            result = ""
+            if arg.format is "table":
+                result = "[servers]\n"
+
+            for element in group:
+                name = element["member"]
+                vm = Vm.get_vm(name)[0]
+                vm['cluster'] = arg.group
+                result += "{floating_ip}\n".format(**vm)
+
+            Console.ok("Writing ips to inventory.txt")
+            print(result)
+
+            write("inventory.txt", result)
+
+            Console.ok(".ok")
+            return ""
+
 
         elif arg.list and arg.NAME is not None:
 
@@ -228,7 +262,7 @@ class ClusterCommand(PluginCommand, CloudPluginCommand):
                     print(Printer.list(vms,
                                    order=['name', 'cluster', 'flavor', 'image', 'status', 'user_id', 'floating_ip'],
                                    output=arg.format))
-
+            return ""
 
         elif arg.setup:
 
@@ -340,9 +374,6 @@ class ClusterCommand(PluginCommand, CloudPluginCommand):
                             output = f.read()
                         return output
 
-                    def write(filename, msg):
-                        with open(path_expand(filename), 'w') as f:
-                            output = f.write(msg)
 
 
                     execute('cat /dev/zero | ssh-keygen -q -N ""')
