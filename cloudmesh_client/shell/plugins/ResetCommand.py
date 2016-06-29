@@ -39,9 +39,11 @@ class ResetCommand(PluginCommand, CloudPluginCommand):
         if os.path.exists(filename):
             os.remove(filename)
         Console.ok("Database reset")
+        #r = self.do_register("profile")
+        #r = self.do_info("")
+
         r = self.do_quit(None)
         Console.error(
             "Quitting the shell does not yet work. please exit the shell now.")
-
         return ""
 

@@ -56,4 +56,11 @@ class InfoCommand(PluginCommand, CloudPluginCommand):
         order = ["cloud", "key", "user", "vm", "group", "secgroup",
                  "counter", "image", "flavor", "refresh", "debug", "interactive", "purge"]
         print(Printer.attribute(d, order=order, output=arg.FORMAT, sort_keys=False))
+
+        if d["key"] in ["TBD", ""] or d["user"] in ["TBD", ""]:
+            msg = "Please replace the TBD values"
+            msg = msg + "\nSee Also: \n\n" \
+                  + "    cm register profile \n" \
+                  + "    cm default user=YOURUSERNAME\n"
+            Console.error(msg, traceflag=False)
         return ""
