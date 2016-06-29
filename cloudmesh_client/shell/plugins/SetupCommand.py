@@ -6,7 +6,7 @@ from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 from cloudmesh_client.default import Default
 from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.common.dotdict import dotdict
-
+import os
 
 class SetupCommand(PluginCommand, CloudPluginCommand):
     topics = {"setup": "cloud"}
@@ -33,8 +33,9 @@ class SetupCommand(PluginCommand, CloudPluginCommand):
 
 
         #if Default.key in ["TBD", ""] or Default.user in ["TBD", ""]:
-        r = self.do_register("profile")
-        r = self.do_key("add --ssh")
-        r = self.do_info("")
+        os.system ("cm register profile")
+        os.system ("cm reset")
+        os.system ("cm key add --ssh")
+        os.system ("cm info")
 
         return ""
