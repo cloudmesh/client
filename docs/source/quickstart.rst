@@ -22,7 +22,15 @@ The setup of cloudmesh client is quite simple and can be done with::
 However, you may want to read carefully our setup guide and prepare
 your machine as your OS may not have the required packages installed
 by default (see: :ref:`preparation`).
-	     
+
+To complete the setup you need to call the setup command in the terminal
+command prompt with
+
+.. prompt::  bash
+
+	     cm setup
+
+
 Help
 -----
 
