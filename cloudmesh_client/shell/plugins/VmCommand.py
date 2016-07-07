@@ -378,7 +378,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         Console.ok(msg)
 
                 except Exception as e:
-                    Console.error("Problem booting instance {name}".format(**vm_details), traceflag=False)
+                    # error -> warning: probably vm launched with minor errors
+                    Console.warning("Problem booting instance {name}".format(**vm_details), traceflag=False)
 
         elif arguments["username"]:
 

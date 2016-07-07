@@ -349,8 +349,11 @@ class CloudProviderLibcloud(CloudProviderBase):
         # Console.info("Flavor selected :"+flavor.name)
         # Console.info("Key :")
         # pprint(key)
-        self.provider.create_node(name=name, image=image, size=flavor, ex_keyname=key)
+        vm = self.provider.create_node(name=name, image=image, size=flavor, ex_keyname=key)
         Console.info("VM boot up success.ok.")
+
+        # vm info returned
+        return vm
 
     def delete_vm(self, name, group=None, force=None):
         """

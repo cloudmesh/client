@@ -28,7 +28,7 @@ class CloudProviderLibcloudEC2(CloudProviderLibcloud):
     def initialize(self, cloudname, user=None):
 
         Console.info("Initializing libcloud-ec2 for " + cloudname)
-        cls = get_driver(Provider.EC2_US_EAST)
+        cls = get_driver(Provider.EC2)
 
         d = ConfigDict("cloudmesh.yaml")
         self.config = d["cloudmesh"]["clouds"][cloudname]
@@ -67,3 +67,26 @@ class CloudProviderLibcloudEC2(CloudProviderLibcloud):
         else:
             Console.info("AWS INIT")
             self.provider = cls(ec2_access_key, ec2_secret_key)
+
+    def create_node(self, **kwargs):
+        """
+        Create a VM instance.
+
+        Reference: https://libcloud.readthedocs.io/en/latest/_modules/libcloud/compute/drivers/ec2.html#BaseEC2NodeDriver.create_node
+
+        :keyword    name: the name of VM
+        :type       name: ``str``
+
+        :keyword    image: the name of vm image
+        :type       name: :class:`NodeImage`
+
+        :keyword    size: the size of vm instance
+        :type       size: :class:`NodeSize`
+
+        :keyword    ex_keyname: the keyname
+        :type       name: ``str``
+        """
+
+        pprint("create_node call in aws")
+        self.provider.create_node(name=kwargs['name'], image=kwargs['image'], size=kwargs['size'])
+        
