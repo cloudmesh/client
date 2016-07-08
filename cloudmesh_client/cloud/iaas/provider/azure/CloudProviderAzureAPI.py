@@ -2,6 +2,7 @@ from __future__ import print_function
 from azure.servicemanagement import *
 from pprint import pprint
 from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.common.util import generate_password
 from cloudmesh_client.cloud.iaas.provider.azure.AzureDict import AzureDict
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.iaas.CloudProviderBase import CloudProviderBase
@@ -103,6 +104,7 @@ class CloudProviderAzureAPI(CloudProviderBase):
             print("Adding the PFX certificate")
             cert_data = base64.b64encode(bfile.read())
             cert_format = 'pfx'
+            # THIS PASSWORD SHOULD BE DEFINED IN cloudmesh.yml
             cert_password = ''
             cert_res = self.provider.add_service_certificate(service_name=service_name,
                                 data=cert_data,
@@ -185,8 +187,14 @@ class CloudProviderAzureAPI(CloudProviderBase):
 
         username = ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"]["azure"]["default"]["username"]
         password = ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"]["azure"]["default"]["password"]
-        pprint("Username:"+username)
-        pprint("password:"+password)
+        # Auto-generated Password in case of TBD
+        if username.lower() in ["tbd"]:
+            username = "azure";
+        if password.lower() in ["tbd"]:
+            password = generate_password(16)
+
+        pprint("Username: "+username)
+        pprint("password: "+password)
 
         # TODO: current case handles only for linux guest VMs, implementation needed for Windows VMs
         linux_config = LinuxConfigurationSet(name, username, password, False)
