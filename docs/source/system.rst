@@ -71,9 +71,20 @@ use. You can say
 
   which python
 
-It will give you the path of the python interpreter. Let us assume the
-interpreter was found in `/usr/local/bin/python`. Next you can create
-a virtual ENV with
+It will give you the path of the python interpreter.
+
+If you have a vanilla OS X at the time of writing of this documentation,
+the python version is 2.7.10 hence you can use
+
+.. prompt:: bash
+
+  virtualenv -p /user/bin/python ~/ENV
+
+to setup the virtualenv on your computer.
+
+In case you are using a different version of python please use the
+appropriate path. Let us assume the interpreter was found in `/usr/local/bin/python`.
+Next you can create a virtual ENV with
 
 .. prompt:: bash
 
