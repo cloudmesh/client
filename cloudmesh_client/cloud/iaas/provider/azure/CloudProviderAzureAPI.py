@@ -204,7 +204,8 @@ class CloudProviderAzureAPI(CloudProviderBase):
         pprint("Image:" + image)
         pprint("Flavor:" + flavor)
         pprint("Certificate adding")
-        self.add_certificate(name, pfx_path)
+        # Disabled - not required to start Virtual Machine
+        #self.add_certificate(name, pfx_path)
         pprint("Certificate added")
         storage_name = self._get_storage_name()
         if storage_name is None:
@@ -226,12 +227,13 @@ class CloudProviderAzureAPI(CloudProviderBase):
         pprint("password: "+password)
 
         # TODO: current case handles only for linux guest VMs, implementation needed for Windows VMs
+        # SSH key configuration does not work properly - DISABLED
         linux_config = LinuxConfigurationSet(name, username, password, False)
         linux_config.ssh = SSH()
         public_key = PublicKey(cert_thumbprint, pub_key_path)
-        linux_config.ssh.public_keys.public_keys.append(public_key)
+        #linux_config.ssh.public_keys.public_keys.append(public_key)
         pair = KeyPair(cert_thumbprint, cert_path)
-        linux_config.ssh.key_pairs.key_pairs.append(pair)
+        #linux_config.ssh.key_pairs.key_pairs.append(pair)
 
         # Endpoint configuration
         network = ConfigurationSet()
