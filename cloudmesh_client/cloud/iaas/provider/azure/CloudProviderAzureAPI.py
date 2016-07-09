@@ -42,6 +42,7 @@ class CloudProviderAzureAPI(CloudProviderBase):
         self.default_flavor = confd['cloudmesh']['clouds']['azure']['default']['flavor']
         self.cloud = "azure"
         self.cloud_details = confd['cloudmesh']['clouds']['azure']
+        self.location = confd["cloudmesh"]["clouds"]["azure"]["default"]["location"]
 
     def _to_dict(self, dict_list):
         final_dict = dict()
@@ -125,6 +126,31 @@ class CloudProviderAzureAPI(CloudProviderBase):
         Console.error("No Storage Accounts found")
         return None
 
+    def _create_storage_account(self):
+        """
+        Storage service is required to create a disk space for a VM
+
+        Reference: SimpleAzure
+
+        """
+        # Note that it is better to create a storage account with a VM name included.
+        # And have a unique name to avoid conflict
+        # TODO: Get a unique readable storage account name
+        # Tips: no dash(-) or space is allowed in naming
+        temp_name = "cloudmesh"
+        name = temp_name[:24].replace("-","")
+        description = name + "description"
+        label = name + "label"
+        result = self.provider.create_storage_account(service_name=name,
+                description=description, label=label,
+                location=self.get_location())
+
+        operation_result = self.provider.get_operation_status(result.request_id)
+        Console.info("Storage Account creation: " + operation_result.status)
+
+    def get_location(self):
+        return self.location
+
     def boot_vm(self,
                 name,
                 group=None,
@@ -160,6 +186,7 @@ class CloudProviderAzureAPI(CloudProviderBase):
         :param kwargs:
         :return:
         """
+
         location = ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"]["azure"]["default"]["location"] or 'Central US'
         try:
             self.provider.create_hosted_service(service_name=name,
@@ -168,21 +195,23 @@ class CloudProviderAzureAPI(CloudProviderBase):
         except:
             traceback.print_exc()
             pprint("Error creating hosted service")
-        pprint("service name"+name)
-        pprint("location name"+location)
-        pprint("cert_thumbprint"+cert_thumbprint)
-        pprint("pub_key_path"+pub_key_path)
-        pprint("cert_path"+cert_path)
-        pprint("pfx_path"+pfx_path)
-        pprint("Image"+image)
-        pprint("Flavor"+flavor)
+        pprint("service name: " + name)
+        pprint("location name: " + location)
+        pprint("cert_thumbprint: " + cert_thumbprint)
+        pprint("pub_key_path: " + pub_key_path)
+        pprint("cert_path: " + cert_path)
+        pprint("pfx_path:" + pfx_path)
+        pprint("Image:" + image)
+        pprint("Flavor:" + flavor)
         pprint("Certificate adding")
         self.add_certificate(name, pfx_path)
         pprint("Certificate added")
         storage_name = self._get_storage_name()
+        if storage_name is None:
+            self._create_storage_account()
+            storage_name = self._get_storage_name()
         media_link = 'https://{0}.blob.core.windows.net/vhds/{1}.vhd'.format(
-                        storage_name,
-                        name)
+                        storage_name, name)
         os_hd = OSVirtualHardDisk(image, media_link)
 
         username = ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"]["azure"]["default"]["username"]
