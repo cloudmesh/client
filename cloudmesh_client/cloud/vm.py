@@ -177,11 +177,16 @@ class Vm(ListResource):
         if vm is not None:
             cls.refresh(cloud=arg.cloud)
 
-            cls.cm.set(d.name, "key", d.key, scope="first", kind="vm")
-            cls.cm.set(d.name, "image", d.image, scope="first", kind="vm")
-            cls.cm.set(d.name, "flavor", d.flavor, scope="first", kind="vm")
-            cls.cm.set(d.name, "group", arg.group, scope="first", kind="vm")
-            cls.cm.set(d.name, "user", arg.user, scope="first", kind="vm")
+            try:
+                cls.cm.set(d.name, "key", d.key, scope="first", kind="vm")
+                cls.cm.set(d.name, "image", d.image, scope="first", kind="vm")
+                cls.cm.set(d.name, "flavor", d.flavor, scope="first", kind="vm")
+                cls.cm.set(d.name, "group", arg.group, scope="first", kind="vm")
+                cls.cm.set(d.name, "user", arg.user, scope="first", kind="vm")
+            except:
+                # cm.set error is identified as a warning, not an error
+                import sys
+                Console.warning("cls.cm.set error: %s" % (sys.exc_info()[0]))
 
         # update group and key
         #
