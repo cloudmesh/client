@@ -33,14 +33,14 @@ python:
   - "2.7"
 
 install:
-  - sudo apt-get install -y software-properties-common
-  - sudo apt-add-repository -y ppa:fkrull/deadsnakes-python2.7
+  - sudo add-apt-repository ppa:fkrull/deadsnakes-python2.7
   - sudo apt-get update
+  - sudo apt-get upgrade
   # - export PATH="/opt/python/2.7.10/bin:$PATH"
   - echo $PATH
-  - sudo apt-get remove python-six -y
   - sudo pip install --upgrade pip
   - which python
+  - python --version
   - pip --version
   - mkdir ~/.cloudmesh
   - sudo pip install pyyaml --upgrade --force
