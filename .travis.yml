@@ -7,9 +7,11 @@ notifications:
     - kevinwangfg@gmail.com
 
 before_install:
+  - echo "- BEFORE INSTALL -----------"
   - sudo apt-get install -y software-properties-common
   - sudo apt-add-repository -y ppa:fkrull/deadsnakes-python2.7
   - sudo apt-get update
+  - echo "-----------------------------"
 
 addons:
   apt:
