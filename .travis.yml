@@ -35,9 +35,6 @@ python:
   - "2.7"
 
 install:
-  - sudo add-apt-repository ppa:fkrull/deadsnakes-python2.7
-  - sudo apt-get update
-  - sudo apt-get upgrade
   # - export PATH="/opt/python/2.7.10/bin:$PATH"
   - echo $PATH
   - sudo pip install --upgrade pip
