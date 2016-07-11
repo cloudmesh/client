@@ -54,17 +54,10 @@ install:
   - cd ..
   - git clone https://github.com/cloudmesh/client.git
   - cd client
-<<<<<<< HEAD
   - pip install -U -r requirements.txt
   - pip install -U -r requirements-doc.txt
   - pip install -U -r requirements-test.txt
   - pip install -U .
-=======
-  - pip install -r requirements.txt
-  - pip install -r requirements-doc.txt
-  - pip install -r requirements-test.txt
-  - pip install .
->>>>>>> master
   - ln -s `pwd` $(dirname `which python`)/../lib/python2.7/site-packages/cloudmesh_client
 
 script:

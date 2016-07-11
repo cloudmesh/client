@@ -404,7 +404,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         python_version, pip_version = get_python()
 
         try:
-            git_hash_version = Shell.execute('git', 'log -1 --format=%h')
+            git_hash_version = Shell.execute('git', 'log -1 --format=%h', traceflag=False, witherror=False)
         except:
             git_hash_version = 'N/A'
 
