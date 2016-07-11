@@ -178,6 +178,9 @@ class Vm(ListResource):
             cls.refresh(cloud=arg.cloud)
 
             try:
+                # TODO: Repair db schema for vm_azure, vm_libcloud, vm_openstack
+                # The following set only works with openstack, no libcloud, no azure
+
                 cls.cm.set(d.name, "key", d.key, scope="first", kind="vm")
                 cls.cm.set(d.name, "image", d.image, scope="first", kind="vm")
                 cls.cm.set(d.name, "flavor", d.flavor, scope="first", kind="vm")

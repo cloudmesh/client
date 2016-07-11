@@ -126,6 +126,10 @@ class VM_AZURE(CloudmeshMixin, CloudmeshDatabase.Base):
     instance_size = Column(String)          # deployments, deployments [ role_instance_list__role_instances [ instance_size]]
     media_link = Column(String)             # deployments, deployments [ role_list__roles[ os_virtual_hard_disk, media_link ]]
     disk_name = Column(String)              # deployments, deployments [role_list__roles[ os_virtual_hard_disk,disk_name]]
+    key = Column(String)
+    image = Column(String)
+    flavor = Column(String)
+    group = Column(String)
 
     def __init__(self, **kwargs):
         super(VM_AZURE, self).set_defaults(**kwargs)
@@ -145,6 +149,8 @@ class VM_AZURE(CloudmeshMixin, CloudmeshDatabase.Base):
         self.instance_size = kwargs.get("instance_size", None)
         self.media_link = kwargs.get("media_link", None)
         self.disk_name = kwargs.get("disk_name", None)
+        self.key = kwargs.get("key", None)
+        self.group = kwargs.get("group", None)
 
 class KEY_AZURE(CloudmeshMixin, CloudmeshDatabase.Base):
     __tablename__ = "key_azure"
