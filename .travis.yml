@@ -8,10 +8,11 @@ notifications:
 
 before_install:
   - echo "- BEFORE INSTALL -----------"
+  - cd /tmp
   - wget http://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz
   - tar xzvf Python-2.7.12.tgz
   - cd Python-2.7.12
-  - ./configure --prefix=~/python-2.7.3 --enable-shared
+  - ./configure --prefix=/tmp/python-2.7.3 --enable-shared
   - sudo make
   - sudo make install
   - echo "-----------------------------"
