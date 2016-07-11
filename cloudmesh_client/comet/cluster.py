@@ -613,24 +613,27 @@ class Cluster(object):
         r = Comet.post(posturl, data=data)
         # print("RETURNED RESULTS:")
         # print (r)
-        if 'cluster' in r:
-            if 'state' in r and \
-                            r['state'] in Cluster.PENDING_COMPUTESETS:
-                computesetid = r['id']
-                ret = 'Request accepted! Check status with:\n' \
-                      'comet cluster {}\n'.format(clusterid) + \
-                      'or:\n' \
-                      'comet computeset {}\n'.format(computesetid)
-            else:
-                # in case of some internal problem
-                ret = ''
-        elif 'error' in r:
-            ret = "An error occurred: {}".format(r['error'])
+        if r is None:
+            ret = "An error occured. Please check your command and try again"
         else:
-            ret = "An internal error occured. " \
-                  "Please submit a ticket with the " \
-                  "following info:\n {}\n" \
-                .format(r)
+            if 'cluster' in r:
+                if 'state' in r and \
+                                r['state'] in Cluster.PENDING_COMPUTESETS:
+                    computesetid = r['id']
+                    ret = 'Request accepted! Check status with:\n' \
+                          'comet cluster {}\n'.format(clusterid) + \
+                          'or:\n' \
+                          'comet computeset {}\n'.format(computesetid)
+                else:
+                    # in case of some internal problem
+                    ret = ''
+            elif 'error' in r:
+                ret = "An error occurred: {}".format(r['error'])
+            else:
+                ret = "An internal error occured. " \
+                      "Please submit a ticket with the " \
+                      "following info:\n {}\n" \
+                    .format(r)
         return ret
 
     @staticmethod
