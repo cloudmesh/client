@@ -55,9 +55,15 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.hostlist import Parameter
 
+
+def _ssh(command):
+    args = command.split(" ")
+    r = Shell.ssh(*args)
+    return r
+
+
 def nodes(user, id):
-    args = "india /opt/slurm/bin/squeue -u {user} -h --format=%N".format(**locals()).split(" ")
-    r = Shell.ssh(*args).split("\n")
+    r = _ssh("india /opt/slurm/bin/squeue -u {user} -h --format=%N".format(**locals())).split("\n")
     return r
 
 
@@ -113,8 +119,6 @@ def get_layout(id, user):
     n = nodes(user, myjobs[0])[0]
     all_nodes = Parameter.expand(n)
 
-    return (all_nodes[0], all_nodes[1:])
-
 if __name__ == '__main__':
     arguments = docopt(__doc__)
 
@@ -135,6 +139,10 @@ if __name__ == '__main__':
     manager = ['d005']
 
     if arguments['start']:
+
+
+        manager, workers = get_layout(data.ID, data.user)
+        print (manager, workers)
 
         for w in workers + manager:
             banner("HOST: " + w)
@@ -189,7 +197,9 @@ if __name__ == '__main__':
             banner("HOST: " + w)
 
             data['worker'] = w
-            system("ssh india ssh {worker} hostname".format(**data))
+            args = "india ssh {worker} hostname".format(**data).split(" ")
+            r = Shell.ssh(*args)
+            print (r)
 
     elif arguments['hello']:
 
