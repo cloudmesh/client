@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Hacking &mdash; cloudmesh_client 4.2.5 documentation</title>
+  <title>Hacking &mdash; cloudmesh_client 4.3.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.5 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 4.3.0 documentation" href="index.html"/>
         <link rel="next" title="Appendix" href="appendix.html"/>
         <link rel="prev" title="API" href="api.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                4.2.5
+                4.3.0
               </div>
             
           
@@ -109,6 +109,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Hacking</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#contributing">Contributing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#prioritizaton">PRIORITIZATON</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#requirements-file">Requirements file</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#editor">Editor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#testing">Testing</a><ul>
@@ -290,16 +291,39 @@ dev branch, if you use the command:</p>
 <p>We will enhance the tools to print priority lists gradually as needed.</p>
 <p>an output will look like:</p>
 <blockquote>
-<div><div class="line-block">
-<div class="line">P    | N    | title                | assignee   | milestone  | labels               |</div>
-<div class="line">&#8212;- | &#8212;- | &#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211; | &#8212;&#8212;&#8212;- | &#8212;&#8212;&#8212;- | &#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211; |</div>
-<div class="line-block">
-<div class="line-block">
-<div class="line">1 |  202 | cm refresh on/off    | gouravs... | 2016/03/31 | bug, Gourav          |</div>
-</div>
-<div class="line">999 |  201 | cm cluster           | None       | priority   | Fugang, Gourav, G... |</div>
-</div>
-</div>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="8%" />
+<col width="8%" />
+<col width="28%" />
+<col width="15%" />
+<col width="15%" />
+<col width="28%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>P</td>
+<td>N</td>
+<td>title</td>
+<td>assignee</td>
+<td>milestone</td>
+<td>labels</td>
+</tr>
+<tr class="row-even"><td>1</td>
+<td>202</td>
+<td>cm refresh on/off</td>
+<td>gregor</td>
+<td>2016/03/31</td>
+<td>bug, Gregor</td>
+</tr>
+<tr class="row-odd"><td>999</td>
+<td>201</td>
+<td>cm cluster</td>
+<td>fugang</td>
+<td>priority</td>
+<td>Fugang</td>
+</tr>
+</tbody>
+</table>
 </div></blockquote>
 <p>which easily renders in MD. If you are only interested in a particular milestone, you
 can fgrep for it:</p>
@@ -310,6 +334,14 @@ can fgrep for it:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">bin</span><span class="o">/</span><span class="n">git</span><span class="o">-</span><span class="n">priority</span><span class="o">.</span><span class="n">py</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">-</span><span class="n">t</span> <span class="s2">&quot;|&quot;</span> <span class="o">-</span><span class="n">k</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">fgrep</span> <span class="n">priority</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="requirements-file">
+<h2>Requirements file<a class="headerlink" href="#requirements-file" title="Permalink to this headline">¶</a></h2>
+<p>There are two primary requirements files:</p>
+<ul class="simple">
+<li><a href="#id1"><span class="problematic" id="id2">``</span></a>requirements-open.txt` are unbounded requirements to be used during development and testing</li>
+<li><code class="docutils literal"><span class="pre">requirements.txt`</span> <span class="pre">are</span> <span class="pre">the</span> <span class="pre">frozen</span> <span class="pre">requirements</span> <span class="pre">generated</span> <span class="pre">by</span> <span class="pre">``pip</span> <span class="pre">freeze</span></code>. This should be updated for every release</li>
+</ul>
 </div>
 <div class="section" id="editor">
 <h2>Editor<a class="headerlink" href="#editor" title="Permalink to this headline">¶</a></h2>
@@ -350,7 +382,7 @@ and base from source and that they are located in:</p>
 <pre class="highlight"><span class="prompt1">nosetests</span>
 </pre><p>Individual nosetests can be started with (here an example frm test_list.py
 is used):</p>
-<pre class="highlight"><span class="prompt1">python setup.py install<span class="p">;</span> nosetests -v --nocapture  tests/test_list.py:Test_list.test_001</span>
+<pre class="highlight"><span class="prompt1">pip install -U .<span class="p">;</span> nosetests -v --nocapture  tests/test_list.py:Test_list.test_001</span>
 </pre></div>
 </div>
 </div>
@@ -450,7 +482,7 @@ Laszewski.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.2.5',
+            VERSION:'4.3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

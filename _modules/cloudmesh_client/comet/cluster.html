@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.comet.cluster &mdash; cloudmesh_client 4.2.5 documentation</title>
+  <title>cloudmesh_client.comet.cluster &mdash; cloudmesh_client 4.3.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.5 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.3.0 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                4.2.5
+                4.3.0
               </div>
             
           
@@ -786,24 +786,27 @@
         <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">posturl</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
         <span class="c1"># print(&quot;RETURNED RESULTS:&quot;)</span>
         <span class="c1"># print (r)</span>
-        <span class="k">if</span> <span class="s1">&#39;cluster&#39;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s1">&#39;state&#39;</span> <span class="ow">in</span> <span class="n">r</span> <span class="ow">and</span> \
-                            <span class="n">r</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">PENDING_COMPUTESETS</span><span class="p">:</span>
-                <span class="n">computesetid</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
-                <span class="n">ret</span> <span class="o">=</span> <span class="s1">&#39;Request accepted! Check status with:</span><span class="se">\n</span><span class="s1">&#39;</span> \
-                      <span class="s1">&#39;comet cluster {}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">)</span> <span class="o">+</span> \
-                      <span class="s1">&#39;or:</span><span class="se">\n</span><span class="s1">&#39;</span> \
-                      <span class="s1">&#39;comet computeset {}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">computesetid</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># in case of some internal problem</span>
-                <span class="n">ret</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-        <span class="k">elif</span> <span class="s1">&#39;error&#39;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
-            <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;An error occurred: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;An error occured. Please check your command and try again&quot;</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;An internal error occured. &quot;</span> \
-                  <span class="s2">&quot;Please submit a ticket with the &quot;</span> \
-                  <span class="s2">&quot;following info:</span><span class="se">\n</span><span class="s2"> {}</span><span class="se">\n</span><span class="s2">&quot;</span> \
-                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s1">&#39;cluster&#39;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s1">&#39;state&#39;</span> <span class="ow">in</span> <span class="n">r</span> <span class="ow">and</span> \
+                                <span class="n">r</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">PENDING_COMPUTESETS</span><span class="p">:</span>
+                    <span class="n">computesetid</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+                    <span class="n">ret</span> <span class="o">=</span> <span class="s1">&#39;Request accepted! Check status with:</span><span class="se">\n</span><span class="s1">&#39;</span> \
+                          <span class="s1">&#39;comet cluster {}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">)</span> <span class="o">+</span> \
+                          <span class="s1">&#39;or:</span><span class="se">\n</span><span class="s1">&#39;</span> \
+                          <span class="s1">&#39;comet computeset {}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">computesetid</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># in case of some internal problem</span>
+                    <span class="n">ret</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="k">elif</span> <span class="s1">&#39;error&#39;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;An error occurred: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;An internal error occured. &quot;</span> \
+                      <span class="s2">&quot;Please submit a ticket with the &quot;</span> \
+                      <span class="s2">&quot;following info:</span><span class="se">\n</span><span class="s2"> {}</span><span class="se">\n</span><span class="s2">&quot;</span> \
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ret</span></div>
 
     <span class="nd">@staticmethod</span>
@@ -1016,7 +1019,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'4.2.5',
+            VERSION:'4.3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

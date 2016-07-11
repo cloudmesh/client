@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud &mdash; cloudmesh_client 4.2.5 documentation</title>
+  <title>cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud &mdash; cloudmesh_client 4.3.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.5 documentation" href="../../../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.3.0 documentation" href="../../../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                4.2.5
+                4.3.0
               </div>
             
           
@@ -522,8 +522,11 @@
         <span class="c1"># Console.info(&quot;Flavor selected :&quot;+flavor.name)</span>
         <span class="c1"># Console.info(&quot;Key :&quot;)</span>
         <span class="c1"># pprint(key)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">flavor</span><span class="p">,</span> <span class="n">ex_keyname</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
-        <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;VM boot up success.ok.&quot;</span><span class="p">)</span></div>
+        <span class="n">vm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">flavor</span><span class="p">,</span> <span class="n">ex_keyname</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;VM boot up success.ok.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># vm info returned</span>
+        <span class="k">return</span> <span class="n">vm</span></div>
 
 <div class="viewcode-block" id="CloudProviderLibcloud.delete_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.libcloud.html#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.delete_vm">[docs]</a>    <span class="k">def</span> <span class="nf">delete_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -628,7 +631,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../../../',
-            VERSION:'4.2.5',
+            VERSION:'4.3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

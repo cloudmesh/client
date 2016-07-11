@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>sqlalchemy.sql.schema &mdash; cloudmesh_client 4.2.5 documentation</title>
+  <title>sqlalchemy.sql.schema &mdash; cloudmesh_client 4.3.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.5 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.3.0 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                4.2.5
+                4.3.0
               </div>
             
           
@@ -217,6 +217,17 @@
 <span class="kn">import</span> <span class="nn">types</span>
 
 <span class="n">RETAIN_SCHEMA</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">symbol</span><span class="p">(</span><span class="s1">&#39;retain_schema&#39;</span><span class="p">)</span>
+
+<span class="n">BLANK_SCHEMA</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">symbol</span><span class="p">(</span>
+    <span class="s1">&#39;blank_schema&#39;</span><span class="p">,</span>
+    <span class="sd">&quot;&quot;&quot;Symbol indicating that a :class:`.Table` or :class:`.Sequence`</span>
+<span class="sd">    should have &#39;None&#39; for its schema, even if the parent</span>
+<span class="sd">    :class:`.MetaData` has specified a schema.</span>
+
+<span class="sd">    .. versionadded:: 1.0.14</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_get_table_key</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">schema</span><span class="p">):</span>
@@ -512,6 +523,17 @@
 <span class="sd">        the table resides in a schema other than the default selected schema</span>
 <span class="sd">        for the engine&#39;s database connection.  Defaults to ``None``.</span>
 
+<span class="sd">        If the owning :class:`.MetaData` of this :class:`.Table` specifies</span>
+<span class="sd">        its own :paramref:`.MetaData.schema` parameter, then that schema</span>
+<span class="sd">        name will be applied to this :class:`.Table` if the schema parameter</span>
+<span class="sd">        here is set to ``None``.  To set a blank schema name on a :class:`.Table`</span>
+<span class="sd">        that would otherwise use the schema set on the owning :class:`.MetaData`,</span>
+<span class="sd">        specify the special symbol :attr:`.BLANK_SCHEMA`.</span>
+
+<span class="sd">        .. versionadded:: 1.0.14  Added the :attr:`.BLANK_SCHEMA` symbol to</span>
+<span class="sd">           allow a :class:`.Table` to have a blank schema name even when the</span>
+<span class="sd">           parent :class:`.MetaData` specifies :paramref:`.MetaData.schema`.</span>
+
 <span class="sd">        The quoting rules for the schema name are the same as those for the</span>
 <span class="sd">        ``name`` parameter, in that quoting is applied for reserved words or</span>
 <span class="sd">        case-sensitive names; to enable unconditional quoting for the</span>
@@ -543,6 +565,8 @@
         <span class="n">schema</span> <span class="o">=</span> <span class="n">kw</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;schema&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">schema</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">schema</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">schema</span>
+        <span class="k">elif</span> <span class="n">schema</span> <span class="ow">is</span> <span class="n">BLANK_SCHEMA</span><span class="p">:</span>
+            <span class="n">schema</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="n">keep_existing</span> <span class="o">=</span> <span class="n">kw</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;keep_existing&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
         <span class="n">extend_existing</span> <span class="o">=</span> <span class="n">kw</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;extend_existing&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
         <span class="k">if</span> <span class="s1">&#39;useexisting&#39;</span> <span class="ow">in</span> <span class="n">kw</span><span class="p">:</span>
@@ -614,6 +638,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">schema</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;schema&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">schema</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">schema</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span> <span class="ow">is</span> <span class="n">BLANK_SCHEMA</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">schema</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">quote_schema</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;quote_schema&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">schema</span> <span class="o">=</span> <span class="n">quoted_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span> <span class="n">quote_schema</span><span class="p">)</span>
@@ -1007,8 +1033,14 @@
                         <span class="n">schema</span> <span class="k">if</span> <span class="n">referred_schema</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
                 <span class="n">table</span><span class="o">.</span><span class="n">append_constraint</span><span class="p">(</span>
                     <span class="n">c</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">schema</span><span class="o">=</span><span class="n">fk_constraint_schema</span><span class="p">,</span> <span class="n">target_table</span><span class="o">=</span><span class="n">table</span><span class="p">))</span>
-
             <span class="k">elif</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">_type_bound</span><span class="p">:</span>
+                <span class="c1"># skip unique constraints that would be generated</span>
+                <span class="c1"># by the &#39;unique&#39; flag on Column</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">UniqueConstraint</span><span class="p">)</span> <span class="ow">and</span> \
+                    <span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> \
+                        <span class="nb">list</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">columns</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
                 <span class="n">table</span><span class="o">.</span><span class="n">append_constraint</span><span class="p">(</span>
                     <span class="n">c</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">schema</span><span class="o">=</span><span class="n">schema</span><span class="p">,</span> <span class="n">target_table</span><span class="o">=</span><span class="n">table</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">indexes</span><span class="p">:</span>
@@ -2285,7 +2317,10 @@
 <span class="sd">         .. versionadded:: 1.0.7</span>
 
 <span class="sd">        :param schema: Optional schema name for the sequence, if located</span>
-<span class="sd">         in a schema other than the default.</span>
+<span class="sd">         in a schema other than the default.  The rules for selecting the</span>
+<span class="sd">         schema name when a :class:`.MetaData` is also present are the same</span>
+<span class="sd">         as that of :paramref:`.Table.schema`.</span>
+
 <span class="sd">        :param optional: boolean value, when ``True``, indicates that this</span>
 <span class="sd">         :class:`.Sequence` object only needs to be explicitly generated</span>
 <span class="sd">         on backends that don&#39;t provide another way to generate primary</span>
@@ -2334,7 +2369,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">nomaxvalue</span> <span class="o">=</span> <span class="n">nomaxvalue</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cycle</span> <span class="o">=</span> <span class="n">cycle</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">optional</span> <span class="o">=</span> <span class="n">optional</span>
-        <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">schema</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">metadata</span><span class="o">.</span><span class="n">schema</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">schema</span> <span class="ow">is</span> <span class="n">BLANK_SCHEMA</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">schema</span> <span class="o">=</span> <span class="n">schema</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">elif</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">schema</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">metadata</span><span class="o">.</span><span class="n">schema</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">schema</span> <span class="o">=</span> <span class="n">schema</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">schema</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">schema</span> <span class="o">=</span> <span class="n">quoted_name</span><span class="p">(</span><span class="n">schema</span><span class="p">,</span> <span class="n">quote_schema</span><span class="p">)</span>
@@ -3467,8 +3504,21 @@
 
 <span class="sd">        :param schema:</span>
 <span class="sd">           The default schema to use for the :class:`.Table`,</span>
-<span class="sd">           :class:`.Sequence`, and other objects associated with this</span>
-<span class="sd">           :class:`.MetaData`. Defaults to ``None``.</span>
+<span class="sd">           :class:`.Sequence`, and potentially other objects associated with</span>
+<span class="sd">           this :class:`.MetaData`. Defaults to ``None``.</span>
+
+<span class="sd">           When this value is set, any :class:`.Table` or :class:`.Sequence`</span>
+<span class="sd">           which specifies ``None`` for the schema parameter will instead</span>
+<span class="sd">           have this schema name defined.  To build a :class:`.Table`</span>
+<span class="sd">           or :class:`.Sequence` that still has ``None`` for the schema</span>
+<span class="sd">           even when this parameter is present, use the :attr:`.BLANK_SCHEMA`</span>
+<span class="sd">           symbol.</span>
+
+<span class="sd">           .. seealso::</span>
+
+<span class="sd">                :paramref:`.Table.schema`</span>
+
+<span class="sd">                :paramref:`.Sequence.schema`</span>
 
 <span class="sd">        :param quote_schema:</span>
 <span class="sd">            Sets the ``quote_schema`` flag for those :class:`.Table`,</span>
@@ -3988,7 +4038,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'4.2.5',
+            VERSION:'4.3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

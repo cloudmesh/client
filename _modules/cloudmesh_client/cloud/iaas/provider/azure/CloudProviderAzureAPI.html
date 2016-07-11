@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI &mdash; cloudmesh_client 4.2.5 documentation</title>
+  <title>cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI &mdash; cloudmesh_client 4.3.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.5 documentation" href="../../../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.3.0 documentation" href="../../../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                4.2.5
+                4.3.0
               </div>
             
           
@@ -175,6 +175,7 @@
 <span class="kn">from</span> <span class="nn">azure.servicemanagement</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.util</span> <span class="kn">import</span> <span class="n">generate_password</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.provider.azure.AzureDict</span> <span class="kn">import</span> <span class="n">AzureDict</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.CloudProviderBase</span> <span class="kn">import</span> <span class="n">CloudProviderBase</span>
@@ -213,7 +214,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">default_image</span> <span class="o">=</span> <span class="n">confd</span><span class="p">[</span><span class="s1">&#39;cloudmesh&#39;</span><span class="p">][</span><span class="s1">&#39;clouds&#39;</span><span class="p">][</span><span class="s1">&#39;azure&#39;</span><span class="p">][</span><span class="s1">&#39;default&#39;</span><span class="p">][</span><span class="s1">&#39;image&#39;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">default_flavor</span> <span class="o">=</span> <span class="n">confd</span><span class="p">[</span><span class="s1">&#39;cloudmesh&#39;</span><span class="p">][</span><span class="s1">&#39;clouds&#39;</span><span class="p">][</span><span class="s1">&#39;azure&#39;</span><span class="p">][</span><span class="s1">&#39;default&#39;</span><span class="p">][</span><span class="s1">&#39;flavor&#39;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cloud</span> <span class="o">=</span> <span class="s2">&quot;azure&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cloud_details</span> <span class="o">=</span> <span class="n">confd</span><span class="p">[</span><span class="s1">&#39;cloudmesh&#39;</span><span class="p">][</span><span class="s1">&#39;clouds&#39;</span><span class="p">][</span><span class="s1">&#39;azure&#39;</span><span class="p">]</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cloud_details</span> <span class="o">=</span> <span class="n">confd</span><span class="p">[</span><span class="s1">&#39;cloudmesh&#39;</span><span class="p">][</span><span class="s1">&#39;clouds&#39;</span><span class="p">][</span><span class="s1">&#39;azure&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">confd</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">][</span><span class="s2">&quot;azure&quot;</span><span class="p">][</span><span class="s2">&quot;default&quot;</span><span class="p">][</span><span class="s2">&quot;location&quot;</span><span class="p">]</span></div>
 
     <span class="k">def</span> <span class="nf">_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dict_list</span><span class="p">):</span>
         <span class="n">final_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
@@ -276,6 +278,7 @@
             <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Adding the PFX certificate&quot;</span><span class="p">)</span>
             <span class="n">cert_data</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">bfile</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
             <span class="n">cert_format</span> <span class="o">=</span> <span class="s1">&#39;pfx&#39;</span>
+            <span class="c1"># THIS PASSWORD SHOULD BE DEFINED IN cloudmesh.yml</span>
             <span class="n">cert_password</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
             <span class="n">cert_res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">add_service_certificate</span><span class="p">(</span><span class="n">service_name</span><span class="o">=</span><span class="n">service_name</span><span class="p">,</span>
                                 <span class="n">data</span><span class="o">=</span><span class="n">cert_data</span><span class="p">,</span>
@@ -295,6 +298,31 @@
             <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">service_name</span>
         <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No Storage Accounts found&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">_create_storage_account</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Storage service is required to create a disk space for a VM</span>
+
+<span class="sd">        Reference: SimpleAzure</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Note that it is better to create a storage account with a VM name included.</span>
+        <span class="c1"># And have a unique name to avoid conflict</span>
+        <span class="c1"># TODO: Get a unique readable storage account name</span>
+        <span class="c1"># Tips: no dash(-) or space is allowed in naming</span>
+        <span class="n">temp_name</span> <span class="o">=</span> <span class="s2">&quot;cloudmesh&quot;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">temp_name</span><span class="p">[:</span><span class="mi">24</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;description&quot;</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;label&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">create_storage_account</span><span class="p">(</span><span class="n">service_name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+                <span class="n">location</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_location</span><span class="p">())</span>
+
+        <span class="n">operation_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">get_operation_status</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">request_id</span><span class="p">)</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Storage Account creation: &quot;</span> <span class="o">+</span> <span class="n">operation_result</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CloudProviderAzureAPI.get_location"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.azure.html#cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI.CloudProviderAzureAPI.get_location">[docs]</a>    <span class="k">def</span> <span class="nf">get_location</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">location</span></div>
 
 <div class="viewcode-block" id="CloudProviderAzureAPI.boot_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.azure.html#cloudmesh_client.cloud.iaas.provider.azure.CloudProviderAzureAPI.CloudProviderAzureAPI.boot_vm">[docs]</a>    <span class="k">def</span> <span class="nf">boot_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                 <span class="n">name</span><span class="p">,</span>
@@ -331,6 +359,7 @@
 <span class="sd">        :param kwargs:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="n">location</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">][</span><span class="s2">&quot;azure&quot;</span><span class="p">][</span><span class="s2">&quot;default&quot;</span><span class="p">][</span><span class="s2">&quot;location&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">&#39;Central US&#39;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">create_hosted_service</span><span class="p">(</span><span class="n">service_name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
@@ -339,35 +368,45 @@
         <span class="k">except</span><span class="p">:</span>
             <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span>
             <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;Error creating hosted service&quot;</span><span class="p">)</span>
-        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;service name&quot;</span><span class="o">+</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;location name&quot;</span><span class="o">+</span><span class="n">location</span><span class="p">)</span>
-        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;cert_thumbprint&quot;</span><span class="o">+</span><span class="n">cert_thumbprint</span><span class="p">)</span>
-        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;pub_key_path&quot;</span><span class="o">+</span><span class="n">pub_key_path</span><span class="p">)</span>
-        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;cert_path&quot;</span><span class="o">+</span><span class="n">cert_path</span><span class="p">)</span>
-        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;pfx_path&quot;</span><span class="o">+</span><span class="n">pfx_path</span><span class="p">)</span>
-        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;Image&quot;</span><span class="o">+</span><span class="n">image</span><span class="p">)</span>
-        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;Flavor&quot;</span><span class="o">+</span><span class="n">flavor</span><span class="p">)</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;service name: &quot;</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;location name: &quot;</span> <span class="o">+</span> <span class="n">location</span><span class="p">)</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;cert_thumbprint: &quot;</span> <span class="o">+</span> <span class="n">cert_thumbprint</span><span class="p">)</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;pub_key_path: &quot;</span> <span class="o">+</span> <span class="n">pub_key_path</span><span class="p">)</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;cert_path: &quot;</span> <span class="o">+</span> <span class="n">cert_path</span><span class="p">)</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;pfx_path:&quot;</span> <span class="o">+</span> <span class="n">pfx_path</span><span class="p">)</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;Image:&quot;</span> <span class="o">+</span> <span class="n">image</span><span class="p">)</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;Flavor:&quot;</span> <span class="o">+</span> <span class="n">flavor</span><span class="p">)</span>
         <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;Certificate adding&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_certificate</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">pfx_path</span><span class="p">)</span>
+        <span class="c1"># Disabled - not required to start Virtual Machine</span>
+        <span class="c1">#self.add_certificate(name, pfx_path)</span>
         <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;Certificate added&quot;</span><span class="p">)</span>
         <span class="n">storage_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_storage_name</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">storage_name</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_create_storage_account</span><span class="p">()</span>
+            <span class="n">storage_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_storage_name</span><span class="p">()</span>
         <span class="n">media_link</span> <span class="o">=</span> <span class="s1">&#39;https://{0}.blob.core.windows.net/vhds/{1}.vhd&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="n">storage_name</span><span class="p">,</span>
-                        <span class="n">name</span><span class="p">)</span>
+                        <span class="n">storage_name</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
         <span class="n">os_hd</span> <span class="o">=</span> <span class="n">OSVirtualHardDisk</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">media_link</span><span class="p">)</span>
 
         <span class="n">username</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">][</span><span class="s2">&quot;azure&quot;</span><span class="p">][</span><span class="s2">&quot;default&quot;</span><span class="p">][</span><span class="s2">&quot;username&quot;</span><span class="p">]</span>
         <span class="n">password</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">][</span><span class="s2">&quot;azure&quot;</span><span class="p">][</span><span class="s2">&quot;default&quot;</span><span class="p">][</span><span class="s2">&quot;password&quot;</span><span class="p">]</span>
-        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;Username:&quot;</span><span class="o">+</span><span class="n">username</span><span class="p">)</span>
-        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;password:&quot;</span><span class="o">+</span><span class="n">password</span><span class="p">)</span>
+        <span class="c1"># Auto-generated Password in case of TBD</span>
+        <span class="k">if</span> <span class="n">username</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;tbd&quot;</span><span class="p">]:</span>
+            <span class="n">username</span> <span class="o">=</span> <span class="s2">&quot;azure&quot;</span><span class="p">;</span>
+        <span class="k">if</span> <span class="n">password</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;tbd&quot;</span><span class="p">]:</span>
+            <span class="n">password</span> <span class="o">=</span> <span class="n">generate_password</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+
+        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;Username: &quot;</span><span class="o">+</span><span class="n">username</span><span class="p">)</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;password: &quot;</span><span class="o">+</span><span class="n">password</span><span class="p">)</span>
 
         <span class="c1"># TODO: current case handles only for linux guest VMs, implementation needed for Windows VMs</span>
+        <span class="c1"># SSH key configuration does not work properly - DISABLED</span>
         <span class="n">linux_config</span> <span class="o">=</span> <span class="n">LinuxConfigurationSet</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
         <span class="n">linux_config</span><span class="o">.</span><span class="n">ssh</span> <span class="o">=</span> <span class="n">SSH</span><span class="p">()</span>
         <span class="n">public_key</span> <span class="o">=</span> <span class="n">PublicKey</span><span class="p">(</span><span class="n">cert_thumbprint</span><span class="p">,</span> <span class="n">pub_key_path</span><span class="p">)</span>
-        <span class="n">linux_config</span><span class="o">.</span><span class="n">ssh</span><span class="o">.</span><span class="n">public_keys</span><span class="o">.</span><span class="n">public_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">public_key</span><span class="p">)</span>
+        <span class="c1">#linux_config.ssh.public_keys.public_keys.append(public_key)</span>
         <span class="n">pair</span> <span class="o">=</span> <span class="n">KeyPair</span><span class="p">(</span><span class="n">cert_thumbprint</span><span class="p">,</span> <span class="n">cert_path</span><span class="p">)</span>
-        <span class="n">linux_config</span><span class="o">.</span><span class="n">ssh</span><span class="o">.</span><span class="n">key_pairs</span><span class="o">.</span><span class="n">key_pairs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span>
+        <span class="c1">#linux_config.ssh.key_pairs.key_pairs.append(pair)</span>
 
         <span class="c1"># Endpoint configuration</span>
         <span class="n">network</span> <span class="o">=</span> <span class="n">ConfigurationSet</span><span class="p">()</span>
@@ -553,7 +592,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../../../',
-            VERSION:'4.2.5',
+            VERSION:'4.3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

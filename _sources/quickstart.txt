@@ -22,7 +22,15 @@ The setup of cloudmesh client is quite simple and can be done with::
 However, you may want to read carefully our setup guide and prepare
 your machine as your OS may not have the required packages installed
 by default (see: :ref:`preparation`).
-	     
+
+To complete the setup you need to call the setup command in the terminal
+command prompt with
+
+.. prompt::  bash
+
+	     cm setup
+
+
 Help
 -----
 
@@ -151,7 +159,7 @@ command
 
 .. prompt:: cm, cm>
 
-	    cm info
+	    vm info
 
 To set default flavor and image use, inspect the results from the list
 commands, decide which you want to use, and simply set them for the
@@ -334,11 +342,11 @@ a simple default while using the `futuresystems.org` cloud use the commands:
 
 .. prompt:: cm, cm>
 
-	    cm add key --ssh
-	    cm register remote
-	    cm default cloud=kilo
-	    cm refresh on
-	    cm info
+	    key add --ssh
+	    register remote
+	    default cloud=kilo
+	    refresh on
+	    info
 
 Inspect the info and see if the settings satisfy your needs. Change
 them accordingly with the cloudmesh commands.
@@ -347,15 +355,15 @@ Now booting and managing a vm is real simple
 
 .. prompt:: cm, cm>
 
-	    cm boot
-	    cm ip assign
-	    cm ssh
+	    vm boot
+	    vm ip assign
+	    vm ssh
 
 And to delete the vm
 
 .. prompt:: cm, cm>
 
-	    cm delete --force
+	    vm delete --force
 
 Microsoft Azure
 ----------------

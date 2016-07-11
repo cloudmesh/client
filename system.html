@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Preparation &mdash; cloudmesh_client 4.2.5 documentation</title>
+  <title>Preparation &mdash; cloudmesh_client 4.3.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.5 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 4.3.0 documentation" href="index.html"/>
         <link rel="up" title="Setup" href="setup.html"/>
         <link rel="next" title="Installation" href="installation.html"/>
         <link rel="prev" title="Upgrade" href="upgrade.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.2.5
+                4.3.0
               </div>
             
           
@@ -270,9 +270,14 @@ command line</p>
 use virtualenv. First you need to find which version of python you
 use. You can say</p>
 <pre class="highlight"><span class="prompt1">which python</span>
-</pre><p>It will give you the path of the python interpreter. Let us assume the
-interpreter was found in <cite>/usr/local/bin/python</cite>. Next you can create
-a virtual ENV with</p>
+</pre><p>It will give you the path of the python interpreter.</p>
+<p>If you have a vanilla OS X at the time of writing of this documentation,
+the python version is 2.7.10 hence you can use</p>
+<pre class="highlight"><span class="prompt1">virtualenv -p /user/bin/python ~/ENV</span>
+</pre><p>to setup the virtualenv on your computer.</p>
+<p>In case you are using a different version of python please use the
+appropriate path. Let us assume the interpreter was found in <cite>/usr/local/bin/python</cite>.
+Next you can create a virtual ENV with</p>
 <pre class="highlight"><span class="prompt1">virtualenv -p /user/local/bin/python ~/ENV</span>
 </pre><p>You will need to activate the virtualenv with</p>
 <pre class="highlight"><span class="prompt1"><span class="nb">source</span> ~/ENV/bin/activate</span>
@@ -811,7 +816,7 @@ It generally is at ~/.ssh/id_rsa.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.2.5',
+            VERSION:'4.3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.common.util &mdash; cloudmesh_client 4.2.5 documentation</title>
+  <title>cloudmesh_client.common.util &mdash; cloudmesh_client 4.3.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.5 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.3.0 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                4.2.5
+                4.3.0
               </div>
             
           
@@ -184,6 +184,7 @@
 
 <span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">input</span>
 <span class="kn">from</span> <span class="nn">past.builtins</span> <span class="kn">import</span> <span class="nb">basestring</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
 <div class="viewcode-block" id="search"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.util.search">[docs]</a><span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
     <span class="n">p</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;.*&quot;</span><span class="p">)</span>
@@ -442,6 +443,17 @@
         <span class="k">print</span><span class="p">(</span><span class="s2">&quot;WARNING: You are running an old version of pip: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">pip_version</span><span class="p">))</span>
         <span class="k">print</span><span class="p">(</span><span class="s2">&quot;         We recommend you update your pip  with </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">print</span><span class="p">(</span><span class="s2">&quot;             pip install -U pip</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+<span class="c1"># Reference: http://interactivepython.org/runestone/static/everyday/2013/01/3_password.html</span>
+<div class="viewcode-block" id="generate_password"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.util.generate_password">[docs]</a><span class="k">def</span> <span class="nf">generate_password</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
+    <span class="n">alphabet</span> <span class="o">=</span> <span class="s2">&quot;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span>
+    <span class="n">mypw</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">):</span>
+        <span class="n">next_index</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">alphabet</span><span class="p">))</span>
+        <span class="n">mypw</span> <span class="o">=</span> <span class="n">mypw</span> <span class="o">+</span> <span class="n">alphabet</span><span class="p">[</span><span class="n">next_index</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">mypw</span></div>
 </pre></div>
 
            </div>
@@ -474,7 +486,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'4.2.5',
+            VERSION:'4.3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Configuration &mdash; cloudmesh_client 4.2.5 documentation</title>
+  <title>Configuration &mdash; cloudmesh_client 4.3.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.5 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 4.3.0 documentation" href="index.html"/>
         <link rel="up" title="Setup" href="setup.html"/>
         <link rel="next" title="User Manual" href="commands/index.html"/>
         <link rel="prev" title="Installation" href="installation.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.2.5
+                4.3.0
               </div>
             
           
@@ -205,16 +205,21 @@
 a configuration file in the directory:</p>
 <blockquote>
 <div>~/.cloudmesh/cloudmesh.yaml</div></blockquote>
-<p>If this file is missing, you can run the command:</p>
-<blockquote>
-<div>cm help</div></blockquote>
-<p>to automatically generate it from defaults.</p>
+<p>To complete the setup you need to call the setup command in the terminal
+command prompt with</p>
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">cm setup</span>
+</pre><p>If this file is missing, you can run the command:</p>
+<pre class="highlight"><span class="prompt1">cm <span class="nb">help</span></span>
+</pre><p>to automatically generate it from defaults.</p>
 <p>The file will be a template and it can either be modified with your
 favorite editor, or if you are at Indiana University and want to use the
 kilo cloud you can use the command</p>
-<blockquote>
-<div>cm remote register</div></blockquote>
-<p>This will add the appropriate information into the yaml file.</p>
+<pre class="highlight"><span class="prompt1">cm remote register</span>
+</pre><p>This will add the appropriate information into the yaml file.</p>
 <p>However, you must make sure that the the project you have at Indiana
 University is activated. A simple project request via the futuresystems.org
 portal is not sufficient. THe request muct be send via e-mail to <a class="reference external" href="mailto:laszewski&#37;&#52;&#48;gmail&#46;com">laszewski<span>&#64;</span>gmail<span>&#46;</span>com</a>
@@ -329,7 +334,7 @@ modify the file as explained bellow</p>
                 <span class="n">OS_TENANT_ID</span><span class="p">:</span> <span class="n">TBD</span>
                 <span class="n">OS_PROJECT_NAME</span><span class="p">:</span> <span class="n">TBD</span>
                 <span class="n">OS_USERNAME</span><span class="p">:</span> <span class="n">TBD</span>
-                <span class="n">OS_VERSION</span><span class="p">:</span> <span class="n">kilo</span>
+                <span class="n">OS_VERSION</span><span class="p">:</span> <span class="n">liberty</span>
                 <span class="n">OS_REGION_NAME</span><span class="p">:</span> <span class="n">RegionOne</span>
             <span class="n">default</span><span class="p">:</span>
                 <span class="n">flavor</span><span class="p">:</span> <span class="n">m1</span><span class="o">.</span><span class="n">small</span>
@@ -445,6 +450,8 @@ modify the file as explained bellow</p>
     <span class="n">logging</span><span class="p">:</span>
         <span class="n">file</span><span class="p">:</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">cloudmesh</span><span class="o">.</span><span class="n">log</span>
         <span class="n">level</span><span class="p">:</span> <span class="n">DEBUG</span>
+    <span class="n">plugins</span><span class="p">:</span>
+         <span class="o">-</span> <span class="n">vbox</span><span class="p">:</span> <span class="n">cloudmesh_vagrant</span> <span class="n">cloudmesh_vagrant</span><span class="o">.</span><span class="n">cm_vbox</span><span class="o">.</span><span class="n">do_vbox</span>
 </pre></div>
 </div>
 <p>You can modify the file by hand and replace the <code class="docutils literal"><span class="pre">TBD</span></code> values
@@ -478,22 +485,18 @@ To do so, please edit the following file</p>
 </div>
 <p>please replace albert with your portal name that you have used for
 registration with futuresystems.org. Once you have done this please
-verify that you have access to india with a command such as:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="n">india</span> <span class="n">uname</span> <span class="o">-</span><span class="n">a</span>
-</pre></div>
-</div>
-<p>Next test if you have cloud access. This is easily done by doing:</p>
+verify that you have access to india with a command such as</p>
+<pre class="highlight"><span class="prompt1">ssh india uname -a</span>
+</pre><p>Next test if you have cloud access. This is easily done by doing:</p>
 <blockquote>
 <div>ssh india cat .cloudmesh/clouds/india/kilo/openrc.sh</div></blockquote>
 <p>IF this file does not exist you do not have access to the kilo cloud yet
 and you need to get in contact with <a class="reference external" href="mailto:laszewski&#37;&#52;&#48;gmail&#46;com">laszewski<span>&#64;</span>gmail<span>&#46;</span>com</a>. Once you have
 access you can proceed.</p>
 <p>Next register the FutureSystems clouds into your cloudmesh yaml file with
-the command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">register</span> <span class="n">remote</span>
-</pre></div>
-</div>
-<p>This will update your cloudmesh.yaml file with the information retrieved
+the command</p>
+<pre class="highlight"><span class="prompt1">cm register remote</span>
+</pre><p>This will update your cloudmesh.yaml file with the information retrieved
 from india. While retrieving the information on india from the file:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">clouds</span><span class="o">/</span><span class="n">india</span><span class="o">/</span><span class="n">kilo</span><span class="o">/</span><span class="n">openrc</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
@@ -505,19 +508,13 @@ about using india can be found at <a class="reference external" href="http://por
 <h2>Registration of other clouds<a class="headerlink" href="#registration-of-other-clouds" title="Permalink to this headline">¶</a></h2>
 <p>The register command is quite powerful and useful and we encourage you to
 take a closer look at the manual pages. This includes command such as</p>
-<p>To find out more about the registration command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">register</span> <span class="n">help</span>
+<p>To find out more about the registration command</p>
+<pre class="highlight"><span class="prompt1">cm register <span class="nb">help</span></span>
+</pre><p>To edit the yaml file with the editor defined by the Shell variable <cite>$EDITOR</cite></p>
+<pre class="highlight"><span class="prompt1">register edit</span>
+</pre><p>To list the <cite>cloudmesh.yaml</cite> file</p>
+<pre class="highlight"><span class="prompt1">register list</span>
 </pre></div>
-</div>
-<p>To edit the yaml file with the editor defined by the Shell variable <cite>$EDITOR</cite>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">register</span> <span class="n">edit</span>
-</pre></div>
-</div>
-<p>To list the <cite>cloudmesh.yaml</cite> file:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">register</span> <span class="nb">list</span>
-</pre></div>
-</div>
-</div>
 <div class="section" id="registartion-of-ec2-clouds-with-the-zip-file">
 <h2>Registartion of EC2 clouds with the zip file<a class="headerlink" href="#registartion-of-ec2-clouds-with-the-zip-file" title="Permalink to this headline">¶</a></h2>
 <div class="admonition warning">
@@ -526,11 +523,9 @@ take a closer look at the manual pages. This includes command such as</p>
 </div>
 <p>In case you have an openstack cloud that exports an ec2 zip file you can register
 such a cloud by first downloading the zip file to your computer and than issuing
-the command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">register</span> <span class="n">ec2</span> <span class="n">mycloud</span> <span class="n">filename</span><span class="o">.</span><span class="n">zip</span>
-</pre></div>
-</div>
-<p>where <cite>filename.zip</cite> is the location of the zip file and <cite>mycloud</cite> is the name
+the command</p>
+<pre class="highlight"><span class="prompt1">cm register ec2 mycloud filename.zip</span>
+</pre><p>where <cite>filename.zip</cite> is the location of the zip file and <cite>mycloud</cite> is the name
 of the cloud that you would like to have cloudmesh use for this cloud.</p>
 <p>You can than edit the ~/.cloudmesh/cloudmesh.yaml file to make further improvements
 such as setting the defaults.</p>
@@ -600,11 +595,7 @@ the project FG-101. Than the zip file will be called:</p>
 </div>
 <p>Let us set some environment variables to make the configuration
 description easier</p>
-<pre class="highlight"><style type="text/css">
-span.prompt1:before {
-  content: "$ ";
-}
-</style><span class="prompt1"><span class="nb">export</span> <span class="nv">C_USERNAME</span><span class="o">=</span>&lt;your cybera username&gt;</span>
+<pre class="highlight"><span class="prompt1"><span class="nb">export</span> <span class="nv">C_USERNAME</span><span class="o">=</span>&lt;your cybera username&gt;</span>
 <span class="prompt1"><span class="nb">export</span> <span class="nv">C_PROJECT</span><span class="o">=</span>&lt;your cybera project name&gt;</span>
 </pre><p>Unpack the zip file and place the entire directory in the .cloudmesh
 directory with. (We assume that you are in the directory where your
@@ -854,7 +845,7 @@ EC2 provider that we have not yet tested.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.2.5',
+            VERSION:'4.3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

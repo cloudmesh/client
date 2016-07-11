@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2 &mdash; cloudmesh_client 4.2.5 documentation</title>
+  <title>cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2 &mdash; cloudmesh_client 4.3.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.5 documentation" href="../../../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.3.0 documentation" href="../../../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                4.2.5
+                4.3.0
               </div>
             
           
@@ -201,7 +201,7 @@
 <div class="viewcode-block" id="CloudProviderLibcloudEC2.initialize"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.libcloud.html#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2.CloudProviderLibcloudEC2.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
 
         <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Initializing libcloud-ec2 for &quot;</span> <span class="o">+</span> <span class="n">cloudname</span><span class="p">)</span>
-        <span class="n">cls</span> <span class="o">=</span> <span class="n">get_driver</span><span class="p">(</span><span class="n">Provider</span><span class="o">.</span><span class="n">EC2_US_EAST</span><span class="p">)</span>
+        <span class="n">cls</span> <span class="o">=</span> <span class="n">get_driver</span><span class="p">(</span><span class="n">Provider</span><span class="o">.</span><span class="n">EC2</span><span class="p">)</span>
 
         <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">][</span><span class="n">cloudname</span><span class="p">]</span>
@@ -239,7 +239,30 @@
                                 <span class="o">**</span><span class="n">extra_args</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;AWS INIT&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="n">ec2_access_key</span><span class="p">,</span> <span class="n">ec2_secret_key</span><span class="p">)</span></div></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="n">ec2_access_key</span><span class="p">,</span> <span class="n">ec2_secret_key</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CloudProviderLibcloudEC2.create_node"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.libcloud.html#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2.CloudProviderLibcloudEC2.create_node">[docs]</a>    <span class="k">def</span> <span class="nf">create_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a VM instance.</span>
+
+<span class="sd">        Reference: https://libcloud.readthedocs.io/en/latest/_modules/libcloud/compute/drivers/ec2.html#BaseEC2NodeDriver.create_node</span>
+
+<span class="sd">        :keyword    name: the name of VM</span>
+<span class="sd">        :type       name: ``str``</span>
+
+<span class="sd">        :keyword    image: the name of vm image</span>
+<span class="sd">        :type       name: :class:`NodeImage`</span>
+
+<span class="sd">        :keyword    size: the size of vm instance</span>
+<span class="sd">        :type       size: :class:`NodeSize`</span>
+
+<span class="sd">        :keyword    ex_keyname: the keyname</span>
+<span class="sd">        :type       name: ``str``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;create_node call in aws&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">image</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;size&#39;</span><span class="p">])</span></div></div>
+        
 </pre></div>
 
            </div>
@@ -272,7 +295,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../../../',
-            VERSION:'4.2.5',
+            VERSION:'4.3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

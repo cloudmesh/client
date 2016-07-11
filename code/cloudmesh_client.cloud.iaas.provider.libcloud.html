@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.iaas.provider.libcloud package &mdash; cloudmesh_client 4.2.5 documentation</title>
+  <title>cloudmesh_client.cloud.iaas.provider.libcloud package &mdash; cloudmesh_client 4.3.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.2.5 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.3.0 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client.cloud.iaas.provider package" href="cloudmesh_client.cloud.iaas.provider.html"/>
         <link rel="next" title="cloudmesh_client.cloud.iaas.provider.openstack package" href="cloudmesh_client.cloud.iaas.provider.openstack.html"/>
         <link rel="prev" title="cloudmesh_client.cloud.iaas.provider.comet package" href="cloudmesh_client.cloud.iaas.provider.comet.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.2.5
+                4.3.0
               </div>
             
           
@@ -365,6 +365,27 @@ If image and flavor passed as none, it would consider the defaults specified in 
 <em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2.</code><code class="descname">CloudProviderLibcloudEC2</code><span class="sig-paren">(</span><em>cloud_name</em>, <em>cloud_details</em>, <em>user=None</em>, <em>flat=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/libcloud/CloudProviderLibcloudEC2.html#CloudProviderLibcloudEC2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2.CloudProviderLibcloudEC2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud" title="cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud</span></code></a></p>
 <dl class="method">
+<dt id="cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2.CloudProviderLibcloudEC2.create_node">
+<code class="descname">create_node</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/libcloud/CloudProviderLibcloudEC2.html#CloudProviderLibcloudEC2.create_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2.CloudProviderLibcloudEC2.create_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a VM instance.</p>
+<p>Reference: <a class="reference external" href="https://libcloud.readthedocs.io/en/latest/_modules/libcloud/compute/drivers/ec2.html#BaseEC2NodeDriver.create_node">https://libcloud.readthedocs.io/en/latest/_modules/libcloud/compute/drivers/ec2.html#BaseEC2NodeDriver.create_node</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<code class="docutils literal"><span class="pre">str</span></code>) &#8211; the name of VM</li>
+<li><strong>image</strong> &#8211; the name of vm image</li>
+<li><strong>size</strong> (<code class="xref py py-class docutils literal"><span class="pre">NodeSize</span></code>) &#8211; the size of vm instance</li>
+<li><strong>ex_keyname</strong> &#8211; the keyname</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2.CloudProviderLibcloudEC2.initialize">
 <code class="descname">initialize</code><span class="sig-paren">(</span><em>cloudname</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/libcloud/CloudProviderLibcloudEC2.html#CloudProviderLibcloudEC2.initialize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2.CloudProviderLibcloudEC2.initialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -420,7 +441,7 @@ If image and flavor passed as none, it would consider the defaults specified in 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.2.5',
+            VERSION:'4.3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

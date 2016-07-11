@@ -8,7 +8,17 @@ a configuration file in the directory:
 
    ~/.cloudmesh/cloudmesh.yaml
 
+To complete the setup you need to call the setup command in the terminal
+command prompt with
+
+.. prompt::  bash
+
+	     cm setup
+
+
 If this file is missing, you can run the command:
+
+.. prompt::  bash
 
     cm help
 
@@ -17,6 +27,8 @@ to automatically generate it from defaults.
 The file will be a template and it can either be modified with your
 favorite editor, or if you are at Indiana University and want to use the
 kilo cloud you can use the command
+
+.. prompt::  bash
 
     cm remote register
 
@@ -73,7 +85,9 @@ and add the following lines to it
 
 please replace albert with your portal name that you have used for
 registration with futuresystems.org. Once you have done this please
-verify that you have access to india with a command such as::
+verify that you have access to india with a command such as
+
+.. prompt::  bash
 
   ssh india uname -a
 
@@ -86,7 +100,9 @@ and you need to get in contact with laszewski@gmail.com. Once you have
 access you can proceed.
 
 Next register the FutureSystems clouds into your cloudmesh yaml file with
-the command::
+the command
+
+.. prompt::  bash
 
    cm register remote
 
@@ -105,15 +121,21 @@ Registration of other clouds
 The register command is quite powerful and useful and we encourage you to
 take a closer look at the manual pages. This includes command such as
 
-To find out more about the registration command::
+To find out more about the registration command
+
+.. prompt::  bash
 
    cm register help
 
-To edit the yaml file with the editor defined by the Shell variable `$EDITOR`::
+To edit the yaml file with the editor defined by the Shell variable `$EDITOR`
+
+.. prompt::  bash
 
    register edit
 
-To list the `cloudmesh.yaml` file::
+To list the `cloudmesh.yaml` file
+
+.. prompt::  bash
 
    register list
 
@@ -124,7 +146,9 @@ Registartion of EC2 clouds with the zip file
 
 In case you have an openstack cloud that exports an ec2 zip file you can register
 such a cloud by first downloading the zip file to your computer and than issuing
-the command::
+the command
+
+.. prompt::  bash
 
     cm register ec2 mycloud filename.zip
 

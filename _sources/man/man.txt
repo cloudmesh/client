@@ -122,7 +122,7 @@ Command - cluster::
         cluster list NAME
                      [--format=FORMAT]
                      [--column=COLUMN]
-                     [--detail]
+                     [--short]
         cluster create NAME
                        [--count=COUNT]
                        [--login=USERNAME]
@@ -131,12 +131,30 @@ Command - cluster::
                        [--flavor=FLAVOR]
                        [--add]
         cluster delete NAME
+        cluster setup NAME [--username]
+        cluster inventory NAME
 
     Description:
         with the help of the cluster command you can create a number
         of virtual machines that are integrated in a named virtual cluster.
         You will be able to login between the nodes of the virtual cluster
         while using public keys.
+
+        cluster setup NAME
+          sets up the keys between the cluster node as well as the machine that
+          executes the cm command
+
+        cluster inventory NAME
+          creates an inventory.txt file to be used by ansible in the current directory
+
+        cluster create NAME
+           creates the virtual machines used for the cluster
+
+        cluster list NAME
+           lists selected details of the vms for the cluster
+
+        cluster delete NAME
+            remove the cluster and its VMs
 
     Examples:
         cluster list
@@ -153,12 +171,6 @@ Command - cluster::
             5. set image of VMs, e.g. default image
             6. set flavor of VMs, e.g. default flavor
             7. Make sure to use a new unused group name
-
-        cluster list NAME
-            show the detailed information about the cluster VMs
-
-        cluster delete NAME
-            remove the cluster and its VMs
 
     Arguments:
         NAME              cluster name or group name
@@ -954,45 +966,18 @@ load
 Command - load::
 
     Usage:
-        load list [--format=FORMAT]
-        load reset
-        load --base=MODULE PLUGINS...
-        load --delete --base=MODULE PLUGINS...
+        load MODULE [PYPI]
 
-        loads a plugins into the cloudmesh command shell
-
-
-    OPTIONS:
-        --base=MODULE  the prefix of the modules [default: cloudmesh_client.shell.plugins]
-        --format=FORMAT  the output format
 
     ARGUMENTS:
-       PLUGINS        the list of plugins to be loaded
+       MODULE  The name of the module
+
+    PREDEFINED MODULE NAMES:
+       vbox    loads vbox command
 
     Examples:
-        cm load list
+        cm load cloudmesh_vagrant.cm_vbox.do_vbox
             lists the plugins currently loaded
-
-        cm load reset
-            unloads all plugins that are not part of the standard plugin
-            load list
-
-        cm load load workflow graphviz
-            loads the modules workflow and graphviz
-            the plugins are classes defined with
-
-                class CheckCommand(PluginCommand, CloudPluginCommand)
-
-            If they are located in a different moduel, the module name can either be
-            specified as part of the PLUGIN anem, or if
-             multiple modules are loaded as part of the MODULE parameter
-
-        cm load list --format=csv
-            list sthe loaded plugins in csv format
-
-        cm load --delete load workflow graphviz
-            the oposite of load
-
 
 
 man
@@ -1565,6 +1550,17 @@ Command - server::
       The location of the database is supposed to be in
 
         ~/.cloud,esh/cloudmesh.db
+
+
+setup
+----------------------------------------------------------------------
+Command - setup::
+
+    Usage:
+        setup
+
+    Examples:
+        cm setup
 
 
 shell
