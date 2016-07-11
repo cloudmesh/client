@@ -7,17 +7,30 @@
  - Documentation Report
 
 
+<<<<<<< HEAD
 ##### ANSIBLE VERSION
 <!--- Paste verbatim output from “ansible --version” between quotes below -->
+=======
+##### CM VERSION
+<!--- Paste verbatim output from “cm version” between quotes below -->
+>>>>>>> master
 ```
 
 ```
 
+<<<<<<< HEAD
 ##### CONFIGURATION
 <!---
 Mention any settings you have changed/added/removed in ansible.cfg
 (or using the ANSIBLE_* environment variables).
 -->
+=======
+##### CM INFO
+<!--- Paste verbatim output from “cm info” between quotes below -->
+```
+
+```
+>>>>>>> master
 
 ##### OS / ENVIRONMENT
 <!---
