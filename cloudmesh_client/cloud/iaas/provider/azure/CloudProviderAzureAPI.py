@@ -2,6 +2,7 @@ from __future__ import print_function
 from azure.servicemanagement import *
 from pprint import pprint
 from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.common.util import generate_password
 from cloudmesh_client.cloud.iaas.provider.azure.AzureDict import AzureDict
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.iaas.CloudProviderBase import CloudProviderBase
@@ -41,6 +42,7 @@ class CloudProviderAzureAPI(CloudProviderBase):
         self.default_flavor = confd['cloudmesh']['clouds']['azure']['default']['flavor']
         self.cloud = "azure"
         self.cloud_details = confd['cloudmesh']['clouds']['azure']
+        self.location = confd["cloudmesh"]["clouds"]["azure"]["default"]["location"]
 
     def _to_dict(self, dict_list):
         final_dict = dict()
@@ -103,6 +105,7 @@ class CloudProviderAzureAPI(CloudProviderBase):
             print("Adding the PFX certificate")
             cert_data = base64.b64encode(bfile.read())
             cert_format = 'pfx'
+            # THIS PASSWORD SHOULD BE DEFINED IN cloudmesh.yml
             cert_password = ''
             cert_res = self.provider.add_service_certificate(service_name=service_name,
                                 data=cert_data,
@@ -122,6 +125,31 @@ class CloudProviderAzureAPI(CloudProviderBase):
             return result[0].service_name
         Console.error("No Storage Accounts found")
         return None
+
+    def _create_storage_account(self):
+        """
+        Storage service is required to create a disk space for a VM
+
+        Reference: SimpleAzure
+
+        """
+        # Note that it is better to create a storage account with a VM name included.
+        # And have a unique name to avoid conflict
+        # TODO: Get a unique readable storage account name
+        # Tips: no dash(-) or space is allowed in naming
+        temp_name = "cloudmesh"
+        name = temp_name[:24].replace("-","")
+        description = name + "description"
+        label = name + "label"
+        result = self.provider.create_storage_account(service_name=name,
+                description=description, label=label,
+                location=self.get_location())
+
+        operation_result = self.provider.get_operation_status(result.request_id)
+        Console.info("Storage Account creation: " + operation_result.status)
+
+    def get_location(self):
+        return self.location
 
     def boot_vm(self,
                 name,
@@ -158,6 +186,7 @@ class CloudProviderAzureAPI(CloudProviderBase):
         :param kwargs:
         :return:
         """
+
         location = ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"]["azure"]["default"]["location"] or 'Central US'
         try:
             self.provider.create_hosted_service(service_name=name,
@@ -166,35 +195,45 @@ class CloudProviderAzureAPI(CloudProviderBase):
         except:
             traceback.print_exc()
             pprint("Error creating hosted service")
-        pprint("service name"+name)
-        pprint("location name"+location)
-        pprint("cert_thumbprint"+cert_thumbprint)
-        pprint("pub_key_path"+pub_key_path)
-        pprint("cert_path"+cert_path)
-        pprint("pfx_path"+pfx_path)
-        pprint("Image"+image)
-        pprint("Flavor"+flavor)
+        pprint("service name: " + name)
+        pprint("location name: " + location)
+        pprint("cert_thumbprint: " + cert_thumbprint)
+        pprint("pub_key_path: " + pub_key_path)
+        pprint("cert_path: " + cert_path)
+        pprint("pfx_path:" + pfx_path)
+        pprint("Image:" + image)
+        pprint("Flavor:" + flavor)
         pprint("Certificate adding")
-        self.add_certificate(name, pfx_path)
+        # Disabled - not required to start Virtual Machine
+        #self.add_certificate(name, pfx_path)
         pprint("Certificate added")
         storage_name = self._get_storage_name()
+        if storage_name is None:
+            self._create_storage_account()
+            storage_name = self._get_storage_name()
         media_link = 'https://{0}.blob.core.windows.net/vhds/{1}.vhd'.format(
-                        storage_name,
-                        name)
+                        storage_name, name)
         os_hd = OSVirtualHardDisk(image, media_link)
 
         username = ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"]["azure"]["default"]["username"]
         password = ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"]["azure"]["default"]["password"]
-        pprint("Username:"+username)
-        pprint("password:"+password)
+        # Auto-generated Password in case of TBD
+        if username.lower() in ["tbd"]:
+            username = "azure";
+        if password.lower() in ["tbd"]:
+            password = generate_password(16)
+
+        pprint("Username: "+username)
+        pprint("password: "+password)
 
         # TODO: current case handles only for linux guest VMs, implementation needed for Windows VMs
+        # SSH key configuration does not work properly - DISABLED
         linux_config = LinuxConfigurationSet(name, username, password, False)
         linux_config.ssh = SSH()
         public_key = PublicKey(cert_thumbprint, pub_key_path)
-        linux_config.ssh.public_keys.public_keys.append(public_key)
+        #linux_config.ssh.public_keys.public_keys.append(public_key)
         pair = KeyPair(cert_thumbprint, cert_path)
-        linux_config.ssh.key_pairs.key_pairs.append(pair)
+        #linux_config.ssh.key_pairs.key_pairs.append(pair)
 
         # Endpoint configuration
         network = ConfigurationSet()

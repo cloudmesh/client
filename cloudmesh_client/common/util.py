@@ -11,6 +11,7 @@ import re
 
 from builtins import input
 from past.builtins import basestring
+import random
 
 def search(lines, pattern):
     p = pattern.replace("*", ".*")
@@ -269,3 +270,14 @@ def check_python():
         print("WARNING: You are running an old version of pip: " + str(pip_version))
         print("         We recommend you update your pip  with \n")
         print("             pip install -U pip\n")
+
+# Reference: http://interactivepython.org/runestone/static/everyday/2013/01/3_password.html
+def generate_password(length=8):
+    alphabet = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    mypw = ""
+
+    for i in range(length):
+        next_index = random.randrange(len(alphabet))
+        mypw = mypw + alphabet[next_index]
+
+    return mypw

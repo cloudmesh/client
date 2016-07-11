@@ -101,6 +101,8 @@ class VM_LIBCLOUD(CloudmeshMixin, CloudmeshDatabase.Base):
     root_device_name = Column(String)
     root_device_type = Column(String)
     status = Column(String)
+    image = Column(String)
+    flavor = Column(String)
     group = Column(String)
 
     def __init__(self, **kwargs):
@@ -115,9 +117,9 @@ class VM_LIBCLOUD(CloudmeshMixin, CloudmeshDatabase.Base):
         self.image_id = kwargs.get("image_id")
         self.instance_id = kwargs.get("instance_id")
         self.instance_type = kwargs.get("instance_type")
-        self.key = kwargs.get("key")
         self.private_dns = kwargs.get("private_dns")
         self.root_device_name = kwargs.get("root_device_name")
         self.root_device_type = kwargs.get("root_device_type")
         self.status = kwargs.get("status", "defined")
+        self.key = kwargs.get("key", None)
         self.group = kwargs.get("group", None)
