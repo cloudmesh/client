@@ -307,7 +307,7 @@ class Shell(object):
         return platform.system().lower()
 
     @classmethod
-    def execute(cls, cmd, arguments="", shell=False, cwd=None):
+    def execute(cls, cmd, arguments="", shell=False, cwd=None, traceflag=True, witherror=True):
         """Run Shell command
 
         :param cmd: command to run
@@ -354,7 +354,8 @@ class Shell(object):
                     stderr=subprocess.STDOUT,
                     cwd=cwd)
         except:
-            Console.error("problem executing subprocess")
+            if witherror:
+                Console.error("problem executing subprocess", traceflag=traceflag)
         if result is not None:
             result = result.strip().decode()
         return result
