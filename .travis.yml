@@ -1,14 +1,10 @@
 sudo: required
-dist: xenial
+dist: trusty
 
 notifications:
   email:
     - laszewski@gmail.com
-    - shenoy.200@gmail.com
-    - vaglomangirish@gmail.com
     - kevinwangfg@gmail.com
-
-sudo add-apt-repository ppa:fkrull/deadsnakes-python2.7
 
 before_install:
   - sudo apt-get install -y software-properties-common
