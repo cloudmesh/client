@@ -27,7 +27,7 @@ Flask-Admin==1.4.2
 Flask-HTTPAuth==3.1.2
 Flask-SQLAlchemy==2.1
 funcsigs==1.0.2
-functools32==3.2.3.post2
+functools32==3.2.3-2
 future==0.15.2
 futures==3.0.5
 gitchangelog==2.3.0
