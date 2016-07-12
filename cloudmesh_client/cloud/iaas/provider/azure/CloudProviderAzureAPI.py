@@ -292,6 +292,9 @@ class CloudProviderAzureAPI(CloudProviderBase):
         """
         self.provider.delete_deployment(service_name=name,
                                         deployment_name=name)
+        # Wait a sec before deleting hosted service?
+        import time
+        time.sleep(10)
         self.provider.delete_hosted_service(service_name=name)
         Console.info("Delete Success.ok.")
 

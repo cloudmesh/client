@@ -91,8 +91,14 @@ class Vm(ListResource):
 
             # Handle EC2 Specific Output
             if cloud_details["cm_type"] == "ec2":
-                Console.TODO("ec2 ip dict yet to be implemented")
-                TODO.implement()
+                #Console.TODO("ec2 ip dict yet to be implemented")
+                #TODO.implement()
+                # :type str: ip_addr
+                index = 0
+                ipaddr = {}
+                ipaddr[index] = {}
+                ipaddr[index]['addr'] = ip_addr
+                return ipaddr
 
             # Handle Azure Specific Output
             if cloud_details["cm_type"] == "azure":
@@ -107,7 +113,7 @@ class Vm(ListResource):
                 return ipaddr
 
         except Exception as e:
-            Error.error("error in vm construct dict", traceback=True)
+            Console.error("error in vm construct dict %s" % e, traceflag=True)
 
     @classmethod
     def isUuid(cls, name):
