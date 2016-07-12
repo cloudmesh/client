@@ -237,7 +237,7 @@ Command - comet::
                     [--walltime=WALLTIME]
        comet terminate COMPUTESETID
        comet power (on|off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
-       comet console CLUSTERID [COMPUTENODEID]
+       comet console [--link] CLUSTERID [COMPUTENODEID]
        comet node info CLUSTERID [COMPUTENODEID] [--format=FORMAT]
        comet node rename CLUSTERID OLDNAMES NEWNAMES
        comet iso list
@@ -264,6 +264,7 @@ Command - comet::
                                 If not specified, use the original filename
         --state=COMPUTESESTATE  List only computeset with the specified state.
                                 The state could be submitted, running, completed
+        --link                  Whether to open the console url or just show the link
 
     Arguments:
         CLUSTERID       The assigned name of a cluster, e.g. vc1

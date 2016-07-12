@@ -129,9 +129,11 @@ Comet
 | | cm comet terminate 123              | | terminate the resource reservation. A computeset will be             |
 | |                                     | | terminated automatically when requested walltime reached             |
 +---------------------------------------+------------------------------------------------------------------------+
-| | cm comet console vc4                | | Get console of the frontend                                          |
+| | cm comet console vc4                | | Get console of the frontend, openned in a browser                    |
 +---------------------------------------+------------------------------------------------------------------------+
 | | cm comet console vc4 vm-vc4-0       | | Get console of a running node                                        |
++---------------------------------------+------------------------------------------------------------------------+
+| | cm comet console --link vc4         | | Get console of the frontend, URL only                                |
 +---------------------------------------+------------------------------------------------------------------------+
 | | cm comet iso list                   | | Get list of images available to you                                  |
 +---------------------------------------+------------------------------------------------------------------------+

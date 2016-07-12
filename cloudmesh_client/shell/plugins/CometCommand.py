@@ -67,6 +67,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                         If not specified, use the original filename
                 --state=COMPUTESESTATE  List only computeset with the specified state.
                                         The state could be submitted, running, completed
+                --link                  Whether to open the console url or just show the link
 
             Arguments:
                 CLUSTERID       The assigned name of a cluster, e.g. vc1

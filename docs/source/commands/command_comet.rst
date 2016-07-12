@@ -325,6 +325,12 @@ to display the console (in Mac OS X); or a firefox window (in Linux).
 If no compatible browser found, it will print out a URL so you can 
 access it via other means.
 
+You can also get the URL directly by calling:
+
+.. prompt:: bash
+
+    cm comet console --link vc2
+
 System image management
 ~~~~
 Get the list of images that are available to you:
