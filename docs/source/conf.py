@@ -12,11 +12,12 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
+import os
+#os.path.abspath('../cloudmesh_client')
 
 from cloudmesh_client.version import __version__
-import os
+#__version__ = '4.3.1'
 
-# os.path.abspath('../cloudmesh_client')
 
 # on_rtd is whether we are on readthedocs.org
 
