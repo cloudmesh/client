@@ -43,16 +43,17 @@ For more info please contact Gregor von Laszewski, laszewski@gmail.com
    E-mail: laszewski@gmail.comn  |br|
    Indiana University |br|
    School of Informatics and Computing |br|
-   Informatics West |br|
+   Informatics West
    901 E. 10th St. |br|
    Bloomington, IN 47408 |br|
 
 and my office is at 
 
-   611 N. Park Ave. |br|
-   Bloomington, IN 47408 |br|
-   
-   `Google Map <https://www.google.com/maps/place/611+N+Park+Ave,+Bloomington,+IN+47408/@39.1721978,-86.5248349,17z/data=!3m1!4b1!4m2!3m1!1s0x886c66c69d3f454f:0x14b53a197e1ac505>`_
+   Smith Research Center |br|
+   2805 E. 10th St. |br|
+   Bloomington, IN 47405 |br|
+
+   `Google Map <https://www.google.com/maps/place/Smith+Research+Center/@39.1737049,-86.500201,15z/data=!4m5!3m4!1s0x0:0x5ed344c7b840ce57!8m2!3d39.1737049!4d-86.500201>`_
 
 .. |br| raw:: html
 
