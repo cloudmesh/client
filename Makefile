@@ -12,6 +12,7 @@ BROWSER=/cygdrive/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
 endif
 
 doc: man
+	pip install -r requirements-doc.txt
 	sphinx-apidoc -f -o docs/source/code cloudmesh_client
 	cd docs; make html
 	cp -r scripts docs/build/html

@@ -13,10 +13,11 @@
 # serve to show the default.
 
 import os
-#os.path.abspath('../cloudmesh_client')
+# os.path.abspath('../../build/lib')
+# os.system ("pwd")
 
 from cloudmesh_client.version import __version__
-#__version__ = '4.3.1'
+# __version__ = '4.3.1'
 
 
 # on_rtd is whether we are on readthedocs.org
