@@ -8,4 +8,4 @@ sudo pip install ansible
 sudo pip install cloudmesh_client
 python --version
 pip --version
-git -–version
+# git -–version
