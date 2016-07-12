@@ -512,22 +512,26 @@ class Comet(object):
         return return_url
 
     @staticmethod
-    def console(clusterid, nodeid=None):
+    def console(clusterid, nodeid=None, linkonly=False):
         url = Comet.console_url(clusterid, nodeid)
         if url:
             newurl_esc = url.replace("&", "\&")
-            # print (newurl)
-            # for OSX
-            if 'darwin' == sys.platform:
-                os.system("open {}".format(newurl_esc))
-            # for linux - tested on Ubuntu 14.04 and CentOS 7.1
-            elif 'linux2' == sys.platform:
-                os.system("firefox {}".format(newurl_esc))
+            if linkonly:
+                print ("Copy the following link and paste to your browser"\
+                       " to access:\n{}".format(url))
             else:
-                print("OS not supported!"
-                      "Use the following url manually in your brower:\n{}".format(url))
+                # for OSX
+                if 'darwin' == sys.platform:
+                    os.system("open {}".format(newurl_esc))
+                # for linux - tested on Ubuntu 14.04 and CentOS 7.1
+                elif 'linux2' == sys.platform:
+                    os.system("firefox {}".format(newurl_esc))
+                else:
+                    print("OS not supported!"
+                          "Use the following url manually in your brower:\n{}".format(url))
         else:
-            print("Console URL not available. Please make sure the node is running and try again!")
+            print("Console URL not available."\
+                  "Please make sure the node is running and try again!")
 
     @staticmethod
     def md5(fname):

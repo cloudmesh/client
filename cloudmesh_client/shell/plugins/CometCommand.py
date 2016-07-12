@@ -40,7 +40,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                             [--walltime=WALLTIME]
                comet terminate COMPUTESETID
                comet power (on|off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
-               comet console CLUSTERID [COMPUTENODEID]
+               comet console [--link] CLUSTERID [COMPUTENODEID]
                comet node info CLUSTERID [COMPUTENODEID] [--format=FORMAT]
                comet node rename CLUSTERID OLDNAMES NEWNAMES
                comet iso list
@@ -470,10 +470,13 @@ class CometCommand(PluginCommand, CometPluginCommand):
                   )
         elif arguments["console"]:
             clusterid = arguments["CLUSTERID"]
+            linkonly = False
+            if arguments["--link"]:
+                linkonly = True
             nodeid = None
             if 'COMPUTENODEID' in arguments:
                 nodeid = arguments["COMPUTENODEID"]
-            Comet.console(clusterid, nodeid)
+            Comet.console(clusterid, nodeid, linkonly)
         elif arguments["iso"]:
             if arguments["list"]:
                 isos = (Comet.list_iso())
