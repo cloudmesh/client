@@ -72,6 +72,17 @@ log:
 	git commit -m "chg: dev: Update ChangeLog" ChangeLog
 	git push
 
+# Freeze the requirements using the order specified in the unconstrained list.
+# Some packages' installation requires others to be installed, and `pip freeze`
+# outputs in lexicographic order by default. A side-effect is that all comments
+# in the parameter to -r are kept, so we pipe through egrep to remove them.
+freeze:
+        echo "Sanity check: this package should not be installed"
+        if [ `pip freeze | grep -i cloudmesh-client` ]; then echo "Check failed";  return 1; fi
+        pip freeze -r requirements-open.txt | egrep -v '^#' >requirements.txt
+
+
+
 ######################################################################
 # TESTING
 ######################################################################
