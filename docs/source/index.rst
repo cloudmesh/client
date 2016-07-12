@@ -62,6 +62,13 @@ This documentation and code is available on github at:
    exercises
 
 .. toctree::
+   :caption: Tutorials
+   :maxdepth: 2
+
+   tutorial/comet_cloudmesh
+   tutorial/comet_bigdata
+
+.. toctree::
    :caption: Developer Manuals
    :maxdepth: 2
 
