@@ -275,6 +275,7 @@ def check_python():
 def generate_password(length=8, lower=True, upper=True, number=True):
     lletters = "abcdefghijklmnopqrstuvwxyz"
     uletters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    # This doesn't guarantee both lower and upper cases will show up
     alphabet = lletters + uletters
     digit = "0123456789"
     mypw = ""
