@@ -246,7 +246,7 @@ class CloudProviderAzureAPI(CloudProviderBase):
         network.input_endpoints.input_endpoints.append(
             ConfigurationSetInputEndpoint('SSH', 'tcp', '22', '22'))
 
-        Console.info("blob storage location: ", media_link)
+        Console.info("blob storage location: {0} ".format(media_link))
         try:
             vm_create_result = self.provider.create_virtual_machine_deployment(service_name=name,
             deployment_name=name,
