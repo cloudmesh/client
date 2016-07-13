@@ -767,10 +767,12 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             chameleon = "chameleon" in ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"][arg.cloud][
                 "cm_host"]
 
+            # TODO
+            # username should be fetched from --username parameter or from definition in yaml file in any cloud
             if chameleon:
                 arg.username = "cc"
             elif arg.cloud == "azure":
-                arg.username = ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"]["azure"]["default"]["username"]
+                arg.username = arguments["--username"] or ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"]["azure"]["default"]["username"]
             else:
                 if arg.username is None:
                     Console.error("Could not guess the username of the vm", traceflag=False)
