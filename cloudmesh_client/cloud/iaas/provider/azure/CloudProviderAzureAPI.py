@@ -35,8 +35,9 @@ class CloudProviderAzureAPI(CloudProviderBase):
         cloudcred = confd['cloudmesh']['clouds']['azure']['credentials']
         subscription_id = cloudcred['subscriptionid']
         certificate_path = cloudcred['managementcertfile']
-        pprint("subscriptionid:"+subscription_id)
-        pprint("certificate_path:"+certificate_path)
+        # DEBUGGING INFO 
+        # pprint("subscriptionid:"+subscription_id)
+        # pprint("certificate_path:"+certificate_path)
         self.provider = ServiceManagementService(subscription_id, certificate_path)
         self.default_image = confd['cloudmesh']['clouds']['azure']['default']['image']
         self.default_flavor = confd['cloudmesh']['clouds']['azure']['default']['flavor']
@@ -80,7 +81,8 @@ class CloudProviderAzureAPI(CloudProviderBase):
         result = self.provider.list_hosted_services()
         vm_dict_list = []
         for hosted_service in result:
-            pprint("Detail of:" + hosted_service.service_name)
+            # DEBUGGING INFO
+            # pprint("Detail of:" + hosted_service.service_name)
             hosted_service_detail = self.provider.get_hosted_service_properties(hosted_service.service_name, embed_detail=True)
             for key, deployment in enumerate(hosted_service_detail.deployments):
                 # print("Dict of the VM Object", key)
@@ -121,9 +123,9 @@ class CloudProviderAzureAPI(CloudProviderBase):
         """
         result = self.provider.list_storage_accounts()
         if len(result) > 0:
-            print("storage_service_name found ", result[0].service_name)
+            Console.info("{0} storage found ".format(result[0].service_name))
             return result[0].service_name
-        Console.error("No Storage Accounts found")
+        Console.warning("No Storage Accounts found")
         return None
 
     def _create_storage_account(self):
@@ -193,20 +195,23 @@ class CloudProviderAzureAPI(CloudProviderBase):
                                     label=name,
                                     location=location)
         except:
-            traceback.print_exc()
-            pprint("Error creating hosted service")
-        pprint("service name: " + name)
-        pprint("location name: " + location)
-        pprint("cert_thumbprint: " + cert_thumbprint)
-        pprint("pub_key_path: " + pub_key_path)
-        pprint("cert_path: " + cert_path)
-        pprint("pfx_path:" + pfx_path)
-        pprint("Image:" + image)
-        pprint("Flavor:" + flavor)
-        pprint("Certificate adding")
-        # Disabled - not required to start Virtual Machine
-        #self.add_certificate(name, pfx_path)
-        pprint("Certificate added")
+            Console.error("Failed to create hosted service in Azure: {0}".format(traceback.format_exc()))
+
+        try:
+            Console.info("service name: " + name)
+            Console.info("location name: " + location)
+            Console.info("cert_thumbprint: " + cert_thumbprint)
+            Console.info("pub_key_path: " + pub_key_path)
+            Console.info("cert_path: " + cert_path)
+            Console.info("pfx_path:" + pfx_path)
+            Console.info("Image:" + image)
+            Console.info("Flavor:" + flavor)
+            #Console.info("Certificate adding")
+            # Disabled - not required to start Virtual Machine
+            #self.add_certificate(name, pfx_path)
+            #Console.info("Certificate added")
+        except Exception as e:
+            Console.warning("Console.info error: {0}".format(traceback.format_exc()))
         storage_name = self._get_storage_name()
         if storage_name is None:
             self._create_storage_account()
@@ -223,8 +228,8 @@ class CloudProviderAzureAPI(CloudProviderBase):
         if password.lower() in ["tbd"]:
             password = generate_password(16)
 
-        pprint("Username: "+username)
-        pprint("password: "+password)
+        Console.info("Username: "+username)
+        Console.info("password: "+password)
 
         # TODO: current case handles only for linux guest VMs, implementation needed for Windows VMs
         # SSH key configuration does not work properly - DISABLED
@@ -241,7 +246,7 @@ class CloudProviderAzureAPI(CloudProviderBase):
         network.input_endpoints.input_endpoints.append(
             ConfigurationSetInputEndpoint('SSH', 'tcp', '22', '22'))
 
-        print("Starting the VM on ", media_link)
+        Console.info("blob storage location: ", media_link)
         try:
             vm_create_result = self.provider.create_virtual_machine_deployment(service_name=name,
             deployment_name=name,
@@ -254,10 +259,9 @@ class CloudProviderAzureAPI(CloudProviderBase):
             role_size=flavor)
             # pprint(vm_create_result)
             self.provider.wait_for_operation_status(vm_create_result.request_id, timeout=30)
-            Console.info("VM boot up successful.ok.")
+            Console.info("{0} created successfully".format(name))
         except:
-            traceback.print_exc()
-            pprint("Exception in starting the VM")
+            Console.error("Failed to start Azure Virtual Machine: {0}".format(traceback.format_exc()))
         return name
 
     def get_ips(self, name, group=None, force=None):
@@ -268,7 +272,7 @@ class CloudProviderAzureAPI(CloudProviderBase):
         :param force:
         :return: IP address of the instance
         """
-        pprint("In get_ips::")
+        #pprint("In get_ips::")
         result = self.provider.list_hosted_services()
         for hosted_service in result:
             # pprint("Detail of:" + hosted_service.service_name)
@@ -296,7 +300,7 @@ class CloudProviderAzureAPI(CloudProviderBase):
         import time
         time.sleep(10)
         self.provider.delete_hosted_service(service_name=name)
-        Console.info("Delete Success.ok.")
+        Console.info("{0} deleted".format(name))
 
     def assign_ip(self, name):
         Console.TODO("not yet implemented")
