@@ -4,15 +4,14 @@ Comet Cloudmesh Tutorial
 SetupCloudmesh Client on Ubuntu Desktop in Virtualbox
 
 Virtual Box
-===========
+----------------------------------------------------------------------
 
 * For convenience we will be using Ubuntu Xenial in this demo to install
 the cloudmesh client on it 
 
 * Please make sure you have virtualbox installed
 
-* The link to the download is https://www.virtualbox.org/wiki/Downloads 
-
+* The link to the download is https://www.virtualbox.org/wiki/Downloads
 
 * Download ubuntu desktop
 http://www.ubuntu.com/download
@@ -25,7 +24,6 @@ http://www.ubuntu.com/download
 * Start and configure the image
 * Start a terminal 
 * You may want to enable past and copy between host and vm and add the guest additions.
-
   
 .. prompt:: bash
 
@@ -48,7 +46,7 @@ What is in the script:
 
 
 
-Configure CLoudmesh
+Configure Cloudmesh
 -------------------
 
 .. prompt:: bash
@@ -59,7 +57,7 @@ Configure CLoudmesh
 
     
 Instalation with Pip
-====================
+----------------------------------------------------------------------
 
 Installing in a virtualenv is recommended.
 
@@ -70,7 +68,7 @@ Installing in a virtualenv is recommended.
   cm comet init
 
 Getting access to your cluster
-==============================
+----------------------------------------------------------------------
 
 Access your vc
 
@@ -89,8 +87,8 @@ ISO images:
   cm comet iso list
   cm comet iso attach ubuntu-14.04.4-server-amd64.iso vc2
 
-Example:Install the front-end node
-====================================
+Example: Install the front-end node
+----------------------------------------------------------------------
 
 Find an iso and attach
 
@@ -105,14 +103,13 @@ Getting network configuration parameters
 
   cm comet node info vc2
 
-  Power on the node
+Power on the node
 
 .. prompt:: bash
 
   cm comet power on vc2
 
-  If it is already running, please power if off so the iso attach
-  could take effect:
+If it is already running, please power if off so the iso attach could take effect:
 
 .. prompt:: bash
   
@@ -125,38 +122,52 @@ Attach console to finish the OS setup
   cm comet console vc2
 
 Finishing Front-end setup
-=========================
+----------------------------------------------------------------------
 
-cm comet power off vc2
+.. prompt:: bash
+
+    cm comet power off vc2
+
 This ensures the iso could be detached
 
-cm comet iso detach vc2
-cm comet power on vc2
+.. prompt:: bash
+
+   cm comet iso detach vc2
+   cm comet power on vc2
 
 login and configure the cluster
 
 via console:
 
-cm comet console vc2
+.. prompt:: bash
+
+  cm comet console vc2
 
 via ssh:
 
-ssh USER@IP
+.. prompt:: bash
+
+  ssh USER@IP
 
 Configuring the front-end node
-===============================
+----------------------------------------------------------------------
 
-::
+Configuring the internal NIC:
+Modify /etc/network/interfaces, and add:
 
-   Configuring the internal NIC:
-   Modify /etc/network/interfaces, and add:
+.. prompt:: bash
+
    auto eth0
    iface eth0 inet static
 	  address 192.168.1.1
 	  netmask 255.255.255.0
 	  network 192.168.1.0
 	  broadcast 192.168.1.255
-   Then bring up the port:        
+
+Then bring up the port
+
+.. prompt:: bash
+
    sudo ifup eth0
 
    wget -O deploy.sh http://bit.ly/vc-deploy
@@ -164,19 +175,32 @@ Configuring the front-end node
 
 
 Example: Install Compute Nodes
-===============================
+----------------------------------------------------------------------
 
 Compute node setup
 
 ::
 
    cm comet start vc2 vm-vc2-[1-2]
-   Took about 15~20 minutes
-   Once done, the node will be shutoff
-   Changing to localboot
-   Modify /var/lib/tftpboot/pxelinux.cfg/default
+
+
+Took about 15~20 minutes
+
+Once done, the node will be shutoff
+
+Changing to localboot
+
+Modify /var/lib/tftpboot/pxelinux.cfg/default
+
+::
+
    #default netinstall
    default local
-   Cm comet power on vc2 vm-vc2-[1-2]
-   login to compute nodes from front-end, and run demo app
+
+
+.. prompt:: bash
+
+    cm comet power on vc2 vm-vc2-[1-2]
+
+login to compute nodes from front-end, and run demo app
 
