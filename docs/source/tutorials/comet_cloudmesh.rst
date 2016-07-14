@@ -123,19 +123,13 @@ Attach console to finish the OS setup
 
 Finishing Front-end setup
 ----------------------------------------------------------------------
+At end of the installation, click 'complete' to finish the setup. The node will
+reboot into the OS installation CD again, but now choose 'boot from first hard disk'
+option from the booting menu. This ensure the node boots into the newly installed OS,
+while having the OS installation CD still attached (we will need the CD again in the
+later steps).
 
-.. prompt:: bash
-
-    cm comet power off vc2
-
-This ensures the iso could be detached
-
-.. prompt:: bash
-
-   cm comet iso detach vc2
-   cm comet power on vc2
-
-login and configure the cluster
+Once the node is back on, you can now login and configure the cluster
 
 via console:
 
@@ -152,26 +146,23 @@ via ssh:
 Configuring the front-end node
 ----------------------------------------------------------------------
 
-Configuring the internal NIC:
-Modify /etc/network/interfaces, and add:
+On your managing machine where cloudmesh client tools is installed:
 
 .. prompt:: bash
 
-   auto eth0
-   iface eth0 inet static
-	  address 192.168.1.1
-	  netmask 255.255.255.0
-	  network 192.168.1.0
-	  broadcast 192.168.1.255
+  wget https://raw.githubusercontent.com/sdsc/comet-vc-tutorial/master/cmutil.py
+  python cmutil.py nodesfile
+  scp vcnodes_<VCNAME>.txt vcnet_<VCNAME>.txt <USER>@<VCIP>:~/
 
-Then bring up the port
+On vc front-end node:
 
 .. prompt:: bash
 
-   sudo ifup eth0
-
-   wget -O deploy.sh http://bit.ly/vc-deploy
-   sh deploy.sh
+  sudo su –
+  cp ~<USER>/*.txt .
+  wget https://raw.githubusercontent.com/sdsc/comet-vc-tutorial/master/deploy.sh
+  wget https://raw.githubusercontent.com/sdsc/comet-vc-tutorial/master/cmutil.py
+  sudo sh deploy.sh
 
 
 Example: Install Compute Nodes
@@ -188,19 +179,27 @@ Took about 15~20 minutes
 
 Once done, the node will be shutoff
 
-Changing to localboot
-
-Modify /var/lib/tftpboot/pxelinux.cfg/default
-
-::
-
-   #default netinstall
-   default local
-
+Changing to localboot. Do this on the front-end node:
 
 .. prompt:: bash
 
-    cm comet power on vc2 vm-vc2-[1-2]
+  ./cmutil.py setboot $HOSTNAME <NODE> net=false
 
-login to compute nodes from front-end, and run demo app
+.. prompt:: bash
 
+Then on your managing host where cloudmesh client is installed:
+
+.. prompt:: bash
+
+  cm comet power on vc2 vm-vc2-[1-2
+
+On front-end node:
+
+.. prompt:: bash
+
+  wget https://raw.githubusercontent.com/sdsc/comet-vc-tutorial/master/key_setup.sh
+  sh key_setup.sh
+  
+This would setup the key, authorized keys, and known hosts files on the nodes.
+
+login to compute nodes from front-end, and run your app.
