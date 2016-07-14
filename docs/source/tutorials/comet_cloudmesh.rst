@@ -171,17 +171,45 @@ Screenshots for the frontend node configuration:
 
    Figure: Add your DNS servers, note yours may be different
 
+
+.. figure:: ./images/20_hostname.png
+   :scale: 50 %
+   :alt: screenshot
+
+   Figure: Set the hostname (to be your VC name preferably)
+
+.. figure:: ./images/21_domain.png
+   :scale: 50 %
+   :alt: screenshot
+
+   Figure: Set the domain name
+
 .. figure:: ./images/08_partition.png
    :scale: 50 %
    :alt: screenshot
 
    Figure: Partition the disk
+   
+.. figure:: ./images/22_user_password_creation.png
+   :scale: 50 %
+   :alt: screenshot
+
+   Figure: Set up the username/password. Remember this to login to the front-end node later.
 
 .. figure:: ./images/09_services_packages.png
    :scale: 50 %
    :alt: screenshot
 
-   Figure: Select default services you like
+   Figure: Select default services you like. 'OpenSSH server' is required.
+
+
+Finishing Front-end setup
+----------------------------------------------------------------------
+At end of the installation, click 'complete' to finish the setup. The node will
+reboot into the OS installation CD again, but now choose 'boot from first hard disk'
+option from the booting menu. This ensure the node boots into the newly installed OS,
+while having the OS installation CD still attached (we will need the CD again in the
+later steps).
 
 .. figure:: ./images/10_complete.png
    :scale: 50 %
@@ -193,7 +221,7 @@ Screenshots for the frontend node configuration:
    :scale: 50 %
    :alt: screenshot
 
-   Figure: Do **not** press CONTINUE
+   Figure: The node will be rebooted and the console is now expired
 
 .. figure:: ./images/12_reboot_cd.png
    :scale: 50 %
@@ -206,33 +234,6 @@ Screenshots for the frontend node configuration:
    :alt: screenshot
 
    Figure: Chose to boot from hard disk
-
-.. figure:: ./images/20_hostname.png
-   :scale: 50 %
-   :alt: screenshot
-
-   Figure: Set the hostname
-
-.. figure:: ./images/21_domain.png
-   :scale: 50 %
-   :alt: screenshot
-
-   Figure: Set the domain name
-
-.. figure:: ./images/22_user_password_creation.png
-   :scale: 50 %
-   :alt: screenshot
-
-   Figure: set up a strong password
-
-
-Finishing Front-end setup
-----------------------------------------------------------------------
-At end of the installation, click 'complete' to finish the setup. The node will
-reboot into the OS installation CD again, but now choose 'boot from first hard disk'
-option from the booting menu. This ensure the node boots into the newly installed OS,
-while having the OS installation CD still attached (we will need the CD again in the
-later steps).
 
 Once the node is back on, you can now login and configure the cluster
 
@@ -296,7 +297,7 @@ Then on your managing host where cloudmesh client is installed:
 
 .. prompt:: bash
 
-  cm comet power on vc2 vm-vc2-[1-2
+  cm comet power on vc2 vm-vc2-[1-2]
 
 On front-end node:
 
@@ -308,5 +309,4 @@ On front-end node:
 This would setup the key, authorized keys, and known hosts files on the nodes.
 
 login to compute nodes from front-end, and run your app.
-
 
