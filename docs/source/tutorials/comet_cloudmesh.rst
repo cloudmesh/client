@@ -179,7 +179,7 @@ Example: Install Compute Nodes
 
 Compute node setup
 
-::
+.. prompt:: bash
 
    cm comet start vc2 vm-vc2-[1-2]
 
