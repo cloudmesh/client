@@ -204,3 +204,107 @@ Modify /var/lib/tftpboot/pxelinux.cfg/default
 
 login to compute nodes from front-end, and run demo app
 
+Screenshots
+-----------
+
+.. figure:: ./images/00_install_start.png
+   :scale: 50 %
+   :alt: screenshot
+
+   00_install_start.png
+
+.. figure:: ./images/01_NIC.png
+   :scale: 50 %
+   :alt: screenshot
+
+   01_NIC.png
+
+.. figure:: ./images/02_dhcp_failed.png
+   :scale: 50 %
+   :alt: screenshot
+
+   02_dhcp_failed.png
+
+.. figure:: ./images/03_netconf_manual.png
+   :scale: 50 %
+   :alt: screenshot
+
+   03_netconf_manual.png
+
+.. figure:: ./images/04_net_ip.png
+   :scale: 50 %
+   :alt: screenshot
+
+   04_net_ip.png
+
+.. figure:: ./images/05_net_mask.png
+   :scale: 50 %
+   :alt: screenshot
+
+   05_net_mask.png
+
+.. figure:: ./images/06_net_gateway.png
+   :scale: 50 %
+   :alt: screenshot
+
+   06_net_gateway.png
+
+.. figure:: ./images/07_net_dns.png
+   :scale: 50 %
+   :alt: screenshot
+
+   07_net_dns.png
+
+.. figure:: ./images/08_partition.png
+   :scale: 50 %
+   :alt: screenshot
+
+   08_partition.png
+
+.. figure:: ./images/09_services_packages.png
+   :scale: 50 %
+   :alt: screenshot
+
+   09_services_packages.png
+
+.. figure:: ./images/10_complete.png
+   :scale: 50 %
+   :alt: screenshot
+
+   10_complete.png
+
+.. figure:: ./images/11_complete_console_expired.png
+   :scale: 50 %
+   :alt: screenshot
+
+   11_complete_console_expired.png
+
+.. figure:: ./images/12_reboot_cd.png
+   :scale: 50 %
+   :alt: screenshot
+
+   12_reboot_cd.png
+
+.. figure:: ./images/13_reboot_cd_choose_hd.png
+   :scale: 50 %
+   :alt: screenshot
+
+   13_reboot_cd_choose_hd.png
+
+.. figure:: ./images/20_hostname.png
+   :scale: 50 %
+   :alt: screenshot
+
+   20_hostname.png
+
+.. figure:: ./images/21_domain.png
+   :scale: 50 %
+   :alt: screenshot
+
+   21_domain.png
+
+.. figure:: ./images/22_user_password_creation.png
+   :scale: 50 %
+   :alt: screenshot
+
+   22_user_password_creation.png
