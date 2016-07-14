@@ -107,6 +107,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#ubuntu-quick-install-scripts-untested">Ubuntu Quick Install Scripts (untested)</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#ubuntu-xenial-vm-with-pip">Ubuntu Xenial VM with pip</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#centos">CentOS</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#one-line-install">One line install</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#deatailed-step-by-step-system-preparation">Deatailed Step-by-Step system preparation</a></li>
@@ -134,6 +135,9 @@
 <p class="caption"><span class="caption-text">Teaching</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul class="simple">
 </ul>
 <p class="caption"><span class="caption-text">Developer Manuals</span></p>
 <ul>
@@ -224,8 +228,8 @@ span.prompt1:before {
   content: "$ ";
 }
 </style><span class="prompt1">xcode-select --install</span>
-</pre><p>We recommend that you use python 2.7, e.g. at least python
-2.7.10. This version of python is easy to install while downloading
+</pre><p>We recommend that you use python at 2.7.12, but not python 3. At this time
+This version of python is easy to install while downloading
 the dmg and installing it on the system. You can find the python
 version at:</p>
 <ul class="simple">
@@ -255,13 +259,13 @@ command line</p>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>Python</td>
-<td>2.7.10</td>
+<td>2.7.12</td>
 </tr>
 <tr class="row-odd"><td>pip</td>
-<td>8.0.2</td>
+<td>8.1.2</td>
 </tr>
 <tr class="row-even"><td>virtualenv</td>
-<td>13.1.2</td>
+<td>15.0.1</td>
 </tr>
 </tbody>
 </table>
@@ -272,7 +276,8 @@ use. You can say</p>
 <pre class="highlight"><span class="prompt1">which python</span>
 </pre><p>It will give you the path of the python interpreter.</p>
 <p>If you have a vanilla OS X at the time of writing of this documentation,
-the python version is 2.7.10 hence you can use</p>
+the python version is 2.7.10 hence you can use alos this. However, it may be better
+to upgrade to 2.7.12 while using virtualenv.</p>
 <pre class="highlight"><span class="prompt1">virtualenv -p /user/bin/python ~/ENV</span>
 </pre><p>to setup the virtualenv on your computer.</p>
 <p>In case you are using a different version of python please use the
@@ -311,16 +316,16 @@ us know and send mail to <a class="reference external" href="mailto:laszewski&#3
 <p>It is recommended that you test the version of the python interpreter
 and pip again</p>
 <pre class="highlight"><span class="prompt1">pip --version</span>
-</pre><p>which should give the version 8.0.2</p>
+</pre><p>which should give the version 8.1.2</p>
 <pre class="highlight"><span class="prompt1">python --version</span>
-</pre><p>which should give the version Python 2.7.10</p>
+</pre><p>which should give the version Python 2.7.10 or 2.7.12 if you installed that</p>
 <div class="section" id="osx-quick-install-scripts-untested">
 <h3>OSX Quick Install Scripts (untested)<a class="headerlink" href="#osx-quick-install-scripts-untested" title="Permalink to this headline">¶</a></h3>
 <p>Use at your own risk, we recommend that you follow the more detailed
 instructions above</p>
 <pre class="highlight"><span class="prompt1">xcode-select --install</span>
 <span class="prompt1">open https://www.python.org/downloads/</span>
-</pre><p>Install python 2.7.10. Next do</p>
+</pre><p>Install python 2.7.12. Next do</p>
 <pre class="highlight"><span class="prompt1">sudo easy_install pip</span>
 <span class="prompt1">sudo pip install virtualenv</span>
 <span class="prompt1">virtualenv -p /user/local/bin/python ~/ENV</span>
@@ -453,6 +458,14 @@ script if you wish.</p>
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="ubuntu-xenial-vm-with-pip">
+<h2>Ubuntu Xenial VM with pip<a class="headerlink" href="#ubuntu-xenial-vm-with-pip" title="Permalink to this headline">¶</a></h2>
+<p>In case you run an ubuntu xenial desktop VM on virtual box the instalation is actually quite easy.</p>
+<p>in the VM start a terminal in which you execute the follwoing command</p>
+<pre class="highlight"><span class="prompt1">wget -O cm-setup.sh http://bit.ly/cloudmesh-client-xenial</span>
+<span class="prompt1">sh cm-setup.sh</span>
+</pre><p>THis will install the needed software</p>
 </div>
 <div class="section" id="centos">
 <h2>CentOS<a class="headerlink" href="#centos" title="Permalink to this headline">¶</a></h2>
