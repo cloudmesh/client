@@ -272,12 +272,26 @@ def check_python():
         print("             pip install -U pip\n")
 
 # Reference: http://interactivepython.org/runestone/static/everyday/2013/01/3_password.html
-def generate_password(length=8):
-    alphabet = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+def generate_password(length=8, lower=True, upper=True, number=True):
+    lletters = "abcdefghijklmnopqrstuvwxyz"
+    uletters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    # This doesn't guarantee both lower and upper cases will show up
+    alphabet = lletters + uletters
+    digit = "0123456789"
     mypw = ""
 
-    for i in range(length):
-        next_index = random.randrange(len(alphabet))
-        mypw = mypw + alphabet[next_index]
+    def _random_character(texts):
+        return texts[random.randrange(len(texts))]
 
+    if not lower:
+        alphabet = uletters
+    elif not upper:
+        alphabet = lletters
+
+    for i in range(length):
+        # last half length will be filled with numbers
+        if number and i >= (length / 2):
+            mypw = mypw + _random_character(digit)
+        else:
+            mypw = mypw + _random_character(alphabet)
     return mypw

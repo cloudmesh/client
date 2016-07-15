@@ -40,12 +40,12 @@ class CometCommand(PluginCommand, CometPluginCommand):
                             [--walltime=WALLTIME]
                comet terminate COMPUTESETID
                comet power (on|off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
-               comet console CLUSTERID [COMPUTENODEID]
+               comet console [--link] CLUSTERID [COMPUTENODEID]
                comet node info CLUSTERID [COMPUTENODEID] [--format=FORMAT]
                comet node rename CLUSTERID OLDNAMES NEWNAMES
                comet iso list
                comet iso upload [--isoname=ISONAME] PATHISOFILE
-               comet iso attach ISONAME CLUSTERID [COMPUTENODEIDS]
+               comet iso attach ISOIDNAME CLUSTERID [COMPUTENODEIDS]
                comet iso detach CLUSTERID [COMPUTENODEIDS]
 
             Options:
@@ -67,6 +67,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                         If not specified, use the original filename
                 --state=COMPUTESESTATE  List only computeset with the specified state.
                                         The state could be submitted, running, completed
+                --link                  Whether to open the console url or just show the link
 
             Arguments:
                 CLUSTERID       The assigned name of a cluster, e.g. vc1
@@ -85,6 +86,8 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                 of nodes; or a single host is also acceptable,
                                 e.g., vm-vc1-0
                 ISONAME         Name of an iso image at remote server
+                ISOIDNAME       Index or name of an iso image at the remote server.
+                                The index is based on the list from 'comet iso list'.
                 PATHISOFILE     The full path to the iso image file to be uploaded
                 OLDNAMES        The list of current node names to be renamed, in hostlist
                                 format. A single host is also acceptable.
@@ -470,10 +473,13 @@ class CometCommand(PluginCommand, CometPluginCommand):
                   )
         elif arguments["console"]:
             clusterid = arguments["CLUSTERID"]
+            linkonly = False
+            if arguments["--link"]:
+                linkonly = True
             nodeid = None
             if 'COMPUTENODEID' in arguments:
                 nodeid = arguments["COMPUTENODEID"]
-            Comet.console(clusterid, nodeid)
+            Comet.console(clusterid, nodeid, linkonly)
         elif arguments["iso"]:
             if arguments["list"]:
                 isos = (Comet.list_iso())
@@ -497,10 +503,10 @@ class CometCommand(PluginCommand, CometPluginCommand):
                     return ""
                 print(Comet.upload_iso(filename, isofile))
             elif arguments["attach"]:
-                isoname = arguments["ISONAME"]
+                isoidname = arguments["ISOIDNAME"]
                 clusterid = arguments["CLUSTERID"]
                 computenodeids = arguments["COMPUTENODEIDS"] or None
-                print(Cluster.attach_iso(isoname, clusterid, computenodeids))
+                print(Cluster.attach_iso(isoidname, clusterid, computenodeids))
             elif arguments["detach"]:
                 clusterid = arguments["CLUSTERID"]
                 computenodeids = arguments["COMPUTENODEIDS"] or None

@@ -89,4 +89,17 @@ class CloudProviderLibcloudEC2(CloudProviderLibcloud):
 
         pprint("create_node call in aws")
         self.provider.create_node(name=kwargs['name'], image=kwargs['image'], size=kwargs['size'])
+
+    def get_ips(self, name):
+
+        vlist = self.provider.list_nodes()
+
+        for vm in vlist:
+            # [<Node: uuid=3793375fbc6577391486b0ae43b1d1fb303aa0c1, name=TBD-001, state=RUNNING, public_ips=['54.205.149.43'], private_ips=['10.164.162.29'], provider=Amazon EC2 ...>]
+            if name == vm.uuid:
+                return vm.public_ips[0]
+        for vm in vlist:
+            if name == vm.name:
+                return vm.public_ips[0]
+        return NULL
         
