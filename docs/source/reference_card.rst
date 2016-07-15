@@ -145,7 +145,11 @@ Comet
 | |    --imagename=newimagename.iso     | |                                                                      |
 +---------------------------------------+------------------------------------------------------------------------+
 | | cm comet iso attach                 | | Attach an image (newimagename.iso) to frontend of                    |
-| |    newimagename.iso vc2             | | a cluster (vc2)                                                      |
+| |    newimagename.iso vc2             | | a cluster (vc2), by providing an image name                          |
++---------------------------------------+------------------------------------------------------------------------+
+| |                                     | | Attach an image (newimagename.iso) to frontend of                    |
+| | cm comet iso attach 6 vc2           | | a cluster (vc2), by providing an image index based                   |
+| |                                     | | on the order from the 'comet iso list'                               |
 +---------------------------------------+------------------------------------------------------------------------+
 | | cm comet iso attach                 | | Attach an image to a compute node (vm-vc2-0) for a                   |
 | |    newimagename.iso vc2 vm-vc2-0    | | cluster (vc2)                                                        |

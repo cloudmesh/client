@@ -739,48 +739,71 @@ class Cluster(object):
         return Cluster.attach_iso('', clusterid, nodeids, action='Detaching')
 
     @staticmethod
-    def attach_iso(isoname, clusterid, nodeids=None, action='Attaching'):
+    def attach_iso(iso_id_name, clusterid, nodeids=None, action='Attaching'):
         ret = ''
         # print ("Attaching ISO image")
-        # print ("isoname: %s" % isoname)
+        # print ("iso_id_name: %s" % iso_id_name)
         # print ("cluster: %s" % clusterid)
         # print ("node: %s" % nodeid)
 
-        if isoname != '':
-            isoname = "public/{}".format(isoname)
+        # obtain the list of iso first to support attach by index
+        # and easy verification of image name
+        isodict = {}
+        isos = (Comet.list_iso())
+        idx = 0
+        for iso in isos:
+            if iso.startswith("public/"):
+                iso = iso.split("/")[1]
+            idx += 1
+            isodict[str(idx)] = iso
 
-        urls = {}
-        # attaching to compute node
-        if nodeids:
-            nodeids = hostlist.expand_hostlist(nodeids)
-            for nodeid in nodeids:
-                url = Comet.url("cluster/{}/compute/{}/attach_iso?iso_name={}") \
-                    .format(clusterid, nodeid, isoname)
-                urls["Node {}".format(nodeid)] = url
-        else:
-            # attaching to fronend node
-            url = Comet.url("cluster/{}/frontend/attach_iso?iso_name={}") \
-                .format(clusterid, isoname)
-            urls['Frontend'] = url
-        # data = {"iso_name": "%s" % isoname}
-        # print ("url: %s" % url)
-        # print ("data: %s" % data)
-        tofrom = {}
-        tofrom['Attaching'] = 'to'
-        tofrom['Detaching'] = 'from'
-        for node, url in urls.items():
-            r = Comet.put(url)
-            # print (r)
-            if r is not None:
-                if '' != r.strip():
-                    ret += r
+        if iso_id_name != '':
+            if iso_id_name.isdigit():
+                if iso_id_name in isodict:
+                    iso_id_name = isodict[iso_id_name]
                 else:
-                    ret += "Request Accepted. {} the iso image {} {} of cluster {}\n" \
-                        .format(action, tofrom[action], node, clusterid)
+                    iso_id_name = None
             else:
-                ret += "Something wrong during {} the iso image {} {} of cluster {}!" \
-                       "Please check the command and try again\n" \
-                    .format(action, tofrom[action], node, clusterid)
+                if not iso_id_name in list(isodict.values()):
+                    iso_id_name = None
+
+        if iso_id_name is not None:
+            iso_id_name = "public/{}".format(iso_id_name)
+            urls = {}
+            # attaching to compute node
+            if nodeids:
+                nodeids = hostlist.expand_hostlist(nodeids)
+                for nodeid in nodeids:
+                    url = Comet.url("cluster/{}/compute/{}/attach_iso?iso_name={}") \
+                        .format(clusterid, nodeid, iso_id_name)
+                    urls["Node {}".format(nodeid)] = url
+            else:
+                # attaching to fronend node
+                url = Comet.url("cluster/{}/frontend/attach_iso?iso_name={}") \
+                    .format(clusterid, iso_id_name)
+                urls['Frontend'] = url
+            # data = {"iso_name": "%s" % iso_id_name}
+            # print ("url: %s" % url)
+            # print ("data: %s" % data)
+            tofrom = {}
+            tofrom['Attaching'] = 'to'
+            tofrom['Detaching'] = 'from'
+            for node, url in urls.items():
+                r = Comet.put(url)
+                # print (r)
+                if r is not None:
+                    if '' != r.strip():
+                        ret += r
+                    else:
+                        ret += "Request Accepted. {} the iso image {} {} of cluster {}\n" \
+                            .format(action, tofrom[action], node, clusterid)
+                else:
+                    ret += "Something wrong during {} the iso image {} {} of cluster {}!" \
+                           "Please check the command and try again\n" \
+                        .format(action, tofrom[action], node, clusterid)
+        else:
+            ret = "ERROR: The specified index or image name not matching any from the ISO list!\n"\
+                  "Check 'cm comet iso list'"
         return ret
 
     @staticmethod

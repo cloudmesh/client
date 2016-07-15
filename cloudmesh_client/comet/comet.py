@@ -516,19 +516,17 @@ class Comet(object):
         url = Comet.console_url(clusterid, nodeid)
         if url:
             newurl_esc = url.replace("&", "\&")
-            if linkonly:
-                print ("Copy the following link and paste to your browser"\
-                       " to access:\n{}".format(url))
-            else:
+            print (url)
+            if not linkonly:
                 # for OSX
                 if 'darwin' == sys.platform:
                     os.system("open {}".format(newurl_esc))
                 # for linux - tested on Ubuntu 14.04 and CentOS 7.1
                 elif 'linux2' == sys.platform:
-                    os.system("firefox {}".format(newurl_esc))
+                    os.system("firefox {} &".format(newurl_esc))
                 else:
-                    print("OS not supported!"
-                          "Use the following url manually in your brower:\n{}".format(url))
+                    print("No supportted OS/browser detected!"
+                          "Use the above url manually in your brower:\n")
         else:
             print("Console URL not available."\
                   "Please make sure the node is running and try again!")

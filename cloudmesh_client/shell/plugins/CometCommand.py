@@ -45,7 +45,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                comet node rename CLUSTERID OLDNAMES NEWNAMES
                comet iso list
                comet iso upload [--isoname=ISONAME] PATHISOFILE
-               comet iso attach ISONAME CLUSTERID [COMPUTENODEIDS]
+               comet iso attach ISOIDNAME CLUSTERID [COMPUTENODEIDS]
                comet iso detach CLUSTERID [COMPUTENODEIDS]
 
             Options:
@@ -86,6 +86,8 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                 of nodes; or a single host is also acceptable,
                                 e.g., vm-vc1-0
                 ISONAME         Name of an iso image at remote server
+                ISOIDNAME       Index or name of an iso image at the remote server.
+                                The index is based on the list from 'comet iso list'.
                 PATHISOFILE     The full path to the iso image file to be uploaded
                 OLDNAMES        The list of current node names to be renamed, in hostlist
                                 format. A single host is also acceptable.
@@ -501,10 +503,10 @@ class CometCommand(PluginCommand, CometPluginCommand):
                     return ""
                 print(Comet.upload_iso(filename, isofile))
             elif arguments["attach"]:
-                isoname = arguments["ISONAME"]
+                isoidname = arguments["ISOIDNAME"]
                 clusterid = arguments["CLUSTERID"]
                 computenodeids = arguments["COMPUTENODEIDS"] or None
-                print(Cluster.attach_iso(isoname, clusterid, computenodeids))
+                print(Cluster.attach_iso(isoidname, clusterid, computenodeids))
             elif arguments["detach"]:
                 clusterid = arguments["CLUSTERID"]
                 computenodeids = arguments["COMPUTENODEIDS"] or None
