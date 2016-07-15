@@ -1,26 +1,23 @@
 Comet Cloudmesh Tutorial
 =========================
 
-SetupCloudmesh Client on Ubuntu Desktop in Virtualbox
+Setup Cloudmesh Client on Ubuntu Desktop in Virtualbox
 
 Virtual Box
 ----------------------------------------------------------------------
 
-* For convenience we will be using Ubuntu Xenial in this demo to install
-the cloudmesh client on it 
+* For convenience we will be using Ubuntu Xenial in this demo to
+  install the Cloudmesh client on it 
 
-* Please make sure you have virtualbox installed
+* Please make sure you have `VirtualBox <https://www.virtualbox.org>`_ installed (`downloads page <https://www.virtualbox.org/wiki/Downloads>`_).
 
-* The link to the download is https://www.virtualbox.org/wiki/Downloads
-
-* Download ubuntu desktop
-http://www.ubuntu.com/download
+* Download the `Ubuntu desktop <http://www.ubuntu.com/download>`_ ISO
 
 * Remember the location
 
-* Start virtualbox, create e new VM (Ubuntu, 64bit)
+* Start VirtualBox, create e new VM (Ubuntu, 64bit)
 * Start the box
-* When asked for the iso, use the folder icon to browse to the location of the downloaded image.
+* When asked for the ISO, use the folder icon to browse to the location of the downloaded image.
 * Start and configure the image
 * Start a terminal 
 * You may want to enable past and copy between host and vm and add the guest additions.
@@ -133,83 +130,37 @@ Screenshots for the frontend node configuration:
    :scale: 50 %
    :alt: screenshot
 
-   Figure: Configure the network
+   Figure: Configure the network. DHCP is configured on `eth1` (the public interface)
 
 .. figure:: ./images/02_dhcp_failed.png
    :scale: 50 %
    :alt: screenshot
 
-   Figure: Configure the network/dhcp (let it fail)
-
-.. figure:: ./images/03_netconf_manual.png
-   :scale: 50 %
-   :alt: screenshot
-
-   Figure: Configure the network manually
-
-.. figure:: ./images/04_net_ip.png
-   :scale: 50 %
-   :alt: screenshot
-
-   Figure: Add your public ip adress, note yours may be different
-
-.. figure:: ./images/05_net_mask.png
-   :scale: 50 %
-   :alt: screenshot
-
-   Figure: Add your netmask, note yours may be different
-
-.. figure:: ./images/06_net_gateway.png
-   :scale: 50 %
-   :alt: screenshot
-
-   Figure: Add your gateway, note yours may be different
-
-.. figure:: ./images/07_net_dns.png
-   :scale: 50 %
-   :alt: screenshot
-
-   Figure: Add your DNS servers, note yours may be different
-
+   Figure: Let DHCP configure the network
 
 .. figure:: ./images/20_hostname.png
    :scale: 50 %
    :alt: screenshot
 
-   Figure: Set the hostname (to be your VC name preferably)
+   Figure: Set the hostname
 
-.. figure:: ./images/21_domain.png
+.. figure:: ./images/22_user_password_creation.png
    :scale: 50 %
    :alt: screenshot
 
-   Figure: Set the domain name
+   Figure: Set up the non-privileged user account, including a strong password
 
 .. figure:: ./images/08_partition.png
    :scale: 50 %
    :alt: screenshot
 
    Figure: Partition the disk
-   
-.. figure:: ./images/22_user_password_creation.png
-   :scale: 50 %
-   :alt: screenshot
-
-   Figure: Set up the username/password. Remember this to login to the front-end node later.
 
 .. figure:: ./images/09_services_packages.png
    :scale: 50 %
    :alt: screenshot
 
-   Figure: Select default services you like. 'OpenSSH server' is required.
-
-
-Finishing Front-end setup
-----------------------------------------------------------------------
-At end of the installation, click 'complete' to finish the setup. The node will
-reboot into the OS installation CD again, but now choose 'boot from first hard disk'
-option from the booting menu. This ensure the node boots into the newly installed OS,
-while having the OS installation CD still attached (we will need the CD again in the
-later steps).
+   Figure: Select OpenSSH using the space bar and then tab to Continue
 
 .. figure:: ./images/10_complete.png
    :scale: 50 %
@@ -221,7 +172,7 @@ later steps).
    :scale: 50 %
    :alt: screenshot
 
-   Figure: The node will be rebooted and the console is now expired
+   Figure: Press CONTINUE (we'll detach the ISO later)
 
 .. figure:: ./images/12_reboot_cd.png
    :scale: 50 %
@@ -235,9 +186,18 @@ later steps).
 
    Figure: Chose to boot from hard disk
 
+
+Finishing Front-end setup
+----------------------------------------------------------------------
+At end of the installation, click 'complete' to finish the setup. The node will
+reboot into the OS installation CD again, but now choose 'boot from first hard disk'
+option from the booting menu. This ensure the node boots into the newly installed OS,
+while having the OS installation CD still attached (we will need the CD again in the
+later steps).
+
 Once the node is back on, you can now login and configure the cluster
 
-via console:
+via laptop:
 
 .. prompt:: bash
 
@@ -247,29 +207,26 @@ via ssh:
 
 .. prompt:: bash
 
-  ssh USER@IP
+  ssh USER@vct<NN>.sdsc.edu
 
 Configuring the front-end node
 ----------------------------------------------------------------------
 
-On your managing machine where cloudmesh client tools is installed:
+On your managing machine where Cloudmesh client tools is installed:
 
 .. prompt:: bash
 
-  wget https://raw.githubusercontent.com/sdsc/comet-vc-tutorial/master/cmutil.py
+  wget http://bit.ly/vc-cmutil
   python cmutil.py nodesfile
-  scp vcnodes_<VCNAME>.txt vcnet_<VCNAME>.txt <USER>@<VCIP>:~/
+  scp vcn*.txt <USER>@vct<NN>.sdsc.edu:~/
 
 On vc front-end node:
 
 .. prompt:: bash
 
-  sudo su –
-  cp ~<USER>/*.txt .
-  wget https://raw.githubusercontent.com/sdsc/comet-vc-tutorial/master/deploy.sh
-  wget https://raw.githubusercontent.com/sdsc/comet-vc-tutorial/master/cmutil.py
-  sudo sh deploy.sh
-
+  wget -O deploy.sh http://bit.ly/vc-deployment
+  chmod +x deploy.sh
+  sudo ./deploy.sh
 
 Example: Install Compute Nodes
 ----------------------------------------------------------------------
@@ -293,7 +250,7 @@ Changing to localboot. Do this on the front-end node:
 
 .. prompt:: bash
 
-Then on your managing host where cloudmesh client is installed:
+Then on your managing host where Cloudmesh client is installed:
 
 .. prompt:: bash
 
@@ -303,10 +260,9 @@ On front-end node:
 
 .. prompt:: bash
 
-  wget https://raw.githubusercontent.com/sdsc/comet-vc-tutorial/master/key_setup.sh
-  sh key_setup.sh
+  cd $HOME/comet-vc-tutorial/
+  ./key_setup.sh
   
 This would setup the key, authorized keys, and known hosts files on the nodes.
 
-login to compute nodes from front-end, and run your app.
-
+Login to compute nodes from front-end, and run your app.
