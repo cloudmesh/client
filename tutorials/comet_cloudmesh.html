@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Comet Cloudmesh Tutorial &mdash; cloudmesh_client 4.3.1 documentation</title>
+  <title>Comet Cloudmesh Tutorial &mdash; cloudmesh_client 4.3.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.1 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.3.2 documentation" href="../index.html"/>
         <link rel="next" title="Comet Big Data Tutorial" href="comet_bigdata.html"/>
         <link rel="prev" title="Exercises" href="../exercises.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                4.3.1
+                4.3.2
               </div>
             
           
@@ -348,15 +348,10 @@ using your login name that you set up and specify your cluster name.</p>
 </pre><p>Takes about 15~20 minutes. Once done, the node will be shutoff.</p>
 <p>Once you see the boot question in your console log, please change it to
 Changing to localboot. Do this on the front-end node:</p>
-<pre class="highlight"><span class="prompt1"><span class="nb">cd</span> <span class="nv">$HOME</span></span>
-<span class="prompt1">wget -O cmutil.py http://bit.ly/vc-cmutil</span>
-<span class="prompt1">python cmutil.py setboot <span class="nv">$HOSTNAME</span> &lt;NODE&gt; <span class="nv">net</span><span class="o">=</span><span class="nb">false</span></span>
+<pre class="highlight"><span class="prompt1">./cmutil.py setboot <span class="nv">$HOSTNAME</span> &lt;NODE&gt; <span class="nv">net</span><span class="o">=</span><span class="nb">false</span></span>
 </pre><p>Then on your managing host where Cloudmesh client is installed:</p>
 <pre class="highlight"><span class="prompt1">cm comet power on vc2 vm-vc2-<span class="o">[</span>1-2<span class="o">]</span></span>
-</pre><p>Wait the compute nodes to be booted on, which can be checked by:</p>
-<pre class="highlight"><span class="prompt1">cm comet cluster vct&lt;NN&gt;</span>
-</pre><p>to see if the state (2nd column) of the nodes is &#8216;active&#8217;.</p>
-<p>Once the compute nodes are on, run these on the front-end node:</p>
+</pre><p>On front-end node:</p>
 <pre class="highlight"><span class="prompt1"><span class="nb">cd</span> <span class="nv">$HOME</span>/comet-vc-tutorial/</span>
 <span class="prompt1">./key_setup.sh</span>
 </pre><p>This would setup the key, authorized keys, and known hosts files on the nodes.</p>
@@ -412,7 +407,7 @@ XSEDE allocation.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.3.1',
+            VERSION:'4.3.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

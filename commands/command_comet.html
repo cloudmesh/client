@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Comet Virtual Cluster &mdash; cloudmesh_client 4.3.1 documentation</title>
+  <title>Comet Virtual Cluster &mdash; cloudmesh_client 4.3.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.1 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.3.2 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Reservation Command" href="command_reservation.html"/>
         <link rel="prev" title="Hpc Command" href="command_hpc.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.3.1
+                4.3.2
               </div>
             
           
@@ -406,13 +406,11 @@ freely power the nodes back on and off.</p>
 <pre class="highlight"><span class="prompt1">cm comet console vc2</span>
 </pre><p>Get console of a running compute node:</p>
 <pre class="highlight"><span class="prompt1">cm comet console vc2 vm-vc2-0</span>
-</pre><p>The commands will print out the URL for accessing the console of the nodes.
-They will also pop open a browser window if a supported OS/browser is detected.
-In Mac OS X it will use the system default browser  to display the console;
-In Linux environment it will use firefox.</p>
-<p>You can also get only the URL directly by calling:</p>
-<pre class="highlight"><span class="prompt1">cm comet console --link vc2</span>
-</pre></div>
+</pre><p>This will open a browser window using the system default browser
+to display the console (in Mac OS X); or a firefox window (in Linux).
+If no compatible browser found, it will print out a URL so you can
+access it via other means.</p>
+</div>
 <div class="section" id="system-image-management">
 <h3>System image management<a class="headerlink" href="#system-image-management" title="Permalink to this headline">¶</a></h3>
 <p>Get the list of images that are available to you:</p>
@@ -421,10 +419,8 @@ In Linux environment it will use firefox.</p>
 <pre class="highlight"><span class="prompt1">cm comet iso upload /path/to/your/image.iso</span>
 </pre><p>Or with a specified new image name:</p>
 <pre class="highlight"><span class="prompt1">cm comet iso upload /path/to/your/image.iso --imagename<span class="o">=</span>newimagename.iso</span>
-</pre><p>Attach an image to the frontend, by specifying the exact image name, or the index
-of the image in the iso list:</p>
+</pre><p>Attach an image to the frontend:</p>
 <pre class="highlight"><span class="prompt1">cm comet iso attach newimagename.iso vc2</span>
-<span class="prompt1">cm comet iso attach <span class="m">6</span> vc2</span>
 </pre><p>Or to a compute node:</p>
 <pre class="highlight"><span class="prompt1">cm comet iso attach newimagename.iso vc2 vm-vc2-0</span>
 </pre><p>To detach the attached iso image from frontend node:</p>
@@ -579,7 +575,7 @@ within one business day.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.3.1',
+            VERSION:'4.3.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

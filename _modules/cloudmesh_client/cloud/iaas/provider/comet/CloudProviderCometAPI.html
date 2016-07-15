@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI &mdash; cloudmesh_client 4.3.1 documentation</title>
+  <title>cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI &mdash; cloudmesh_client 4.3.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.1 documentation" href="../../../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.3.2 documentation" href="../../../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                4.3.1
+                4.3.2
               </div>
             
           
@@ -177,39 +177,39 @@
             
   <h1>Source code for cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
-<span class="kn">from</span> <span class="nn">uuid</span> <span class="k">import</span> <span class="n">UUID</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">uuid</span> <span class="kn">import</span> <span class="n">UUID</span>
 
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.CloudProviderBase</span> <span class="k">import</span> <span class="n">CloudProviderBase</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.todo</span> <span class="k">import</span> <span class="n">TODO</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="k">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">ConfigDict</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.FlatDict</span> <span class="k">import</span> <span class="n">FlatDict</span>
-<span class="kn">from</span> <span class="nn">keystoneclient.auth.identity</span> <span class="k">import</span> <span class="n">v3</span>
-<span class="kn">from</span> <span class="nn">keystoneclient</span> <span class="k">import</span> <span class="n">session</span>
-<span class="kn">from</span> <span class="nn">novaclient</span> <span class="k">import</span> <span class="n">client</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.CloudProviderBase</span> <span class="kn">import</span> <span class="n">CloudProviderBase</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.todo</span> <span class="kn">import</span> <span class="n">TODO</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">ConfigDict</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.FlatDict</span> <span class="kn">import</span> <span class="n">FlatDict</span>
+<span class="kn">from</span> <span class="nn">keystoneclient.auth.identity</span> <span class="kn">import</span> <span class="n">v3</span>
+<span class="kn">from</span> <span class="nn">keystoneclient</span> <span class="kn">import</span> <span class="n">session</span>
+<span class="kn">from</span> <span class="nn">novaclient</span> <span class="kn">import</span> <span class="n">client</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">getpass</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="k">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
 
 
 <div class="viewcode-block" id="CloudProviderCometAPI"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI">[docs]</a><span class="k">class</span> <span class="nc">CloudProviderCometAPI</span><span class="p">(</span><span class="n">CloudProviderBase</span><span class="p">):</span>
     <span class="n">cloud_type</span> <span class="o">=</span> <span class="s2">&quot;openstack&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloud_name</span><span class="p">,</span> <span class="n">cloud_details</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloud_name</span><span class="p">,</span> <span class="n">cloud_details</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">CloudProviderCometAPI</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">cloud_name</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flat</span> <span class="o">=</span> <span class="n">flat</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cloud_type</span> <span class="o">=</span> <span class="s2">&quot;comet&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="s2">&quot;group&quot;</span><span class="p">]</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">default_image</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">default_flavor</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cloud</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cloud_details</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_image</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_flavor</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cloud</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cloud_details</span> <span class="o">=</span> <span class="bp">None</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">cloud_name</span><span class="p">,</span> <span class="n">cloud_details</span><span class="p">)</span>
 
-<div class="viewcode-block" id="CloudProviderCometAPI.initialize"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderCometAPI.initialize"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
 
         <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
 
@@ -267,7 +267,7 @@
 
 <div class="viewcode-block" id="CloudProviderCometAPI.list_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.list_vm">[docs]</a>    <span class="k">def</span> <span class="nf">list_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
-        <span class="k">return</span> <span class="kc">None</span></div>
+        <span class="k">return</span> <span class="bp">None</span></div>
 
 <div class="viewcode-block" id="CloudProviderCometAPI.rename_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.rename_vm">[docs]</a>    <span class="k">def</span> <span class="nf">rename_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_name</span><span class="p">,</span> <span class="n">new_name</span><span class="p">):</span>
         <span class="k">pass</span></div>
@@ -275,21 +275,21 @@
 <div class="viewcode-block" id="CloudProviderCometAPI.list_ips"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.list_ips">[docs]</a>    <span class="k">def</span> <span class="nf">list_ips</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="CloudProviderCometAPI.list_console"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.list_console">[docs]</a>    <span class="k">def</span> <span class="nf">list_console</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderCometAPI.list_console"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.list_console">[docs]</a>    <span class="k">def</span> <span class="nf">list_console</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">server</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">servers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">log</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">get_console_output</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">log</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">get_console_output</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">log</span></div>
 
 <div class="viewcode-block" id="CloudProviderCometAPI.boot_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.boot_vm">[docs]</a>    <span class="k">def</span> <span class="nf">boot_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                 <span class="n">name</span><span class="p">,</span>
-                <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">flavor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">cloud</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">secgroup</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">meta</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">nics</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">image</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">flavor</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">key</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">secgroup</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">meta</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">nics</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                 <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Spawns a VM instance on the cloud.</span>
@@ -304,9 +304,9 @@
 <span class="sd">        :param meta: A dict of arbitrary key/value metadata to store for this server</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span> <span class="kc">None</span></div>
+        <span class="k">return</span> <span class="bp">None</span></div>
 
-<div class="viewcode-block" id="CloudProviderCometAPI.delete_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.delete_vm">[docs]</a>    <span class="k">def</span> <span class="nf">delete_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderCometAPI.delete_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.delete_vm">[docs]</a>    <span class="k">def</span> <span class="nf">delete_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deletes a machine on the target cloud indicated by the id or name</span>
 <span class="sd">        :param name: Name or ID of the instance to be deleted</span>
@@ -314,9 +314,9 @@
 <span class="sd">        :param force: Force delete option</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="kc">None</span></div>
+        <span class="k">return</span> <span class="bp">None</span></div>
 
-<div class="viewcode-block" id="CloudProviderCometAPI.start_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.start_vm">[docs]</a>    <span class="k">def</span> <span class="nf">start_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderCometAPI.start_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.start_vm">[docs]</a>    <span class="k">def</span> <span class="nf">start_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Starts a suspended machine on the target cloud indicated by the id or name</span>
 <span class="sd">        :param name: Name or ID of the instance to be deleted</span>
@@ -332,7 +332,7 @@
 
         <span class="n">server</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="CloudProviderCometAPI.stop_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.stop_vm">[docs]</a>    <span class="k">def</span> <span class="nf">stop_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderCometAPI.stop_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.stop_vm">[docs]</a>    <span class="k">def</span> <span class="nf">stop_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Stops a machine on the target cloud indicated by the id or name</span>
 <span class="sd">        :param name: Name or ID of the instance to be deleted</span>
@@ -348,7 +348,7 @@
 
         <span class="n">server</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="CloudProviderCometAPI.get_ips"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.get_ips">[docs]</a>    <span class="k">def</span> <span class="nf">get_ips</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderCometAPI.get_ips"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.comet.html#cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI.CloudProviderCometAPI.get_ips">[docs]</a>    <span class="k">def</span> <span class="nf">get_ips</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the ip of the instance indicated by name</span>
 <span class="sd">        :param name:</span>
@@ -390,8 +390,8 @@
             <span class="n">order</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="n">kind</span><span class="p">][</span><span class="s2">&quot;order&quot;</span><span class="p">]</span>
             <span class="n">header</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="n">kind</span><span class="p">][</span><span class="s2">&quot;header&quot;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">order</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="n">header</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">order</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="n">header</span> <span class="o">=</span> <span class="bp">None</span>
 
         <span class="k">return</span> <span class="n">order</span><span class="p">,</span> <span class="n">header</span></div></div>
 
@@ -442,7 +442,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../../../',
-            VERSION:'4.3.1',
+            VERSION:'4.3.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

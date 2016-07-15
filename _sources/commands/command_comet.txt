@@ -320,16 +320,10 @@ Get console of a running compute node:
   
     cm comet console vc2 vm-vc2-0
 
-The commands will print out the URL for accessing the console of the nodes. 
-They will also pop open a browser window if a supported OS/browser is detected.
-In Mac OS X it will use the system default browser  to display the console;
-In Linux environment it will use firefox.
-
-You can also get only the URL directly by calling:
-
-.. prompt:: bash
-
-    cm comet console --link vc2
+This will open a browser window using the system default browser 
+to display the console (in Mac OS X); or a firefox window (in Linux).
+If no compatible browser found, it will print out a URL so you can 
+access it via other means.
 
 System image management
 ~~~~
@@ -351,13 +345,11 @@ Or with a specified new image name:
 
     cm comet iso upload /path/to/your/image.iso --imagename=newimagename.iso
 
-Attach an image to the frontend, by specifying the exact image name, or the index
-of the image in the iso list:
+Attach an image to the frontend:
 
 .. prompt:: bash
 
     cm comet iso attach newimagename.iso vc2
-    cm comet iso attach 6 vc2
 
 Or to a compute node:
 

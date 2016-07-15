@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Commands &mdash; cloudmesh_client 4.3.1 documentation</title>
+  <title>Commands &mdash; cloudmesh_client 4.3.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.1 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.3.2 documentation" href="../index.html"/>
         <link rel="next" title="Exercises" href="../exercises.html"/>
         <link rel="prev" title="Inventory Command" href="../commands/command_inventory.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                4.3.1
+                4.3.2
               </div>
             
           
@@ -482,12 +482,12 @@
                 <span class="p">[</span><span class="o">--</span><span class="n">walltime</span><span class="o">=</span><span class="n">WALLTIME</span><span class="p">]</span>
    <span class="n">comet</span> <span class="n">terminate</span> <span class="n">COMPUTESETID</span>
    <span class="n">comet</span> <span class="n">power</span> <span class="p">(</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="o">|</span><span class="n">reboot</span><span class="o">|</span><span class="n">reset</span><span class="o">|</span><span class="n">shutdown</span><span class="p">)</span> <span class="n">CLUSTERID</span> <span class="p">[</span><span class="n">NODESPARAM</span><span class="p">]</span>
-   <span class="n">comet</span> <span class="n">console</span> <span class="p">[</span><span class="o">--</span><span class="n">link</span><span class="p">]</span> <span class="n">CLUSTERID</span> <span class="p">[</span><span class="n">COMPUTENODEID</span><span class="p">]</span>
+   <span class="n">comet</span> <span class="n">console</span> <span class="n">CLUSTERID</span> <span class="p">[</span><span class="n">COMPUTENODEID</span><span class="p">]</span>
    <span class="n">comet</span> <span class="n">node</span> <span class="n">info</span> <span class="n">CLUSTERID</span> <span class="p">[</span><span class="n">COMPUTENODEID</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span>
    <span class="n">comet</span> <span class="n">node</span> <span class="n">rename</span> <span class="n">CLUSTERID</span> <span class="n">OLDNAMES</span> <span class="n">NEWNAMES</span>
    <span class="n">comet</span> <span class="n">iso</span> <span class="nb">list</span>
    <span class="n">comet</span> <span class="n">iso</span> <span class="n">upload</span> <span class="p">[</span><span class="o">--</span><span class="n">isoname</span><span class="o">=</span><span class="n">ISONAME</span><span class="p">]</span> <span class="n">PATHISOFILE</span>
-   <span class="n">comet</span> <span class="n">iso</span> <span class="n">attach</span> <span class="n">ISOIDNAME</span> <span class="n">CLUSTERID</span> <span class="p">[</span><span class="n">COMPUTENODEIDS</span><span class="p">]</span>
+   <span class="n">comet</span> <span class="n">iso</span> <span class="n">attach</span> <span class="n">ISONAME</span> <span class="n">CLUSTERID</span> <span class="p">[</span><span class="n">COMPUTENODEIDS</span><span class="p">]</span>
    <span class="n">comet</span> <span class="n">iso</span> <span class="n">detach</span> <span class="n">CLUSTERID</span> <span class="p">[</span><span class="n">COMPUTENODEIDS</span><span class="p">]</span>
 
 <span class="n">Options</span><span class="p">:</span>
@@ -509,7 +509,6 @@
                             <span class="n">If</span> <span class="ow">not</span> <span class="n">specified</span><span class="p">,</span> <span class="n">use</span> <span class="n">the</span> <span class="n">original</span> <span class="n">filename</span>
     <span class="o">--</span><span class="n">state</span><span class="o">=</span><span class="n">COMPUTESESTATE</span>  <span class="n">List</span> <span class="n">only</span> <span class="n">computeset</span> <span class="k">with</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">state</span><span class="o">.</span>
                             <span class="n">The</span> <span class="n">state</span> <span class="n">could</span> <span class="n">be</span> <span class="n">submitted</span><span class="p">,</span> <span class="n">running</span><span class="p">,</span> <span class="n">completed</span>
-    <span class="o">--</span><span class="n">link</span>                  <span class="n">Whether</span> <span class="n">to</span> <span class="nb">open</span> <span class="n">the</span> <span class="n">console</span> <span class="n">url</span> <span class="ow">or</span> <span class="n">just</span> <span class="n">show</span> <span class="n">the</span> <span class="n">link</span>
 
 <span class="n">Arguments</span><span class="p">:</span>
     <span class="n">CLUSTERID</span>       <span class="n">The</span> <span class="n">assigned</span> <span class="n">name</span> <span class="n">of</span> <span class="n">a</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">vc1</span>
@@ -528,8 +527,6 @@
                     <span class="n">of</span> <span class="n">nodes</span><span class="p">;</span> <span class="ow">or</span> <span class="n">a</span> <span class="n">single</span> <span class="n">host</span> <span class="ow">is</span> <span class="n">also</span> <span class="n">acceptable</span><span class="p">,</span>
                     <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">,</span> <span class="n">vm</span><span class="o">-</span><span class="n">vc1</span><span class="o">-</span><span class="mi">0</span>
     <span class="n">ISONAME</span>         <span class="n">Name</span> <span class="n">of</span> <span class="n">an</span> <span class="n">iso</span> <span class="n">image</span> <span class="n">at</span> <span class="n">remote</span> <span class="n">server</span>
-    <span class="n">ISOIDNAME</span>       <span class="n">Index</span> <span class="ow">or</span> <span class="n">name</span> <span class="n">of</span> <span class="n">an</span> <span class="n">iso</span> <span class="n">image</span> <span class="n">at</span> <span class="n">the</span> <span class="n">remote</span> <span class="n">server</span><span class="o">.</span>
-                    <span class="n">The</span> <span class="n">index</span> <span class="ow">is</span> <span class="n">based</span> <span class="n">on</span> <span class="n">the</span> <span class="nb">list</span> <span class="kn">from</span> <span class="s1">&#39;comet iso list&#39;</span><span class="o">.</span>
     <span class="n">PATHISOFILE</span>     <span class="n">The</span> <span class="n">full</span> <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">iso</span> <span class="n">image</span> <span class="n">file</span> <span class="n">to</span> <span class="n">be</span> <span class="n">uploaded</span>
     <span class="n">OLDNAMES</span>        <span class="n">The</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">current</span> <span class="n">node</span> <span class="n">names</span> <span class="n">to</span> <span class="n">be</span> <span class="n">renamed</span><span class="p">,</span> <span class="ow">in</span> <span class="n">hostlist</span>
                     <span class="nb">format</span><span class="o">.</span> <span class="n">A</span> <span class="n">single</span> <span class="n">host</span> <span class="ow">is</span> <span class="n">also</span> <span class="n">acceptable</span><span class="o">.</span>
@@ -2391,7 +2388,7 @@ Description:
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.3.1',
+            VERSION:'4.3.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

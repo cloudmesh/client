@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins.NetworkCommand &mdash; cloudmesh_client 4.3.1 documentation</title>
+  <title>cloudmesh_client.shell.plugins.NetworkCommand &mdash; cloudmesh_client 4.3.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.1 documentation" href="../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.3.2 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                4.3.1
+                4.3.2
               </div>
             
           
@@ -176,22 +176,22 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.shell.plugins.NetworkCommand</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">getpass</span>
 
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="k">import</span> <span class="n">Shell</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.vm</span> <span class="k">import</span> <span class="n">Vm</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.group</span> <span class="k">import</span> <span class="n">Group</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="k">import</span> <span class="n">command</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="k">import</span> <span class="n">Console</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="k">import</span> <span class="n">Default</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.network</span> <span class="k">import</span> <span class="n">Network</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.hostlist</span> <span class="k">import</span> <span class="n">Parameter</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="k">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="kn">import</span> <span class="n">Shell</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.vm</span> <span class="kn">import</span> <span class="n">Vm</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.group</span> <span class="kn">import</span> <span class="n">Group</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.network</span> <span class="kn">import</span> <span class="n">Network</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.hostlist</span> <span class="kn">import</span> <span class="n">Parameter</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
 
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">input</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">input</span>
 
 
 <span class="c1"># noinspection PyBroadException</span>
@@ -201,7 +201,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;init command network&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;init command network&quot;</span><span class="p">)</span>
 
     <span class="c1"># noinspection PyUnusedLocal</span>
     <span class="nd">@command</span>
@@ -270,7 +270,7 @@
         <span class="c1"># Get the cloud parameter OR read default</span>
         <span class="n">cloudname</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">cloud</span>
 
-        <span class="k">if</span> <span class="n">cloudname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">cloudname</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud has not been set!&quot;</span>
                           <span class="s2">&quot;Please use the following to set it:</span><span class="se">\n</span><span class="s2">&quot;</span>
                           <span class="s2">&quot;cm default cloud=CLOUDNAME</span><span class="se">\n</span><span class="s2">&quot;</span>
@@ -299,8 +299,8 @@
             <span class="n">fixed_ip</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;FIXED_IP&quot;</span><span class="p">]</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">reserve_fixed_ip</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                               <span class="n">fixed_ip_addr</span><span class="o">=</span><span class="n">fixed_ip</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Reserve fixed ip address </span><span class="si">{}</span><span class="s2"> complete.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fixed_ip</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Reserve fixed ip address {} complete.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fixed_ip</span><span class="p">))</span>
 
         <span class="c1"># Un-Reserve a fixed ip</span>
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;unreserve&quot;</span><span class="p">]</span> \
@@ -308,8 +308,8 @@
             <span class="n">fixed_ip</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;FIXED_IP&quot;</span><span class="p">]</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">unreserve_fixed_ip</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                                 <span class="n">fixed_ip_addr</span><span class="o">=</span><span class="n">fixed_ip</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Un-Reserve fixed ip address </span><span class="si">{}</span><span class="s2"> complete.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fixed_ip</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Un-Reserve fixed ip address {} complete.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fixed_ip</span><span class="p">))</span>
 
         <span class="c1"># Associate floating IP</span>
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;associate&quot;</span><span class="p">]</span> \
@@ -321,7 +321,7 @@
             <span class="n">floating_ip</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;FLOATING_IP&quot;</span><span class="p">]</span>
 
             <span class="c1"># group supplied</span>
-            <span class="k">if</span> <span class="n">group_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">group_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">                Group name has been provided.</span>
 <span class="sd">                Assign floating IPs to all vms in the group</span>
@@ -331,7 +331,7 @@
                 <span class="n">group</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">get_info</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">group_name</span><span class="p">,</span>
                                        <span class="n">category</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                        <span class="n">output</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                     <span class="c1"># Convert from str to json</span>
                     <span class="n">group</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
                     <span class="c1"># For each vm in the group</span>
@@ -340,18 +340,18 @@
                         <span class="n">instance_id</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span>
                         <span class="n">floating_ip</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">find_assign_floating_ip</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                                                       <span class="n">instance_id</span><span class="o">=</span><span class="n">instance_id</span><span class="p">)</span>
-                        <span class="k">if</span> <span class="n">floating_ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Created and assigned Floating IP </span><span class="si">{}</span><span class="s2"> to instance </span><span class="si">{}</span><span class="s2">.&quot;</span>
+                        <span class="k">if</span> <span class="n">floating_ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Created and assigned Floating IP {} to instance {}.&quot;</span>
                                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">floating_ip</span><span class="p">,</span> <span class="n">instance_id</span><span class="p">))</span>
                             <span class="c1"># Refresh VM in db</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">refresh_vm</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No group </span><span class="si">{}</span><span class="s2"> in the Cloudmesh database.&quot;</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No group {} in the Cloudmesh database.&quot;</span>
                                   <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group_name</span><span class="p">))</span>
                     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
             <span class="c1"># floating-ip not supplied, instance-id supplied</span>
-            <span class="k">elif</span> <span class="ow">not</span> <span class="n">floating_ip</span> <span class="ow">and</span> <span class="n">instance_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">floating_ip</span> <span class="ow">and</span> <span class="n">instance_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">                Floating IP has not been provided, instance-id provided.</span>
 <span class="sd">                Generate one from the pool, and assign to vm</span>
@@ -359,12 +359,12 @@
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="n">floating_ip</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">find_assign_floating_ip</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                                               <span class="n">instance_id</span><span class="o">=</span><span class="n">instance_id</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">floating_ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Associated floating IP </span><span class="si">{}</span><span class="s2"> to instance </span><span class="si">{}</span><span class="s2">.&quot;</span>
+                <span class="k">if</span> <span class="n">floating_ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Associated floating IP {} to instance {}.&quot;</span>
                                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">floating_ip</span><span class="p">,</span> <span class="n">instance_id</span><span class="p">))</span>
 
             <span class="c1"># instance-id &amp; floating-ip supplied</span>
-            <span class="k">elif</span> <span class="n">instance_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">instance_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">                Floating IP &amp; Instance ID have been provided</span>
 <span class="sd">                Associate the IP to the instance</span>
@@ -393,7 +393,7 @@
             <span class="n">floating_ip</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;FLOATING_IP&quot;</span><span class="p">]</span>
 
             <span class="c1"># group supplied</span>
-            <span class="k">if</span> <span class="n">group_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">group_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">                Group name has been provided.</span>
 <span class="sd">                Remove floating IPs of all vms in the group</span>
@@ -403,7 +403,7 @@
                 <span class="n">group</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">get_info</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">group_name</span><span class="p">,</span>
                                        <span class="n">category</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                        <span class="n">output</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                     <span class="c1"># Convert from str to json</span>
                     <span class="n">group</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
                     <span class="c1"># For each vm in the group</span>
@@ -414,8 +414,8 @@
                         <span class="n">instance_dict</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">get_instance_dict</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                                                   <span class="n">instance_id</span><span class="o">=</span><span class="n">instance_id</span><span class="p">)</span>
                         <span class="c1"># Instance not found</span>
-                        <span class="k">if</span> <span class="n">instance_dict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Instance </span><span class="si">{}</span><span class="s2"> not found in the cloudmesh database!&quot;</span>
+                        <span class="k">if</span> <span class="n">instance_dict</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Instance {} not found in the cloudmesh database!&quot;</span>
                                           <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">instance_id</span><span class="p">))</span>
                             <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
@@ -424,24 +424,24 @@
                         <span class="n">floating_ip</span> <span class="o">=</span> <span class="n">instance_dict</span><span class="p">[</span><span class="s2">&quot;floating_ip&quot;</span><span class="p">]</span>
 
                         <span class="c1"># Floating ip argument invalid</span>
-                        <span class="k">if</span> <span class="n">floating_ip</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Instance</span><span class="si">{}</span><span class="s2"> does not have a floating_ip.&quot;</span>
+                        <span class="k">if</span> <span class="n">floating_ip</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Instance{} does not have a floating_ip.&quot;</span>
                                           <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">instance_name</span><span class="p">))</span>
                             <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
                         <span class="n">result</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">disassociate_floating_ip</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                                                   <span class="n">instance_name</span><span class="o">=</span><span class="n">instance_name</span><span class="p">,</span>
                                                                   <span class="n">floating_ip</span><span class="o">=</span><span class="n">floating_ip</span><span class="p">)</span>
-                        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Disassociated Floating IP </span><span class="si">{}</span><span class="s2"> from instance </span><span class="si">{}</span><span class="s2">.&quot;</span>
+                        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Disassociated Floating IP {} from instance {}.&quot;</span>
                                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">floating_ip</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">))</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No group </span><span class="si">{}</span><span class="s2"> in the Cloudmesh database.&quot;</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No group {} in the Cloudmesh database.&quot;</span>
                                   <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group_name</span><span class="p">))</span>
                     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
             <span class="c1"># floating-ip not supplied, instance-id supplied</span>
-            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">floating_ip</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">instance_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">floating_ip</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">instance_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">                Floating IP has not been provided, instance-id provided.</span>
 <span class="sd">                Remove floating ip allocated to vm</span>
@@ -450,8 +450,8 @@
                 <span class="n">instance_dict</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">get_instance_dict</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                                           <span class="n">instance_id</span><span class="o">=</span><span class="n">instance_id</span><span class="p">)</span>
                 <span class="c1"># Instance not found</span>
-                <span class="k">if</span> <span class="n">instance_dict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Instance </span><span class="si">{}</span><span class="s2"> not found in the cloudmesh database!&quot;</span>
+                <span class="k">if</span> <span class="n">instance_dict</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Instance {} not found in the cloudmesh database!&quot;</span>
                                   <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">instance_id</span><span class="p">))</span>
                     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
@@ -459,20 +459,20 @@
                 <span class="n">floating_ip</span> <span class="o">=</span> <span class="n">instance_dict</span><span class="p">[</span><span class="s2">&quot;floating_ip&quot;</span><span class="p">]</span>
 
                 <span class="c1"># Floating ip argument invalid</span>
-                <span class="k">if</span> <span class="n">floating_ip</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Instance</span><span class="si">{}</span><span class="s2"> does not have a floating_ip.&quot;</span>
+                <span class="k">if</span> <span class="n">floating_ip</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Instance{} does not have a floating_ip.&quot;</span>
                                   <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">instance_name</span><span class="p">))</span>
                     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
                 <span class="n">result</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">disassociate_floating_ip</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                                           <span class="n">instance_name</span><span class="o">=</span><span class="n">instance_name</span><span class="p">,</span>
                                                           <span class="n">floating_ip</span><span class="o">=</span><span class="n">floating_ip</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Disassociated Floating IP </span><span class="si">{}</span><span class="s2"> from instance </span><span class="si">{}</span><span class="s2">.&quot;</span>
+                <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Disassociated Floating IP {} from instance {}.&quot;</span>
                                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">floating_ip</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">))</span>
 
             <span class="c1"># instance-id &amp; floating-ip supplied</span>
-            <span class="k">elif</span> <span class="n">instance_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">instance_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">                Floating IP &amp; Instance ID have been provided</span>
 <span class="sd">                Remove the IP from the instance</span>
@@ -483,8 +483,8 @@
                 <span class="n">floating_ip</span> <span class="o">=</span> <span class="n">floating_ip</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
                 <span class="c1"># Instance not found</span>
-                <span class="k">if</span> <span class="n">instance_dict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Instance </span><span class="si">{}</span><span class="s2"> not found in the cloudmesh database!&quot;</span>
+                <span class="k">if</span> <span class="n">instance_dict</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Instance {} not found in the cloudmesh database!&quot;</span>
                                   <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">instance_id</span><span class="p">))</span>
                     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
@@ -493,15 +493,15 @@
 
                 <span class="c1"># Floating ip argument invalid</span>
                 <span class="k">if</span> <span class="n">_floating_ip</span> <span class="o">!=</span> <span class="n">floating_ip</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Invalid floating_ip </span><span class="si">{}</span><span class="s2"> for instance </span><span class="si">{}</span><span class="s2">.&quot;</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Invalid floating_ip {} for instance {}.&quot;</span>
                                   <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">floating_ip</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">))</span>
                     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
                 <span class="n">result</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">disassociate_floating_ip</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                                           <span class="n">instance_name</span><span class="o">=</span><span class="n">instance_name</span><span class="p">,</span>
                                                           <span class="n">floating_ip</span><span class="o">=</span><span class="n">floating_ip</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Disassociated Floating IP </span><span class="si">{}</span><span class="s2"> from instance </span><span class="si">{}</span><span class="s2">.&quot;</span>
+                <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Disassociated Floating IP {} from instance {}.&quot;</span>
                                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">floating_ip</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">))</span>
 
             <span class="c1"># Invalid parameters</span>
@@ -520,8 +520,8 @@
             <span class="n">floating_pool</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--pool&quot;</span><span class="p">]</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">create_floating_ip</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                                 <span class="n">floating_pool</span><span class="o">=</span><span class="n">floating_pool</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Created new floating IP </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Created new floating IP {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Failed to create floating IP! Please check arguments.&quot;</span><span class="p">)</span>
 
@@ -571,29 +571,29 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">refresh_vm</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span>
 
             <span class="c1"># If instance id is supplied</span>
-            <span class="k">if</span> <span class="n">instance_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">instance_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="n">instance_dict</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">get_instance_dict</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                                           <span class="n">instance_id</span><span class="o">=</span><span class="n">instance_id</span><span class="p">)</span>
                 <span class="c1"># Instance not found</span>
-                <span class="k">if</span> <span class="n">instance_dict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Instance </span><span class="si">{}</span><span class="s2"> not found in the cloudmesh database!&quot;</span>
+                <span class="k">if</span> <span class="n">instance_dict</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Instance {} not found in the cloudmesh database!&quot;</span>
                                   <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">instance_id</span><span class="p">))</span>
                     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
                 <span class="c1"># Read the floating_ip from the dict</span>
                 <span class="n">ip_or_id</span> <span class="o">=</span> <span class="n">instance_dict</span><span class="p">[</span><span class="s2">&quot;floating_ip&quot;</span><span class="p">]</span>
 
-                <span class="k">if</span> <span class="n">ip_or_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Instance with ID </span><span class="si">{}</span><span class="s2"> does not have a floating IP address!&quot;</span>
+                <span class="k">if</span> <span class="n">ip_or_id</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Instance with ID {} does not have a floating IP address!&quot;</span>
                                   <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">instance_id</span><span class="p">))</span>
                     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
             <span class="c1"># If the floating ip or associated ID is supplied</span>
-            <span class="k">if</span> <span class="n">ip_or_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ip_or_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">get_floating_ip</span><span class="p">(</span><span class="n">cloudname</span><span class="p">,</span>
                                                  <span class="n">floating_ip_or_id</span><span class="o">=</span><span class="n">ip_or_id</span><span class="p">)</span>
 
-                <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                     <span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Floating IP not found! Please check your arguments.&quot;</span><span class="p">)</span>
@@ -614,7 +614,7 @@
             <span class="n">group</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">get_info</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">group_name</span><span class="p">,</span>
                                    <span class="n">category</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                    <span class="n">output</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="c1"># Convert from str to json</span>
                 <span class="n">group</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
 
@@ -631,8 +631,8 @@
                     <span class="n">instance_dict</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">get_instance_dict</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                                               <span class="n">instance_id</span><span class="o">=</span><span class="n">instance_id</span><span class="p">)</span>
                     <span class="c1"># Instance not found</span>
-                    <span class="k">if</span> <span class="n">instance_dict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Instance </span><span class="si">{}</span><span class="s2"> not found in the cloudmesh database!&quot;</span>
+                    <span class="k">if</span> <span class="n">instance_dict</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Instance {} not found in the cloudmesh database!&quot;</span>
                                       <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">instance_id</span><span class="p">))</span>
                         <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
@@ -641,18 +641,18 @@
                     <span class="n">floating_ip</span> <span class="o">=</span> <span class="n">instance_dict</span><span class="p">[</span><span class="s2">&quot;floating_ip&quot;</span><span class="p">]</span>
 
                     <span class="c1"># If vm does not have floating ip, then create</span>
-                    <span class="k">if</span> <span class="n">floating_ip</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">floating_ip</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                         <span class="n">floating_ip</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">create_assign_floating_ip</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                                                         <span class="n">instance_name</span><span class="o">=</span><span class="n">instance_name</span><span class="p">)</span>
-                        <span class="k">if</span> <span class="n">floating_ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Created and assigned Floating IP </span><span class="si">{}</span><span class="s2"> to instance </span><span class="si">{}</span><span class="s2">.&quot;</span>
+                        <span class="k">if</span> <span class="n">floating_ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Created and assigned Floating IP {} to instance {}.&quot;</span>
                                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">floating_ip</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">))</span>
                             <span class="c1"># Refresh VM in db</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">refresh_vm</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span>
 
                     <span class="c1"># Get the login user for this machine</span>
-                    <span class="n">user</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter the login user for VM </span><span class="si">{}</span><span class="s2"> : &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">instance_name</span><span class="p">))</span>
-                    <span class="n">passphrase</span> <span class="o">=</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getpass</span><span class="p">(</span><span class="s2">&quot;Enter the passphrase key on VM </span><span class="si">{}</span><span class="s2"> : &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">instance_name</span><span class="p">))</span>
+                    <span class="n">user</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter the login user for VM {} : &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">instance_name</span><span class="p">))</span>
+                    <span class="n">passphrase</span> <span class="o">=</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getpass</span><span class="p">(</span><span class="s2">&quot;Enter the passphrase key on VM {} : &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">instance_name</span><span class="p">))</span>
 
                     <span class="c1"># create list for second iteration</span>
                     <span class="n">login_users</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
@@ -697,7 +697,7 @@
 
                 <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Virtual cluster creation successfull.&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No group </span><span class="si">{}</span><span class="s2"> in the Cloudmesh database.&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No group {} in the Cloudmesh database.&quot;</span>
                               <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group_name</span><span class="p">))</span>
                 <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
@@ -706,11 +706,11 @@
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="NetworkCommand.refresh_vm"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.NetworkCommand.NetworkCommand.refresh_vm">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_vm</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Refreshing database for cloud </span><span class="si">{:}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">Vm</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloudname</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:}</span><span class="s2"> OK.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Refreshing database for cloud {:}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">Vm</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloudname</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;{:} OK.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:}</span><span class="s2"> failed&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;{:} failed&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem running database refresh&quot;</span><span class="p">)</span></div>
 
@@ -719,7 +719,7 @@
         <span class="n">result</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">delete_floating_ip</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                             <span class="n">floating_ip_or_id</span><span class="o">=</span><span class="n">floating_ip</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Failed to delete floating IP address!&quot;</span><span class="p">)</span>
@@ -730,8 +730,8 @@
         <span class="n">instance_dict</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">get_instance_dict</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                                   <span class="n">instance_id</span><span class="o">=</span><span class="n">instance_id</span><span class="p">)</span>
         <span class="c1"># Instance not found</span>
-        <span class="k">if</span> <span class="n">instance_dict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Instance </span><span class="si">{}</span><span class="s2"> not found in the cloudmesh database!&quot;</span>
+        <span class="k">if</span> <span class="n">instance_dict</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Instance {} not found in the cloudmesh database!&quot;</span>
                           <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">instance_id</span><span class="p">))</span>
             <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
@@ -739,8 +739,8 @@
         <span class="n">result</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">associate_floating_ip</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                                <span class="n">instance_name</span><span class="o">=</span><span class="n">instance_name</span><span class="p">,</span>
                                                <span class="n">floating_ip</span><span class="o">=</span><span class="n">floating_ip</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Associated Floating IP </span><span class="si">{}</span><span class="s2"> to instance </span><span class="si">{}</span><span class="s2">.&quot;</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Associated Floating IP {} to instance {}.&quot;</span>
                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">floating_ip</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">))</span></div>
 </pre></div>
 
@@ -774,7 +774,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'4.3.1',
+            VERSION:'4.3.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

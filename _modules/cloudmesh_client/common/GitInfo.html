@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.common.GitInfo &mdash; cloudmesh_client 4.3.1 documentation</title>
+  <title>cloudmesh_client.common.GitInfo &mdash; cloudmesh_client 4.3.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.1 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.3.2 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                4.3.1
+                4.3.2
               </div>
             
           
@@ -177,10 +177,10 @@
             
   <h1>Source code for cloudmesh_client.common.GitInfo</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;managing information from GIT&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="k">import</span> <span class="n">Shell</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.util</span> <span class="k">import</span> <span class="n">banner</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="kn">import</span> <span class="n">Shell</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.util</span> <span class="kn">import</span> <span class="n">banner</span>
 
 
 <div class="viewcode-block" id="GitInfo"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.GitInfo.GitInfo">[docs]</a><span class="k">class</span> <span class="nc">GitInfo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -218,7 +218,7 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">Shell</span><span class="o">.</span><span class="n">git</span><span class="p">(</span><span class="s2">&quot;describe&quot;</span><span class="p">,</span> <span class="s2">&quot;--tags&quot;</span><span class="p">))[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="GitInfo.emails"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.GitInfo.GitInfo.emails">[docs]</a>    <span class="k">def</span> <span class="nf">emails</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">format_arg</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="GitInfo.emails"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.GitInfo.GitInfo.emails">[docs]</a>    <span class="k">def</span> <span class="nf">emails</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">format_arg</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        returns the emails of the authors either as a text or as a dict. The</span>
 <span class="sd">        format is specified as an argument.</span>
@@ -226,7 +226,7 @@
 <span class="sd">        :param format_arg: if &quot;dict&quot; is specified a dict will be returned</span>
 <span class="sd">        :rtype: dict or arry of e-mails dependent on format_arg</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="n">format_arg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">format_arg</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">format_string</span> <span class="o">=</span> <span class="s2">&quot;&#39;%aN&#39; &lt;</span><span class="si">%c</span><span class="s2">E&gt;&quot;</span>
         <span class="k">elif</span> <span class="n">format_arg</span> <span class="o">==</span> <span class="s1">&#39;dict&#39;</span><span class="p">:</span>
             <span class="n">format_string</span> <span class="o">=</span> <span class="s2">&quot;%aN</span><span class="se">\t</span><span class="si">%c</span><span class="s2">E&quot;</span>
@@ -241,7 +241,7 @@
                                       <span class="s2">&quot;--format=&quot;</span> <span class="o">+</span> <span class="n">format_string</span><span class="p">])</span>
 
 
-        <span class="k">if</span> <span class="n">format_arg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">format_arg</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">result</span>
         <span class="k">elif</span> <span class="n">format_arg</span> <span class="o">==</span> <span class="s2">&quot;dict&quot;</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
@@ -250,7 +250,7 @@
                 <span class="n">emails</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">emails</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
             <span class="k">return</span> <span class="n">emails</span></div>
 
-<div class="viewcode-block" id="GitInfo.authors"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.GitInfo.GitInfo.authors">[docs]</a>    <span class="k">def</span> <span class="nf">authors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">format_arg</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="GitInfo.authors"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.GitInfo.GitInfo.authors">[docs]</a>    <span class="k">def</span> <span class="nf">authors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">format_arg</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        returns the authors of the authors either as a text or as a dict. The</span>
 <span class="sd">        format is specified as an argument.</span>
@@ -260,7 +260,7 @@
         <span class="c1">#result = Shell.git(&quot;shortlog&quot;, &quot;-s&quot;, &quot;-n&quot;, _tty_in=True, _tty_out=False)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;shortlog&quot;</span><span class="p">,</span> <span class="s2">&quot;-s&quot;</span><span class="p">,</span> <span class="s2">&quot;-n&quot;</span><span class="p">])</span>
 
-        <span class="k">if</span> <span class="n">format_arg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">format_arg</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">result</span>
         <span class="k">elif</span> <span class="n">format_arg</span> <span class="o">==</span> <span class="s2">&quot;dict&quot;</span><span class="p">:</span>
             <span class="n">list_string</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -294,10 +294,10 @@
 <span class="sd">        :rtype: a dict with the statistics</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">sums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">Shell</span><span class="o">.</span><span class="n">git</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">,</span> <span class="s2">&quot;--all&quot;</span><span class="p">,</span> <span class="s2">&quot;--stat&quot;</span><span class="p">,</span> <span class="s1">&#39;--author=</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">email</span><span class="p">),</span>
-                              <span class="n">_tty_in</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                              <span class="n">_tty_out</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                              <span class="n">_iter</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">Shell</span><span class="o">.</span><span class="n">git</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">,</span> <span class="s2">&quot;--all&quot;</span><span class="p">,</span> <span class="s2">&quot;--stat&quot;</span><span class="p">,</span> <span class="s1">&#39;--author={0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">email</span><span class="p">),</span>
+                              <span class="n">_tty_in</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                              <span class="n">_tty_out</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                              <span class="n">_iter</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
             <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
             <span class="k">if</span> <span class="s2">&quot; files changed&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
@@ -329,7 +329,7 @@
         <span class="n">sums</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;fileschanged&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;inserted&quot;</span><span class="p">:</span>
                 <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;deleted&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;lineschanged&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
         <span class="k">for</span> <span class="n">email</span> <span class="ow">in</span> <span class="n">emails</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Calculating stats for&quot;</span><span class="p">,</span> <span class="n">email</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Calculating stats for&quot;</span><span class="p">,</span> <span class="n">email</span><span class="p">)</span>
             <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">]</span> <span class="o">=</span> <span class="n">gitinfo</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
 
             <span class="n">sums</span><span class="p">[</span><span class="s2">&quot;fileschanged&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s2">&quot;fileschanged&quot;</span><span class="p">]</span>
@@ -349,7 +349,7 @@
 
 <div class="viewcode-block" id="print_authors"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.GitInfo.print_authors">[docs]</a><span class="k">def</span> <span class="nf">print_authors</span><span class="p">():</span>
     <span class="n">gitinfo</span> <span class="o">=</span> <span class="n">GitInfo</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">authors</span><span class="p">())</span></div>
+    <span class="k">print</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">authors</span><span class="p">())</span></div>
 
 
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
@@ -358,7 +358,7 @@
     <span class="c1"># print gitinfo.version()</span>
 
     <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">authors</span><span class="p">())</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">authors</span><span class="p">())</span>
 
     <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>
     <span class="n">pprint</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">authors</span><span class="p">(</span><span class="s2">&quot;dict&quot;</span><span class="p">))</span>
@@ -373,17 +373,17 @@
     <span class="n">pprint</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
 
     <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;f&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="s2">&quot;laszewski@gmail.com&quot;</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="s2">&quot;laszewski@gmail.com&quot;</span><span class="p">))</span>
 
     <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;g&quot;</span><span class="p">)</span>
     <span class="n">stats</span> <span class="o">=</span> <span class="n">gitinfo</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
 
     <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;h&quot;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">email</span> <span class="ow">in</span> <span class="n">stats</span><span class="p">:</span>
         <span class="n">p</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s2">&quot;percentage&quot;</span><span class="p">]</span>
-        <span class="nb">print</span><span class="p">((</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> </span><span class="si">{1:.3f}</span><span class="s2">% </span><span class="si">{2:.3f}</span><span class="s2">%  </span><span class="si">{3:.3f}</span><span class="s2">% </span><span class="si">{4:.3f}</span><span class="s2">%&quot;</span>
+        <span class="k">print</span><span class="p">((</span><span class="s2">&quot;{0} {1:.3f}% {2:.3f}%  {3:.3f}% {4:.3f}%&quot;</span>
                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">email</span><span class="p">,</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">])))</span>
 </pre></div>
 
@@ -417,7 +417,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'4.3.1',
+            VERSION:'4.3.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
