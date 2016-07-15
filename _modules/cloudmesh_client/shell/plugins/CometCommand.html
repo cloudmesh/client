@@ -218,12 +218,12 @@
 <span class="sd">                            [--walltime=WALLTIME]</span>
 <span class="sd">               comet terminate COMPUTESETID</span>
 <span class="sd">               comet power (on|off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]</span>
-<span class="sd">               comet console CLUSTERID [COMPUTENODEID]</span>
+<span class="sd">               comet console [--link] CLUSTERID [COMPUTENODEID]</span>
 <span class="sd">               comet node info CLUSTERID [COMPUTENODEID] [--format=FORMAT]</span>
 <span class="sd">               comet node rename CLUSTERID OLDNAMES NEWNAMES</span>
 <span class="sd">               comet iso list</span>
 <span class="sd">               comet iso upload [--isoname=ISONAME] PATHISOFILE</span>
-<span class="sd">               comet iso attach ISONAME CLUSTERID [COMPUTENODEIDS]</span>
+<span class="sd">               comet iso attach ISOIDNAME CLUSTERID [COMPUTENODEIDS]</span>
 <span class="sd">               comet iso detach CLUSTERID [COMPUTENODEIDS]</span>
 
 <span class="sd">            Options:</span>
@@ -245,6 +245,7 @@
 <span class="sd">                                        If not specified, use the original filename</span>
 <span class="sd">                --state=COMPUTESESTATE  List only computeset with the specified state.</span>
 <span class="sd">                                        The state could be submitted, running, completed</span>
+<span class="sd">                --link                  Whether to open the console url or just show the link</span>
 
 <span class="sd">            Arguments:</span>
 <span class="sd">                CLUSTERID       The assigned name of a cluster, e.g. vc1</span>
@@ -263,6 +264,8 @@
 <span class="sd">                                of nodes; or a single host is also acceptable,</span>
 <span class="sd">                                e.g., vm-vc1-0</span>
 <span class="sd">                ISONAME         Name of an iso image at remote server</span>
+<span class="sd">                ISOIDNAME       Index or name of an iso image at the remote server.</span>
+<span class="sd">                                The index is based on the list from &#39;comet iso list&#39;.</span>
 <span class="sd">                PATHISOFILE     The full path to the iso image file to be uploaded</span>
 <span class="sd">                OLDNAMES        The list of current node names to be renamed, in hostlist</span>
 <span class="sd">                                format. A single host is also acceptable.</span>
@@ -648,10 +651,13 @@
                   <span class="p">)</span>
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;console&quot;</span><span class="p">]:</span>
             <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CLUSTERID&quot;</span><span class="p">]</span>
+            <span class="n">linkonly</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--link&quot;</span><span class="p">]:</span>
+                <span class="n">linkonly</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="n">nodeid</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">if</span> <span class="s1">&#39;COMPUTENODEID&#39;</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">:</span>
                 <span class="n">nodeid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;COMPUTENODEID&quot;</span><span class="p">]</span>
-            <span class="n">Comet</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="p">)</span>
+            <span class="n">Comet</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="p">,</span> <span class="n">linkonly</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;iso&quot;</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;list&quot;</span><span class="p">]:</span>
                 <span class="n">isos</span> <span class="o">=</span> <span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">list_iso</span><span class="p">())</span>
@@ -675,10 +681,10 @@
                     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
                 <span class="nb">print</span><span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">upload_iso</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">isofile</span><span class="p">))</span>
             <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;attach&quot;</span><span class="p">]:</span>
-                <span class="n">isoname</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;ISONAME&quot;</span><span class="p">]</span>
+                <span class="n">isoidname</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;ISOIDNAME&quot;</span><span class="p">]</span>
                 <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CLUSTERID&quot;</span><span class="p">]</span>
                 <span class="n">computenodeids</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;COMPUTENODEIDS&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="kc">None</span>
-                <span class="nb">print</span><span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">attach_iso</span><span class="p">(</span><span class="n">isoname</span><span class="p">,</span> <span class="n">clusterid</span><span class="p">,</span> <span class="n">computenodeids</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">attach_iso</span><span class="p">(</span><span class="n">isoidname</span><span class="p">,</span> <span class="n">clusterid</span><span class="p">,</span> <span class="n">computenodeids</span><span class="p">))</span>
             <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;detach&quot;</span><span class="p">]:</span>
                 <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CLUSTERID&quot;</span><span class="p">]</span>
                 <span class="n">computenodeids</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;COMPUTENODEIDS&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="kc">None</span>

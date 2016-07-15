@@ -690,22 +690,24 @@
         <span class="k">return</span> <span class="n">return_url</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.console"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.console">[docs]</a>    <span class="k">def</span> <span class="nf">console</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet.console"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.console">[docs]</a>    <span class="k">def</span> <span class="nf">console</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">linkonly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">console_url</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">url</span><span class="p">:</span>
             <span class="n">newurl_esc</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&amp;&quot;</span><span class="p">,</span> <span class="s2">&quot;\&amp;&quot;</span><span class="p">)</span>
-            <span class="c1"># print (newurl)</span>
-            <span class="c1"># for OSX</span>
-            <span class="k">if</span> <span class="s1">&#39;darwin&#39;</span> <span class="o">==</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="p">:</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;open </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">newurl_esc</span><span class="p">))</span>
-            <span class="c1"># for linux - tested on Ubuntu 14.04 and CentOS 7.1</span>
-            <span class="k">elif</span> <span class="s1">&#39;linux2&#39;</span> <span class="o">==</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="p">:</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;firefox </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">newurl_esc</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;OS not supported!&quot;</span>
-                      <span class="s2">&quot;Use the following url manually in your brower:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
+            <span class="nb">print</span> <span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">linkonly</span><span class="p">:</span>
+                <span class="c1"># for OSX</span>
+                <span class="k">if</span> <span class="s1">&#39;darwin&#39;</span> <span class="o">==</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="p">:</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;open </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">newurl_esc</span><span class="p">))</span>
+                <span class="c1"># for linux - tested on Ubuntu 14.04 and CentOS 7.1</span>
+                <span class="k">elif</span> <span class="s1">&#39;linux2&#39;</span> <span class="o">==</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="p">:</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;firefox </span><span class="si">{}</span><span class="s2"> &amp;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">newurl_esc</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No supportted OS/browser detected!&quot;</span>
+                          <span class="s2">&quot;Use the above url manually in your brower:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Console URL not available. Please make sure the node is running and try again!&quot;</span><span class="p">)</span></div>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Console URL not available.&quot;</span>\
+                  <span class="s2">&quot;Please make sure the node is running and try again!&quot;</span><span class="p">)</span></div>
 
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Comet.md5"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.md5">[docs]</a>    <span class="k">def</span> <span class="nf">md5</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>

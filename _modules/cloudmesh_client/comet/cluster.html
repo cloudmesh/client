@@ -917,48 +917,71 @@
         <span class="k">return</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">attach_iso</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeids</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;Detaching&#39;</span><span class="p">)</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Cluster.attach_iso"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.attach_iso">[docs]</a>    <span class="k">def</span> <span class="nf">attach_iso</span><span class="p">(</span><span class="n">isoname</span><span class="p">,</span> <span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;Attaching&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Cluster.attach_iso"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.attach_iso">[docs]</a>    <span class="k">def</span> <span class="nf">attach_iso</span><span class="p">(</span><span class="n">iso_id_name</span><span class="p">,</span> <span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;Attaching&#39;</span><span class="p">):</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="c1"># print (&quot;Attaching ISO image&quot;)</span>
-        <span class="c1"># print (&quot;isoname: %s&quot; % isoname)</span>
+        <span class="c1"># print (&quot;iso_id_name: %s&quot; % iso_id_name)</span>
         <span class="c1"># print (&quot;cluster: %s&quot; % clusterid)</span>
         <span class="c1"># print (&quot;node: %s&quot; % nodeid)</span>
 
-        <span class="k">if</span> <span class="n">isoname</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-            <span class="n">isoname</span> <span class="o">=</span> <span class="s2">&quot;public/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">isoname</span><span class="p">)</span>
+        <span class="c1"># obtain the list of iso first to support attach by index</span>
+        <span class="c1"># and easy verification of image name</span>
+        <span class="n">isodict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">isos</span> <span class="o">=</span> <span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">list_iso</span><span class="p">())</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">iso</span> <span class="ow">in</span> <span class="n">isos</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">iso</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;public/&quot;</span><span class="p">):</span>
+                <span class="n">iso</span> <span class="o">=</span> <span class="n">iso</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">idx</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">isodict</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">idx</span><span class="p">)]</span> <span class="o">=</span> <span class="n">iso</span>
 
-        <span class="n">urls</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="c1"># attaching to compute node</span>
-        <span class="k">if</span> <span class="n">nodeids</span><span class="p">:</span>
-            <span class="n">nodeids</span> <span class="o">=</span> <span class="n">hostlist</span><span class="o">.</span><span class="n">expand_hostlist</span><span class="p">(</span><span class="n">nodeids</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">nodeid</span> <span class="ow">in</span> <span class="n">nodeids</span><span class="p">:</span>
-                <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/</span><span class="si">{}</span><span class="s2">/compute/</span><span class="si">{}</span><span class="s2">/attach_iso?iso_name=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">)</span> \
-                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="p">,</span> <span class="n">isoname</span><span class="p">)</span>
-                <span class="n">urls</span><span class="p">[</span><span class="s2">&quot;Node </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nodeid</span><span class="p">)]</span> <span class="o">=</span> <span class="n">url</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># attaching to fronend node</span>
-            <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/</span><span class="si">{}</span><span class="s2">/frontend/attach_iso?iso_name=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">)</span> \
-                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">isoname</span><span class="p">)</span>
-            <span class="n">urls</span><span class="p">[</span><span class="s1">&#39;Frontend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">url</span>
-        <span class="c1"># data = {&quot;iso_name&quot;: &quot;%s&quot; % isoname}</span>
-        <span class="c1"># print (&quot;url: %s&quot; % url)</span>
-        <span class="c1"># print (&quot;data: %s&quot; % data)</span>
-        <span class="n">tofrom</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">tofrom</span><span class="p">[</span><span class="s1">&#39;Attaching&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;to&#39;</span>
-        <span class="n">tofrom</span><span class="p">[</span><span class="s1">&#39;Detaching&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;from&#39;</span>
-        <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-            <span class="c1"># print (r)</span>
-            <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">if</span> <span class="s1">&#39;&#39;</span> <span class="o">!=</span> <span class="n">r</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
-                    <span class="n">ret</span> <span class="o">+=</span> <span class="n">r</span>
+        <span class="k">if</span> <span class="n">iso_id_name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">iso_id_name</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">iso_id_name</span> <span class="ow">in</span> <span class="n">isodict</span><span class="p">:</span>
+                    <span class="n">iso_id_name</span> <span class="o">=</span> <span class="n">isodict</span><span class="p">[</span><span class="n">iso_id_name</span><span class="p">]</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">ret</span> <span class="o">+=</span> <span class="s2">&quot;Request Accepted. </span><span class="si">{}</span><span class="s2"> the iso image </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> of cluster </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span> \
-                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">tofrom</span><span class="p">[</span><span class="n">action</span><span class="p">],</span> <span class="n">node</span><span class="p">,</span> <span class="n">clusterid</span><span class="p">)</span>
+                    <span class="n">iso_id_name</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">ret</span> <span class="o">+=</span> <span class="s2">&quot;Something wrong during </span><span class="si">{}</span><span class="s2"> the iso image </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> of cluster </span><span class="si">{}</span><span class="s2">!&quot;</span> \
-                       <span class="s2">&quot;Please check the command and try again</span><span class="se">\n</span><span class="s2">&quot;</span> \
-                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">tofrom</span><span class="p">[</span><span class="n">action</span><span class="p">],</span> <span class="n">node</span><span class="p">,</span> <span class="n">clusterid</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">iso_id_name</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">isodict</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+                    <span class="n">iso_id_name</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">iso_id_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">iso_id_name</span> <span class="o">=</span> <span class="s2">&quot;public/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">iso_id_name</span><span class="p">)</span>
+            <span class="n">urls</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="c1"># attaching to compute node</span>
+            <span class="k">if</span> <span class="n">nodeids</span><span class="p">:</span>
+                <span class="n">nodeids</span> <span class="o">=</span> <span class="n">hostlist</span><span class="o">.</span><span class="n">expand_hostlist</span><span class="p">(</span><span class="n">nodeids</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">nodeid</span> <span class="ow">in</span> <span class="n">nodeids</span><span class="p">:</span>
+                    <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/</span><span class="si">{}</span><span class="s2">/compute/</span><span class="si">{}</span><span class="s2">/attach_iso?iso_name=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">)</span> \
+                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="p">,</span> <span class="n">iso_id_name</span><span class="p">)</span>
+                    <span class="n">urls</span><span class="p">[</span><span class="s2">&quot;Node </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nodeid</span><span class="p">)]</span> <span class="o">=</span> <span class="n">url</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># attaching to fronend node</span>
+                <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/</span><span class="si">{}</span><span class="s2">/frontend/attach_iso?iso_name=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">)</span> \
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">iso_id_name</span><span class="p">)</span>
+                <span class="n">urls</span><span class="p">[</span><span class="s1">&#39;Frontend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">url</span>
+            <span class="c1"># data = {&quot;iso_name&quot;: &quot;%s&quot; % iso_id_name}</span>
+            <span class="c1"># print (&quot;url: %s&quot; % url)</span>
+            <span class="c1"># print (&quot;data: %s&quot; % data)</span>
+            <span class="n">tofrom</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">tofrom</span><span class="p">[</span><span class="s1">&#39;Attaching&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;to&#39;</span>
+            <span class="n">tofrom</span><span class="p">[</span><span class="s1">&#39;Detaching&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;from&#39;</span>
+            <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+                <span class="c1"># print (r)</span>
+                <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s1">&#39;&#39;</span> <span class="o">!=</span> <span class="n">r</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                        <span class="n">ret</span> <span class="o">+=</span> <span class="n">r</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">ret</span> <span class="o">+=</span> <span class="s2">&quot;Request Accepted. </span><span class="si">{}</span><span class="s2"> the iso image </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> of cluster </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span> \
+                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">tofrom</span><span class="p">[</span><span class="n">action</span><span class="p">],</span> <span class="n">node</span><span class="p">,</span> <span class="n">clusterid</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">ret</span> <span class="o">+=</span> <span class="s2">&quot;Something wrong during </span><span class="si">{}</span><span class="s2"> the iso image </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> of cluster </span><span class="si">{}</span><span class="s2">!&quot;</span> \
+                           <span class="s2">&quot;Please check the command and try again</span><span class="se">\n</span><span class="s2">&quot;</span> \
+                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">tofrom</span><span class="p">[</span><span class="n">action</span><span class="p">],</span> <span class="n">node</span><span class="p">,</span> <span class="n">clusterid</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;ERROR: The specified index or image name not matching any from the ISO list!</span><span class="se">\n</span><span class="s2">&quot;</span>\
+                  <span class="s2">&quot;Check &#39;cm comet iso list&#39;&quot;</span>
         <span class="k">return</span> <span class="n">ret</span></div>
 
     <span class="nd">@staticmethod</span>
