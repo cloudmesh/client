@@ -292,3 +292,9 @@ On front-end node:
 This would setup the key, authorized keys, and known hosts files on the nodes.
 
 Login to compute nodes from front-end, and run your app.
+
+.. note:: In the production we use two factor authentication with yubikeys.
+          To simplify the the tutorial we use username and  password access for the
+          isolated teaching environment. When utilizing the production version you
+          will need to get in contact with the comet staff. You must have a valid
+          XSEDE allocation.
