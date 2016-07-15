@@ -6,22 +6,43 @@ Setup Cloudmesh Client on Ubuntu Desktop in Virtualbox
 Virtual Box
 ----------------------------------------------------------------------
 
-* For convenience we will be using Ubuntu Xenial in this demo to
-  install the Cloudmesh client on it 
+Step 1:
 
-* Please make sure you have `VirtualBox
-<https://www.virtualbox.org>`_virtualbox installed (`downloads page <https://www.virtualbox.org/wiki/Downloads>`_).
+For convenience we will be using Ubuntu Xenial in this demo to
+install the Cloudmesh client on it. Please make sure you have
 
-* Download the `Ubuntu desktop <http://www.ubuntu.com/download>`_ ISO
+* `VirtualBox <https://www.virtualbox.org>`_ installed (`downloads page <https://www.virtualbox.org/wiki/Downloads>`_).
 
-* Remember the location
+Step 2:
 
-* Start VirtualBox, create e new VM (Ubuntu, 64bit)
-* Start the box
-* When asked for the ISO, use the folder icon to browse to the location of the downloaded image.
-* Start and configure the image
-* Start a terminal 
-* You may want to enable past and copy between host and vm and add the guest additions.
+Next, please download the
+
+* `Ubuntu desktop ISO <http://www.ubuntu.com/download>`_.
+
+and remember the location where you downloaded it. You will need that location later.
+
+Step 3:
+
+Create VirtualBox, create a new VM (Ubuntu, 64bit)
+
+Step 4:
+
+Start the box. When asked for the ISO, use the folder icon to browse to the location of the downloaded image.
+
+Step 5:
+
+Start and configure the system. Note in case the last step does not return, shut down or terminate the VM and restart it.
+
+Step 6:
+
+Once you have logged into the vm, start a terminal by clicking on the cog and type in *terminal*
+
+Step 7: (optional)
+
+You may want to enable the vm guest addition and enable bidirectional shared clipboard and drag and drop. You may have
+to restart the vm so that these changes take effect.
+
+past and copy between host and vm, as well as .
   
 .. prompt:: bash
 
@@ -83,7 +104,6 @@ ISO images:
 .. prompt:: bash
 
   cm comet iso list
-  cm comet iso attach ubuntu-14.04.4-server-amd64.iso vc2
 
 Example: Install the front-end node
 ----------------------------------------------------------------------
@@ -93,13 +113,7 @@ Find an iso and attach
 .. prompt:: bash
 
   cm comet iso list
-  cm comet iso attach ubuntu-14.04.4-server-amd64.iso vc2
-
-Getting network configuration parameters
-
-.. prompt:: bash
-
-  cm comet node info vc2
+  cm comet iso attach 6 vc2
 
 Power on the node
 
@@ -131,13 +145,7 @@ Screenshots for the frontend node configuration:
    :scale: 50 %
    :alt: screenshot
 
-   Figure: Configure the network
-
-.. figure:: ./images/02_dhcp_failed.png
-   :scale: 50 %
-   :alt: screenshot
-
-   Figure: Let DHCP configure the network
+   Figure: Configure the network. DHCP is configured on `eth1` (the public interface)
 
 .. figure:: ./images/20_hostname.png
    :scale: 50 %
@@ -149,7 +157,7 @@ Screenshots for the frontend node configuration:
    :scale: 50 %
    :alt: screenshot
 
-   Figure: set up a strong password
+   Figure: Set up the non-privileged user account, including a strong password
 
 .. figure:: ./images/08_partition.png
    :scale: 50 %
@@ -161,7 +169,7 @@ Screenshots for the frontend node configuration:
    :scale: 50 %
    :alt: screenshot
 
-   Figure: Select OpenSSH using the space bar
+   Figure: Select OpenSSH using the space bar and then tab to Continue
 
 .. figure:: ./images/10_complete.png
    :scale: 50 %
@@ -179,13 +187,13 @@ Screenshots for the frontend node configuration:
    :scale: 50 %
    :alt: screenshot
 
-   Figure: Reboot the machine
+   Figure: The machine will be rebooted. Allow it to start booting from the CDROM again.
 
 .. figure:: ./images/13_reboot_cd_choose_hd.png
    :scale: 50 %
    :alt: screenshot
 
-   Figure: Chose to boot from hard disk
+   Figure: From the CDROM boot menu, choose to boot from hard disk
 
 
 Finishing Front-end setup
@@ -208,7 +216,7 @@ via ssh:
 
 .. prompt:: bash
 
-  ssh USER@vct<##>.sdsc.edu
+  ssh USER@vct<NN>.sdsc.edu
 
 Configuring the front-end node
 ----------------------------------------------------------------------
@@ -218,8 +226,8 @@ On your managing machine where Cloudmesh client tools is installed:
 .. prompt:: bash
 
   wget http://bit.ly/vc-cmutil
-  python cmutil.py nodesfile
-  scp vcn*.txt <USER>@vct<##>.sdsc.edu:~/
+  python cmutil.py nodesfile vct<NN>
+  scp vcn*.txt <USER>@vct<NN>.sdsc.edu:~/
 
 On vc front-end node:
 
