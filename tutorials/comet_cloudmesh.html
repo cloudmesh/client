@@ -189,37 +189,30 @@
 <p>Setup Cloudmesh Client on Ubuntu Desktop in Virtualbox</p>
 <div class="section" id="virtual-box">
 <h2>Virtual Box<a class="headerlink" href="#virtual-box" title="Permalink to this headline">¶</a></h2>
-<p>Step 1:</p>
-<p>For convenience we will be using Ubuntu Xenial in this demo to
+<p><strong>Step 1:</strong> For convenience we will be using Ubuntu Xenial in this demo to
 install the Cloudmesh client on it. Please make sure you have</p>
 <ul class="simple">
 <li><a class="reference external" href="https://www.virtualbox.org">VirtualBox</a> installed (<a class="reference external" href="https://www.virtualbox.org/wiki/Downloads">downloads page</a>).</li>
 </ul>
-<p>Step 2:</p>
-<p>Next, please download the</p>
+<p><strong>Step 2:</strong> Next, please download the</p>
 <ul class="simple">
 <li><a class="reference external" href="http://www.ubuntu.com/download">Ubuntu desktop ISO</a>.</li>
 </ul>
 <p>and remember the location where you downloaded it. You will need that location later.</p>
-<p>Step 3:</p>
-<p>Create VirtualBox, create a new VM (Ubuntu, 64bit)</p>
-<p>Step 4:</p>
-<p>Start the box. When asked for the ISO, use the folder icon to browse to the location of the downloaded image.</p>
-<p>Step 5:</p>
-<p>Start and configure the system. Note in case the last step does not return, shut down or terminate the VM and restart it.</p>
-<p>Step 6:</p>
-<p>Once you have logged into the vm, start a terminal by clicking on the cog and type in <em>terminal</em></p>
-<p>Step 7: (optional)</p>
-<p>You may want to enable the vm guest addition and enable bidirectional shared clipboard and drag and drop. You may have
+<p><strong>Step 3:</strong> Create VirtualBox, create a new VM (Ubuntu, 64bit)</p>
+<p><strong>Step 4:</strong> Start the box. When asked for the ISO, use the folder icon to browse to the location of the downloaded image.</p>
+<p><strong>Step 5:</strong> Start and configure the system. Note in case the last step does not return, shut down or terminate the VM and restart it.</p>
+<p><strong>Step 6:</strong> Once you have logged into the vm, start a terminal by clicking on the cog and type in <em>terminal</em></p>
+<p><strong>Step 7:</strong> (optional) You may want to enable the vm guest addition and enable bidirectional shared clipboard and drag and drop. You may have
 to restart the vm so that these changes take effect.</p>
-<p>past and copy between host and vm, as well as .</p>
+<p><strong>Step 8:</strong> Install cloudmesh. Paste and copy between host and vm, as well as .</p>
 <pre class="highlight"><style type="text/css">
 span.prompt1:before {
   content: "$ ";
 }
 </style><span class="prompt1">wget -O cm-setup.sh http://bit.ly/cloudmesh-client-xenial</span>
 <span class="prompt1">sh cm-setup.sh</span>
-</pre><p>What is in the script:</p>
+</pre><p>The script has the following contents:</p>
 <pre class="highlight"><span class="prompt1">sudo apt install python-pip -y</span>
 <span class="prompt1">sudo apt install libssl-dev -y</span>
 <span class="prompt1">sudo pip install pip -U</span>
@@ -232,39 +225,57 @@ span.prompt1:before {
 </pre></div>
 <div class="section" id="configure-cloudmesh">
 <h2>Configure Cloudmesh<a class="headerlink" href="#configure-cloudmesh" title="Permalink to this headline">¶</a></h2>
+<p>Next, we need to configure cloudmesh. We will only use a fraction of cloudmesh
+capabilities for this tutorial that is focused on using comet</p>
 <pre class="highlight"><span class="prompt1">ssh-keygen</span>
 <span class="prompt1">cm</span>
 <span class="prompt1">cm version</span>
 </pre></div>
 <div class="section" id="instalation-with-pip">
 <h2>Instalation with Pip<a class="headerlink" href="#instalation-with-pip" title="Permalink to this headline">¶</a></h2>
-<p>Installing in a virtualenv is recommended.</p>
+<p>Installing in a virtualenv is highly recommended.</p>
 <pre class="highlight"><span class="prompt1">pip install cloudmesh_client</span>
 <span class="prompt1">cm <span class="nb">help</span></span>
 <span class="prompt1">cm comet init</span>
 </pre></div>
 <div class="section" id="getting-access-to-your-cluster">
 <h2>Getting access to your cluster<a class="headerlink" href="#getting-access-to-your-cluster" title="Permalink to this headline">¶</a></h2>
-<p>Access your vc</p>
-<p>Cluster info:</p>
+<p>Access your virtual cluster (vc)</p>
+<p>The cluster information can be obtained with the following commands:</p>
 <pre class="highlight"><span class="prompt1">cm comet cluster ll</span>
 <span class="prompt1">cm comet cluster</span>
 <span class="prompt1">cm comet cluster vc2</span>
-</pre><p>ISO images:</p>
+</pre><p>The list of ISO images that are currently available can be obtained with:</p>
 <pre class="highlight"><span class="prompt1">cm comet iso list</span>
 </pre></div>
 <div class="section" id="example-install-the-front-end-node">
 <h2>Example: Install the front-end node<a class="headerlink" href="#example-install-the-front-end-node" title="Permalink to this headline">¶</a></h2>
 <p>Find an iso and attach</p>
 <pre class="highlight"><span class="prompt1">cm comet iso list</span>
-<span class="prompt1">cm comet iso attach <span class="m">6</span> vc2</span>
-</pre><p>Power on the node</p>
-<pre class="highlight"><span class="prompt1">cm comet power on vc2</span>
+</pre><p>This will return:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">1</span><span class="p">:</span> <span class="n">CentOS</span><span class="o">-</span><span class="mi">7</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">NetInstall</span><span class="o">-</span><span class="mf">1511.</span><span class="n">iso</span>
+ <span class="mi">2</span><span class="p">:</span> <span class="n">CentOS</span><span class="o">-</span><span class="mf">6.8</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">netinstall</span><span class="o">.</span><span class="n">iso</span>
+ <span class="mi">3</span><span class="p">:</span> <span class="n">kernel</span><span class="o">-</span><span class="mf">6.2</span><span class="o">-</span><span class="mf">0.</span><span class="n">x86_64</span><span class="o">.</span><span class="n">disk1</span><span class="o">.</span><span class="n">iso</span>
+ <span class="mi">4</span><span class="p">:</span> <span class="n">systemrescuecd</span><span class="o">-</span><span class="n">x86</span><span class="o">-</span><span class="mf">4.2</span><span class="o">.</span><span class="mf">0.</span><span class="n">iso</span>
+ <span class="mi">5</span><span class="p">:</span> <span class="n">base</span><span class="o">+</span><span class="n">kernel</span><span class="o">+</span><span class="n">kvm</span><span class="o">+</span><span class="n">os</span><span class="o">-</span><span class="mf">6.2</span><span class="o">.</span><span class="n">x86_64</span><span class="o">.</span><span class="n">disk1</span><span class="o">.</span><span class="n">iso</span>
+ <span class="mi">6</span><span class="p">:</span> <span class="n">ubuntu</span><span class="o">-</span><span class="mf">14.04</span><span class="o">.</span><span class="mi">4</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">iso</span>
+ <span class="mi">7</span><span class="p">:</span> <span class="n">ubuntu</span><span class="o">-</span><span class="mf">15.04</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">iso</span>
+ <span class="mi">8</span><span class="p">:</span> <span class="n">CentOS</span><span class="o">-</span><span class="mf">6.8</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">LiveDVD</span><span class="o">.</span><span class="n">iso</span>
+ <span class="mi">9</span><span class="p">:</span> <span class="n">ubuntu</span><span class="o">-</span><span class="mf">16.04</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">iso</span>
+<span class="mi">10</span><span class="p">:</span> <span class="n">CentOS</span><span class="o">-</span><span class="mi">7</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">LiveGNOME</span><span class="o">-</span><span class="mf">1511.</span><span class="n">iso</span>
+</pre></div>
+</div>
+<p>Next we attach an iso. YOu can use either the name of the iso, or simply the id</p>
+<pre class="highlight"><span class="prompt1">cm comet iso attach <span class="m">6</span> vc2</span>
+</pre><p>Let us check the status of the server.</p>
+<pre class="highlight"><span class="prompt1">cm comet cluster vc2</span>
 </pre><p>If it is already running, please power if off so the iso attach could take effect:</p>
 <pre class="highlight"><span class="prompt1">cm comet power off vc2</span>
-</pre><p>Attach console to finish the OS setup</p>
+</pre><p>Now we need to power on the server</p>
+<pre class="highlight"><span class="prompt1">cm comet power on vc2</span>
+</pre><p>To see what is happening on the server, we can attach a console to follow and complete the setup of the OS</p>
 <pre class="highlight"><span class="prompt1">cm comet console vc2</span>
-</pre><p>Screenshots for the frontend node configuration:</p>
+</pre><p>Screenshots for the frontend node configuration are given next:</p>
 <div class="figure" id="id1">
 <a class="reference internal image-reference" href="../_images/00_install_start.png"><img alt="screenshot" src="../_images/00_install_start.png" style="width: 647.0px; height: 489.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Install ubuntu server</span></p>
@@ -308,15 +319,15 @@ span.prompt1:before {
 </div>
 <div class="section" id="finishing-front-end-setup">
 <h2>Finishing Front-end setup<a class="headerlink" href="#finishing-front-end-setup" title="Permalink to this headline">¶</a></h2>
-<p>At end of the installation, click &#8216;complete&#8217; to finish the setup. The node will
+<p>At end of the installation, click <strong>complete</strong> to finish the setup. The node will
 reboot into the OS installation CD again, but now choose &#8216;boot from first hard disk&#8217;
 option from the booting menu. This ensure the node boots into the newly installed OS,
 while having the OS installation CD still attached (we will need the CD again in the
 later steps).</p>
-<p>Once the node is back on, you can now login and configure the cluster</p>
-<p>via laptop:</p>
+<p>Once the node is back on, you can now login and configure the cluster from your laptop/desktop:</p>
 <pre class="highlight"><span class="prompt1">cm comet console vc2</span>
-</pre><p>via ssh:</p>
+</pre><p>YOu can also ssh into the machine after it is configures with the usual ssh commands while
+using your login name that you set up and specify your cluster name.</p>
 <pre class="highlight"><span class="prompt1">ssh USER@vct&lt;NN&gt;.sdsc.edu</span>
 </pre></div>
 <div class="section" id="configuring-the-front-end-node">
@@ -334,9 +345,9 @@ later steps).</p>
 <h2>Example: Install Compute Nodes<a class="headerlink" href="#example-install-compute-nodes" title="Permalink to this headline">¶</a></h2>
 <p>Compute node setup</p>
 <pre class="highlight"><span class="prompt1">cm comet start vc2 vm-vc2-<span class="o">[</span>1-2<span class="o">]</span></span>
-</pre><p>Took about 15~20 minutes</p>
-<p>Once done, the node will be shutoff</p>
-<p>Changing to localboot. Do this on the front-end node:</p>
+</pre><p>Takes about 15~20 minutes. Once done, the node will be shutoff.</p>
+<p>Once you see the boot question in your console log, please change it to
+Changing to localboot. Do this on the front-end node:</p>
 <pre class="highlight"><span class="prompt1">./cmutil.py setboot <span class="nv">$HOSTNAME</span> &lt;NODE&gt; <span class="nv">net</span><span class="o">=</span><span class="nb">false</span></span>
 </pre><p>Then on your managing host where Cloudmesh client is installed:</p>
 <pre class="highlight"><span class="prompt1">cm comet power on vc2 vm-vc2-<span class="o">[</span>1-2<span class="o">]</span></span>
