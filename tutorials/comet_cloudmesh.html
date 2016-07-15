@@ -333,7 +333,7 @@ using your login name that you set up and specify your cluster name.</p>
 <div class="section" id="configuring-the-front-end-node">
 <h2>Configuring the front-end node<a class="headerlink" href="#configuring-the-front-end-node" title="Permalink to this headline">¶</a></h2>
 <p>On your managing machine where Cloudmesh client tools is installed:</p>
-<pre class="highlight"><span class="prompt1">wget http://bit.ly/vc-cmutil</span>
+<pre class="highlight"><span class="prompt1">wget -O cmutil.py http://bit.ly/vc-cmutil</span>
 <span class="prompt1">python cmutil.py nodesfile vct&lt;NN&gt;</span>
 <span class="prompt1">scp vcn*.txt &lt;USER&gt;@vct&lt;NN&gt;.sdsc.edu:~/</span>
 </pre><p>On vc front-end node:</p>
@@ -356,6 +356,14 @@ Changing to localboot. Do this on the front-end node:</p>
 <span class="prompt1">./key_setup.sh</span>
 </pre><p>This would setup the key, authorized keys, and known hosts files on the nodes.</p>
 <p>Login to compute nodes from front-end, and run your app.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In the production we use two factor authentication with yubikeys.
+To simplify the the tutorial we use username and  password access for the
+isolated teaching environment. When utilizing the production version you
+will need to get in contact with the comet staff. You must have a valid
+XSEDE allocation.</p>
+</div>
 </div>
 </div>
 
