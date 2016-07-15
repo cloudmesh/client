@@ -1,13 +1,13 @@
 Comet Cloudmesh Tutorial
 =========================
 
-SetupCloudmesh Client on Ubuntu Desktop in Virtualbox
+Setup Cloudmesh Client on Ubuntu Desktop in Virtualbox
 
 Virtual Box
 ----------------------------------------------------------------------
 
 * For convenience we will be using Ubuntu Xenial in this demo to
-  install the cloudmesh client on it 
+  install the Cloudmesh client on it 
 
 * Please make sure you have `VirtualBox
 <https://www.virtualbox.org>`_virtualbox installed (`downloads page <https://www.virtualbox.org/wiki/Downloads>`_).
@@ -139,35 +139,17 @@ Screenshots for the frontend node configuration:
 
    Figure: Let DHCP configure the network
 
-.. figure:: ./images/03_netconf_manual.png
+.. figure:: ./images/20_hostname.png
    :scale: 50 %
    :alt: screenshot
 
-   Figure: Configure the network manually
+   Figure: Set the hostname
 
-.. figure:: ./images/04_net_ip.png
+.. figure:: ./images/22_user_password_creation.png
    :scale: 50 %
    :alt: screenshot
 
-   Figure: Add your public ip adress, note yours may be different
-
-.. figure:: ./images/05_net_mask.png
-   :scale: 50 %
-   :alt: screenshot
-
-   Figure: Add your netmask, note yours may be different
-
-.. figure:: ./images/06_net_gateway.png
-   :scale: 50 %
-   :alt: screenshot
-
-   Figure: Add your gateway, note yours may be different
-
-.. figure:: ./images/07_net_dns.png
-   :scale: 50 %
-   :alt: screenshot
-
-   Figure: Add your DNS servers, note yours may be different
+   Figure: set up a strong password
 
 .. figure:: ./images/08_partition.png
    :scale: 50 %
@@ -179,7 +161,7 @@ Screenshots for the frontend node configuration:
    :scale: 50 %
    :alt: screenshot
 
-   Figure: Select default services you like
+   Figure: Select OpenSSH using the space bar
 
 .. figure:: ./images/10_complete.png
    :scale: 50 %
@@ -205,24 +187,6 @@ Screenshots for the frontend node configuration:
 
    Figure: Chose to boot from hard disk
 
-.. figure:: ./images/20_hostname.png
-   :scale: 50 %
-   :alt: screenshot
-
-   Figure: Set the hostname
-
-.. figure:: ./images/21_domain.png
-   :scale: 50 %
-   :alt: screenshot
-
-   Figure: Set the domain name
-
-.. figure:: ./images/22_user_password_creation.png
-   :scale: 50 %
-   :alt: screenshot
-
-   Figure: set up a strong password
-
 
 Finishing Front-end setup
 ----------------------------------------------------------------------
@@ -234,7 +198,7 @@ later steps).
 
 Once the node is back on, you can now login and configure the cluster
 
-via console:
+via laptop:
 
 .. prompt:: bash
 
@@ -249,11 +213,11 @@ via ssh:
 Configuring the front-end node
 ----------------------------------------------------------------------
 
-On your managing machine where cloudmesh client tools is installed:
+On your managing machine where Cloudmesh client tools is installed:
 
 .. prompt:: bash
 
-  wget https://raw.githubusercontent.com/sdsc/comet-vc-tutorial/master/cmutil.py
+  wget http://bit.ly/vc-cmutil
   python cmutil.py nodesfile
   scp vcn*.txt <USER>@vct<##>.sdsc.edu:~/
 
@@ -287,7 +251,7 @@ Changing to localboot. Do this on the front-end node:
 
 .. prompt:: bash
 
-Then on your managing host where cloudmesh client is installed:
+Then on your managing host where Cloudmesh client is installed:
 
 .. prompt:: bash
 
@@ -302,6 +266,4 @@ On front-end node:
   
 This would setup the key, authorized keys, and known hosts files on the nodes.
 
-login to compute nodes from front-end, and run your app.
-
-
+Login to compute nodes from front-end, and run your app.
