@@ -132,12 +132,6 @@ Screenshots for the frontend node configuration:
 
    Figure: Configure the network. DHCP is configured on `eth1` (the public interface)
 
-.. figure:: ./images/02_dhcp_failed.png
-   :scale: 50 %
-   :alt: screenshot
-
-   Figure: Let DHCP configure the network
-
 .. figure:: ./images/20_hostname.png
    :scale: 50 %
    :alt: screenshot
@@ -178,13 +172,13 @@ Screenshots for the frontend node configuration:
    :scale: 50 %
    :alt: screenshot
 
-   Figure: Reboot the machine
+   Figure: The machine will be rebooted. Allow it to start booting from the CDROM again.
 
 .. figure:: ./images/13_reboot_cd_choose_hd.png
    :scale: 50 %
    :alt: screenshot
 
-   Figure: Chose to boot from hard disk
+   Figure: From the CDROM boot menu, choose to boot from hard disk
 
 
 Finishing Front-end setup
