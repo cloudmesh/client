@@ -82,7 +82,6 @@ ISO images:
 .. prompt:: bash
 
   cm comet iso list
-  cm comet iso attach ubuntu-14.04.4-server-amd64.iso vc2
 
 Example: Install the front-end node
 ----------------------------------------------------------------------
@@ -92,13 +91,7 @@ Find an iso and attach
 .. prompt:: bash
 
   cm comet iso list
-  cm comet iso attach ubuntu-14.04.4-server-amd64.iso vc2
-
-Getting network configuration parameters
-
-.. prompt:: bash
-
-  cm comet node info vc2
+  cm comet iso attach 6 vc2
 
 Power on the node
 
