@@ -243,7 +243,7 @@ On your managing machine where Cloudmesh client tools is installed:
 
 .. prompt:: bash
 
-  wget http://bit.ly/vc-cmutil
+  wget -O cmutil.py http://bit.ly/vc-cmutil
   python cmutil.py nodesfile vct<NN>
   scp vcn*.txt <USER>@vct<NN>.sdsc.edu:~/
 
