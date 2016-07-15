@@ -32,10 +32,10 @@ Process Overview
 ----------------
 
 1. Start a virtual cluster
-1. Deploy the stack (ansible)
-1. Install the dataset and NBIS software (ansible)
-1. Run the analytics (spark)
-1. Find the matches (drill)
+2. Deploy the stack (ansible)
+3. Install the dataset and NBIS software (ansible)
+4. Run the analytics (spark)
+5. Find the matches (drill)
 
 
 Start a Virtual Cluster
