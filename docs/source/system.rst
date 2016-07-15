@@ -27,8 +27,8 @@ easiest is to open a terminal and type
   xcode-select --install
 
 
-We recommend that you use python 2.7, e.g. at least python
-2.7.10. This version of python is easy to install while downloading
+We recommend that you use python at 2.7.12, but not python 3. At this time
+This version of python is easy to install while downloading
 the dmg and installing it on the system. You can find the python
 version at:
 
@@ -58,9 +58,9 @@ Make sure that you have the supported versions:
   ==========  =========
   Software    Version
   ==========  =========
-  Python      2.7.10
-  pip         8.0.2
-  virtualenv  13.1.2
+  Python      2.7.12
+  pip         8.1.2
+  virtualenv  15.0.1
   ==========  =========  
   
 On OSX as well as the other operating systems we **require** you to
@@ -74,7 +74,8 @@ use. You can say
 It will give you the path of the python interpreter.
 
 If you have a vanilla OS X at the time of writing of this documentation,
-the python version is 2.7.10 hence you can use
+the python version is 2.7.10 hence you can use alos this. However, it may be better
+to upgrade to 2.7.12 while using virtualenv.
 
 .. prompt:: bash
 
@@ -133,13 +134,13 @@ and pip again
    
    pip --version
 
-which should give the version 8.0.2
+which should give the version 8.1.2
 
 .. prompt:: bash
 
    python --version
 
-which should give the version Python 2.7.10
+which should give the version Python 2.7.10 or 2.7.12 if you installed that
 
 OSX Quick Install Scripts (untested)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -152,7 +153,7 @@ instructions above
    xcode-select --install
    open https://www.python.org/downloads/
 
-Install python 2.7.10. Next do
+Install python 2.7.12. Next do
 
 .. prompt:: bash
 
@@ -330,7 +331,21 @@ Add the following to your .bashrc file::
 
      source $HOME/ENV/bin/activate
 
-  
+Ubuntu Xenial VM with pip
+--------------------------
+
+In case you run an ubuntu xenial desktop VM on virtual box the instalation is actually quite easy.
+
+in the VM start a terminal in which you execute the follwoing command
+
+.. prompt:: bash
+
+   wget -O cm-setup.sh http://bit.ly/cloudmesh-client-xenial
+   sh cm-setup.sh
+
+THis will install the needed software
+
+
 CentOS
 ----------------------------------------------------------------------
 
