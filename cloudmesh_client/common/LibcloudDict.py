@@ -136,3 +136,15 @@ class LibcloudDict(object):
             if key == "virtualization_type":
                 image_extra_args_dict[key] = value
         return image_extra_args_dict
+
+    @staticmethod
+    def handle_key_details(key_obj):
+        # Simply converts all attributes to dict
+        key_dict = key_obj.__dict__
+        # Selects attributes to convert
+        key_dict = {
+                'name': key_obj.name,
+                'fingerprint': key_obj.fingerprint,
+                'driver': key_obj.driver
+                }
+        return key_dict
