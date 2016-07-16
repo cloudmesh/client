@@ -254,6 +254,128 @@ Next you can deploy the fingerprint images and analysis software to the cluster:
 Run the Analytics
 -----------------
 
+Dataset and software deployment succeedes, you can begin with the analytics portion.
+There are several steps to complete here:
+
+1. Load the image data into HBase
+2. Run the fingerprint ridge detection softare (``MINDTCT``)
+3. Select subsets of the images as "probe" and "gallery" sets
+4. Run the fingerprint matching method
+
+
+Setup
+~~~~~
+
+Start by logging into the frontend node of your cluster.  The
+following will tell you the name of the frontend node, then you can
+get the IP from ``host_vars/myvcN`` (where ``N`` is appropriatly
+substituted).
+
+.. code-block:: sh
+
+   $ grep -A1 frontend inventory.txt
+
+
+.. tip::
+
+   Or, as a oneliner::
+
+     $ grep ansible_ssh_host host_vars/$(grep -A1 frontends inventory.txt | tail -1 | awk '{print $1}'
+
+
+.. code-block:: sh
+
+   $ ssh $VC_USER@$FRONTEND_IP
+
+
+The stack deployment will have created a ``hadoop`` user and deposited
+the analysis code there. Switch to the ``hadoop`` user:
+
+.. code-block:: sh
+
+   $ sudo su - hadoop
+
+
+You then need to compile and package the analysis code into a jar.
+
+.. code-block:: sh
+
+   $ sbt package && sbt assembly
+
+
+The result is a "fat jar" at
+``target/scala-2.10/NBIS-assembly-1.0.jar`` that contains most of the
+runtime requirements for executing on the cluster.  I say "most" as
+the HBase libraries still need to be passed in via the
+``--driver-class-path`` argument to ``spark-submit.
+
+
+Loading Images
+~~~~~~~~~~~~~~
+
+The following command will launch a Spark job on the YARN cluster. It
+will read in the list of images and metadata files from
+``sd04_md5.lst`` and load their contents into HBase.
+
+.. code-block:: sh
+
+   $ time spark-submit \
+       --master yarn \
+       --deploy-mode cluster \
+       --driver-class-path $(hbase classpath) \
+       --class LoadData \
+       target/scala-2.10/NBIS-assembly-1.0.jar \
+       /tmp/nist/NISTSpecialDatabase4GrayScaleImagesofFIGS/sd04/sd04_md5.lst
+
+
+Run Ridge Detection (MINDTCT)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+.. code-block:: sh
+
+   $ time spark-submit \
+       --master yarn \
+       --deploy-mode cluster \
+       --driver-class-path $(hbase classpath) \
+       --class RunMindtct \
+       target/scala-2.10/NBIS-assembly-1.0.jar
+
+
+Choosing Probe and Gallery sets
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+.. code-block:: sh
+
+   $ time spark-submit \
+       --master yarn \
+       --deploy-mode cluster \
+       --driver-class-path $(hbase classpath) \
+       --class RunGroup \
+       target/scala-2.10/NBIS-assembly-1.0.jar \
+       probe 0.001 \
+       gallery 0.01
+
+
+Run Fingerprint Matching (BOZORTH3)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: sh
+
+   $ time spark-submit \
+       --master yarn \
+       --deploy-mode cluster \
+       --driver-class-path $(hbase classpath) \
+       --class RunBOZORTH3 \
+       target/scala-2.10/NBIS-assembly-1.0.jar \
+       probe gallery \
+       2>err.log
+
+.. tip::
+
+   This will likely take several hours
+
 
 Find the Matches
 ----------------
