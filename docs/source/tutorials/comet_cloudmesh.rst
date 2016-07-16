@@ -282,8 +282,7 @@ Changing to localboot. Do this on the front-end node:
 .. prompt:: bash
 
   cd $HOME
-  wget -O cmutil.py http://bit.ly/vc-cmutil
-  python cmutil.py setboot $HOSTNAME <NODE> net=false
+  sudo ./comet-vc-tutorial/cmutil.py setboot $HOSTNAME vm-vct01-01 net=false
 
 .. prompt:: bash
 
