@@ -49,7 +49,7 @@ class CloudProviderLibcloud(CloudProviderBase):
         #Console.info(keys)
         #self._print(keys)
         keys_dict = self._to_dict(keys)
-        print (keys_dict)
+        #print (keys_dict)
         return keys_dict
 
     def list_vm(self, cloudname, **kwargs):
