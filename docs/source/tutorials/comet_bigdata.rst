@@ -260,7 +260,7 @@ There are several steps to complete here:
 1. Load the image data into HBase
 2. Run the fingerprint ridge detection softare (``MINDTCT``)
 3. Select subsets of the images as "probe" and "gallery" sets
-4. Run the fingerprint matching method
+4. Run the fingerprint matching method (``BOZORTH3``)
 
 
 Setup
