@@ -321,7 +321,7 @@ class CloudProviderLibcloud(CloudProviderBase):
         :param nics: TODO: fixme
         :param meta: A dict of arbitrary key/value metadata to store for this server
         """
-        pprint("BOOTING UP THE VM")
+        Console.info("boot_vm() called")
         if cloud is None:
             Console.error("Cloud is not specified")
             return
@@ -330,15 +330,13 @@ class CloudProviderLibcloud(CloudProviderBase):
         # self.provider.create_node("test_node", auth=auth)
         if image is not None:
             image = self.get_image_by_id(image)
-            pprint("Image Id")
-            pprint(image)
+            Console.info("Image Id & Name: {0}, {1}".format(image.id, image.name))
         else:
             Console.error("Image Id not found")
 
         if flavor is not None:
             flavor = self.get_size_by_id(flavor)
-            pprint("FLAVOR::")
-            pprint(flavor)
+            Console.info("Flavor: {0}, {1}".format(flavor.id, flavor.name))
         else:
             Console.error("valid Flavor Id not found")
         # flavor = self.provider.list_sizes()[2]
@@ -353,7 +351,7 @@ class CloudProviderLibcloud(CloudProviderBase):
         # Console.info("Key :")
         # pprint(key)
         vm = self.provider.create_node(name=name, image=image, size=flavor, ex_keyname=key)
-        Console.info("VM boot up success.ok.")
+        Console.info("EC2 Instance {0} started".format(vm.id))
 
         # vm info returned
         return vm
@@ -366,7 +364,7 @@ class CloudProviderLibcloud(CloudProviderBase):
         :param force:
         :return:
         """
-        pprint("Delete VM for "+name)
+        Console.info("Delete VM for " + name)
         nodes_list = self.provider.list_nodes()
         node_obj = None
         for node in nodes_list:
