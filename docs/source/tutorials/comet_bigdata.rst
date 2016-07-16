@@ -95,7 +95,7 @@ Next enter the repository and create a virtual environment
   $ source venv/bin/activate
 
 
-Install the dependency next:
+Install the dependencies next:
 
 .. code-block:: sh
 
