@@ -379,3 +379,16 @@ Run Fingerprint Matching (BOZORTH3)
 
 Find the Matches
 ----------------
+
+.. code-block:: sql
+
+   SELECT
+   CONVERT_FROM(Bozorth3.Bozorth3.probe, 'UTF8') probe,
+   CONVERT_FROM(Bozorth3.Bozorth3.gallery, 'UTF8') gallery,
+   CONVERT_FROM(Bozorth3.Bozorth3.score, 'INT_BE') score
+   FROM Bozorth3
+   ORDER BY
+   CONVERT_FROM(Bozorth3.Bozorth3.score, 'INT_BE')
+   DESC
+   LIMT 10
+   ;
