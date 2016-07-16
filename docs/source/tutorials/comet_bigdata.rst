@@ -51,6 +51,56 @@ You need:
 - Python 2.7 installed on each node
 
 
+Requirements
+------------
+
+You will need on your local system:
+
+- Python 2.7
+- Pip
+- Virtualenv
+- GCC
+- Git
+
+Setup
+-----
+
+First you'll need to download the deployment scripts. To do so you
+will need an account on GitHub.com and an SSH public key associated
+with your account. While ideally this should not be required, it is
+currently an artifact of the repository organization: git submodules
+are used in which git authenticates through SSH.
+
+This may be fixed in a future version of this tutorial.
+
+Start by navigating to some workspace and cloning the repository. 
+
+.. code-block:: bash
+
+   git clone --recursive git@github.com:cloudmesh/example-project-nist-fingerprint-matching.git
+
+.. warning::
+
+   Make sure to pass the ``--recursive`` flag else you will get errors
+   further along in the process that will be hard to track down.
+
+
+Next enter the repository and create a virtual environment
+
+.. code-block:: bash
+
+  cd example-project-nist-fingerprint-matching
+  virtualenv venv
+  source venv/bin/activate
+
+
+Install the dependency next:
+
+.. code-block:: bash
+
+   pip install -r big-data-stack/requirements.txt
+
+
 Deploy the Stack
 ----------------
 
