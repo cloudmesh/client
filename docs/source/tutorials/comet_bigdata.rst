@@ -1,6 +1,12 @@
 Comet Big Data Tutorial
 =======================
 
+.. sidebar:: Page Contents
+
+   .. contents::
+      :local:
+
+
 **Goal**: Run a fingerprint matching on a virtual cluster using Apache YARN, Spark, HBase and Drill.
 
 **Time**: This will likely take several hours, though most will be spent waiting.
