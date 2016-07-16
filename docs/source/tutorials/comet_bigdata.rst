@@ -61,6 +61,7 @@ You will need on your local system:
 - Virtualenv
 - GCC
 - Git
+- SSH Client
 
 Setup
 -----
