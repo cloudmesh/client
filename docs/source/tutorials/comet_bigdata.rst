@@ -127,7 +127,7 @@ nodes are running on 192.168.1.100 through .102.
 
 .. code-block:: sh
 
-   $ ./mk-inventory -n myvc 192.168.1.100 192.168.1.101 192.168.1.102 >inventory.txt
+   $ python mk-inventory -n myvc 192.168.1.100 192.168.1.101 192.168.1.102 >inventory.txt
 
 
 You'll see something like::
