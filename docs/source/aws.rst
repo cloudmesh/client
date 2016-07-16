@@ -2,7 +2,7 @@ Quick Start Amazon EC2
 ===============================================================================
 
 Starting an AWS EC2 instance is easy on Cloudmesh client with a few steps. This
-instruction guides you how to to register AWS account on Cloudmesh client and
+instruction guides you how to register AWS account on Cloudmesh client and
 get access to a machine once it's running. It may take 5 minutes.
 
 .. note:: If you need to install cloudmesh client, please visit :ref:`Quick
@@ -16,8 +16,7 @@ This instruction contains:
 - SSH Login
 - Instance Termination
 
-Other functionalities and features will be discussed in AWS in Cloudmesh
-section.
+Other functionalities and features will be discussed in the following AWS section.
 
 AWS Account Registration
 -------------------------------------------------------------------------------
@@ -25,14 +24,14 @@ AWS Account Registration
 AWS Access Key ID and Secret Access Key can be obtained from `AWS Management
 Console <https://console.aws.amazon.com/>`_.
 
-- Login AWS Account at https:/aws.amazon.com
+- Login AWS Account at https://aws.amazon.com
 - Find Security Credentials
 - Continue to Security Credentials
 - Choose 'Access Keys (Access Key ID and Secret Access Key)'
 - Create New Access Key
-- 20 bytes of Access Key ID is like: AKIAIX3RE2YMZW5SP4KQ
+- 20 bytes of Access Key ID is like: ``AKIAIX3RE2YMZW5SP4KQ``
 - 40 bytes of Secret Access Key ID is like:
-  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
+  ``OOIaPIJbpeEadMxvD+sbt+mw0nEhr0wD6JX6Ual0``
 - Keep these two Key IDs to register on Cloudmesh client
 - Run ``cm`` command to open Cloudmesh shell
 - Run ``register aws`` to type account information
@@ -70,7 +69,7 @@ Key Registration
 -------------------------------------------------------------------------------
 
 To confirm that your account is registered successfully in Cloudmesh, you may
-want to register your ssh key to your Amazon EC2 account.
+want to upload your ssh key to your Amazon EC2 account.
 
 - Check available keys in database by ``key list``
   ::
@@ -92,6 +91,11 @@ want to register your ssh key to your Amazon EC2 account.
         INFO: AWS INIT
         INFO: Uploading the key to libcloud. ok.
 
+- Set your key as your default key by ``default key=albert``::
+
+        cm> default key=albert
+        set default key=albert. ok.
+
 - ``key list --cloud=aws`` provides a list of registered SSH keys on your EC2
   account like::
 
@@ -108,7 +112,7 @@ authentication errors like::
         match the signature you provided. Check your AWS Secret Access Key and
         signing method. Consult the service documentation for details.
 
-Please make your your Access Key ID and Secret Key ID are recorded in Cloudmesh
+Please make sure your Access Key ID and Secret Key ID are recorded in Cloudmesh
 correctly. (Try ``register aws`` command again to confirm your input)
 Also your IDs should be **active** on AWS Management Console.
 
@@ -153,11 +157,13 @@ Starting EC2 Instance
    +-----------+---------------------+
    ...
 
+Your first VM ``TBD-001`` started on AWS with default settings which are t1.micro (upto 2 EC2 compute units) flavor and ami-d85e75b0 (Ubuntu 14.04.2 LTS). Your ssh key (albert) is injected in the VM.
+
 List of running EC2 Instances
 -------------------------------------------------------------------------------
 
 Simple ``vm list`` run provides a list of running VM instances including one
-that you started in the previous section. For example::
+that you started above. For example::
 
   cm> vm list
   Listing VMs on Cloud: aws
@@ -178,14 +184,16 @@ that you started in the previous section. For example::
    For example, ``InvalidCredsError: 'SignatureDoesNotMatch: The request
    signature we calculated does not match the signature you provided. Check
    your AWS Secret Access Key and signing method. Consult the service
-   documentation for details.'``
+   documentation for details.'`` To fix this, confirm that your Access Key ID
+   and Secret Key ID are correct on Cloudmesh ``register aws`` and your Keys
+   are **active** on AWS Management Console.
 
 SSH to EC2 Instance
 -------------------------------------------------------------------------------
 
 Once your EC2 Instance is up and running, you are able to get access to the
 machine vis SSH.  In Cloudmesh, you run ``vm ssh <VM Name>`` to connect. For
-example to get into Ubuntu VM instance, run ``vm ssh TBD-001 --username=ubunt``
+example, run ``vm ssh TBD-001 --username=ubuntu`` with ``ubuntu`` username to get into Ubuntu VM instance.
 
 :: 
 
@@ -211,7 +219,6 @@ example to get into Ubuntu VM instance, run ``vm ssh TBD-001 --username=ubunt``
   INFO: AWS INIT
   INFO: create_sec_group exception.InvalidGroup.Reserved: The 'default' security group is reserved, and cannot be deleted by a user. If creating a security group, specify a different name.
   INFO: Connecting to Instance at IP:54.158.117.249
-  Warning: Identity file hrlee not accessible: No such file or directory.
   Welcome to Ubuntu 14.04.2 LTS (GNU/Linux 3.13.0-48-generic x86_64)
 
    * Documentation:  https://help.ubuntu.com/
@@ -239,6 +246,8 @@ example to get into Ubuntu VM instance, run ``vm ssh TBD-001 --username=ubunt``
 
      ubuntu@ip-10-235-175-78:~$
 
+Congrats! you have launched an EC2 instance on Cloudmesh and it's ready to use.
+
 Terminating EC2 Instance
 -------------------------------------------------------------------------------
 
@@ -250,6 +259,8 @@ Terminating EC2 Instance
         'Delete VM for TBD-001'
         INFO: VM delete success.ok.
         VM record TBD-001 is being deleted from the local database...
+
+That's all. Simply provide VM instance name to terminate.
 
 List of Server Sizes (flavors)
 -------------------------------------------------------------------------------
