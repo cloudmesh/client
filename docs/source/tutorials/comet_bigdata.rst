@@ -231,6 +231,19 @@ Spark, Apache HBase, and Apache Drill.
 Install the Dataset and Software
 --------------------------------
 
+If all went well, you should see OK's in green and no red in the output of ``ansible-playbook``.
+
+Next you can deploy the fingerprint images and analysis software to the cluster:
+
+.. code-block:: sh
+
+   $ time ansible-playbook -u $VC_USER ../dataset.yml ../software.yml
+
+
+.. tip::
+
+   Wait a while longer
+
 
 Run the Analytics
 -----------------
