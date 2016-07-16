@@ -1,6 +1,5 @@
 from pprint import pprint
 
-
 class LibcloudDict(object):
     Libcloud_category_list = ['chameleon-ec2',
                               'cybera-ec2',
@@ -23,6 +22,7 @@ class LibcloudDict(object):
             vm_dict['private_ips'] = node_obj.private_ips[0]
         else:
             vm_dict['private_ips'] = ""
+        # TODO: Not sure why vm image details are required with 'node_obj.size'
         vm_image_dict = LibcloudDict.handle_vm_image_details(node_obj.size, is_image_dict=False)
         vm_dict.update(vm_image_dict)
         if node_obj.extra:
@@ -73,6 +73,7 @@ class LibcloudDict(object):
         if node_size_obj.name:
             vm_size_dict['price'] = node_size_obj.price
         if node_size_obj.extra:
+            # TODO: Convert to Console
             pprint("Node Image size extra attrs")
             LibcloudDict.handle_vm_size_extra_args(node_size_obj.extra)
         return vm_size_dict
@@ -80,6 +81,7 @@ class LibcloudDict(object):
     @staticmethod
     def handle_vm_size_extra_args(node_size_extra_args):
         for key, val in list(node_size_extra_args.items()):
+            # TODO: Convert to Console
             pprint(key + " : " + str(val))
 
     @staticmethod
@@ -101,6 +103,7 @@ class LibcloudDict(object):
             # pprint("NodeImage extras")
             # pprint(node_image_obj.extra)
         else:
+            # TODO: Convert to Console
             pprint("NodeImage extras not found")
         # Node Image Extra Args to be added here
         return node_image_dict
