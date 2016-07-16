@@ -54,7 +54,7 @@ class CloudProviderLibcloud(CloudProviderBase):
 
     def list_vm(self, cloudname, **kwargs):
         # return self.list(self.provider.list_nodes, cloudnames, kwargs)
-        pprint("In list_vm")
+        Console.info("In list_vm")
         nodes = self.provider.list_nodes()
         self._print(nodes)
         vm_dict = self._to_dict(nodes)
@@ -62,7 +62,7 @@ class CloudProviderLibcloud(CloudProviderBase):
 
     def list_image(self, cloudname, **kwargs):
         # return self.list(self.provider.list_images, cloudnames, kwargs)
-        print("In list_images of libcloud")
+        Console.info("In list_images of libcloud")
         images = self.provider.list_images()
         self._print(images)
         image_dict = self._to_dict(images)
@@ -70,7 +70,7 @@ class CloudProviderLibcloud(CloudProviderBase):
 
     def list_flavor(self, cloudname, **kwargs):
         # return self.list(self.provider.list_sizes, cloudnames, kwargs)
-        print("In list_flavor of libcloud")
+        Console.info("In list_flavor of libcloud")
         sizes = self.provider.list_sizes()
         self._print(sizes)
         sizes_dict = self._to_dict(sizes)
@@ -78,7 +78,7 @@ class CloudProviderLibcloud(CloudProviderBase):
 
     # TODO: deprecated
     def list_size(self, cloudname, **kwargs):
-        pprint("In list_sizes of libcloud")
+        Console.info("In list_sizes of libcloud")
         sizes = self.provider.list_sizes()
         self._print(sizes)
         sizes_dict = self._to_dict(sizes)
