@@ -220,7 +220,7 @@ Spark, Apache HBase, and Apache Drill.
 
 .. code-block:: sh
 
-   $ time ansible-playbook play-hadoop.yml addons/spark.yml addons/hbase.yml addons/drill.yml
+   $ time ansible-playbook -u $VC_USER play-hadoop.yml addons/spark.yml addons/hbase.yml addons/drill.yml
 
 
 .. tip::
