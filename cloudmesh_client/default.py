@@ -498,4 +498,4 @@ class Default(object):
             elif cls.key is None and cls.user is not None:
                 cls.key = cls.user
             else:
-                Console.error("Please define a key first, e.g.: cm key add --ssh", traceflag=False)
+                Console.error("Please define a key first, e.g.: cm key add --ssh <keyname>", traceflag=False)

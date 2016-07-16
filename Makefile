@@ -44,6 +44,9 @@ publish:
 view:
 	$(BROWSER) docs/build/html/index.html
 
+c:
+	$(BROWSER) http://cloudmesh.github.io/client/tutorials/comet_cloudmesh.html
+
 man: cloudmesh
 	cm man > docs/source/man/man.rst
 
