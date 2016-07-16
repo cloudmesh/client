@@ -380,6 +380,16 @@ Run Fingerprint Matching (BOZORTH3)
 Find the Matches
 ----------------
 
+.. code-block:: sh
+
+   $ sqlline -u jdbc:drill:zk=myvc0,myvc1,myvc2;schema=hbase
+
+
+.. code-block:: sh
+
+   0: jdbc:drill:zk=myvc0,myvc1,myvc2> use hbase;
+
+
 .. code-block:: sql
 
    SELECT
