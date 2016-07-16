@@ -12,6 +12,7 @@ BROWSER=/cygdrive/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
 endif
 
 doc: man
+	pip install -r requirements-doc.txt
 	sphinx-apidoc -f -o docs/source/code cloudmesh_client
 	cd docs; make html
 	cp -r scripts docs/build/html
@@ -20,7 +21,7 @@ doc: man
 #    pex  -r <`pip freeze`  -e cloudmesh_client.shell.cm.main  -o my_virtualenv.pex
 
 watch:
-        watchmedo shell-command --patterns="*.rst" --recursive --command='make doc'
+	watchmedo shell-command --patterns="*.rst" --recursive --command='make doc'
 
 
 d:
@@ -43,11 +44,14 @@ publish:
 view:
 	$(BROWSER) docs/build/html/index.html
 
+c:
+	$(BROWSER) http://cloudmesh.github.io/client/tutorials/comet_cloudmesh.html
+
 man: cloudmesh
 	cm man > docs/source/man/man.rst
 
 # cm debug off')
-# cm man | grep -A10000 \"Commands\"  | sed \$d  > docs/source/man/man.rst
+# cm man | grep -A10000 \"Commands\"  | sed \$d	 > docs/source/man/man.rst
 
 cloudmesh:
 	python setup.py install
@@ -61,15 +65,28 @@ dist: clean
 	python setup.py bdist_wheel
 
 upload_test:
-	python setup.py  sdist bdist bdist_wheel upload -r https://testpypi.python.org/pypi
+	python setup.py	 sdist bdist bdist_wheel upload -r https://testpypi.python.org/pypi
 
 upload:
-	python setup.py  sdist bdist bdist_wheel upload -r https://pypi.python.org/pypi
+	python setup.py	 sdist bdist bdist_wheel upload -r https://pypi.python.org/pypi
 
 log:
 	gitchangelog | fgrep -v ":dev:" | fgrep -v ":new:" > ChangeLog
 	git commit -m "chg: dev: Update ChangeLog" ChangeLog
 	git push
+
+# Freeze the requirements using the order specified in the
+# unconstrained list.  Some packages' installation requires others to
+# be installed, and `pip freeze` outputs in lexicographic order by
+# default. A side-effect is that all comments in the parameter to -r
+# are kept, so we pipe through egrep to remove them.
+
+freeze:
+	echo "Sanity check: this package should not be installed"
+	if [ `pip freeze | grep -i cloudmesh-client` ]; then echo "Check failed";  return 1; fi
+	pip freeze -r requirements-open.txt | egrep -v '^#' >requirements.txt
+
+
 
 ######################################################################
 # TESTING
