@@ -76,7 +76,8 @@ This may be fixed in a future version of this tutorial.
 
 Start by navigating to some workspace and cloning the repository. 
 
-.. code-block:: bash
+.. code:: sh
+   :class: user
 
    git clone --recursive git@github.com:cloudmesh/example-project-nist-fingerprint-matching.git
 
@@ -88,7 +89,8 @@ Start by navigating to some workspace and cloning the repository.
 
 Next enter the repository and create a virtual environment
 
-.. code-block:: bash
+.. code:: sh
+   :class: user
 
   cd example-project-nist-fingerprint-matching
   virtualenv venv
@@ -97,7 +99,8 @@ Next enter the repository and create a virtual environment
 
 Install the dependency next:
 
-.. code-block:: bash
+.. code:: sh
+   :class: user
 
    pip install -r big-data-stack/requirements.txt
 
