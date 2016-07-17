@@ -241,9 +241,19 @@ Configuring the front-end node
 
 On your managing machine where Cloudmesh client tools is installed:
 
+If your managing machine is running Linux...
+
 .. prompt:: bash
 
   wget -O cmutil.py http://bit.ly/vc-cmutil
+  python cmutil.py nodesfile vct<NN>
+  scp vcn*.txt <USER>@vct<NN>.sdsc.edu:~/
+
+...if your managing machine is running Mac OS X...
+
+..prompt:: bash
+
+  curl -L -o cmutil.py http://bit.ly/vc-cmutil
   python cmutil.py nodesfile vct<NN>
   scp vcn*.txt <USER>@vct<NN>.sdsc.edu:~/
 
@@ -272,8 +282,7 @@ Changing to localboot. Do this on the front-end node:
 .. prompt:: bash
 
   cd $HOME
-  wget -O cmutil.py http://bit.ly/vc-cmutil
-  python cmutil.py setboot $HOSTNAME <NODE> net=false
+  sudo ./comet-vc-tutorial/cmutil.py setboot $HOSTNAME vm-vct01-01 net=false
 
 .. prompt:: bash
 
