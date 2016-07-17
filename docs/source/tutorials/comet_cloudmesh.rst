@@ -251,7 +251,7 @@ If your managing machine is running Linux...
 
 ...if your managing machine is running Mac OS X...
 
-..prompt:: bash
+.. prompt:: bash
 
   curl -L -o cmutil.py http://bit.ly/vc-cmutil
   python cmutil.py nodesfile vct<NN>
@@ -305,7 +305,7 @@ Once the compute nodes are on, run these on the front-end node:
 .. prompt:: bash
 
   cd $HOME/comet-vc-tutorial/
-  ./key_setup.sh
+  sudo ./key_setup.sh
 
 This would setup the key, authorized keys, and known hosts files on the nodes.
 
