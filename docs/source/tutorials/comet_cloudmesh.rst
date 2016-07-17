@@ -297,13 +297,25 @@ Compute node setup
 Takes about 15~20 minutes. Once done, the node will be shutoff.
 
 Once you see the boot question in your console log, please change it to
-Changing to localboot. Do this on the front-end node:
+localboot. Do this on the front-end node:
 
 .. prompt:: bash
 
   cd $HOME
   sudo ./comet-vc-tutorial/cmutil.py setboot $HOSTNAME vm-vct01-01 net=false
 
+You will also need to generate an SSH keypair for your non-privileged
+user account and create an ``authorized_keys`` file to allow your
+parallel application to access both nodes. This key pair is only for
+use within the cluster since it will not have a passphrase. Just hit
+enter at each step.
+
+.. prompt:: bash
+
+  cd $HOME
+  ssh-keygen
+  cat .ssh/id_rsa.pub >> .ssh/authorized_keys
+  
 .. prompt:: bash
 
 Then on your managing host where Cloudmesh client is installed:
@@ -324,10 +336,10 @@ Once the compute nodes are on, run these on the front-end node:
 
 .. prompt:: bash
 
-  cd $HOME/comet-vc-tutorial/
-  ./key_setup.sh
+  sudo $HOME/comet-vc-tutorial/key_setup.sh
 
-This would setup the key, authorized keys, and known hosts files on the nodes.
+This will propagate the non-privileged user's password to the compute
+nodes securely.
 
 Login to compute nodes from front-end, and run your app.
 
