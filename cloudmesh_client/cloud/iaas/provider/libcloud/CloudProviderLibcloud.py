@@ -44,17 +44,17 @@ class CloudProviderLibcloud(CloudProviderBase):
         return d
 
     def list_key(self, cloudname, **kwargs):
-        print("In list_key")
-        print(self.provider)
+        Console.info("In list_key")
         keys = self.provider.list_key_pairs()
-        print(keys)
-        self._print(keys)
+        #Console.info(keys)
+        #self._print(keys)
         keys_dict = self._to_dict(keys)
+        #print (keys_dict)
         return keys_dict
 
     def list_vm(self, cloudname, **kwargs):
         # return self.list(self.provider.list_nodes, cloudnames, kwargs)
-        pprint("In list_vm")
+        Console.info("In list_vm")
         nodes = self.provider.list_nodes()
         self._print(nodes)
         vm_dict = self._to_dict(nodes)
@@ -62,7 +62,7 @@ class CloudProviderLibcloud(CloudProviderBase):
 
     def list_image(self, cloudname, **kwargs):
         # return self.list(self.provider.list_images, cloudnames, kwargs)
-        print("In list_images of libcloud")
+        Console.info("In list_images of libcloud")
         images = self.provider.list_images()
         self._print(images)
         image_dict = self._to_dict(images)
@@ -70,7 +70,7 @@ class CloudProviderLibcloud(CloudProviderBase):
 
     def list_flavor(self, cloudname, **kwargs):
         # return self.list(self.provider.list_sizes, cloudnames, kwargs)
-        print("In list_flavor of libcloud")
+        Console.info("In list_flavor of libcloud")
         sizes = self.provider.list_sizes()
         self._print(sizes)
         sizes_dict = self._to_dict(sizes)
@@ -78,7 +78,7 @@ class CloudProviderLibcloud(CloudProviderBase):
 
     # TODO: deprecated
     def list_size(self, cloudname, **kwargs):
-        pprint("In list_sizes of libcloud")
+        Console.info("In list_sizes of libcloud")
         sizes = self.provider.list_sizes()
         self._print(sizes)
         sizes_dict = self._to_dict(sizes)
@@ -89,9 +89,9 @@ class CloudProviderLibcloud(CloudProviderBase):
         result_type = ""
         if len(libcloud_result) > 0:
             name = libcloud_result[0].__class__.__name__
-            print("RRRR", name)
+            #print("RRRR", name)
 
-            if name in ["Node", "NodeImage", "NodeSize"]:
+            if name in ["Node", "NodeImage", "NodeSize", "KeyPair"]:
                 result_type = name
                 Console.info("{} type object received".format(name))
         # pprint(libcloud_result[0])
@@ -104,6 +104,9 @@ class CloudProviderLibcloud(CloudProviderBase):
             elif result_type == "NodeSize":
                 d[index] = dict(LibcloudDict.handle_vm_size_details(obj))
                 # pprint("Index:"+str(index))
+            elif result_type == "KeyPair":
+                d[index] = dict(LibcloudDict.handle_key_details(obj))
+
         return d
 
     def attributes(self, kind):
@@ -318,7 +321,7 @@ class CloudProviderLibcloud(CloudProviderBase):
         :param nics: TODO: fixme
         :param meta: A dict of arbitrary key/value metadata to store for this server
         """
-        pprint("BOOTING UP THE VM")
+        Console.info("boot_vm() called")
         if cloud is None:
             Console.error("Cloud is not specified")
             return
@@ -327,15 +330,13 @@ class CloudProviderLibcloud(CloudProviderBase):
         # self.provider.create_node("test_node", auth=auth)
         if image is not None:
             image = self.get_image_by_id(image)
-            pprint("Image Id")
-            pprint(image)
+            Console.info("Image Id & Name: {0}, {1}".format(image.id, image.name))
         else:
             Console.error("Image Id not found")
 
         if flavor is not None:
             flavor = self.get_size_by_id(flavor)
-            pprint("FLAVOR::")
-            pprint(flavor)
+            Console.info("Flavor: {0}, {1}".format(flavor.id, flavor.name))
         else:
             Console.error("valid Flavor Id not found")
         # flavor = self.provider.list_sizes()[2]
@@ -350,7 +351,7 @@ class CloudProviderLibcloud(CloudProviderBase):
         # Console.info("Key :")
         # pprint(key)
         vm = self.provider.create_node(name=name, image=image, size=flavor, ex_keyname=key)
-        Console.info("VM boot up success.ok.")
+        Console.info("EC2 Instance {0} started".format(vm.id))
 
         # vm info returned
         return vm
@@ -363,7 +364,7 @@ class CloudProviderLibcloud(CloudProviderBase):
         :param force:
         :return:
         """
-        pprint("Delete VM for "+name)
+        Console.info("Delete VM for " + name)
         nodes_list = self.provider.list_nodes()
         node_obj = None
         for node in nodes_list:

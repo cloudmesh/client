@@ -33,7 +33,7 @@ class Printer(object):
                             order=order, header=header, output=output,
                             sort_keys=sort_keys, show_none=show_none)
         else:
-            Console.error("unkown type")
+            Console.error("unkown type {0}".format(type(table)))
 
     @classmethod
     def list(cls,

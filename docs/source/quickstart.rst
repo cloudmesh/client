@@ -1,3 +1,5 @@
+.. _ref-quickstart:
+
 Quickstart
 ============
 
@@ -368,64 +370,111 @@ And to delete the vm
 Microsoft Azure
 ----------------
 
-To connect to the Azure cloud, you need your Azure subscription ID
-and a valid management certificate. You can obtain your subscription ID through the Azure classic portal.
+To connect to the Azure cloud, you need your Azure subscription ID and a valid management
+certificate. You can obtain your subscription ID through the Azure classic portal.
 
-Steps to generate management certificate:
-    You actually need to create two certificates, one for the server (a .cer file)
-    and one for the client (a .pem file).
-    1. To create the .pem file, execute this:
-    openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem
-    2. To create the .cer certificate, execute this:
-    openssl x509 -inform pem -in mycert.pem -outform der -out mycert.cer
+Next, you need to create two certificates, one for the server (a .cer file) and one for the
+client (a .pem file).
+
+1. To create the .pem file, execute this:
+
+.. prompt:: bash
+
+   openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem
+
+2. To create the .cer certificate, execute this:
+
+.. prompt:: bash
+
+   openssl x509 -inform pem -in mycert.pem -outform der -out mycert.cer
+
+Place the certifocates into the directory::
+
+    ~/.cloudmesh
 
 This subscription ID and Management certificate path has to be added in the cloudmesh.yaml file.
-Ex:
+Ex::
+
     credentials:
-                managementcertfile: <pem-certificate-path>
+                managementcertfile: ~/.cloudmesh/mycert.pem
                 subscriptionid: <subscription-id>
+                location: Cemtral US
 
-Default Azure Location will be "Central US", but it is configurable in cloudmesh.yaml file.
+.. note:: is it pem or cer
 
-Other than the regular commands, there is one extra command(Akey) in Azure which is needed to create VMs with
+The default Azure Location will be "Central US", but it is configurable in cloudmesh.yaml file.
+
+.. note:: does not say how
+
+Other than the regular commands, there is one extra command (Akey) in Azure which is needed to create VMs with
 certificates and SSH keys.
 
 Akey Command Syntax:
+
+.. prompt:: bash
+
     akey add --name=key-name --pub=pub-key-path --cert=pem-certificate-file-path --pfx=pfx-file-path
 
-To create a new VM deployment in Azure cloud with an SSH key it is mandatory to have a certificate associated with it.
-Steps to create a Key pair and a certificate:
+.. note:: in a future version of cloudmesh this command will be merged into the key command and use the name of
+          the azure cloud in the yaml file to identify it
+
+          key add --cloud= azure --name=key-name --pub=pub-key-path --cert=pem-certificate-file-path --pfx=pfx-file-path
+
+To create a new VM deployment in the Azure cloud with an SSH key it is mandatory to have a
+certificate associated with it. The steps to create a Key pair and a certificate are:
 
     1. Create a RSA key and self signed certificate:
-    openssl req -x509 -newkey rsa:2048 -keyout mycer.key -out mycer.pem -days 365 -nodes
+
+    .. prompt:: bash
+
+          openssl req -x509 -newkey rsa:2048 -keyout mycer.key -out mycer.pem -days 365 -nodes
 
 
     2. Create PFX:
-    openssl pkcs12 -export -out mycer.pfx -inkey mycer.key -in mycer.pem
+
+    .. prompt:: bash
+
+          openssl pkcs12 -export -out mycer.pfx -inkey mycer.key -in mycer.pem
 
 
     3. Create Public key from Private key:
-    ssh-keygen -y -f mycer.key > mycer.pub
 
+    .. prompt:: bash
+
+        ssh-keygen -y -f mycer.key > mycer.pub
+
+    .. note: we want tou use the id_rsa.pub key if possible
 
 Some sample commands:
 
 1. To fetch the List of VMs:
+
+.. prompt:: bash
+
     cm default cloud=azure
     cm vm refresh
     cm vm list
 
 2. To fetch the list of Images:
+
+.. prompt:: bash
+
     cm default cloud=azure
     cm image refresh
     cm image list
 
 3. To fetch the list of Flavors:
+
+.. prompt:: bash
+
     cm default cloud=azure
     cm flavor refresh
     cm flavor list
 
 4. To create a new VM instance and SSH to that instance:
+
+.. prompt:: bash
+
     cm akey add --name=test-key --pub="mycer.pub" --cert="mycer.pem" --pfx="mycer.pfx"
     cm default key=test-key
     cm vm boot
