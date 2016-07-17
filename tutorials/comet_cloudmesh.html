@@ -256,7 +256,7 @@ comet</p>
 </pre></div>
 <div class="section" id="virtual-cluster-architecture">
 <h2>Virtual Cluster Architecture<a class="headerlink" href="#virtual-cluster-architecture" title="Permalink to this headline">¶</a></h2>
-<div class="figure" id="id11">
+<div class="figure" id="id5">
 <a class="reference internal image-reference" href="../_images/vc-diagram.png"><img alt="screenshot" src="../_images/vc-diagram.png" style="width: 812.0px; height: 609.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Virtual cluster architecture</span></p>
 </div>
@@ -300,43 +300,43 @@ take effect:</p>
 </pre><p>To see what is happening on the server, we can attach a console to follow and complete the setup of the OS</p>
 <pre class="highlight"><span class="prompt1">cm comet console vc2</span>
 </pre><p>Screenshots for the front-end node configuration are given next:</p>
-<div class="figure" id="id12">
+<div class="figure" id="id6">
 <a class="reference internal image-reference" href="../_images/00_install_start.png"><img alt="screenshot" src="../_images/00_install_start.png" style="width: 647.0px; height: 489.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Install ubuntu server</span></p>
 </div>
-<div class="figure" id="id13">
+<div class="figure" id="id7">
 <a class="reference internal image-reference" href="../_images/01_NIC.png"><img alt="screenshot" src="../_images/01_NIC.png" style="width: 811.0px; height: 612.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Configure the network. DHCP is configured on <cite>eth1</cite> (the public interface)</span></p>
 </div>
-<div class="figure" id="id14">
+<div class="figure" id="id8">
 <a class="reference internal image-reference" href="../_images/20_hostname.png"><img alt="screenshot" src="../_images/20_hostname.png" style="width: 810.0px; height: 609.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Set the hostname</span></p>
 </div>
-<div class="figure" id="id15">
+<div class="figure" id="id9">
 <a class="reference internal image-reference" href="../_images/22_user_password_creation.png"><img alt="screenshot" src="../_images/22_user_password_creation.png" style="width: 806.0px; height: 611.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Set up the non-privileged user account, including a strong password</span></p>
 </div>
-<div class="figure" id="id16">
+<div class="figure" id="id10">
 <a class="reference internal image-reference" href="../_images/08_partition.png"><img alt="screenshot" src="../_images/08_partition.png" style="width: 813.0px; height: 609.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Partition the disk</span></p>
 </div>
-<div class="figure" id="id17">
+<div class="figure" id="id11">
 <a class="reference internal image-reference" href="../_images/09_services_packages.png"><img alt="screenshot" src="../_images/09_services_packages.png" style="width: 811.0px; height: 611.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Select OpenSSH using the space bar and then tab to Continue</span></p>
 </div>
-<div class="figure" id="id18">
+<div class="figure" id="id12">
 <a class="reference internal image-reference" href="../_images/10_complete.png"><img alt="screenshot" src="../_images/10_complete.png" style="width: 809.0px; height: 608.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Complete the installation</span></p>
 </div>
-<div class="figure" id="id19">
+<div class="figure" id="id13">
 <a class="reference internal image-reference" href="../_images/11_complete_console_expired.png"><img alt="screenshot" src="../_images/11_complete_console_expired.png" style="width: 810.0px; height: 609.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Press CONTINUE (we&#8217;ll detach the ISO later)</span></p>
 </div>
-<div class="figure" id="id20">
+<div class="figure" id="id14">
 <a class="reference internal image-reference" href="../_images/12_reboot_cd.png"><img alt="screenshot" src="../_images/12_reboot_cd.png" style="width: 650.0px; height: 489.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: The machine will be rebooted. Allow it to start booting from the CDROM again.</span></p>
 </div>
-<div class="figure" id="id21">
+<div class="figure" id="id15">
 <a class="reference internal image-reference" href="../_images/13_reboot_cd_choose_hd.png"><img alt="screenshot" src="../_images/13_reboot_cd_choose_hd.png" style="width: 648.0px; height: 486.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: From the CDROM boot menu, choose to boot from hard disk</span></p>
 </div>
@@ -599,7 +599,7 @@ node with X forwarding enabled.</p>
 <span class="prompt1">ssh -X vm-vct16-00</span>
 <span class="prompt1"><span class="nb">cd</span> <span class="nv">$FOAM_RUN</span>/damBreakFine</span>
 <span class="prompt1">paraFoam -case processor1</span>
-</pre><div class="figure" id="id22">
+</pre><div class="figure" id="id16">
 <a class="reference internal image-reference" href="../_images/paraview-vct.png"><img alt="screenshot" src="../_images/paraview-vct.png" style="width: 972.0px; height: 685.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: ParaView with OpenFOAM example data</span></p>
 </div>
@@ -628,28 +628,19 @@ similar process. On each compute node run the following commands from
 julia&gt;
 </pre></div>
 </div>
-<dl class="docutils">
-<dt><a class="reference external" href="mailto:rpwagner&#37;&#52;&#48;vm-vct01-00">rpwagner<span>&#64;</span>vm-vct01-00</a>:~$ julia &#8211;machinefile machinefile-jl.txt</dt>
-<dd><blockquote class="first">
-<div><blockquote>
-<div><blockquote>
-<div>_</div></blockquote>
-<p>_       _ _(_)_     |  A fresh approach to technical computing</p>
-</div></blockquote>
-<dl class="docutils">
-<dt>(_)     | (_) (_)    |  Documentation: <a class="reference external" href="http://docs.julialang.org">http://docs.julialang.org</a></dt>
-<dd>_ _   _| <a href="#id5"><span class="problematic" id="id6">|</span></a>_  __ _   |  Type &#8221;?help&#8221; for help.</dd>
-</dl>
-<div class="line-block">
-<div class="line">| | | | | <a href="#id7"><span class="problematic" id="id8">|</span></a>/ _` |  |</div>
-<div class="line">| <a href="#id23"><span class="problematic" id="id24">|_|</span></a> | | | (_| |  |  Version 0.4.6 (2016-06-19 17:16 UTC)</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>rpwagner@vm-vct01-00:~$ julia --machinefile machinefile-jl.txt
+               _
+   _       _ _(_)_     |  A fresh approach to technical computing
+  (_)     | (_) (_)    |  Documentation: http://docs.julialang.org
+   _ _   _| |_  __ _   |  Type &quot;?help&quot; for help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 0.4.6 (2016-06-19 17:16 UTC)
+ _/ |\__&#39;_|_|_|\__&#39;_|  |  Official http://julialang.org release
+|__/                   |  x86_64-linux-gnu
+
+julia&gt;
+</pre></div>
 </div>
-</div></blockquote>
-<p class="last">_/ <a href="#id25"><span class="problematic" id="id26">|\__&#8217;_|_|_|</span></a>__&#8217;_|  |  Official <a class="reference external" href="http://julialang.org">http://julialang.org</a> release</p>
-</dd>
-</dl>
-<p><a href="#id9"><span class="problematic" id="id10">|</span></a>__/                   |  x86_64-linux-gnu</p>
-<p>julia&gt;</p>
 </div>
 </div>
 
