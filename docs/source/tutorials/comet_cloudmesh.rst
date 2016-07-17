@@ -305,7 +305,7 @@ Once the compute nodes are on, run these on the front-end node:
 .. prompt:: bash
 
   cd $HOME/comet-vc-tutorial/
-  ./key_setup.sh
+  sudo ./key_setup.sh
 
 This would setup the key, authorized keys, and known hosts files on the nodes.
 
