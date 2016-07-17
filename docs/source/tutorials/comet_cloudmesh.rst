@@ -6,8 +6,8 @@ Setup Cloudmesh Client on Ubuntu Desktop in Virtualbox
 Virtual Box
 ----------------------------------------------------------------------
 
-**Step 1:** For convenience we will be using Ubuntu Xenial in this demo to
-install the Cloudmesh client on it. Please make sure you have
+**Step 1:** For convenience we will be using Ubuntu Xenial in this
+demo to install the Cloudmesh client on it. Please make sure you have
 
 * `VirtualBox <https://www.virtualbox.org>`_ installed (`downloads page <https://www.virtualbox.org/wiki/Downloads>`_).
 
@@ -15,20 +15,26 @@ install the Cloudmesh client on it. Please make sure you have
 
 * `Ubuntu desktop ISO <http://www.ubuntu.com/download>`_.
 
-and remember the location where you downloaded it. You will need that location later.
+and remember the location where you downloaded it. You will need that
+location later.
 
 **Step 3:** Create VirtualBox, create a new VM (Ubuntu, 64bit)
 
-**Step 4:** Start the box. When asked for the ISO, use the folder icon to browse to the location of the downloaded image.
+**Step 4:** Start the box. When asked for the ISO, use the folder icon
+ to browse to the location of the downloaded image.
 
-**Step 5:** Start and configure the system. Note in case the last step does not return, shut down or terminate the VM and restart it.
+**Step 5:** Start and configure the system. Note in case the last step
+ does not return, shut down or terminate the VM and restart it.
 
-**Step 6:** Once you have logged into the vm, start a terminal by clicking on the cog and type in *terminal*
+**Step 6:** Once you have logged into the vm, start a terminal by
+ clicking on the cog and type in *terminal*
 
-**Step 7:** (optional) You may want to enable the vm guest addition and enable bidirectional shared clipboard and drag and drop. You may have
-to restart the vm so that these changes take effect.
+**Step 7:** (optional) You may want to enable the vm guest addition
+and enable bidirectional shared clipboard and drag and drop. You may
+have to restart the vm so that these changes take effect.
 
-**Step 8:** Install cloudmesh. Paste and copy between host and vm, as well as .
+**Step 8:** Install cloudmesh. Paste and copy between host and vm, as
+ well as .
 
 .. note: as well as . is unclear .... FIX
   
@@ -56,8 +62,9 @@ The script has the following contents:
 Configure Cloudmesh
 -------------------
 
-Next, we need to configure Cloudmesh. We will only use a fraction of Cloudmesh
-capabilities for this tutorial that is focused on using comet
+Next, we need to configure Cloudmesh. We will only use a fraction of
+Cloudmesh capabilities for this tutorial that is focused on using
+comet
 
 .. prompt:: bash
 
@@ -142,7 +149,8 @@ Let us check the status of the server.
 
    cm comet cluster vc2
 
-If it is already running, please power if off so the iso attach could take effect:
+If it is already running, please power if off so the iso attach could
+take effect:
 
 .. prompt:: bash
 
@@ -250,7 +258,7 @@ Configuring the front-end node
 
 On your managing machine where Cloudmesh client tools is installed:
 
-If your managing machine is running Linux...
+If your managing machine is running Linux:
 
 .. prompt:: bash
 
@@ -258,15 +266,15 @@ If your managing machine is running Linux...
   python cmutil.py nodesfile vct<NN>
   scp vcn*.txt <USER>@vct<NN>.sdsc.edu:~/
 
-...if your managing machine is running Mac OS X...
+If your managing machine is running Mac OS X use curl instead of wget:
 
-..prompt:: bash
+.. prompt:: bash
 
-  curl -L -o cmutil.py http://bit.ly/vc-cmutil
-  python cmutil.py nodesfile vct<NN>
-  scp vcn*.txt <USER>@vct<NN>.sdsc.edu:~/
+     curl -L -o cmutil.py http://bit.ly/vc-cmutil
+     python cmutil.py nodesfile vct<NN>
+     scp vcn*.txt <USER>@vct<NN>.sdsc.edu:~/
 
-On vc front-end node:
+On the vc front-end node:
 
 .. prompt:: bash
 
@@ -274,7 +282,7 @@ On vc front-end node:
   chmod +x deploy.sh
   sudo ./deploy.sh
 
-At this point we're done with the ISO and back on your managing
+At this point we are done with the ISO and back on your managing
 machine you should detach it:
 
 .. prompt:: bash
@@ -346,10 +354,11 @@ Login to compute nodes from front-end, and run your app.
 .. note:: In the production environment we use two factor
           authentication with `YubiKeys <https://www.yubico.com/>`_ to
           retrieve the API token used to by Cloudmesh and to access
-          the console of a virtual machine. To simplify the tutorial we use username and  password
-          access in an isolated teaching environment. When utilizing the production version you
-          will need to get in contact with the Comet staff. You must have a valid
-          XSEDE allocation on Comet for a virtual cluster.
+          the console of a virtual machine. To simplify the tutorial
+          we use username and password access in an isolated teaching
+          environment. When utilizing the production version you will
+          need to get in contact with the Comet staff. You must have a
+          valid XSEDE allocation on Comet for a virtual cluster.
 
 Verifying InfiniBand Performance
 ----------------------------------------------------------------------
@@ -416,17 +425,19 @@ OSU Micro-Benchmarks
 
 The `OSU Micro-Benchmarks
 <http://mvapich.cse.ohio-state.edu/benchmarks/>`_ are suite of
-individual applications measuring the latency and bandwidth of individual MPI
-calls. The cover both the performance of both the underlying network
-fabric and the MPI implementation. The Micro-Benchmarks provide
-coverage for the latest MPI standards but the version of `Open MPI
-<https://www.open-mpi.org/>`_ in the Ubuntu Trusty distribution is a
-bit older and not all of the messaging calls are available. We'll
-focus only a few as part of the InfiniBand and MPI verification.
+individual applications measuring the latency and bandwidth of
+individual MPI calls. The cover both the performance of both the
+underlying network fabric and the MPI implementation. The
+Micro-Benchmarks provide coverage for the latest MPI standards but the
+version of `Open MPI <https://www.open-mpi.org/>`_ in the Ubuntu
+Trusty distribution is a bit older and not all of the messaging calls
+are available. We'll focus only a few as part of the InfiniBand and
+MPI verification.
 
 Begin by logging on to the first compute node where we'll download and
 compile the benchmarks. This can be done with your non-privileged user
-account. Then download the benchmarks, extract, and configure the source.
+account. Then download the benchmarks, extract, and configure the
+source.
 
 .. prompt:: bash
   
