@@ -369,7 +369,18 @@
 <span class="sd">              keyname: ssh rsa hajfhjldahlfjhdlsak ..... comment</span>
 <span class="sd">              github-x: github</span>
 <span class="sd">        &quot;&quot;&quot;</span></div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Key.get_from_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.get_from_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">get_from_cloud</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">live</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method lists all keys of the cloud</span>
+<span class="sd">        :param cloud: the cloud name</span>
+<span class="sd">        :return: a SSHKeyManager (dict of keys)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">list_key</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
 
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_add_from_sshkey</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span>
@@ -438,7 +449,7 @@
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Key.list_on_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.key.Key.list_on_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">list_on_cloud</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">live</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        This method lists all flavors of the cloud</span>
+<span class="sd">        This method lists all keys of the cloud</span>
 <span class="sd">        :param cloud: the cloud name</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>

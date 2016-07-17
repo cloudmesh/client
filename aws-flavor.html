@@ -1,0 +1,549 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>&lt;no title&gt; &mdash; cloudmesh_client 4.3.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 4.3.2 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.3.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comet.html">Comet Virtual Cluster</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/comet_cloudmesh.html">Comet Cloudmesh Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/comet_bigdata.html">Comet Big Data Tutorial</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="code/cloudmesh_client.html">cloudmesh_client package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hackathon.html#python-guidelines">Python Guidelines</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>&lt;no title&gt;</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/aws-flavor.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <table border="1" class="docutils">
+<colgroup>
+<col width="3%" />
+<col width="33%" />
+<col width="5%" />
+<col width="4%" />
+<col width="7%" />
+<col width="9%" />
+<col width="6%" />
+<col width="6%" />
+<col width="10%" />
+<col width="17%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Id</td>
+<td>Name</td>
+<td>User</td>
+<td>cpu</td>
+<td>RAM</td>
+<td>bandwidth</td>
+<td>price</td>
+<td>Cloud</td>
+<td>UUID</td>
+<td>Updated</td>
+</tr>
+<tr class="row-even"><td>&nbsp;</td>
+<td>Memory Optimized ThirtyTwo Extra Large
+instance
+High Storage Eight Extra Large Instance
+High I/O Storage Optimized Extra Large
+Instance
+High I/O Storage Optimized Double Extra
+Large Instance
+High I/O Storage Optimized Quadruple
+Large Instance
+Cluster GPU Quadruple Extra Large
+Instance
+Cluster GPU G2 Double Extra Large
+Instance
+Cluster GPU G2 Eight Extra Large
+Instance
+High Memory Cluster Eight Extra Large
+High I/O Storage Optimized Eight Extra
+Large Instance
+Dense Storage Optimized Extra Large
+Instance
+Burstable Performance Small Instance
+Burstable Performance Medium Instance
+Small Instance
+Micro Instance
+Large Instance
+Medium Instance
+High-Memory Extra Large Instance
+Extra Large Instance
+High-Memory Quadruple Extra Large
+Instance
+High-Memory Double Extra Large Instance
+Quadruple Extra Large Instance
+Double Extra Large Instance
+Burstable Performance Micro Instance
+Burstable Performance Nano Instance
+High-CPU Medium Instance
+10 Extra Large Instance
+Cluster Compute Eight Extra Large
+Instance
+High-CPU Extra Large Instance
+Compute Optimized Extra Large Instance
+Compute Optimized Large Instance
+Compute Optimized Quadruple Extra Large
+Instance
+Compute Optimized Double Extra Large
+Instance
+Compute Optimized Double Large Instance
+Compute Optimized Eight Extra Large
+Instance
+Dense Storage Optimized Quadruple Extra
+Large Instance
+Dense Storage Optimized Double Extra
+Large Instance
+Memory Optimized Eight Extra Large
+instance
+Memory Optimized Quadruple Extra Large
+instance
+Memory Optimized Double Extra Large
+instance
+Memory Optimized Extra Large instance
+Memory Optimized Large instance
+Dense Storage Optimized Eight Extra
+Large Instance</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><p class="first">1998848</p>
+<p>119808
+31232</p>
+<p>62464</p>
+<p>124928</p>
+<p>23040</p>
+<p>15360</p>
+<p>61440</p>
+<p>249856
+249856</p>
+<p>31232</p>
+<p>2048
+8192
+1740
+627
+8192
+3840
+17510
+16384
+70041</p>
+<p>35020
+65536
+32768
+1024
+512
+1740
+163840
+61952</p>
+<p>7168
+7680
+3840
+30720</p>
+<p>15360</p>
+<p>15360
+61440</p>
+<p>124928</p>
+<p>62464</p>
+<p>249856</p>
+<p>124928</p>
+<p>62464</p>
+<p class="last">31232
+15616
+249856</p>
+</td>
+<td>&nbsp;</td>
+<td><p class="first">13.338</p>
+<p>4.6
+0.853</p>
+<p>1.705</p>
+<p>3.41</p>
+<p>2.1</p>
+<p>0.65</p>
+<p>2.6</p>
+<p>3.5
+6.82</p>
+<p>0.69</p>
+<p>0.026
+0.104
+0.044
+0.02
+0.12
+0.067
+0.245
+0.239
+0.98</p>
+<p>0.49
+0.958
+0.479
+0.013
+0.0065
+0.13
+2.394
+2.0</p>
+<p>0.52
+0.209
+0.105
+0.838</p>
+<p>0.42</p>
+<p>0.419
+1.675</p>
+<p>2.76</p>
+<p>1.38</p>
+<p>2.66</p>
+<p>1.33</p>
+<p>0.665</p>
+<p class="last">0.333
+0.166
+5.52</p>
+</td>
+<td><p class="first">aws</p>
+<p>aws
+aws</p>
+<p>aws</p>
+<p>aws</p>
+<p>aws</p>
+<p>aws</p>
+<p>aws</p>
+<p>aws
+aws</p>
+<p>aws</p>
+<p>aws
+aws
+aws
+aws
+aws
+aws
+aws
+aws
+aws</p>
+<p>aws
+aws
+aws
+aws
+aws
+aws
+aws
+aws</p>
+<p>aws
+aws
+aws
+aws</p>
+<p>aws</p>
+<p>aws
+aws</p>
+<p>aws</p>
+<p>aws</p>
+<p>aws</p>
+<p>aws</p>
+<p>aws</p>
+<p class="last">aws
+aws
+aws</p>
+</td>
+<td><p class="first">x1.32xlarge</p>
+<p>hs1.8xlarge
+i2.xlarge</p>
+<p>i2.2xlarge</p>
+<p>i2.4xlarge</p>
+<p>cg1.4xlarge</p>
+<p>g2.2xlarge</p>
+<p>g2.8xlarge</p>
+<p>cr1.8xlarge
+i2.8xlarge</p>
+<p>d2.xlarge</p>
+<p>t2.small
+t2.large
+m1.small
+t1.micro
+m4.large
+m3.medium
+m2.xlarge
+m4.xlarge
+m2.4xlarge</p>
+<p>m2.2xlarge
+m4.4xlarge
+m4.2xlarge
+t2.micro
+t2.nano
+c1.medium
+m4.10xlarge
+cc2.8xlarge</p>
+<p>c1.xlarge
+c4.xlarge
+c4.large
+c4.4xlarge</p>
+<p>c3.2xlarge</p>
+<p>c4.2xlarge
+c4.8xlarge</p>
+<p>d2.4xlarge</p>
+<p>d2.2xlarge</p>
+<p>r3.8xlarge</p>
+<p>r3.4xlarge</p>
+<p>r3.2xlarge</p>
+<p class="last">r3.xlarge
+r3.large
+d2.8xlarge</p>
+</td>
+<td><p class="first">2016-07-15 18:31:14</p>
+<p>2016-07-15 18:31:14
+2016-07-15 18:31:14</p>
+<p>2016-07-15 18:31:14</p>
+<p>2016-07-15 18:31:14</p>
+<p>2016-07-15 18:31:14</p>
+<p>2016-07-15 18:31:14</p>
+<p>2016-07-15 18:31:14</p>
+<p>2016-07-15 18:31:14
+2016-07-15 18:31:14</p>
+<p>2016-07-15 18:31:14</p>
+<p>2016-07-15 18:31:14
+2016-07-15 18:31:14
+2016-07-15 18:31:14
+2016-07-15 18:31:14
+2016-07-15 18:31:14
+2016-07-15 18:31:14
+2016-07-15 18:31:14
+2016-07-15 18:31:14
+2016-07-15 18:31:14</p>
+<p>2016-07-15 18:31:14
+2016-07-15 18:31:14
+2016-07-15 18:31:14
+2016-07-15 18:31:14
+2016-07-15 18:31:14
+2016-07-15 18:31:14
+2016-07-15 18:31:14
+2016-07-15 18:31:14</p>
+<p>2016-07-15 18:31:14
+2016-07-15 18:31:14
+2016-07-15 18:31:14
+2016-07-15 18:31:14</p>
+<p>2016-07-15 18:31:14</p>
+<p>2016-07-15 18:31:14
+2016-07-15 18:31:14</p>
+<p>2016-07-15 18:31:14</p>
+<p>2016-07-15 18:31:14</p>
+<p>2016-07-15 18:31:14</p>
+<p>2016-07-15 18:31:14</p>
+<p>2016-07-15 18:31:14</p>
+<p class="last">2016-07-15 18:31:14
+2016-07-15 18:31:14
+2016-07-15 18:31:14</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'4.3.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,8 +1,0 @@
-banner launcher
-
-var lname=exampel_launcher
-launcher list
-launcher add $lname hjklhkj
-launcher list
-launcher delete $lname
-launcher list

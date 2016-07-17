@@ -178,7 +178,6 @@
   <h1>Source code for cloudmesh_client.common.LibcloudDict</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 
-
 <div class="viewcode-block" id="LibcloudDict"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LibcloudDict.LibcloudDict">[docs]</a><span class="k">class</span> <span class="nc">LibcloudDict</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="n">Libcloud_category_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;chameleon-ec2&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;cybera-ec2&#39;</span><span class="p">,</span>
@@ -201,6 +200,7 @@
             <span class="n">vm_dict</span><span class="p">[</span><span class="s1">&#39;private_ips&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node_obj</span><span class="o">.</span><span class="n">private_ips</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">vm_dict</span><span class="p">[</span><span class="s1">&#39;private_ips&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="c1"># TODO: Not sure why vm image details are required with &#39;node_obj.size&#39;</span>
         <span class="n">vm_image_dict</span> <span class="o">=</span> <span class="n">LibcloudDict</span><span class="o">.</span><span class="n">handle_vm_image_details</span><span class="p">(</span><span class="n">node_obj</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">is_image_dict</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
         <span class="n">vm_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">vm_image_dict</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">node_obj</span><span class="o">.</span><span class="n">extra</span><span class="p">:</span>
@@ -251,6 +251,7 @@
         <span class="k">if</span> <span class="n">node_size_obj</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
             <span class="n">vm_size_dict</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node_size_obj</span><span class="o">.</span><span class="n">price</span>
         <span class="k">if</span> <span class="n">node_size_obj</span><span class="o">.</span><span class="n">extra</span><span class="p">:</span>
+            <span class="c1"># TODO: Convert to Console</span>
             <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;Node Image size extra attrs&quot;</span><span class="p">)</span>
             <span class="n">LibcloudDict</span><span class="o">.</span><span class="n">handle_vm_size_extra_args</span><span class="p">(</span><span class="n">node_size_obj</span><span class="o">.</span><span class="n">extra</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">vm_size_dict</span></div>
@@ -258,6 +259,7 @@
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="LibcloudDict.handle_vm_size_extra_args"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_size_extra_args">[docs]</a>    <span class="k">def</span> <span class="nf">handle_vm_size_extra_args</span><span class="p">(</span><span class="n">node_size_extra_args</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">node_size_extra_args</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="c1"># TODO: Convert to Console</span>
             <span class="n">pprint</span><span class="p">(</span><span class="n">key</span> <span class="o">+</span> <span class="s2">&quot; : &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">))</span></div>
 
     <span class="nd">@staticmethod</span>
@@ -279,6 +281,7 @@
             <span class="c1"># pprint(&quot;NodeImage extras&quot;)</span>
             <span class="c1"># pprint(node_image_obj.extra)</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># TODO: Convert to Console</span>
             <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;NodeImage extras not found&quot;</span><span class="p">)</span>
         <span class="c1"># Node Image Extra Args to be added here</span>
         <span class="k">return</span> <span class="n">node_image_dict</span></div>
@@ -313,7 +316,19 @@
                 <span class="n">image_extra_args_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
             <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;virtualization_type&quot;</span><span class="p">:</span>
                 <span class="n">image_extra_args_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="k">return</span> <span class="n">image_extra_args_dict</span></div></div>
+        <span class="k">return</span> <span class="n">image_extra_args_dict</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="LibcloudDict.handle_key_details"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_key_details">[docs]</a>    <span class="k">def</span> <span class="nf">handle_key_details</span><span class="p">(</span><span class="n">key_obj</span><span class="p">):</span>
+        <span class="c1"># Simply converts all attributes to dict</span>
+        <span class="n">key_dict</span> <span class="o">=</span> <span class="n">key_obj</span><span class="o">.</span><span class="n">__dict__</span>
+        <span class="c1"># Selects attributes to convert</span>
+        <span class="n">key_dict</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">key_obj</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="s1">&#39;fingerprint&#39;</span><span class="p">:</span> <span class="n">key_obj</span><span class="o">.</span><span class="n">fingerprint</span><span class="p">,</span>
+                <span class="s1">&#39;driver&#39;</span><span class="p">:</span> <span class="n">key_obj</span><span class="o">.</span><span class="n">driver</span>
+                <span class="p">}</span>
+        <span class="k">return</span> <span class="n">key_dict</span></div></div>
 </pre></div>
 
            </div>

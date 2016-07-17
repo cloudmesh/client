@@ -1,0 +1,504 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Quick Start Microsoft Azure &mdash; cloudmesh_client 4.3.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 4.3.2 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.3.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comet.html">Comet Virtual Cluster</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/comet_cloudmesh.html">Comet Cloudmesh Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/comet_bigdata.html">Comet Big Data Tutorial</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="code/cloudmesh_client.html">cloudmesh_client package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hackathon.html#python-guidelines">Python Guidelines</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Quick Start Microsoft Azure</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/azure.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="quick-start-microsoft-azure">
+<h1>Quick Start Microsoft Azure<a class="headerlink" href="#quick-start-microsoft-azure" title="Permalink to this headline">¶</a></h1>
+<p>Starting an Microsoft Azure Virtual Machine is simple on Cloudmesh client with
+a few steps. This instruction guides you how to register Azure account on
+Cloudmesh client and get access to a machine once it&#8217;s running. It may take 10
+minutes.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you need to install cloudmesh client, please visit <a class="reference internal" href="quickstart.html#ref-quickstart"><span class="std std-ref">Quick
+Start</span></a> guide.</p>
+</div>
+<p>This instruction contains:</p>
+<ul class="simple">
+<li>Azure Subscription ID Registration</li>
+<li>Azure management certificate</li>
+<li>Linux Instance Start</li>
+<li>SSH Login with Username and Password</li>
+<li>Instance Termination</li>
+</ul>
+<p>Other functionalities and features will be discussed in the following Azure
+section.</p>
+<div class="section" id="azure-account-registration">
+<h2>Azure Account Registration<a class="headerlink" href="#azure-account-registration" title="Permalink to this headline">¶</a></h2>
+<p>Microsoft Azure provides authentication via management certificates (X.509 v3)
+along with a subscription ID. To obtain a subscription ID,</p>
+<ul class="simple">
+<li>Login <a class="reference external" href="https://manage.windowsazure.com">the classic Azure Portal</a></li>
+<li>Find &#8216;Settings&#8217; at the bottome of the left tab</li>
+<li>You will find a subscription ID associated with your account in the
+&#8216;settings&#8217; page like:
+<code class="docutils literal"><span class="pre">8b3df2b9-3ac1-4828-b6e0-8f8be62e6e6r</span></code></li>
+<li>Keep the subscription ID when you register Azure cloud on Cloudmesh</li>
+</ul>
+<div class="section" id="certificate-by-openssl">
+<h3>Certificate by OpenSSL<a class="headerlink" href="#certificate-by-openssl" title="Permalink to this headline">¶</a></h3>
+<p>Next step, you need to create certificate files for the server (.cer) and for
+the client (.pem). Follow the instructions below:</p>
+<ul>
+<li><p class="first">Run <code class="docutils literal"><span class="pre">openssl</span> <span class="pre">req</span> <span class="pre">-x509</span> <span class="pre">-nodes</span> <span class="pre">-days</span> <span class="pre">365</span> <span class="pre">-newkey</span> <span class="pre">rsa:2048</span> <span class="pre">-keyout</span>
+<span class="pre">~/.cloudmesh/azure-cert.pem</span> <span class="pre">-out</span> <span class="pre">~/.cloudmesh/azure-cert.pem</span></code></p>
+<p>To create a self-assigned certificiate, you provide your information
+interactively like:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Generating</span> <span class="n">a</span> <span class="mi">2048</span> <span class="n">bit</span> <span class="n">RSA</span> <span class="n">private</span> <span class="n">key</span>
+<span class="o">..........+++</span>
+<span class="o">........................+++</span>
+<span class="n">writing</span> <span class="n">new</span> <span class="n">private</span> <span class="n">key</span> <span class="n">to</span> <span class="s1">&#39;azure-cert.pem&#39;</span>
+<span class="o">-----</span>
+<span class="n">You</span> <span class="n">are</span> <span class="n">about</span> <span class="n">to</span> <span class="n">be</span> <span class="n">asked</span> <span class="n">to</span> <span class="n">enter</span> <span class="n">information</span> <span class="n">that</span> <span class="n">will</span> <span class="n">be</span> <span class="n">incorporated</span>
+<span class="n">into</span> <span class="n">your</span> <span class="n">certificate</span> <span class="n">request</span><span class="o">.</span>
+<span class="n">What</span> <span class="n">you</span> <span class="n">are</span> <span class="n">about</span> <span class="n">to</span> <span class="n">enter</span> <span class="ow">is</span> <span class="n">what</span> <span class="ow">is</span> <span class="n">called</span> <span class="n">a</span> <span class="n">Distinguished</span> <span class="n">Name</span> <span class="ow">or</span> <span class="n">a</span> <span class="n">DN</span><span class="o">.</span>
+<span class="n">There</span> <span class="n">are</span> <span class="n">quite</span> <span class="n">a</span> <span class="n">few</span> <span class="n">fields</span> <span class="n">but</span> <span class="n">you</span> <span class="n">can</span> <span class="n">leave</span> <span class="n">some</span> <span class="n">blank</span>
+<span class="n">For</span> <span class="n">some</span> <span class="n">fields</span> <span class="n">there</span> <span class="n">will</span> <span class="n">be</span> <span class="n">a</span> <span class="n">default</span> <span class="n">value</span><span class="p">,</span>
+<span class="n">If</span> <span class="n">you</span> <span class="n">enter</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">the</span> <span class="n">field</span> <span class="n">will</span> <span class="n">be</span> <span class="n">left</span> <span class="n">blank</span><span class="o">.</span>
+<span class="o">-----</span>
+<span class="n">Country</span> <span class="n">Name</span> <span class="p">(</span><span class="mi">2</span> <span class="n">letter</span> <span class="n">code</span><span class="p">)</span> <span class="p">[</span><span class="n">AU</span><span class="p">]:</span> <span class="n">US</span>
+<span class="n">State</span> <span class="ow">or</span> <span class="n">Province</span> <span class="n">Name</span> <span class="p">(</span><span class="n">full</span> <span class="n">name</span><span class="p">)</span> <span class="p">[</span><span class="n">Some</span><span class="o">-</span><span class="n">State</span><span class="p">]:</span> <span class="n">Indiana</span>
+<span class="n">Locality</span> <span class="n">Name</span> <span class="p">(</span><span class="n">eg</span><span class="p">,</span> <span class="n">city</span><span class="p">)</span> <span class="p">[]:</span> <span class="n">Bloomington</span>
+<span class="n">Organization</span> <span class="n">Name</span> <span class="p">(</span><span class="n">eg</span><span class="p">,</span> <span class="n">company</span><span class="p">)</span> <span class="p">[</span><span class="n">Internet</span> <span class="n">Widgits</span> <span class="n">Pty</span> <span class="n">Ltd</span><span class="p">]:</span> <span class="n">Indiana</span> <span class="n">University</span>
+<span class="n">Organizational</span> <span class="n">Unit</span> <span class="n">Name</span> <span class="p">(</span><span class="n">eg</span><span class="p">,</span> <span class="n">section</span><span class="p">)</span> <span class="p">[]:</span>
+<span class="n">Common</span> <span class="n">Name</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">server</span> <span class="n">FQDN</span> <span class="ow">or</span> <span class="n">YOUR</span> <span class="n">name</span><span class="p">)</span> <span class="p">[]:</span> <span class="n">Cloudmesh</span>
+<span class="n">Email</span> <span class="n">Address</span> <span class="p">[]:</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>You will find <code class="docutils literal"><span class="pre">~/.cloudmesh/azure-cert.pem</span></code> file on your account. Let&#8217;s
+create server certificate (.cer) from the client certificate (.pem).</p>
+<ul class="simple">
+<li>Run <code class="docutils literal"><span class="pre">openssl</span> <span class="pre">x509</span> <span class="pre">-inform</span> <span class="pre">pem</span> <span class="pre">-in</span> <span class="pre">~/.cloudmesh/azure-cert.pem</span> <span class="pre">-outform</span> <span class="pre">der</span>
+<span class="pre">-out</span> <span class="pre">~/.cloudmesh/azure-cert.cer</span></code></li>
+</ul>
+<p>Now you have <code class="docutils literal"><span class="pre">azure-cert.pem</span></code> and <code class="docutils literal"><span class="pre">azure-cert.cer</span></code> files in your
+<code class="docutils literal"><span class="pre">~/.cloudmesh</span></code> directory.</p>
+</div>
+<div class="section" id="upload-certificate-to-azure">
+<h3>Upload Certificate to Azure<a class="headerlink" href="#upload-certificate-to-azure" title="Permalink to this headline">¶</a></h3>
+<p>To authenticate Azure Services with your <code class="docutils literal"><span class="pre">.pem</span></code> file on Cloudmesh, you need
+to upload your <code class="docutils literal"><span class="pre">.cer</span></code> certificate to Azure.</p>
+<ul class="simple">
+<li>Find <code class="docutils literal"><span class="pre">Settings</span></code> page at the bottom of the left tab in <a class="reference external" href="https://manage.windowsazure.com/">the classic Azure Portal</a></li>
+<li>Find <code class="docutils literal"><span class="pre">Management</span> <span class="pre">Certificates</span></code> tab on the top of the <code class="docutils literal"><span class="pre">Settings</span></code> page.</li>
+<li>Click <code class="docutils literal"><span class="pre">Upload</span></code> button at the bottom of the page to upload your <code class="docutils literal"><span class="pre">.cer</span></code> file, in this case <code class="docutils literal"><span class="pre">~/.cloudmesh/azure-cert.pem</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="more-about-azure-certificate">
+<h3>More about Azure Certificate<a class="headerlink" href="#more-about-azure-certificate" title="Permalink to this headline">¶</a></h3>
+<p>For more information about Azure service certificate, visit Azure Documentation
+<a class="reference external" href="https://azure.microsoft.com/en-us/documentation/articles/cloud-services-certs-create/">here</a>
+and <a class="reference external" href="https://azure.microsoft.com/en-us/documentation/articles/cloud-services-python-how-to-use-service-management/">here</a>.</p>
+</div>
+<div class="section" id="register-azure">
+<h3>Register Azure<a class="headerlink" href="#register-azure" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">Run <code class="docutils literal"><span class="pre">register</span> <span class="pre">azure</span></code> to type account information</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">&gt;</span> <span class="n">register</span> <span class="n">azure</span>
+
+<span class="c1"># ######################################################################</span>
+<span class="c1"># Register azure</span>
+<span class="c1"># ######################################################################</span>
+<span class="n">Enter</span> <span class="n">managementcertfile</span> <span class="p">(</span><span class="n">TBD</span><span class="p">):</span> <span class="o">**/</span><span class="n">home</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">azure</span><span class="o">-</span><span class="n">cert</span><span class="o">.</span><span class="n">pem</span><span class="o">**</span>
+<span class="n">Enter</span> <span class="n">servicecertfile</span> <span class="p">(</span><span class="n">TBD</span><span class="p">):</span>
+<span class="n">Enter</span> <span class="n">subscriptionid</span> <span class="p">(</span><span class="n">TBD</span><span class="p">):</span> <span class="o">**</span><span class="mi">8</span><span class="n">b3df2b9</span><span class="o">-</span><span class="mi">3</span><span class="n">ac1</span><span class="o">-</span><span class="mi">4828</span><span class="o">-</span><span class="n">b6e0</span><span class="o">-</span><span class="mi">8</span><span class="n">f8be62e6e6r</span><span class="o">**</span>
+<span class="n">Enter</span> <span class="n">thumbprint</span> <span class="p">(</span><span class="n">TBD</span><span class="p">):</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>You can skip servicecertfile and thumbprint at this stage.</p>
+</div>
+</div>
+<div class="section" id="set-default-cloud">
+<h2>Set Default Cloud<a class="headerlink" href="#set-default-cloud" title="Permalink to this headline">¶</a></h2>
+<p>You may want to set Azure as a default cloud before you start using Azure
+cloud. Default cloud setting allows you to run your Cloudmesh commands towards
+a selected cloud, in this case Azure, without additional parameters e.g.
+<code class="docutils literal"><span class="pre">--cloud=</span></code>.  You can change default settings anytime while you are in
+Cloudmesh shell.</p>
+<ul>
+<li><p class="first">Run <code class="docutils literal"><span class="pre">default</span> <span class="pre">cloud=azure</span></code></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">&gt;</span> <span class="n">default</span> <span class="n">cloud</span><span class="o">=</span><span class="n">azure</span>
+<span class="nb">set</span> <span class="n">default</span> <span class="n">cloud</span><span class="o">=</span><span class="n">azure</span><span class="o">.</span> <span class="n">ok</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="starting-azure-virtual-machine">
+<h2>Starting Azure Virtual Machine<a class="headerlink" href="#starting-azure-virtual-machine" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">vm</span> <span class="pre">boot</span></code> starts a new Azure Virtual Machine under your account with default
+settings.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">&gt;</span> <span class="n">vm</span> <span class="n">boot</span>
+<span class="n">Machine</span> <span class="n">TBD</span><span class="o">-</span><span class="mi">002</span> <span class="ow">is</span> <span class="n">being</span> <span class="n">booted</span> <span class="n">on</span> <span class="n">cloud</span> <span class="n">azure</span> <span class="o">...</span>
+<span class="o">+-----------+----------------------------------------------------------------------------------------------+</span>
+<span class="o">|</span> <span class="n">Attribute</span> <span class="o">|</span> <span class="n">Value</span>                                                                                        <span class="o">|</span>
+<span class="o">+-----------+----------------------------------------------------------------------------------------------+</span>
+<span class="o">|</span> <span class="n">cloud</span>     <span class="o">|</span> <span class="n">azure</span>                                                                                        <span class="o">|</span>
+<span class="o">|</span> <span class="n">flavor</span>    <span class="o">|</span> <span class="n">Basic_A1</span>                                                                                     <span class="o">|</span>
+<span class="o">|</span> <span class="n">image</span>     <span class="o">|</span> <span class="n">b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu</span><span class="o">-</span><span class="mi">12</span><span class="n">_04_5</span><span class="o">-</span><span class="n">LTS</span><span class="o">-</span><span class="n">amd64</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="mi">20160315</span><span class="o">-</span><span class="n">en</span><span class="o">-</span><span class="n">us</span><span class="o">-</span><span class="mi">30</span><span class="n">GB</span>        <span class="o">|</span>
+<span class="o">|</span> <span class="n">key</span>       <span class="o">|</span> <span class="n">albert</span>                                                                                       <span class="o">|</span>
+<span class="o">|</span> <span class="n">meta</span>      <span class="o">|</span> <span class="o">+</span>                                                                                            <span class="o">|</span>
+<span class="o">|</span>   <span class="o">-</span>       <span class="o">|</span> <span class="n">category</span><span class="p">:</span> <span class="n">azure</span>                                                                              <span class="o">|</span>
+<span class="o">|</span>   <span class="o">-</span>       <span class="o">|</span> <span class="n">kind</span><span class="p">:</span> <span class="n">cloudmesh</span>                                                                              <span class="o">|</span>
+<span class="o">|</span>   <span class="o">-</span>       <span class="o">|</span> <span class="n">group</span><span class="p">:</span> <span class="n">default</span>                                                                               <span class="o">|</span>
+<span class="o">|</span>   <span class="o">-</span>       <span class="o">|</span> <span class="n">image</span><span class="p">:</span> <span class="n">b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu</span><span class="o">-</span><span class="mi">12</span><span class="n">_04_5</span><span class="o">-</span><span class="n">LTS</span><span class="o">-</span><span class="n">amd64</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="mi">20160315</span><span class="o">-</span><span class="n">en</span><span class="o">-</span><span class="n">us</span><span class="o">-</span><span class="mi">30</span><span class="n">GB</span> <span class="o">|</span>
+<span class="o">|</span>   <span class="o">-</span>       <span class="o">|</span> <span class="n">key</span><span class="p">:</span> <span class="n">albert</span>                                                                                  <span class="o">|</span>
+<span class="o">|</span>   <span class="o">-</span>       <span class="o">|</span> <span class="n">flavor</span><span class="p">:</span> <span class="n">Basic_A1</span>                                                                             <span class="o">|</span>
+<span class="o">|</span> <span class="n">name</span>      <span class="o">|</span> <span class="n">TBD</span><span class="o">-</span><span class="mi">002</span>                                                                                      <span class="o">|</span>
+<span class="o">|</span> <span class="n">nics</span>      <span class="o">|</span>                                                                                              <span class="o">|</span>
+<span class="o">|</span> <span class="n">secgroup</span>  <span class="o">|</span> <span class="o">+</span>                                                                                            <span class="o">|</span>
+<span class="o">|</span>   <span class="o">-</span>       <span class="o">|</span> <span class="n">TBD</span><span class="o">-</span><span class="n">default</span>                                                                                  <span class="o">|</span>
+<span class="o">+-----------+----------------------------------------------------------------------------------------------+</span>
+<span class="n">INFO</span><span class="p">:</span> <span class="n">service</span> <span class="n">name</span><span class="p">:</span> <span class="n">TBD</span><span class="o">-</span><span class="mi">002</span>
+<span class="n">INFO</span><span class="p">:</span> <span class="n">location</span> <span class="n">name</span><span class="p">:</span> <span class="n">Central</span> <span class="n">US</span>
+
+<span class="n">INFO</span><span class="p">:</span> <span class="n">cloudmesh</span> <span class="n">storage</span> <span class="n">found</span>
+<span class="n">INFO</span><span class="p">:</span> <span class="n">Username</span><span class="p">:</span> <span class="n">azure</span>
+<span class="n">INFO</span><span class="p">:</span> <span class="n">password</span><span class="p">:</span> <span class="n">jxETwEsQ28147712</span>
+<span class="n">INFO</span><span class="p">:</span> <span class="n">blob</span> <span class="n">storage</span> <span class="n">location</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">cloudmesh</span><span class="o">.</span><span class="n">blob</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">windows</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">vhds</span><span class="o">/</span><span class="n">TBD</span><span class="o">-</span><span class="mf">002.</span><span class="n">vhd</span>
+<span class="o">....</span>
+<span class="n">INFO</span><span class="p">:</span> <span class="n">TBD</span><span class="o">-</span><span class="mi">002</span> <span class="n">created</span> <span class="n">successfully</span>
+<span class="n">info</span><span class="o">.</span> <span class="n">OK</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>Your first VM <code class="docutils literal"><span class="pre">TBD-002</span></code> started on AWS with default settings which are Basic_A1 (1 core) flavor and Ubuntu 12.04.5 LTS image.
+Random password is generated for your ssh access, SSH Key is not used.</p>
+</div>
+<div class="section" id="list-of-running-azure-instances">
+<h2>List of running Azure Instances<a class="headerlink" href="#list-of-running-azure-instances" title="Permalink to this headline">¶</a></h2>
+<p>Simple <code class="docutils literal"><span class="pre">vm</span> <span class="pre">list</span></code> run provides a list of running VM instances including one
+that you started above. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">&gt;</span> <span class="n">vm</span> <span class="nb">list</span>
+<span class="n">Listing</span> <span class="n">VMs</span> <span class="n">on</span> <span class="n">Cloud</span><span class="p">:</span> <span class="n">azure</span>
+<span class="o">+----+----------------------------------+---------+---------+-------------+-------------+------------+-------+--------------+---------------+------+----------+---------------------+</span>
+<span class="o">|</span> <span class="nb">id</span> <span class="o">|</span> <span class="n">uuid</span>                             <span class="o">|</span> <span class="n">label</span>   <span class="o">|</span> <span class="n">status</span>  <span class="o">|</span> <span class="n">public_ips</span>  <span class="o">|</span> <span class="n">private_ips</span> <span class="o">|</span> <span class="n">image_name</span> <span class="o">|</span> <span class="n">key</span>   <span class="o">|</span> <span class="n">availability</span> <span class="o">|</span> <span class="n">instance_type</span> <span class="o">|</span> <span class="n">user</span> <span class="o">|</span> <span class="n">category</span> <span class="o">|</span> <span class="n">updated_at</span>          <span class="o">|</span>
+<span class="o">+----+----------------------------------+---------+---------+-------------+-------------+------------+-------+--------------+---------------+------+----------+---------------------+</span>
+<span class="o">|</span>    <span class="o">|</span> <span class="mi">2</span><span class="n">f0adf4eff464eb5baf226f4abca44b8</span> <span class="o">|</span> <span class="n">TBD</span><span class="o">-</span><span class="mi">005</span> <span class="o">|</span> <span class="n">Running</span> <span class="o">|</span> <span class="mf">40.77</span><span class="o">.</span><span class="mf">21.75</span> <span class="o">|</span>             <span class="o">|</span>            <span class="o">|</span> <span class="n">albert</span><span class="o">|</span>              <span class="o">|</span>               <span class="o">|</span> <span class="n">TBD</span>  <span class="o">|</span> <span class="n">azure</span>    <span class="o">|</span> <span class="mi">2016</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">16</span> <span class="mi">22</span><span class="p">:</span><span class="mi">32</span><span class="p">:</span><span class="mi">04</span> <span class="o">|</span>
+<span class="o">+----+----------------------------------+---------+---------+-------------+-------------+------------+-------+--------------+---------------+------+----------+---------------------+</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">vm</span> <span class="pre">refresh</span></code> command updates status of VMs.</p>
+</div>
+<div class="section" id="ssh-to-azure-virtual-machine">
+<h2>SSH to Azure Virtual Machine<a class="headerlink" href="#ssh-to-azure-virtual-machine" title="Permalink to this headline">¶</a></h2>
+<p>Once your Azure VM is up and running, you are able to get access to the
+machine vis SSH.  In Cloudmesh, you run <code class="docutils literal"><span class="pre">vm</span> <span class="pre">ssh</span> <span class="pre">&lt;VM</span> <span class="pre">Name&gt;</span></code> to connect. For
+example, run <code class="docutils literal"><span class="pre">vm</span> <span class="pre">ssh</span> <span class="pre">TBD-002</span> <span class="pre">--username=azure</span></code> with <code class="docutils literal"><span class="pre">azure</span></code> username to get
+into the VM.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>cm&gt; vm ssh TBD-002 --username=azure
+login aazure:azure@TBD-002
++-------------+---------+
+| Attribute   | Value   |
++-------------+---------+
+| cloud       | aazure  |
+| command     |         |
+| floating_ip |         |
+| key         | albert  |
+| name        | TBD-002 |
+| username    | azure   |
++-------------+---------+
+Determining IP Address to use with a ping test.
+Checking 40.77.21.75...
+IP to be used is: 40.77.21.75
+INFO: Connecting to Instance at IP:40.77.21.75
+Welcome to Ubuntu 12.04.5 LTS (GNU/Linux 3.13.0-83:-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+
+   System information as of Sat Jul 16 22:48:37 UTC 2016
+
+   System load:  0.04              Processes:           218
+   Usage of /:   3.3% of 28.80GB   Users logged in:     0
+   Memory usage: 6%                IP address for eth0: 100.111.16.36
+   Swap usage:   0%
+
+   Graph this data and manage this system at:
+     https://landscape.canonical.com/
+
+   Get cloud support with Ubuntu Advantage Cloud Guest:
+     http://www.ubuntu.com/business/services/cloud
+
+   0 packages can be updated.
+   0 updates are security updates.
+
+
+   New release &#39;14.04.4 LTS&#39; available.
+   Run &#39;do-release-upgrade&#39; to upgrade to it.
+
+
+   Your Hardware Enablement Stack (HWE) is supported until April 2017.
+
+
+   The programs included with the Ubuntu system are free software;
+   the exact distribution terms for each program are described in the
+   individual files in /usr/share/doc/*/copyright.
+
+   Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+   applicable law.
+
+   To run a command as administrator (user &quot;root&quot;), use &quot;sudo &lt;command&gt;&quot;.
+   See &quot;man sudo_root&quot; for details.
+
+   azure@TBD-002:~$
+</pre></div>
+</div>
+<p>Congrats! you have launched an Azure Virtual Machine on Cloudmesh and it&#8217;s
+ready to use.</p>
+</div>
+<div class="section" id="terminating-azure-virtual-machine">
+<h2>Terminating Azure Virtual Machine<a class="headerlink" href="#terminating-azure-virtual-machine" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">vm</span> <span class="pre">delete</span></code> terminates Azure Virtual Machine like:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">&gt;</span> <span class="n">vm</span> <span class="n">delete</span> <span class="n">TBD</span><span class="o">-</span><span class="mi">002</span>
+<span class="n">INFO</span><span class="p">:</span> <span class="n">TBD</span><span class="o">-</span><span class="mi">005</span> <span class="n">deleted</span>
+<span class="n">VM</span> <span class="n">record</span> <span class="n">TBD</span><span class="o">-</span><span class="mi">002</span> <span class="ow">is</span> <span class="n">being</span> <span class="n">deleted</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">local</span> <span class="n">database</span><span class="o">...</span>
+</pre></div>
+</div>
+<p>That&#8217;s all. Simply provide VM instance name to terminate.</p>
+</div>
+<div class="section" id="list-of-server-sizes-flavors">
+<h2>List of Server Sizes (flavors)<a class="headerlink" href="#list-of-server-sizes-flavors" title="Permalink to this headline">¶</a></h2>
+<p>The server sizes that Azure provides can be listed by <code class="docutils literal"><span class="pre">flavor</span> <span class="pre">list</span></code>
+Amazon EC2 provide more than 40 flavors like:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">include</span><span class="p">::</span> <span class="n">azure</span><span class="o">-</span><span class="n">flavor</span><span class="o">.</span><span class="n">rst</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
+<p>Azure Virtual Machine is implemented with <a class="reference external" href="https://github.com/Azure/azure-sdk-for-python">Azure SDK for Python</a> in Cloudmesh.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'4.3.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
