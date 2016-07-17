@@ -644,16 +644,16 @@ You can start Julia on the command line for interactive use::
    julia>
 
 
+::
 
+    rpwagner@vm-vct01-00:~$ julia --machinefile machinefile-jl.txt 
+		   _
+       _       _ _(_)_     |  A fresh approach to technical computing
+      (_)     | (_) (_)    |  Documentation: http://docs.julialang.org
+       _ _   _| |_  __ _   |  Type "?help" for help.
+      | | | | | | |/ _` |  |
+      | | |_| | | | (_| |  |  Version 0.4.6 (2016-06-19 17:16 UTC)
+     _/ |\__'_|_|_|\__'_|  |  Official http://julialang.org release
+    |__/                   |  x86_64-linux-gnu
 
-rpwagner@vm-vct01-00:~$ julia --machinefile machinefile-jl.txt 
-               _
-   _       _ _(_)_     |  A fresh approach to technical computing
-  (_)     | (_) (_)    |  Documentation: http://docs.julialang.org
-   _ _   _| |_  __ _   |  Type "?help" for help.
-  | | | | | | |/ _` |  |
-  | | |_| | | | (_| |  |  Version 0.4.6 (2016-06-19 17:16 UTC)
- _/ |\__'_|_|_|\__'_|  |  Official http://julialang.org release
-|__/                   |  x86_64-linux-gnu
-
-julia> 
+    julia> 
