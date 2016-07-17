@@ -88,7 +88,8 @@ class SSHkey(object):
         """
         # key = base64.decodestring(key_string)
         # fp_plain = hashlib.md5(key).hexdigest()
-        key = base64.b64decode(key_string.strip().encode('ascii'))
+        key_padding = key_string.strip() + '=' * (4 - len(key_string.strip()) % 4)
+        key = base64.b64decode(key_padding.encode('ascii'))
         fp_plain = hashlib.md5(key).hexdigest()
 
         return ':'.join(a + b for a, b in zip(fp_plain[::2], fp_plain[1::2]))

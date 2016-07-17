@@ -241,9 +241,19 @@ Configuring the front-end node
 
 On your managing machine where Cloudmesh client tools is installed:
 
+If your managing machine is running Linux...
+
 .. prompt:: bash
 
   wget -O cmutil.py http://bit.ly/vc-cmutil
+  python cmutil.py nodesfile vct<NN>
+  scp vcn*.txt <USER>@vct<NN>.sdsc.edu:~/
+
+...if your managing machine is running Mac OS X...
+
+..prompt:: bash
+
+  curl -L -o cmutil.py http://bit.ly/vc-cmutil
   python cmutil.py nodesfile vct<NN>
   scp vcn*.txt <USER>@vct<NN>.sdsc.edu:~/
 
@@ -264,7 +274,6 @@ Compute node setup
 
    cm comet start vc2 vm-vc2-[1-2]
 
-
 Takes about 15~20 minutes. Once done, the node will be shutoff.
 
 Once you see the boot question in your console log, please change it to
@@ -272,7 +281,8 @@ Changing to localboot. Do this on the front-end node:
 
 .. prompt:: bash
 
-  ./cmutil.py setboot $HOSTNAME <NODE> net=false
+  cd $HOME
+  sudo ./comet-vc-tutorial/cmutil.py setboot $HOSTNAME vm-vct01-01 net=false
 
 .. prompt:: bash
 
@@ -282,13 +292,21 @@ Then on your managing host where Cloudmesh client is installed:
 
   cm comet power on vc2 vm-vc2-[1-2]
 
-On front-end node:
+Wait the compute nodes to be booted on, which can be checked by:
+
+.. prompt:: bash
+
+  cm comet cluster vct<NN>
+
+to see if the state (2nd column) of the nodes is 'active'.
+
+Once the compute nodes are on, run these on the front-end node:
 
 .. prompt:: bash
 
   cd $HOME/comet-vc-tutorial/
   ./key_setup.sh
-  
+
 This would setup the key, authorized keys, and known hosts files on the nodes.
 
 Login to compute nodes from front-end, and run your app.
