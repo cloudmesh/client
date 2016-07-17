@@ -29,9 +29,8 @@ Console <https://console.aws.amazon.com/>`_.
 - Continue to Security Credentials
 - Choose 'Access Keys (Access Key ID and Secret Access Key)'
 - Create New Access Key
-- 20 bytes of Access Key ID is like: ``AKIAIX3RE2AAAW5SP4KQ``
-- 40 bytes of Secret Access Key ID is like:
-  ``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``
+- 20 bytes of Access Key ID
+- 40 bytes of Secret Access Key ID
 - Keep these two Key IDs to register on Cloudmesh client
 - Run ``cm`` command to open Cloudmesh shell
 - Run ``register aws`` to type account information
