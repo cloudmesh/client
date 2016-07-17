@@ -106,7 +106,27 @@
 <p class="caption"><span class="caption-text">Tutorials</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="comet_cloudmesh.html">Comet Cloudmesh Tutorial</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Comet Big Data Tutorial</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Comet Big Data Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#status-of-this-tutorial">Status of this Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#problem-description">Problem Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stack">Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#process-overview">Process Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#start-a-virtual-cluster">Start a Virtual Cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deploy-the-stack">Deploy the Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-the-dataset-and-software">Install the Dataset and Software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-the-analytics">Run the Analytics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#loading-images">Loading Images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-ridge-detection-mindtct">Run Ridge Detection (MINDTCT)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#choosing-probe-and-gallery-sets">Choosing Probe and Gallery sets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-fingerprint-matching-bozorth3">Run Fingerprint Matching (BOZORTH3)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#find-the-matches">Find the Matches</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Developer Manuals</span></p>
 <ul>
@@ -176,7 +196,351 @@
             
   <div class="section" id="comet-big-data-tutorial">
 <h1>Comet Big Data Tutorial<a class="headerlink" href="#comet-big-data-tutorial" title="Permalink to this headline">¶</a></h1>
-<p>Assumes kowledge of comet cloudmesh tutorial</p>
+<div class="sidebar">
+<p class="first sidebar-title">Page Contents</p>
+<div class="contents local last topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#status-of-this-tutorial" id="id4">Status of this Tutorial</a></li>
+<li><a class="reference internal" href="#problem-description" id="id5">Problem Description</a></li>
+<li><a class="reference internal" href="#stack" id="id6">Stack</a></li>
+<li><a class="reference internal" href="#process-overview" id="id7">Process Overview</a></li>
+<li><a class="reference internal" href="#start-a-virtual-cluster" id="id8">Start a Virtual Cluster</a></li>
+<li><a class="reference internal" href="#requirements" id="id9">Requirements</a></li>
+<li><a class="reference internal" href="#setup" id="id10">Setup</a></li>
+<li><a class="reference internal" href="#deploy-the-stack" id="id11">Deploy the Stack</a></li>
+<li><a class="reference internal" href="#install-the-dataset-and-software" id="id12">Install the Dataset and Software</a></li>
+<li><a class="reference internal" href="#run-the-analytics" id="id13">Run the Analytics</a><ul>
+<li><a class="reference internal" href="#id1" id="id14">Setup</a></li>
+<li><a class="reference internal" href="#loading-images" id="id15">Loading Images</a></li>
+<li><a class="reference internal" href="#run-ridge-detection-mindtct" id="id16">Run Ridge Detection (MINDTCT)</a></li>
+<li><a class="reference internal" href="#choosing-probe-and-gallery-sets" id="id17">Choosing Probe and Gallery sets</a></li>
+<li><a class="reference internal" href="#run-fingerprint-matching-bozorth3" id="id18">Run Fingerprint Matching (BOZORTH3)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#find-the-matches" id="id19">Find the Matches</a></li>
+</ul>
+</div>
+</div>
+<p><strong>Goal</strong>: Run a fingerprint matching on a virtual cluster using Apache YARN, Spark, HBase and Drill.</p>
+<p><strong>Time</strong>: This will likely take several hours, though most will be spent waiting.</p>
+<div class="section" id="status-of-this-tutorial">
+<h2><a class="toc-backref" href="#id4">Status of this Tutorial</a><a class="headerlink" href="#status-of-this-tutorial" title="Permalink to this headline">¶</a></h2>
+<p>Work-in-progress</p>
+</div>
+<div class="section" id="problem-description">
+<h2><a class="toc-backref" href="#id5">Problem Description</a><a class="headerlink" href="#problem-description" title="Permalink to this headline">¶</a></h2>
+<p>Given a set of fingerprint images, partition them into two sets: &#8220;probe&#8221;, and &#8220;gallery&#8221;.
+We want to compare each image in &#8220;probe&#8221; to those in &#8220;gallery&#8221; and compute a matching score.
+We&#8217;ll then need to query the results to select the matches with the highest score.</p>
+</div>
+<div class="section" id="stack">
+<h2><a class="toc-backref" href="#id6">Stack</a><a class="headerlink" href="#stack" title="Permalink to this headline">¶</a></h2>
+<p>The dataset provided by NIST is a collection of png images and
+associated metadata.  Additionally, the Nist Biometric Image Software
+(NBIS) provides the core components for processing the images: MINDTCT
+for finding ridges and BOZORTH3 which does the actual matching.</p>
+<p>Images and processing results will be stored in HBase.
+Spark will be used as the computational engine.
+Drill be use to query HBase using SQL.</p>
+</div>
+<div class="section" id="process-overview">
+<h2><a class="toc-backref" href="#id7">Process Overview</a><a class="headerlink" href="#process-overview" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Start a virtual cluster</li>
+<li>Deploy the stack (ansible)</li>
+<li>Install the dataset and NBIS software (ansible)</li>
+<li>Run the analytics (spark)</li>
+<li>Find the matches (drill)</li>
+</ol>
+</div>
+<div class="section" id="start-a-virtual-cluster">
+<h2><a class="toc-backref" href="#id8">Start a Virtual Cluster</a><a class="headerlink" href="#start-a-virtual-cluster" title="Permalink to this headline">¶</a></h2>
+<p>Before we begin, make sure you have a virtual cluster.</p>
+<p>You need:</p>
+<ul class="simple">
+<li>An IP address for all nodes</li>
+<li>The ability to SSH into each node</li>
+<li>Python 2.7 installed on each node</li>
+</ul>
+</div>
+<div class="section" id="requirements">
+<h2><a class="toc-backref" href="#id9">Requirements</a><a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>You will need on your local system:</p>
+<ul class="simple">
+<li>Python 2.7</li>
+<li>Pip</li>
+<li>Virtualenv</li>
+<li>GCC</li>
+<li>Git</li>
+<li>SSH Client</li>
+</ul>
+</div>
+<div class="section" id="setup">
+<h2><a class="toc-backref" href="#id10">Setup</a><a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>First you&#8217;ll need to download the deployment scripts. To do so you
+will need an account on GitHub.com and an SSH public key associated
+with your account. While ideally this should not be required, it is
+currently an artifact of the repository organization: git submodules
+are used in which git authenticates through SSH.</p>
+<p>This may be fixed in a future version of this tutorial.</p>
+<p>Start by navigating to some workspace and cloning the repository.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git clone --recursive git@github.com:cloudmesh/example-project-nist-fingerprint-matching.git
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Make sure to pass the <code class="docutils literal"><span class="pre">--recursive</span></code> flag else you will get errors
+further along in the process that will be hard to track down.</p>
+</div>
+<p>Next enter the repository and create a virtual environment</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> example-project-nist-fingerprint-matching
+$ virtualenv venv
+$ <span class="nb">source</span> venv/bin/activate
+</pre></div>
+</div>
+<p>Install the dependencies next:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ pip install -r big-data-stack/requirements.txt
+</pre></div>
+</div>
+</div>
+<div class="section" id="deploy-the-stack">
+<h2><a class="toc-backref" href="#id11">Deploy the Stack</a><a class="headerlink" href="#deploy-the-stack" title="Permalink to this headline">¶</a></h2>
+<p>At this point you should have your virtual cluster up and running.
+Make sure you can ssh into each node.</p>
+<p>For reference, <code class="docutils literal"><span class="pre">$VC_USER</span></code> stands for the username that may ssh into
+the nodes (this has to be the same for each node).  If you want to
+avoid passing in <code class="docutils literal"><span class="pre">-u</span> <span class="pre">$VC_USER</span></code> to ansible each time, edit the
+<code class="docutils literal"><span class="pre">ansible.cfg</span></code> file and set <code class="docutils literal"><span class="pre">remote_user</span></code>. The default is
+<code class="docutils literal"><span class="pre">ubuntu</span></code>.</p>
+<p>Now we need to generate the Ansible inventory and host_vars so we can
+deploy the stack.  The deployment code is provided in the
+<code class="docutils literal"><span class="pre">big-data-stack</span></code> submodule, so change directories in there.  Use the
+<code class="docutils literal"><span class="pre">mk-inventory</span></code> script to generate the inventory.</p>
+<p>You will need to give a name to your virtual cluster and pass in the
+ip addresses.  In the example below, the name is <code class="docutils literal"><span class="pre">myvc</span></code> and the
+nodes are running on 192.168.1.100 through .102.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ python mk-inventory -n myvc 192.168.1.100 192.168.1.101 192.168.1.102 &gt;inventory.txt
+</pre></div>
+</div>
+<p>You&#8217;ll see something like:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">WARNING</span>   <span class="n">Creating</span> <span class="n">directory</span> <span class="o">./</span><span class="n">host_vars</span>
+<span class="n">INFO</span>      <span class="n">Writing</span> <span class="n">host_vars</span> <span class="n">to</span> <span class="o">./</span><span class="n">host_vars</span>
+<span class="n">INFO</span>      <span class="n">Writing</span> <span class="o">./</span><span class="n">host_vars</span><span class="o">/</span><span class="n">myvc0</span>
+<span class="n">INFO</span>      <span class="n">Writing</span> <span class="o">./</span><span class="n">host_vars</span><span class="o">/</span><span class="n">myvc1</span>
+<span class="n">INFO</span>      <span class="n">Writing</span> <span class="o">./</span><span class="n">host_vars</span><span class="o">/</span><span class="n">myvc2</span>
+</pre></div>
+</div>
+<p>You should inspect the <code class="docutils literal"><span class="pre">inventory.txt</span></code>, which should look like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">namenodes</span><span class="p">]</span>
+<span class="n">myvc0</span>
+<span class="n">myvc1</span>
+
+<span class="p">[</span><span class="n">resourcemanagernodes</span><span class="p">]</span>
+<span class="n">myvc0</span>
+<span class="n">myvc1</span>
+
+<span class="p">[</span><span class="n">datanodes</span><span class="p">]</span>
+<span class="n">myvc0</span>
+<span class="n">myvc1</span>
+<span class="n">myvc2</span>
+
+<span class="p">[</span><span class="n">zookeepernodes</span><span class="p">]</span>
+<span class="n">myvc0</span>
+<span class="n">myvc1</span>
+<span class="n">myvc2</span>
+
+<span class="p">[</span><span class="n">hadoopnodes</span><span class="p">]</span>
+<span class="n">myvc0</span>
+<span class="n">myvc1</span>
+<span class="n">myvc2</span>
+
+<span class="p">[</span><span class="n">historyservernodes</span><span class="p">]</span>
+<span class="n">myvc2</span>
+
+<span class="p">[</span><span class="n">journalnodes</span><span class="p">]</span>
+<span class="n">myvc2</span>
+<span class="n">myvc1</span>
+<span class="n">myvc0</span>
+
+<span class="p">[</span><span class="n">frontendnodes</span><span class="p">]</span>
+<span class="n">myvc2</span>
+</pre></div>
+</div>
+<p>To make sure that ansible can execute properly, you should have ansible ping the nodes:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ ansible all -o -m ping -u <span class="nv">$VC_USER</span>
+</pre></div>
+</div>
+<p>You should see something like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myvc2</span> <span class="o">|</span> <span class="n">SUCCESS</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="s2">&quot;changed&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span> <span class="s2">&quot;ping&quot;</span><span class="p">:</span> <span class="s2">&quot;pong&quot;</span><span class="p">}</span>
+<span class="n">myvc1</span> <span class="o">|</span> <span class="n">SUCCESS</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="s2">&quot;changed&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span> <span class="s2">&quot;ping&quot;</span><span class="p">:</span> <span class="s2">&quot;pong&quot;</span><span class="p">}</span>
+<span class="n">myvc0</span> <span class="o">|</span> <span class="n">SUCCESS</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="s2">&quot;changed&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span> <span class="s2">&quot;ping&quot;</span><span class="p">:</span> <span class="s2">&quot;pong&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>Depending on the network, the nodes, and other factors, it may take
+a bit before this succedes. I usually execute the following in the
+shell while waiting:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">until</span> <span class="n">ansible</span> <span class="nb">all</span> <span class="o">-</span><span class="n">o</span> <span class="o">-</span><span class="n">m</span> <span class="n">ping</span><span class="p">;</span> <span class="n">do</span> <span class="n">echo</span> <span class="n">date</span><span class="p">;</span> <span class="n">sleep</span> <span class="mi">5</span><span class="p">;</span> <span class="n">done</span>
+</pre></div>
+</div>
+</div>
+<p>At this point you should be ready to deploy the stack. As a sanity check, make sure:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">ansible</span> <span class="pre">all</span> <span class="pre">-m</span> <span class="pre">ping</span> <span class="pre">-u</span> <span class="pre">$VC_USER</span></code> works</li>
+<li>you should have monotonically increasing integers as values for
+<code class="docutils literal"><span class="pre">zookeeper_id</span></code> in <code class="docutils literal"><span class="pre">host_vars/myvcN</span></code> (where <code class="docutils literal"><span class="pre">N</span></code> is the node id).</li>
+<li>make sure you cloned originally with <code class="docutils literal"><span class="pre">--recursive</span></code>. Only pain and
+misery await if you forgot.  A symptom that you forgot is that the
+subdirectories of the <code class="docutils literal"><span class="pre">roles</span></code> directory are empty. They should not
+be empty.  Do an <code class="docutils literal"><span class="pre">ls</span> <span class="pre">roles/*</span></code> and if any of the role directories
+are empty, you forgot <code class="docutils literal"><span class="pre">--recursive</span></code>.</li>
+</ul>
+<p>If your sanity checks succeeded you run the following.  This will
+deploy hadoop (HDFS and YARN with automatic failover), and Apache
+Spark, Apache HBase, and Apache Drill.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ <span class="nb">time</span> ansible-playbook -u <span class="nv">$VC_USER</span> play-hadoop.yml addons/spark.yml addons/hbase.yml addons/drill.yml
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">This will take about 45 minutes.</p>
+</div>
+</div>
+<div class="section" id="install-the-dataset-and-software">
+<h2><a class="toc-backref" href="#id12">Install the Dataset and Software</a><a class="headerlink" href="#install-the-dataset-and-software" title="Permalink to this headline">¶</a></h2>
+<p>If all went well, you should see OK&#8217;s in green and no red in the output of <code class="docutils literal"><span class="pre">ansible-playbook</span></code>.</p>
+<p>Next you can deploy the fingerprint images and analysis software to the cluster:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ <span class="nb">time</span> ansible-playbook -u <span class="nv">$VC_USER</span> ../dataset.yml ../software.yml
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Wait a while longer</p>
+</div>
+</div>
+<div class="section" id="run-the-analytics">
+<h2><a class="toc-backref" href="#id13">Run the Analytics</a><a class="headerlink" href="#run-the-analytics" title="Permalink to this headline">¶</a></h2>
+<p>Dataset and software deployment succeedes, you can begin with the analytics portion.
+There are several steps to complete here:</p>
+<ol class="arabic simple">
+<li>Load the image data into HBase</li>
+<li>Run the fingerprint ridge detection softare (<code class="docutils literal"><span class="pre">MINDTCT</span></code>)</li>
+<li>Select subsets of the images as &#8220;probe&#8221; and &#8220;gallery&#8221; sets</li>
+<li>Run the fingerprint matching method (<code class="docutils literal"><span class="pre">BOZORTH3</span></code>)</li>
+</ol>
+<div class="section" id="id1">
+<h3><a class="toc-backref" href="#id14">Setup</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Start by logging into the frontend node of your cluster.  The
+following will tell you the name of the frontend node, then you can
+get the IP from <code class="docutils literal"><span class="pre">host_vars/myvcN</span></code> (where <code class="docutils literal"><span class="pre">N</span></code> is appropriatly
+substituted).</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ grep -A1 frontend inventory.txt
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>Or, as a oneliner:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span>$ grep ansible_ssh_host host_vars/$(grep -A1 frontends inventory.txt | tail -1 | awk &#39;{print $1}&#39;
+</pre></div>
+</div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ ssh <span class="nv">$VC_USER</span>@<span class="nv">$FRONTEND_IP</span>
+</pre></div>
+</div>
+<p>The stack deployment will have created a <code class="docutils literal"><span class="pre">hadoop</span></code> user and deposited
+the analysis code there. Switch to the <code class="docutils literal"><span class="pre">hadoop</span></code> user:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ sudo su - hadoop
+</pre></div>
+</div>
+<p>You then need to compile and package the analysis code into a jar.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ sbt package <span class="o">&amp;&amp;</span> sbt assembly
+</pre></div>
+</div>
+<p>The result is a &#8220;fat jar&#8221; at
+<code class="docutils literal"><span class="pre">target/scala-2.10/NBIS-assembly-1.0.jar</span></code> that contains most of the
+runtime requirements for executing on the cluster.  I say &#8220;most&#8221; as
+the HBase libraries still need to be passed in via the
+<code class="docutils literal"><span class="pre">--driver-class-path</span></code> argument to <a href="#id2"><span class="problematic" id="id3">``</span></a>spark-submit.</p>
+</div>
+<div class="section" id="loading-images">
+<h3><a class="toc-backref" href="#id15">Loading Images</a><a class="headerlink" href="#loading-images" title="Permalink to this headline">¶</a></h3>
+<p>The following command will launch a Spark job on the YARN cluster. It
+will read in the list of images and metadata files from
+<code class="docutils literal"><span class="pre">sd04_md5.lst</span></code> and load their contents into HBase.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ <span class="nb">time</span> spark-submit <span class="se">\</span>
+    --master yarn <span class="se">\</span>
+    --deploy-mode cluster <span class="se">\</span>
+    --driver-class-path <span class="k">$(</span>hbase classpath<span class="k">)</span> <span class="se">\</span>
+    --class LoadData <span class="se">\</span>
+    target/scala-2.10/NBIS-assembly-1.0.jar <span class="se">\</span>
+    /tmp/nist/NISTSpecialDatabase4GrayScaleImagesofFIGS/sd04/sd04_md5.lst
+</pre></div>
+</div>
+</div>
+<div class="section" id="run-ridge-detection-mindtct">
+<h3><a class="toc-backref" href="#id16">Run Ridge Detection (MINDTCT)</a><a class="headerlink" href="#run-ridge-detection-mindtct" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ <span class="nb">time</span> spark-submit <span class="se">\</span>
+    --master yarn <span class="se">\</span>
+    --deploy-mode cluster <span class="se">\</span>
+    --driver-class-path <span class="k">$(</span>hbase classpath<span class="k">)</span> <span class="se">\</span>
+    --class RunMindtct <span class="se">\</span>
+    target/scala-2.10/NBIS-assembly-1.0.jar
+</pre></div>
+</div>
+</div>
+<div class="section" id="choosing-probe-and-gallery-sets">
+<h3><a class="toc-backref" href="#id17">Choosing Probe and Gallery sets</a><a class="headerlink" href="#choosing-probe-and-gallery-sets" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ <span class="nb">time</span> spark-submit <span class="se">\</span>
+    --master yarn <span class="se">\</span>
+    --deploy-mode cluster <span class="se">\</span>
+    --driver-class-path <span class="k">$(</span>hbase classpath<span class="k">)</span> <span class="se">\</span>
+    --class RunGroup <span class="se">\</span>
+    target/scala-2.10/NBIS-assembly-1.0.jar <span class="se">\</span>
+    probe 0.001 <span class="se">\</span>
+    gallery 0.01
+</pre></div>
+</div>
+</div>
+<div class="section" id="run-fingerprint-matching-bozorth3">
+<h3><a class="toc-backref" href="#id18">Run Fingerprint Matching (BOZORTH3)</a><a class="headerlink" href="#run-fingerprint-matching-bozorth3" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ <span class="nb">time</span> spark-submit <span class="se">\</span>
+    --master yarn <span class="se">\</span>
+    --deploy-mode cluster <span class="se">\</span>
+    --driver-class-path <span class="k">$(</span>hbase classpath<span class="k">)</span> <span class="se">\</span>
+    --class RunBOZORTH3 <span class="se">\</span>
+    target/scala-2.10/NBIS-assembly-1.0.jar <span class="se">\</span>
+    probe gallery <span class="se">\</span>
+    2&gt;err.log
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">This will likely take several hours</p>
+</div>
+</div>
+</div>
+<div class="section" id="find-the-matches">
+<h2><a class="toc-backref" href="#id19">Find the Matches</a><a class="headerlink" href="#find-the-matches" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ sqlline -u jdbc:drill:zk<span class="o">=</span>myvc0,myvc1,myvc2<span class="p">;</span><span class="nv">schema</span><span class="o">=</span>hbase
+</pre></div>
+</div>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>0: jdbc:drill:zk<span class="o">=</span>myvc0,myvc1,myvc2&gt; use hbase<span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span>
+<span class="n">CONVERT_FROM</span><span class="p">(</span><span class="n">Bozorth3</span><span class="p">.</span><span class="n">Bozorth3</span><span class="p">.</span><span class="n">probe</span><span class="p">,</span> <span class="s1">&#39;UTF8&#39;</span><span class="p">)</span> <span class="n">probe</span><span class="p">,</span>
+<span class="n">CONVERT_FROM</span><span class="p">(</span><span class="n">Bozorth3</span><span class="p">.</span><span class="n">Bozorth3</span><span class="p">.</span><span class="n">gallery</span><span class="p">,</span> <span class="s1">&#39;UTF8&#39;</span><span class="p">)</span> <span class="n">gallery</span><span class="p">,</span>
+<span class="n">CONVERT_FROM</span><span class="p">(</span><span class="n">Bozorth3</span><span class="p">.</span><span class="n">Bozorth3</span><span class="p">.</span><span class="n">score</span><span class="p">,</span> <span class="s1">&#39;INT_BE&#39;</span><span class="p">)</span> <span class="n">score</span>
+<span class="k">FROM</span> <span class="n">Bozorth3</span>
+<span class="k">ORDER</span> <span class="k">BY</span>
+<span class="n">CONVERT_FROM</span><span class="p">(</span><span class="n">Bozorth3</span><span class="p">.</span><span class="n">Bozorth3</span><span class="p">.</span><span class="n">score</span><span class="p">,</span> <span class="s1">&#39;INT_BE&#39;</span><span class="p">)</span>
+<span class="k">DESC</span>
+<span class="n">LIMT</span> <span class="mi">10</span>
+<span class="p">;</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 

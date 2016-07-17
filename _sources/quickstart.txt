@@ -370,58 +370,43 @@ And to delete the vm
 Microsoft Azure
 ----------------
 
-To connect to the Azure cloud, you need your Azure subscription ID and a valid management
-certificate. You can obtain your subscription ID through the Azure classic portal.
+To connect to the Azure cloud, you need your Azure subscription ID
+and a valid management certificate. You can obtain your subscription ID through the Azure classic portal.
 
-Next, you need to create two certificates, one for the server (a .cer file) and one for the
-client (a .pem file).
+Steps to generate management certificate:
 
-1. To create the .pem file, execute this:
+    You need to create two certificates, one for the server (a .cer file)
+    and one for the client (a .pem file).
 
-.. prompt:: bash
+    1. To create the .pem file, execute this:
 
-   openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem
+    .. prompt:: bash
 
-2. To create the .cer certificate, execute this:
+       openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem
 
-.. prompt:: bash
+    2. To create the .cer certificate, execute this:
 
-   openssl x509 -inform pem -in mycert.pem -outform der -out mycert.cer
+    .. prompt:: bash
 
-Place the certifocates into the directory::
-
-    ~/.cloudmesh
+       openssl x509 -inform pem -in mycert.pem -outform der -out mycert.cer
 
 This subscription ID and Management certificate path has to be added in the cloudmesh.yaml file.
 Ex::
 
     credentials:
-                managementcertfile: ~/.cloudmesh/mycert.pem
+                managementcertfile: <pem-certificate-path>
                 subscriptionid: <subscription-id>
-                location: Cemtral US
 
-.. note:: is it pem or cer
-
-The default Azure Location will be "Central US", but it is configurable in cloudmesh.yaml file.
-
-.. note:: does not say how
+Default Azure Location will be "Central US", but it is configurable in cloudmesh.yaml file.
 
 Other than the regular commands, there is one extra command (Akey) in Azure which is needed to create VMs with
 certificates and SSH keys.
 
 Akey Command Syntax:
-
-.. prompt:: bash
-
     akey add --name=key-name --pub=pub-key-path --cert=pem-certificate-file-path --pfx=pfx-file-path
 
-.. note:: in a future version of cloudmesh this command will be merged into the key command and use the name of
-          the azure cloud in the yaml file to identify it
-
-          key add --cloud= azure --name=key-name --pub=pub-key-path --cert=pem-certificate-file-path --pfx=pfx-file-path
-
-To create a new VM deployment in the Azure cloud with an SSH key it is mandatory to have a
-certificate associated with it. The steps to create a Key pair and a certificate are:
+To create a new VM deployment in Azure cloud with an SSH key it is mandatory to have a certificate associated with it.
+Steps to create a Key pair and a certificate:
 
     1. Create a RSA key and self signed certificate:
 
@@ -438,12 +423,8 @@ certificate associated with it. The steps to create a Key pair and a certificate
 
 
     3. Create Public key from Private key:
+    ssh-keygen -y -f mycer.key > mycer.pub
 
-    .. prompt:: bash
-
-        ssh-keygen -y -f mycer.key > mycer.pub
-
-    .. note: we want tou use the id_rsa.pub key if possible
 
 Some sample commands:
 

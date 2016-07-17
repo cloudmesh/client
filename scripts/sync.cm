@@ -1,0 +1,11 @@
+default cloud=kilo
+
+! rm -r ~/cm_sync
+! mkdir -p ~/cm_sync/put
+! echo "sample text" >> ~/cm_sync/put/file.txt
+
+banner SYNC_FROM_LOCAL_TO_REMOTE
+sync put ~/cm_sync/put sync_dir
+
+banner SYNC_FROM_REMOTE_TO_LOCAL
+sync get sync_dir ~/cm_sync/get
