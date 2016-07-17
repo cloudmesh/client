@@ -606,7 +606,7 @@ similar process. On each compute node run the following commands from
    sudo apt-get install julia -y
 
 
-You can start Julia on the command for interactive use::
+You can start Julia on the command line for interactive use::
 
    rpwagner@vm-vct01-00:~$ julia
                   _
