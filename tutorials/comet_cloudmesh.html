@@ -194,8 +194,8 @@
 <p>Setup Cloudmesh Client on Ubuntu Desktop in Virtualbox</p>
 <div class="section" id="virtual-box">
 <h2>Virtual Box<a class="headerlink" href="#virtual-box" title="Permalink to this headline">¶</a></h2>
-<p><strong>Step 1:</strong> For convenience we will be using Ubuntu Xenial in this demo to
-install the Cloudmesh client on it. Please make sure you have</p>
+<p><strong>Step 1:</strong> For convenience we will be using Ubuntu Xenial in this
+demo to install the Cloudmesh client on it. Please make sure you have</p>
 <ul class="simple">
 <li><a class="reference external" href="https://www.virtualbox.org">VirtualBox</a> installed (<a class="reference external" href="https://www.virtualbox.org/wiki/Downloads">downloads page</a>).</li>
 </ul>
@@ -203,14 +203,24 @@ install the Cloudmesh client on it. Please make sure you have</p>
 <ul class="simple">
 <li><a class="reference external" href="http://www.ubuntu.com/download">Ubuntu desktop ISO</a>.</li>
 </ul>
-<p>and remember the location where you downloaded it. You will need that location later.</p>
+<p>and remember the location where you downloaded it. You will need that
+location later.</p>
 <p><strong>Step 3:</strong> Create VirtualBox, create a new VM (Ubuntu, 64bit)</p>
-<p><strong>Step 4:</strong> Start the box. When asked for the ISO, use the folder icon to browse to the location of the downloaded image.</p>
-<p><strong>Step 5:</strong> Start and configure the system. Note in case the last step does not return, shut down or terminate the VM and restart it.</p>
-<p><strong>Step 6:</strong> Once you have logged into the vm, start a terminal by clicking on the cog and type in <em>terminal</em></p>
-<p><strong>Step 7:</strong> (optional) You may want to enable the vm guest addition and enable bidirectional shared clipboard and drag and drop. You may have
-to restart the vm so that these changes take effect.</p>
-<p><strong>Step 8:</strong> Install cloudmesh. Paste and copy between host and vm, as well as .</p>
+<dl class="docutils">
+<dt><strong>Step 4:</strong> Start the box. When asked for the ISO, use the folder icon</dt>
+<dd>to browse to the location of the downloaded image.</dd>
+<dt><strong>Step 5:</strong> Start and configure the system. Note in case the last step</dt>
+<dd>does not return, shut down or terminate the VM and restart it.</dd>
+<dt><strong>Step 6:</strong> Once you have logged into the vm, start a terminal by</dt>
+<dd>clicking on the cog and type in <em>terminal</em></dd>
+</dl>
+<p><strong>Step 7:</strong> (optional) You may want to enable the vm guest addition
+and enable bidirectional shared clipboard and drag and drop. You may
+have to restart the vm so that these changes take effect.</p>
+<dl class="docutils">
+<dt><strong>Step 8:</strong> Install cloudmesh. Paste and copy between host and vm, as</dt>
+<dd>well as .</dd>
+</dl>
 <pre class="highlight"><style type="text/css">
 span.prompt1:before {
   content: "$ ";
@@ -230,8 +240,9 @@ span.prompt1:before {
 </pre></div>
 <div class="section" id="configure-cloudmesh">
 <h2>Configure Cloudmesh<a class="headerlink" href="#configure-cloudmesh" title="Permalink to this headline">¶</a></h2>
-<p>Next, we need to configure Cloudmesh. We will only use a fraction of Cloudmesh
-capabilities for this tutorial that is focused on using comet</p>
+<p>Next, we need to configure Cloudmesh. We will only use a fraction of
+Cloudmesh capabilities for this tutorial that is focused on using
+comet</p>
 <pre class="highlight"><span class="prompt1">ssh-keygen</span>
 <span class="prompt1">cm</span>
 <span class="prompt1">cm version</span>
@@ -281,7 +292,8 @@ capabilities for this tutorial that is focused on using comet</p>
 <pre class="highlight"><span class="prompt1">cm comet iso attach <span class="m">6</span> vc2</span>
 </pre><p>Let us check the status of the server.</p>
 <pre class="highlight"><span class="prompt1">cm comet cluster vc2</span>
-</pre><p>If it is already running, please power if off so the iso attach could take effect:</p>
+</pre><p>If it is already running, please power if off so the iso attach could
+take effect:</p>
 <pre class="highlight"><span class="prompt1">cm comet power off vc2</span>
 </pre><p>Now we need to power on the server</p>
 <pre class="highlight"><span class="prompt1">cm comet power on vc2</span>
@@ -353,11 +365,11 @@ using your login name that you set up and specify your cluster name.</p>
 <pre class="highlight"><span class="prompt1">curl -L -o cmutil.py http://bit.ly/vc-cmutil</span>
 <span class="prompt1">python cmutil.py nodesfile vct&lt;NN&gt;</span>
 <span class="prompt1">scp vcn*.txt &lt;USER&gt;@vct&lt;NN&gt;.sdsc.edu:~/</span>
-</pre><p>On vc front-end node:</p>
+</pre><p>On the vc front-end node:</p>
 <pre class="highlight"><span class="prompt1">wget -O deploy.sh http://bit.ly/vc-deployment</span>
 <span class="prompt1">chmod +x deploy.sh</span>
 <span class="prompt1">sudo ./deploy.sh</span>
-</pre><p>At this point we&#8217;re done with the ISO and back on your managing
+</pre><p>At this point we are done with the ISO and back on your managing
 machine you should detach it:</p>
 <pre class="highlight"><span class="prompt1">cm comet iso detach vct&lt;NN&gt;</span>
 </pre><p>ISO are removed the next time the virtual node is shutdown or powered
@@ -395,10 +407,11 @@ nodes securely.</p>
 <p class="last">In the production environment we use two factor
 authentication with <a class="reference external" href="https://www.yubico.com/">YubiKeys</a> to
 retrieve the API token used to by Cloudmesh and to access
-the console of a virtual machine. To simplify the tutorial we use username and  password
-access in an isolated teaching environment. When utilizing the production version you
-will need to get in contact with the Comet staff. You must have a valid
-XSEDE allocation on Comet for a virtual cluster.</p>
+the console of a virtual machine. To simplify the tutorial
+we use username and password access in an isolated teaching
+environment. When utilizing the production version you will
+need to get in contact with the Comet staff. You must have a
+valid XSEDE allocation on Comet for a virtual cluster.</p>
 </div>
 </div>
 <div class="section" id="verifying-infiniband-performance">
@@ -454,15 +467,18 @@ node and start the test:</p>
 <div class="section" id="id1">
 <h2>OSU Micro-Benchmarks<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>The <a class="reference external" href="http://mvapich.cse.ohio-state.edu/benchmarks/">OSU Micro-Benchmarks</a> are suite of
-individual applications measuring the latency and bandwidth of individual MPI
-calls. The cover both the performance of both the underlying network
-fabric and the MPI implementation. The Micro-Benchmarks provide
-coverage for the latest MPI standards but the version of <a class="reference external" href="https://www.open-mpi.org/">Open MPI</a> in the Ubuntu Trusty distribution is a
-bit older and not all of the messaging calls are available. We&#8217;ll
-focus only a few as part of the InfiniBand and MPI verification.</p>
+individual applications measuring the latency and bandwidth of
+individual MPI calls. The cover both the performance of both the
+underlying network fabric and the MPI implementation. The
+Micro-Benchmarks provide coverage for the latest MPI standards but the
+version of <a class="reference external" href="https://www.open-mpi.org/">Open MPI</a> in the Ubuntu
+Trusty distribution is a bit older and not all of the messaging calls
+are available. We&#8217;ll focus only a few as part of the InfiniBand and
+MPI verification.</p>
 <p>Begin by logging on to the first compute node where we&#8217;ll download and
 compile the benchmarks. This can be done with your non-privileged user
-account. Then download the benchmarks, extract, and configure the source.</p>
+account. Then download the benchmarks, extract, and configure the
+source.</p>
 <pre class="highlight"><span class="prompt1">ssh vm-vct01-00</span>
 <span class="prompt1">wget http://mvapich.cse.ohio-state.edu/download/mvapich/osu-micro-benchmarks-5.3.tar.gz</span>
 <span class="prompt1">tar -zxf osu-micro-benchmarks-5.3.tar.gz</span>
