@@ -17,6 +17,9 @@ doc: man
 	cd docs; make html
 	cp -r scripts docs/build/html
 
+simple:
+	cd docs; make html
+
 #pex:
 #    pex  -r <`pip freeze`  -e cloudmesh_client.shell.cm.main  -o my_virtualenv.pex
 
