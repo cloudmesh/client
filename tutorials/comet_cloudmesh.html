@@ -345,17 +345,15 @@ using your login name that you set up and specify your cluster name.</p>
 <div class="section" id="configuring-the-front-end-node">
 <h2>Configuring the front-end node<a class="headerlink" href="#configuring-the-front-end-node" title="Permalink to this headline">¶</a></h2>
 <p>On your managing machine where Cloudmesh client tools is installed:</p>
-<p>If your managing machine is running Linux...</p>
+<p>If your managing machine is running Linux:</p>
 <pre class="highlight"><span class="prompt1">wget -O cmutil.py http://bit.ly/vc-cmutil</span>
 <span class="prompt1">python cmutil.py nodesfile vct&lt;NN&gt;</span>
 <span class="prompt1">scp vcn*.txt &lt;USER&gt;@vct&lt;NN&gt;.sdsc.edu:~/</span>
-</pre><p>...if your managing machine is running Mac OS X...</p>
-<p>..prompt:: bash</p>
-<blockquote>
-<div>curl -L -o cmutil.py <a class="reference external" href="http://bit.ly/vc-cmutil">http://bit.ly/vc-cmutil</a>
-python cmutil.py nodesfile vct&lt;NN&gt;
-scp vcn*.txt &lt;USER&gt;&#64;vct&lt;NN&gt;.sdsc.edu:~/</div></blockquote>
-<p>On vc front-end node:</p>
+</pre><p>If your managing machine is running Mac OS X use curl instead of wget:</p>
+<pre class="highlight"><span class="prompt1">curl -L -o cmutil.py http://bit.ly/vc-cmutil</span>
+<span class="prompt1">python cmutil.py nodesfile vct&lt;NN&gt;</span>
+<span class="prompt1">scp vcn*.txt &lt;USER&gt;@vct&lt;NN&gt;.sdsc.edu:~/</span>
+</pre><p>On vc front-end node:</p>
 <pre class="highlight"><span class="prompt1">wget -O deploy.sh http://bit.ly/vc-deployment</span>
 <span class="prompt1">chmod +x deploy.sh</span>
 <span class="prompt1">sudo ./deploy.sh</span>
