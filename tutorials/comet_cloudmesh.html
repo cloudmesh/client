@@ -230,21 +230,23 @@ have to restart the vm so that these changes take effect.</p>
 </dl>
 <pre class="highlight"><style type="text/css">
 span.prompt1:before {
-  content: "$ ";
+  content: "cloudmesh$ ";
 }
 </style><span class="prompt1">wget -O cm-setup.sh http://bit.ly/cloudmesh-client-xenial</span>
 <span class="prompt1">sh cm-setup.sh</span>
 </pre><p>The script has the following contents:</p>
-<pre class="highlight"><span class="prompt1">sudo apt install python-pip -y</span>
-<span class="prompt1">sudo apt install libssl-dev -y</span>
-<span class="prompt1">sudo pip install pip -U</span>
-<span class="prompt1">sudo apt install git -y</span>
-<span class="prompt1">sudo pip install ansible</span>
-<span class="prompt1">sudo pip install cloudmesh_client</span>
-<span class="prompt1">python --version</span>
-<span class="prompt1">pip --version</span>
-<span class="prompt1">git –version</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span>sudo apt install python-pip -y
+sudo apt install libssl-dev -y
+sudo pip install pip -U
+sudo apt install git -y
+sudo pip install ansible
+sudo pip install cloudmesh_client
+python --version
+pip --version
+git –version
 </pre></div>
+</div>
+</div>
 <div class="section" id="configure-cloudmesh">
 <h2>Configure Cloudmesh<a class="headerlink" href="#configure-cloudmesh" title="Permalink to this headline">¶</a></h2>
 <p>Next, we need to configure Cloudmesh. We will only use a fraction of
@@ -258,7 +260,7 @@ comet</p>
 <h2>Instalation with Pip<a class="headerlink" href="#instalation-with-pip" title="Permalink to this headline">¶</a></h2>
 <p>Installing in a virtualenv is highly recommended.</p>
 <pre class="highlight"><span class="prompt1">pip install cloudmesh_client</span>
-<span class="prompt1">cm <span class="nb">help</span></span>
+<span class="prompt1">cm help</span>
 <span class="prompt1">cm comet init</span>
 </pre></div>
 <div class="section" id="virtual-cluster-architecture">
@@ -296,7 +298,7 @@ comet</p>
 </pre></div>
 </div>
 <p>Next we attach an iso. YOu can use either the name of the iso, or simply the id</p>
-<pre class="highlight"><span class="prompt1">cm comet iso attach <span class="m">6</span> vct&lt;NN&gt;</span>
+<pre class="highlight"><span class="prompt1">cm comet iso attach 6 vct&lt;NN&gt;</span>
 </pre><p>Let us check the status of the server.</p>
 <pre class="highlight"><span class="prompt1">cm comet cluster vct&lt;NN&gt;</span>
 </pre><p>If it is already running, please power if off so the iso attach could
@@ -389,27 +391,27 @@ off (not when  rebooted or reset).</p>
 <div class="section" id="example-install-compute-nodes">
 <h2>Example: Install Compute Nodes<a class="headerlink" href="#example-install-compute-nodes" title="Permalink to this headline">¶</a></h2>
 <p>Compute node setup</p>
-<pre class="highlight"><span class="prompt1">cm comet start vct&lt;NN&gt; vm-vct&lt;NN&gt;-<span class="o">[</span>1-2<span class="o">]</span></span>
+<pre class="highlight"><span class="prompt1">cm comet start vct&lt;NN&gt; vm-vct&lt;NN&gt;-[1-2]</span>
 </pre><p>Takes about 15~20 minutes. Once done, the node will be shutoff.</p>
 <p>Once you see the boot question in your console log, please change it to
 localboot. Do this on the front-end node:</p>
-<pre class="highlight"><span class="prompt1"><span class="nb">cd</span> <span class="nv">$HOME</span></span>
-<span class="prompt1">sudo ./comet-vc-tutorial/cmutil.py setboot <span class="nv">$HOSTNAME</span> vm-vct01-01 <span class="nv">net</span><span class="o">=</span><span class="nb">false</span></span>
+<pre class="highlight"><span class="prompt2">cd $HOME</span>
+<span class="prompt2">sudo ./comet-vc-tutorial/cmutil.py setboot $HOSTNAME vm-vct01-01 net=false</span>
 </pre><p>You will also need to generate an SSH keypair for your non-privileged
 user account and create an <code class="docutils literal"><span class="pre">authorized_keys</span></code> file to allow your
 parallel application to access both nodes. This key pair is only for
 use within the cluster since it will not have a passphrase. Just hit
 enter at each step.</p>
-<pre class="highlight"><span class="prompt1"><span class="nb">cd</span> <span class="nv">$HOME</span></span>
-<span class="prompt1">ssh-keygen</span>
-<span class="prompt1">cat .ssh/id_rsa.pub &gt;&gt; .ssh/authorized_keys</span>
+<pre class="highlight"><span class="prompt2">cd $HOME</span>
+<span class="prompt2">ssh-keygen</span>
+<span class="prompt2">cat .ssh/id_rsa.pub &gt;&gt; .ssh/authorized_keys</span>
 </pre><p>Then on your managing host where Cloudmesh client is installed:</p>
-<pre class="highlight"><span class="prompt1">cm comet power on vct&lt;NN&gt; vm-vct&lt;NN&gt;-<span class="o">[</span>1-2<span class="o">]</span></span>
-</pre><p>Wait the compute nodes to be booted on, which can be checked by:</p>
+<pre class="highlight"><span class="prompt1">cm comet power on vct&lt;NN&gt; vm-vct&lt;NN&gt;-[1-2]</span>
+</pre><p>Wait for the compute nodes to be booted on, which can be checked by:</p>
 <pre class="highlight"><span class="prompt1">cm comet cluster vct&lt;NN&gt;</span>
 </pre><p>to see if the state (2nd column) of the nodes is &#8216;active&#8217;.</p>
 <p>Once the compute nodes are on, run these on the front-end node:</p>
-<pre class="highlight"><span class="prompt1">sudo <span class="nv">$HOME</span>/comet-vc-tutorial/key_setup.sh</span>
+<pre class="highlight"><span class="prompt2">sudo $HOME/comet-vc-tutorial/key_setup.sh</span>
 </pre><p>This will propagate the non-privileged user&#8217;s password to the compute
 nodes securely.</p>
 <p>Login to compute nodes from front-end, and run your app.</p>
@@ -438,12 +440,21 @@ in place to access the compute nodes.</p>
 front-end. In one terminal, start a server on the first compute node:</p>
 <pre class="highlight"><span class="prompt1">sudo su -</span>
 <span class="prompt1">ssh vm-vct01-00</span>
-<span class="prompt1">ib_write_bw</span>
+</pre><p>Then in that vm type</p>
+<pre class="highlight"><style type="text/css">
+span.prompt3:before {
+  content: "vm-vct01-00$ ";
+}
+</style><span class="prompt3">ib_write_bw</span>
 </pre><p>In the other terminal, connect to the server from the second compute
 node and start the test:</p>
 <pre class="highlight"><span class="prompt1">sudo su -</span>
 <span class="prompt1">ssh vm-vct01-01</span>
-<span class="prompt1">ib_write_bw vm-vct01-00</span>
+</pre><pre class="highlight"><style type="text/css">
+span.prompt4:before {
+  content: "vm-vct01-01$ ";
+}
+</style><span class="prompt4">ib_write_bw vm-vct01-00</span>
 </pre><p>The bandwidth results will confirm that we&#8217;re sending data over InfiniBand:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">------------------------------------------------------------------</span>
                   <span class="n">RDMA_Write</span> <span class="n">BW</span> <span class="n">Test</span>
@@ -491,14 +502,14 @@ compile the benchmarks. This can be done with your non-privileged user
 account. Then download the benchmarks, extract, and configure the
 source.</p>
 <pre class="highlight"><span class="prompt1">ssh vm-vct01-00</span>
-<span class="prompt1">wget http://mvapich.cse.ohio-state.edu/download/mvapich/osu-micro-benchmarks-5.3.tar.gz</span>
-<span class="prompt1">tar -zxf osu-micro-benchmarks-5.3.tar.gz</span>
-<span class="prompt1"><span class="nb">cd</span> osu-micro-benchmarks-5.3/</span>
-<span class="prompt1">./configure <span class="nv">CC</span><span class="o">=</span>/usr/bin/mpicc <span class="nv">CXX</span><span class="o">=</span>/usr/bin/mpicxx</span>
+</pre><pre class="highlight"><span class="prompt3">wget http://mvapich.cse.ohio-state.edu/download/mvapich/osu-micro-benchmarks-5.3.tar.gz</span>
+<span class="prompt3">tar -zxf osu-micro-benchmarks-5.3.tar.gz</span>
+<span class="prompt3">cd osu-micro-benchmarks-5.3/</span>
+<span class="prompt3">./configure CC=/usr/bin/mpicc CXX=/usr/bin/mpicxx</span>
 </pre><p>After the source configuration step completes, go into the directory
 for the point-to-point communication benchmarks and compile them.</p>
-<pre class="highlight"><span class="prompt1"><span class="nb">cd</span> mpi/pt2pt/</span>
-<span class="prompt1">make</span>
+<pre class="highlight"><span class="prompt3">cd mpi/pt2pt/</span>
+<span class="prompt3">make</span>
 </pre><p>To run the tests create a host file with the two compute nodes
 specified:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">vm</span><span class="o">-</span><span class="n">vct01</span><span class="o">-</span><span class="mi">00</span>
@@ -507,7 +518,11 @@ specified:</p>
 </div>
 <p>Remember where you&#8217;ve placed this (<code class="docutils literal"><span class="pre">$HOME/two-hosts.txt</span></code> is a good
 idea) and run the bandwidth test.</p>
-<pre class="highlight"><span class="prompt1">mpirun -np <span class="m">2</span> -hostfile ~/two-hosts.txt ./osu_bw</span>
+<pre class="highlight"><style type="text/css">
+span.prompt5:before {
+  content: "$ ";
+}
+</style><span class="prompt5">mpirun -np <span class="m">2</span> -hostfile ~/two-hosts.txt ./osu_bw</span>
 </pre><p>The results will go to the terminal and you can compare them to the
 <code class="docutils literal"><span class="pre">ib_write_bw</span></code> performance. You can ignore Open MPI&#8217;s complaints
 regarding registered memory, this is due to change in the driver:</p>
@@ -540,9 +555,9 @@ regarding registered memory, this is due to change in the driver:</p>
 </div>
 <p>Now we&#8217;ll try a collective benchmark for <code class="docutils literal"><span class="pre">MPI_Alltoall</span></code>. We can
 reuse our host file for 24 tasks and let MPI distribute the tasks.</p>
-<pre class="highlight"><span class="prompt1"><span class="nb">cd</span> ../collective/</span>
-<span class="prompt1">make osu_alltoall</span>
-<span class="prompt1">mpirun -np <span class="m">24</span> -hostfile ~/two-hosts.txt ./osu_alltoall</span>
+<pre class="highlight"><span class="prompt5"><span class="nb">cd</span> ../collective/</span>
+<span class="prompt5">make osu_alltoall</span>
+<span class="prompt5">mpirun -np <span class="m">24</span> -hostfile ~/two-hosts.txt ./osu_alltoall</span>
 </pre><p>Again, there perfomance results (this time for latency) go to the terminal:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># OSU MPI All-to-All Personalized Exchange Latency Test v5.3</span>
 <span class="c1"># Size       Avg Latency(us)</span>
@@ -576,40 +591,40 @@ reuse our host file for 24 tasks and let MPI distribute the tasks.</p>
 <a class="reference external" href="https://en.wikipedia.org/wiki/Computational_fluid_dynamics">computational fluid dynamics</a>
 application that is available in a public Ubuntu repository. To
 install it, on each of the compute nodes run:</p>
-<pre class="highlight"><span class="prompt1">sudo apt install software-properties-common -y</span>
-<span class="prompt1">sudo add-apt-repository http://download.openfoam.org/ubuntu</span>
-<span class="prompt1">sudo apt-get update</span>
-<span class="prompt1">sudo apt-get install openfoam4 -y --force-yes</span>
+<pre class="highlight"><span class="prompt5">sudo apt install software-properties-common -y</span>
+<span class="prompt5">sudo add-apt-repository http://download.openfoam.org/ubuntu</span>
+<span class="prompt5">sudo apt-get update</span>
+<span class="prompt5">sudo apt-get install openfoam4 -y --force-yes</span>
 </pre><p>Add the OpenFOAM profile to your <code class="docutils literal"><span class="pre">.bashrc</span></code>:</p>
-<pre class="highlight"><span class="prompt1"><span class="nb">echo</span> <span class="s1">&#39;. /opt/openfoam4/etc/bashrc&#39;</span> &gt;&gt; ~/.bashrc</span>
+<pre class="highlight"><span class="prompt5"><span class="nb">echo</span> <span class="s1">&#39;. /opt/openfoam4/etc/bashrc&#39;</span> &gt;&gt; ~/.bashrc</span>
 </pre><p>We&#8217;re now able to setup the files and directories needed for a
 benchmarking run.</p>
-<pre class="highlight"><span class="prompt1">mkdir -p <span class="nv">$FOAM_RUN</span></span>
-<span class="prompt1"><span class="nb">cd</span> <span class="nv">$FOAM_RUN</span></span>
-<span class="prompt1">cp -r <span class="nv">$FOAM_TUTORIALS</span>/multiphase/interFoam/laminar/damBreak/damBreak .</span>
-<span class="prompt1">foamCloneCase damBreak damBreakFine</span>
-<span class="prompt1"><span class="nb">cd</span> damBreakFine</span>
-<span class="prompt1">cp ~/comet-vc-tutorial/examples/OpenFOAM/blockMeshDict system/</span>
-<span class="prompt1">cp ~/comet-vc-tutorial/examples/OpenFOAM/decomposeParDict system/</span>
+<pre class="highlight"><span class="prompt5">mkdir -p <span class="nv">$FOAM_RUN</span></span>
+<span class="prompt5"><span class="nb">cd</span> <span class="nv">$FOAM_RUN</span></span>
+<span class="prompt5">cp -r <span class="nv">$FOAM_TUTORIALS</span>/multiphase/interFoam/laminar/damBreak/damBreak .</span>
+<span class="prompt5">foamCloneCase damBreak damBreakFine</span>
+<span class="prompt5"><span class="nb">cd</span> damBreakFine</span>
+<span class="prompt5">cp ~/comet-vc-tutorial/examples/OpenFOAM/blockMeshDict system/</span>
+<span class="prompt5">cp ~/comet-vc-tutorial/examples/OpenFOAM/decomposeParDict system/</span>
 </pre><p>Setup the mesh and initial conditions.</p>
-<pre class="highlight"><span class="prompt1">blockMesh</span>
-<span class="prompt1">cp -r 0/alpha.water.orig 0/alpha.water</span>
-<span class="prompt1">setFields</span>
+<pre class="highlight"><span class="prompt5">blockMesh</span>
+<span class="prompt5">cp -r 0/alpha.water.orig 0/alpha.water</span>
+<span class="prompt5">setFields</span>
 </pre><p>Decompose the mesh.</p>
-<pre class="highlight"><span class="prompt1">decomposePar</span>
+<pre class="highlight"><span class="prompt5">decomposePar</span>
 </pre><p>Create a host file (<code class="docutils literal"><span class="pre">hosts.txt</span></code>) and run the code. For example,
 create <code class="docutils literal"><span class="pre">hosts.txt</span></code> for 24 tasks on each compute node and run.</p>
-<pre class="highlight"><span class="prompt1"><span class="nb">echo</span> <span class="s2">&quot;vm-vct16-00 slots=24&quot;</span> &gt; hosts.txt</span>
-<span class="prompt1"><span class="nb">echo</span> <span class="s2">&quot;vm-vct16-01 slots=24&quot;</span> &gt;&gt; hosts.txt</span>
-<span class="prompt1">mpirun  -hostfile ./hosts.txt -np <span class="m">48</span> <span class="sb">`</span>which foamExec<span class="sb">`</span> interFoam -parallel</span>
+<pre class="highlight"><span class="prompt5"><span class="nb">echo</span> <span class="s2">&quot;vm-vct16-00 slots=24&quot;</span> &gt; hosts.txt</span>
+<span class="prompt5"><span class="nb">echo</span> <span class="s2">&quot;vm-vct16-01 slots=24&quot;</span> &gt;&gt; hosts.txt</span>
+<span class="prompt5">mpirun  -hostfile ./hosts.txt -np <span class="m">48</span> <span class="sb">`</span>which foamExec<span class="sb">`</span> interFoam -parallel</span>
 </pre><p>This will take a while (about 5-10 minutes).</p>
 <p>The OpenFOAM packages include a version of <a class="reference external" href="http://www.paraview.org/">ParaView</a> for OpenFOAM that you can use to view the
 mesh. From a system with X windows SSH to your front-end and compute
 node with X forwarding enabled.</p>
-<pre class="highlight"><span class="prompt1">ssh -X &lt;username&gt;@vct16.sdsc.edu</span>
-<span class="prompt1">ssh -X vm-vct16-00</span>
-<span class="prompt1"><span class="nb">cd</span> <span class="nv">$FOAM_RUN</span>/damBreakFine</span>
-<span class="prompt1">paraFoam -case processor1</span>
+<pre class="highlight"><span class="prompt5">ssh -X &lt;username&gt;@vct16.sdsc.edu</span>
+<span class="prompt5">ssh -X vm-vct16-00</span>
+<span class="prompt5"><span class="nb">cd</span> <span class="nv">$FOAM_RUN</span>/damBreakFine</span>
+<span class="prompt5">paraFoam -case processor1</span>
 </pre><div class="figure" id="id16">
 <a class="reference internal image-reference" href="../_images/paraview-vct.png"><img alt="screenshot" src="../_images/paraview-vct.png" style="width: 972.0px; height: 685.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: ParaView with OpenFOAM example data</span></p>
@@ -621,10 +636,10 @@ node with X forwarding enabled.</p>
 public repositories. You can install on the compute nodes following a
 similar process. On each compute node run the following commands from
 <a class="reference external" href="http://julialang.org/downloads/platform.html">the Julia installation instructions for Ubuntu</a>. When prompted, hit <code class="docutils literal"><span class="pre">ENTER</span></code>.</p>
-<pre class="highlight"><span class="prompt1">sudo add-apt-repository ppa:staticfloat/juliareleases</span>
-<span class="prompt1">sudo add-apt-repository ppa:staticfloat/julia-deps</span>
-<span class="prompt1">sudo apt-get update</span>
-<span class="prompt1">sudo apt-get install julia -y</span>
+<pre class="highlight"><span class="prompt5">sudo add-apt-repository ppa:staticfloat/juliareleases</span>
+<span class="prompt5">sudo add-apt-repository ppa:staticfloat/julia-deps</span>
+<span class="prompt5">sudo apt-get update</span>
+<span class="prompt5">sudo apt-get install julia -y</span>
 </pre><p>You can start Julia on the command line for interactive use:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>rpwagner@vm-vct01-00:~$ julia
                _

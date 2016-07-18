@@ -42,14 +42,12 @@ have to restart the vm so that these changes take effect.
 
 .. note: as well as . is unclear .... FIX
   
-.. prompt:: bash
+.. prompt:: bash, cloudmesh$
 
     wget -O cm-setup.sh http://bit.ly/cloudmesh-client-xenial
     sh cm-setup.sh
 
-The script has the following contents:
-
-.. prompt:: bash
+The script has the following contents::
 
     sudo apt install python-pip -y
     sudo apt install libssl-dev -y
@@ -70,7 +68,7 @@ Next, we need to configure Cloudmesh. We will only use a fraction of
 Cloudmesh capabilities for this tutorial that is focused on using
 comet
 
-.. prompt:: bash
+.. prompt:: bash, cloudmesh$
 
    ssh-keygen
    cm
@@ -82,7 +80,7 @@ Instalation with Pip
 
 Installing in a virtualenv is highly recommended.
 
-.. prompt:: bash
+.. prompt:: bash, cloudmesh$
 
   pip install cloudmesh_client
   cm help
@@ -104,7 +102,7 @@ Access your virtual cluster (vc)
 
 The cluster information can be obtained with the following commands:
 
-.. prompt:: bash
+.. prompt:: bash, cloudmesh$
 
   cm comet ll 
   cm comet cluster
@@ -112,7 +110,7 @@ The cluster information can be obtained with the following commands:
 
 The list of ISO images that are currently available can be obtained with:
 
-.. prompt:: bash
+.. prompt:: bash, cloudmesh$
 
   cm comet iso list
 
@@ -123,7 +121,7 @@ Example: Install the front-end node
 
 Find an iso and attach
 
-.. prompt:: bash
+.. prompt:: bash, cloudmesh$
 
   cm comet iso list
 
@@ -142,33 +140,33 @@ This will return::
 
 Next we attach an iso. YOu can use either the name of the iso, or simply the id
 
-.. prompt:: bash
+.. prompt:: bash, cloudmesh$
 
   cm comet iso attach 6 vct<NN>
 
 
 Let us check the status of the server.
 
-.. prompt:: bash
+.. prompt:: bash, cloudmesh$
 
    cm comet cluster vct<NN>
 
 If it is already running, please power if off so the iso attach could
 take effect:
 
-.. prompt:: bash
+.. prompt:: bash, cloudmesh$
 
   cm comet power off vct<NN>
 
 Now we need to power on the server
 
-.. prompt:: bash
+.. prompt:: bash, cloudmesh$
 
   cm comet power on vct<NN>
 
 To see what is happening on the server, we can attach a console to follow and complete the setup of the OS
 
-.. prompt:: bash
+.. prompt:: bash, cloudmesh$
 
   cm comet console vct<NN>
 
@@ -246,14 +244,14 @@ later steps).
 
 Once the node is back on, you can now login and configure the cluster from your laptop/desktop:
 
-.. prompt:: bash
+.. prompt:: bash, cloudmesh$
 
   cm comet console vct<NN>
 
 YOu can also ssh into the machine after it is configures with the usual ssh commands while
 using your login name that you set up and specify your cluster name.
 
-.. prompt:: bash
+.. prompt:: bash, cloudmesh$
 
   ssh USER@vct<NN>.sdsc.edu
 
@@ -264,7 +262,7 @@ On your managing machine where Cloudmesh client tools is installed:
 
 If your **managing** machine is running Linux:
 
-.. prompt:: bash
+.. prompt:: bash, cloudmesh$
 
   wget -O cmutil.py http://bit.ly/vc-cmutil
   python cmutil.py nodesfile vct<NN>
@@ -272,7 +270,7 @@ If your **managing** machine is running Linux:
 
 If your **managing** machine is running Mac OS X use curl instead of wget:
 
-.. prompt:: bash
+.. prompt:: bash, cloudmesh$
 
      curl -L -o cmutil.py http://bit.ly/vc-cmutil
      python cmutil.py nodesfile vct<NN>
@@ -289,7 +287,7 @@ On the vc **front-end** node:
 At this point we are done with the ISO and back on your **managing**
 machine you should detach it:
 
-.. prompt:: bash
+.. prompt:: bash, cloudmesh$
 
   cm comet iso detach vct<NN>
 
@@ -302,7 +300,7 @@ Example: Install Compute Nodes
 
 Compute node setup
 
-.. prompt:: bash
+.. prompt:: bash, cloudmesh$
 
    cm comet start vct<NN> vm-vct<NN>-[1-2]
 
@@ -311,7 +309,7 @@ Takes about 15~20 minutes. Once done, the node will be shutoff.
 Once you see the boot question in your console log, please change it to
 localboot. Do this on the front-end node:
 
-.. prompt:: bash
+.. prompt:: bash, fe$
 
   cd $HOME
   sudo ./comet-vc-tutorial/cmutil.py setboot $HOSTNAME vm-vct01-01 net=false
@@ -322,23 +320,21 @@ parallel application to access both nodes. This key pair is only for
 use within the cluster since it will not have a passphrase. Just hit
 enter at each step.
 
-.. prompt:: bash
+.. prompt:: bash, fe$
 
   cd $HOME
   ssh-keygen
   cat .ssh/id_rsa.pub >> .ssh/authorized_keys
   
-.. prompt:: bash
-
 Then on your managing host where Cloudmesh client is installed:
 
-.. prompt:: bash
+.. prompt:: bash, cloudmesh$
 
   cm comet power on vct<NN> vm-vct<NN>-[1-2]
 
-Wait the compute nodes to be booted on, which can be checked by:
+Wait for the compute nodes to be booted on, which can be checked by:
 
-.. prompt:: bash
+.. prompt:: bash, cloudmesh$
 
   cm comet cluster vct<NN>
 
@@ -346,7 +342,7 @@ to see if the state (2nd column) of the nodes is 'active'.
 
 Once the compute nodes are on, run these on the front-end node:
 
-.. prompt:: bash
+.. prompt:: bash, fe$
 
   sudo $HOME/comet-vc-tutorial/key_setup.sh
 
@@ -379,19 +375,27 @@ in place to access the compute nodes.
 From your managing machine open two SSH terminals to your virtual
 front-end. In one terminal, start a server on the first compute node:
 
-.. prompt:: bash
+.. prompt:: bash, cloudmesh$
 
   sudo su -
   ssh vm-vct01-00
-  ib_write_bw
+
+Then in that vm type
+
+.. prompt:: bash, vm-vct01-00$
+
+  ib_write_bw 
 
 In the other terminal, connect to the server from the second compute
 node and start the test:
 
-.. prompt:: bash
+.. prompt:: bash, cloudmesh$
 
   sudo su -
   ssh vm-vct01-01
+
+.. prompt:: bash, vm-vct01-01$
+	    
   ib_write_bw vm-vct01-00
 
 The bandwidth results will confirm that we're sending data over InfiniBand::
@@ -443,9 +447,12 @@ compile the benchmarks. This can be done with your non-privileged user
 account. Then download the benchmarks, extract, and configure the
 source.
 
-.. prompt:: bash
+.. prompt:: bash, cloudmesh$
   
   ssh vm-vct01-00
+
+.. prompt:: bash, vm-vct01-00$
+  
   wget http://mvapich.cse.ohio-state.edu/download/mvapich/osu-micro-benchmarks-5.3.tar.gz
   tar -zxf osu-micro-benchmarks-5.3.tar.gz
   cd osu-micro-benchmarks-5.3/
@@ -454,7 +461,7 @@ source.
 After the source configuration step completes, go into the directory
 for the point-to-point communication benchmarks and compile them.
 
-.. prompt:: bash
+.. prompt:: bash, vm-vct01-00$
 
   cd mpi/pt2pt/
   make
