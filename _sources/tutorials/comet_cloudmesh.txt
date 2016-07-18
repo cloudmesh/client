@@ -3,6 +3,10 @@ Comet Cloudmesh Tutorial
 
 Setup Cloudmesh Client on Ubuntu Desktop in Virtualbox
 
+.. note:: Scripts used in this tutorial ar emaintained at:
+
+   * https://github.com/sdsc/comet-vc-tutorial
+
 Virtual Box
 ----------------------------------------------------------------------
 
