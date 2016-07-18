@@ -587,44 +587,40 @@ reuse our host file for 24 tasks and let MPI distribute the tasks.</p>
 <a class="reference external" href="https://en.wikipedia.org/wiki/Computational_fluid_dynamics">computational fluid dynamics</a>
 application that is available in a public Ubuntu repository. To
 install it, on each of the compute nodes run:</p>
-<pre class="highlight"><style type="text/css">
-span.prompt5:before {
-  content: "vm-vct01-00 ";
-}
-</style><span class="prompt5">sudo apt install software-properties-common -y</span>
-<span class="prompt5">sudo add-apt-repository http://download.openfoam.org/ubuntu</span>
-<span class="prompt5">sudo apt-get update</span>
-<span class="prompt5">sudo apt-get install openfoam4 -y --force-yes</span>
+<pre class="highlight"><span class="prompt3">sudo apt install software-properties-common -y</span>
+<span class="prompt3">sudo add-apt-repository http://download.openfoam.org/ubuntu</span>
+<span class="prompt3">sudo apt-get update</span>
+<span class="prompt3">sudo apt-get install openfoam4 -y --force-yes</span>
 </pre><p>Add the OpenFOAM profile to your <code class="docutils literal"><span class="pre">.bashrc</span></code>:</p>
-<pre class="highlight"><span class="prompt5">echo &#39;. /opt/openfoam4/etc/bashrc&#39; &gt;&gt; ~/.bashrc</span>
+<pre class="highlight"><span class="prompt3">echo &#39;. /opt/openfoam4/etc/bashrc&#39; &gt;&gt; ~/.bashrc</span>
 </pre><p>We&#8217;re now able to setup the files and directories needed for a
 benchmarking run.</p>
-<pre class="highlight"><span class="prompt5">mkdir -p $FOAM_RUN</span>
-<span class="prompt5">cd $FOAM_RUN</span>
-<span class="prompt5">cp -r $FOAM_TUTORIALS/multiphase/interFoam/laminar/damBreak/damBreak .</span>
-<span class="prompt5">foamCloneCase damBreak damBreakFine</span>
-<span class="prompt5">cd damBreakFine</span>
-<span class="prompt5">cp ~/comet-vc-tutorial/examples/OpenFOAM/blockMeshDict system/</span>
-<span class="prompt5">cp ~/comet-vc-tutorial/examples/OpenFOAM/decomposeParDict system/</span>
+<pre class="highlight"><span class="prompt3">mkdir -p $FOAM_RUN</span>
+<span class="prompt3">cd $FOAM_RUN</span>
+<span class="prompt3">cp -r $FOAM_TUTORIALS/multiphase/interFoam/laminar/damBreak/damBreak .</span>
+<span class="prompt3">foamCloneCase damBreak damBreakFine</span>
+<span class="prompt3">cd damBreakFine</span>
+<span class="prompt3">cp ~/comet-vc-tutorial/examples/OpenFOAM/blockMeshDict system/</span>
+<span class="prompt3">cp ~/comet-vc-tutorial/examples/OpenFOAM/decomposeParDict system/</span>
 </pre><p>Setup the mesh and initial conditions.</p>
-<pre class="highlight"><span class="prompt5">blockMesh</span>
-<span class="prompt5">cp -r 0/alpha.water.orig 0/alpha.water</span>
-<span class="prompt5">setFields</span>
+<pre class="highlight"><span class="prompt3">blockMesh</span>
+<span class="prompt3">cp -r 0/alpha.water.orig 0/alpha.water</span>
+<span class="prompt3">setFields</span>
 </pre><p>Decompose the mesh.</p>
-<pre class="highlight"><span class="prompt5">decomposePar</span>
+<pre class="highlight"><span class="prompt3">decomposePar</span>
 </pre><p>Create a host file (<code class="docutils literal"><span class="pre">hosts.txt</span></code>) and run the code. For example,
 create <code class="docutils literal"><span class="pre">hosts.txt</span></code> for 24 tasks on each compute node and run.</p>
-<pre class="highlight"><span class="prompt5">echo &quot;vm-vct16-00 slots=24&quot; &gt; hosts.txt</span>
-<span class="prompt5">echo &quot;vm-vct16-01 slots=24&quot; &gt;&gt; hosts.txt</span>
-<span class="prompt5">mpirun  -hostfile ./hosts.txt -np 48 `which foamExec` interFoam -parallel</span>
+<pre class="highlight"><span class="prompt3">echo &quot;vm-vct16-00 slots=24&quot; &gt; hosts.txt</span>
+<span class="prompt3">echo &quot;vm-vct16-01 slots=24&quot; &gt;&gt; hosts.txt</span>
+<span class="prompt3">mpirun  -hostfile ./hosts.txt -np 48 `which foamExec` interFoam -parallel</span>
 </pre><p>This will take a while (about 5-10 minutes).</p>
 <p>The OpenFOAM packages include a version of <a class="reference external" href="http://www.paraview.org/">ParaView</a> for OpenFOAM that you can use to view the
 mesh. From a system with X windows SSH to your front-end and compute
 node with X forwarding enabled.</p>
-<pre class="highlight"><span class="prompt5">ssh -X &lt;username&gt;@vct16.sdsc.edu</span>
-<span class="prompt5">ssh -X vm-vct16-00</span>
-<span class="prompt5">cd $FOAM_RUN/damBreakFine</span>
-<span class="prompt5">paraFoam -case processor1</span>
+<pre class="highlight"><span class="prompt3">ssh -X &lt;username&gt;@vct16.sdsc.edu</span>
+<span class="prompt3">ssh -X vm-vct16-00</span>
+<span class="prompt3">cd $FOAM_RUN/damBreakFine</span>
+<span class="prompt3">paraFoam -case processor1</span>
 </pre><div class="figure" id="id16">
 <a class="reference internal image-reference" href="../_images/paraview-vct.png"><img alt="screenshot" src="../_images/paraview-vct.png" style="width: 972.0px; height: 685.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: ParaView with OpenFOAM example data</span></p>
@@ -636,10 +632,10 @@ node with X forwarding enabled.</p>
 public repositories. You can install on the compute nodes following a
 similar process. On each compute node run the following commands from
 <a class="reference external" href="http://julialang.org/downloads/platform.html">the Julia installation instructions for Ubuntu</a>. When prompted, hit <code class="docutils literal"><span class="pre">ENTER</span></code>.</p>
-<pre class="highlight"><span class="prompt5">sudo add-apt-repository ppa:staticfloat/juliareleases</span>
-<span class="prompt5">sudo add-apt-repository ppa:staticfloat/julia-deps</span>
-<span class="prompt5">sudo apt-get update</span>
-<span class="prompt5">sudo apt-get install julia -y</span>
+<pre class="highlight"><span class="prompt3">sudo add-apt-repository ppa:staticfloat/juliareleases</span>
+<span class="prompt3">sudo add-apt-repository ppa:staticfloat/julia-deps</span>
+<span class="prompt3">sudo apt-get update</span>
+<span class="prompt3">sudo apt-get install julia -y</span>
 </pre><p>You can start Julia on the command line for interactive use:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>rpwagner@vm-vct01-00:~$ julia
                _

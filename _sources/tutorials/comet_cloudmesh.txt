@@ -553,7 +553,7 @@ OpenFOAM
 application that is available in a public Ubuntu repository. To
 install it, on each of the compute nodes run:
 
-.. prompt:: bash, vm-vct01-00
+.. prompt:: bash, vm-vct01-00$
 
    sudo apt install software-properties-common -y
    sudo add-apt-repository http://download.openfoam.org/ubuntu
@@ -562,14 +562,14 @@ install it, on each of the compute nodes run:
 
 Add the OpenFOAM profile to your ``.bashrc``:
 
-.. prompt:: bash, vm-vct01-00
+.. prompt:: bash, vm-vct01-00$
 
    echo '. /opt/openfoam4/etc/bashrc' >> ~/.bashrc
 
 We're now able to setup the files and directories needed for a
 benchmarking run.
 
-.. prompt:: bash, vm-vct01-00
+.. prompt:: bash, vm-vct01-00$
 
    mkdir -p $FOAM_RUN
    cd $FOAM_RUN
@@ -581,7 +581,7 @@ benchmarking run.
 
 Setup the mesh and initial conditions.
 
-.. prompt:: bash, vm-vct01-00
+.. prompt:: bash, vm-vct01-00$
 
    blockMesh
    cp -r 0/alpha.water.orig 0/alpha.water
@@ -589,14 +589,14 @@ Setup the mesh and initial conditions.
 
 Decompose the mesh.
 
-.. prompt:: bash, vm-vct01-00
+.. prompt:: bash, vm-vct01-00$
 
   decomposePar
 
 Create a host file (``hosts.txt``) and run the code. For example,
 create ``hosts.txt`` for 24 tasks on each compute node and run.
 
-.. prompt:: bash, vm-vct01-00
+.. prompt:: bash, vm-vct01-00$
 
   echo "vm-vct16-00 slots=24" > hosts.txt
   echo "vm-vct16-01 slots=24" >> hosts.txt
@@ -609,7 +609,7 @@ The OpenFOAM packages include a version of `ParaView
 mesh. From a system with X windows SSH to your front-end and compute
 node with X forwarding enabled.
 
-.. prompt:: bash, vm-vct01-00
+.. prompt:: bash, vm-vct01-00$
 
    ssh -X <username>@vct16.sdsc.edu 
    ssh -X vm-vct16-00 
@@ -632,7 +632,7 @@ similar process. On each compute node run the following commands from
 `the Julia installation instructions for Ubuntu
 <http://julialang.org/downloads/platform.html>`_. When prompted, hit ``ENTER``.
 
-.. prompt:: bash, vm-vct01-00
+.. prompt:: bash, vm-vct01-00$
 
    sudo add-apt-repository ppa:staticfloat/juliareleases
    sudo add-apt-repository ppa:staticfloat/julia-deps
