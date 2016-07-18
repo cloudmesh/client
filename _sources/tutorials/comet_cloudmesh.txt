@@ -1,6 +1,8 @@
 Comet Cloudmesh Tutorial
 =========================
 
+Communication is challanging: https://www.youtube.com/watch?v=yR0lWICH3rY
+
 Setup Cloudmesh Client on Ubuntu Desktop in Virtualbox
 
 .. note:: Scripts used in this tutorial are maintained at:
