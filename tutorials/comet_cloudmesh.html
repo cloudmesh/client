@@ -373,9 +373,13 @@ using your login name that you set up and specify your cluster name.</p>
 <span class="prompt1">python cmutil.py nodesfile vct&lt;NN&gt;</span>
 <span class="prompt1">scp vcn*.txt &lt;USER&gt;@vct&lt;NN&gt;.sdsc.edu:~/</span>
 </pre><p>On the vc <strong>front-end</strong> node:</p>
-<pre class="highlight"><span class="prompt1">wget -O deploy.sh http://bit.ly/vc-deployment</span>
-<span class="prompt1">chmod +x deploy.sh</span>
-<span class="prompt1">sudo ./deploy.sh</span>
+<pre class="highlight"><style type="text/css">
+span.prompt2:before {
+  content: "fe$ ";
+}
+</style><span class="prompt2">wget -O deploy.sh http://bit.ly/vc-deployment</span>
+<span class="prompt2">chmod +x deploy.sh</span>
+<span class="prompt2">sudo ./deploy.sh</span>
 </pre><p>At this point we are done with the ISO and back on your <strong>managing</strong>
 machine you should detach it:</p>
 <pre class="highlight"><span class="prompt1">cm comet iso detach vct&lt;NN&gt;</span>

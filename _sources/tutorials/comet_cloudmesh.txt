@@ -280,7 +280,7 @@ If your **managing** machine is running Mac OS X use curl instead of wget:
 
 On the vc **front-end** node:
 
-.. prompt:: bash
+.. prompt:: bash, fe$
 
   wget -O deploy.sh http://bit.ly/vc-deployment
   chmod +x deploy.sh
