@@ -593,6 +593,7 @@ install it, on each of the compute nodes run:</p>
 <span class="prompt3">sudo apt-get install openfoam4 -y --force-yes</span>
 </pre><p>Add the OpenFOAM profile to your <code class="docutils literal"><span class="pre">.bashrc</span></code>:</p>
 <pre class="highlight"><span class="prompt3">echo &#39;. /opt/openfoam4/etc/bashrc&#39; &gt;&gt; ~/.bashrc</span>
+<span class="prompt3">source ~/.bashrc</span>
 </pre><p>We&#8217;re now able to setup the files and directories needed for a
 benchmarking run.</p>
 <pre class="highlight"><span class="prompt3">mkdir -p $FOAM_RUN</span>

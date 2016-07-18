@@ -565,7 +565,8 @@ Add the OpenFOAM profile to your ``.bashrc``:
 .. prompt:: bash, vm-vct01-00$
 
    echo '. /opt/openfoam4/etc/bashrc' >> ~/.bashrc
-
+   source ~/.bashrc
+   
 We're now able to setup the files and directories needed for a
 benchmarking run.
 
