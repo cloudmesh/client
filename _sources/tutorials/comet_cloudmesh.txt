@@ -3,7 +3,7 @@ Comet Cloudmesh Tutorial
 
 Setup Cloudmesh Client on Ubuntu Desktop in Virtualbox
 
-.. note:: Scripts used in this tutorial ar emaintained at:
+.. note:: Scripts used in this tutorial are maintained at:
 
    * https://github.com/sdsc/comet-vc-tutorial
 
@@ -262,7 +262,7 @@ Configuring the front-end node
 
 On your managing machine where Cloudmesh client tools is installed:
 
-If your managing machine is running Linux:
+If your **managing** machine is running Linux:
 
 .. prompt:: bash
 
@@ -270,7 +270,7 @@ If your managing machine is running Linux:
   python cmutil.py nodesfile vct<NN>
   scp vcn*.txt <USER>@vct<NN>.sdsc.edu:~/
 
-If your managing machine is running Mac OS X use curl instead of wget:
+If your **managing** machine is running Mac OS X use curl instead of wget:
 
 .. prompt:: bash
 
@@ -278,7 +278,7 @@ If your managing machine is running Mac OS X use curl instead of wget:
      python cmutil.py nodesfile vct<NN>
      scp vcn*.txt <USER>@vct<NN>.sdsc.edu:~/
 
-On the vc front-end node:
+On the vc **front-end** node:
 
 .. prompt:: bash
 
@@ -286,7 +286,7 @@ On the vc front-end node:
   chmod +x deploy.sh
   sudo ./deploy.sh
 
-At this point we are done with the ISO and back on your managing
+At this point we are done with the ISO and back on your **managing**
 machine you should detach it:
 
 .. prompt:: bash

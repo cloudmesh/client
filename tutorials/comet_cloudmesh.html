@@ -194,7 +194,7 @@
 <p>Setup Cloudmesh Client on Ubuntu Desktop in Virtualbox</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>Scripts used in this tutorial ar emaintained at:</p>
+<p>Scripts used in this tutorial are maintained at:</p>
 <ul class="last simple">
 <li><a class="reference external" href="https://github.com/sdsc/comet-vc-tutorial">https://github.com/sdsc/comet-vc-tutorial</a></li>
 </ul>
@@ -364,19 +364,19 @@ using your login name that you set up and specify your cluster name.</p>
 <div class="section" id="configuring-the-front-end-node">
 <h2>Configuring the front-end node<a class="headerlink" href="#configuring-the-front-end-node" title="Permalink to this headline">¶</a></h2>
 <p>On your managing machine where Cloudmesh client tools is installed:</p>
-<p>If your managing machine is running Linux:</p>
+<p>If your <strong>managing</strong> machine is running Linux:</p>
 <pre class="highlight"><span class="prompt1">wget -O cmutil.py http://bit.ly/vc-cmutil</span>
 <span class="prompt1">python cmutil.py nodesfile vct&lt;NN&gt;</span>
 <span class="prompt1">scp vcn*.txt &lt;USER&gt;@vct&lt;NN&gt;.sdsc.edu:~/</span>
-</pre><p>If your managing machine is running Mac OS X use curl instead of wget:</p>
+</pre><p>If your <strong>managing</strong> machine is running Mac OS X use curl instead of wget:</p>
 <pre class="highlight"><span class="prompt1">curl -L -o cmutil.py http://bit.ly/vc-cmutil</span>
 <span class="prompt1">python cmutil.py nodesfile vct&lt;NN&gt;</span>
 <span class="prompt1">scp vcn*.txt &lt;USER&gt;@vct&lt;NN&gt;.sdsc.edu:~/</span>
-</pre><p>On the vc front-end node:</p>
+</pre><p>On the vc <strong>front-end</strong> node:</p>
 <pre class="highlight"><span class="prompt1">wget -O deploy.sh http://bit.ly/vc-deployment</span>
 <span class="prompt1">chmod +x deploy.sh</span>
 <span class="prompt1">sudo ./deploy.sh</span>
-</pre><p>At this point we are done with the ISO and back on your managing
+</pre><p>At this point we are done with the ISO and back on your <strong>managing</strong>
 machine you should detach it:</p>
 <pre class="highlight"><span class="prompt1">cm comet iso detach vct&lt;NN&gt;</span>
 </pre><p>ISO are removed the next time the virtual node is shutdown or powered
