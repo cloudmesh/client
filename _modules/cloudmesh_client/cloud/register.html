@@ -176,47 +176,47 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.cloud.register</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">platform</span>
 <span class="kn">import</span> <span class="nn">textwrap</span>
 
 <span class="k">try</span><span class="p">:</span>  <span class="c1"># python3</span>
-    <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="k">import</span> <span class="n">urlopen</span>
-    <span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="k">import</span> <span class="n">urlparse</span>
+    <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
+    <span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlparse</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>  <span class="c1"># python2</span>
-    <span class="kn">from</span> <span class="nn">urlparse</span> <span class="k">import</span> <span class="n">urlparse</span>
-    <span class="kn">from</span> <span class="nn">urllib</span> <span class="k">import</span> <span class="n">urlopen</span>
+    <span class="kn">from</span> <span class="nn">urlparse</span> <span class="kn">import</span> <span class="n">urlparse</span>
+    <span class="kn">from</span> <span class="nn">urllib</span> <span class="kn">import</span> <span class="n">urlopen</span>
 
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="k">import</span> <span class="n">Shell</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="k">import</span> <span class="n">Console</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="k">import</span> <span class="n">ConfigDict</span><span class="p">,</span> <span class="n">Config</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common</span> <span class="k">import</span> <span class="n">Printer</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.util</span> <span class="k">import</span> <span class="n">path_expand</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">input</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="kn">import</span> <span class="n">Shell</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span><span class="p">,</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common</span> <span class="kn">import</span> <span class="n">Printer</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.util</span> <span class="kn">import</span> <span class="n">path_expand</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">input</span>
 <span class="kn">import</span> <span class="nn">cloudmesh_client</span>
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.util</span> <span class="k">import</span> <span class="n">banner</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.util</span> <span class="kn">import</span> <span class="n">banner</span>
 
 <div class="viewcode-block" id="Register"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.register.Register">[docs]</a><span class="k">class</span> <span class="nc">Register</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Register.entry"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.register.Register.entry">[docs]</a>    <span class="k">def</span> <span class="nf">entry</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
 
-        <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;Register </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+        <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;Register {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
 
         <span class="n">name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">etc_config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">,</span> <span class="n">etc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">etc_config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">,</span> <span class="n">etc</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
         <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
 
         <span class="n">clouds</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh.clouds&quot;</span><span class="p">]</span>
         <span class="n">clusters</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh.hpc.clusters&quot;</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">clouds</span><span class="p">:</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;cloudmesh.clouds.</span><span class="si">{}</span><span class="s2">.credentials&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;cloudmesh.clouds.{}.credentials&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">:</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;cloudmesh.hpc.clusters.</span><span class="si">{}</span><span class="s2">.credentials&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;cloudmesh.hpc.clusters.{}.credentials&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">elif</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;cloudmesh.&quot;</span><span class="p">):</span>
             <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;cloudmesh.&quot;</span> <span class="o">+</span> <span class="n">name</span>
 
@@ -227,13 +227,13 @@
             <span class="c1"># walk yaml</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">etc</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">etc</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;TBD&quot;</span><span class="p">:</span>
-                    <span class="n">result</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter </span><span class="si">{:}</span><span class="s2"> (</span><span class="si">{:}</span><span class="s2">): &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">yaml</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter {:} ({:}): &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">yaml</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span>
                     <span class="k">if</span> <span class="n">result</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
                         <span class="n">yaml</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
 
             <span class="n">config</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Could not find </span><span class="si">{}</span><span class="s2"> in the yaml file&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="n">traceflag</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div></div>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Could not find {} in the yaml file&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="CloudRegister"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.register.CloudRegister">[docs]</a><span class="k">class</span> <span class="nc">CloudRegister</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -243,10 +243,10 @@
         <span class="k">if</span> <span class="n">cloud</span> <span class="ow">in</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">]:</span>
             <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">][</span><span class="n">cloud</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span></div>
+            <span class="k">return</span> <span class="bp">None</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudRegister.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.register.CloudRegister.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudRegister.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.register.CloudRegister.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        lists clouds from cloudmesh.yaml file</span>
 
@@ -257,8 +257,8 @@
         <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
         <span class="n">clouds</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">info</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Cloudmesh configuration file: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Cloudmesh configuration file: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">clouds</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
             <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
@@ -299,7 +299,7 @@
         <span class="k">return</span> <span class="n">hosts</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudRegister.read_rc_file"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.register.CloudRegister.read_rc_file">[docs]</a>    <span class="k">def</span> <span class="nf">read_rc_file</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">openrc</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudRegister.read_rc_file"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.register.CloudRegister.read_rc_file">[docs]</a>    <span class="k">def</span> <span class="nf">read_rc_file</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">openrc</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        :param host: the host name</span>
@@ -348,7 +348,7 @@
 <span class="sd">        :type filename: string</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;cloudmesh.yaml&quot;</span>
 
         <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
@@ -363,10 +363,10 @@
                 <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
                 <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The file has </span><span class="si">{:}</span><span class="s2"> values to be fixed&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">count</span><span class="p">))</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The file has {:} values to be fixed&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">count</span><span class="p">))</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">output</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;  &quot;</span> <span class="o">+</span> <span class="n">line</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;  &quot;</span> <span class="o">+</span> <span class="n">line</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="CloudRegister.make_dir"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.register.CloudRegister.make_dir">[docs]</a>    <span class="k">def</span> <span class="nf">make_dir</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">directory</span><span class="p">):</span>
@@ -374,7 +374,7 @@
             <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="n">directory</span><span class="p">))</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudRegister.remote"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.register.CloudRegister.remote">[docs]</a>    <span class="k">def</span> <span class="nf">remote</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudRegister.remote"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.register.CloudRegister.remote">[docs]</a>    <span class="k">def</span> <span class="nf">remote</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        TODO: there is a bug in the instalation of kilo the openrc file on</span>
@@ -398,14 +398,14 @@
             <span class="k">return</span>
 
         <span class="n">hostname</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh.clouds.&quot;</span> <span class="o">+</span> <span class="n">host</span> <span class="o">+</span> <span class="s2">&quot;.cm_host&quot;</span><span class="p">]</span>
-        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;fetching information from </span><span class="si">{:}</span><span class="s2">  ...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host</span><span class="p">))</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;fetching information from {:}  ...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host</span><span class="p">))</span>
 
         <span class="n">openrc</span> <span class="o">=</span> <span class="n">host_spec</span><span class="p">[</span><span class="s2">&quot;cm_openrc&quot;</span><span class="p">]</span>
 
         <span class="n">directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">openrc</span><span class="p">)</span>
         <span class="n">base</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">openrc</span><span class="p">)</span>
 
-        <span class="n">_from_dir</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:}</span><span class="s2">:</span><span class="si">{:}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span> <span class="n">directory</span> <span class="o">+</span> <span class="s2">&quot;/*&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;~/&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">_from_dir</span> <span class="o">=</span> <span class="s2">&quot;{:}:{:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span> <span class="n">directory</span> <span class="o">+</span> <span class="s2">&quot;/*&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;~/&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="c1"># _to_dir = os.path.dirname(Config.path_expand(directory))</span>
         <span class="c1"># FIX: Issues with path expanding on Windows</span>
         <span class="n">_to_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span>
@@ -430,26 +430,26 @@
         <span class="n">openrc_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span>
             <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">openrc</span><span class="p">)</span>
         <span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;From:  &quot;</span><span class="p">,</span> <span class="n">_from_dir</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To:    &quot;</span><span class="p">,</span> <span class="n">_to_dir</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Openrc:&quot;</span><span class="p">,</span> <span class="n">openrc_file</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;From:  &quot;</span><span class="p">,</span> <span class="n">_from_dir</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;To:    &quot;</span><span class="p">,</span> <span class="n">_to_dir</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Openrc:&quot;</span><span class="p">,</span> <span class="n">openrc_file</span><span class="p">)</span>
 
         <span class="n">cls</span><span class="o">.</span><span class="n">make_dir</span><span class="p">(</span><span class="n">_to_dir</span><span class="p">)</span>
         <span class="n">r</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Reading rc file from </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host</span><span class="p">))</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Reading rc file from {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host</span><span class="p">))</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">r</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">scp</span><span class="p">(</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="n">_from_dir</span><span class="p">,</span> <span class="n">directory</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
             <span class="k">return</span>
 
         <span class="c1">#</span>
         <span class="c1"># TODO: the permission are not yet right</span>
         <span class="c1">#</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="n">_to_dir</span><span class="p">,</span> <span class="mo">0o700</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="n">_to_dir</span><span class="p">,</span> <span class="mi">0</span><span class="n">o700</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">_to_dir</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dirs</span><span class="p">:</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">d</span><span class="p">),</span> <span class="mo">0o700</span><span class="p">)</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">d</span><span class="p">),</span> <span class="mi">0</span><span class="n">o700</span><span class="p">)</span>
         <span class="c1">#</span>
         <span class="c1"># END PERMISSION</span>
         <span class="c1">#</span>
@@ -489,7 +489,7 @@
                 <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;export &quot;</span><span class="p">):</span>
                     <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;export &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
                     <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-                    <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;$</span><span class="si">{NOVA_KEY_DIR}</span><span class="s2">/&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;${NOVA_KEY_DIR}/&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
                     <span class="c1"># remove comments</span>
                     <span class="n">data</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
             <span class="k">return</span> <span class="n">data</span>
@@ -501,29 +501,29 @@
             <span class="s2">&quot;clouds&quot;</span><span class="p">,</span>
             <span class="n">cloud</span><span class="p">,</span>
             <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">zipfile</span><span class="p">)))</span>
-        <span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s2">&quot;Unzip file </span><span class="si">{}</span><span class="s2"> -&gt; </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">zipfile</span><span class="p">,</span> <span class="n">dest</span><span class="p">))</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s2">&quot;Unzip file {} -&gt; {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">zipfile</span><span class="p">,</span> <span class="n">dest</span><span class="p">))</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">unzip</span><span class="p">(</span><span class="n">zipfile</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span>
         <span class="n">rcfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="s2">&quot;ec2rc.sh&quot;</span><span class="p">)</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">find_exports</span><span class="p">(</span><span class="n">rcfile</span><span class="p">)</span>
         <span class="n">data</span><span class="p">[</span><span class="s2">&quot;DEST&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dest</span>
         <span class="n">data</span><span class="p">[</span><span class="s2">&quot;CLOUD&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cloud</span>
         <span class="n">d</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;cm_heading&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{CLOUD}</span><span class="s2">, EC2&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
-            <span class="s2">&quot;cm_host&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="s2">&quot;cm_label&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{CLOUD}</span><span class="s2">_ec2&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
+            <span class="s2">&quot;cm_heading&quot;</span><span class="p">:</span> <span class="s2">&quot;{CLOUD}, EC2&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
+            <span class="s2">&quot;cm_host&quot;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+            <span class="s2">&quot;cm_label&quot;</span><span class="p">:</span> <span class="s2">&quot;{CLOUD}_ec2&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
             <span class="s2">&quot;cm_type&quot;</span><span class="p">:</span> <span class="s2">&quot;ec2&quot;</span><span class="p">,</span>
             <span class="s2">&quot;cm_type_version&quot;</span><span class="p">:</span> <span class="s2">&quot;ec2&quot;</span><span class="p">,</span>
             <span class="s2">&quot;credentials&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;EC2_ACCESS_KEY&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{EC2_ACCESS_KEY}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
-                <span class="s2">&quot;EC2_SECRET_KEY&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{EC2_SECRET_KEY}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
+                <span class="s2">&quot;EC2_ACCESS_KEY&quot;</span><span class="p">:</span> <span class="s2">&quot;{EC2_ACCESS_KEY}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
+                <span class="s2">&quot;EC2_SECRET_KEY&quot;</span><span class="p">:</span> <span class="s2">&quot;{EC2_SECRET_KEY}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
                 <span class="s2">&quot;keyname&quot;</span><span class="p">:</span> <span class="s2">&quot;TBD_not_used&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;userid&quot;</span><span class="p">:</span> <span class="s2">&quot;TBD_not_used&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;EC2_URL&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{EC2_URL}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
-                <span class="s2">&quot;EC2_USER_ID&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{EC2_USER_ID}</span><span class="s2">&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;EC2_PRIVATE_KEY&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{DEST}</span><span class="s2">/pk.pem&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
-                <span class="s2">&quot;EC2_CERT&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{DEST}</span><span class="s2">/cert.pem&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
-                <span class="s2">&quot;NOVA_CERT&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{DEST}</span><span class="s2">/cacert.pem&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
-                <span class="s2">&quot;EUCALYPTUS_CERT&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{DEST}</span><span class="s2">/cacert.pem&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
+                <span class="s2">&quot;EC2_URL&quot;</span><span class="p">:</span> <span class="s2">&quot;{EC2_URL}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
+                <span class="s2">&quot;EC2_USER_ID&quot;</span><span class="p">:</span> <span class="s2">&quot;{EC2_USER_ID}&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;EC2_PRIVATE_KEY&quot;</span><span class="p">:</span> <span class="s2">&quot;{DEST}/pk.pem&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
+                <span class="s2">&quot;EC2_CERT&quot;</span><span class="p">:</span> <span class="s2">&quot;{DEST}/cert.pem&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
+                <span class="s2">&quot;NOVA_CERT&quot;</span><span class="p">:</span> <span class="s2">&quot;{DEST}/cacert.pem&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
+                <span class="s2">&quot;EUCALYPTUS_CERT&quot;</span><span class="p">:</span> <span class="s2">&quot;{DEST}/cacert.pem&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
             <span class="p">},</span>
             <span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;flavor&quot;</span><span class="p">:</span> <span class="s2">&quot;m1.small&quot;</span><span class="p">,</span>
@@ -544,9 +544,9 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;register&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Not implemented&quot;</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
@@ -558,7 +558,7 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Filling out form&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
         <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
         <span class="c1">#</span>
         <span class="c1"># edit profile</span>
@@ -580,7 +580,7 @@
 
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">profile</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;TBD&quot;</span><span class="p">:</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Please enter </span><span class="si">{:}</span><span class="s2">[</span><span class="si">{:}</span><span class="s2">]:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">profile</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span> <span class="ow">or</span> <span class="n">profile</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Please enter {:}[{:}]:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">profile</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span> <span class="ow">or</span> <span class="n">profile</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
                 <span class="n">profile</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
 
         <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;profile&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profile</span>
@@ -589,12 +589,12 @@
         <span class="c1"># edit clouds</span>
         <span class="n">clouds</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">cloud</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">clouds</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Editing the credentials for cloud&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Editing the credentials for cloud&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
             <span class="n">credentials</span> <span class="o">=</span> <span class="n">clouds</span><span class="p">[</span><span class="n">cloud</span><span class="p">][</span><span class="s2">&quot;credentials&quot;</span><span class="p">]</span>
 
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">credentials</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;OS_VERSION&quot;</span><span class="p">,</span> <span class="s2">&quot;OS_AUTH_URL&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">credentials</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;TBD&quot;</span><span class="p">:</span>
-                    <span class="n">result</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Please enter </span><span class="si">{:}</span><span class="s2">[</span><span class="si">{:}</span><span class="s2">]:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">credentials</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span> <span class="ow">or</span> <span class="n">credentials</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Please enter {:}[{:}]:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">credentials</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span> <span class="ow">or</span> <span class="n">credentials</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
                     <span class="n">credentials</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
             <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">][</span><span class="n">cloud</span><span class="p">][</span><span class="s2">&quot;credentials&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">credentials</span>
         <span class="n">config</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
@@ -607,7 +607,7 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">filename</span><span class="p">)):</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> doesn&#39;t exist&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;{} doesn&#39;t exist&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
             <span class="k">return</span>
 
         <span class="c1"># BUG should use path separator</span>
@@ -655,7 +655,7 @@
         <span class="n">config</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
         <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span>
-            <span class="s2">&quot;Overwritten the TBD of cloudmesh.yaml with </span><span class="si">{}</span><span class="s2"> contents&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="s2">&quot;Overwritten the TBD of cloudmesh.yaml with {} contents&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="n">filename</span><span class="p">))</span></div>
 
     <span class="nd">@classmethod</span>
@@ -664,7 +664,7 @@
 <span class="sd">        Function that will read OS_* vairables from environment and populate dict env_config_data.</span>
 <span class="sd">        :return: env_config_data dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">env_config_data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;OS_AUTH_URL&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+        <span class="n">env_config_data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;OS_AUTH_URL&quot;</span><span class="p">:</span> <span class="bp">None</span><span class="p">}</span>
         <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;OS_&quot;</span><span class="p">):</span>
                 <span class="c1"># print(&quot;{:} = {:}&quot;.format(x, os.environ[x]))</span>
@@ -681,27 +681,27 @@
         <span class="n">yaml_data</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
         <span class="n">env_config_data</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">read_env_config</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="n">env_config_data</span><span class="p">[</span><span class="s2">&quot;OS_AUTH_URL&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR: Cloud credentials not set in environment&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">env_config_data</span><span class="p">[</span><span class="s2">&quot;OS_AUTH_URL&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ERROR: Cloud credentials not set in environment&quot;</span><span class="p">)</span>
             <span class="k">return</span>
 
         <span class="n">cloudname_suggest</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">env_config_data</span><span class="p">[</span><span class="s2">&quot;OS_AUTH_URL&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">hostname</span>
 
         <span class="c1"># Command line inputs</span>
         <span class="n">cloudname_to_use</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span>
-            <span class="s2">&quot;Name of the cloud (Default: </span><span class="si">{:}</span><span class="s2">): &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="s2">&quot;Name of the cloud (Default: {:}): &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="n">cloudname_suggest</span><span class="p">))</span> <span class="ow">or</span> <span class="n">cloudname_suggest</span>
 
         <span class="n">cm_label</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span>
-            <span class="s2">&quot;Label for the cloud (Default: </span><span class="si">{:}</span><span class="s2">): &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloudname_to_use</span><span class="p">))</span> <span class="ow">or</span> <span class="s2">&quot;</span><span class="si">{:}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloudname_to_use</span><span class="p">)</span>
+            <span class="s2">&quot;Label for the cloud (Default: {:}): &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloudname_to_use</span><span class="p">))</span> <span class="ow">or</span> <span class="s2">&quot;{:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloudname_to_use</span><span class="p">)</span>
 
         <span class="n">cm_heading</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span>
-            <span class="s2">&quot;Heading for the cloud (Default: </span><span class="si">{:}</span><span class="s2"> Cloud): &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cm_label</span><span class="p">))</span> <span class="ow">or</span> <span class="s2">&quot;</span><span class="si">{:}</span><span class="s2"> Cloud&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cm_label</span><span class="p">)</span>
+            <span class="s2">&quot;Heading for the cloud (Default: {:} Cloud): &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cm_label</span><span class="p">))</span> <span class="ow">or</span> <span class="s2">&quot;{:} Cloud&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cm_label</span><span class="p">)</span>
 
-        <span class="n">cm_host</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Cloud host name (Default: </span><span class="si">{:}</span><span class="s2">): &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloudname_suggest</span><span class="p">))</span> <span class="ow">or</span> <span class="s2">&quot;</span><span class="si">{:}</span><span class="s2">&quot;</span> \
+        <span class="n">cm_host</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Cloud host name (Default: {:}): &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloudname_suggest</span><span class="p">))</span> <span class="ow">or</span> <span class="s2">&quot;{:}&quot;</span> \
             <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloudname_suggest</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">provider</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">provider</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="c1"># TODO: Check if the suggestion can be determined dynamically</span>
             <span class="n">cm_type</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Type of the cloud- openstack/azure/ec2 &quot;</span>
                             <span class="s2">&quot;(Default: openstack): &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;openstack&quot;</span>
@@ -709,14 +709,14 @@
             <span class="n">cm_type</span> <span class="o">=</span> <span class="n">provider</span>
 
         <span class="k">while</span> <span class="n">cm_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;openstack&quot;</span><span class="p">,</span> <span class="s2">&quot;azure&quot;</span><span class="p">,</span> <span class="s2">&quot;ec2&quot;</span><span class="p">]:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Type of cloud &#39;</span><span class="si">{:}</span><span class="s2">&#39; is invalid and should be one &quot;</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Type of cloud &#39;{:}&#39; is invalid and should be one &quot;</span>
                   <span class="s2">&quot;of openstack/ azure/ ec2.</span><span class="se">\n</span><span class="s2">&quot;</span>
                   <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cm_type</span><span class="p">))</span>
             <span class="n">cm_type</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Type of the cloud- openstack/azure/ec2 &quot;</span>
                             <span class="s2">&quot;(Default: openstack): &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;openstack&quot;</span>
 
         <span class="n">cm_type_version</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span>
-            <span class="s2">&quot;Version of type </span><span class="si">{:}</span><span class="s2"> (Default: null): &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cm_type</span><span class="p">))</span> <span class="ow">or</span> <span class="kc">None</span>
+            <span class="s2">&quot;Version of type {:} (Default: null): &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cm_type</span><span class="p">))</span> <span class="ow">or</span> <span class="bp">None</span>
 
         <span class="c1">#  Populate the dict with the data fetched from env</span>
         <span class="n">yaml_data</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">][</span><span class="n">cloudname_to_use</span><span class="p">]</span> <span class="o">=</span> \
@@ -731,14 +731,14 @@
         <span class="c1"># Get defaults from user</span>
 
         <span class="n">default_flavor</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Default flavor for the cloud instances&quot;</span>
-                               <span class="s2">&quot;(Default: null): &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span>
+                               <span class="s2">&quot;(Default: null): &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">None</span>
 
         <span class="n">default_image</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Default image for the cloud instances&quot;</span>
-                              <span class="s2">&quot; (Default: null): &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span>
+                              <span class="s2">&quot; (Default: null): &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">None</span>
 
         <span class="n">default_location</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span>
             <span class="s2">&quot;Default location for the cloud instances &quot;</span>
-            <span class="s2">&quot;(Default: null): &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span>
+            <span class="s2">&quot;(Default: null): &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">None</span>
 
         <span class="n">yaml_data</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">][</span><span class="n">cloudname_to_use</span><span class="p">][</span><span class="s2">&quot;default&quot;</span><span class="p">]</span> <span class="o">=</span> \
             <span class="p">{</span><span class="s2">&quot;flavor&quot;</span><span class="p">:</span> <span class="n">default_flavor</span><span class="p">,</span>
@@ -748,7 +748,7 @@
 
         <span class="c1"># Save data in yaml</span>
         <span class="n">yaml_data</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;New cloud config exported to </span><span class="si">{:}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">yaml_data</span><span class="o">.</span><span class="n">filename</span><span class="p">))</span></div>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;New cloud config exported to {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">yaml_data</span><span class="o">.</span><span class="n">filename</span><span class="p">))</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="CloudRegister.set_username"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.register.CloudRegister.set_username">[docs]</a>    <span class="k">def</span> <span class="nf">set_username</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>

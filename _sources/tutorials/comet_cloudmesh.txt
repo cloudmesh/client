@@ -102,7 +102,7 @@ The cluster information can be obtained with the following commands:
 
 .. prompt:: bash
 
-  cm comet cluster ll 
+  cm comet ll 
   cm comet cluster
   cm comet cluster vct<NN>
 

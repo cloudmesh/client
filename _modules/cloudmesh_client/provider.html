@@ -176,9 +176,9 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.provider</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">.general.attributes</span> <span class="k">import</span> <span class="n">Attributes</span> <span class="k">as</span> <span class="n">GeneralAttributes</span>
-<span class="kn">from</span> <span class="nn">.openstack.attributes</span> <span class="k">import</span> <span class="n">Attributes</span> <span class="k">as</span> <span class="n">OpenstackAttributes</span>
-<span class="kn">from</span> <span class="nn">.libcloud.attributes</span> <span class="k">import</span> <span class="n">Attributes</span> <span class="k">as</span> <span class="n">LibcloudAttributes</span>
+<span></span><span class="kn">from</span> <span class="nn">.general.attributes</span> <span class="kn">import</span> <span class="n">Attributes</span> <span class="k">as</span> <span class="n">GeneralAttributes</span>
+<span class="kn">from</span> <span class="nn">.openstack.attributes</span> <span class="kn">import</span> <span class="n">Attributes</span> <span class="k">as</span> <span class="n">OpenstackAttributes</span>
+<span class="kn">from</span> <span class="nn">.libcloud.attributes</span> <span class="kn">import</span> <span class="n">Attributes</span> <span class="k">as</span> <span class="n">LibcloudAttributes</span>
 
 
 <div class="viewcode-block" id="Attributes"><a class="viewcode-back" href="../../code/cloudmesh_client.provider.html#cloudmesh_client.provider.Attributes">[docs]</a><span class="k">class</span> <span class="nc">Attributes</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -191,8 +191,8 @@
         <span class="k">elif</span> <span class="n">provider</span> <span class="o">==</span> <span class="s2">&quot;libcloud&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">LibcloudAttributes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;provider </span><span class="si">{}</span><span class="s2"> not found&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">provider</span><span class="p">))</span>
-            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span></div></div>
+            <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;provider {} not found&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">provider</span><span class="p">))</span>
+            <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span></div></div>
 </pre></div>
 
            </div>

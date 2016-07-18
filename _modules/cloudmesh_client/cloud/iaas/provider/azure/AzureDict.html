@@ -176,8 +176,8 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.cloud.iaas.provider.azure.AzureDict</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.FlatDict2</span> <span class="k">import</span> <span class="n">FlatDict2</span>
+<span></span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.FlatDict2</span> <span class="kn">import</span> <span class="n">FlatDict2</span>
 
 
 <div class="viewcode-block" id="AzureDict"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.azure.html#cloudmesh_client.cloud.iaas.provider.azure.AzureDict.AzureDict">[docs]</a><span class="k">class</span> <span class="nc">AzureDict</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -194,7 +194,7 @@
         <span class="n">vm_dict</span><span class="p">[</span><span class="s1">&#39;cloud_service&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hosted_service_obj</span><span class="o">.</span><span class="n">service_name</span>
         <span class="n">vm_dict</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">deployment_obj</span><span class="o">.</span><span class="n">status</span>
         <span class="n">vm_dict</span><span class="p">[</span><span class="s1">&#39;dns_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">deployment_obj</span><span class="o">.</span><span class="n">url</span>
-        <span class="k">if</span> <span class="n">deployment_obj</span><span class="o">.</span><span class="n">virtual_ips</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">deployment_obj</span><span class="o">.</span><span class="n">virtual_ips</span><span class="o">.</span><span class="n">virtual_ips</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">deployment_obj</span><span class="o">.</span><span class="n">virtual_ips</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">deployment_obj</span><span class="o">.</span><span class="n">virtual_ips</span><span class="o">.</span><span class="n">virtual_ips</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">vm_dict</span><span class="p">[</span><span class="s1">&#39;public_ips&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">deployment_obj</span><span class="o">.</span><span class="n">virtual_ips</span><span class="o">.</span><span class="n">virtual_ips</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">address</span>
             <span class="c1"># pprint((deployment_obj.virtual_ips.virtual_ips)[0].address)</span>
 

@@ -176,23 +176,23 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.common.TableParser</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">json</span>
 
 
 <div class="viewcode-block" id="TableParser"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.TableParser.TableParser">[docs]</a><span class="k">class</span> <span class="nc">TableParser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="TableParser.convert"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.TableParser.TableParser.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="TableParser.convert"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.TableParser.TableParser.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                 <span class="n">output</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">,</span>
-                <span class="n">header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">change</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">strip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">strip_seperator</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">header</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                <span class="n">index</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">change</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">strip</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                <span class="n">lower</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                <span class="n">strip_seperator</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
                 <span class="n">seperator</span><span class="o">=</span><span class="s2">&quot;|&quot;</span><span class="p">,</span>
                 <span class="n">comment_chars</span><span class="o">=</span><span class="s2">&quot;+#&quot;</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">change</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">change</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">change</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)]</span>
         <span class="n">parser</span> <span class="o">=</span> <span class="n">TableParser</span><span class="p">(</span>
             <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">,</span>
@@ -204,7 +204,7 @@
             <span class="n">strip_seperator</span><span class="o">=</span><span class="n">strip_seperator</span><span class="p">,</span>
             <span class="n">seperator</span><span class="o">=</span><span class="n">seperator</span><span class="p">,</span>
             <span class="n">comment_chars</span><span class="o">=</span><span class="n">comment_chars</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">table</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">table</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="s1">&#39;dict&#39;</span> <span class="ow">in</span> <span class="n">output</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
             <span class="k">elif</span> <span class="s1">&#39;list&#39;</span> <span class="ow">in</span> <span class="n">output</span><span class="p">:</span>
@@ -214,12 +214,12 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">output</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">,</span>
-                 <span class="n">header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                 <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">change</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">strip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                 <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                 <span class="n">strip_seperator</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">header</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                 <span class="n">index</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">change</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">strip</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                 <span class="n">lower</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                 <span class="n">strip_seperator</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
                  <span class="n">seperator</span><span class="o">=</span><span class="s2">&quot;|&quot;</span><span class="p">,</span>
                  <span class="n">comment_chars</span><span class="o">=</span><span class="s2">&quot;+#&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -237,10 +237,10 @@
 <span class="sd">        :param comment_chars: lines starting with this chars will be ignored</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">change</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">change</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">change</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">with_header</span> <span class="o">=</span> <span class="n">header</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">change</span> <span class="o">=</span> <span class="n">change</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_lower</span> <span class="o">=</span> <span class="n">lower</span>
@@ -249,7 +249,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">strip_seperator</span> <span class="o">=</span> <span class="n">strip_seperator</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">seperator</span> <span class="o">=</span> <span class="n">seperator</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">comment_chars</span> <span class="o">=</span> <span class="n">comment_chars</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="bp">None</span>
 
 <div class="viewcode-block" id="TableParser.clean"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.TableParser.TableParser.clean">[docs]</a>    <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -315,7 +315,7 @@
             <span class="n">entry</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">)):</span>
                 <span class="n">entry</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="n">column</span><span class="p">]]</span> <span class="o">=</span> <span class="n">element</span><span class="p">[</span><span class="n">column</span><span class="p">]</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">entry</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
@@ -342,7 +342,7 @@
             <span class="n">entry</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">)):</span>
                 <span class="n">entry</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="n">column</span><span class="p">]]</span> <span class="o">=</span> <span class="n">element</span><span class="p">[</span><span class="n">column</span><span class="p">]</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span>
@@ -360,16 +360,16 @@
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">TableParser</span><span class="p">()</span>
     <span class="n">d</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">to_list</span><span class="p">(</span><span class="s2">&quot;|a|b|c|</span><span class="se">\n</span><span class="s2">|1|2|3|</span><span class="se">\n</span><span class="s2">+|4|5|6|</span><span class="se">\n</span><span class="s2">|7|8|9|&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
 
     <span class="n">parser</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s2">&quot;|a|b|c|</span><span class="se">\n</span><span class="s2">|1|2|3|</span><span class="se">\n</span><span class="s2">|4|5|6|&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
 </pre></div>
 
            </div>

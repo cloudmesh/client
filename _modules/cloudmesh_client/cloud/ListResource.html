@@ -176,15 +176,15 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.cloud.ListResource</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">future.utils</span> <span class="k">import</span> <span class="n">with_metaclass</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="k">import</span> <span class="n">Printer</span>
+<span></span><span class="kn">from</span> <span class="nn">future.utils</span> <span class="kn">import</span> <span class="n">with_metaclass</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">Printer</span>
 
 <div class="viewcode-block" id="ListResource"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.ListResource.ListResource">[docs]</a><span class="k">class</span> <span class="nc">ListResource</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">kind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                <span class="n">category</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">kind</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">order</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">category</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="n">kind</span>
 
@@ -202,8 +202,8 @@
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="ListResource.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.ListResource.ListResource.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span>
-             <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-             <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+             <span class="n">category</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+             <span class="n">order</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
              <span class="n">output</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        lists the default values in the specified format.</span>
@@ -220,7 +220,7 @@
         <span class="c1"># if order is None:</span>
         <span class="c1">#    # (order, header) = CloudProvider(category).get_attributes(&quot;default&quot;)</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">category</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">category</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="n">d</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">d</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span>
@@ -228,14 +228,14 @@
                                          <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
                                          <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">))</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span></div>
+            <span class="k">return</span> <span class="bp">None</span></div>
 
     <span class="c1">#</span>
     <span class="c1"># GENERAL SETTER AND GETTER METHOD</span>
     <span class="c1">#</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="ListResource.set"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.ListResource.ListResource.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="ListResource.set"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.ListResource.ListResource.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        sets the default value for a given category</span>
 <span class="sd">        :param key: the dictionary key of the value to store it at.</span>
@@ -249,7 +249,7 @@
 
             <span class="n">o</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
             <span class="n">me</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">user</span> <span class="ow">or</span> <span class="n">user</span>
-            <span class="k">if</span> <span class="n">o</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">o</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="n">o</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">db_obj_dict</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span>
                                        <span class="n">name</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
                                        <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span>
@@ -262,7 +262,7 @@
                 <span class="c1"># cls.cm.update(o)</span>
             <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span></div>
+            <span class="k">return</span> <span class="bp">None</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="ListResource.get_object"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.ListResource.ListResource.get_object">[docs]</a>    <span class="k">def</span> <span class="nf">get_object</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">):</span>
@@ -283,7 +283,7 @@
                             <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">o</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span></div>
+            <span class="k">return</span> <span class="bp">None</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="ListResource.get"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.ListResource.ListResource.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">):</span>
@@ -301,10 +301,10 @@
                         <span class="n">output</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">,</span>
                         <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">,</span>
                         <span class="n">name</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">o</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">o</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">o</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span></div>
+            <span class="k">return</span> <span class="bp">None</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="ListResource.delete"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.ListResource.ListResource.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">category</span><span class="p">):</span>
@@ -313,13 +313,13 @@
         <span class="c1">#</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">o</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">o</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">o</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
                 <span class="k">return</span> <span class="s2">&quot;Deletion. ok.&quot;</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">None</span>
+                <span class="k">return</span> <span class="bp">None</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span></div>
+            <span class="k">return</span> <span class="bp">None</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="ListResource.clear"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.ListResource.ListResource.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
@@ -334,7 +334,7 @@
                 <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete_by_name</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
             <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span></div>
+            <span class="k">return</span> <span class="bp">None</span></div>
 
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    # @abstractmethod</span>
