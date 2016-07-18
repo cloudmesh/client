@@ -267,7 +267,7 @@ comet</p>
 <p>The cluster information can be obtained with the following commands:</p>
 <pre class="highlight"><span class="prompt1">cm comet cluster ll</span>
 <span class="prompt1">cm comet cluster</span>
-<span class="prompt1">cm comet cluster vc2</span>
+<span class="prompt1">cm comet cluster vct&lt;NN&gt;</span>
 </pre><p>The list of ISO images that are currently available can be obtained with:</p>
 <pre class="highlight"><span class="prompt1">cm comet iso list</span>
 </pre></div>
@@ -289,16 +289,16 @@ comet</p>
 </pre></div>
 </div>
 <p>Next we attach an iso. YOu can use either the name of the iso, or simply the id</p>
-<pre class="highlight"><span class="prompt1">cm comet iso attach <span class="m">6</span> vc2</span>
+<pre class="highlight"><span class="prompt1">cm comet iso attach <span class="m">6</span> vct&lt;NN&gt;</span>
 </pre><p>Let us check the status of the server.</p>
-<pre class="highlight"><span class="prompt1">cm comet cluster vc2</span>
+<pre class="highlight"><span class="prompt1">cm comet cluster vct&lt;NN&gt;</span>
 </pre><p>If it is already running, please power if off so the iso attach could
 take effect:</p>
-<pre class="highlight"><span class="prompt1">cm comet power off vc2</span>
+<pre class="highlight"><span class="prompt1">cm comet power off vct&lt;NN&gt;</span>
 </pre><p>Now we need to power on the server</p>
-<pre class="highlight"><span class="prompt1">cm comet power on vc2</span>
+<pre class="highlight"><span class="prompt1">cm comet power on vct&lt;NN&gt;</span>
 </pre><p>To see what is happening on the server, we can attach a console to follow and complete the setup of the OS</p>
-<pre class="highlight"><span class="prompt1">cm comet console vc2</span>
+<pre class="highlight"><span class="prompt1">cm comet console vct&lt;NN&gt;</span>
 </pre><p>Screenshots for the front-end node configuration are given next:</p>
 <div class="figure" id="id6">
 <a class="reference internal image-reference" href="../_images/00_install_start.png"><img alt="screenshot" src="../_images/00_install_start.png" style="width: 647.0px; height: 489.0px;" /></a>
@@ -349,7 +349,7 @@ option from the booting menu. This ensure the node boots into the newly installe
 while having the OS installation CD still attached (we will need the CD again in the
 later steps).</p>
 <p>Once the node is back on, you can now login and configure the cluster from your laptop/desktop:</p>
-<pre class="highlight"><span class="prompt1">cm comet console vc2</span>
+<pre class="highlight"><span class="prompt1">cm comet console vct&lt;NN&gt;</span>
 </pre><p>YOu can also ssh into the machine after it is configures with the usual ssh commands while
 using your login name that you set up and specify your cluster name.</p>
 <pre class="highlight"><span class="prompt1">ssh USER@vct&lt;NN&gt;.sdsc.edu</span>
@@ -378,7 +378,7 @@ off (not when  rebooted or reset).</p>
 <div class="section" id="example-install-compute-nodes">
 <h2>Example: Install Compute Nodes<a class="headerlink" href="#example-install-compute-nodes" title="Permalink to this headline">¶</a></h2>
 <p>Compute node setup</p>
-<pre class="highlight"><span class="prompt1">cm comet start vc2 vm-vc2-<span class="o">[</span>1-2<span class="o">]</span></span>
+<pre class="highlight"><span class="prompt1">cm comet start vct&lt;NN&gt; vm-vct&lt;NN&gt;-<span class="o">[</span>1-2<span class="o">]</span></span>
 </pre><p>Takes about 15~20 minutes. Once done, the node will be shutoff.</p>
 <p>Once you see the boot question in your console log, please change it to
 localboot. Do this on the front-end node:</p>
@@ -393,7 +393,7 @@ enter at each step.</p>
 <span class="prompt1">ssh-keygen</span>
 <span class="prompt1">cat .ssh/id_rsa.pub &gt;&gt; .ssh/authorized_keys</span>
 </pre><p>Then on your managing host where Cloudmesh client is installed:</p>
-<pre class="highlight"><span class="prompt1">cm comet power on vc2 vm-vc2-<span class="o">[</span>1-2<span class="o">]</span></span>
+<pre class="highlight"><span class="prompt1">cm comet power on vct&lt;NN&gt; vm-vct&lt;NN&gt;-<span class="o">[</span>1-2<span class="o">]</span></span>
 </pre><p>Wait the compute nodes to be booted on, which can be checked by:</p>
 <pre class="highlight"><span class="prompt1">cm comet cluster vct&lt;NN&gt;</span>
 </pre><p>to see if the state (2nd column) of the nodes is &#8216;active&#8217;.</p>

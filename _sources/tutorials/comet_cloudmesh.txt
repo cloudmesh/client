@@ -104,7 +104,7 @@ The cluster information can be obtained with the following commands:
 
   cm comet cluster ll 
   cm comet cluster
-  cm comet cluster vc2
+  cm comet cluster vct<NN>
 
 The list of ISO images that are currently available can be obtained with:
 
@@ -140,33 +140,33 @@ Next we attach an iso. YOu can use either the name of the iso, or simply the id
 
 .. prompt:: bash
 
-  cm comet iso attach 6 vc2
+  cm comet iso attach 6 vct<NN>
 
 
 Let us check the status of the server.
 
 .. prompt:: bash
 
-   cm comet cluster vc2
+   cm comet cluster vct<NN>
 
 If it is already running, please power if off so the iso attach could
 take effect:
 
 .. prompt:: bash
 
-  cm comet power off vc2
+  cm comet power off vct<NN>
 
 Now we need to power on the server
 
 .. prompt:: bash
 
-  cm comet power on vc2
+  cm comet power on vct<NN>
 
 To see what is happening on the server, we can attach a console to follow and complete the setup of the OS
 
 .. prompt:: bash
 
-  cm comet console vc2
+  cm comet console vct<NN>
 
 Screenshots for the front-end node configuration are given next:
 
@@ -244,7 +244,7 @@ Once the node is back on, you can now login and configure the cluster from your 
 
 .. prompt:: bash
 
-  cm comet console vc2
+  cm comet console vct<NN>
 
 YOu can also ssh into the machine after it is configures with the usual ssh commands while
 using your login name that you set up and specify your cluster name.
@@ -300,7 +300,7 @@ Compute node setup
 
 .. prompt:: bash
 
-   cm comet start vc2 vm-vc2-[1-2]
+   cm comet start vct<NN> vm-vct<NN>-[1-2]
 
 Takes about 15~20 minutes. Once done, the node will be shutoff.
 
@@ -330,7 +330,7 @@ Then on your managing host where Cloudmesh client is installed:
 
 .. prompt:: bash
 
-  cm comet power on vc2 vm-vc2-[1-2]
+  cm comet power on vct<NN> vm-vct<NN>-[1-2]
 
 Wait the compute nodes to be booted on, which can be checked by:
 

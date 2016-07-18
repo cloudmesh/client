@@ -176,7 +176,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.common.LibcloudDict</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span></span><span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
 
 <div class="viewcode-block" id="LibcloudDict"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LibcloudDict.LibcloudDict">[docs]</a><span class="k">class</span> <span class="nc">LibcloudDict</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="n">Libcloud_category_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;chameleon-ec2&#39;</span><span class="p">,</span>
@@ -201,7 +201,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">vm_dict</span><span class="p">[</span><span class="s1">&#39;private_ips&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="c1"># TODO: Not sure why vm image details are required with &#39;node_obj.size&#39;</span>
-        <span class="n">vm_image_dict</span> <span class="o">=</span> <span class="n">LibcloudDict</span><span class="o">.</span><span class="n">handle_vm_image_details</span><span class="p">(</span><span class="n">node_obj</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">is_image_dict</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">vm_image_dict</span> <span class="o">=</span> <span class="n">LibcloudDict</span><span class="o">.</span><span class="n">handle_vm_image_details</span><span class="p">(</span><span class="n">node_obj</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">is_image_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">vm_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">vm_image_dict</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">node_obj</span><span class="o">.</span><span class="n">extra</span><span class="p">:</span>
             <span class="n">extra_args_dict</span> <span class="o">=</span> <span class="n">LibcloudDict</span><span class="o">.</span><span class="n">handle_vm_extra_args</span><span class="p">(</span><span class="n">node_obj</span><span class="o">.</span><span class="n">extra</span><span class="p">)</span>
@@ -263,7 +263,7 @@
             <span class="n">pprint</span><span class="p">(</span><span class="n">key</span> <span class="o">+</span> <span class="s2">&quot; : &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">))</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="LibcloudDict.handle_vm_image_details"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_image_details">[docs]</a>    <span class="k">def</span> <span class="nf">handle_vm_image_details</span><span class="p">(</span><span class="n">node_image_obj</span><span class="p">,</span> <span class="n">is_image_dict</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="LibcloudDict.handle_vm_image_details"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_image_details">[docs]</a>    <span class="k">def</span> <span class="nf">handle_vm_image_details</span><span class="p">(</span><span class="n">node_image_obj</span><span class="p">,</span> <span class="n">is_image_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="n">node_image_dict</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="n">is_image_dict</span><span class="p">:</span>
             <span class="n">node_image_dict</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node_image_obj</span><span class="o">.</span><span class="n">id</span>

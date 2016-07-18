@@ -176,10 +176,10 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.shell.plugins.PyCommand</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">code</span> <span class="kn">import</span> <span class="n">InteractiveConsole</span>
+<span></span><span class="kn">from</span> <span class="nn">code</span> <span class="k">import</span> <span class="n">InteractiveConsole</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">ShellPluginCommand</span><span class="p">,</span> \
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="k">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">ShellPluginCommand</span><span class="p">,</span> \
     <span class="n">CometPluginCommand</span>
 <span class="sd">&quot;&quot;&quot; This code has been copied and modified from cmd2 to work with cmd3&quot;&quot;&quot;</span>
 
@@ -210,15 +210,15 @@
 <div class="viewcode-block" id="PyCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.PyCommand.PyCommand">[docs]</a><span class="k">class</span> <span class="nc">PyCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">ShellPluginCommand</span><span class="p">,</span> <span class="n">CometPluginCommand</span><span class="p">):</span>
 
     <span class="n">pystate</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">locals_in_py</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">locals_in_py</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;open&quot;</span><span class="p">:</span> <span class="s2">&quot;shell&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;init command browser&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">locals_in_py</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;init command browser&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">locals_in_py</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pystate</span><span class="p">[</span><span class="s1">&#39;self&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
 
 <div class="viewcode-block" id="PyCommand.do_py"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.PyCommand.PyCommand.do_py">[docs]</a>    <span class="k">def</span> <span class="nf">do_py</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
