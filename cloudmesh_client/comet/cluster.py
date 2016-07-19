@@ -768,7 +768,10 @@ class Cluster(object):
                     iso_id_name = None
 
         if iso_id_name is not None:
-            iso_id_name = "public/{}".format(iso_id_name)
+            # currently only those in public directory is accessible
+            # for empty string, DO NOT append as that is for detach
+            if len(iso_id_name) != 0:
+                iso_id_name = "public/{}".format(iso_id_name)
             urls = {}
             # attaching to compute node
             if nodeids:
