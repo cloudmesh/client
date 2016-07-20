@@ -792,6 +792,7 @@ class Cluster(object):
             tofrom['Attaching'] = 'to'
             tofrom['Detaching'] = 'from'
             for node, url in urls.items():
+                url = url.replace("+","%2B")
                 r = Comet.put(url)
                 # print (r)
                 if r is not None:
