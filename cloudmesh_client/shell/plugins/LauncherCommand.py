@@ -10,6 +10,48 @@ from cloudmesh_client.shell.command import command, PluginCommand, \
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.hostlist import Parameter
 
+"""
+Assume we have some kind of file called
+
+launcher.yml
+
+which includes so far a single variable
+
+name: mylauncher
+
+
+This is places in a repo called
+
+cloudmesh/launcher/mylauncher/launcher.yml
+
+We need a command that adds this to cloudmesh_launcher.yaml
+
+with the following functionality:
+
+cloudmesh_launcher.yaml
+
+cloudmesh:
+  launcher:
+     repo:
+       - mylauncher:
+	  location: https://github..../cloudmesh/launcher/mylauncher
+       - launcherb:
+	  location: https://github..../cloudmesh_launcher/test_launcher_b
+
+
+cm launcher repo add [--name launchera] https://github..../cloudmesh_launcher/test_launcher_a
+cm launcher repo delete --name launchera
+cm launcher repo list
+
+Reason we need the name is as we also want to be able to integrate bitbucket and others, so name of the file could be duplicated and thus we need to specify
+the actual name in the yaml file and not derive it from the repo name.
+
+Other ideas to come:
+
+cm launcher add repo nist_example_fingerprint
+cm launcher execute nist_example_fingerprint —parameters <the parameters such as number of vms, cloud, ...>
+cm launcher benchmark -n 10 … (same as execute, but repeated 10 times and derive automatically some statistics on the run
+"""
 
 class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
     topics = {"launcher": "todo"}
@@ -36,6 +78,11 @@ class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
               launcher refresh
               launcher log [NAME]
               launcher status [NAME]
+              launcher repo
+              launcher repo add NAME URL
+              launcher repo delete NAME
+              launcher repo list
+
 
           Arguments:
 
@@ -125,5 +172,15 @@ class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
 
         elif arguments["refresh"]:
             result = Launcher.refresh(name=arg.name)
+
+        elif arguments["repo"] and arguments["list"]:
+            print ("repo list")
+
+        elif arguments["repo"] and arguments["add"]:
+            print ("repo add")
+
+        elif arguments["repo"] and arguments["delete"]:
+            print ("repo delete")
+
 
         print(result)
