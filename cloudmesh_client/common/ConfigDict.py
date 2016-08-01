@@ -153,6 +153,8 @@ class Config(object):
 
 class ConfigDict(object):
     versions = ['4.1']
+    data = {}
+
 
     def __init__(self,
                  filename,
@@ -172,7 +174,11 @@ class ConfigDict(object):
         :rtype: ConfigDict
         """
 
-        self.data = None
+        if ConfigDict.data != {}:
+            return
+
+        print ("INIT CONFIGDICT", filename, load_order, verbose, etc)
+        ConfigDict.data = None
         if etc:
             import cloudmesh_client.etc
             load_order = [os.path.dirname(cloudmesh_client.etc.__file__)]
@@ -203,9 +209,11 @@ class ConfigDict(object):
         :type filename: string
         :return:
         """
-        self.data = BaseConfigDict(filename=Config.path_expand(filename))
+        print ("LOAD CONFIGDICT", filename)
+
+        ConfigDict.data = BaseConfigDict(filename=Config.path_expand(filename))
         try:
-            version = str(self.data["meta"]["version"])
+            version = str(ConfigDict.data["meta"]["version"])
             if version not in self.versions:
                 Console.error("The yaml file version must be {}".format(', '.join(self.versions)))
                 sys.exit(1)
@@ -213,7 +221,7 @@ class ConfigDict(object):
             Console.error("Your yaml file ~/.cloudmesh/cloudmesh.yaml is not up to date.", traceflag=False)
             Console.error(e.message, traceflag=False)
             sys.exit(1)
-            # return self.data
+            # return ConfigDict.data
 
     def write(self, filename=None, output="dict", attribute_indent=4):
         """
@@ -271,7 +279,7 @@ class ConfigDict(object):
         :type filename: string
         :return:
         """
-        content = self.data.yaml()
+        content = ConfigDict.data.yaml()
         with open(Config.path_expand(self.filename), 'w') as f:
             f.write(content)
 
@@ -289,9 +297,9 @@ class ConfigDict(object):
         if "." in item:
             keys = item.split(".")
         else:
-            element = self.data[item]
+            element = ConfigDict.data[item]
 
-        element = self.data[keys[0]]
+        element = ConfigDict.data[keys[0]]
         for key in keys[1:]:
             element = element[key]
         element = value
@@ -307,8 +315,8 @@ class ConfigDict(object):
         if "." in item:
             keys = item.split(".")
         else:
-            return self.data[item]
-        element = self.data[keys[0]]
+            return ConfigDict.data[item]
+        element = ConfigDict.data[keys[0]]
         for key in keys[1:]:
             element = element[key]
         return element
@@ -319,7 +327,7 @@ class ConfigDict(object):
         :return: returns the yaml output of the dict
         :rtype: string
         """
-        return self.data.yaml()
+        return ConfigDict.data.yaml()
 
     @property
     def yaml(self):
@@ -328,14 +336,14 @@ class ConfigDict(object):
         :return: returns the yaml output of the dict
         :rtype: string:
         """
-        return self.data.yaml()
+        return ConfigDict.data.yaml()
 
     def info(self):
         """
         prints out the dict type and its content
         """
         print(type(self.data))
-        print(self.data)
+        print(ConfigDict.data)
 
     @property
     def json(self, start=None):
@@ -346,8 +354,8 @@ class ConfigDict(object):
         :rtype: string
         """
         if start is not None:
-            data = self.data[start]
-        return json.dumps(self.data, indent=4)
+            data = ConfigDict.data[start]
+        return json.dumps(ConfigDict.data, indent=4)
 
     @classmethod
     def check(cls, filename):
