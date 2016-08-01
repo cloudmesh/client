@@ -178,7 +178,7 @@ class ConfigDict(object):
         if ConfigDict.data != {} and not reload:
             return
 
-        print ("INIT CONFIGDICT", filename, load_order, verbose, etc)
+        # print ("INIT CONFIGDICT", filename, load_order, verbose, etc)
         self.data = None
         if etc:
             import cloudmesh_client.etc
@@ -211,7 +211,7 @@ class ConfigDict(object):
         :type filename: string
         :return:
         """
-        print ("LOAD CONFIGDICT", filename)
+        # print ("LOAD CONFIGDICT", filename)
 
         self.data = BaseConfigDict(filename=Config.path_expand(filename))
         try:
