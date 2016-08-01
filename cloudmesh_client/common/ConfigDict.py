@@ -150,7 +150,6 @@ class Config(object):
                 return name
         return None
 
-
 class ConfigDict(object):
     versions = ['4.1']
     data = {}
@@ -160,7 +159,9 @@ class ConfigDict(object):
                  filename,
                  load_order=None,
                  verbose=False,
-                 etc=False):
+                 etc=False,
+                 reload=False):
+
         """
         Creates a dictionary from a yaml configuration file
         while using the filename to load it in the specified load_order.
@@ -174,11 +175,11 @@ class ConfigDict(object):
         :rtype: ConfigDict
         """
 
-        if ConfigDict.data != {}:
+        if ConfigDict.data != {} and not reload:
             return
 
         print ("INIT CONFIGDICT", filename, load_order, verbose, etc)
-        ConfigDict.data = None
+        self.data = None
         if etc:
             import cloudmesh_client.etc
             load_order = [os.path.dirname(cloudmesh_client.etc.__file__)]
@@ -197,6 +198,7 @@ class ConfigDict(object):
                     print("Loading ConfigDict", name)
                 self.load(name)
                 self.filename = name
+                ConfigDict.data = self.data
                 return
 
         # Create default yaml file
@@ -211,9 +213,9 @@ class ConfigDict(object):
         """
         print ("LOAD CONFIGDICT", filename)
 
-        ConfigDict.data = BaseConfigDict(filename=Config.path_expand(filename))
+        self.data = BaseConfigDict(filename=Config.path_expand(filename))
         try:
-            version = str(ConfigDict.data["meta"]["version"])
+            version = str(self.data["meta"]["version"])
             if version not in self.versions:
                 Console.error("The yaml file version must be {}".format(', '.join(self.versions)))
                 sys.exit(1)
@@ -221,7 +223,7 @@ class ConfigDict(object):
             Console.error("Your yaml file ~/.cloudmesh/cloudmesh.yaml is not up to date.", traceflag=False)
             Console.error(e.message, traceflag=False)
             sys.exit(1)
-            # return ConfigDict.data
+            # return self.data
 
     def write(self, filename=None, output="dict", attribute_indent=4):
         """
@@ -279,7 +281,7 @@ class ConfigDict(object):
         :type filename: string
         :return:
         """
-        content = ConfigDict.data.yaml()
+        content = self.data.yaml()
         with open(Config.path_expand(self.filename), 'w') as f:
             f.write(content)
 
@@ -297,9 +299,9 @@ class ConfigDict(object):
         if "." in item:
             keys = item.split(".")
         else:
-            element = ConfigDict.data[item]
+            element = self.data[item]
 
-        element = ConfigDict.data[keys[0]]
+        element = self.data[keys[0]]
         for key in keys[1:]:
             element = element[key]
         element = value
@@ -315,8 +317,8 @@ class ConfigDict(object):
         if "." in item:
             keys = item.split(".")
         else:
-            return ConfigDict.data[item]
-        element = ConfigDict.data[keys[0]]
+            return self.data[item]
+        element = self.data[keys[0]]
         for key in keys[1:]:
             element = element[key]
         return element
@@ -327,7 +329,7 @@ class ConfigDict(object):
         :return: returns the yaml output of the dict
         :rtype: string
         """
-        return ConfigDict.data.yaml()
+        return self.data.yaml()
 
     @property
     def yaml(self):
@@ -336,14 +338,14 @@ class ConfigDict(object):
         :return: returns the yaml output of the dict
         :rtype: string:
         """
-        return ConfigDict.data.yaml()
+        return self.data.yaml()
 
     def info(self):
         """
         prints out the dict type and its content
         """
         print(type(self.data))
-        print(ConfigDict.data)
+        print(self.data)
 
     @property
     def json(self, start=None):
@@ -354,8 +356,8 @@ class ConfigDict(object):
         :rtype: string
         """
         if start is not None:
-            data = ConfigDict.data[start]
-        return json.dumps(ConfigDict.data, indent=4)
+            data = self.data[start]
+        return json.dumps(self.data, indent=4)
 
     @classmethod
     def check(cls, filename):
