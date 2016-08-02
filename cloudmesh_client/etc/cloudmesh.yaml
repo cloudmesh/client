@@ -17,7 +17,7 @@ cloudmesh:
         active: dev
         endpoints:
             dev:
-                nucleus_base_url: https://comet-nucleus.sdsc.edu/nucleus
+                nucleus_base_url: https://comet-nucleus-dev.sdsc.edu/nucleus
                 api_version: v1
                 auth_provider: apikey
                 userpass:
@@ -27,7 +27,7 @@ cloudmesh:
                   api_key: TBD
                   api_secret: TBD
             production:
-                nucleus_base_url: TBD
+                nucleus_base_url: https://comet-nucleus.sdsc.edu/nucleus
                 api_version: v1
                 auth_provider: apikey
                 userpass:
