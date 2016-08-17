@@ -178,7 +178,8 @@ class Comet(object):
         cls.set_endpoint(cometConf["active"])
         cls.set_base_uri(cometConf["endpoints"][cls.endpoint]["nucleus_base_url"])
         cls.set_api_version(cometConf["endpoints"][cls.endpoint]["api_version"])
-        cls.set_auth_provider()
+        if not cls.auth_provider:
+            cls.set_auth_provider()
         # print (cls.endpoint)
         # print (cls.base_uri)
         # print (cls.api_version)
@@ -264,8 +265,10 @@ class Comet(object):
     # To make GET calls for synchronous or asynchronous API
 
     @staticmethod
-    def get(url, headers=None, allow_redirects=True, data=None):
+    def get(url, headers=None, allow_redirects=True, data=None,
+                 authuser=None, authpass=None):
         return Comet.http(url, action="get", headers=headers, data=data,
+                          authuser=authuser, authpass=authpass,
                           allow_redirects=allow_redirects)
 
     @staticmethod
@@ -283,7 +286,7 @@ class Comet(object):
     # To make GET calls for synchronous or asynchronous API
     @staticmethod
     def http(url, action="get",
-             headers=None, data=None,
+             headers=None, data=None, authuser=None, authpass=None,
              files=None, md5=None, cacert=True, allow_redirects=True):
         # print ("KKK", url)
         # print ("KKK", action)
@@ -311,11 +314,21 @@ class Comet(object):
                                  allow_redirects=allow_redirects, verify=cacert)
             else:
                 if data:
-                    r = requests.get(url, headers=headers, params=data,
-                                     allow_redirects=allow_redirects, verify=cacert)
+                    if authuser and authpass:
+                        r = requests.get(url, headers=headers, params=data,
+                                         auth=(authuser, authpass),
+                                         allow_redirects=allow_redirects, verify=cacert)
+                    else:
+                        r = requests.get(url, headers=headers, params=data,
+                                         allow_redirects=allow_redirects, verify=cacert)
                 else:
-                    r = requests.get(url, headers=headers,
-                                     allow_redirects=allow_redirects, verify=cacert)
+                    if authuser and authpass:
+                        r = requests.get(url, headers=headers,
+                                         auth=(authuser, authpass),
+                                         allow_redirects=allow_redirects, verify=cacert)
+                    else:
+                        r = requests.get(url, headers=headers,
+                                         allow_redirects=allow_redirects, verify=cacert)
 
             # print ("KKK --- DEBUGGING HTTP CALL")
             # pprint (r)
@@ -478,12 +491,31 @@ class Comet(object):
 
     @staticmethod
     def console_url(clusterid, nodeid=None):
+        config = ConfigDict("cloudmesh.yaml")
+        cometConf = config["cloudmesh.comet"]
+        defaultUser = cometConf["username"]
+
+        user = input("Comet nucleus username [%s]: " \
+                     % defaultUser)
+        if not user:
+            user = defaultUser
+        password = getpass.getpass()
         return_url = None
+        # console access requires 2-factor, and only supported by userpass
+        Comet.set_auth_provider(auth_provider="USERPASS")
+        Comet.logon()
+        # print (Comet.auth_provider)
         if not nodeid:
             url = Comet.url("cluster/{}/frontend/console/".format(clusterid))
         else:
             url = Comet.url("cluster/{}/compute/{}/console/".format(clusterid, nodeid))
-        return_url = Comet.get(url, allow_redirects=False)
+        return_url = Comet.get(url, authuser=user, authpass=password, allow_redirects=False)
+
+        # restore the preset auth method
+        auth_provider = cometConf["endpoints"][Comet.endpoint]["auth_provider"].upper()
+        Comet.set_auth_provider(auth_provider=auth_provider)
+        Comet.logon()
+        # print (Comet.auth_provider)
         # print ("KKK", return_url)
         '''
         r = None
@@ -514,9 +546,10 @@ class Comet(object):
     @staticmethod
     def console(clusterid, nodeid=None, linkonly=False):
         url = Comet.console_url(clusterid, nodeid)
+        #pprint (url)
         if url:
             newurl_esc = url.replace("&", "\&")
-            print (url)
+            print ("Console URL: {}".format(url))
             if not linkonly:
                 # for OSX
                 if 'darwin' == sys.platform:

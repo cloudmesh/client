@@ -153,7 +153,7 @@ class Config(object):
 class ConfigDict(object):
     versions = ['4.1']
     data = {}
-
+    filename = None
 
     def __init__(self,
                  filename,
@@ -197,7 +197,7 @@ class ConfigDict(object):
                 if verbose:
                     print("Loading ConfigDict", name)
                 self.load(name)
-                self.filename = name
+                ConfigDict.filename = name
                 ConfigDict.data = self.data
                 return
 
@@ -282,7 +282,7 @@ class ConfigDict(object):
         :return:
         """
         content = self.data.yaml()
-        with open(Config.path_expand(self.filename), 'w') as f:
+        with open(Config.path_expand(ConfigDict.filename), 'w') as f:
             f.write(content)
 
     def __setitem__(self, item, value):
