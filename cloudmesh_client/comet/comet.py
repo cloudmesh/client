@@ -494,12 +494,18 @@ class Comet(object):
         config = ConfigDict("cloudmesh.yaml")
         cometConf = config["cloudmesh.comet"]
         defaultUser = cometConf["username"]
-
+        '''
         user = input("Comet nucleus username [%s]: " \
                      % defaultUser)
         if not user:
             user = defaultUser
-        password = getpass.getpass()
+        '''
+        user = None
+        if defaultUser and 'TBD'!=defaultUser:
+            user = defaultUser
+        else:
+            user = input("Enter comet nucleus username: ")
+        password = getpass.getpass("Enter comet nucleus password: ")
         return_url = None
         # console access requires 2-factor, and only supported by userpass
         Comet.set_auth_provider(auth_provider="USERPASS")
