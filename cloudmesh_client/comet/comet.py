@@ -546,23 +546,28 @@ class Comet(object):
     @staticmethod
     def console(clusterid, nodeid=None, linkonly=False):
         url = Comet.console_url(clusterid, nodeid)
-        #pprint (url)
+        # pprint (url)
         if url:
-            newurl_esc = url.replace("&", "\&")
-            print ("Console URL: {}".format(url))
-            if not linkonly:
-                # for OSX
-                if 'darwin' == sys.platform:
-                    os.system("open {}".format(newurl_esc))
-                # for linux - tested on Ubuntu 14.04 and CentOS 7.1
-                elif 'linux2' == sys.platform:
-                    os.system("firefox {} &".format(newurl_esc))
-                else:
-                    print("No supportted OS/browser detected!"
-                          "Use the above url manually in your brower:\n")
+            if 'error' in url:
+                Console.error(url['error'], traceflag=False)
+            else:
+                newurl_esc = url.replace("&", "\&")
+                print ("Console URL: {}".format(url))
+                if not linkonly:
+                    # for OSX
+                    if 'darwin' == sys.platform:
+                        os.system("open {}".format(newurl_esc))
+                    # for linux - tested on Ubuntu 14.04 and CentOS 7.1
+                    elif 'linux2' == sys.platform:
+                        os.system("firefox {} &".format(newurl_esc))
+                    else:
+                        Console.error("No supportted OS/browser detected!"
+                                      "Use the above url manually in your brower:\n",
+                                      traceflag=False)
         else:
-            print("Console URL not available."\
-                  "Please make sure the node is running and try again!")
+            Console.error("Console URL not available."\
+                          "Please make sure the node is running and try again!",
+                          traceflag=False)
 
     @staticmethod
     def md5(fname):
