@@ -13,6 +13,7 @@ let
 
 
   systemDeps = [
+    cacert
     libffi
     openssl
     pkgconfig
@@ -30,6 +31,7 @@ stdenv.mkDerivation {
   name = "cloudmesh_client_env";
   buildInputs = allDeps;
   shellHook = ''
+    export SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt
     test -d venv || virtualenv venv
     source venv/bin/activate
   '';
