@@ -33,30 +33,94 @@ The plugin mechanism provides for these operations:
 Repository
 ==========
 
-A plugin repository consists of two components:
+A repository allows a collection of plugins to be accessed under an
+namespace. Conceptually, a repository is a directory where the plugins
+are the python modules contained therin.
+
+A plugin repository is defined by two components:
 
 #. a name (namespace separated by dots (``.``))
 #. a uri
 
 
-The repository must be a valid python module.
-
-
 Implementation
 ==============
-
 
 #. ``cloudmesh.yaml`` should be modified to have a ``plugins``
   key. Each entry under ``plugins`` will be:
 
+  - ``prefix``: path on the local machine wherein the plugins are installed.
+
   - ``repos``: a list of repositories with ``name`` and ``uri``
     attributes.
 
-  - ``plugins``: set of plugins keyed by the name of the plugin.
+  - ``plugins``: a list of plugins keyed by the name of the plugin.
 
     Each plugin will have:
 
-    - ``path``: location on the location filesystem a plugin has been
-      ``fetch``\-ed to
+    - ``repo``: the name of the repository containing this plugin
 
-    - ``installed``: ``yes`` or ``no``
+
+Semantics
+=========
+
+
+``repoadd``
+-----------
+
+
+``reporm``
+----------
+
+
+``fetch``
+---------
+
+
+``unfetch``
+-----------
+
+
+``install``
+-----------
+
+
+``uninstall``
+-------------
+
+
+``load``
+--------
+
+
+``unload``
+----------
+
+
+
+Examples
+========
+
+
+In ``cloudmesh.yaml``
+--------------------------------
+
+
+.. code-block:: yaml
+
+   plugins:
+     prefix: ~/.cloudmesh/plugins
+     repos:
+       - name: cloudmesh
+         uri: git://github.com/cloudmesh
+       - name: badi
+         uri: git://github.com/badi
+       - local:
+         uri: file://.src/cloudmesh_plugins
+     plugins:
+       - foo:
+           repo: cloudmesh
+       - bar:
+           repo: badi
+       - bar:
+           repo: local
