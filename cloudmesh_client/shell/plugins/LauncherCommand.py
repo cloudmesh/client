@@ -39,8 +39,8 @@ from cloudmesh_client.common.Printer import Printer
 #the actual name in the yaml file and not derive it from the repo name.
 #Other ideas to come:
 #cm launcher add repo nist_example_fingerprint
-#cm launcher execute nist_example_fingerprint —parameters ....
-#cm launcher benchmark -n 10 … (same as execute, but repeated 10 times and derive automatically some statistics on the run
+#cm launcher execute nist_example_fingerprint --parameters ....
+#cm launcher benchmark -n 10 ... (same as execute, but repeated 10 times and derive automatically some statistics on the run
 
 """
 cm_launcher.yaml:
