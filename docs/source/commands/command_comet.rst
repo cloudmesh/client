@@ -532,6 +532,17 @@ This wil than result in a cluster where the frontend name is osg
 (given to you by the comet team), but you have renamed the nodes to
 osg-1, osg-2, ...
 
+I have the Comet YubiKey mixed up with my other keys. How can I find which one is for Comet?
+----------------------
+
+Plug the key in and tap it into notepad or something similar. It will 
+generate a string similar to this:
+
+     geffgefe........................................
+
+ The beginning characters will help identify the key. All Comet VC keys 
+ should generate a string starting with these characters.
+
 How do I get support?
 ----------------------
 
