@@ -28,6 +28,8 @@ The plugin mechanism provides for these operations:
 - install / uninstall: modify the shell so that the plugin is visible
 - load / unload: make the plugin usable in the current shell
 - repoadd / reporm: add a plugin repository
+- list: list the plugins available, installed, and loaded
+- update: updates the named plugins (or all)
 
 
 Repository
@@ -68,33 +70,126 @@ Semantics
 ``repoadd``
 -----------
 
+::
+
+   repoadd [-f | --force] <name> <uri>
+
+
+Addes the repository at ``uri`` as ``name``.
+
 
 ``reporm``
 ----------
+
+::
+
+   reporm [-f | --force] <name>
+
+
+Removes the repository given by ``name``.
+If the repo does not exists this will result in a non-zero exit code.
+Specify ``-f`` to indicate that this should not be an error.
 
 
 ``fetch``
 ---------
 
+::
+
+   fetch [-f | --force]  <name> [...<name>]
+
+
+Downloads the plugin named ``name``.
+``name`` can either be the fully qualified name in the form ``repository.plugin`` or bare (eg ``plugin``).
+If the bare form is used, the name must be unique.
+If the ``name`` is not unique an error message will be displayed and exit with non-zero return code.
+
+If the plugin has already been fetched, then this command will have no effect.
+Specify the ``-f`` flag in order to force a download and replacement of any preexisting plugin.
+
 
 ``unfetch``
 -----------
+
+::
+
+   unfetch <name> [...<name>]
+
+
+Removes the plugin from the local system.
+Has no effect if the plugin does not exist.
 
 
 ``install``
 -----------
 
+::
+
+   install <name> [...<name>]
+
+
+Ensures that the plugin is both ``fetch``\-ed and ``load``\-ed.
+
 
 ``uninstall``
 -------------
+
+::
+
+   uninstall <name> [...<name>]
+
+
+Ensures that the plugin is both ``unload``\-ed and ``unfetch``\-ed.
 
 
 ``load``
 --------
 
+::
+
+   load <name> [...<name>]
+
+
+Makes the plugin available for use.
+
 
 ``unload``
 ----------
+
+::
+
+   unload <name> [...<name>]
+
+
+Removes the plugin from usage, but does not remove it from the system.
+
+
+``list``
+--------
+
+::
+
+   list [-f format] [-i] [-l] [-a]
+
+   -f  --format  FORMAT    display format where FORMAT is one of "json", "yaml", "csv", "pretty"
+   -i  --installed         list installed plugins
+   -l  --loaded            list loaded plugins
+   -a  --available         list available plugins
+
+
+``update``
+----------
+
+::
+
+   update [<name>...]
+
+
+Updates the plugins to the most recent version by
+
+#. updating the repository
+#. refetching the pluging
+#. reloading (if the plugin is already loaded)
 
 
 
