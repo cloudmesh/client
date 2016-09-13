@@ -106,11 +106,12 @@ Register Azure
           # ######################################################################
           # Register azure
           # ######################################################################
-          Enter managementcertfile (TBD): **/home/ubuntu/.cloudmesh/azure-cert.pem**
+          Enter managementcertfile (TBD): /home/ubuntu/.cloudmesh/azure-cert.pem
           Enter servicecertfile (TBD):
-          Enter subscriptionid (TBD): **8b3df2b9-3ac1-4828-b6e0-8f8be62e6e6r**
+          Enter subscriptionid (TBD): 8b3df2b9-3ac1-4828-b6e0-8f8be62e6e6r
           Enter thumbprint (TBD):
 
+.. note:: Provide absolute path for 'managementcertfile'.
 
 You can skip servicecertfile and thumbprint at this stage.
 
@@ -272,10 +273,18 @@ That's all. Simply provide VM instance name to terminate.
 List of Server Sizes (flavors)
 -------------------------------------------------------------------------------
 
-The server sizes that Azure provides can be listed by ``flavor list``
-Amazon EC2 provide more than 40 flavors like::
+The Azure server sizes are listed by ``flavor list`` command.
+Azure provide more than 40 flavors like:
 
 .. include:: azure-flavor.rst
+
+List of Images 
+-------------------------------------------------------------------------------
+
+The available VM images that Azure provides are displayed by ``image list``
+command. It may take a few moments to pull information from Azure.
+
+.. include:: azure-image.rst
 
 Notes
 -------------------------------------------------------------------------------
