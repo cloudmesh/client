@@ -130,7 +130,7 @@ class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
             arg.names = Parameter.expand(arg.NAMES)
         else:
             arg.names = None
-        if arg.name == ['all']:
+        if arg.name == ["all"]:
             arg.names = None
         arg.cloud = arguments["--cloud"] or Default.cloud
         arg.output = arguments['--format'] or 'table'
