@@ -172,17 +172,82 @@ plugins exists with similar names), this is considered and error and
   
 
 
+
+Specification
+=============
+
 Repository
-==========
+----------
 
-A repository allows a collection of plugins to be accessed under an
-namespace. Conceptually, a repository is a directory where the plugins
-are the python modules contained therin.
+A REPOSITORY is identified by a NAME, URI pair.  The NAME identifies
+the REPOSITORY to the local system and can be any string of
+alphanumeric characters.
 
-A plugin repository is defined by two components:
+Valid URI schemes are:
 
-#. a name (namespace separated by dots (``.``))
-#. a uri
+- `git:// <https://www.iana.org/assignments/uri-schemes/prov/git>`_: references a git repository as clonable by ``git clone git://...``
+- `file:// <https://tools.ietf.org/html/rfc1738>`_: references a directory on accessible on the local system
+- `http:// <https://tools.ietf.org/html/rfc7230#section-2.7.1>`_,
+  `https:// <https://tools.ietf.org/html/rfc7230#section-2.7.2>`_,
+  `ftp:// <https://tools.ietf.org/html/rfc1738>`_: references remote
+  directory structures than can be retrieved recursively using
+  ``wget`` available over the HTTP, HTTPS, and FTP protocols
+  (respecitvely).
+- `ssh:// <https://www.iana.org/assignments/uri-schemes/prov/ssh>`_:
+  references a directory structure that can be copied to the local
+  machine using the ``scp`` command.
+
+
+
+Structure
+~~~~~~~~~
+
+A REPOSITORY is a directory with PLUGINs as subdirectories.
+
+
+
+Plugin
+------
+
+
+A PLUGIN is a directory that may be interpreted as a Python module.
+There must be an ``__init__.py`` file that has the following top-level definitions:
+
+- ``__doc__``: multiline string`
+- ``Plugin``: class implementing the plugin
+
+
+Defining ``__doc__``
+~~~~~~~~~~~~~~~~~~~~
+
+``__doc__``: a multiline string describing the plugin.
+- The first line should be a brief summary, ideally less than 70
+  characters.
+
+- The second line is blank
+
+- The third line and after provides the rest of the documentation
+
+
+Defining ``Plugin``
+~~~~~~~~~~~~~~~~~~~
+
+``Plugin`` is a class implementing the plugin
+functionality. The API for ``Plugin`` mandates fulfilling two requirements:
+
+#. ``__init__(self, context)``: a single-argument
+   constructor accepting the context in which the plugin is
+   called. This include configuration, global state, etc.
+
+#. ``__cm_plugin_main(self, args, arguments)``: the main entry point
+   into the plugin. This method should be documented using
+   docopts. ``args`` and ``arguments`` contained the arguments parsed
+   according the the ``docopt``\-parsing of the ``__cm_plugin_main``
+   method's ``__doc__`` attribute.
+
+
+
+
 
 
 Implementation
