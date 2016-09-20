@@ -24,12 +24,152 @@ cloudmesh shell.
 
 The plugin mechanism provides for these operations:
 
-- fetch / unfetch: download the plugin from a remote repository
 - install / uninstall: modify the shell so that the plugin is visible
-- load / unload: make the plugin usable in the current shell
 - repoadd / reporm: add a plugin repository
-- list: list the plugins available, installed, and loaded
 - update: updates the named plugins (or all)
+- fetch / unfetch: download the plugin from a remote repository
+- load / unload: make the plugin usable in the current shell
+- list: list the plugins available, installed, and loaded
+
+
+Use Cases
+=========
+
+Example A
+---------
+
+Say a git repository exists that provides a collection of plugins.
+For example, this repository has the URI::
+
+  git://github.com/example.git
+
+This ``example.git`` repository consists of the following plugins:
+
+- ``foo.bar``
+- ``foo.baz``
+- ``qux.wabbit``
+
+
+Adding repositories
+~~~~~~~~~~~~~~~~~~~
+
+In order to make these plugins available, ``$USER`` can execute the following:
+
+::
+
+   $ cm plugin repoadd git://github.com/example.git
+
+
+This names the repository as ``example``, and each plugin within
+``example`` is uniquely identified as ``<reponame>.<module>``.
+
+
+Getting info about repos and plugins
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+At this point ``$USER`` may wish to list the available plugins in the
+``example`` repository:
+
+::
+
+   $ cm plugin info example
+   Name: example
+   State: none
+   Modules:
+
+    example.foo.bar         -- runs bar in the foo context
+    example.foo.baz         -- runs baz in the foo context
+    example.qux.wabbit      -- shhhh...hunting wabbits
+
+
+
+If ``$USER`` then wishes to lookup further information on a particular
+module, they could execute:
+
+::
+
+   $ cm plugin info example.qux.wabbit
+   * Module
+     qux.wabbit
+
+   * Repository
+     name: example
+     uri:  git://github.com/example.git
+
+   * Description
+     shhhh...hunting wabbits
+
+     This engages the Elmer Fudd Engin (EFE), whose effect is to so
+     sow chaos and search for points of failure.
+
+   * Requirements
+     - requirement 1
+     - requirement 2
+     - etc
+
+   * Assumptions
+     - assumption 1
+     - assumption 2
+     - etc
+
+   * Examples
+
+     Description of Example 1
+
+     example 1
+
+
+     Description of Example 2
+
+     example 2
+
+
+
+Installation
+~~~~~~~~~~~
+
+Desiring to use the ``qux.wabbit`` plugin, ``$USER`` can install it
+like so:
+
+::
+
+   $ cm plugin install example.qux.wabbit
+
+
+Using the plugin
+~~~~~~~~~~~~~~~~
+
+Now that the plugin is installed it is available for use.
+There are two ways of referring to the module when calling it:
+
+- unambiguously by providing the fully qualified name::
+
+    $ cm example.qux.wabbit --help
+
+- ambiguously by omiting parts of the fully qualified name.
+
+  For example::
+
+    $ cm wabbit --help
+
+  Or::
+
+    $ cm qux.wabbit --help
+
+
+If ambiguity exists in the currently loaded plugins (e.g. other
+plugins exists with similar names), this is considered and error and
+``$USER`` will be notified.
+
+::
+
+   $ cm wabbit --help
+   ERROR: ambiguous name `wabbit` may refer to one of:
+     - example.qux.wabbit
+     - other.hello.wabbit
+
+   Please use a less ambiguous reference.
+  
 
 
 Repository
