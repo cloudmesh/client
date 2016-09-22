@@ -104,8 +104,8 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
                 cloud kilo
 
         """
-        print(arguments)
-        print (">", args, "<")
+        #print(arguments)
+        #print (">", args, "<")
 
         """
         For these keys, the 'cloud' column in db
