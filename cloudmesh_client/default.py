@@ -68,7 +68,7 @@ class Default(object):
             if category is None:
                 result = cls.cm.all(kind=cls.__kind__)
             else:
-                result = cls.cm.all(category=category, kind=cls.__kind__)
+                result = cls.cm.all(provider=category, kind=cls.__kind__)
 
             table = Printer.write(result,
                                   output=output)
