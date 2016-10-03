@@ -151,7 +151,7 @@ Example failure::
   - ``pip``
   - ``ansible``
   - ``ansible-playbook``
-  - ``ansible-vauld``
+  - ``ansible-vault``
   - ``git``
   - ``ssh``
 
