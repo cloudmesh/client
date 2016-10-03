@@ -11,23 +11,6 @@ Stack
 Questions
 ==========
 
-do we need a yaml file where we add location of different repos that
-integrate into cm/stack/....?
-
-stack:
-   hadoop:
-     repo: ....
-     branch: ...
-     version: ...
-     icon: ...
-     parameters:
-        ... see old launcher ...
-   pig:
-     repo: ....
-     branch: ...
-     version: ...
-     icon: ...
-   ...
    
 About BDS
 =========
@@ -67,11 +50,18 @@ Integrating BDS with Cloudmesh Client
 =====================================
 
 
-Proposed CM commands
+Proposed Cloudmesh Changes
 --------------------
+
+Additional commands:
 
 #. ``cm stack``
 #. ``cm hadoop``
+
+
+Additional yaml file dir:
+
+- ``.cloudmesh/stack.yml``
 
 
 ``cm stack``
@@ -93,6 +83,22 @@ Proposed CM commands
 #. starting the machines on various providers (EC2, Chameleon, FutureSystems, etc)
 #. using ``cm stack`` to initialize, sanity check, and configure current project
 #. deploy software using ``cm stack``
+
+
+``.cloudmesh/stack.yml``
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+This file identifies the stacks that may be installed and used.
+For example::
+
+  $ cat ~/.cloudmesh/stack.yml
+  stack:
+    bds:
+      repo: git://github.com/futuresystems/big-data-stack
+      checkout: unstable
+
+This will allow ``cm stack`` to easily learn about different
+deployment stacks in the future.
 
 
 Use Case: Hadoop with Spark, HBase, Drill
