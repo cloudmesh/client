@@ -492,6 +492,7 @@ class CloudmeshDatabase(object):
     @classmethod
     def all(cls,
             provider='general',
+            category=None,
             kind=None,
             table=None):
 
