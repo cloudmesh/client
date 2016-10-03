@@ -273,11 +273,23 @@ Example::
   $ cm stack project
   p1
 
-  $ cm stack deploy bds --plays play-hadoop.yml addons/spark.yml addons/hbase.yml
+  $ cm stack deploy bds \
+      --plays play-hadoop.yml addons/spark.yml addons/hbase.yml \
+      --define spark_version=1.7.0 
   Verifying that nodes are reachable...........OK
   Deploying play-hadoop.yml....................OK
   Deploying addons/spark.yml...................OK
   Deploying addons/hbase.yml...................OK
+
+  Done.
+
+
+
+#. ``os.chdir($BDS/project/$PROJ)``
+#. Verify nodes are reachable: ``until ansible all -m ping -u <username>; do sleep 5; done``
+#. Deploy hadoop: ``ansible-playbook play-hadoop.yml -e spark_version=1.7.0``
+#. Deploy spark: ``ansible-playbook addons/spark.yml -e spark_version=1.7.0``
+#. Deploy hbase: ``ansible-playbook addons/hbase.yml -e spark_version=1.7.0``
 
 
 Deploying Hadoop with Addons ``cm hadoop``
