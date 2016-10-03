@@ -110,7 +110,7 @@ This should be achievable with a single line::
 This will:
 
 - start 5 nodes (``--nodes 5``) on the chameleon cloud (``--on chameleon``)
-- install and hadoop
+- install and configure hadoop
 - install and configure the apache spark, hbase, and drill packages
 - override ansible variables ``spark_version`` and ``spark_package_type`` (NOTE: the values passed must be supported by BDS).
 
