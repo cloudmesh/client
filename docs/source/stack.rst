@@ -8,12 +8,27 @@ Stack
    .. contents:: :local:
    
 
+Questions
+==========
 
+do we need a yaml file where we add location of different repos that
+integrate into cm/stack/....?
 
+stack:
+   hadoop:
+     repo: ....
+     branch: ...
+     version: ...
+     icon: ...
+   pig:
+     repo: ....
+     branch: ...
+     version: ...
+     icon: ...
+   ...
+   
 About BDS
 =========
-
-This is a very brief summary of Big Data Stack (BDS).
 
 BDS is a collection of Ansible playbooks to deploy a stack of data
 analytics software. The current development version of BDS can be fond
@@ -23,8 +38,7 @@ https://github.com/futuresystems/big-data-stack/tree/unstable
 
 
 BDS Requirements
-================
-
+----------------
 
 - Python 2.7
 - Virtualenv
@@ -36,7 +50,7 @@ BDS Requirements
 
 
 Using BDS
-=========
+---------
 
 BDS is not a Python library or program and therefore cannot be
 installed using pip or other tools. It currently works by:
@@ -54,16 +68,24 @@ Integrating BDS with Cloudmesh Client
 Proposed CM commands
 --------------------
 
+#. ``cm stack install``
 #. ``cm stack``
 #. ``cm hadoop``
 
 
+``cm stack install``
+~~~~~~~~~~~~~~~~~~~~
+
+Will install BDS into cloudmesh so it is conveniently accessible.
+
+   
+   
 ``cm stack``
 ~~~~~~~~~~~~
 
 ``cm stack`` provides the low-level tools to manage the BDS. This include:
 
-- sanity-checking: ensure the all requirements are complete
+- check: sanity-checking to ensure the all requirements are complete
 - cloning and updating the local cache of BDS
 - creating and setting up a clone of BDS for the current project/deployment
 - deploying software onto pre-configured nodes
@@ -111,7 +133,7 @@ Sanity Check ``cm stack sanity-check``
 
 Example success::
 
-  $ cm stack sanity-check
+  $ cm stack check
   python.......OK
   virtualenv...OK
   pip..........OK
@@ -123,7 +145,7 @@ Example success::
 
 Example failure::
 
-  $ cm stack sanity-check
+  $ cm stack check
   python.......OK
   virtualenv...OK
   pip..........FAILED
@@ -142,9 +164,11 @@ Example failure::
     > did you add your public key to https://github.com/settings/ssh?
 
 
-``cm stack sanity-check`` MUST:
+``cm stack check`` MUST:
 
-- verify that the python ecosystem and ansbile are installed. Do this by ensuring that the the following commands are in the ``$PATH`` and checking versions if applicable:
+- verify that the python ecosystem and ansbile are installed. Do this
+  by ensuring that the the following commands are in the ``$PATH`` and
+  checking versions if applicable:
 
   - ``python`` (must be 2.7)
   - ``virtualenv``
