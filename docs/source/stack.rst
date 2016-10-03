@@ -70,18 +70,10 @@ Integrating BDS with Cloudmesh Client
 Proposed CM commands
 --------------------
 
-#. ``cm stack install``
 #. ``cm stack``
 #. ``cm hadoop``
 
 
-``cm stack install``
-~~~~~~~~~~~~~~~~~~~~
-
-Will install BDS into cloudmesh so it is conveniently accessible.
-
-   
-   
 ``cm stack``
 ~~~~~~~~~~~~
 
