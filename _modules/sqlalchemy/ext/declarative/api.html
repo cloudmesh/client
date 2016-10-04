@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>sqlalchemy.ext.declarative.api &mdash; cloudmesh_client 4.3.2 documentation</title>
+  <title>sqlalchemy.ext.declarative.api &mdash; cloudmesh_client 4.3.7 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.2 documentation" href="../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="../../../../index.html"/>
         <link rel="up" title="Module code" href="../../../index.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                4.3.2
+                4.3.7
               </div>
             
           
@@ -119,6 +119,7 @@
 <p class="caption"><span class="caption-text">Future and Old</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../stack.html">Stack</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul>
@@ -183,21 +184,21 @@
 <span class="sd">&quot;&quot;&quot;Public API functions and helpers for declarative.&quot;&quot;&quot;</span>
 
 
-<span class="kn">from</span> <span class="nn">...schema</span> <span class="kn">import</span> <span class="n">Table</span><span class="p">,</span> <span class="n">MetaData</span><span class="p">,</span> <span class="n">Column</span>
-<span class="kn">from</span> <span class="nn">...orm</span> <span class="kn">import</span> <span class="n">synonym</span> <span class="k">as</span> <span class="n">_orm_synonym</span><span class="p">,</span> \
+<span class="kn">from</span> <span class="nn">...schema</span> <span class="k">import</span> <span class="n">Table</span><span class="p">,</span> <span class="n">MetaData</span><span class="p">,</span> <span class="n">Column</span>
+<span class="kn">from</span> <span class="nn">...orm</span> <span class="k">import</span> <span class="n">synonym</span> <span class="k">as</span> <span class="n">_orm_synonym</span><span class="p">,</span> \
     <span class="n">comparable_property</span><span class="p">,</span>\
     <span class="n">interfaces</span><span class="p">,</span> <span class="n">properties</span><span class="p">,</span> <span class="n">attributes</span>
-<span class="kn">from</span> <span class="nn">...orm.util</span> <span class="kn">import</span> <span class="n">polymorphic_union</span>
-<span class="kn">from</span> <span class="nn">...orm.base</span> <span class="kn">import</span> <span class="n">_mapper_or_none</span>
-<span class="kn">from</span> <span class="nn">...util</span> <span class="kn">import</span> <span class="n">OrderedDict</span><span class="p">,</span> <span class="n">hybridmethod</span><span class="p">,</span> <span class="n">hybridproperty</span>
-<span class="kn">from</span> <span class="nn">...</span> <span class="kn">import</span> <span class="n">util</span>
-<span class="kn">from</span> <span class="nn">...</span> <span class="kn">import</span> <span class="n">exc</span>
+<span class="kn">from</span> <span class="nn">...orm.util</span> <span class="k">import</span> <span class="n">polymorphic_union</span>
+<span class="kn">from</span> <span class="nn">...orm.base</span> <span class="k">import</span> <span class="n">_mapper_or_none</span>
+<span class="kn">from</span> <span class="nn">...util</span> <span class="k">import</span> <span class="n">OrderedDict</span><span class="p">,</span> <span class="n">hybridmethod</span><span class="p">,</span> <span class="n">hybridproperty</span>
+<span class="kn">from</span> <span class="nn">...</span> <span class="k">import</span> <span class="n">util</span>
+<span class="kn">from</span> <span class="nn">...</span> <span class="k">import</span> <span class="n">exc</span>
 <span class="kn">import</span> <span class="nn">weakref</span>
 
-<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">_as_declarative</span><span class="p">,</span> \
+<span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="n">_as_declarative</span><span class="p">,</span> \
     <span class="n">_declarative_constructor</span><span class="p">,</span>\
     <span class="n">_DeferredMapperConfig</span><span class="p">,</span> <span class="n">_add_attribute</span>
-<span class="kn">from</span> <span class="nn">.clsregistry</span> <span class="kn">import</span> <span class="n">_class_resolver</span>
+<span class="kn">from</span> <span class="nn">.clsregistry</span> <span class="k">import</span> <span class="n">_class_resolver</span>
 
 
 <span class="k">def</span> <span class="nf">instrument_declarative</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">registry</span><span class="p">,</span> <span class="n">metadata</span><span class="p">):</span>
@@ -220,9 +221,9 @@
 <span class="sd">    mapped table, otherwise return False.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">class_</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">__mro__</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">class_</span><span class="p">,</span> <span class="s1">&#39;__table__&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">True</span>
-    <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">class_</span><span class="p">,</span> <span class="s1">&#39;__table__&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
 
 
 <span class="k">class</span> <span class="nc">DeclarativeMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
@@ -235,7 +236,7 @@
         <span class="n">_add_attribute</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">synonym_for</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">map_column</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">synonym_for</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">map_column</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Decorator, make a Python @property a query synonym for a column.</span>
 
 <span class="sd">    A decorator version of :func:`~sqlalchemy.orm.synonym`. The function being</span>
@@ -333,23 +334,23 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fget</span><span class="p">,</span> <span class="n">cascading</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fget</span><span class="p">,</span> <span class="n">cascading</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">declared_attr</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">fget</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__doc__</span> <span class="o">=</span> <span class="n">fget</span><span class="o">.</span><span class="n">__doc__</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cascading</span> <span class="o">=</span> <span class="n">cascading</span>
 
     <span class="k">def</span> <span class="nf">__get__</span><span class="p">(</span><span class="n">desc</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">cls</span><span class="p">):</span>
-        <span class="n">reg</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;_sa_declared_attr_reg&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">reg</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">reg</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;_sa_declared_attr_reg&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">reg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">manager</span> <span class="o">=</span> <span class="n">attributes</span><span class="o">.</span><span class="n">manager_of_class</span><span class="p">(</span><span class="n">cls</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">manager</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">manager</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">util</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                     <span class="s2">&quot;Unmanaged access of declarative attribute </span><span class="si">%s</span><span class="s2"> from &quot;</span>
                     <span class="s2">&quot;non-mapped class </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
                     <span class="p">(</span><span class="n">desc</span><span class="o">.</span><span class="n">fget</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">cls</span><span class="o">.</span><span class="n">__name__</span><span class="p">))</span>
             <span class="k">return</span> <span class="n">desc</span><span class="o">.</span><span class="n">fget</span><span class="p">(</span><span class="n">cls</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">reg</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">reg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">desc</span><span class="o">.</span><span class="n">fget</span><span class="p">(</span><span class="n">cls</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">reg</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">reg</span><span class="p">[</span><span class="n">desc</span><span class="p">]</span>
@@ -403,7 +404,7 @@
 
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_stateful</span><span class="p">(</span><span class="n">cascading</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_stateful</span><span class="p">(</span><span class="n">cascading</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">_stateful_declared_attr</span><span class="p">(</span><span class="n">declared_attr</span><span class="p">):</span>
@@ -419,9 +420,9 @@
         <span class="k">return</span> <span class="n">declared_attr</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kw</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">declarative_base</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">mapper</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cls</span><span class="o">=</span><span class="nb">object</span><span class="p">,</span>
+<span class="k">def</span> <span class="nf">declarative_base</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mapper</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cls</span><span class="o">=</span><span class="nb">object</span><span class="p">,</span>
                      <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Base&#39;</span><span class="p">,</span> <span class="n">constructor</span><span class="o">=</span><span class="n">_declarative_constructor</span><span class="p">,</span>
-                     <span class="n">class_registry</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                     <span class="n">class_registry</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                      <span class="n">metaclass</span><span class="o">=</span><span class="n">DeclarativeMeta</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Construct a base class for declarative class definitions.</span>
 
@@ -486,7 +487,7 @@
     <span class="k">if</span> <span class="n">bind</span><span class="p">:</span>
         <span class="n">lcl_metadata</span><span class="o">.</span><span class="n">bind</span> <span class="o">=</span> <span class="n">bind</span>
 
-    <span class="k">if</span> <span class="n">class_registry</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">class_registry</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">class_registry</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">WeakValueDictionary</span><span class="p">()</span>
 
     <span class="n">bases</span> <span class="o">=</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">cls</span><span class="p">,)</span> <span class="ow">or</span> <span class="n">cls</span>
@@ -690,7 +691,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">__no_table__</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">__no_table__</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">__declare_first__</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
@@ -698,7 +699,7 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_sa_decl_prepare_nocascade</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s1">&#39;__mapper__&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s1">&#39;__mapper__&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
             <span class="k">return</span>
 
         <span class="n">to_map</span> <span class="o">=</span> <span class="n">_DeferredMapperConfig</span><span class="o">.</span><span class="n">config_for_cls</span><span class="p">(</span><span class="n">cls</span><span class="p">)</span>
@@ -713,7 +714,7 @@
             <span class="n">klass</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
             <span class="n">stack</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">klass</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">())</span>
             <span class="n">mn</span> <span class="o">=</span> <span class="n">_mapper_or_none</span><span class="p">(</span><span class="n">klass</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">mn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">mn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">mappers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mn</span><span class="p">)</span>
         <span class="n">pjoin</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_create_polymorphic_union</span><span class="p">(</span><span class="n">mappers</span><span class="p">)</span>
 
@@ -827,7 +828,7 @@
             <span class="n">metadata</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="n">class_</span><span class="o">.</span><span class="n">metadata</span>
             <span class="k">for</span> <span class="n">rel</span> <span class="ow">in</span> <span class="n">mapper</span><span class="o">.</span><span class="n">_props</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rel</span><span class="p">,</span> <span class="n">properties</span><span class="o">.</span><span class="n">RelationshipProperty</span><span class="p">)</span> <span class="ow">and</span> \
-                        <span class="n">rel</span><span class="o">.</span><span class="n">secondary</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                        <span class="n">rel</span><span class="o">.</span><span class="n">secondary</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rel</span><span class="o">.</span><span class="n">secondary</span><span class="p">,</span> <span class="n">Table</span><span class="p">):</span>
                         <span class="n">cls</span><span class="o">.</span><span class="n">_reflect_table</span><span class="p">(</span><span class="n">rel</span><span class="o">.</span><span class="n">secondary</span><span class="p">,</span> <span class="n">engine</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rel</span><span class="o">.</span><span class="n">secondary</span><span class="p">,</span> <span class="n">_class_resolver</span><span class="p">):</span>
@@ -849,16 +850,16 @@
         <span class="c1"># present in the metadata.  This</span>
         <span class="c1"># will fill in db-loaded columns</span>
         <span class="c1"># into the existing Table object.</span>
-        <span class="k">if</span> <span class="n">local_table</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">local_table</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">cls</span><span class="o">.</span><span class="n">_reflect_table</span><span class="p">(</span><span class="n">local_table</span><span class="p">,</span> <span class="n">engine</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_reflect_table</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">engine</span><span class="p">):</span>
         <span class="n">Table</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
               <span class="n">table</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span>
-              <span class="n">extend_existing</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-              <span class="n">autoload_replace</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-              <span class="n">autoload</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+              <span class="n">extend_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">autoload_replace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+              <span class="n">autoload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
               <span class="n">autoload_with</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span>
               <span class="n">schema</span><span class="o">=</span><span class="n">table</span><span class="o">.</span><span class="n">schema</span><span class="p">)</span>
 </pre></div>
@@ -893,7 +894,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'4.3.2',
+            VERSION:'4.3.7',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

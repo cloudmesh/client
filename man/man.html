@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Commands &mdash; cloudmesh_client 4.3.2 documentation</title>
+  <title>Commands &mdash; cloudmesh_client 4.3.7 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="../index.html"/>
         <link rel="next" title="Exercises" href="../exercises.html"/>
         <link rel="prev" title="Inventory Command" href="../commands/command_inventory.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                4.3.2
+                4.3.7
               </div>
             
           
@@ -184,6 +184,7 @@
 <p class="caption"><span class="caption-text">Future and Old</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stack.html">Stack</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul>
@@ -1131,6 +1132,10 @@
 <h2>launcher<a class="headerlink" href="#launcher" title="Permalink to this headline">¶</a></h2>
 <p>Command - launcher:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>  <span class="n">Usage</span><span class="p">:</span>
+      <span class="n">launcher</span> <span class="n">repo</span> <span class="n">add</span> <span class="n">NAME</span> <span class="n">URL</span>
+      <span class="n">launcher</span> <span class="n">repo</span> <span class="n">delete</span> <span class="n">NAME</span>
+      <span class="n">launcher</span> <span class="n">repo</span> <span class="nb">list</span>
+      <span class="n">launcher</span> <span class="n">repo</span>
       <span class="n">launcher</span> <span class="nb">list</span> <span class="p">[</span><span class="n">NAMES</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUD</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">source</span><span class="o">=</span><span class="n">db</span><span class="o">|</span><span class="nb">dir</span><span class="p">]</span>
       <span class="n">launcher</span> <span class="n">add</span> <span class="n">NAME</span> <span class="n">SOURCE</span>
       <span class="n">launcher</span> <span class="n">delete</span> <span class="p">[</span><span class="n">NAMES</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUD</span><span class="p">]</span>
@@ -1141,6 +1146,7 @@
       <span class="n">launcher</span> <span class="n">refresh</span>
       <span class="n">launcher</span> <span class="n">log</span> <span class="p">[</span><span class="n">NAME</span><span class="p">]</span>
       <span class="n">launcher</span> <span class="n">status</span> <span class="p">[</span><span class="n">NAME</span><span class="p">]</span>
+
 
   <span class="n">Arguments</span><span class="p">:</span>
 
@@ -1154,7 +1160,8 @@
 
 <span class="n">Description</span><span class="p">:</span>
 
-<span class="n">Launcher</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">command</span> <span class="n">line</span> <span class="n">tool</span> <span class="n">to</span> <span class="n">test</span> <span class="n">the</span> <span class="n">portal</span> <span class="n">launch</span> <span class="n">functionalities</span> <span class="n">through</span> <span class="n">command</span>
+<span class="n">Launcher</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">command</span> <span class="n">line</span> <span class="n">tool</span> <span class="n">to</span> <span class="n">test</span> <span class="n">the</span> <span class="n">portal</span> <span class="n">launch</span>
+<span class="n">functionalities</span> <span class="n">through</span> <span class="n">command</span> <span class="n">line</span><span class="o">.</span>
 
 <span class="n">The</span> <span class="n">current</span> <span class="n">launcher</span> <span class="n">values</span> <span class="n">can</span> <span class="n">by</span> <span class="n">listed</span> <span class="k">with</span> <span class="o">--</span><span class="nb">all</span> <span class="n">option</span><span class="p">:(</span>
 <span class="k">if</span> <span class="n">you</span> <span class="n">have</span> <span class="n">a</span> <span class="n">launcher</span> <span class="n">cloud</span> <span class="n">specified</span><span class="o">.</span> <span class="n">You</span> <span class="n">can</span> <span class="n">also</span> <span class="n">add</span> <span class="n">a</span>
@@ -2391,7 +2398,7 @@ Description:
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.3.2',
+            VERSION:'4.3.7',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

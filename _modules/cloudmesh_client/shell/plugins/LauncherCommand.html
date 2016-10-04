@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins.LauncherCommand &mdash; cloudmesh_client 4.3.2 documentation</title>
+  <title>cloudmesh_client.shell.plugins.LauncherCommand &mdash; cloudmesh_client 4.3.7 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.2 documentation" href="../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                4.3.2
+                4.3.7
               </div>
             
           
@@ -119,6 +119,7 @@
 <p class="caption"><span class="caption-text">Future and Old</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../stack.html">Stack</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul>
@@ -176,17 +177,67 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.shell.plugins.LauncherCommand</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*- </span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
 
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
 
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.launcher</span> <span class="kn">import</span> <span class="n">Launcher</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.dotdict</span> <span class="kn">import</span> <span class="n">dotdict</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span><span class="p">,</span> <span class="n">PluginCommand</span><span class="p">,</span> \
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.launcher</span> <span class="k">import</span> <span class="n">Launcher</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.dotdict</span> <span class="k">import</span> <span class="n">dotdict</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="k">import</span> <span class="n">Default</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="k">import</span> <span class="n">command</span><span class="p">,</span> <span class="n">PluginCommand</span><span class="p">,</span> \
     <span class="n">CloudPluginCommand</span><span class="p">,</span> <span class="n">CometPluginCommand</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.hostlist</span> <span class="kn">import</span> <span class="n">Parameter</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="k">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.hostlist</span> <span class="k">import</span> <span class="n">Parameter</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="k">import</span> <span class="n">ConfigDict</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="k">import</span> <span class="n">Printer</span>
+
+<span class="c1"># Assume we have some kind of file called</span>
+
+<span class="c1"># launcher.yml</span>
+
+<span class="c1">#which includes so far a single variable</span>
+
+<span class="c1">#name: mylauncher</span>
+
+
+<span class="c1">#This is places in a repo called</span>
+
+<span class="c1">#cloudmesh/launcher/mylauncher/launcher.yml</span>
+
+<span class="c1">#We need a command that adds this to cloudmesh_launcher.yaml</span>
+
+<span class="c1">#with the following functionality:</span>
+
+<span class="c1">#loudmesh_launcher.yaml</span>
+
+
+<span class="c1">#cm launcher repo add [--name launchera] https://github..../cloudmesh_launcher/test_launcher_a</span>
+<span class="c1">#cm launcher repo delete --name launchera</span>
+<span class="c1">#cm launcher repo list</span>
+<span class="c1">#Reason we need the name is as we also want to be able to integrate bitbucket and others, so name of the file could be duplicated and thus we need to specify</span>
+<span class="c1">#the actual name in the yaml file and not derive it from the repo name.</span>
+<span class="c1">#Other ideas to come:</span>
+<span class="c1">#cm launcher add repo nist_example_fingerprint</span>
+<span class="c1">#cm launcher execute nist_example_fingerprint —parameters ....</span>
+<span class="c1">#cm launcher benchmark -n 10 … (same as execute, but repeated 10 times and derive automatically some statistics on the run</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">cm_launcher.yaml:</span>
+
+<span class="sd">meta:</span>
+<span class="sd">  version: 4.1</span>
+<span class="sd">  kind: launcher</span>
+<span class="sd">  filename: /Users/big/.cloudmesh/cm_launcher.yaml</span>
+<span class="sd">  location: /Users/big/.cloudmesh/cm_launcher.yaml</span>
+<span class="sd">  prefix: null</span>
+<span class="sd">cloudmesh:</span>
+<span class="sd">    repo:</span>
+<span class="sd">      mylauncher:</span>
+<span class="sd">          location: &quot;https://github.com/cloudmesh/launcher/mylauncher&quot;</span>
+<span class="sd">      launcherb:</span>
+<span class="sd">          location: &quot;https://github.com/cloudmesh_launcher/test_launcher_b&quot;</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 
 <div class="viewcode-block" id="LauncherCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.LauncherCommand.LauncherCommand">[docs]</a><span class="k">class</span> <span class="nc">LauncherCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">,</span> <span class="n">CometPluginCommand</span><span class="p">):</span>
@@ -195,7 +246,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;init command launcher&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;init command launcher&quot;</span><span class="p">)</span>
 
     <span class="c1"># noinspection PyUnusedLocal</span>
     <span class="nd">@command</span>
@@ -204,6 +255,10 @@
 <span class="sd">        ::</span>
 
 <span class="sd">          Usage:</span>
+<span class="sd">              launcher repo add NAME URL</span>
+<span class="sd">              launcher repo delete NAME</span>
+<span class="sd">              launcher repo list</span>
+<span class="sd">              launcher repo</span>
 <span class="sd">              launcher list [NAMES] [--cloud=CLOUD] [--format=FORMAT] [--source=db|dir]</span>
 <span class="sd">              launcher add NAME SOURCE</span>
 <span class="sd">              launcher delete [NAMES] [--cloud=CLOUD]</span>
@@ -214,6 +269,7 @@
 <span class="sd">              launcher refresh</span>
 <span class="sd">              launcher log [NAME]</span>
 <span class="sd">              launcher status [NAME]</span>
+
 
 <span class="sd">          Arguments:</span>
 
@@ -227,7 +283,8 @@
 
 <span class="sd">        Description:</span>
 
-<span class="sd">        Launcher is a command line tool to test the portal launch functionalities through command</span>
+<span class="sd">        Launcher is a command line tool to test the portal launch</span>
+<span class="sd">        functionalities through command line.</span>
 
 <span class="sd">        The current launcher values can by listed with --all option:(</span>
 <span class="sd">        if you have a launcher cloud specified. You can also add a</span>
@@ -246,16 +303,19 @@
 <span class="sd">            launcher delete &lt;KEY&gt;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;AAA&quot;</span><span class="p">)</span>
         <span class="n">arg</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">NAMES</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">NAMES</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">arg</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">NAMES</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">arg</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;all&#39;</span><span class="p">]:</span>
-            <span class="n">arg</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="n">arg</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="p">[</span><span class="s2">&quot;all&quot;</span><span class="p">]:</span>
+            <span class="n">arg</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">arg</span><span class="o">.</span><span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">cloud</span>
         <span class="n">arg</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--format&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">&#39;table&#39;</span>
         <span class="n">arg</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--source&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">&#39;db&#39;</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;BBB&quot;</span><span class="p">)</span>
+
         <span class="n">pprint</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
 
         <span class="c1"># arg.cloud = arguments[&quot;--cloud&quot;] or Default.cloud</span>
@@ -263,14 +323,36 @@
         <span class="c1"># print (&quot;Hallo {cloud} is list={list}&quot;.format(**arg))</span>
         <span class="c1"># launcher = Launcher(kind=None)</span>
 
-        <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">cloud</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">cloud</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default arg.cloud not set&quot;</span><span class="p">)</span>
             <span class="k">return</span>
 
         <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;list&quot;</span><span class="p">]:</span>
-            <span class="k">print</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;repo&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;list&quot;</span><span class="p">]:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;repo list&quot;</span><span class="p">)</span>
+            <span class="n">launchers</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;cm_launcher.yaml&quot;</span><span class="p">)[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;repo&quot;</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;repo add&quot;</span><span class="p">)</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">launchers</span><span class="p">:</span>
+                <span class="n">location</span> <span class="o">=</span> <span class="n">launchers</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;location&quot;</span><span class="p">]</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+                           <span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="n">location</span><span class="p">}</span>
+            <span class="nb">print</span> <span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">dict_table</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;repo&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;add&quot;</span><span class="p">]:</span>
+            <span class="n">launchers</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;cm_launcher.yaml&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;repo add&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">launchers</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;repo&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;delete&quot;</span><span class="p">]:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;repo delete&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;repo&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;list&quot;</span><span class="p">]:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">Launcher</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">names</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;add&quot;</span><span class="p">]:</span>
@@ -304,7 +386,7 @@
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;refresh&quot;</span><span class="p">]:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">Launcher</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
-        <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span></div>
+        <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
@@ -337,7 +419,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'4.3.2',
+            VERSION:'4.3.7',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

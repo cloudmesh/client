@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Configuration &mdash; cloudmesh_client 4.3.2 documentation</title>
+  <title>Configuration &mdash; cloudmesh_client 4.3.7 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.2 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="index.html"/>
         <link rel="up" title="Setup" href="setup.html"/>
         <link rel="next" title="User Manual" href="commands/index.html"/>
         <link rel="prev" title="Installation" href="installation.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                4.3.2
+                4.3.7
               </div>
             
           
@@ -111,6 +111,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#chameleon-cloud">Chameleon Cloud</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#registration-of-chameleon-openstack-cloud">Registration of Chameleon Openstack Cloud</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chameleon-quickstart">Chameleon Quickstart</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#registration-of-chameleon-ec2-cloud">Registration of Chameleon EC2 Cloud</a></li>
 </ul>
 </li>
@@ -148,6 +149,7 @@
 <p class="caption"><span class="caption-text">Future and Old</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stack.html">Stack</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul>
@@ -251,7 +253,7 @@ modify the file as explained bellow</p>
         <span class="n">active</span><span class="p">:</span> <span class="n">dev</span>
         <span class="n">endpoints</span><span class="p">:</span>
             <span class="n">dev</span><span class="p">:</span>
-                <span class="n">nucleus_base_url</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">comet</span><span class="o">-</span><span class="n">nucleus</span><span class="o">.</span><span class="n">sdsc</span><span class="o">.</span><span class="n">edu</span><span class="o">/</span><span class="n">nucleus</span>
+                <span class="n">nucleus_base_url</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">comet</span><span class="o">-</span><span class="n">nucleus</span><span class="o">-</span><span class="n">dev</span><span class="o">.</span><span class="n">sdsc</span><span class="o">.</span><span class="n">edu</span><span class="o">/</span><span class="n">nucleus</span>
                 <span class="n">api_version</span><span class="p">:</span> <span class="n">v1</span>
                 <span class="n">auth_provider</span><span class="p">:</span> <span class="n">apikey</span>
                 <span class="n">userpass</span><span class="p">:</span>
@@ -261,7 +263,7 @@ modify the file as explained bellow</p>
                   <span class="n">api_key</span><span class="p">:</span> <span class="n">TBD</span>
                   <span class="n">api_secret</span><span class="p">:</span> <span class="n">TBD</span>
             <span class="n">production</span><span class="p">:</span>
-                <span class="n">nucleus_base_url</span><span class="p">:</span> <span class="n">TBD</span>
+                <span class="n">nucleus_base_url</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">comet</span><span class="o">-</span><span class="n">nucleus</span><span class="o">.</span><span class="n">sdsc</span><span class="o">.</span><span class="n">edu</span><span class="o">/</span><span class="n">nucleus</span>
                 <span class="n">api_version</span><span class="p">:</span> <span class="n">v1</span>
                 <span class="n">auth_provider</span><span class="p">:</span> <span class="n">apikey</span>
                 <span class="n">userpass</span><span class="p">:</span>
@@ -331,19 +333,21 @@ modify the file as explained bellow</p>
             <span class="n">cm_host</span><span class="p">:</span> <span class="n">chameleoncloud</span><span class="o">.</span><span class="n">org</span>
             <span class="n">cm_label</span><span class="p">:</span> <span class="n">chameleon</span>
             <span class="n">cm_type</span><span class="p">:</span> <span class="n">openstack</span>
-            <span class="n">cm_type_version</span><span class="p">:</span> <span class="n">kilo</span>
+            <span class="n">cm_type_version</span><span class="p">:</span> <span class="n">liberty</span>
             <span class="n">credentials</span><span class="p">:</span>
-                <span class="n">OS_AUTH_URL</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">openstack</span><span class="o">.</span><span class="n">tacc</span><span class="o">.</span><span class="n">chameleoncloud</span><span class="o">.</span><span class="n">org</span><span class="p">:</span><span class="mi">5000</span><span class="o">/</span><span class="n">v2</span><span class="o">.</span><span class="mi">0</span>
-                <span class="n">OS_PASSWORD</span><span class="p">:</span> <span class="n">TBD</span>
-                <span class="n">OS_TENANT_NAME</span><span class="p">:</span> <span class="n">TBD</span>
-                <span class="n">OS_TENANT_ID</span><span class="p">:</span> <span class="n">TBD</span>
-                <span class="n">OS_PROJECT_NAME</span><span class="p">:</span> <span class="n">TBD</span>
-                <span class="n">OS_USERNAME</span><span class="p">:</span> <span class="n">TBD</span>
-                <span class="n">OS_VERSION</span><span class="p">:</span> <span class="n">liberty</span>
-                <span class="n">OS_REGION_NAME</span><span class="p">:</span> <span class="n">RegionOne</span>
+              <span class="n">OS_AUTH_URL</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">openstack</span><span class="o">.</span><span class="n">tacc</span><span class="o">.</span><span class="n">chameleoncloud</span><span class="o">.</span><span class="n">org</span><span class="p">:</span><span class="mi">5000</span><span class="o">/</span><span class="n">v3</span>
+              <span class="n">OS_PASSWORD</span><span class="p">:</span> <span class="n">TBD</span>
+              <span class="n">OS_TENANT_NAME</span><span class="p">:</span> <span class="n">CH</span><span class="o">-</span><span class="mi">818144</span>
+              <span class="n">OS_TENANT_ID</span><span class="p">:</span> <span class="n">CH</span><span class="o">-</span><span class="mi">818144</span>
+              <span class="n">OS_PROJECT_NAME</span><span class="p">:</span> <span class="n">CH</span><span class="o">-</span><span class="mi">818144</span>
+              <span class="n">OS_PROJECT_DOMAIN_ID</span><span class="p">:</span> <span class="n">default</span>
+              <span class="n">OS_USER_DOMAIN_ID</span><span class="p">:</span> <span class="n">default</span>
+              <span class="n">OS_USERNAME</span><span class="p">:</span> <span class="n">TBD</span>
+              <span class="n">OS_VERSION</span><span class="p">:</span> <span class="n">liberty</span>
+              <span class="n">OS_REGION_NAME</span><span class="p">:</span> <span class="n">RegionOne</span>
             <span class="n">default</span><span class="p">:</span>
-                <span class="n">flavor</span><span class="p">:</span> <span class="n">m1</span><span class="o">.</span><span class="n">small</span>
-                <span class="n">image</span><span class="p">:</span> <span class="n">Ubuntu</span><span class="o">-</span><span class="n">Server</span><span class="o">-</span><span class="mf">14.04</span><span class="o">-</span><span class="n">LTS</span>
+              <span class="n">flavor</span><span class="p">:</span> <span class="n">m1</span><span class="o">.</span><span class="n">small</span>
+              <span class="n">image</span><span class="p">:</span> <span class="n">Ubuntu</span><span class="o">-</span><span class="n">Server</span><span class="o">-</span><span class="mf">14.04</span><span class="o">-</span><span class="n">LTS</span>
         <span class="n">jetstream</span><span class="p">:</span>
             <span class="n">cm_heading</span><span class="p">:</span> <span class="n">Jetstream</span>
             <span class="n">cm_host</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">jetstream</span><span class="o">-</span><span class="n">cloud</span><span class="o">.</span><span class="n">org</span><span class="o">/</span>
@@ -656,6 +660,11 @@ cloudmesh to include chameleon cloud in its resource set. To do so,
 edit the file:</p>
 <blockquote>
 <div>~/.cloudmesh/cloudmesh.yaml</div></blockquote>
+<p>Make sure that cameleon be in the list of active clouds:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">active</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">chameleon</span>
+</pre></div>
+</div>
 <p>Edit the follwoing lines:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">OS_PASSWORD</span><span class="p">:</span> <span class="n">TBD</span>
 <span class="n">OS_TENANT_NAME</span><span class="p">:</span> <span class="n">TBD</span>
@@ -673,11 +682,50 @@ edit the file:</p>
 <span class="n">OS_USERNAME</span><span class="p">:</span> <span class="n">albert</span>
 </pre></div>
 </div>
-<p>You can find this information also in the openrc.sh file which you can
+<p>To Upgrade from older chameleon cloud services to replace the chameleon section with:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">chameleon</span><span class="p">:</span>
+  <span class="n">cm_heading</span><span class="p">:</span> <span class="n">Chameleon</span>
+  <span class="n">cm_host</span><span class="p">:</span> <span class="n">chameleoncloud</span><span class="o">.</span><span class="n">org</span>
+  <span class="n">cm_label</span><span class="p">:</span> <span class="n">chameleon</span>
+  <span class="n">cm_type</span><span class="p">:</span> <span class="n">openstack</span>
+  <span class="n">cm_type_version</span><span class="p">:</span> <span class="n">liberty</span>
+  <span class="n">credentials</span><span class="p">:</span>
+    <span class="n">OS_AUTH_URL</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">openstack</span><span class="o">.</span><span class="n">tacc</span><span class="o">.</span><span class="n">chameleoncloud</span><span class="o">.</span><span class="n">org</span><span class="p">:</span><span class="mi">5000</span><span class="o">/</span><span class="n">v3</span>
+    <span class="n">OS_PASSWORD</span><span class="p">:</span> <span class="n">TBD</span>
+    <span class="n">OS_TENANT_NAME</span><span class="p">:</span> <span class="n">CH</span><span class="o">-</span><span class="mi">818144</span>
+    <span class="n">OS_TENANT_ID</span><span class="p">:</span> <span class="n">CH</span><span class="o">-</span><span class="mi">818144</span>
+    <span class="n">OS_PROJECT_NAME</span><span class="p">:</span> <span class="n">CH</span><span class="o">-</span><span class="mi">818144</span>
+    <span class="n">OS_PROJECT_DOMAIN_ID</span><span class="p">:</span> <span class="n">default</span>
+    <span class="n">OS_USER_DOMAIN_ID</span><span class="p">:</span> <span class="n">default</span>
+    <span class="n">OS_USERNAME</span><span class="p">:</span> <span class="n">TBD</span>
+    <span class="n">OS_VERSION</span><span class="p">:</span> <span class="n">liberty</span>
+    <span class="n">OS_REGION_NAME</span><span class="p">:</span> <span class="n">RegionOne</span>
+  <span class="n">default</span><span class="p">:</span>
+    <span class="n">flavor</span><span class="p">:</span> <span class="n">m1</span><span class="o">.</span><span class="n">small</span>
+    <span class="n">image</span><span class="p">:</span> <span class="n">Ubuntu</span><span class="o">-</span><span class="n">Server</span><span class="o">-</span><span class="mf">14.04</span><span class="o">-</span><span class="n">LTS</span>
+</pre></div>
+</div>
+<p>The information above is extracted from the chameleon cloud openrc file.
+You can find this information also in the openrc.sh file which you can
 download via the Openstack Horizon interface by following this link:</p>
 <ul class="simple">
 <li><a class="reference external" href="https://openstack.tacc.chameleoncloud.org/dashboard/project/access_and_security/api_access/openrc/">https://openstack.tacc.chameleoncloud.org/dashboard/project/access_and_security/api_access/openrc/</a></li>
 </ul>
+</div>
+<div class="section" id="chameleon-quickstart">
+<h3>Chameleon Quickstart<a class="headerlink" href="#chameleon-quickstart" title="Permalink to this headline">¶</a></h3>
+<p>After you set up the yaml file you can quickly configure and start a vm as follows.</p>
+<p>Configure CLoudmesh for use for chameleon for the first time:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">default</span> <span class="n">cloud</span><span class="o">=</span><span class="n">chameleon</span>
+<span class="n">cm</span> <span class="n">key</span> <span class="n">add</span> <span class="o">--</span><span class="n">ssh</span>
+<span class="n">cm</span> <span class="n">key</span> <span class="n">upload</span>
+<span class="n">cm</span> <span class="n">secgroup</span> <span class="n">upload</span>
+</pre></div>
+</div>
+<p>Start a vm:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">vm</span> <span class="n">boot</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="registration-of-chameleon-ec2-cloud">
 <h3>Registration of Chameleon EC2 Cloud<a class="headerlink" href="#registration-of-chameleon-ec2-cloud" title="Permalink to this headline">¶</a></h3>
@@ -850,7 +898,7 @@ EC2 provider that we have not yet tested.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.3.2',
+            VERSION:'4.3.7',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

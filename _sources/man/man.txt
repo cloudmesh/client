@@ -875,6 +875,10 @@ launcher
 Command - launcher::
 
       Usage:
+          launcher repo add NAME URL
+          launcher repo delete NAME
+          launcher repo list
+          launcher repo
           launcher list [NAMES] [--cloud=CLOUD] [--format=FORMAT] [--source=db|dir]
           launcher add NAME SOURCE
           launcher delete [NAMES] [--cloud=CLOUD]
@@ -885,6 +889,7 @@ Command - launcher::
           launcher refresh
           launcher log [NAME]
           launcher status [NAME]
+
 
       Arguments:
 
@@ -898,7 +903,8 @@ Command - launcher::
 
     Description:
 
-    Launcher is a command line tool to test the portal launch functionalities through command
+    Launcher is a command line tool to test the portal launch
+    functionalities through command line.
 
     The current launcher values can by listed with --all option:(
     if you have a launcher cloud specified. You can also add a

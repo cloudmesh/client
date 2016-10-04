@@ -301,6 +301,12 @@ edit the file:
 
    ~/.cloudmesh/cloudmesh.yaml
 
+Make sure that cameleon be in the list of active clouds::
+
+  active:
+  - chameleon
+
+
 Edit the follwoing lines::
 
                 OS_PASSWORD: TBD
@@ -319,10 +325,56 @@ Let us assume you have the username `albert` and the project id
                 OS_USERNAME: albert
 
 
+
+
+
+To Upgrade from older chameleon cloud services to replace the chameleon section with::
+
+    chameleon:
+      cm_heading: Chameleon
+      cm_host: chameleoncloud.org
+      cm_label: chameleon
+      cm_type: openstack
+      cm_type_version: liberty
+      credentials:
+        OS_AUTH_URL: https://openstack.tacc.chameleoncloud.org:5000/v3
+        OS_PASSWORD: TBD
+        OS_TENANT_NAME: CH-818144
+        OS_TENANT_ID: CH-818144
+        OS_PROJECT_NAME: CH-818144
+        OS_PROJECT_DOMAIN_ID: default
+        OS_USER_DOMAIN_ID: default
+        OS_USERNAME: TBD
+        OS_VERSION: liberty
+        OS_REGION_NAME: RegionOne
+      default:
+        flavor: m1.small
+        image: Ubuntu-Server-14.04-LTS
+
+The information above is extracted from the chameleon cloud openrc file.
 You can find this information also in the openrc.sh file which you can
 download via the Openstack Horizon interface by following this link:
 
 * https://openstack.tacc.chameleoncloud.org/dashboard/project/access_and_security/api_access/openrc/
+
+
+Chameleon Quickstart
+^^^^^^^^^^^^^^^^^^^^^
+
+After you set up the yaml file you can quickly configure and start a vm as follows.
+
+Configure CLoudmesh for use for chameleon for the first time::
+
+ cm default cloud=chameleon
+ cm key add --ssh
+ cm key upload
+ cm secgroup upload
+
+Start a vm::
+
+ cm vm boot
+
+
 
 
 Registration of Chameleon EC2 Cloud

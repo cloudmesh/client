@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quickstart &mdash; cloudmesh_client 4.3.2 documentation</title>
+  <title>Quickstart &mdash; cloudmesh_client 4.3.7 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.2 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="index.html"/>
         <link rel="next" title="Reference Card" href="reference_card.html"/>
         <link rel="prev" title="Introduction" href="introduction.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                4.3.2
+                4.3.7
               </div>
             
           
@@ -409,12 +409,10 @@ them accordingly with the cloudmesh commands.</p>
 </pre></div>
 <div class="section" id="microsoft-azure">
 <h2>Microsoft Azure<a class="headerlink" href="#microsoft-azure" title="Permalink to this headline">¶</a></h2>
-<p>To connect to the Azure cloud, you need your Azure subscription ID
-and a valid management certificate. You can obtain your subscription ID through the Azure classic portal.</p>
-<p>Steps to generate management certificate:</p>
-<blockquote>
-<div><p>You need to create two certificates, one for the server (a .cer file)
-and one for the client (a .pem file).</p>
+<p>To connect to the Azure cloud, you need your Azure subscription ID and a valid management
+certificate. You can obtain your subscription ID through the Azure classic portal.</p>
+<p>Next, you need to create two certificates, one for the server (a .cer file) and one for the
+client (a .pem file).</p>
 <ol class="arabic simple">
 <li>To create the .pem file, execute this:</li>
 </ol>
@@ -423,23 +421,39 @@ and one for the client (a .pem file).</p>
 <li>To create the .cer certificate, execute this:</li>
 </ol>
 <pre class="highlight"><span class="prompt1">openssl x509 -inform pem -in mycert.pem -outform der -out mycert.cer</span>
-</pre></div></blockquote>
+</pre><p>Place the certifocates into the directory:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">~/.</span><span class="n">cloudmesh</span>
+</pre></div>
+</div>
 <p>This subscription ID and Management certificate path has to be added in the cloudmesh.yaml file.
 Ex:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">credentials</span><span class="p">:</span>
-            <span class="n">managementcertfile</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">pem</span><span class="o">-</span><span class="n">certificate</span><span class="o">-</span><span class="n">path</span><span class="o">&gt;</span>
+            <span class="n">managementcertfile</span><span class="p">:</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">mycert</span><span class="o">.</span><span class="n">pem</span>
             <span class="n">subscriptionid</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">subscription</span><span class="o">-</span><span class="nb">id</span><span class="o">&gt;</span>
+            <span class="n">location</span><span class="p">:</span> <span class="n">Cemtral</span> <span class="n">US</span>
 </pre></div>
 </div>
-<p>Default Azure Location will be &#8220;Central US&#8221;, but it is configurable in cloudmesh.yaml file.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">is it pem or cer</p>
+</div>
+<p>The default Azure Location will be &#8220;Central US&#8221;, but it is configurable in cloudmesh.yaml file.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">does not say how</p>
+</div>
 <p>Other than the regular commands, there is one extra command (Akey) in Azure which is needed to create VMs with
 certificates and SSH keys.</p>
-<dl class="docutils">
-<dt>Akey Command Syntax:</dt>
-<dd>akey add &#8211;name=key-name &#8211;pub=pub-key-path &#8211;cert=pem-certificate-file-path &#8211;pfx=pfx-file-path</dd>
-</dl>
-<p>To create a new VM deployment in Azure cloud with an SSH key it is mandatory to have a certificate associated with it.
-Steps to create a Key pair and a certificate:</p>
+<p>Akey Command Syntax:</p>
+<pre class="highlight"><span class="prompt1">akey add --name<span class="o">=</span>key-name --pub<span class="o">=</span>pub-key-path --cert<span class="o">=</span>pem-certificate-file-path --pfx<span class="o">=</span>pfx-file-path</span>
+</pre><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>in a future version of cloudmesh this command will be merged into the key command and use the name of
+the azure cloud in the yaml file to identify it</p>
+<p class="last">key add &#8211;cloud= azure &#8211;name=key-name &#8211;pub=pub-key-path &#8211;cert=pem-certificate-file-path &#8211;pfx=pfx-file-path</p>
+</div>
+<p>To create a new VM deployment in the Azure cloud with an SSH key it is mandatory to have a
+certificate associated with it. The steps to create a Key pair and a certificate are:</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li>Create a RSA key and self signed certificate:</li>
@@ -449,9 +463,11 @@ Steps to create a Key pair and a certificate:</p>
 <li>Create PFX:</li>
 </ol>
 <pre class="highlight"><span class="prompt1">openssl pkcs12 -export -out mycer.pfx -inkey mycer.key -in mycer.pem</span>
-</pre><p>3. Create Public key from Private key:
-ssh-keygen -y -f mycer.key &gt; mycer.pub</p>
-</div></blockquote>
+</pre><ol class="arabic simple" start="3">
+<li>Create Public key from Private key:</li>
+</ol>
+<pre class="highlight"><span class="prompt1">ssh-keygen -y -f mycer.key &gt; mycer.pub</span>
+</pre></div></blockquote>
 <p>Some sample commands:</p>
 <ol class="arabic simple">
 <li>To fetch the List of VMs:</li>
@@ -537,7 +553,7 @@ system further to for example list the output</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.3.2',
+            VERSION:'4.3.7',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

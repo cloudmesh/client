@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.common.menu &mdash; cloudmesh_client 4.3.2 documentation</title>
+  <title>cloudmesh_client.common.menu &mdash; cloudmesh_client 4.3.7 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.2 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                4.3.2
+                4.3.7
               </div>
             
           
@@ -119,6 +119,7 @@
 <p class="caption"><span class="caption-text">Future and Old</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../stack.html">Stack</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul>
@@ -177,13 +178,13 @@
             
   <h1>Source code for cloudmesh_client.common.menu</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Ascii menu class&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">Printer</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="k">import</span> <span class="n">Printer</span>
 
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">input</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">input</span>
 
 
-<div class="viewcode-block" id="ascii_menu"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.menu.ascii_menu">[docs]</a><span class="k">def</span> <span class="nf">ascii_menu</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">menu_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="ascii_menu"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.menu.ascii_menu">[docs]</a><span class="k">def</span> <span class="nf">ascii_menu</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">menu_list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    creates a simple ASCII menu from a list of tuples containing a label</span>
 <span class="sd">    and a functions reference. The function should not use parameters.</span>
@@ -197,39 +198,39 @@
 
     <span class="k">def</span> <span class="nf">display</span><span class="p">():</span>
         <span class="n">index</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="k">print</span><span class="p">()</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">title</span><span class="p">)</span> <span class="o">*</span> <span class="s2">&quot;=&quot;</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">title</span><span class="p">)</span> <span class="o">*</span> <span class="s2">&quot;=&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">function</span> <span class="ow">in</span> <span class="n">menu_list</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;    {0:&gt;3} - {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;    </span><span class="si">{0:&gt;3}</span><span class="s2"> - </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
             <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;    q - quit&quot;</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">()</span>
-        <span class="k">print</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;    q - quit&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">()</span>
 
     <span class="n">display</span><span class="p">()</span>
-    <span class="n">running</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">running</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="k">while</span> <span class="n">running</span><span class="p">:</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Select between {0} - {1}: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&lt;{0}&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Select between </span><span class="si">{0}</span><span class="s2"> - </span><span class="si">{1}</span><span class="s2">: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&lt;</span><span class="si">{0}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;q&quot;</span><span class="p">]:</span>
-            <span class="n">running</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
                 <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">result</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
                     <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="o">=</span> <span class="n">menu_list</span><span class="p">[</span><span class="n">result</span><span class="p">]</span>
-                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;EXECUTING:&quot;</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;EXECUTING:&quot;</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
                     <span class="n">f</span><span class="p">()</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ERROR: wrong selection&quot;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR: wrong selection&quot;</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ERROR: &quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR: &quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
         <span class="n">display</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="menu_return_num"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.menu.menu_return_num">[docs]</a><span class="k">def</span> <span class="nf">menu_return_num</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">menu_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">tries</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">with_display</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="menu_return_num"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.menu.menu_return_num">[docs]</a><span class="k">def</span> <span class="nf">menu_return_num</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">menu_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tries</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">with_display</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    creates a simple ASCII menu from a list of labels</span>
 <span class="sd">    :param title: the title of the menu</span>
@@ -244,35 +245,35 @@
 
     <span class="k">def</span> <span class="nf">display</span><span class="p">():</span>
         <span class="n">index</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="k">print</span><span class="p">()</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">title</span><span class="p">)</span> <span class="o">*</span> <span class="s2">&quot;=&quot;</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">title</span><span class="p">)</span> <span class="o">*</span> <span class="s2">&quot;=&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">menu_list</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;    {0:&gt;3} - {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;    </span><span class="si">{0:&gt;3}</span><span class="s2"> - </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
             <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;      q - quit&quot;</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">()</span>
-        <span class="k">print</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;      q - quit&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">()</span>
 
     <span class="n">display</span><span class="p">()</span>
     <span class="k">while</span> <span class="n">tries</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="c1"># display()</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Select between {0} - {1}: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Select between </span><span class="si">{0}</span><span class="s2"> - </span><span class="si">{1}</span><span class="s2">: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">&quot;q&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="s1">&#39;q&#39;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
             <span class="k">except</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;invalid input...&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;invalid input...&quot;</span><span class="p">)</span>
                 <span class="n">tries</span> <span class="o">-=</span> <span class="mi">1</span>
                 <span class="k">continue</span>
             <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">result</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;choice {0} selected.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;choice </span><span class="si">{0}</span><span class="s2"> selected.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
                 <span class="k">return</span> <span class="n">result</span> <span class="o">-</span> <span class="mi">1</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ERROR: wrong selection&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR: wrong selection&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="s1">&#39;q&#39;</span></div>
 
@@ -281,28 +282,28 @@
 
     <span class="k">while</span> <span class="n">tries</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="c1"># display()</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Select between {0} - {1}: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Select between </span><span class="si">{0}</span><span class="s2"> - </span><span class="si">{1}</span><span class="s2">: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">&quot;q&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="s1">&#39;q&#39;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
             <span class="k">except</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;invalid input...&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;invalid input...&quot;</span><span class="p">)</span>
                 <span class="n">tries</span> <span class="o">-=</span> <span class="mi">1</span>
                 <span class="k">continue</span>
             <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">result</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;choice {0} selected.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;choice </span><span class="si">{0}</span><span class="s2"> selected.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
                 <span class="k">return</span> <span class="n">result</span> <span class="o">-</span> <span class="mi">1</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ERROR: wrong selection&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR: wrong selection&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="s1">&#39;q&#39;</span></div>
 
 
 <div class="viewcode-block" id="dict_choice"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.menu.dict_choice">[docs]</a><span class="k">def</span> <span class="nf">dict_choice</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">d</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">if</span> <span class="n">d</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
 
     <span class="n">elements</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
     <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
@@ -312,7 +313,7 @@
     <span class="c1">#   pprint(d)</span>
     <span class="k">if</span> <span class="n">elements</span> <span class="o">!=</span> <span class="p">{}:</span>
         <span class="c1"># noinspection PyPep8</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span>
                             <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span>
                                   <span class="s2">&quot;name&quot;</span><span class="p">,</span>
                                   <span class="s2">&quot;comment&quot;</span><span class="p">,</span>
@@ -320,13 +321,13 @@
                                   <span class="s2">&quot;fingerprint&quot;</span><span class="p">,</span>
                                   <span class="s2">&quot;source&quot;</span><span class="p">],</span>
                             <span class="n">output</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">,</span>
-                            <span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+                            <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ERROR: No keys in the database&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR: No keys in the database&quot;</span><span class="p">)</span>
         <span class="k">return</span>
 
     <span class="n">n</span> <span class="o">=</span> <span class="n">num_choice</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tries</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="n">element</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">element</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
             <span class="n">element</span> <span class="o">=</span> <span class="n">elements</span><span class="p">[</span><span class="n">e</span><span class="p">]</span>
@@ -364,7 +365,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'4.3.2',
+            VERSION:'4.3.7',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

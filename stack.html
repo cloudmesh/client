@@ -1,0 +1,548 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Stack &mdash; cloudmesh_client 4.3.7 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.3.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comet.html">Comet Virtual Cluster</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/comet_cloudmesh.html">Comet Cloudmesh Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/comet_bigdata.html">Comet Big Data Tutorial</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="code/cloudmesh_client.html">cloudmesh_client package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hackathon.html#python-guidelines">Python Guidelines</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Stack</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/stack.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="stack">
+<h1>Stack<a class="headerlink" href="#stack" title="Permalink to this headline">¶</a></h1>
+<div class="sidebar">
+<p class="first sidebar-title">Page Contents</p>
+<div class="contents local last topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#questions" id="id1">Questions</a></li>
+<li><a class="reference internal" href="#about-bds" id="id2">About BDS</a><ul>
+<li><a class="reference internal" href="#bds-requirements" id="id3">BDS Requirements</a></li>
+<li><a class="reference internal" href="#using-bds" id="id4">Using BDS</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#integrating-bds-with-cloudmesh-client" id="id5">Integrating BDS with Cloudmesh Client</a><ul>
+<li><a class="reference internal" href="#proposed-cloudmesh-changes" id="id6">Proposed Cloudmesh Changes</a><ul>
+<li><a class="reference internal" href="#cm-stack" id="id7"><code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span></code></a></li>
+<li><a class="reference internal" href="#cm-hadoop" id="id8"><code class="docutils literal"><span class="pre">cm</span> <span class="pre">hadoop</span></code></a></li>
+<li><a class="reference internal" href="#cloudmesh-stack-yml" id="id9"><code class="docutils literal"><span class="pre">.cloudmesh/stack.yml</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#use-case-hadoop-with-spark-hbase-drill" id="id10">Use Case: Hadoop with Spark, HBase, Drill</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#implementation-overview" id="id11">Implementation Overview</a><ul>
+<li><a class="reference internal" href="#sanity-check-cm-stack-check" id="id12">Sanity Check <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">check</span></code></a></li>
+<li><a class="reference internal" href="#initialization-cm-stack-init" id="id13">Initialization <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">init</span></code></a></li>
+<li><a class="reference internal" href="#listing-stacks-cm-stack-list" id="id14">Listing Stacks <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">list</span></code></a></li>
+<li><a class="reference internal" href="#switching-projects-cm-stack-project" id="id15">Switching Projects <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">project</span></code></a></li>
+<li><a class="reference internal" href="#deploying-onto-nodes-cm-stack-deploy" id="id16">Deploying Onto Nodes <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">deploy</span></code></a></li>
+<li><a class="reference internal" href="#deploying-hadoop-with-addons-cm-hadoop" id="id17">Deploying Hadoop with Addons <code class="docutils literal"><span class="pre">cm</span> <span class="pre">hadoop</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="questions">
+<h2><a class="toc-backref" href="#id1">Questions</a><a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="about-bds">
+<h2><a class="toc-backref" href="#id2">About BDS</a><a class="headerlink" href="#about-bds" title="Permalink to this headline">¶</a></h2>
+<p>BDS is a collection of Ansible playbooks to deploy a stack of data
+analytics software. The current development version of BDS can be fond
+online here:
+<a class="reference external" href="https://github.com/futuresystems/big-data-stack/tree/unstable">https://github.com/futuresystems/big-data-stack/tree/unstable</a></p>
+<div class="section" id="bds-requirements">
+<h3><a class="toc-backref" href="#id3">BDS Requirements</a><a class="headerlink" href="#bds-requirements" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Python 2.7</li>
+<li>Virtualenv</li>
+<li>Pip</li>
+<li>Git</li>
+<li>ssh client</li>
+<li>ssh-keys in github (currently a bug and needs to be fixed)</li>
+<li>IP address of nodes to be controlled with privileged ssh user</li>
+</ul>
+</div>
+<div class="section" id="using-bds">
+<h3><a class="toc-backref" href="#id4">Using BDS</a><a class="headerlink" href="#using-bds" title="Permalink to this headline">¶</a></h3>
+<p>BDS is not a Python library or program and therefore cannot be
+installed using pip or other tools. It currently works by:</p>
+<ol class="arabic simple">
+<li><code class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span></code> the bds repository</li>
+<li><code class="docutils literal"><span class="pre">./mk-inventory</span></code> with the IP address to create the inventory file</li>
+<li><code class="docutils literal"><span class="pre">ansible-playbook</span> <span class="pre">play-hadoop.yml</span> <span class="pre">addons/...</span></code> to install hadoop and any addons</li>
+</ol>
+</div>
+</div>
+<div class="section" id="integrating-bds-with-cloudmesh-client">
+<h2><a class="toc-backref" href="#id5">Integrating BDS with Cloudmesh Client</a><a class="headerlink" href="#integrating-bds-with-cloudmesh-client" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="proposed-cloudmesh-changes">
+<h3><a class="toc-backref" href="#id6">Proposed Cloudmesh Changes</a><a class="headerlink" href="#proposed-cloudmesh-changes" title="Permalink to this headline">¶</a></h3>
+<p>Additional commands:</p>
+<ol class="arabic simple">
+<li><code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span></code></li>
+<li><code class="docutils literal"><span class="pre">cm</span> <span class="pre">hadoop</span></code></li>
+</ol>
+<p>Additional yaml file dir:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">.cloudmesh/stack.yml</span></code></li>
+</ul>
+<div class="section" id="cm-stack">
+<h4><a class="toc-backref" href="#id7"><code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span></code></a><a class="headerlink" href="#cm-stack" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span></code> provides the low-level tools to manage the BDS. This include:</p>
+<ul class="simple">
+<li>check: sanity-checking to ensure the all requirements are complete</li>
+<li>cloning and updating the local cache of BDS</li>
+<li>creating and setting up a clone of BDS for the current project/deployment</li>
+<li>deploying software onto pre-configured nodes</li>
+</ul>
+</div>
+<div class="section" id="cm-hadoop">
+<h4><a class="toc-backref" href="#id8"><code class="docutils literal"><span class="pre">cm</span> <span class="pre">hadoop</span></code></a><a class="headerlink" href="#cm-hadoop" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal"><span class="pre">cm</span> <span class="pre">hadoop</span></code> wrap several steps in order to deploy a virtual cluster. This includes:</p>
+<ol class="arabic simple">
+<li>starting the machines on various providers (EC2, Chameleon, FutureSystems, etc)</li>
+<li>using <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span></code> to initialize, sanity check, and configure current project</li>
+<li>deploy software using <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span></code></li>
+</ol>
+</div>
+<div class="section" id="cloudmesh-stack-yml">
+<h4><a class="toc-backref" href="#id9"><code class="docutils literal"><span class="pre">.cloudmesh/stack.yml</span></code></a><a class="headerlink" href="#cloudmesh-stack-yml" title="Permalink to this headline">¶</a></h4>
+<p>This file identifies the stacks that may be installed and used.
+For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cat ~/.cloudmesh/stack.yml
+stack:
+  bds:
+    repo: git://github.com/futuresystems/big-data-stack
+    checkout: unstable
+</pre></div>
+</div>
+<p>This will allow <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span></code> to easily learn about different
+deployment stacks in the future.</p>
+</div>
+</div>
+<div class="section" id="use-case-hadoop-with-spark-hbase-drill">
+<h3><a class="toc-backref" href="#id10">Use Case: Hadoop with Spark, HBase, Drill</a><a class="headerlink" href="#use-case-hadoop-with-spark-hbase-drill" title="Permalink to this headline">¶</a></h3>
+<p>This should be achievable with a single line:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm hadoop \
+    --nodes 5 \
+    --cloud chameleon \
+    --with spark hbase drill \
+    --define spark_version=1.7.0 spark_package_type=src
+</pre></div>
+</div>
+<p>This will:</p>
+<ul class="simple">
+<li>start 5 nodes (<code class="docutils literal"><span class="pre">--nodes</span> <span class="pre">5</span></code>) on the chameleon cloud (<code class="docutils literal"><span class="pre">--on</span> <span class="pre">chameleon</span></code>)</li>
+<li>install and configure hadoop</li>
+<li>install and configure the apache spark, hbase, and drill packages</li>
+<li>override ansible variables <code class="docutils literal"><span class="pre">spark_version</span></code> and <code class="docutils literal"><span class="pre">spark_package_type</span></code> (NOTE: the values passed must be supported by BDS).</li>
+</ul>
+</div>
+</div>
+<div class="section" id="implementation-overview">
+<h2><a class="toc-backref" href="#id11">Implementation Overview</a><a class="headerlink" href="#implementation-overview" title="Permalink to this headline">¶</a></h2>
+<p>This section describes possible implementation approaches</p>
+<div class="section" id="sanity-check-cm-stack-check">
+<h3><a class="toc-backref" href="#id12">Sanity Check <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">check</span></code></a><a class="headerlink" href="#sanity-check-cm-stack-check" title="Permalink to this headline">¶</a></h3>
+<p>Example success:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm stack check
+python.......OK
+virtualenv...OK
+pip..........OK
+ansible......OK
+git..........OK
+ssh..........OK
+github.......OK
+</pre></div>
+</div>
+<p>Example failure:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm stack check
+python.......OK
+virtualenv...OK
+pip..........FAILED
+ansible......FAILED
+git..........OK
+ssh..........OK
+github.......FAILED
+
+The following errors were detected:
+
+* Pip is not installed correctly
+  &gt; `pip` not found in $PATH
+* Ansbile is not installed correctly
+  &gt; `ansible` related commands not found in $PATH
+* Authentication to github.com failed
+  &gt; did you add your public key to https://github.com/settings/ssh?
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">check</span></code> MUST:</p>
+<ul>
+<li><p class="first">verify that the python ecosystem and ansbile are installed. Do this
+by ensuring that the the following commands are in the <code class="docutils literal"><span class="pre">$PATH</span></code> and
+checking versions if applicable:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">python</span></code> (must be 2.7)</li>
+<li><code class="docutils literal"><span class="pre">virtualenv</span></code></li>
+<li><code class="docutils literal"><span class="pre">pip</span></code></li>
+<li><code class="docutils literal"><span class="pre">ansible</span></code></li>
+<li><code class="docutils literal"><span class="pre">ansible-playbook</span></code></li>
+<li><code class="docutils literal"><span class="pre">ansible-vault</span></code></li>
+<li><code class="docutils literal"><span class="pre">git</span></code></li>
+<li><code class="docutils literal"><span class="pre">ssh</span></code></li>
+</ul>
+</li>
+<li><p class="first">verify that keys are added to github. Do this by ensuring that the following command exits with 1:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ssh -T git@github.com
+Hi badi! You&#39;ve successfully authenticated, but GitHub does not provide shell access.
+$ echo $?
+1
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="initialization-cm-stack-init">
+<h3><a class="toc-backref" href="#id13">Initialization <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">init</span></code></a><a class="headerlink" href="#initialization-cm-stack-init" title="Permalink to this headline">¶</a></h3>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm stack init --branch unstable --user ubuntu 10.0.0.10 10.0.0.11 10.0.0.12
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">init</span></code> MUST:</p>
+<ul class="simple">
+<li>accept <code class="docutils literal"><span class="pre">--branch</span> <span class="pre">&lt;branchname&gt;</span></code> to specify the branch name of the repository (eg <code class="docutils literal"><span class="pre">master</span></code> [default], <code class="docutils literal"><span class="pre">unstable</span></code>)</li>
+<li>accept <code class="docutils literal"><span class="pre">--user</span> <span class="pre">&lt;username</span></code> to specify the ssh-login username on the nodes. This user MUST have privileges to manage the node.</li>
+<li>accept a list of IP addresses as the nodes to control</li>
+<li>accept <code class="docutils literal"><span class="pre">--name</span> <span class="pre">&lt;project</span> <span class="pre">name&gt;</span></code> to specify the name of this project. It not given, a default one must be chosen or generated. This project name is referred to below as <code class="docutils literal"><span class="pre">$PROJ</span></code></li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal"><span class="pre">.cloudmesh</span></code> refers to <code class="docutils literal"><span class="pre">$HOME/.cloudmesh</span></code> or
+<code class="docutils literal"><span class="pre">$PWD/.cloudmesh</span></code>, or wherever the <code class="docutils literal"><span class="pre">.cloudmesh</span></code> directory is
+found.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal"><span class="pre">$BDS</span></code> below refers to <code class="docutils literal"><span class="pre">.cloudmesh/stack/bds</span></code></p>
+</div>
+<ul>
+<li><p class="first">clone BDS from github to a local cache directory. This should be in <code class="docutils literal"><span class="pre">$DBS/cache/bds.git</span></code>.</p>
+</li>
+<li><p class="first">clone <code class="docutils literal"><span class="pre">$BDS/cache/bds.git</span></code> to <code class="docutils literal"><span class="pre">$BDS/projects/$PROJ</span></code> and checkout the branch that <code class="docutils literal"><span class="pre">$BDS/cache/bds.git</span></code> was on (default) or switch to the branch specified by <code class="docutils literal"><span class="pre">--branch</span></code>.</p>
+</li>
+<li><p class="first">within <code class="docutils literal"><span class="pre">$BDS/projects/$PROJ</span></code> run <code class="docutils literal"><span class="pre">./mk-inventory</span> <span class="pre">-n</span> <span class="pre">$USER-$PROJ</span> <span class="pre">$IP1</span> <span class="pre">$IP2</span> <span class="pre">...</span> <span class="pre">&gt;inventory.txt</span></code> where <code class="docutils literal"><span class="pre">$IPN...</span></code>  is the list of ip addresses and <code class="docutils literal"><span class="pre">$USER</span></code> is the username of the owner of the local machine.</p>
+</li>
+<li><p class="first">write the following information to <code class="docutils literal"><span class="pre">$BDS/projects/$PROJ/.cloudmesh.yml</span></code>:</p>
+<ul class="simple">
+<li>the parameter of <code class="docutils literal"><span class="pre">--user</span></code></li>
+<li>the list of ip addresses</li>
+</ul>
+<p>This will allow other programs to inspect properties about this specific project</p>
+</li>
+</ul>
+</div>
+<div class="section" id="listing-stacks-cm-stack-list">
+<h3><a class="toc-backref" href="#id14">Listing Stacks <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">list</span></code></a><a class="headerlink" href="#listing-stacks-cm-stack-list" title="Permalink to this headline">¶</a></h3>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm stack list
+Deployment Stacks
+- BDS (&lt;version or branchname&gt;)  ~/.cloudmesh/stack/bds/cache/bds.git
+
+Projects
+- &gt; foo    [&lt;stack name eg BDS&gt;]  [&lt;date created&gt;]     ~/.cloudmesh/stack/projects/foo
+-   test-1 [&lt;stack name eg BDS&gt;]  [&lt;date created&gt;]     ~/.cloudmesh/stack/projects/test-1
+-   p1     [&lt;stack name eg BDS&gt;]  [&lt;date created&gt;]     ~/.cloudmesh/stack/projects/p1
+-   p2     [&lt;stack name eg BDS&gt;]  [&lt;date created&gt;]     ~/.cloudmesh/stack/projects/p2
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">list</span></code> provides an interface to list the deployment stacks (eg BDS or others) and all the projcts using a stack.</p>
+<p><code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">list</span></code> MUST:</p>
+<ul class="simple">
+<li>accept <code class="docutils literal"><span class="pre">--sort</span> <span class="pre">&lt;field&gt;</span></code> where <code class="docutils literal"><span class="pre">field</span></code> can be <code class="docutils literal"><span class="pre">date</span></code>, or <code class="docutils literal"><span class="pre">stack</span></code>, or <code class="docutils literal"><span class="pre">name</span></code> (default: <code class="docutils literal"><span class="pre">date</span></code></li>
+<li>accept <code class="docutils literal"><span class="pre">--list</span> <span class="pre">&lt;field,...&gt;</span></code> to list a subset of (<code class="docutils literal"><span class="pre">stack</span></code>, <code class="docutils literal"><span class="pre">project</span></code>)</li>
+<li>accept <code class="docutils literal"><span class="pre">--json</span></code> which will cause the output to be rendered using json so that other programs may easity parse the output</li>
+</ul>
+</div>
+<div class="section" id="switching-projects-cm-stack-project">
+<h3><a class="toc-backref" href="#id15">Switching Projects <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">project</span></code></a><a class="headerlink" href="#switching-projects-cm-stack-project" title="Permalink to this headline">¶</a></h3>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm stack list --list project
+Projects
+-   test-1 [&lt;stack name eg BDS&gt;]  [&lt;date created&gt;]     ~/.cloudmesh/stack/projects/test-1
+- &gt; p1     [&lt;stack name eg BDS&gt;]  [&lt;date created&gt;]     ~/.cloudmesh/stack/projects/p1
+
+
+$ tm stack project
+p1
+
+$ cm stack project test-1
+Switched to project `test-1``
+
+$ cm stack project
+test-1
+
+$ cm stack list --list project
+Projects
+- &gt; test-1 [&lt;stack name eg BDS&gt;]  [&lt;date created&gt;]     ~/.cloudmesh/stack/projects/test-1
+-   p1     [&lt;stack name eg BDS&gt;]  [&lt;date created&gt;]     ~/.cloudmesh/stack/projects/p1
+</pre></div>
+</div>
+</div>
+<div class="section" id="deploying-onto-nodes-cm-stack-deploy">
+<h3><a class="toc-backref" href="#id16">Deploying Onto Nodes <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">deploy</span></code></a><a class="headerlink" href="#deploying-onto-nodes-cm-stack-deploy" title="Permalink to this headline">¶</a></h3>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm stack project
+p1
+
+$ cm stack deploy bds \
+    --plays play-hadoop.yml addons/spark.yml addons/hbase.yml \
+    --define spark_version=1.7.0
+Verifying that nodes are reachable...........OK
+Deploying play-hadoop.yml....................OK
+Deploying addons/spark.yml...................OK
+Deploying addons/hbase.yml...................OK
+
+Done.
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><code class="docutils literal"><span class="pre">os.chdir($BDS/project/$PROJ)</span></code></li>
+<li>Verify nodes are reachable: <code class="docutils literal"><span class="pre">until</span> <span class="pre">ansible</span> <span class="pre">all</span> <span class="pre">-m</span> <span class="pre">ping</span> <span class="pre">-u</span> <span class="pre">&lt;username&gt;;</span> <span class="pre">do</span> <span class="pre">sleep</span> <span class="pre">5;</span> <span class="pre">done</span></code></li>
+<li>Deploy hadoop: <code class="docutils literal"><span class="pre">ansible-playbook</span> <span class="pre">play-hadoop.yml</span> <span class="pre">-e</span> <span class="pre">spark_version=1.7.0</span></code></li>
+<li>Deploy spark: <code class="docutils literal"><span class="pre">ansible-playbook</span> <span class="pre">addons/spark.yml</span> <span class="pre">-e</span> <span class="pre">spark_version=1.7.0</span></code></li>
+<li>Deploy hbase: <code class="docutils literal"><span class="pre">ansible-playbook</span> <span class="pre">addons/hbase.yml</span> <span class="pre">-e</span> <span class="pre">spark_version=1.7.0</span></code></li>
+</ol>
+</div>
+<div class="section" id="deploying-hadoop-with-addons-cm-hadoop">
+<h3><a class="toc-backref" href="#id17">Deploying Hadoop with Addons <code class="docutils literal"><span class="pre">cm</span> <span class="pre">hadoop</span></code></a><a class="headerlink" href="#deploying-hadoop-with-addons-cm-hadoop" title="Permalink to this headline">¶</a></h3>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cm hadoop --nodes 5 --cloud chameleon --with spark hbase drill
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'4.3.7',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

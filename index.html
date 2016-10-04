@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Cloudmesh Client Toolkit &mdash; cloudmesh_client 4.3.2 documentation</title>
+  <title>Cloudmesh Client Toolkit &mdash; cloudmesh_client 4.3.7 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.2 documentation" href="#"/>
+    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="#"/>
         <link rel="next" title="Prefix" href="prefix.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                4.3.2
+                4.3.7
               </div>
             
           
@@ -119,6 +119,7 @@
 <p class="caption"><span class="caption-text">Future and Old</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stack.html">Stack</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul>
@@ -688,6 +689,34 @@ process of integrating them back into the client.</p>
 <p class="caption"><span class="caption-text">Future and Old</span><a class="headerlink" href="#future-and-old" title="Permalink to this toctree">¶</a></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stack.html">Stack</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stack.html#questions">Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stack.html#about-bds">About BDS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="stack.html#bds-requirements">BDS Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stack.html#using-bds">Using BDS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="stack.html#integrating-bds-with-cloudmesh-client">Integrating BDS with Cloudmesh Client</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="stack.html#proposed-cloudmesh-changes">Proposed Cloudmesh Changes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="stack.html#cm-stack"><code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="stack.html#cm-hadoop"><code class="docutils literal"><span class="pre">cm</span> <span class="pre">hadoop</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="stack.html#cloudmesh-stack-yml"><code class="docutils literal"><span class="pre">.cloudmesh/stack.yml</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="stack.html#use-case-hadoop-with-spark-hbase-drill">Use Case: Hadoop with Spark, HBase, Drill</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="stack.html#implementation-overview">Implementation Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="stack.html#sanity-check-cm-stack-check">Sanity Check <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">check</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="stack.html#initialization-cm-stack-init">Initialization <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">init</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="stack.html#listing-stacks-cm-stack-list">Listing Stacks <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">list</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="stack.html#switching-projects-cm-stack-project">Switching Projects <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">project</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="stack.html#deploying-onto-nodes-cm-stack-deploy">Deploying Onto Nodes <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">deploy</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="stack.html#deploying-hadoop-with-addons-cm-hadoop">Deploying Hadoop with Addons <code class="docutils literal"><span class="pre">cm</span> <span class="pre">hadoop</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="toctree-wrapper compound" id="code">
@@ -911,7 +940,7 @@ process of integrating them back into the client.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.3.2',
+            VERSION:'4.3.7',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
