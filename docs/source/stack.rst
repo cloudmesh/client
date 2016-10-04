@@ -128,7 +128,7 @@ Implementation Overview
 This section describes possible implementation approaches
 
 
-Sanity Check ``cm stack sanity-check``
+Sanity Check ``cm stack check``
 ----------------------------------
 
 Example success::
