@@ -13,7 +13,7 @@ before_install:
   - tar xzvf Python-2.7.12.tgz
   - cd Python-2.7.12
   - ./configure --enable-shared
-  - sudo make >
+  - sudo make
   - sudo make install
   - echo "-----------------------------"
 
