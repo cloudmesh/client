@@ -108,7 +108,7 @@ This should be achievable with a single line::
 
   $ cm hadoop \
       --nodes 5 \
-      --on chameleon \
+      --cloud chameleon \
       --with spark hbase drill \
       --define spark_version=1.7.0 spark_package_type=src
 
@@ -322,4 +322,4 @@ Deploying Hadoop with Addons ``cm hadoop``
 
 Example::
 
-  $ cm hadoop --nodes 5 --on chameleon --with spark hbase drill
+  $ cm hadoop --nodes 5 --cloud chameleon --with spark hbase drill
