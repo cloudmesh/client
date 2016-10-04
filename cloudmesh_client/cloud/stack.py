@@ -220,3 +220,48 @@ class BigDataStack(Stack):
 
         else:
             return True
+
+
+    def initialize(self, user=None, branch='master', name=None):
+        """Initialize a BDS stack-based project
+
+        :param user: the ssh-login username on the nodes with admin privileges
+        :param branch: the branch of BDS to use
+        :param name: the project name
+        """
+
+        raise NotImplementedError
+
+
+    def list(self, sort=None, fields=None, json=False):
+        """List the deployment stacks and projects
+
+        :param sort: 
+        :param fields: 
+        :param json: 
+        :returns: 
+        :rtype: 
+
+        """
+
+    
+    def project(self, projectname=None):
+        """View or set the current active project
+
+        :param projectname: If None, return the current project. Otherwise switch to the named project.
+        """
+
+        raise NotImplementedError
+
+
+    def deploy(self):
+        """Deploy the currently active project
+
+        :returns: 
+        :rtype: 
+
+        """
+
+        raise NotImplementedError
+    
+
