@@ -38,8 +38,9 @@ class SubprocessError(Exception):
 
 class Subprocess(object):
 
-    def __init__(self, cmd, shell=False, cwd=None):
-        proc = subprocess.Popen(cmd, shell=shell, stderr=subprocess.PIPE, stdout=subprocess.PIPE, cwd=cwd)
+    def __init__(self, cmd, cwd=None):
+
+        proc = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE, cwd=cwd)
         stdout, stderr = proc.communicate()
 
         self.returncode = proc.returncode
@@ -450,7 +451,7 @@ class BigDataStack(Stack):
         """
 
         if not os.path.exists(self.cached_repo):
-            Subprocess(['git', 'clone', '--recursive', repo, self.cached_repo], shell=True)
+            Subprocess(['git', 'clone', '--recursive', repo, self.cached_repo])
 
         if not os.path.isdir(prefix):
             raise OSError('{} is not a directory'.format(prefix))
