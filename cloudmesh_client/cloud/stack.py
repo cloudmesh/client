@@ -453,7 +453,7 @@ class BigDataStack(Stack):
         if not os.path.exists(self.cached_repo):
             Subprocess(['git', 'clone', '--recursive', repo, self.cached_repo])
 
-        if not os.path.isdir(prefix):
+        if not os.path.isdir(self.cached_repo):
             raise OSError('{} is not a directory'.format(prefix))
 
 
