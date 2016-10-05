@@ -41,9 +41,9 @@ before_install:
   - wget http://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz
   - tar xzvf Python-2.7.12.tgz
   - cd Python-2.7.12
-  - ./configure --enable-shared
-  - sudo make
-  - sudo make install
+  - ./configure --enable-shared > python-install.log 2>&1
+  - sudo make >> python-install.log 2>&1
+  - sudo make install >> python-install.log 2>&1
   - sudo pip install backports.ssl_match_hostname
   - echo "-----------------------------"
 
