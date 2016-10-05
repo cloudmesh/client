@@ -142,7 +142,7 @@ class ProjectList(object):
         project.name = project.name or self.new_project_name()
         project._pid = self.max_pid
         self.max_pid += 1
-        self.plist[project.pid] = project
+        self.projects[project.pid] = project
 
 
     def new(self, name=None, activate=False):
