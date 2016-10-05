@@ -99,8 +99,8 @@ class ProjectList(object):
         return plist
 
 
-    @staticmethod
-    def prefix():
+    @classmethod
+    def prefix(cls):
 
         cfgpath = Config.find_file('cloudmesh.yaml')
         dotcloudmesh = os.path.dirname(cfgpath)
@@ -111,8 +111,9 @@ class ProjectList(object):
 
     @classmethod
     def projectdir(cls, name):
-        prefix = ProjectList.projectsprefix()
+        prefix = cls.prefix()
         path = os.path.join(prefix, name)
+        return path
 
 
     @classmethod
