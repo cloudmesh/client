@@ -41,7 +41,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
 
     def init_bds(self, branch=None, ips=None, user=None, name=None):
         stack = BigDataStack()
-        stack.init()
+        stack.initialize(ips, user=user, branch=branch, name=name)
         project = BDSProject(ips=ips, user=user, name=name)
         return project
 
@@ -54,7 +54,8 @@ class StackCommand(PluginCommand, CloudPluginCommand):
 
             Usage:
                 stack check [--stack=bds]
-                stack [--cloud=CLOUD] [--format=FORMAT] init [--stack=bds] [--branch=master] [--user=$USER] [--name=None] <ip>...
+                stack init bds [--branch=master] [--user=$USER] [--name=<project>] <ip>...
+
 
             Options:
                --format=FORMAT  the output format [default: table]
@@ -65,14 +66,18 @@ class StackCommand(PluginCommand, CloudPluginCommand):
 
         """
         arg = dotdict(arguments)
-        arg.cloud = arguments["--cloud"] or Default.cloud
-        arg.FORMAT = arguments["--format"] or "table"
+
+        # arg.cloud = arguments["--cloud"] or Default.cloud
+        # arg.FORMAT = arguments["--format"] or "table"
         arg.stack = arguments['--stack'] or 'bds'
 
         print (arg)
 
         if arg.check:
             self.check(stackname=arg.stack)
+
+        elif arg.init and arg.bds:
+            self.init(stackname='bds', branch=arg.branch, user=arg.user, name=arg.name, ips=arg.ip)
 
 
         """
