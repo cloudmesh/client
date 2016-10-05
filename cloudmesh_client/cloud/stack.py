@@ -65,7 +65,7 @@ class ProjectList(object):
     def sync(self):
         prefix = ProjectList.prefix()
 
-        for project in self.projects:
+        for project in self.projects.itervalues():
             path = os.path.join(prefix, project.name)
             if os.path.exists(path):
                 shutil.rmtree(path)
