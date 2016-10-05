@@ -53,7 +53,7 @@ class Test_configdict:
         #     assert False
         # except Exception as e:
         #     print (">>>>>>>", e)
-        #    assert str(e).startswith("Could not find")
+        #     assert str(e).startswith("Could not find")
         """
 
     def test_002_set(self):
