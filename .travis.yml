@@ -44,6 +44,7 @@ before_install:
   - ./configure --enable-shared
   - sudo make
   - sudo make install
+  - sudo pip install backports.ssl_match_hostname
   - echo "-----------------------------"
 
 addons:
