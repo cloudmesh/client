@@ -80,10 +80,15 @@ class ProjectList(object):
     def load(cls):
         prefix = ProjectList.prefix()
         ypath = os.path.join(prefix, cls.filename)
+
+        plist = cls()
+
+        if not os.path.exists(ypath):
+            return plist
+
         with open(ypath) as fd:
             y = yaml.load(fd)
 
-        plist = cls()
         active = y['active']
         plist.max_pid = y['max_pid']
         for project in y['projects']:
