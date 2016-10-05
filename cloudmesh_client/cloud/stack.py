@@ -5,8 +5,10 @@ from __future__ import print_function
 import glob
 import os
 import stat
+import shutil
 import subprocess
 import sys
+import time
 
 import yaml
 
@@ -48,10 +50,51 @@ class Subprocess(object):
             raise SubprocessError(cmd, proc.returncode, proc.stderr, proc.stdout)
 
 
-class Project(Object):
+class ProjectList(object):
+
+    filename = '.projectlist.yml'
+    default_name = 'p-'
+
+    def __init__(self):
+        self.projects = dict()
+        self.active = None
+        self.max_pid = -1
+
+
+    def sync(self):
+        prefix = ProjectList.prefix()
+
+        for project in self.projects:
+            path = os.path.join(prefix, project.name)
+            if os.path.exists(path):
+                shutil.rmtree(path)
+            project.sync(path)
+
+        prop = self.__dict__
+        y = yaml.dump(prop, default_flow_style=False)
+        with open(os.path.join(prefix, ProjectList.filename), 'w') as fd:
+            fd.write(y)
 
     @staticmethod
-    def projectsprefix():
+    def load(cls):
+        prefix = ProjectList.prefix()
+        ypath = os.path.join(prefix, cls.filename)
+        with open(ypath) as fd:
+            y = yaml.load(fd)
+
+        plist = cls()
+        active = y['active']
+        plist.max_pid = y['max_pid']
+        for project in y['projects']:
+            plist.add(project)
+            if project.pid == active:
+                plist.activate(project)
+
+        return plist
+
+
+    @staticmethod
+    def prefix():
 
         cfgpath = Config.find_file('cloudmesh.yaml')
         dotcloudmesh = os.path.dirname(cfgpath)
@@ -62,7 +105,7 @@ class Project(Object):
 
     @staticmethod
     def projectdir(name):
-        prefix = Project.projectsprefix()
+        prefix = ProjectList.projectsprefix()
         path = os.path.join(prefix, name)
 
 
@@ -74,52 +117,135 @@ class Project(Object):
         :rtype: :class:`str`
         """
 
-        projects = glob.glob(os.path.join(Project.projectsprefix(), 'p-[0-9]*'))
-        pids = map(lambda s: int(s.split('-')[-1]), projects)
-        newpid = max(pids) + 1
+        pid = self.max_pid
+        self.max_pid += 1
 
-        return 'p-{}'.format(newpid)
-
-
-    @staticmethod
-    def project_exists(name):
-        path = Project.projectdir(name)
-        return os.path.exists(path)
+        name = '{}{}'.format(self.default_name, pid)
+        assert not self.project_exists(name)
+        return name
 
 
+    @classmethod
+    def project_exists(cls, project):
+        return project.pid in self.projects
 
-class Stack(ListResource):
+
+    def add(self, project):
+        assert project.pid < 0, project.pid
+        project._pid = self.max_pid
+        self.max_pid += 1
+        self.plist[project.pid] = project
+
+
+    def new(self, name=None, activate=False):
+        p = Project(name=name)
+        self.add(p)
+        if activate:
+            self.activate(p)
+
+
+    def activate(self, project):
+        self.add(project)
+        self.active = project.pid
+
+
+class Project(object):
+
+    metadata_file = '.properties.yml'
+
+    def __init__(self, name=None):
+        self.ctime = time.gmtime()
+        self.name = name or Project.new_project_name()
+        self._pid = -1 # this is set by ProjectList
+
+    @classmethod
+    def load(cls, path):
+        with open(os.path.join(path, self.metadata_file), 'r') as fd:
+            y = yaml.load(fd)
+
+        # pop keys that do not appear in the __dict__
+        # see 'sync()' implementation for the ones to remove
+        y.pop('type', None)
+
+        project = cls()
+        project.__dict__.update(y)
+
+
+    @property
+    def pid(self): return self._pid
+
+
+    @property
+    def metadata(self):
+        m = dict(type=self.__class__.__name__)
+        m.extend(self.__dict__)
+        return m
+
+
+    def sync(self, path):
+        """Implemented by subclasses
+        """
+        raise NotImplementedError
+
+
+
+class BDSProject(Project):
+    def __init__(self, ips=None, user=None, **kwargs):
+        super(BDSProject, self).__init__(**kwargs)
+
+        assert ips is not None, ips
+        assert type(ips) is list, type(ips)
+        assert user is not None, user
+        assert type(user) is str, type(user)
+
+        self.ips = ips
+        self.user = user
+        self.repo = kwargs.pop('repo', 'git://github.com/futuresystems/big-data-stack.git')
+        self.repo_is_local = kwargs.pop('repo_is_local', False)
+
+
+    @property
+    def metadata(self):
+        parent = super(BDSProject, self).metadata
+        parent.update({
+            'ips': self.ips,
+            'user': self.user,
+            'repo': self.repo,
+            'repo_is_local': self.repo_is_local
+        })
+        return parent
+
+
+    def sync(path):
+
+        # clone BDS from the local cache
+        cmd = ['git', 'clone', '--recursive']
+        if self.repo_is_local:
+            cmd.append('--local')
+        cmd.extend([self.repo, path])
+        Subprocess(cmd)
+
+        # generate the inventory file
+        local_user = os.getenv('USER')
+        inventory = Subprocess(['./mk-inventory', '-n', '{}-{}'.format(local_user, self.name)])
+        with open(os.path.join(path, 'inventory.txt'), 'w') as fd:
+            fd.write(inventory.stdout)
+
+        # write the metadata file
+        metadata = yaml.dump(self.metadata, default_flow_style=False)
+        with open(self.metadata_file, 'w') as fd:
+            fd.write(metadata)
+
+
+class Stack(object):
     """
     Not intended to be directly instantiated. Instead use one of the subclasses.
     """
 
-    # should be overridden by subclasses
-    __name = 'undefined-stack-name-this-is-a-bug'
+    def __init__(self, name=None):
+        assert name is not None
+        self.name = name
 
-    cm = CloudmeshDatabase()
-
-
-    @property
-    def cachedir(self):
-        cfgpath = Config.find_file('cloudmesh.yaml')
-        dotcloudmesh = os.path.dirname(cfgpath)
-        return os.path.join(dotcloudmesh, 'stack', self.__name, 'cache')
-
-
-    @classmethod
-    def refresh(cls, cloud):
-        print ("TBD")
-
-    @classmethod
-    def list(cls,
-             kind,
-             cloud,
-             user=None,
-             tenant=None,
-             order=None,
-             header=None,
-             output="table"):
-        print ("TBD")
 
 
 
@@ -161,7 +287,7 @@ class SanityChecker(object):
 
         """
 
-         valid_key_types = [
+        valid_key_types = [
             'dsa',
             'ecdsa',
             'ed25519',
@@ -169,7 +295,7 @@ class SanityChecker(object):
             'rsa1'
         ]
 
-         msg = 'SSH incorrectly configured'
+        msg = 'SSH incorrectly configured'
 
         dotssh = os.path.expanduser('~/.ssh')
 
@@ -217,7 +343,8 @@ class SanityChecker(object):
 
 class BigDataStack(Stack):
 
-    __name = 'bds'
+    def __init__(self):
+        super(BigDataStack, self).__init__(name='bds')
 
 
     @property
@@ -324,30 +451,6 @@ class BigDataStack(Stack):
             raise OSError('{} is not a directory'.format(prefix))
 
 
-        name = name or Project.new_project_name()
-        projectdir = Project.projectdir(name)
-
-        if Project.project_exists(name):
-            raise ValueError('Project {} already exists, please choose another'.format(name))
-
-        Subprocess(['git', 'clone', '--recursive', '--branch', branch, '--local', self.cached_repo, projectdir])
-
-        proc_user = os.getenv('USER')
-        p = Subprocess(['./mk-inventory', '-n', '{}-{}'.format(proc_user, name)] + ips, cwd=projectdir)
-        inventory = p.stdout
-        with open(os.path.join(projectdir, 'inventory.txt'), 'w') as fd:
-            fd.write(inventory)
-
-
-        properties = {
-            'ips': ips,
-            'user': user
-        }
-        y = yaml.dump(properties, default_flow_style=False)
-        with open(projectdir, '.project.yml'), 'w') as fd:
-            fd.write(y)
-
-
     def update(self, user=None, branch='master', name=None):
         """Updated a previous initialized/cloned stack
 
@@ -386,6 +489,7 @@ class BigDataStack(Stack):
         """
 
         
+
     
     def project(self, projectname=None):
         """View or set the current active project
