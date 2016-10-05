@@ -109,8 +109,8 @@ class ProjectList(object):
         return projectsdir
 
 
-    @staticmethod
-    def projectdir(name):
+    @classmethod
+    def projectdir(cls, name):
         prefix = ProjectList.projectsprefix()
         path = os.path.join(prefix, name)
 
@@ -131,7 +131,8 @@ class ProjectList(object):
         self.max_pid += 1
 
         name = '{}{}'.format(self.default_name, pid)
-        assert not self.project_exists(name)
+        assert self.max_pid not in self.projects
+        assert not os.path.exists(self.projectdir(name))
         return name
 
 
