@@ -1,4 +1,7 @@
 from __future__ import print_function
+
+import os
+
 from cloudmesh_client.cloud.stack import BigDataStack, BDSProject, ProjectList
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
@@ -65,11 +68,20 @@ class StackCommand(PluginCommand, CloudPluginCommand):
                 cm stack bds init
 
         """
+
+        ################################################## cleanup
         arg = dotdict(arguments)
+        arg.ips = arguments['<ip>']
 
         # arg.cloud = arguments["--cloud"] or Default.cloud
         # arg.FORMAT = arguments["--format"] or "table"
+
+        ##################################################  defaults
         arg.stack = arguments['--stack'] or 'bds'
+
+        # init
+        arg.branch = arguments['--branch'] or 'master'
+        arg.user = arguments['--user'] or os.getenv('USER')
 
         print (arg)
 
@@ -77,7 +89,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
             self.check(stackname=arg.stack)
 
         elif arg.init and arg.bds:
-            self.init(stackname='bds', branch=arg.branch, user=arg.user, name=arg.name, ips=arg.ip)
+            self.init(stackname='bds', branch=arg.branch, user=arg.user, name=arg.name, ips=arg.ips)
 
 
         """
