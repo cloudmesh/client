@@ -76,7 +76,7 @@ class ProjectList(object):
         with open(os.path.join(prefix, ProjectList.filename), 'w') as fd:
             fd.write(y)
 
-    @staticmethod
+    @classmethod
     def load(cls):
         prefix = ProjectList.prefix()
         ypath = os.path.join(prefix, cls.filename)
