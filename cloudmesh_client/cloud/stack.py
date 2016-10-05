@@ -247,6 +247,11 @@ class Stack(object):
         self.name = name
 
 
+    @property
+    def cachedir(self):
+        cfgpath = Config.find_file('cloudmesh.yaml')
+        dotcloudmesh = os.path.dirname(cfgpath)
+        return os.path.join(dotcloudmesh, 'stack', self.name, 'cache')
 
 
 class SanityCheckError(Exception):
