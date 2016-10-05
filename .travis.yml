@@ -8,7 +8,35 @@ notifications:
 
 before_install:
   - echo "- BEFORE INSTALL -----------"
-  - sudo apt-get install libdb4.6-dev
+  - sudo apt-get install -y  autotools-dev
+  - sudo apt-get install -y  blt-dev
+  - sudo apt-get install -y   bzip2
+  - sudo apt-get install -y dpkg-dev
+  - sudo apt-get install -y g++-multilib
+  - sudo apt-get install -y gcc-multilib
+  - sudo apt-get install -y libbluetooth-dev
+  - sudo apt-get install -y libbz2-dev
+  - sudo apt-get install -y libexpat1-dev
+  - sudo apt-get install -y libffi-dev
+  - sudo apt-get install -y libffi6
+  - sudo apt-get install -y libffi6-dbg
+  - sudo apt-get install -y libgdbm-dev
+  - sudo apt-get install -y libgpm2
+  - sudo apt-get install -y libncursesw5-dev
+  - sudo apt-get install -y libreadline-dev
+  - sudo apt-get install -y libsqlite3-dev
+  - sudo apt-get install -y libssl-dev
+  - sudo apt-get install -y libtinfo-dev
+  - sudo apt-get install -y mime-support
+  - sudo apt-get install -y net-tools
+  - sudo apt-get install -y netbase
+  - sudo apt-get install -y python-crypto
+  - sudo apt-get install -y python-mox3
+  - sudo apt-get install -y python-pil
+  - sudo apt-get install -y python-ply
+  - sudo apt-get install -y quilt
+  - sudo apt-get install -y tk-dev
+  - sudo apt-get install -y zlib1g-dev
   - cd /tmp
   - wget http://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz
   - tar xzvf Python-2.7.12.tgz
