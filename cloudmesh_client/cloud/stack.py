@@ -38,16 +38,16 @@ class SubprocessError(Exception):
 
 class Subprocess(object):
 
-    def __init__(self, cmd, shell=False, cwdir=None):
-        proc = subprocess.Popen(cmd, shell=shell, stderr=subprocess.PIPE, stdout=subprocess.PIPE, cwdir=cwdir)
-        proc.communicate()
+    def __init__(self, cmd, shell=False, cwd=None):
+        proc = subprocess.Popen(cmd, shell=shell, stderr=subprocess.PIPE, stdout=subprocess.PIPE, cwd=cwd)
+        stdout, stderr = proc.communicate()
 
         self.returncode = proc.returncode
-        self.stderr = proc.stderr
-        self.stdout = proc.stdout
+        self.stderr = stderr
+        self.stdout = stdout
 
-        if proc.returncode != 0:
-            raise SubprocessError(cmd, proc.returncode, proc.stderr, proc.stdout)
+        if self.returncode != 0:
+            raise SubprocessError(cmd, self.returncode, self.stderr, self.stdout)
 
 
 class ProjectList(object):
@@ -321,7 +321,7 @@ class SanityChecker(object):
                     if bool(s.st_mode & (stat.S_IRGRP | stat.S_IROTH)):
                         raise SanityCheckError(msg, 'Permissions on {} are too open')
 
-        if found < 1:
+        if found > 0:
             raise SanityCheckError(msg, 'No id_<type> ssh keys found in {}'.format(dotssh))
 
 
@@ -332,12 +332,12 @@ class SanityChecker(object):
         :raises: :class:`SanityCheckError` on failure
         """
 
-        cmd = ['ssh', '-T', 'git@github.com']
-        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        proc.communicate()
-        if "You've successfully authenticated" not in proc.stderr:
-            raise SanityCheckError('SSH authentication to github.com failed',
-                                   'did you add your public key to https://github.com/settings/ssh ?')
+        try:
+            Subprocess(['ssh', '-T', 'git@github.com'])
+        except SubprocessError as e:
+            if "You've successfully authenticated" not in e.stderr:
+                raise SanityCheckError('SSH authentication to github.com failed',
+                                       'did you add your public key to https://github.com/settings/ssh ?')
 
 
 
@@ -465,16 +465,16 @@ class BigDataStack(Stack):
         assert os.path.isdir(self.cachedir)
         assert os.path.isdir(os.path.join(self.cachedir, '.git'))
 
-        current_branch = Subprocess(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], cwdir=self.cached_repo)\
+        current_branch = Subprocess(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], cwd=self.cached_repo)\
                         .stdout.strip()
 
         if current_branch == branch:
-            Subprocess(['git', 'pull', '--recurse-submodules', 'origin', branch], cwdir=self.cached_repo)
-            Subprocess(['git', 'submodule', 'update'], cwdir=self.cached_repo)
+            Subprocess(['git', 'pull', '--recurse-submodules', 'origin', branch], cwd=self.cached_repo)
+            Subprocess(['git', 'submodule', 'update'], cwd=self.cached_repo)
 
         else:
-            Subprocess(['git', 'fetch'], cwdir=self.cached_repo)
-            Subprocess(['git', 'pull', 'origin', branch], cwdir=self.cached_repo)
+            Subprocess(['git', 'fetch'], cwd=self.cached_repo)
+            Subprocess(['git', 'pull', 'origin', branch], cwd=self.cached_repo)
 
 
     def list(self, sort=None, fields=None, json=False):
