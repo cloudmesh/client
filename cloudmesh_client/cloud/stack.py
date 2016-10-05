@@ -224,7 +224,7 @@ class BDSProject(Project):
         return parent
 
 
-    def sync(path):
+    def sync(self, path):
 
         # clone BDS from the local cache
         cmd = ['git', 'clone', '--recursive']
