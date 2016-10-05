@@ -8,6 +8,7 @@ notifications:
 
 before_install:
   - echo "- BEFORE INSTALL -----------"
+  - sudo apt-get install libdb4.6-dev
   - cd /tmp
   - wget http://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz
   - tar xzvf Python-2.7.12.tgz
