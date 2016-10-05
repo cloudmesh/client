@@ -2,11 +2,13 @@
 
 from __future__ import print_function
 
+import glob
 import os
 import stat
 import subprocess
 import sys
 
+import yaml
 
 import requests
 
@@ -18,15 +20,90 @@ from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.LibcloudDict import LibcloudDict
 from cloudmesh_client.common.dotdict import dotdict
 from pprint import pprint
-from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 from cloudmesh_client.default import Default
 
 requests.packages.urllib3.disable_warnings()
 
 
+class SubprocessError(Exception):
+    def __init__(self, cmd, returncode, stderr, stdout):
+        self.cmd = cmd
+        self.returncode = returncode
+        self.stderr = stderr
+        self.stdout = stdout
+
+
+class Subprocess(object):
+
+    def __init__(self, cmd, shell=False, cwdir=None):
+        proc = subprocess.Popen(cmd, shell=shell, stderr=subprocess.PIPE, stdout=subprocess.PIPE, cwdir=cwdir)
+        proc.communicate()
+
+        self.returncode = proc.returncode
+        self.stderr = proc.stderr
+        self.stdout = proc.stdout
+
+        if proc.returncode != 0:
+            raise SubprocessError(cmd, proc.returncode, proc.stderr, proc.stdout)
+
+
+class Project(Object):
+
+    @staticmethod
+    def projectsprefix():
+
+        cfgpath = Config.find_file('cloudmesh.yaml')
+        dotcloudmesh = os.path.dirname(cfgpath)
+        projectsdir = os.path.join(dotcloudmesh, 'projects')
+
+        return projectsdir
+
+
+    @staticmethod
+    def projectdir(name):
+        prefix = Project.projectsprefix()
+        path = os.path.join(prefix, name)
+
+
+    @staticmethod
+    def new_project_name():
+        """Automatically generate a new project name
+
+        :returns: a project name
+        :rtype: :class:`str`
+        """
+
+        projects = glob.glob(os.path.join(Project.projectsprefix(), 'p-[0-9]*'))
+        pids = map(lambda s: int(s.split('-')[-1]), projects)
+        newpid = max(pids) + 1
+
+        return 'p-{}'.format(newpid)
+
+
+    @staticmethod
+    def project_exists(name):
+        path = Project.projectdir(name)
+        return os.path.exists(path)
+
+
+
 class Stack(ListResource):
+    """
+    Not intended to be directly instantiated. Instead use one of the subclasses.
+    """
+
+    # should be overridden by subclasses
+    __name = 'undefined-stack-name-this-is-a-bug'
 
     cm = CloudmeshDatabase()
+
+
+    @property
+    def cachedir(self):
+        cfgpath = Config.find_file('cloudmesh.yaml')
+        dotcloudmesh = os.path.dirname(cfgpath)
+        return os.path.join(dotcloudmesh, 'stack', self.__name, 'cache')
 
 
     @classmethod
@@ -140,6 +217,13 @@ class SanityChecker(object):
 
 class BigDataStack(Stack):
 
+    __name = 'bds'
+
+
+    @property
+    def cached_repo(self):
+        return os.path.join(self.cachedir, 'bds.git')
+
 
     def sanity_check(self):
         """Verifies that the environment is set up correctly for BDS usage:
@@ -222,15 +306,72 @@ class BigDataStack(Stack):
             return True
 
 
-    def initialize(self, user=None, branch='master', name=None):
+    def initialize(self, ips, user=None, branch='master', name=None,
+                   repo='git://github.com/futuresystems/big-data-stack.git'):
         """Initialize a BDS stack-based project
 
+        :param ips: list of ip addresses
         :param user: the ssh-login username on the nodes with admin privileges
         :param branch: the branch of BDS to use
         :param name: the project name
+        :param repo: the upstream git repository to clone
         """
 
-        raise NotImplementedError
+        if not os.path.exists(self.cached_repo):
+            Subprocess(['git', 'clone', '--recursive', repo, self.cached_repo], shell=True)
+
+        if not os.path.isdir(prefix):
+            raise OSError('{} is not a directory'.format(prefix))
+
+
+        name = name or Project.new_project_name()
+        projectdir = Project.projectdir(name)
+
+        if Project.project_exists(name):
+            raise ValueError('Project {} already exists, please choose another'.format(name))
+
+        Subprocess(['git', 'clone', '--recursive', '--branch', branch, '--local', self.cached_repo, projectdir])
+
+        proc_user = os.getenv('USER')
+        p = Subprocess(['./mk-inventory', '-n', '{}-{}'.format(proc_user, name)] + ips, cwd=projectdir)
+        inventory = p.stdout
+        with open(os.path.join(projectdir, 'inventory.txt'), 'w') as fd:
+            fd.write(inventory)
+
+
+        properties = {
+            'ips': ips,
+            'user': user
+        }
+        y = yaml.dump(properties, default_flow_style=False)
+        with open(projectdir, '.project.yml'), 'w') as fd:
+            fd.write(y)
+
+
+    def update(self, user=None, branch='master', name=None):
+        """Updated a previous initialized/cloned stack
+
+        :param user: 
+        :param branch: 
+        :param name: 
+        :returns: 
+        :rtype: 
+
+        """
+
+        assert os.path.isdir(self.cachedir)
+        assert os.path.isdir(os.path.join(self.cachedir, '.git'))
+
+        current_branch = Subprocess(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], cwdir=self.cached_repo)\
+                        .stdout.strip()
+
+        if current_branch == branch:
+            Subprocess(['git', 'pull', '--recurse-submodules', 'origin', branch], cwdir=self.cached_repo)
+            Subprocess(['git', 'submodule', 'update'], cwdir=self.cached_repo)
+
+        else:
+            Subprocess(['git', 'fetch'], cwdir=self.cached_repo)
+            Subprocess(['git', 'pull', 'origin', branch], cwdir=self.cached_repo)
 
 
     def list(self, sort=None, fields=None, json=False):
@@ -244,6 +385,7 @@ class BigDataStack(Stack):
 
         """
 
+        
     
     def project(self, projectname=None):
         """View or set the current active project
