@@ -42,6 +42,7 @@ class Test_configdict:
         assert d["cloudmesh"]["profile"]["firstname"] != ""
         assert len(d["cloudmesh"]["clouds"]) > 0
 
+        """
         #
         # DO NOT DO THIS TEST AS LOGIC OF AUTOCREATION HAS CHANGED
         #
@@ -53,6 +54,7 @@ class Test_configdict:
         # except Exception as e:
         #     print (">>>>>>>", e)
         #    assert str(e).startswith("Could not find")
+        """
 
     def test_002_set(self):
         HEADING("testing to set a value in the dict")
