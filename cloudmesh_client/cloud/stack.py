@@ -59,7 +59,7 @@ class ProjectList(object):
     def __init__(self):
         self.projects = dict()
         self.active = None
-        self.max_pid = -1
+        self.max_pid = 0
 
 
     def sync(self):
