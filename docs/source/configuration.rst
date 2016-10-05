@@ -339,9 +339,9 @@ To Upgrade from older chameleon cloud services to replace the chameleon section 
       credentials:
         OS_AUTH_URL: https://openstack.tacc.chameleoncloud.org:5000/v3
         OS_PASSWORD: TBD
-        OS_TENANT_NAME: CH-818144
-        OS_TENANT_ID: CH-818144
-        OS_PROJECT_NAME: CH-818144
+        OS_TENANT_NAME: TBD
+        OS_TENANT_ID: TBD
+        OS_PROJECT_NAME: TBD
         OS_PROJECT_DOMAIN_ID: default
         OS_USER_DOMAIN_ID: default
         OS_USERNAME: TBD
@@ -351,6 +351,15 @@ To Upgrade from older chameleon cloud services to replace the chameleon section 
         flavor: m1.small
         image: Ubuntu-Server-14.04-LTS
 
+Where::
+
+  OS_TENANT_NAME: TBD
+  OS_TENANT_ID: TBD
+  OS_PROJECT_NAME: TBD
+
+Are all the same value. The value is the project ID from chameleon
+starting with CH- and some number  
+  
 The information above is extracted from the chameleon cloud openrc file.
 You can find this information also in the openrc.sh file which you can
 download via the Openstack Horizon interface by following this link:

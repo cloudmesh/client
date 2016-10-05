@@ -42,13 +42,19 @@ class Test_configdict:
         assert d["cloudmesh"]["profile"]["firstname"] != ""
         assert len(d["cloudmesh"]["clouds"]) > 0
 
-        try:
-            d = ConfigDict("cloudmesh.yam",
-                           verbose=True)
-            print("the file cloudmesh.yam should not exists")
-            assert False
-        except Exception as e:
-            assert str(e).startswith("Could not find")
+        """
+        #
+        # DO NOT DO THIS TEST AS LOGIC OF AUTOCREATION HAS CHANGED
+        #
+        # try:
+        #     d = ConfigDict("cloudmesh.yam",
+        #                    verbose=True)
+        #     print("the file cloudmesh.yam should not exists")
+        #     assert False
+        # except Exception as e:
+        #     print (">>>>>>>", e)
+        #     assert str(e).startswith("Could not find")
+        """
 
     def test_002_set(self):
         HEADING("testing to set a value in the dict")
