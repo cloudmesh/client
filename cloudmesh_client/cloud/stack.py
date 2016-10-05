@@ -110,7 +110,11 @@ class ProjectList(object):
         path = os.path.join(prefix, name)
 
 
-    @staticmethod
+    @classmethod
+    def project_exists(cls, project):
+        return project.pid in self.projects
+
+
     def new_project_name():
         """Automatically generate a new project name
 
@@ -126,13 +130,9 @@ class ProjectList(object):
         return name
 
 
-    @classmethod
-    def project_exists(cls, project):
-        return project.pid in self.projects
-
-
     def add(self, project):
         assert project.pid < 0, project.pid
+        project.name = project.name or self.new_project_name()
         project._pid = self.max_pid
         self.max_pid += 1
         self.plist[project.pid] = project
@@ -156,7 +156,7 @@ class Project(object):
 
     def __init__(self, name=None):
         self.ctime = time.gmtime()
-        self.name = name or Project.new_project_name()
+        self.name = name  # this is set by ProjectList if None
         self._pid = -1 # this is set by ProjectList
 
     @classmethod
