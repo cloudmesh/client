@@ -120,7 +120,7 @@ class ProjectList(object):
         return project.pid in self.projects
 
 
-    def new_project_name():
+    def new_project_name(self):
         """Automatically generate a new project name
 
         :returns: a project name
