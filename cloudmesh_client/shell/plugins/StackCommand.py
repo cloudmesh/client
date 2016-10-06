@@ -113,15 +113,19 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         ##################################################  defaults
         arg.stack = arguments['--stack'] or 'bds'
 
-        # init
-        arg.branch = arguments['--branch'] or 'master'
-        arg.user = arguments['--user'] or os.getenv('USER')
-        arg.activate = not arguments['--no-activate']
-        arg.name = arguments['--name']
+        if arg.init:
+            arg.branch = arguments['--branch'] or 'master'
+            arg.user = arguments['--user'] or os.getenv('USER')
+            arg.activate = not arguments['--no-activate']
 
         ################################################## list
-        arg.sort = arguments['--sort']
-        arg.listparts = arguments['--list']
+        if arg.list:
+            arg.sort = arguments['--sort']
+            arg.listparts = arguments['--list']
+
+        ##################################################
+        arg.name = arguments['<name>']
+
 
         print (arg)
 
@@ -129,10 +133,11 @@ class StackCommand(PluginCommand, CloudPluginCommand):
             self.check(stackname=arg.stack)
 
         elif arg.init and arg.bds:
-            self.init(stackname='bds', branch=arg.branch, user=arg.user, name=arg.name, ips=arg.ips, activate=arg.activate)
+            self.init(stackname='bds', branch=arg.branch, user=arg.user, name=arg['--name'], ips=arg.ips, activate=arg.activate)
 
         elif arg.list:
-            self.list(sort=arg.sort, list=arg.listparts, json=arg.json)
+            self.list(sort=arg['--sort'], list=arg['--list'], json=arg.json)
+
 
         """
         # TAKEN FRO INFO COMMAND TO DEMONSTRATE SOME SIMPLE USAGE
