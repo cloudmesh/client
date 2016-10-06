@@ -90,13 +90,7 @@ class ProjectList(object):
         with open(ypath) as fd:
             y = yaml.load(fd)
 
-        active = y['active']
-        plist.max_pid = y['max_pid']
-        for project in y['projects']:
-            plist.add(project)
-            if project.pid == active:
-                plist.activate(project)
-
+        plist.__dict__.update(y)
         return plist
 
 
