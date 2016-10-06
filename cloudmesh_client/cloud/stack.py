@@ -186,7 +186,7 @@ class Project(object):
     @property
     def metadata(self):
         m = dict(type=self.__class__.__name__)
-        m.extend(self.__dict__)
+        m.update(self.__dict__)
         return m
 
 
