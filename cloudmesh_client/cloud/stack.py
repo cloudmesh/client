@@ -9,6 +9,7 @@ import shutil
 import subprocess
 import sys
 import time
+from collections import defaultdict
 
 import yaml
 
@@ -276,6 +277,35 @@ class BDSProject(Project):
         metadata = yaml.dump(self.metadata, default_flow_style=False)
         with open(os.path.join(path, self.metadata_file), 'w') as fd:
             fd.write(metadata)
+
+
+    def deploy(self, path, plays=None, defines=None, ping_sleep=5, ping_max=500):
+
+        plays = plays or []
+        defines0 = defines or []
+
+        # cleanup defines to dict[play name] ->  list("key=value")
+        defines0 = map(lambda s: s.split(':'), defines)
+        defines = defaultdict(list)
+        for playname, keyvalue in defines0:
+            defines[playname].append(keyvalue)
+
+        # wait for the cluster to be accessible
+        for _ in xrange(ping_max):
+            try:
+                subprocess.check_call(['ansible', 'all', '-m', 'ping', '-u', self.user],
+                                      cwd=path)
+                break
+            except subprocess.CalledProcessError as e:
+                time.sleep(ping_sleep)
+
+
+        for play in plays:
+            cmd = ['ansible-playbook', play, '-u', self.user]
+            if play in defines:
+                cmd.extend(['-e', ' '.join(defines[play])])
+
+            subprocess.check_call(cmd, cwd=path)
 
 
 class Stack(object):
