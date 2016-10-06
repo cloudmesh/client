@@ -459,6 +459,8 @@ class BigDataStack(Stack):
         :param repo: the upstream git repository to clone
         """
 
+        print ('Initializing {}'.format(self.name))
+
         if not os.path.exists(self.cached_repo):
             Subprocess(['git', 'clone', '--recursive', repo, self.cached_repo])
 
@@ -476,6 +478,8 @@ class BigDataStack(Stack):
         :rtype: 
 
         """
+
+        print ('Updating {}'.format(self.name))
 
         assert os.path.isdir(self.cachedir)
         assert os.path.isdir(os.path.join(self.cachedir, '.git'))
