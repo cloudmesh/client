@@ -99,6 +99,26 @@ class StackCommand(PluginCommand, CloudPluginCommand):
             print ('Switched to project {}'.format(project.name))
 
 
+    def deploy(self, **kwargs):
+        """Deploy the currently active project
+
+        :param **kwargs: passed to the implementing method (eg deploy_bds)
+        """
+
+        print (42)
+        print (kwargs)
+
+        projectlist = ProjectList.load()
+        project = projectlist.getactive()
+        path = projectlist.projectdir(project.name)
+        if isinstance(project, BDSProject):
+            project.deploy(path, **kwargs)
+        else:
+            raise ValueError('Unknown project type {}'.format(type(project)))
+
+
+
+
     # noinspection PyUnusedLocal
     @command
     def do_stack(self, args, arguments):
@@ -110,6 +130,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
                 stack init bds [--no-activate] [--branch=master] [--user=$USER] [--name=<project>] <ip>...
                 stack list [--sort=<field=date>] [--list=<field,...=all>] [--json]
                 stack project [<name>]
+                stack deploy bds [<play>...] [--define=<define>...]
 
 
             Options:
@@ -144,6 +165,11 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         ##################################################
         arg.name = arguments['<name>']
 
+        ##################################################
+        if arg.deploy and arg.bds:
+            arg.plays = arguments['<play>']
+            arg.define = arguments['--define']
+
 
         print (arg)
 
@@ -158,6 +184,9 @@ class StackCommand(PluginCommand, CloudPluginCommand):
 
         elif arg.project:
             self.project(name=arg.name)
+
+        elif arg.deploy and arg.bds:
+            self.deploy(plays=arg.plays, define=arg.define)
 
         """
         # TAKEN FRO INFO COMMAND TO DEMONSTRATE SOME SIMPLE USAGE
