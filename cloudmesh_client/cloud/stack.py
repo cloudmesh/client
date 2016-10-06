@@ -435,14 +435,13 @@ class BigDataStack(Stack):
             return True
 
 
-    def initialize(self, ips, user=None, branch='master', name=None,
+    def initialize(self, ips, user=None, branch='master',
                    repo='git://github.com/futuresystems/big-data-stack.git'):
         """Initialize a BDS stack-based project
 
         :param ips: list of ip addresses
         :param user: the ssh-login username on the nodes with admin privileges
         :param branch: the branch of BDS to use
-        :param name: the project name
         :param repo: the upstream git repository to clone
         """
 

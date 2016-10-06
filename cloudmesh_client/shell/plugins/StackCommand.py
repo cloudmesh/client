@@ -48,7 +48,8 @@ class StackCommand(PluginCommand, CloudPluginCommand):
 
     def init_bds(self, branch=None, ips=None, user=None, name=None):
         stack = BigDataStack()
-        stack.initialize(ips, user=user, branch=branch, name=name)
+        stack.initialize(ips, user=user, branch=branch)
+        import pdb; pdb.set_trace()
         project = BDSProject(ips=ips, user=user, name=name, branch=branch)
         return project
 
@@ -87,6 +88,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         arg.branch = arguments['--branch'] or 'master'
         arg.user = arguments['--user'] or os.getenv('USER')
         arg.activate = not arguments['--no-activate']
+        arg.name = arguments['--name']
 
         print (arg)
 
