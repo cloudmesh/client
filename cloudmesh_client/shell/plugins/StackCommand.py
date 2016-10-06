@@ -72,7 +72,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
             stack = project.__class__.__name__ # FIXME: temporary workaround
             date = time.strftime('%Y-%m-%d %H:%M:%S UTC', project.ctime)
             path = os.path.join(projectlist.prefix(), project.name)
-            msg = '- {activated} {name} {stack} {date} {path}'.format(
+            msg = '- {activated} {name:10} {stack:10} {date:24} {path}'.format(
                 activated=activated,
                 name=name,
                 stack=stack,
