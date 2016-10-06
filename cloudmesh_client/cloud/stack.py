@@ -63,6 +63,10 @@ class ProjectList(object):
         self.generated_name_pid = 0
 
 
+    def __iter__(self):
+        return iter(self.projects.values())
+
+
     def sync(self):
         prefix = ProjectList.prefix()
 
