@@ -236,7 +236,9 @@ class BDSProject(Project):
 
         # generate the inventory file
         local_user = os.getenv('USER')
-        inventory = Subprocess(['./mk-inventory', '-n', '{}-{}'.format(local_user, self.name)])
+        cmd = ['python', 'mk-inventory', '-n', '{}-{}'.format(local_user, self.name)]
+        cmd.extend(self.ips)
+        inventory = Subprocess(cmd, cwd=path)
         with open(os.path.join(path, 'inventory.txt'), 'w') as fd:
             fd.write(inventory.stdout)
 
