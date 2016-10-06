@@ -45,7 +45,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
     def init_bds(self, branch=None, ips=None, user=None, name=None):
         stack = BigDataStack()
         stack.initialize(ips, user=user, branch=branch, name=name)
-        project = BDSProject(ips=ips, user=user, name=name)
+        project = BDSProject(ips=ips, user=user, name=name, branch=branch)
         return project
 
 

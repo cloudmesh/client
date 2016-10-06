@@ -198,7 +198,7 @@ class Project(object):
 
 
 class BDSProject(Project):
-    def __init__(self, ips=None, user=None, **kwargs):
+    def __init__(self, ips=None, user=None, branch='master', **kwargs):
         super(BDSProject, self).__init__(**kwargs)
 
         assert ips is not None, ips
@@ -208,6 +208,7 @@ class BDSProject(Project):
 
         self.ips = ips
         self.user = user
+        self.branch = branch
         self.repo = kwargs.pop('repo', 'git://github.com/futuresystems/big-data-stack.git')
         self.repo_is_local = kwargs.pop('repo_is_local', False)
 
@@ -227,7 +228,7 @@ class BDSProject(Project):
     def sync(self, path):
 
         # clone BDS from the local cache
-        cmd = ['git', 'clone', '--recursive']
+        cmd = ['git', 'clone', '--recursive', '--branch', self.branch]
         if self.repo_is_local:
             cmd.append('--local')
         cmd.extend([self.repo, path])
