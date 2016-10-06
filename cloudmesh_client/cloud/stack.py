@@ -180,6 +180,17 @@ class ProjectList(object):
         raise ValueError('Could not find project {}'.format(name))
 
 
+    def getactive(self):
+        """Returns the currently active project.
+
+        :returns: the currently active project
+        :rtype: subclass of :class:`Project`
+        :raises: :class:`KeyError` if no project is currently active
+        """
+
+        return self.projects[self.active]
+
+
 
 class Project(object):
 
