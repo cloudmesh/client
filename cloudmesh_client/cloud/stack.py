@@ -223,12 +223,14 @@ class BDSProject(Project):
 
     def sync(self, path):
 
-        # clone BDS from the local cache
-        cmd = ['git', 'clone', '--recursive', '--branch', self.branch]
-        if self.repo_is_local:
-            cmd.append('--local')
-        cmd.extend([self.repo, path])
-        Subprocess(cmd)
+
+        if not os.path.isdir(os.path.join(path, '.git')):
+            # clone BDS from the local cache
+            cmd = ['git', 'clone', '--recursive', '--branch', self.branch]
+            if self.repo_is_local:
+                cmd.append('--local')
+            cmd.extend([self.repo, path])
+            Subprocess(cmd)
 
         # generate the inventory file
         local_user = os.getenv('USER')
