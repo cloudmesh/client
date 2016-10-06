@@ -151,7 +151,7 @@ class ProjectList(object):
 
 
     def activate(self, project):
-        self.add(project)
+        assert project.pid >= 0, 'Project has not been added yet'
         self.active = project.pid
 
 

@@ -31,7 +31,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         stack.sanity_check()
 
 
-    def init(self, stackname='bds', **kwargs):
+    def init(self, stackname='bds', activate=True, **kwargs):
         if stackname == 'bds':
             project = self.init_bds(**kwargs)
         else:
@@ -39,6 +39,10 @@ class StackCommand(PluginCommand, CloudPluginCommand):
 
         projectlist = ProjectList.load()
         projectlist.add(project)
+
+        if activate:
+            projectlist.activate(project)
+
         projectlist.sync()
 
 
@@ -57,7 +61,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
 
             Usage:
                 stack check [--stack=bds]
-                stack init bds [--branch=master] [--user=$USER] [--name=<project>] <ip>...
+                stack init bds [--no-activate] [--branch=master] [--user=$USER] [--name=<project>] <ip>...
 
 
             Options:
@@ -82,6 +86,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         # init
         arg.branch = arguments['--branch'] or 'master'
         arg.user = arguments['--user'] or os.getenv('USER')
+        arg.activate = not arguments['--no-activate']
 
         print (arg)
 
@@ -89,7 +94,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
             self.check(stackname=arg.stack)
 
         elif arg.init and arg.bds:
-            self.init(stackname='bds', branch=arg.branch, user=arg.user, name=arg.name, ips=arg.ips)
+            self.init(stackname='bds', branch=arg.branch, user=arg.user, name=arg.name, ips=arg.ips, activate=arg.activate)
 
 
         """
