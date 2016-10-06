@@ -159,6 +159,14 @@ class ProjectList(object):
         self.active = project.pid
 
 
+    def isactive(self, project):
+        """Predicate indicating activation status of the project
+        """
+
+        return self.active == project.pid
+
+
+
 class Project(object):
 
     metadata_file = '.properties.yml'
