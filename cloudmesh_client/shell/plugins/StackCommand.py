@@ -81,6 +81,23 @@ class StackCommand(PluginCommand, CloudPluginCommand):
             print (msg)
 
 
+    def project(self, name=None):
+        """View or set the current active project
+
+        :param name: active this project
+        """
+
+        projectlist = ProjectList.load()
+
+        if name is None:
+            print (projectlist.getactive().name)
+
+        else:
+            project = projectlist.lookup(name)
+            projectlist.activate(project)
+            projectlist.sync()
+            print ('Switched to project {}'.format(project.name))
+
 
     # noinspection PyUnusedLocal
     @command
@@ -92,6 +109,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
                 stack check [--stack=bds]
                 stack init bds [--no-activate] [--branch=master] [--user=$USER] [--name=<project>] <ip>...
                 stack list [--sort=<field=date>] [--list=<field,...=all>] [--json]
+                stack project [<name>]
 
 
             Options:
@@ -138,6 +156,8 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         elif arg.list:
             self.list(sort=arg['--sort'], list=arg['--list'], json=arg.json)
 
+        elif arg.project:
+            self.project(name=arg.name)
 
         """
         # TAKEN FRO INFO COMMAND TO DEMONSTRATE SOME SIMPLE USAGE
