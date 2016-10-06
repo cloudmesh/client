@@ -231,6 +231,11 @@ class Project(object):
         raise NotImplementedError
 
 
+    def deploy(self, path, **kwargs):
+        """Implemented by subclasses
+        """
+        raise NotImplementedError
+
 
 class BDSProject(Project):
     def __init__(self, ips=None, user=None, branch='master', **kwargs):
