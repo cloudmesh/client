@@ -164,6 +164,22 @@ class ProjectList(object):
         return self.active == project.pid
 
 
+    def lookup(self, name):
+        """Lookup a project by name.
+
+        :param name: the project name
+        :returns: the project
+        :rtype: subclass of :class:`Project`
+        :raises: :class:`Value Error` if the project is not found
+        """
+
+        for project in self:
+            if project.name == name:
+                return project
+
+        raise ValueError('Could not find project {}'.format(name))
+
+
 
 class Project(object):
 
