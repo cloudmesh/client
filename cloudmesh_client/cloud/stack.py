@@ -213,18 +213,6 @@ class BDSProject(Project):
         self.repo_is_local = kwargs.pop('repo_is_local', False)
 
 
-    @property
-    def metadata(self):
-        parent = super(BDSProject, self).metadata
-        parent.update({
-            'ips': self.ips,
-            'user': self.user,
-            'repo': self.repo,
-            'repo_is_local': self.repo_is_local
-        })
-        return parent
-
-
     def sync(self, path):
 
         # clone BDS from the local cache
