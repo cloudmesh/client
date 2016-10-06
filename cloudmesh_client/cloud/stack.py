@@ -232,7 +232,7 @@ class BDSProject(Project):
 
         # write the metadata file
         metadata = yaml.dump(self.metadata, default_flow_style=False)
-        with open(self.metadata_file, 'w') as fd:
+        with open(os.path.join(path, self.metadata_file), 'w') as fd:
             fd.write(metadata)
 
 
