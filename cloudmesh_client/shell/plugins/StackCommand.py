@@ -1,6 +1,7 @@
 from __future__ import print_function
 
 import os
+import time
 
 from cloudmesh_client.cloud.stack import BigDataStack, BDSProject, ProjectList
 from cloudmesh_client.shell.command import command
@@ -54,6 +55,34 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         return project
 
 
+    def list(self, sort=None, list=None, json=False):
+        """List the deployment stacks and projects
+
+        :param sort: field to sort by
+        :param list: comma-separated subset of {'stack', 'project'}
+        :param json: output in json-format
+        """
+
+        projectlist = ProjectList.load()
+
+        print ('Projects')
+        for project in projectlist:
+            activated = '>' if projectlist.isactive(project) else ' '
+            name = project.name
+            stack = project.__class__.__name__ # FIXME: temporary workaround
+            date = time.strftime('%Y-%m-%d %H:%M:%S UTC', project.ctime)
+            path = os.path.join(projectlist.prefix(), project.name)
+            msg = '- {activated} {name} {stack} {date} {path}'.format(
+                activated=activated,
+                name=name,
+                stack=stack,
+                date=date,
+                path=path,
+            )
+            print (msg)
+
+
+
     # noinspection PyUnusedLocal
     @command
     def do_stack(self, args, arguments):
@@ -63,6 +92,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
             Usage:
                 stack check [--stack=bds]
                 stack init bds [--no-activate] [--branch=master] [--user=$USER] [--name=<project>] <ip>...
+                stack list [--sort=<field=date>] [--list=<field,...=all>] [--json]
 
 
             Options:
@@ -90,6 +120,10 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         arg.activate = not arguments['--no-activate']
         arg.name = arguments['--name']
 
+        ################################################## list
+        arg.sort = arguments['--sort']
+        arg.listparts = arguments['--list']
+
         print (arg)
 
         if arg.check:
@@ -98,6 +132,8 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         elif arg.init and arg.bds:
             self.init(stackname='bds', branch=arg.branch, user=arg.user, name=arg.name, ips=arg.ips, activate=arg.activate)
 
+        elif arg.list:
+            self.list(sort=arg.sort, list=arg.listparts, json=arg.json)
 
         """
         # TAKEN FRO INFO COMMAND TO DEMONSTRATE SOME SIMPLE USAGE
