@@ -72,8 +72,6 @@ class ProjectList(object):
 
         for project in self.projects.itervalues():
             path = os.path.join(prefix, project.name)
-            if os.path.exists(path):
-                shutil.rmtree(path)
             project.sync(path)
 
         prop = self.__dict__
