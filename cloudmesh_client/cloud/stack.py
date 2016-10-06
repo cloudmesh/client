@@ -223,6 +223,8 @@ class BDSProject(Project):
 
     def sync(self, path):
 
+        print ('Syncing {} to {}'.format(self.name, path))
+
 
         if not os.path.isdir(os.path.join(path, '.git')):
             # clone BDS from the local cache
