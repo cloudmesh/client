@@ -60,6 +60,7 @@ class ProjectList(object):
         self.projects = dict()
         self.active = None
         self.max_pid = 0
+        self.generated_name_pid = 0
 
 
     def sync(self):
@@ -128,8 +129,11 @@ class ProjectList(object):
         :rtype: :class:`str`
         """
 
-        pid = self.max_pid
-        self.max_pid += 1
+        if self.generated_name_pid <= self.max_pid:
+            self.generated_name_pid = self.max_pid
+
+        pid = self.generated_name_pid
+        self.generated_name_pid += 1
 
         name = '{}{}'.format(self.default_name, pid)
         assert self.max_pid not in self.projects
