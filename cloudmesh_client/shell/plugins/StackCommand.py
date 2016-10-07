@@ -1,6 +1,7 @@
 from __future__ import print_function
 
 import os
+import time
 
 from cloudmesh_client.cloud.stack import BigDataStack, BDSProject, ProjectList
 from cloudmesh_client.shell.command import command
@@ -31,7 +32,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         stack.sanity_check()
 
 
-    def init(self, stackname='bds', **kwargs):
+    def init(self, stackname='bds', activate=True, **kwargs):
         if stackname == 'bds':
             project = self.init_bds(**kwargs)
         else:
@@ -39,14 +40,83 @@ class StackCommand(PluginCommand, CloudPluginCommand):
 
         projectlist = ProjectList.load()
         projectlist.add(project)
+
+        if activate:
+            projectlist.activate(project)
+
         projectlist.sync()
 
 
     def init_bds(self, branch=None, ips=None, user=None, name=None):
         stack = BigDataStack()
-        stack.initialize(ips, user=user, branch=branch, name=name)
-        project = BDSProject(ips=ips, user=user, name=name)
+        stack.initialize(ips, user=user, branch=branch)
+        project = BDSProject(ips=ips, user=user, name=name, branch=branch)
         return project
+
+
+    def list(self, sort=None, list=None, json=False):
+        """List the deployment stacks and projects
+
+        :param sort: field to sort by
+        :param list: comma-separated subset of {'stack', 'project'}
+        :param json: output in json-format
+        """
+
+        projectlist = ProjectList.load()
+
+        print ('Projects')
+        for project in projectlist:
+            activated = '>' if projectlist.isactive(project) else ' '
+            name = project.name
+            stack = project.__class__.__name__ # FIXME: temporary workaround
+            date = time.strftime('%Y-%m-%d %H:%M:%S UTC', project.ctime)
+            path = os.path.join(projectlist.prefix(), project.name)
+            msg = '- {activated} {name:10} {stack:10} {date:24} {path}'.format(
+                activated=activated,
+                name=name,
+                stack=stack,
+                date=date,
+                path=path,
+            )
+            print (msg)
+
+
+    def project(self, name=None):
+        """View or set the current active project
+
+        :param name: active this project
+        """
+
+        projectlist = ProjectList.load()
+
+        if name is None:
+            print (projectlist.getactive().name)
+
+        else:
+            project = projectlist.lookup(name)
+            projectlist.activate(project)
+            projectlist.sync()
+            print ('Switched to project {}'.format(project.name))
+
+
+    def deploy(self, **kwargs):
+        """Deploy the currently active project
+
+        :param **kwargs: passed to the implementing method (eg deploy_bds)
+        """
+
+        print (42)
+        print (kwargs)
+
+        projectlist = ProjectList.load()
+        project = projectlist.getactive()
+        path = projectlist.projectdir(project.name)
+        if isinstance(project, BDSProject):
+            project.deploy(path, **kwargs)
+        else:
+            raise ValueError('Unknown project type {}'.format(type(project)))
+
+
 
 
     # noinspection PyUnusedLocal
@@ -57,7 +127,10 @@ class StackCommand(PluginCommand, CloudPluginCommand):
 
             Usage:
                 stack check [--stack=bds]
-                stack init bds [--branch=master] [--user=$USER] [--name=<project>] <ip>...
+                stack init bds [--no-activate] [--branch=master] [--user=$USER] [--name=<project>] <ip>...
+                stack list [--sort=<field=date>] [--list=<field,...=all>] [--json]
+                stack project [<name>]
+                stack deploy bds [<play>...] [--define=<define>...]
 
 
             Options:
@@ -79,9 +152,24 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         ##################################################  defaults
         arg.stack = arguments['--stack'] or 'bds'
 
-        # init
-        arg.branch = arguments['--branch'] or 'master'
-        arg.user = arguments['--user'] or os.getenv('USER')
+        if arg.init:
+            arg.branch = arguments['--branch'] or 'master'
+            arg.user = arguments['--user'] or os.getenv('USER')
+            arg.activate = not arguments['--no-activate']
+
+        ################################################## list
+        if arg.list:
+            arg.sort = arguments['--sort']
+            arg.listparts = arguments['--list']
+
+        ##################################################
+        arg.name = arguments['<name>']
+
+        ##################################################
+        if arg.deploy and arg.bds:
+            arg.plays = arguments['<play>']
+            arg.define = arguments['--define']
+
 
         print (arg)
 
@@ -89,8 +177,16 @@ class StackCommand(PluginCommand, CloudPluginCommand):
             self.check(stackname=arg.stack)
 
         elif arg.init and arg.bds:
-            self.init(stackname='bds', branch=arg.branch, user=arg.user, name=arg.name, ips=arg.ips)
+            self.init(stackname='bds', branch=arg.branch, user=arg.user, name=arg['--name'], ips=arg.ips, activate=arg.activate)
 
+        elif arg.list:
+            self.list(sort=arg['--sort'], list=arg['--list'], json=arg.json)
+
+        elif arg.project:
+            self.project(name=arg.name)
+
+        elif arg.deploy and arg.bds:
+            self.deploy(plays=arg.plays, define=arg.define)
 
         """
         # TAKEN FRO INFO COMMAND TO DEMONSTRATE SOME SIMPLE USAGE

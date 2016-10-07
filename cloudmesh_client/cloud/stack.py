@@ -9,6 +9,7 @@ import shutil
 import subprocess
 import sys
 import time
+from collections import defaultdict
 
 import yaml
 
@@ -60,6 +61,11 @@ class ProjectList(object):
         self.projects = dict()
         self.active = None
         self.max_pid = 0
+        self.generated_name_pid = 0
+
+
+    def __iter__(self):
+        return iter(self.projects.values())
 
 
     def sync(self):
@@ -67,8 +73,6 @@ class ProjectList(object):
 
         for project in self.projects.itervalues():
             path = os.path.join(prefix, project.name)
-            if os.path.exists(path):
-                shutil.rmtree(path)
             project.sync(path)
 
         prop = self.__dict__
@@ -89,13 +93,7 @@ class ProjectList(object):
         with open(ypath) as fd:
             y = yaml.load(fd)
 
-        active = y['active']
-        plist.max_pid = y['max_pid']
-        for project in y['projects']:
-            plist.add(project)
-            if project.pid == active:
-                plist.activate(project)
-
+        plist.__dict__.update(y)
         return plist
 
 
@@ -128,8 +126,11 @@ class ProjectList(object):
         :rtype: :class:`str`
         """
 
-        pid = self.max_pid
-        self.max_pid += 1
+        if self.generated_name_pid <= self.max_pid:
+            self.generated_name_pid = self.max_pid
+
+        pid = self.generated_name_pid
+        self.generated_name_pid += 1
 
         name = '{}{}'.format(self.default_name, pid)
         assert self.max_pid not in self.projects
@@ -153,8 +154,43 @@ class ProjectList(object):
 
 
     def activate(self, project):
-        self.add(project)
+        assert project.pid >= 0, 'Project has not been added yet'
         self.active = project.pid
+
+
+    def isactive(self, project):
+        """Predicate indicating activation status of the project
+        """
+
+        return self.active == project.pid
+
+
+    def lookup(self, name):
+        """Lookup a project by name.
+
+        :param name: the project name
+        :returns: the project
+        :rtype: subclass of :class:`Project`
+        :raises: :class:`Value Error` if the project is not found
+        """
+
+        for project in self:
+            if project.name == name:
+                return project
+
+        raise ValueError('Could not find project {}'.format(name))
+
+
+    def getactive(self):
+        """Returns the currently active project.
+
+        :returns: the currently active project
+        :rtype: subclass of :class:`Project`
+        :raises: :class:`KeyError` if no project is currently active
+        """
+
+        return self.projects[self.active]
+
 
 
 class Project(object):
@@ -186,7 +222,7 @@ class Project(object):
     @property
     def metadata(self):
         m = dict(type=self.__class__.__name__)
-        m.extend(self.__dict__)
+        m.update(self.__dict__)
         return m
 
 
@@ -196,9 +232,14 @@ class Project(object):
         raise NotImplementedError
 
 
+    def deploy(self, path, **kwargs):
+        """Implemented by subclasses
+        """
+        raise NotImplementedError
+
 
 class BDSProject(Project):
-    def __init__(self, ips=None, user=None, **kwargs):
+    def __init__(self, ips=None, user=None, branch='master', **kwargs):
         super(BDSProject, self).__init__(**kwargs)
 
         assert ips is not None, ips
@@ -208,41 +249,63 @@ class BDSProject(Project):
 
         self.ips = ips
         self.user = user
+        self.branch = branch
         self.repo = kwargs.pop('repo', 'git://github.com/futuresystems/big-data-stack.git')
         self.repo_is_local = kwargs.pop('repo_is_local', False)
 
 
-    @property
-    def metadata(self):
-        parent = super(BDSProject, self).metadata
-        parent.update({
-            'ips': self.ips,
-            'user': self.user,
-            'repo': self.repo,
-            'repo_is_local': self.repo_is_local
-        })
-        return parent
-
-
     def sync(self, path):
 
-        # clone BDS from the local cache
-        cmd = ['git', 'clone', '--recursive']
-        if self.repo_is_local:
-            cmd.append('--local')
-        cmd.extend([self.repo, path])
-        Subprocess(cmd)
+
+        if not os.path.isdir(os.path.join(path, '.git')):
+            # clone BDS from the local cache
+            cmd = ['git', 'clone', '--recursive', '--branch', self.branch]
+            if self.repo_is_local:
+                cmd.append('--local')
+            cmd.extend([self.repo, path])
+            Subprocess(cmd)
 
         # generate the inventory file
         local_user = os.getenv('USER')
-        inventory = Subprocess(['./mk-inventory', '-n', '{}-{}'.format(local_user, self.name)])
+        cmd = ['python', 'mk-inventory', '-n', '{}-{}'.format(local_user, self.name)]
+        cmd.extend(self.ips)
+        inventory = Subprocess(cmd, cwd=path)
         with open(os.path.join(path, 'inventory.txt'), 'w') as fd:
             fd.write(inventory.stdout)
 
         # write the metadata file
         metadata = yaml.dump(self.metadata, default_flow_style=False)
-        with open(self.metadata_file, 'w') as fd:
+        with open(os.path.join(path, self.metadata_file), 'w') as fd:
             fd.write(metadata)
+
+
+    def deploy(self, path, plays=None, defines=None, ping_sleep=5, ping_max=500):
+
+        plays = plays or []
+        defines0 = defines or []
+
+        # cleanup defines to dict[play name] ->  list("key=value")
+        defines0 = map(lambda s: s.split(':'), defines)
+        defines = defaultdict(list)
+        for playname, keyvalue in defines0:
+            defines[playname].append(keyvalue)
+
+        # wait for the cluster to be accessible
+        for _ in xrange(ping_max):
+            try:
+                subprocess.check_call(['ansible', 'all', '-m', 'ping', '-u', self.user],
+                                      cwd=path)
+                break
+            except subprocess.CalledProcessError as e:
+                time.sleep(ping_sleep)
+
+
+        for play in plays:
+            cmd = ['ansible-playbook', play, '-u', self.user]
+            if play in defines:
+                cmd.extend(['-e', ' '.join(defines[play])])
+
+            subprocess.check_call(cmd, cwd=path)
 
 
 class Stack(object):
@@ -446,16 +509,17 @@ class BigDataStack(Stack):
             return True
 
 
-    def initialize(self, ips, user=None, branch='master', name=None,
+    def initialize(self, ips, user=None, branch='master',
                    repo='git://github.com/futuresystems/big-data-stack.git'):
         """Initialize a BDS stack-based project
 
         :param ips: list of ip addresses
         :param user: the ssh-login username on the nodes with admin privileges
         :param branch: the branch of BDS to use
-        :param name: the project name
         :param repo: the upstream git repository to clone
         """
+
+        print ('Initializing {}'.format(self.name))
 
         if not os.path.exists(self.cached_repo):
             Subprocess(['git', 'clone', '--recursive', repo, self.cached_repo])
@@ -474,6 +538,8 @@ class BigDataStack(Stack):
         :rtype: 
 
         """
+
+        print ('Updating {}'.format(self.name))
 
         assert os.path.isdir(self.cachedir)
         assert os.path.isdir(os.path.join(self.cachedir, '.git'))
