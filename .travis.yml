@@ -81,14 +81,17 @@ install:
   - curl -L http://ftp.dlitz.net/pub/dlitz/crypto/pycrypto/pycrypto-2.6.1.tar.gz | tar xz
   - cd pycrypto-2.6.1
   - python setup.py install
-  - cd ..
+  - cd
+  - ln -s `pwd` $(dirname `which python`)/../lib/python2.7/site-packages/cloudmesh_client
+  - pip install pip -U
+  - python --version
+  - pip --version
   # - git clone https://github.com/cloudmesh/client.git
-  - cd client
+  # - cd client
   - pip install -U -r requirements.txt
   - pip install -U -r requirements-doc.txt
   - pip install -U -r requirements-test.txt
   - pip install -U .
-  - ln -s `pwd` $(dirname `which python`)/../lib/python2.7/site-packages/cloudmesh_client
 
 script:
   - pwd
