@@ -69,6 +69,8 @@ python:
   - "2.7"
 
 install:
+  - pwd
+  - ls
   # - export PATH="/opt/python/2.7.10/bin:$PATH"
   - echo $PATH
   - sudo pip install --upgrade pip
