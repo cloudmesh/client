@@ -7,8 +7,8 @@ notifications:
     - kevinwangfg@gmail.com
 
 before_install:
-  - echo "- UPGRADE -----------"
-  - sudo apt-get -o Dpkg::Options::='--force-confold' --force-yes -fuy dist-upgrade
+  # - echo "- UPGRADE -----------"
+  # - sudo apt-get -o Dpkg::Options::='--force-confold' --force-yes -fuy dist-upgrade
   - echo "- BEFORE INSTALL -----------"
   - sudo apt-get install -y autotools-dev
   - sudo apt-get install -y blt-dev
