@@ -8,9 +8,9 @@ notifications:
 
 before_install:
   - echo "- BEFORE INSTALL -----------"
-  - sudo apt-get install -y  autotools-dev
-  - sudo apt-get install -y  blt-dev
-  - sudo apt-get install -y   bzip2
+  - sudo apt-get install -y autotools-dev
+  - sudo apt-get install -y blt-dev
+  - sudo apt-get install -y bzip2
   - sudo apt-get install -y dpkg-dev
   - sudo apt-get install -y g++-multilib
   - sudo apt-get install -y gcc-multilib
@@ -82,6 +82,7 @@ install:
   - cd pycrypto-2.6.1
   - python setup.py install
   - cd
+  - cd client
   - ln -s `pwd` $(dirname `which python`)/../lib/python2.7/site-packages/cloudmesh_client
   - pip install pip -U
   - python --version
