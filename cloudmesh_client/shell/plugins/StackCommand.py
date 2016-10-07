@@ -138,7 +138,23 @@ class StackCommand(PluginCommand, CloudPluginCommand):
                --cloud=CLOUD    the cloud name
 
             Examples:
-                cm stack bds init
+
+             The following example assumes that a cluster (Ubuntu
+             14.04) has been launched already and can be accessed by
+             the 'ubuntu` user at addresses 10.0.0.10, 10.0.0.11, and
+             10.0.0.12.
+
+                # verify the environment
+                cm stack check
+
+                # create a project for the cluster with given username and addresses
+                cm stack bds init --branch unstable --user ubuntu 10.0.0.10 10.0.0.11 10.0.0.12
+
+                # get the name of the project
+                cm stack project
+
+                # deploy hadoop, spark, and hbase to the cluster
+                cm deploy bds play-hadoop.yml addons/spark.yml addons/hbase.yml
 
         """
 
