@@ -325,6 +325,33 @@ class Stack(object):
         return os.path.join(dotcloudmesh, 'stack', self.name, 'cache')
 
 
+    def sanity_check(self):
+        """Verifies that the environment supports installing and running the stack.
+
+        To be implemented by subclasses
+
+        :rtype: :class:`bool`
+        """
+        raise NotImplementedError
+
+
+    def initialize(self, *args, **kwargs):
+        """Initialize the stack.
+
+        Implemented by subclass
+        """
+        raise NotImplementedError
+
+
+    def update(self, *args, **kwargs):
+        """Update the stack
+
+        Implemented by subclass
+        """
+        raise NotImplementedError
+
+
+
 class SanityCheckError(Exception):
 
     def __init__(self, message, reason):
@@ -555,38 +582,4 @@ class BigDataStack(Stack):
             Subprocess(['git', 'fetch'], cwd=self.cached_repo)
             Subprocess(['git', 'pull', 'origin', branch], cwd=self.cached_repo)
 
-
-    def list(self, sort=None, fields=None, json=False):
-        """List the deployment stacks and projects
-
-        :param sort: 
-        :param fields: 
-        :param json: 
-        :returns: 
-        :rtype: 
-
-        """
-
-        
-
-    
-    def project(self, projectname=None):
-        """View or set the current active project
-
-        :param projectname: If None, return the current project. Otherwise switch to the named project.
-        """
-
-        raise NotImplementedError
-
-
-    def deploy(self):
-        """Deploy the currently active project
-
-        :returns: 
-        :rtype: 
-
-        """
-
-        raise NotImplementedError
-    
 
