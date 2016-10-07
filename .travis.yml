@@ -82,7 +82,7 @@ install:
   - cd pycrypto-2.6.1
   - python setup.py install
   - cd ..
-  - git clone https://github.com/cloudmesh/client.git
+  # - git clone https://github.com/cloudmesh/client.git
   - cd client
   - pip install -U -r requirements.txt
   - pip install -U -r requirements-doc.txt
