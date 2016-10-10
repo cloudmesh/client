@@ -154,7 +154,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
                 cm stack project
 
                 # deploy hadoop, spark, and hbase to the cluster
-                cm deploy play-hadoop.yml addons/spark.yml addons/hbase.yml
+                cm stack deploy play-hadoop.yml addons/spark.yml addons/hbase.yml
 
         """
 
