@@ -182,7 +182,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         arg.name = arguments['<name>']
 
         ##################################################
-        if arg.deploy
+        if arg.deploy:
             arg.plays = arguments['<play>']
             arg.define = arguments['--define']
 
@@ -201,7 +201,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         elif arg.project:
             self.project(name=arg.name)
 
-        elif arg.deploy
+        elif arg.deploy:
             self.deploy(plays=arg.plays, defines=arg.define)
 
         """
