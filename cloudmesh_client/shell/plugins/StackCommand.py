@@ -130,7 +130,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
                 stack init bds [--no-activate] [--branch=master] [--user=$USER] [--name=<project>] <ip>...
                 stack list [--sort=<field=date>] [--list=<field,...=all>] [--json]
                 stack project [<name>]
-                stack deploy bds [<play>...] [--define=<define>...]
+                stack deploy [<play>...] [--define=<define>...]
 
 
             Options:
@@ -148,13 +148,13 @@ class StackCommand(PluginCommand, CloudPluginCommand):
                 cm stack check
 
                 # create a project for the cluster with given username and addresses
-                cm stack bds init --user ubuntu 10.0.0.10 10.0.0.11 10.0.0.12
+                cm stack init --user ubuntu 10.0.0.10 10.0.0.11 10.0.0.12
 
                 # get the name of the project
                 cm stack project
 
                 # deploy hadoop, spark, and hbase to the cluster
-                cm deploy bds play-hadoop.yml addons/spark.yml addons/hbase.yml
+                cm deploy play-hadoop.yml addons/spark.yml addons/hbase.yml
 
         """
 
