@@ -148,7 +148,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
                 cm stack check
 
                 # create a project for the cluster with given username and addresses
-                cm stack bds init --branch unstable --user ubuntu 10.0.0.10 10.0.0.11 10.0.0.12
+                cm stack bds init --user ubuntu 10.0.0.10 10.0.0.11 10.0.0.12
 
                 # get the name of the project
                 cm stack project
