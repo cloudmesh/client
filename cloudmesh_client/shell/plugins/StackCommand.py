@@ -202,7 +202,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
             self.project(name=arg.name)
 
         elif arg.deploy and arg.bds:
-            self.deploy(plays=arg.plays, define=arg.define)
+            self.deploy(plays=arg.plays, defines=arg.define)
 
         """
         # TAKEN FRO INFO COMMAND TO DEMONSTRATE SOME SIMPLE USAGE
