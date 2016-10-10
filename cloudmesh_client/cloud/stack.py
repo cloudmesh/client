@@ -39,9 +39,9 @@ class SubprocessError(Exception):
 
 class Subprocess(object):
 
-    def __init__(self, cmd, cwd=None):
+    def __init__(self, cmd, cwd=None, stderr=subprocess.PIPE, stdout=subprocess.PIPE):
 
-        proc = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE, cwd=cwd)
+        proc = subprocess.Popen(cmd, stderr=stderr, stdout=stdout, cwd=cwd)
         stdout, stderr = proc.communicate()
 
         self.returncode = proc.returncode
@@ -254,6 +254,13 @@ class BDSProject(Project):
         self.repo_is_local = kwargs.pop('repo_is_local', False)
 
 
+    def in_venv(self, cmd, **kwargs):
+        name = cmd.pop(0)
+        path = os.path.join('venv', 'bin', name)
+        real_cmd = [path] + cmd
+        return Subprocess(real_cmd, **kwargs)
+
+
     def sync(self, path):
 
 
@@ -265,11 +272,16 @@ class BDSProject(Project):
             cmd.extend([self.repo, path])
             Subprocess(cmd)
 
+        if not os.path.isdir(os.path.join('path', 'venv')):
+            Subprocess(['virtualenv', 'venv'], cwd=path)
+
+        self.in_venv(['pip', 'install', '-r', 'requirements.txt'], cwd=path)
+
         # generate the inventory file
         local_user = os.getenv('USER')
         cmd = ['python', 'mk-inventory', '-n', '{}-{}'.format(local_user, self.name)]
         cmd.extend(self.ips)
-        inventory = Subprocess(cmd, cwd=path)
+        inventory = self.in_venv(cmd, cwd=path)
         with open(os.path.join(path, 'inventory.txt'), 'w') as fd:
             fd.write(inventory.stdout)
 
@@ -293,10 +305,10 @@ class BDSProject(Project):
         # wait for the cluster to be accessible
         for _ in xrange(ping_max):
             try:
-                subprocess.check_call(['ansible', 'all', '-m', 'ping', '-u', self.user],
-                                      cwd=path)
+                self.in_venv(['ansible', 'all', '-m', 'ping', '-u', self.user],
+                           cwd=path, stdout=None, stderr=None)
                 break
-            except subprocess.CalledProcessError as e:
+            except SubprocessError as e:
                 time.sleep(ping_sleep)
 
 
@@ -305,7 +317,7 @@ class BDSProject(Project):
             if play in defines:
                 cmd.extend(['-e', ' '.join(defines[play])])
 
-            subprocess.check_call(cmd, cwd=path)
+            self.in_venv(cmd, cwd=path, stdout=None, stderr=None)
 
 
 class Stack(object):
