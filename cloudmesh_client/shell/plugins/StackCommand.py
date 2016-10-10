@@ -127,7 +127,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
 
             Usage:
                 stack check [--stack=bds]
-                stack init bds [--no-activate] [--branch=master] [--user=$USER] [--name=<project>] <ip>...
+                stack init [--no-activate] [--branch=master] [--user=$USER] [--name=<project>] <ip>...
                 stack list [--sort=<field=date>] [--list=<field,...=all>] [--json]
                 stack project [<name>]
                 stack deploy [<play>...] [--define=<define>...]
@@ -182,7 +182,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         arg.name = arguments['<name>']
 
         ##################################################
-        if arg.deploy and arg.bds:
+        if arg.deploy
             arg.plays = arguments['<play>']
             arg.define = arguments['--define']
 
@@ -192,7 +192,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         if arg.check:
             self.check(stackname=arg.stack)
 
-        elif arg.init and arg.bds:
+        elif arg.init:
             self.init(stackname='bds', branch=arg.branch, user=arg.user, name=arg['--name'], ips=arg.ips, activate=arg.activate)
 
         elif arg.list:
@@ -201,7 +201,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         elif arg.project:
             self.project(name=arg.name)
 
-        elif arg.deploy and arg.bds:
+        elif arg.deploy
             self.deploy(plays=arg.plays, defines=arg.define)
 
         """
