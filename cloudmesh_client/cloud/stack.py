@@ -109,8 +109,21 @@ class ProjectDB(object):
         return Project.load(os.path.join(self.path, Project.filename))
 
 
+    def __setitem__(self, name, project):
+        projdir = self.projectdir()
+        if os.path.exists(projdir):
+            raise ValueError('Project {} already exists: {}'.format(name, projdir))
+
+        project.init()
+        project.sync_metadata(projdir)
+
+
     def lookup(self, projname):
         return self[projname]
+
+
+    def add(self, project):
+        self[project.name] = project
 
 
     def sync_metadata(self, projects=True):
@@ -141,6 +154,10 @@ class ProjectDB(object):
         return plist
 
 
+    def projectdir(self, name):
+        return os.path.join(self.path, name)
+
+
     def new_project_name(self):
         """Automatically generate a new project name
 
@@ -153,6 +170,7 @@ class ProjectDB(object):
 
         name = '{}{}'.format(self.default_name, pid)
         assert not os.path.exists(os.path.join(self.path, name))
+        self.sync_metadata(projects=False)
         return name
 
 
@@ -181,11 +199,103 @@ class ProjectDB(object):
 
 
 
+class ProjectFactory(object):
+    def __init__(self, prefix='~/.cloudmesh/projects'):
+        path = os.path.abspath(os.path.expanduser(os.path.expandvars(prefix)))
+        self.db = ProjectDB(path)
+        self.stacktype = 'bds'
+        self.project_name = None
+        self.repo = None
+        self.branch = None
+
+
+    def __call__(self):
+        name = self.project_name or self.db.new_project_name()
+        projdir = self.db.projectdir(name)
+
+        if self.stacktype == 'bds':
+            kwargs = dict()
+            if self.repo:
+                kwargs['repo'] = self.repo
+            if self.branch:
+                kwargs['branch'] = self.branch
+            stack = BigDataStack(projdir, **kwargs)
+        else:
+            raise NotImplementedError('Unknown stack type {}'.format(self.stacktype))
+
+
+        deployparams = dict()
+
+        if self.username:
+            deployparams['user'] = self.username
+
+        if self.ips:
+            deployparams['ips'] = self.ips
+
+        if self.overrides:
+            deployparams['overrides'] = self.overrides
+
+        if self.playbooks:
+            deployparams['playbooks'] = self.playbooks
+
+
+        project = Project(name, stack, deployparams)
+        self.db.add(project)
+
+        if self.activate:
+            self.db.activate(project)
+
+        return project
+
+
+    def use_bds(self):
+        self.is_bds = True
+        return self
+
+
+    def set_user_name(self, username):
+        self.username = username
+        return self
+
+
+    def set_project_name(self, name):
+        self.project_name = name
+        return self
+
+
+    def set_ips(self, ips):
+        assert len(ips) >= 0
+        self.ips = ips
+        return self
+
+    def set_repo(self, repo):
+        self.repo = repo
+        return self
+
+
+    def set_branch(self, branch='master'):
+        self.branch = branch
+        return self
+
+
+    def set_overrides(self, overrides=None):
+        overrides = overrides or defaultdict(lambda: defaultdict(list))
+        self.overrides = overrides
+        return self
+
+
+    def activate(self, make_active=True):
+        self.make_active = make_active
+        return self
+
+
+
 class Project(object):
 
     filename = '.cloudmesh_project.yml'
 
     def __init__(self, name, stack, deployparams=None):
+        assert initparams   is not None
         assert deployparams is not None
 
         self.name = name
@@ -193,8 +303,6 @@ class Project(object):
         self.stack = stack
         self.deployparams = deployparams
         self.deployparams['name'] = name
-
-        self.stack.init()
 
 
     @classmethod
@@ -221,6 +329,10 @@ class Project(object):
         y = yaml.dump(self.metadata, default_flow_style=False)
         with open(os.path.join(path, Project.filename), 'w') as fd:
             fd.write(y)
+
+
+    def init(self):
+        self.stack.init()
 
 
     def deploy(self):
