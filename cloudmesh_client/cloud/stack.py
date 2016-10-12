@@ -29,6 +29,31 @@ from cloudmesh_client.default import Default
 requests.packages.urllib3.disable_warnings()
 
 
+def get_virtualenv_environment(venvpath):
+    """Figures out the environment variables that are set when activating a virtualenv
+
+    :param venvpath: path to the virtual environment
+    :returns: dictionary of environment variables
+    :rtype: :class:`dict`
+    """
+
+    script_lines = [
+        'source {venvpath}/bin/activate >/dev/null 2>&1',
+        '{command}'
+    ]
+    script = ';'.join(script_lines).format(**locals())
+    output = subprocess.check_output(['bash', '-c', script])
+
+    env = dict()
+    for line in output.split('\n'):
+        if '=' not in line: continue
+        k, v = line.strip().split('=', 1)
+        env[k] = v
+
+    return env
+
+
+
 class SubprocessError(Exception):
     def __init__(self, cmd, returncode, stderr, stdout):
         self.cmd = cmd
@@ -39,9 +64,9 @@ class SubprocessError(Exception):
 
 class Subprocess(object):
 
-    def __init__(self, cmd, cwd=None, stderr=subprocess.PIPE, stdout=subprocess.PIPE):
+    def __init__(self, cmd, cwd=None, stderr=subprocess.PIPE, stdout=subprocess.PIPE, env=None):
 
-        proc = subprocess.Popen(cmd, stderr=stderr, stdout=stdout, cwd=cwd)
+        proc = subprocess.Popen(cmd, stderr=stderr, stdout=stdout, cwd=cwd, env=env)
         stdout, stderr = proc.communicate()
 
         self.returncode = proc.returncode
@@ -52,40 +77,59 @@ class Subprocess(object):
             raise SubprocessError(cmd, self.returncode, self.stderr, self.stdout)
 
 
-class ProjectList(object):
+class ProjectDB(object):
 
-    filename = '.projectlist.yml'
+    filename = '.cloudmesh_projectdb.yml'
     default_name = 'p-'
 
-    def __init__(self):
-        self.projects = dict()
+    def __init__(self, prefix=None):
+        assert prefix is not None
+
+        if os.path.isfile(prefix):
+            raise OSError('`{}` is a file, should be a directory'.format(prefix))
+
+        if not os.path.isdir(prefix):
+            os.makedirs(prefix)
+
+        self.path = path
         self.active = None
-        self.max_pid = 0
-        self.generated_name_pid = 0
+        self.generated_pid = 0
 
 
     def __iter__(self):
-        return iter(self.projects.values())
+        for name in os.listdir(self.path):
+            projdir = os.path.join(self.path, name)
+            projfile = os.path.join(projdir, Project.filename)
+            if os.path.isdir(projdir) and os.path.isfile(projfile):
+                project = Project.load(projdir)
+                yield project
 
 
-    def sync(self):
-        prefix = ProjectList.prefix()
+    def __getitem__(self, projname):
+        return Project.load(os.path.join(self.path, Project.filename))
 
-        for project in self.projects.itervalues():
-            path = os.path.join(prefix, project.name)
-            project.sync(path)
+
+    def lookup(self, projname):
+        return self[projname]
+
+
+    def sync_metadata(self, projects=True):
+        if projects:
+            for project in self:
+                path = os.path.join(self.path, project.name)
+                project.sync_metadata(path)
 
         prop = self.__dict__
+        prop.pop('path')
         y = yaml.dump(prop, default_flow_style=False)
-        with open(os.path.join(prefix, ProjectList.filename), 'w') as fd:
+        with open(os.path.join(self.path, ProjectList.filename), 'w') as fd:
             fd.write(y)
 
     @classmethod
-    def load(cls):
-        prefix = ProjectList.prefix()
+    def load(cls, prefix):
         ypath = os.path.join(prefix, cls.filename)
 
-        plist = cls()
+        plist = cls(prefix=prefix)
 
         if not os.path.exists(ypath):
             return plist
@@ -97,28 +141,6 @@ class ProjectList(object):
         return plist
 
 
-    @classmethod
-    def prefix(cls):
-
-        cfgpath = Config.find_file('cloudmesh.yaml')
-        dotcloudmesh = os.path.dirname(cfgpath)
-        projectsdir = os.path.join(dotcloudmesh, 'projects')
-
-        return projectsdir
-
-
-    @classmethod
-    def projectdir(cls, name):
-        prefix = cls.prefix()
-        path = os.path.join(prefix, name)
-        return path
-
-
-    @classmethod
-    def project_exists(cls, project):
-        return project.pid in self.projects
-
-
     def new_project_name(self):
         """Automatically generate a new project name
 
@@ -126,36 +148,18 @@ class ProjectList(object):
         :rtype: :class:`str`
         """
 
-        if self.generated_name_pid <= self.max_pid:
-            self.generated_name_pid = self.max_pid
-
-        pid = self.generated_name_pid
-        self.generated_name_pid += 1
+        pid = self.generated_pid
+        self.generated_pid += 1
 
         name = '{}{}'.format(self.default_name, pid)
-        assert self.max_pid not in self.projects
-        assert not os.path.exists(self.projectdir(name))
+        assert not os.path.exists(os.path.join(self.path, name))
         return name
-
-
-    def add(self, project):
-        assert project.pid < 0, project.pid
-        project.name = project.name or self.new_project_name()
-        project._pid = self.max_pid
-        self.max_pid += 1
-        self.projects[project.pid] = project
-
-
-    def new(self, name=None, activate=False):
-        p = Project(name=name)
-        self.add(p)
-        if activate:
-            self.activate(p)
 
 
     def activate(self, project):
         assert project.pid >= 0, 'Project has not been added yet'
         self.active = project.pid
+        self.sync_metadata(projects=False)
 
 
     def isactive(self, project):
@@ -163,22 +167,6 @@ class ProjectList(object):
         """
 
         return self.active == project.pid
-
-
-    def lookup(self, name):
-        """Lookup a project by name.
-
-        :param name: the project name
-        :returns: the project
-        :rtype: subclass of :class:`Project`
-        :raises: :class:`Value Error` if the project is not found
-        """
-
-        for project in self:
-            if project.name == name:
-                return project
-
-        raise ValueError('Could not find project {}'.format(name))
 
 
     def getactive(self):
@@ -189,18 +177,25 @@ class ProjectList(object):
         :raises: :class:`KeyError` if no project is currently active
         """
 
-        return self.projects[self.active]
+        return self[self.active]
 
 
 
 class Project(object):
 
-    metadata_file = '.properties.yml'
+    filename = '.cloudmesh_project.yml'
 
-    def __init__(self, name=None):
+    def __init__(self, name, stack, deployparams=None):
+        assert deployparams is not None
+
+        self.name = name
         self.ctime = time.gmtime()
-        self.name = name  # this is set by ProjectList if None
-        self._pid = -1 # this is set by ProjectList
+        self.stack = stack
+        self.deployparams = deployparams
+        self.deployparams['name'] = name
+
+        self.stack.init()
+
 
     @classmethod
     def load(cls, path):
@@ -216,26 +211,33 @@ class Project(object):
 
 
     @property
-    def pid(self): return self._pid
-
-
-    @property
     def metadata(self):
         m = dict(type=self.__class__.__name__)
         m.update(self.__dict__)
         return m
 
 
-    def sync(self, path):
-        """Implemented by subclasses
-        """
-        raise NotImplementedError
+    def sync_metadata(self, path):
+        y = yaml.dump(self.metadata, default_flow_style=False)
+        with open(os.path.join(path, Project.filename), 'w') as fd:
+            fd.write(y)
 
 
-    def deploy(self, path, **kwargs):
-        """Implemented by subclasses
-        """
-        raise NotImplementedError
+    def deploy(self):
+        self.stack.deploy(**self.deployparams)
+
+
+class KWArgs(object):
+    def __init__(self, **kwargs):
+        self.kwargs = kwargs
+
+
+    def __getitem__(self, key):
+        return self.kwargs[key]
+
+
+    def __setitem__(self, key, value):
+        self.kwargs[key] = value
 
 
 class BDSProject(Project):
@@ -302,15 +304,6 @@ class BDSProject(Project):
         for playname, keyvalue in defines0:
             defines[playname].append(keyvalue)
 
-        # wait for the cluster to be accessible
-        for _ in xrange(ping_max):
-            try:
-                self.in_venv(['ansible', 'all', '-m', 'ping', '-u', self.user],
-                           cwd=path, stdout=None, stderr=None)
-                break
-            except SubprocessError as e:
-                time.sleep(ping_sleep)
-
 
         for play in plays:
             cmd = ['ansible-playbook', play, '-u', self.user]
@@ -320,47 +313,68 @@ class BDSProject(Project):
             self.in_venv(cmd, cwd=path, stdout=None, stderr=None)
 
 
-class Stack(object):
-    """
-    Not intended to be directly instantiated. Instead use one of the subclasses.
-    """
 
-    def __init__(self, name=None):
-        assert name is not None
-        self.name = name
-
-
-    @property
-    def cachedir(self):
-        cfgpath = Config.find_file('cloudmesh.yaml')
-        dotcloudmesh = os.path.dirname(cfgpath)
-        return os.path.join(dotcloudmesh, 'stack', self.name, 'cache')
+class BigDataStack(object):
+    def __init__(self, dest, repo='git://github.com/futuresystems/big-data-stack.git', branch='master'):
+        self.path = os.path.abspath(dest)
+        self.repo = repo
+        self.branch = branch
+        self.local = os.path.isdir(repo)
+        self._env = dict()
 
 
-    def sanity_check(self):
-        """Verifies that the environment supports installing and running the stack.
+    def init(self, force=False):
+        if not os.path.isdir(os.path.join(self.path, '.git')):
+            Subprocess(['git', 'clone', '--recursive', '--branch', self.branch, self.path])
 
-        To be implemented by subclasses
+        venvname = 'venv'
+        venvdir = os.path.join(self.path, venvname)
 
-        :rtype: :class:`bool`
-        """
-        raise NotImplementedError
+        if force and os.path.isdir(venvdir):
+            shutil.rmtree(venvdir)
+
+        if not os.path.isdir(venvdir):
+            Subprocess(['virtualenv', venvdir])
+
+        self._env = get_virtualenv_environment(venvdir)
+        cmd = ['pip', 'install', '-r', 'requirements.txt'] + (['-U'] if force else [])
+        Subprocess(cmd, cwd=self.path)
 
 
-    def initialize(self, *args, **kwargs):
-        """Initialize the stack.
+    def update(self):
+        Subprocess(['git', 'fetch', '--recurse-submodules', 'origin', self.branch], cwd=self.path)
+        Subprocess(['git', 'checkout', self.branch], cwd=self.path)
+        Subprocess(['git', 'merge' 'origin/{}'.format(self.branch)], cwd=self.path)
+        self.init(force=True)
 
-        Implemented by subclass
-        """
-        raise NotImplementedError
+
+    def deploy(self, ips=None, name=None, user=None, playbooks=None, overrides=None):
+        assert ips is not None
+
+        name = name or os.getenv('USER') + '-' + os.path.basename(self.path)
+        user = user or 'defaultuser'
+        playbooks = playbooks or list()
+        overrides = overrides or dict()
 
 
-    def update(self, *args, **kwargs):
-        """Update the stack
+        Subprocess(['python', 'mk-inventory', '-n', name] + ips, cwd=self.path, env=self._env)
 
-        Implemented by subclass
-        """
-        raise NotImplementedError
+
+        # wait for the cluster to be accessible
+        for _ in xrange(ping_max):
+            try:
+                Subprocess(['ansible', 'all', '-m', 'ping', '-u', self.user],
+                           cwd=path, env=self._env, stdout=None, stderr=None)
+                break
+            except SubprocessError as e:
+                time.sleep(ping_sleep)
+
+
+        basic_command = ['ansible-playbook', '-u', user]
+        for play in playbooks:
+            define = ['{}={}'.format(k, v) for k, v in defines[play]]
+            cmd = basic_command + [play, '-e', ','.join(define)]
+            Subprocess(cmd, cwd=self.path, env=self._env, stdout=None, stderr=None)
 
 
 
