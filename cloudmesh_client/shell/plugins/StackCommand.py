@@ -3,7 +3,7 @@ from __future__ import print_function
 import os
 import time
 
-from cloudmesh_client.cloud.stack import sanity_check, BigDataStack, BDSProject, ProjectList
+from cloudmesh_client.cloud.stack import sanity_check, ProjectDB, Project, BigDataStack
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.default import Default
@@ -27,19 +27,30 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         sanity_check()
 
 
-    def init(self, stackname='bds', activate=True, **kwargs):
+    def init(self, stackname='bds', activate=True, name=None, user=None, branch=None, **kwargs):
+        factory = ProjectFactory()
+        factory.activate(activate)
+
         if stackname == 'bds':
-            project = self.init_bds(**kwargs)
+            factory.use_bds()
         else:
             raise NotImplementedError(stackname)
 
-        projectlist = ProjectList.load()
-        projectlist.add(project)
+        if name:
+            factory.set_project_name(name)
 
-        if activate:
-            projectlist.activate(project)
+        if user:
+            factory.set_user_name(user)
 
-        projectlist.sync()
+        if branch:
+            factory.set_branch(branch)
+
+        if ips:
+            factory.set_ips(ips)
+
+
+        project = factory()
+
 
 
     def init_bds(self, branch=None, ips=None, user=None, name=None):
@@ -199,34 +210,4 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         elif arg.deploy:
             self.deploy(plays=arg.plays, defines=arg.define)
 
-        """
-        # TAKEN FRO INFO COMMAND TO DEMONSTRATE SOME SIMPLE USAGE
-
-        d = {
-            "cloud": arg.cloud,
-            "key": Default.key,
-            "user": Default.user,
-            "vm": Default.vm,
-            "group": Default.group,
-            "secgroup": Default.secgroup,
-            "counter": Default.get_counter(name="name"),
-            "image": Default.get_image(category=arg.cloud),
-            "flavor": Default.get_flavor(category=arg.cloud),
-            "refresh": str(Default.refresh),
-            "debug": str(Default.debug),
-            "interactive": str(Default.interactive),
-            "purge": str(Default.purge),
-
-        }
-        order = ["cloud", "key", "user", "vm", "group", "secgroup",
-                 "counter", "image", "flavor", "refresh", "debug", "interactive", "purge"]
-        print(Printer.attribute(d, order=order, output=arg.FORMAT, sort_keys=False))
-
-        if d["key"] in ["TBD", ""] or d["user"] in ["TBD", ""]:
-            msg = "Please replace the TBD values"
-            msg = msg + "\nSee Also: \n\n" \
-                  + "    cm register profile \n" \
-                  + "    cm default user=YOURUSERNAME\n"
-            Console.error(msg, traceflag=False)
-        """
         return ""
