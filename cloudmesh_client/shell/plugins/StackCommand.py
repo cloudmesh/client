@@ -3,7 +3,7 @@ from __future__ import print_function
 import os
 import time
 
-from cloudmesh_client.cloud.stack import BigDataStack, BDSProject, ProjectList
+from cloudmesh_client.cloud.stack import sanity_check, BigDataStack, BDSProject, ProjectList
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.default import Default
@@ -23,13 +23,8 @@ class StackCommand(PluginCommand, CloudPluginCommand):
             print("init command stack")
 
 
-    def check(self, stackname='bds'):
-        if stackname == 'bds':
-            stack = BigDataStack()
-        else:
-            raise NotImplementedError(stackname)
-
-        stack.sanity_check()
+    def check(self):
+        sanity_check()
 
 
     def init(self, stackname='bds', activate=True, **kwargs):
@@ -190,7 +185,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         print (arg)
 
         if arg.check:
-            self.check(stackname=arg.stack)
+            self.check()
 
         elif arg.init:
             self.init(stackname='bds', branch=arg.branch, user=arg.user, name=arg['--name'], ips=arg.ips, activate=arg.activate)

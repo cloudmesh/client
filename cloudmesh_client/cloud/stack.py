@@ -454,144 +454,78 @@ class SanityChecker(object):
                 raise SanityCheckError('SSH authentication to github.com failed',
                                        'did you add your public key to https://github.com/settings/ssh ?')
 
+def sanity_check():
+    """Verifies that the environment is set up correctly for BDS usage:
 
+    :returns: boolean indicating pass or fail of the sanity check
+    :rtype: :class:`bool`
+    """
 
-class BigDataStack(Stack):
+    def pprint_check(msg, maxchar=20, filler='.', stream=sys.stdout):
+        """fancy way for printing out aligned messages
 
-    def __init__(self):
-        super(BigDataStack, self).__init__(name='bds')
-
-
-    @property
-    def cached_repo(self):
-        return os.path.join(self.cachedir, 'bds.git')
-
-
-    def sanity_check(self):
-        """Verifies that the environment is set up correctly for BDS usage:
-
-        :returns: boolean indicating pass or fail of the sanity check
-        :rtype: :class:`bool`
-
+        :param msg: the message
+        :param maxchar: maximum number of characters to elide
+        :param filler: the filler character
+        :param stream: the output stream
         """
+        nfiller = maxchar - len(msg)
+        nfiller = max(nfiller, 2)
 
-        def pprint_check(msg, maxchar=20, filler='.', stream=sys.stdout):
-            """fancy way for printing out aligned messages
-
-            :param msg: the message
-            :param maxchar: maximum number of characters to elide
-            :param filler: the filler character
-            :param stream: the output stream
-            """
-            nfiller = maxchar - len(msg)
-            nfiller = max(nfiller, 2)
-
-            stream.write(msg)
-            stream.write(nfiller * filler)
+        stream.write(msg)
+        stream.write(nfiller * filler)
 
 
-        checker = SanityChecker()
+    checker = SanityChecker()
 
-        # so all errors can be reported at once
-        errors = []
+    # so all errors can be reported at once
+    errors = []
 
-        def check(fn, *args, **kws):
-            try:
-                fn(*args, **kws)
-                print('OK')
-            except SanityChecker as e:
-                print('FAILED')
-                errors.append(e)
-
-
-        ################################################## programs
-
-        # these should be available
-        programs = [
-            'python',
-            'virtualenv',
-            'pip',
-            'ansible',
-            'ansible-playbook',
-            'ansible-vault',
-            'git',
-            'ssh',
-        ]
-
-        for prog in programs:
-            pprint_check(prog)
-            check(checker.check_program, prog)
-
-        ################################################## ssh key
-
-        pprint_check('ssh key')
-        check(checker.check_sshkey)
-
-        ################################################## ssh to github
-
-        pprint_check('github')
-        check(checker.check_github)
+    def check(fn, *args, **kws):
+        try:
+            fn(*args, **kws)
+            print('OK')
+        except SanityChecker as e:
+            print('FAILED')
+            errors.append(e)
 
 
-        ################################################## errors
+    ################################################## programs
 
-        if len(errors) > 0:
-            sys.stderr.write('The following errors were detected:\n\n')
+    # these should be available
+    programs = [
+        'python',
+        'virtualenv',
+        'pip',
+        'git',
+        'ssh',
+    ]
 
-            for e in errors:
-                sys.stderr.write('* {}\n'.format(e.message))
-                sys.stderr.write('  >{}\n'.format(e.reason))
+    for prog in programs:
+        pprint_check(prog)
+        check(checker.check_program, prog)
 
-            return False
+    ################################################## ssh key
 
-        else:
-            return True
+    pprint_check('ssh key')
+    check(checker.check_sshkey)
 
+    ################################################## ssh to github
 
-    def initialize(self, ips, user=None, branch='master',
-                   repo='git://github.com/futuresystems/big-data-stack.git'):
-        """Initialize a BDS stack-based project
-
-        :param ips: list of ip addresses
-        :param user: the ssh-login username on the nodes with admin privileges
-        :param branch: the branch of BDS to use
-        :param repo: the upstream git repository to clone
-        """
-
-        print ('Initializing {}'.format(self.name))
-
-        if not os.path.exists(self.cached_repo):
-            Subprocess(['git', 'clone', '--recursive', repo, self.cached_repo])
-
-        if not os.path.isdir(self.cached_repo):
-            raise OSError('{} is not a directory'.format(prefix))
+    pprint_check('github')
+    check(checker.check_github)
 
 
-    def update(self, user=None, branch='master', name=None):
-        """Updated a previous initialized/cloned stack
+    ################################################## errors
 
-        :param user: 
-        :param branch: 
-        :param name: 
-        :returns: 
-        :rtype: 
+    if len(errors) > 0:
+        sys.stderr.write('The following errors were detected:\n\n')
 
-        """
+        for e in errors:
+            sys.stderr.write('* {}\n'.format(e.message))
+            sys.stderr.write('  >{}\n'.format(e.reason))
 
-        print ('Updating {}'.format(self.name))
+        return False
 
-        assert os.path.isdir(self.cachedir)
-        assert os.path.isdir(os.path.join(self.cachedir, '.git'))
-
-        current_branch = Subprocess(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], cwd=self.cached_repo)\
-                        .stdout.strip()
-
-        if current_branch == branch:
-            Subprocess(['git', 'pull', '--recurse-submodules', 'origin', branch], cwd=self.cached_repo)
-            Subprocess(['git', 'submodule', 'update'], cwd=self.cached_repo)
-
-        else:
-            Subprocess(['git', 'fetch'], cwd=self.cached_repo)
-            Subprocess(['git', 'pull', 'origin', branch], cwd=self.cached_repo)
-
-
+    else:
+        return True
