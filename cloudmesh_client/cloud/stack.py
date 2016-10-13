@@ -2,6 +2,7 @@
 
 from __future__ import print_function
 
+import copy
 import glob
 import os
 import stat
@@ -37,9 +38,11 @@ def get_virtualenv_environment(venvpath):
     :rtype: :class:`dict`
     """
 
+    command = 'source %s/bin/activate' % venvpath
     script_lines = [
         'source {venvpath}/bin/activate >/dev/null 2>&1',
-        '{command}'
+        '{command} >/dev/null 2>&1',
+        'env',
     ]
     script = ';'.join(script_lines).format(**locals())
     output = subprocess.check_output(['bash', '-c', script])
@@ -85,15 +88,24 @@ class ProjectDB(object):
     def __init__(self, prefix=None):
         assert prefix is not None
 
-        if os.path.isfile(prefix):
-            raise OSError('`{}` is a file, should be a directory'.format(prefix))
+        if os.path.exists(os.path.join(prefix, self.filename)):
+            yp = os.path.join(prefix, self.filename)
+            with open(yp) as fd:
+                y = yaml.load(fd)
+            self.__dict__.update(y)
+            self.path = prefix
 
-        if not os.path.isdir(prefix):
-            os.makedirs(prefix)
+        else:
 
-        self.path = path
-        self.active = None
-        self.generated_pid = 0
+            if os.path.isfile(prefix):
+                raise OSError('`{}` is a file, should be a directory'.format(prefix))
+
+            if not os.path.isdir(prefix):
+                os.makedirs(prefix)
+
+            self.path = prefix
+            self.active = None
+            self.generated_pid = 0
 
 
     def __iter__(self):
@@ -110,7 +122,7 @@ class ProjectDB(object):
 
 
     def __setitem__(self, name, project):
-        projdir = self.projectdir()
+        projdir = self.projectdir(name)
         if os.path.exists(projdir):
             raise ValueError('Project {} already exists: {}'.format(name, projdir))
 
@@ -132,26 +144,11 @@ class ProjectDB(object):
                 path = os.path.join(self.path, project.name)
                 project.sync_metadata(path)
 
-        prop = self.__dict__
+        prop = copy.copy(self.__dict__)
         prop.pop('path')
         y = yaml.dump(prop, default_flow_style=False)
-        with open(os.path.join(self.path, ProjectList.filename), 'w') as fd:
+        with open(os.path.join(self.path, ProjectDB.filename), 'w') as fd:
             fd.write(y)
-
-    @classmethod
-    def load(cls, prefix):
-        ypath = os.path.join(prefix, cls.filename)
-
-        plist = cls(prefix=prefix)
-
-        if not os.path.exists(ypath):
-            return plist
-
-        with open(ypath) as fd:
-            y = yaml.load(fd)
-
-        plist.__dict__.update(y)
-        return plist
 
 
     def projectdir(self, name):
@@ -175,8 +172,7 @@ class ProjectDB(object):
 
 
     def activate(self, project):
-        assert project.pid >= 0, 'Project has not been added yet'
-        self.active = project.pid
+        self.active = project.name
         self.sync_metadata(projects=False)
 
 
@@ -207,6 +203,8 @@ class ProjectFactory(object):
         self.project_name = None
         self.repo = None
         self.branch = None
+        self.overrides = None
+        self.playbooks = None
 
 
     def __call__(self):
@@ -284,6 +282,12 @@ class ProjectFactory(object):
         return self
 
 
+    def set_playbooks(self, playbooks=None):
+        playbooks = playbooks or list()
+        self.playbooks = playbooks
+        return self
+
+
     def activate(self, make_active=True):
         self.make_active = make_active
         return self
@@ -295,7 +299,6 @@ class Project(object):
     filename = '.cloudmesh_project.yml'
 
     def __init__(self, name, stack, deployparams=None):
-        assert initparams   is not None
         assert deployparams is not None
 
         self.name = name
@@ -437,20 +440,24 @@ class BigDataStack(object):
 
     def init(self, force=False):
         if not os.path.isdir(os.path.join(self.path, '.git')):
-            Subprocess(['git', 'clone', '--recursive', '--branch', self.branch, self.path])
+            Console.debug_msg('Cloning branch {} of {} to {}'.format(self.branch, self.repo, self.path))
+            Subprocess(['git', 'clone', '--recursive', '--branch', self.branch, self.repo, self.path])
 
         venvname = 'venv'
         venvdir = os.path.join(self.path, venvname)
 
         if force and os.path.isdir(venvdir):
+            Console.warning('Removing {}'.format(self.venvdir))
             shutil.rmtree(venvdir)
 
         if not os.path.isdir(venvdir):
+            Console.debug_msg('Creating virtualenv {}'.format(venvdir))
             Subprocess(['virtualenv', venvdir])
 
         self._env = get_virtualenv_environment(venvdir)
         cmd = ['pip', 'install', '-r', 'requirements.txt'] + (['-U'] if force else [])
-        Subprocess(cmd, cwd=self.path)
+        Console.debug_msg('Installing requirements to {}'.format(venvdir))
+        Subprocess(cmd, cwd=self.path, env=self._env)
 
 
     def update(self):
