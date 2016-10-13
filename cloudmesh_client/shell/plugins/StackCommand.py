@@ -2,8 +2,9 @@ from __future__ import print_function
 
 import os
 import time
+from collections import defaultdict
 
-from cloudmesh_client.cloud.stack import sanity_check, ProjectDB, Project, BigDataStack
+from cloudmesh_client.cloud.stack import sanity_check, ProjectDB, ProjectFactory, BigDataStack
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.default import Default
@@ -11,6 +12,25 @@ from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 from cloudmesh_client.default import Default
 from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.common.dotdict import dotdict
+
+
+def cleanup_overrides(overrides):
+    """Cleanup shell-parameterized overrides definitions
+
+    :param overrides: list of [(play:k1=v1,k2=v2)...]
+    :returns: 
+    :rtype: dict[play] -> dict[key] -> value
+    """
+
+    result = defaultdict(dict)
+    for definition in overrides:
+        play, defs = definition.split(':', 1)
+        pairs = defs.split(',')
+        for pair in pairs:
+            k, v = pair.split('=', 1)
+            result[play][k] = v
+
+    return result
 
 
 
@@ -27,7 +47,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         sanity_check()
 
 
-    def init(self, stackname='bds', activate=True, name=None, user=None, branch=None, **kwargs):
+    def init(self, stackname='bds', activate=True, name=None, user=None, branch=None, overrides=None, playbooks=None, ips=None):
         factory = ProjectFactory()
         factory.activate(activate)
 
@@ -47,6 +67,12 @@ class StackCommand(PluginCommand, CloudPluginCommand):
 
         if ips:
             factory.set_ips(ips)
+
+        if overrides:
+            factory.set_overrides(overrides)
+
+        if playbooks:
+            factory.set_playbooks(playbooks)
 
 
         project = factory()
@@ -123,6 +149,12 @@ class StackCommand(PluginCommand, CloudPluginCommand):
             raise ValueError('Unknown project type {}'.format(type(project)))
 
 
+                # -s STACK  --stack STACK        bds          The stack to use_bds
+                # -A  --no-activate               Do not activate the initialized project
+                # -u USER  --user USER         $USER        The login user for the cluster
+                # -n NAME  --name NAME         <generated>  Name of the created projected. Generated if not specified.
+                # -o LIST  --overrides LIST                 Override these variables in form: playbook:key=var,...
+                # -p LIST  --playbooks LIST                 Playbooks to run in form: playbook1,playbook2,...
 
 
     # noinspection PyUnusedLocal
@@ -132,16 +164,31 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         ::
 
             Usage:
-                stack check [--stack=bds]
-                stack init [--no-activate] [--branch=master] [--user=$USER] [--name=<project>] <ip>...
-                stack list [--sort=<field=date>] [--list=<field,...=all>] [--json]
-                stack project [<name>]
-                stack deploy [<play>...] [--define=<define>...]
+              stack check
+              stack init [--no-activate] [-s STACK] [-n NAME] [-u NAME] [-b NAME] [-o DEFN]... [-p PLAY] <ip>...
+              stack deploy [options]
 
+            Commands:
+              check     Sanity check
+              init      Initialize a stack
+              deploy    Deploy a stack
 
-            Options:
-               --format=FORMAT  the output format [default: table]
-               --cloud=CLOUD    the cloud name
+            Arguments:
+              STACK  Name of the stack. Options: (bds)
+              NAME   Alphanumeric name
+              DEFN   In the form: play1:k1=v1,k2=v2,...
+              PLAY   In the form: playbook,playbook,...
+
+           Options:
+
+              -v --verbose
+              --no-activate                 Do not activate a project upon creation
+              -s STACK --stack=STACK        The stack name [default: bds]
+              -n NAME --name=NAME           Name of the project (if not specified during creation, generated).
+              -u NAME --user=NAME           Name of login user to cluster [default: $USER]
+              -b NAME --branch=NAME         Name of the stack's branch to clone from [default: master]
+              -o DEFN --overrides=DEFN      Overrides for a playbook, may be specified multiple times
+              -p PLAY --playbooks=PLAY      Playbooks to run
 
             Examples:
 
@@ -164,50 +211,39 @@ class StackCommand(PluginCommand, CloudPluginCommand):
 
         """
 
-        ################################################## cleanup
-        arg = dotdict(arguments)
-        arg.ips = arguments['<ip>']
-
-        # arg.cloud = arguments["--cloud"] or Default.cloud
-        # arg.FORMAT = arguments["--format"] or "table"
-
-        ##################################################  defaults
-        arg.stack = arguments['--stack'] or 'bds'
-
-        if arg.init:
-            arg.branch = arguments['--branch'] or 'master'
-            arg.user = arguments['--user'] or os.getenv('USER')
-            arg.activate = not arguments['--no-activate']
-
-        ################################################## list
-        if arg.list:
-            arg.sort = arguments['--sort']
-            arg.listparts = arguments['--list']
-
-        ##################################################
-        arg.name = arguments['<name>']
-
-        ##################################################
-        if arg.deploy:
-            arg.plays = arguments['<play>']
-            arg.define = arguments['--define']
+        a = dotdict(arguments)
+        print(a)
 
 
-        print (arg)
-
-        if arg.check:
+        if a.check:
             self.check()
 
-        elif arg.init:
-            self.init(stackname='bds', branch=arg.branch, user=arg.user, name=arg['--name'], ips=arg.ips, activate=arg.activate)
+        if a.init:
+            defns = cleanup_overrides(a['--overrides']) if a['--overrides'] else None
+            plays = a['--playbooks'].split(',') if a['--overrides'] else None
 
-        elif arg.list:
-            self.list(sort=arg['--sort'], list=arg['--list'], json=arg.json)
+            self.init(stackname = a['--stack'],
+                      name      = a['--name'],
+                      branch    = a['--branch'],
+                      user      = a['--user'],
+                      activate  = not a['--no-activate'],
+                      overrides = defns,
+                      playbooks = plays,
+                      ips       = a['<ip>'],
+            )
 
-        elif arg.project:
-            self.project(name=arg.name)
 
-        elif arg.deploy:
-            self.deploy(plays=arg.plays, defines=arg.define)
+
+        # elif arg.init:
+        #     self.init(stackname='bds', branch=arg.branch, user=arg.user, name=arg['--name'], ips=arg.ips, activate=arg.activate)
+
+        # elif arg.list:
+        #     self.list(sort=arg['--sort'], list=arg['--list'], json=arg.json)
+
+        # elif arg.project:
+        #     self.project(name=arg.name)
+
+        # elif arg.deploy:
+        #     self.deploy(plays=arg.plays, defines=arg.define)
 
         return ""
