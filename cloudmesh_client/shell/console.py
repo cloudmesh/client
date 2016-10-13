@@ -142,6 +142,15 @@ class Console(object):
             print
 
     @staticmethod
+    def debug_msg(message):
+        message = message or ""
+        if Console.color:
+            Console.cprint('RED', 'DEBUG: ', message)
+        else:
+            print(Console.msg('DEBUG: ' + message))
+
+
+    @staticmethod
     def info(message):
         message = message or ""
         if Console.color:
