@@ -449,7 +449,7 @@ class BigDataStack(object):
             Console.debug_msg('Updating to branch {} for {}'.format(self.branch, self.path))
             Subprocess(['git', 'fetch', '--recurse-submodules', 'origin', self.branch], cwd=self.path)
             Subprocess(['git', 'checkout', self.branch], cwd=self.path)
-            Subprocess(['git', 'merge' 'origin/{}'.format(self.branch)], cwd=self.path)
+            Subprocess(['git', 'merge', 'origin/{}'.format(self.branch)], cwd=self.path)
 
 
         venvname = 'venv'
