@@ -121,21 +121,20 @@ class ProjectDB(object):
         return Project.load(os.path.join(self.path, Project.filename))
 
 
-    def __setitem__(self, name, project):
-        projdir = self.projectdir(name)
-        if os.path.exists(projdir):
-            raise ValueError('Project {} already exists: {}'.format(name, projdir))
-
-        project.init()
-        project.sync_metadata(projdir)
-
-
     def lookup(self, projname):
-        return self[projname]
+        if projname is None:
+            return self.getactive()
+        else:
+            return self[projname]
 
 
-    def add(self, project):
-        self[project.name] = project
+    def add(self, project, force=False):
+        projdir = self.projectdir(project.name)
+        if os.path.exists(projdir) and not force:
+            raise ValueError('Project {} already exists: {}'.format(project.name, projdir))
+
+        project.init(force=force)
+        project.sync_metadata(projdir)
 
 
     def sync_metadata(self, projects=True):
@@ -205,6 +204,7 @@ class ProjectFactory(object):
         self.branch = None
         self.overrides = None
         self.playbooks = None
+        self.force = False
 
 
     def __call__(self):
@@ -238,7 +238,7 @@ class ProjectFactory(object):
 
 
         project = Project(name, stack, deployparams)
-        self.db.add(project)
+        self.db.add(project, force=self.force)
 
         if self.activate:
             self.db.activate(project)
@@ -288,6 +288,11 @@ class ProjectFactory(object):
         return self
 
 
+    def set_force(self, force=False):
+        self.force = force
+        return self
+
+
     def activate(self, make_active=True):
         self.make_active = make_active
         return self
@@ -334,8 +339,8 @@ class Project(object):
             fd.write(y)
 
 
-    def init(self):
-        self.stack.init()
+    def init(self, force=False):
+        self.stack.init(force=force)
 
 
     def deploy(self):
@@ -443,11 +448,18 @@ class BigDataStack(object):
             Console.debug_msg('Cloning branch {} of {} to {}'.format(self.branch, self.repo, self.path))
             Subprocess(['git', 'clone', '--recursive', '--branch', self.branch, self.repo, self.path])
 
+        elif force:
+            Console.debug_msg('Updating to branch {} for {}'.format(self.branch, self.path))
+            Subprocess(['git', 'fetch', '--recurse-submodules', 'origin', self.branch], cwd=self.path)
+            Subprocess(['git', 'checkout', self.branch], cwd=self.path)
+            Subprocess(['git', 'merge' 'origin/{}'.format(self.branch)], cwd=self.path)
+
+
         venvname = 'venv'
         venvdir = os.path.join(self.path, venvname)
 
-        if force and os.path.isdir(venvdir):
-            Console.warning('Removing {}'.format(self.venvdir))
+        if force and os.path.isfile(os.path.join(venvdir, 'bin', 'activate')):
+            Console.debug_msg('Removing {}'.format(venvdir))
             shutil.rmtree(venvdir)
 
         if not os.path.isdir(venvdir):
@@ -458,13 +470,6 @@ class BigDataStack(object):
         cmd = ['pip', 'install', '-r', 'requirements.txt'] + (['-U'] if force else [])
         Console.debug_msg('Installing requirements to {}'.format(venvdir))
         Subprocess(cmd, cwd=self.path, env=self._env)
-
-
-    def update(self):
-        Subprocess(['git', 'fetch', '--recurse-submodules', 'origin', self.branch], cwd=self.path)
-        Subprocess(['git', 'checkout', self.branch], cwd=self.path)
-        Subprocess(['git', 'merge' 'origin/{}'.format(self.branch)], cwd=self.path)
-        self.init(force=True)
 
 
     def deploy(self, ips=None, name=None, user=None, playbooks=None, overrides=None):

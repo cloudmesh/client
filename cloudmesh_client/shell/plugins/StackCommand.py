@@ -47,9 +47,11 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         sanity_check()
 
 
-    def init(self, stackname='bds', activate=True, name=None, user=None, branch=None, overrides=None, playbooks=None, ips=None):
+    def init(self, stackname='bds', activate=True, name=None, user=None, branch=None, overrides=None, playbooks=None, ips=None, force=False):
         factory = ProjectFactory()
-        factory.activate(activate)
+        factory\
+            .activate(activate)\
+            .set_force(force=force)
 
         if stackname == 'bds':
             factory.use_bds()
@@ -165,7 +167,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
 
             Usage:
               stack check
-              stack init [--no-activate] [-s STACK] [-n NAME] [-u NAME] [-b NAME] [-o DEFN]... [-p PLAY] <ip>...
+              stack init [-f] [--no-activate] [-s STACK] [-n NAME] [-u NAME] [-b NAME] [-o DEFN]... [-p PLAY] <ip>...
               stack deploy [options]
 
             Commands:
@@ -189,6 +191,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
               -b NAME --branch=NAME         Name of the stack's branch to clone from [default: master]
               -o DEFN --overrides=DEFN      Overrides for a playbook, may be specified multiple times
               -p PLAY --playbooks=PLAY      Playbooks to run
+              -f --force                    Force rerunning a command to continue
 
             Examples:
 
@@ -230,6 +233,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
                       overrides = defns,
                       playbooks = plays,
                       ips       = a['<ip>'],
+                      force     = a['--force'],
             )
 
 
