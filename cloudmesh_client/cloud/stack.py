@@ -65,6 +65,23 @@ class SubprocessError(Exception):
         self.stdout = stdout
 
 
+    def __str__(self):
+        from pipes import quote
+
+        def indent(lines, amount, ch=' '):
+            padding = amount * ch
+            return padding + ('\n'+padding).join(lines.split('\n'))
+
+        cmd = ' '.join(map(quote, self.cmd))
+        import pdb; pdb.set_trace()
+        s = ''
+        s += 'Command: %s\n' % cmd
+        s += 'Exit code: %s\n' % self.returncode
+        s += 'Stderr:\n' + indent(self.stderr, 4)
+        s += 'Stdout:\n' + indent(self.stdout, 4)
+        return s
+
+
 class Subprocess(object):
 
     def __init__(self, cmd, cwd=None, stderr=subprocess.PIPE, stdout=subprocess.PIPE, env=None):
