@@ -59,25 +59,32 @@ class StackCommand(PluginCommand, CloudPluginCommand):
             raise NotImplementedError(stackname)
 
         if name:
+            Console.debug_msg('Setting factory project name: {}'.format(name))
             factory.set_project_name(name)
 
         if user:
+            Console.debug_msg('Setting factory user name: {}'.format(user))
             factory.set_user_name(user)
 
         if branch:
+            Console.debug_msg('Setting factory branch: {}'.format(branch))
             factory.set_branch(branch)
 
         if ips:
+            Console.debug_msg('Setting factory ips: {}'.format(ips))
             factory.set_ips(ips)
 
         if overrides:
+            Console.debug_msg('Setting factory overrides: {}'.format(overrides))
             factory.set_overrides(overrides)
 
         if playbooks:
+            Console.debug_msg('Setting factory playbooks: {}'.format(playbooks))
             factory.set_playbooks(playbooks)
 
 
         project = factory()
+        Console.info('Created project {}'.format(project.name))
 
 
     def deploy(self, project_name=None):
