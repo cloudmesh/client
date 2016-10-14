@@ -79,6 +79,30 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         db.update(project)
 
 
+    def project(self, list_projects=False, name=None):
+
+        db = ProjectDB()
+
+        # set if name is given
+        if name:
+            project = db.lookup(name)
+            db.activate(project)
+
+
+        # list of asked to do so
+        if list_projects:
+            for project in db:
+                isactive = '>' if db.isactive(project) else ''
+                ctime = time.strftime('%Y-%m-%d %H:%M:%S', project.ctime)
+                msg = ''
+                msg += '{isactive:3s}'
+                msg += '{project.name:10s}'
+                msg += 'created: {ctime}'
+                msg += 'stack: {project.stack.__class__.__name__:16s}'
+                msg += 'deployed: {project.is_deployed}'
+                msg = msg.format(isactive=isactive, project=project, ctime=ctime)
+                Console.info(msg)
+
 
     # noinspection PyUnusedLocal
     @command
@@ -90,11 +114,13 @@ class StackCommand(PluginCommand, CloudPluginCommand):
               stack check
               stack init [-fU] [--no-activate] [-s STACK] [-n NAME] [-u NAME] [-b NAME] [-o DEFN]... [-p PLAY] <ip>...
               stack deploy [-f] [-n NAME]
+              stack project [-l] [<name>]
 
             Commands:
               check     Sanity check
               init      Initialize a stack
               deploy    Deploy a stack
+              project   List and activate projects
 
             Arguments:
               STACK  Name of the stack. Options: (bds)
@@ -114,6 +140,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
               -p PLAY --playbooks=PLAY      Playbooks to run
               -f --force                    Force rerunning a command to continue
               -U --update                   Update the stack
+              -l --list                     List
 
             Examples:
 
@@ -159,6 +186,11 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         if a.deploy:
             self.deploy(project_name=a['--name'],
                         force = a['--force'],
+            )
+
+        if a.project:
+            self.project(list_projects = a['--list'],
+                         name          = a['<name>'],
             )
 
         return ""
