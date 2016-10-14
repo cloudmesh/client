@@ -487,13 +487,13 @@ class BigDataStack(object):
 
 
     def deploy(self, ips=None, name=None, user=None, playbooks=None,
-               overrides=None, ping_max=10, ping_sleep=10):
+               defines=None, ping_max=10, ping_sleep=10):
         assert ips is not None
 
         name = name or os.getenv('USER') + '-' + os.path.basename(self.path)
         user = user or 'defaultuser'
         playbooks = playbooks or list()
-        overrides = overrides or dict()
+        defines = defines or defaultdict(list)
 
 
         Console.debug_msg('Calling mk-inventory in {}'.format(self.path))
@@ -520,8 +520,10 @@ class BigDataStack(object):
         basic_command = ['ansible-playbook', '-u', user]
         Console.debug_msg('Running playbooks {}'.format(playbooks))
         for play in playbooks:
+            cmd = basic_command + [play]
             define = ['{}={}'.format(k, v) for k, v in defines[play]]
-            cmd = basic_command + [play, '-e', ','.join(define)]
+            if define:
+                cmd.extend(['-e', ','.join(define)])
             Console.info('Running playbook {} with overrides {}'.format(play, define))
             Subprocess(cmd, cwd=self.path, env=self._env, stdout=None, stderr=None)
 
