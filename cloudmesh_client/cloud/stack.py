@@ -252,7 +252,7 @@ class ProjectDB(object):
         :type project: :class:`Project`
         :rtype: :class:`bool`
         """
-         return self.active == project.name
+        return self.active == project.name
 
 
     def getactive(self):
