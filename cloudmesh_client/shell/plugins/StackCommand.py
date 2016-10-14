@@ -158,17 +158,4 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         if a.deploy:
             self.deploy(project_name=a['--name'])
 
-
-        # elif arg.init:
-        #     self.init(stackname='bds', branch=arg.branch, user=arg.user, name=arg['--name'], ips=arg.ips, activate=arg.activate)
-
-        # elif arg.list:
-        #     self.list(sort=arg['--sort'], list=arg['--list'], json=arg.json)
-
-        # elif arg.project:
-        #     self.project(name=arg.name)
-
-        # elif arg.deploy:
-        #     self.deploy(plays=arg.plays, defines=arg.define)
-
         return ""
