@@ -205,7 +205,7 @@ class ProjectDB(object):
         """Predicate indicating activation status of the project
         """
 
-        return self.active == project.pid
+        return self.active == project.name
 
 
     def getactive(self):
