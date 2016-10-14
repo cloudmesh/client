@@ -162,14 +162,18 @@ class ProjectDB(object):
     def sync_metadata(self, projects=True):
         if projects:
             for project in self:
-                path = os.path.join(self.path, project.name)
-                project.sync_metadata(path)
+                self.update(project)
 
         prop = copy.copy(self.__dict__)
         prop.pop('path')
         y = yaml.dump(prop, default_flow_style=False)
         with open(os.path.join(self.path, ProjectDB.filename), 'w') as fd:
             fd.write(y)
+
+
+    def update(self, project):
+        path = os.path.join(self.path, project.name)
+        project.sync_metadata(path)
 
 
     def projectdir(self, name):
@@ -348,6 +352,7 @@ class Project(object):
         self.name = name
         self.ctime = time.gmtime()
         self.stack = stack
+        self.is_deployed = False
         self.deployparams = deployparams
         self.deployparams['name'] = name
 
@@ -379,8 +384,14 @@ class Project(object):
         self.stack.init(force=force, update=update)
 
 
-    def deploy(self):
-        self.stack.deploy(**self.deployparams)
+    def deploy(self, force=False):
+
+        if not self.is_deployed or force:
+            self.stack.deploy(**self.deployparams)
+        else:
+            Console.info('Already deployed')
+
+        self.is_deployed = True
 
 
 class KWArgs(object):

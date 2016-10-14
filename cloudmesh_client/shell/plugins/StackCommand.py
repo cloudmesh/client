@@ -57,7 +57,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
 
         factory\
             .set_project_name(name)\
-            .set_user_name(os.getenv('USER') if name is '$USER' else None)\
+            .set_user_name(os.getenv('USER') if user is '$USER' else user)\
             .set_branch(branch)\
             .set_ips(ips)\
             .set_overrides(overrides)\
@@ -71,11 +71,12 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         Console.info('Created project {}'.format(project.name))
 
 
-    def deploy(self, project_name=None):
+    def deploy(self, project_name=None, force=False):
 
         db = ProjectDB()
         project = db.lookup(project_name)
-        project.deploy()
+        project.deploy(force=force)
+        db.update(project)
 
 
 
@@ -88,7 +89,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
             Usage:
               stack check
               stack init [-fU] [--no-activate] [-s STACK] [-n NAME] [-u NAME] [-b NAME] [-o DEFN]... [-p PLAY] <ip>...
-              stack deploy [-n NAME]
+              stack deploy [-f] [-n NAME]
 
             Commands:
               check     Sanity check
@@ -156,6 +157,8 @@ class StackCommand(PluginCommand, CloudPluginCommand):
             )
 
         if a.deploy:
-            self.deploy(project_name=a['--name'])
+            self.deploy(project_name=a['--name'],
+                        force = a['--force'],
+            )
 
         return ""
