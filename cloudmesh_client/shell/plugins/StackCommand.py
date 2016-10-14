@@ -80,83 +80,12 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         project = factory()
 
 
+    def deploy(self, project_name=None):
 
-    def init_bds(self, branch=None, ips=None, user=None, name=None):
-        stack = BigDataStack()
-        stack.initialize(ips, user=user, branch=branch)
-        project = BDSProject(ips=ips, user=user, name=name, branch=branch)
-        return project
+        db = ProjectDB()
+        project = db.lookup(project_name)
+        project.deploy()
 
-
-    def list(self, sort=None, list=None, json=False):
-        """List the deployment stacks and projects
-
-        :param sort: field to sort by
-        :param list: comma-separated subset of {'stack', 'project'}
-        :param json: output in json-format
-        """
-
-        projectlist = ProjectList.load()
-
-        print ('Projects')
-        for project in projectlist:
-            activated = '>' if projectlist.isactive(project) else ' '
-            name = project.name
-            stack = project.__class__.__name__ # FIXME: temporary workaround
-            date = time.strftime('%Y-%m-%d %H:%M:%S UTC', project.ctime)
-            path = os.path.join(projectlist.prefix(), project.name)
-            msg = '- {activated} {name:10} {stack:10} {date:24} {path}'.format(
-                activated=activated,
-                name=name,
-                stack=stack,
-                date=date,
-                path=path,
-            )
-            print (msg)
-
-
-    def project(self, name=None):
-        """View or set the current active project
-
-        :param name: active this project
-        """
-
-        projectlist = ProjectList.load()
-
-        if name is None:
-            print (projectlist.getactive().name)
-
-        else:
-            project = projectlist.lookup(name)
-            projectlist.activate(project)
-            projectlist.sync()
-            print ('Switched to project {}'.format(project.name))
-
-
-    def deploy(self, **kwargs):
-        """Deploy the currently active project
-
-        :param **kwargs: passed to the implementing method (eg deploy_bds)
-        """
-
-        print (42)
-        print (kwargs)
-
-        projectlist = ProjectList.load()
-        project = projectlist.getactive()
-        path = projectlist.projectdir(project.name)
-        if isinstance(project, BDSProject):
-            project.deploy(path, **kwargs)
-        else:
-            raise ValueError('Unknown project type {}'.format(type(project)))
-
-
-                # -s STACK  --stack STACK        bds          The stack to use_bds
-                # -A  --no-activate               Do not activate the initialized project
-                # -u USER  --user USER         $USER        The login user for the cluster
-                # -n NAME  --name NAME         <generated>  Name of the created projected. Generated if not specified.
-                # -o LIST  --overrides LIST                 Override these variables in form: playbook:key=var,...
-                # -p LIST  --playbooks LIST                 Playbooks to run in form: playbook1,playbook2,...
 
 
     # noinspection PyUnusedLocal
@@ -168,7 +97,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
             Usage:
               stack check
               stack init [-f] [--no-activate] [-s STACK] [-n NAME] [-u NAME] [-b NAME] [-o DEFN]... [-p PLAY] <ip>...
-              stack deploy [options]
+              stack deploy [-n NAME]
 
             Commands:
               check     Sanity check
@@ -236,6 +165,8 @@ class StackCommand(PluginCommand, CloudPluginCommand):
                       force     = a['--force'],
             )
 
+        if a.deploy:
+            self.deploy(project_name=a['--name'])
 
 
         # elif arg.init:

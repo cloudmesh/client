@@ -85,8 +85,8 @@ class ProjectDB(object):
     filename = '.cloudmesh_projectdb.yml'
     default_name = 'p-'
 
-    def __init__(self, prefix=None):
-        assert prefix is not None
+    def __init__(self, prefix='~/.cloudmesh/projects'):
+        prefix = os.path.abspath(os.path.expanduser(os.path.expandvars(prefix)))
 
         if os.path.exists(os.path.join(prefix, self.filename)):
             yp = os.path.join(prefix, self.filename)
@@ -118,7 +118,7 @@ class ProjectDB(object):
 
 
     def __getitem__(self, projname):
-        return Project.load(os.path.join(self.path, Project.filename))
+        return Project.load(os.path.join(self.path, projname))
 
 
     def lookup(self, projname):
@@ -315,15 +315,12 @@ class Project(object):
 
     @classmethod
     def load(cls, path):
-        with open(os.path.join(path, self.metadata_file), 'r') as fd:
+        with open(os.path.join(path, cls.filename), 'r') as fd:
             y = yaml.load(fd)
 
-        # pop keys that do not appear in the __dict__
-        # see 'sync()' implementation for the ones to remove
-        y.pop('type', None)
-
-        project = cls()
+        project = cls(y['name'], y['stack'], deployparams=y['deployparams'])
         project.__dict__.update(y)
+        return project
 
 
     @property
