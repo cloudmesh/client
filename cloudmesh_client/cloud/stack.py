@@ -2,6 +2,7 @@
 
 from __future__ import print_function
 
+from pipes import quote
 import copy
 import glob
 import os
@@ -66,7 +67,6 @@ class SubprocessError(Exception):
 
 
     def __str__(self):
-        from pipes import quote
 
         def indent(lines, amount, ch=' '):
             padding = amount * ch
@@ -85,6 +85,8 @@ class SubprocessError(Exception):
 class Subprocess(object):
 
     def __init__(self, cmd, cwd=None, stderr=subprocess.PIPE, stdout=subprocess.PIPE, env=None):
+
+        Console.debug_msg('Running cmd: {}'.format(' '.join(map(quote, cmd))))
 
         proc = subprocess.Popen(cmd, stderr=stderr, stdout=stdout, cwd=cwd, env=env)
         stdout, stderr = proc.communicate()
