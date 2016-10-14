@@ -270,58 +270,69 @@ class ProjectFactory(object):
 
 
     def use_bds(self):
+        Console.debug_msg('Factory use_bds')
         self.is_bds = True
         return self
 
 
     def set_user_name(self, username):
+        Console.debug_msg('Factory set_user_name: {}'.format(username))
         self.username = username
         return self
 
 
     def set_project_name(self, name):
+        Console.debug_msg('Factory set_project_name: {}'.format(name))
         self.project_name = name
         return self
 
 
     def set_ips(self, ips):
+        Console.debug_msg('Factory set_ips: {}'.format(ips))
         assert len(ips) >= 0
         self.ips = ips
         return self
 
     def set_repo(self, repo):
+        Console.debug_msg('Factory set_repo: {}'.format(repo))
         self.repo = repo
         return self
 
 
     def set_branch(self, branch='master'):
+        Console.debug_msg('Factory set_branch: {}'.format(branch))
         self.branch = branch
         return self
 
 
     def set_overrides(self, overrides=None):
+        Console.debug_msg('Factory set_overrides: {}'.format(overrides))
         overrides = overrides or defaultdict(lambda: defaultdict(list))
         self.overrides = overrides
         return self
 
 
     def set_playbooks(self, playbooks=None):
+        Console.debug_msg('Factory set_playbooks: {}'.format(playbooks))
         playbooks = playbooks or list()
         self.playbooks = playbooks
         return self
 
 
     def set_force(self, force=False):
+        Console.debug_msg('Factory set_force: {}'.format(force))
         self.force = force
         return self
 
 
     def set_update(self, update=False):
+        Console.debug_msg('Factory set_update: {}'.format(update))
         self.update = update
         return self
 
 
     def activate(self, make_active=True):
+        Console.debug_msg('Factory activate: {}'.format(make_active))
         self.make_active = make_active
         return self
 

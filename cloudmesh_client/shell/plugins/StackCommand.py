@@ -49,39 +49,22 @@ class StackCommand(PluginCommand, CloudPluginCommand):
 
     def init(self, stackname='bds', activate=True, name=None, user=None, branch=None, overrides=None, playbooks=None, ips=None, force=False, update=False):
         factory = ProjectFactory()
-        factory\
-            .activate(activate)\
-            .set_force(force=force)\
-            .set_update(update)
 
         if stackname == 'bds':
             factory.use_bds()
         else:
             raise NotImplementedError(stackname)
 
-        if name:
-            Console.debug_msg('Setting factory project name: {}'.format(name))
-            factory.set_project_name(name)
-
-        if user:
-            Console.debug_msg('Setting factory user name: {}'.format(user))
-            factory.set_user_name(user)
-
-        if branch:
-            Console.debug_msg('Setting factory branch: {}'.format(branch))
-            factory.set_branch(branch)
-
-        if ips:
-            Console.debug_msg('Setting factory ips: {}'.format(ips))
-            factory.set_ips(ips)
-
-        if overrides:
-            Console.debug_msg('Setting factory overrides: {}'.format(overrides))
-            factory.set_overrides(overrides)
-
-        if playbooks:
-            Console.debug_msg('Setting factory playbooks: {}'.format(playbooks))
-            factory.set_playbooks(playbooks)
+        factory\
+            .set_project_name(name)\
+            .set_user_name(os.getenv('USER') if name is '$USER' else None)\
+            .set_branch(branch)\
+            .set_ips(ips)\
+            .set_overrides(overrides)\
+            .set_playbooks(playbooks)\
+            .activate(activate)\
+            .set_force(force=force)\
+            .set_update(update)
 
 
         project = factory()
