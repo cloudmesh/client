@@ -34,6 +34,11 @@ requests.packages.urllib3.disable_warnings()
 def get_virtualenv_environment(venvpath):
     """Figures out the environment variables that are set when activating a virtualenv
 
+    Example:
+    >>> os.system('virtualenv /tmp/venv')
+    >>> get_virtualenv_environment('/tmp/venv')
+
+
     :param venvpath: path to the virtual environment
     :returns: dictionary of environment variables
     :rtype: :class:`dict`
@@ -144,6 +149,14 @@ class ProjectDB(object):
 
 
     def lookup(self, projname):
+        """Lookup the project with the given name. 
+
+        If `projname` is None, this returns the currently active project.
+
+        :param projname: Project name
+        :returns: the project
+        :rtype: :class:`Project`
+        """
         if projname is None:
             return self.getactive()
         else:
@@ -151,6 +164,15 @@ class ProjectDB(object):
 
 
     def add(self, project, force=False, update=False):
+        """Add a project to the database
+
+        :param project: the project to add_from_path
+        :type project: :class:`Project`
+        :param force: whether or not to force initialiation
+        :type force: :class:`bool`
+        :param update: whether or not to update a previous initialied project
+        :type update: :class:`bool`
+        """
         projdir = self.projectdir(project.name)
         if os.path.exists(projdir) and not force:
             raise ValueError('Project {} already exists: {}'.format(project.name, projdir))
@@ -160,6 +182,11 @@ class ProjectDB(object):
 
 
     def sync_metadata(self, projects=True):
+        """Synchronize the metadata to the backend store
+
+        :param projects: whether or not the project metadata should be saved as well.
+        :type projects: :class:`bool`
+        """
         if projects:
             for project in self:
                 self.update(project)
@@ -172,11 +199,23 @@ class ProjectDB(object):
 
 
     def update(self, project):
+        """Update the database with the given project
+
+        :param project: the project
+        :type project: :class:`Project`
+        """
         path = os.path.join(self.path, project.name)
         project.sync_metadata(path)
 
 
     def projectdir(self, name):
+        """Get the project directory.
+
+        :param name: the name of a project
+        :type name: :class:`str`
+        :returns: the path to the project
+        :rtype: :class:`str`
+        """
         return os.path.join(self.path, name)
 
 
@@ -197,15 +236,23 @@ class ProjectDB(object):
 
 
     def activate(self, project):
+        """Activate the given project
+
+        :param project: the project to make active
+        :type project: :class:`Project`
+        """
         self.active = project.name
         self.sync_metadata(projects=False)
 
 
     def isactive(self, project):
         """Predicate indicating activation status of the project
-        """
 
-        return self.active == project.name
+        :param project: the project to check
+        :type project: :class:`Project`
+        :rtype: :class:`bool`
+        """
+         return self.active == project.name
 
 
     def getactive(self):
@@ -221,6 +268,11 @@ class ProjectDB(object):
 
 
 class ProjectFactory(object):
+    """
+    Outer API used to create projects.
+    This factory should be used rather than directly constructing :class:`Project` instances.
+    """
+
     def __init__(self, prefix='~/.cloudmesh/projects'):
         path = os.path.abspath(os.path.expanduser(os.path.expandvars(prefix)))
         self.db = ProjectDB(path)
@@ -274,42 +326,49 @@ class ProjectFactory(object):
 
 
     def use_bds(self):
+        """Use the BigDataStack backend"""
         Console.debug_msg('Factory use_bds')
         self.is_bds = True
         return self
 
 
     def set_user_name(self, username):
+        """Set the cluster login user name"""
         Console.debug_msg('Factory set_user_name: {}'.format(username))
         self.username = username
         return self
 
 
     def set_project_name(self, name):
+        """Set the project name"""
         Console.debug_msg('Factory set_project_name: {}'.format(name))
         self.project_name = name
         return self
 
 
     def set_ips(self, ips):
+        """Set the cluster IP addresses"""
         Console.debug_msg('Factory set_ips: {}'.format(ips))
         assert len(ips) >= 0
         self.ips = ips
         return self
 
     def set_repo(self, repo):
+        """Set the repository to get the stack from"""
         Console.debug_msg('Factory set_repo: {}'.format(repo))
         self.repo = repo
         return self
 
 
     def set_branch(self, branch='master'):
+        """Set the branch of the repository to use"""
         Console.debug_msg('Factory set_branch: {}'.format(branch))
         self.branch = branch
         return self
 
 
     def set_overrides(self, overrides=None):
+        """Set the overrides for deployment"""
         Console.debug_msg('Factory set_overrides: {}'.format(overrides))
         overrides = overrides or defaultdict(lambda: defaultdict(list))
         self.overrides = overrides
@@ -317,6 +376,7 @@ class ProjectFactory(object):
 
 
     def set_playbooks(self, playbooks=None):
+        """Set the playbooks to deploy"""
         Console.debug_msg('Factory set_playbooks: {}'.format(playbooks))
         playbooks = playbooks or list()
         self.playbooks = playbooks
@@ -324,18 +384,21 @@ class ProjectFactory(object):
 
 
     def set_force(self, force=False):
+        """Set the `force` parameter"""
         Console.debug_msg('Factory set_force: {}'.format(force))
         self.force = force
         return self
 
 
     def set_update(self, update=False):
+        """Set the `update` parameter"""
         Console.debug_msg('Factory set_update: {}'.format(update))
         self.update = update
         return self
 
 
     def activate(self, make_active=True):
+        """Set whether or not the created project should be activated"""
         Console.debug_msg('Factory activate: {}'.format(make_active))
         self.make_active = make_active
         return self
@@ -343,6 +406,10 @@ class ProjectFactory(object):
 
 
 class Project(object):
+    """Captures the parameters and stack for a deployment.  Note: this is
+    a lower-level API that should be predominantly be constructed
+    using the :class:`ProjectFactory`.
+    """
 
     filename = '.cloudmesh_project.yml'
 
@@ -417,6 +484,14 @@ class BigDataStack(object):
 
 
     def init(self, force=False, update=False):
+        """Initialize by cloning (or updating if requested) a local copy of the Big Data Stack repository.
+
+        :param force: redo some of the setup steps if the project has already been initialized
+        :type force: :class:`bool`
+        :param update: update the local repository from the origin of a previously initialized clone
+        :type update: :class:`bool`
+        """
+
         if not os.path.isdir(os.path.join(self.path, '.git')):
             Console.debug_msg('Cloning branch {} of {} to {}'.format(self.branch, self.repo, self.path))
             Subprocess(['git', 'clone', '--recursive', '--branch', self.branch, self.repo, self.path])
@@ -447,6 +522,24 @@ class BigDataStack(object):
 
     def deploy(self, ips=None, name=None, user=None, playbooks=None,
                defines=None, ping_max=10, ping_sleep=10):
+        """Deploy the big-data-stack to a previously stood up cluster located
+        at `ips` with login user `user`.
+
+        :param ips: the ip addresses of the cluster to deploy to
+        :type ips: :class:`list` of :class:`str` IP addresses
+        :param name: the name of the cluster
+        :type name: :class:`str`
+        :param user: the login username of the cluster
+        :type user: :class:`str`
+        :param playbooks: the list of playbooks to deploy. These are paths relative to the root directory of the BDS repository.
+        :type playbooks: :class:`list` of :class:`str`
+        :param defines: the overridden variables defined for each playbook
+        :type defines: :class:`dict` from playbook name to :class:`dict` of variable name to value
+        :param ping_max: the maximum number of time to attempt to ping the cluster during the verification step.
+        :type ping_max: :class:`int`
+        :param ping_sleep: the number of seconds to wait between each attempt to ping
+        :type ping_sleep: :class:`int`
+        """
         assert ips is not None
 
         name = name or os.getenv('USER') + '-' + os.path.basename(self.path)
