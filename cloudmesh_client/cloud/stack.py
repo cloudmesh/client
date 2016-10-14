@@ -150,12 +150,12 @@ class ProjectDB(object):
             return self[projname]
 
 
-    def add(self, project, force=False):
+    def add(self, project, force=False, update=False):
         projdir = self.projectdir(project.name)
         if os.path.exists(projdir) and not force:
             raise ValueError('Project {} already exists: {}'.format(project.name, projdir))
 
-        project.init(force=force)
+        project.init(force=force, update=update)
         project.sync_metadata(projdir)
 
 
@@ -227,6 +227,7 @@ class ProjectFactory(object):
         self.overrides = None
         self.playbooks = None
         self.force = False
+        self.udpate = False
 
 
     def __call__(self):
@@ -260,7 +261,7 @@ class ProjectFactory(object):
 
 
         project = Project(name, stack, deployparams)
-        self.db.add(project, force=self.force)
+        self.db.add(project, force=self.force, update=self.udpate)
 
         if self.activate:
             self.db.activate(project)
@@ -315,6 +316,11 @@ class ProjectFactory(object):
         return self
 
 
+    def set_update(self, update=False):
+        self.update = update
+        return self
+
+
     def activate(self, make_active=True):
         self.make_active = make_active
         return self
@@ -358,8 +364,8 @@ class Project(object):
             fd.write(y)
 
 
-    def init(self, force=False):
-        self.stack.init(force=force)
+    def init(self, force=False, update=False):
+        self.stack.init(force=force, update=update)
 
 
     def deploy(self):
@@ -388,12 +394,12 @@ class BigDataStack(object):
         self._env = dict()
 
 
-    def init(self, force=False):
+    def init(self, force=False, update=False):
         if not os.path.isdir(os.path.join(self.path, '.git')):
             Console.debug_msg('Cloning branch {} of {} to {}'.format(self.branch, self.repo, self.path))
             Subprocess(['git', 'clone', '--recursive', '--branch', self.branch, self.repo, self.path])
 
-        elif force:
+        elif update:
             Console.debug_msg('Updating to branch {} for {}'.format(self.branch, self.path))
             Subprocess(['git', 'fetch', '--recurse-submodules', 'origin', self.branch], cwd=self.path)
             Subprocess(['git', 'checkout', self.branch], cwd=self.path)
@@ -428,9 +434,10 @@ class BigDataStack(object):
 
 
         Console.debug_msg('Calling mk-inventory in {}'.format(self.path))
-        inventory = Subprocess(['python', 'mk-inventory', '-n', name] + ips,
-                               cwd=self.path, env=self._env)
+        cmd = ['python', 'mk-inventory', '-n', name] + ips
+        inventory = Subprocess(cmd, cwd=self.path, env=self._env)
         Console.debug_msg('Writing inventory file')
+        Console.debug_msg('\n    ' + ('\n' + 4*' ').join(inventory.stdout.split('\n')))
         with open(os.path.join(self.path, 'inventory.txt'), 'w') as fd:
             fd.write(inventory.stdout)
 
