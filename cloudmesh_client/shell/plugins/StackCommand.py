@@ -159,7 +159,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
 
         if a.init:
             defns = cleanup_overrides(a['--overrides']) if a['--overrides'] else None
-            plays = a['--playbooks'].split(',') if a['--overrides'] else None
+            plays = a['--playbooks'].split(',') if a['--playbooks'] else None
 
             self.init(stackname = a['--stack'],
                       name      = a['--name'],
