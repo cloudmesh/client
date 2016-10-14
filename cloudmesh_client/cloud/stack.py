@@ -469,7 +469,8 @@ class BigDataStack(object):
         Subprocess(cmd, cwd=self.path, env=self._env)
 
 
-    def deploy(self, ips=None, name=None, user=None, playbooks=None, overrides=None):
+    def deploy(self, ips=None, name=None, user=None, playbooks=None,
+               overrides=None, ping_max=10, ping_sleep=10):
         assert ips is not None
 
         name = name or os.getenv('USER') + '-' + os.path.basename(self.path)
@@ -478,23 +479,33 @@ class BigDataStack(object):
         overrides = overrides or dict()
 
 
-        Subprocess(['python', 'mk-inventory', '-n', name] + ips, cwd=self.path, env=self._env)
+        Console.debug_msg('Calling mk-inventory in {}'.format(self.path))
+        inventory = Subprocess(['python', 'mk-inventory', '-n', name] + ips,
+                               cwd=self.path, env=self._env)
+        Console.debug_msg('Writing inventory file')
+        with open(os.path.join(self.path, 'inventory.txt'), 'w') as fd:
+            fd.write(inventory.stdout)
 
 
-        # wait for the cluster to be accessible
-        for _ in xrange(ping_max):
+        Console.info('Waiting for cluster to be accessible')
+        for i in xrange(ping_max):
+            Console.debug_msg('Attempt {} / {}'.format(i+1, ping_max))
             try:
-                Subprocess(['ansible', 'all', '-m', 'ping', '-u', self.user],
-                           cwd=path, env=self._env, stdout=None, stderr=None)
+                Subprocess(['ansible', 'all', '-m', 'ping', '-u', user],
+                           cwd=self.path, env=self._env, stdout=None, stderr=None)
+                Console.debug_msg('Success!')
                 break
             except SubprocessError as e:
+                Console.debug_msg('Failure, sleeping for {} seconds'.format(ping_sleep))
                 time.sleep(ping_sleep)
 
 
         basic_command = ['ansible-playbook', '-u', user]
+        Console.debug_msg('Running playbooks {}'.format(playbooks))
         for play in playbooks:
             define = ['{}={}'.format(k, v) for k, v in defines[play]]
             cmd = basic_command + [play, '-e', ','.join(define)]
+            Console.info('Running playbook {} with overrides {}'.format(play, define))
             Subprocess(cmd, cwd=self.path, env=self._env, stdout=None, stderr=None)
 
 
