@@ -541,6 +541,8 @@ class BigDataStack(object):
         :type ping_sleep: :class:`int`
         """
         assert ips is not None
+        assert ping_max > 0, ping_max
+        assert ping_sleep > 0, ping_sleep
 
         name = name or os.getenv('USER') + '-' + os.path.basename(self.path)
         user = user or 'defaultuser'
