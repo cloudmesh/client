@@ -264,13 +264,17 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         CloudProviderOpenstackAPI.cloud_pwd[cloudname]["status"] = "Active"
 
         if "v2.0" == ksversion:
-            self.provider = client.Client(
-                version,
-                credentials["OS_USERNAME"],
-                os_password,
-                credentials["OS_TENANT_NAME"],
-                credentials["OS_AUTH_URL"],
-                cert)
+            kws = dict(
+                username = credentials['OS_USERNAME'],
+                api_key  = os_password,
+                project_id = credentials['OS_TENANT_NAME'],
+                auth_url = credentials['OS_AUTH_URL'],
+            )
+            if cert:
+                kws['cacert'] = cert
+                if not os.path.exists(cert):
+                    Console.error('Certificate file `{}` not found'.format(cert))
+            self.provider = client.Client(version, **kws)
         elif "v3" == ksversion:
             sess = session.Session(auth=self._ksv3_auth(credentials),
                                    verify=cert)
