@@ -106,6 +106,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                          [--cloud=CLOUD]
                          [--key=KEY]
                          [--command=COMMAND]
+                         [--modify-knownhosts]
                 vm rename [OLDNAMES] [NEWNAMES] [--force] [--dryrun]
                 vm list [NAMES]
                         [--cloud=CLOUDS|--active]
@@ -133,6 +134,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 OLDNAMES       Old names of the VM while renaming.
 
             Options:
+              -H --modify-knownhosts  Do not modify ~/.ssh/known_hosts file when ssh'ing into a machine
                 --username=USERNAME  the username to login into the vm. If not specified it will be guessed
                                      from the image name and the cloud
                 --ip=IP          give the public ip of the server
@@ -858,6 +860,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 if arg.key is not None:
                     sshcommand += " -i {:}".format(arg.key)
                 sshcommand += " -o StrictHostKeyChecking=no"
+                sshcommand += '' if arguments['--modify-knownhosts'] else ' -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
                 sshcommand += " {:}@{:}".format(data.username, ip)
                 if commands is not None:
                     sshcommand += " \"{:}\"".format(commands)

@@ -2,6 +2,8 @@
 
 from __future__ import print_function
 
+from pipes import quote
+import copy
 import glob
 import os
 import stat
@@ -29,6 +31,38 @@ from cloudmesh_client.default import Default
 requests.packages.urllib3.disable_warnings()
 
 
+def get_virtualenv_environment(venvpath):
+    """Figures out the environment variables that are set when activating a virtualenv
+
+    Example:
+    >>> os.system('virtualenv /tmp/venv')
+    >>> get_virtualenv_environment('/tmp/venv')
+
+
+    :param venvpath: path to the virtual environment
+    :returns: dictionary of environment variables
+    :rtype: :class:`dict`
+    """
+
+    command = 'source %s/bin/activate' % venvpath
+    script_lines = [
+        'source {venvpath}/bin/activate >/dev/null 2>&1',
+        '{command} >/dev/null 2>&1',
+        'env',
+    ]
+    script = ';'.join(script_lines).format(**locals())
+    output = subprocess.check_output(['bash', '-c', script])
+
+    env = dict()
+    for line in output.split('\n'):
+        if '=' not in line: continue
+        k, v = line.strip().split('=', 1)
+        env[k] = v
+
+    return env
+
+
+
 class SubprocessError(Exception):
     def __init__(self, cmd, returncode, stderr, stdout):
         self.cmd = cmd
@@ -37,11 +71,32 @@ class SubprocessError(Exception):
         self.stdout = stdout
 
 
+    def __str__(self):
+
+        def indent(lines, amount, ch=' '):
+            padding = amount * ch
+            return padding + ('\n'+padding).join(lines.split('\n'))
+
+        cmd = ' '.join(map(quote, self.cmd))
+        s = ''
+        s += 'Command: %s\n' % cmd
+        s += 'Exit code: %s\n' % self.returncode
+
+        if self.stderr:
+            s += 'Stderr:\n' + indent(self.stderr, 4)
+        if self.stdout:
+            s += 'Stdout:\n' + indent(self.stdout, 4)
+
+        return s
+
+
 class Subprocess(object):
 
-    def __init__(self, cmd, cwd=None, stderr=subprocess.PIPE, stdout=subprocess.PIPE):
+    def __init__(self, cmd, cwd=None, stderr=subprocess.PIPE, stdout=subprocess.PIPE, env=None):
 
-        proc = subprocess.Popen(cmd, stderr=stderr, stdout=stdout, cwd=cwd)
+        Console.debug_msg('Running cmd: {}'.format(' '.join(map(quote, cmd))))
+
+        proc = subprocess.Popen(cmd, stderr=stderr, stdout=stdout, cwd=cwd, env=env)
         stdout, stderr = proc.communicate()
 
         self.returncode = proc.returncode
@@ -52,71 +107,116 @@ class Subprocess(object):
             raise SubprocessError(cmd, self.returncode, self.stderr, self.stdout)
 
 
-class ProjectList(object):
+class ProjectDB(object):
 
-    filename = '.projectlist.yml'
+    filename = '.cloudmesh_projectdb.yml'
     default_name = 'p-'
 
-    def __init__(self):
-        self.projects = dict()
-        self.active = None
-        self.max_pid = 0
-        self.generated_name_pid = 0
+    def __init__(self, prefix='~/.cloudmesh/projects'):
+        prefix = os.path.abspath(os.path.expanduser(os.path.expandvars(prefix)))
+
+        if os.path.exists(os.path.join(prefix, self.filename)):
+            yp = os.path.join(prefix, self.filename)
+            with open(yp) as fd:
+                y = yaml.load(fd)
+            self.__dict__.update(y)
+            self.path = prefix
+
+        else:
+
+            if os.path.isfile(prefix):
+                raise OSError('`{}` is a file, should be a directory'.format(prefix))
+
+            if not os.path.isdir(prefix):
+                os.makedirs(prefix)
+
+            self.path = prefix
+            self.active = None
+            self.generated_pid = 0
 
 
     def __iter__(self):
-        return iter(self.projects.values())
+        for name in os.listdir(self.path):
+            projdir = os.path.join(self.path, name)
+            projfile = os.path.join(projdir, Project.filename)
+            if os.path.isdir(projdir) and os.path.isfile(projfile):
+                project = Project.load(projdir)
+                yield project
 
 
-    def sync(self):
-        prefix = ProjectList.prefix()
+    def __getitem__(self, projname):
+        return Project.load(os.path.join(self.path, projname))
 
-        for project in self.projects.itervalues():
-            path = os.path.join(prefix, project.name)
-            project.sync(path)
 
-        prop = self.__dict__
+    def lookup(self, projname):
+        """Lookup the project with the given name. 
+
+        If `projname` is None, this returns the currently active project.
+
+        :param projname: Project name
+        :returns: the project
+        :rtype: :class:`Project`
+        """
+        if projname is None:
+            return self.getactive()
+        else:
+            return self[projname]
+
+
+    def add(self, project, force=False, update=False):
+        """Add a project to the database
+
+        :param project: the project to add_from_path
+        :type project: :class:`Project`
+        :param force: whether or not to force initialiation
+        :type force: :class:`bool`
+        :param update: whether or not to update a previous initialied project
+        :type update: :class:`bool`
+        """
+        projdir = self.projectdir(project.name)
+        if os.path.exists(projdir) and not force:
+            raise ValueError('Project {} already exists: {}'.format(project.name, projdir))
+
+        project.init(force=force, update=update)
+        project.sync_metadata(projdir)
+
+
+    def sync_metadata(self, projects=True):
+        """Synchronize the metadata to the backend store
+
+        :param projects: whether or not the project metadata should be saved as well.
+        :type projects: :class:`bool`
+        """
+        if projects:
+            for project in self:
+                self.update(project)
+
+        prop = copy.copy(self.__dict__)
+        prop.pop('path')
         y = yaml.dump(prop, default_flow_style=False)
-        with open(os.path.join(prefix, ProjectList.filename), 'w') as fd:
+        with open(os.path.join(self.path, ProjectDB.filename), 'w') as fd:
             fd.write(y)
 
-    @classmethod
-    def load(cls):
-        prefix = ProjectList.prefix()
-        ypath = os.path.join(prefix, cls.filename)
 
-        plist = cls()
+    def update(self, project):
+        """Update the database with the given project
 
-        if not os.path.exists(ypath):
-            return plist
-
-        with open(ypath) as fd:
-            y = yaml.load(fd)
-
-        plist.__dict__.update(y)
-        return plist
+        :param project: the project
+        :type project: :class:`Project`
+        """
+        path = os.path.join(self.path, project.name)
+        project.sync_metadata(path)
 
 
-    @classmethod
-    def prefix(cls):
+    def projectdir(self, name):
+        """Get the project directory.
 
-        cfgpath = Config.find_file('cloudmesh.yaml')
-        dotcloudmesh = os.path.dirname(cfgpath)
-        projectsdir = os.path.join(dotcloudmesh, 'projects')
-
-        return projectsdir
-
-
-    @classmethod
-    def projectdir(cls, name):
-        prefix = cls.prefix()
-        path = os.path.join(prefix, name)
-        return path
-
-
-    @classmethod
-    def project_exists(cls, project):
-        return project.pid in self.projects
+        :param name: the name of a project
+        :type name: :class:`str`
+        :returns: the path to the project
+        :rtype: :class:`str`
+        """
+        return os.path.join(self.path, name)
 
 
     def new_project_name(self):
@@ -126,59 +226,33 @@ class ProjectList(object):
         :rtype: :class:`str`
         """
 
-        if self.generated_name_pid <= self.max_pid:
-            self.generated_name_pid = self.max_pid
-
-        pid = self.generated_name_pid
-        self.generated_name_pid += 1
+        pid = self.generated_pid
+        self.generated_pid += 1
 
         name = '{}{}'.format(self.default_name, pid)
-        assert self.max_pid not in self.projects
-        assert not os.path.exists(self.projectdir(name))
+        assert not os.path.exists(os.path.join(self.path, name))
+        self.sync_metadata(projects=False)
         return name
 
 
-    def add(self, project):
-        assert project.pid < 0, project.pid
-        project.name = project.name or self.new_project_name()
-        project._pid = self.max_pid
-        self.max_pid += 1
-        self.projects[project.pid] = project
-
-
-    def new(self, name=None, activate=False):
-        p = Project(name=name)
-        self.add(p)
-        if activate:
-            self.activate(p)
-
-
     def activate(self, project):
-        assert project.pid >= 0, 'Project has not been added yet'
-        self.active = project.pid
+        """Activate the given project
+
+        :param project: the project to make active
+        :type project: :class:`Project`
+        """
+        self.active = project.name
+        self.sync_metadata(projects=False)
 
 
     def isactive(self, project):
         """Predicate indicating activation status of the project
+
+        :param project: the project to check
+        :type project: :class:`Project`
+        :rtype: :class:`bool`
         """
-
-        return self.active == project.pid
-
-
-    def lookup(self, name):
-        """Lookup a project by name.
-
-        :param name: the project name
-        :returns: the project
-        :rtype: subclass of :class:`Project`
-        :raises: :class:`Value Error` if the project is not found
-        """
-
-        for project in self:
-            if project.name == name:
-                return project
-
-        raise ValueError('Could not find project {}'.format(name))
+        return self.active == project.name
 
 
     def getactive(self):
@@ -189,34 +263,175 @@ class ProjectList(object):
         :raises: :class:`KeyError` if no project is currently active
         """
 
-        return self.projects[self.active]
+        return self[self.active]
+
+
+
+class ProjectFactory(object):
+    """
+    Outer API used to create projects.
+    This factory should be used rather than directly constructing :class:`Project` instances.
+    """
+
+    def __init__(self, prefix='~/.cloudmesh/projects'):
+        path = os.path.abspath(os.path.expanduser(os.path.expandvars(prefix)))
+        self.db = ProjectDB(path)
+        self.stacktype = 'bds'
+        self.project_name = None
+        self.repo = None
+        self.branch = None
+        self.overrides = None
+        self.playbooks = None
+        self.force = False
+        self.udpate = False
+
+
+    def __call__(self):
+        name = self.project_name or self.db.new_project_name()
+        projdir = self.db.projectdir(name)
+
+        if self.stacktype == 'bds':
+            kwargs = dict()
+            if self.repo:
+                kwargs['repo'] = self.repo
+            if self.branch:
+                kwargs['branch'] = self.branch
+            stack = BigDataStack(projdir, **kwargs)
+        else:
+            raise NotImplementedError('Unknown stack type {}'.format(self.stacktype))
+
+
+        deployparams = dict()
+
+        if self.username:
+            deployparams['user'] = self.username
+
+        if self.ips:
+            deployparams['ips'] = self.ips
+
+        if self.overrides:
+            deployparams['overrides'] = self.overrides
+
+        if self.playbooks:
+            deployparams['playbooks'] = self.playbooks
+
+
+        project = Project(name, stack, deployparams)
+        self.db.add(project, force=self.force, update=self.udpate)
+
+        if self.activate:
+            self.db.activate(project)
+
+        return project
+
+
+    def use_bds(self):
+        """Use the BigDataStack backend"""
+        Console.debug_msg('Factory use_bds')
+        self.is_bds = True
+        return self
+
+
+    def set_user_name(self, username):
+        """Set the cluster login user name"""
+        Console.debug_msg('Factory set_user_name: {}'.format(username))
+        self.username = username
+        return self
+
+
+    def set_project_name(self, name):
+        """Set the project name"""
+        Console.debug_msg('Factory set_project_name: {}'.format(name))
+        self.project_name = name
+        return self
+
+
+    def set_ips(self, ips):
+        """Set the cluster IP addresses"""
+        Console.debug_msg('Factory set_ips: {}'.format(ips))
+        assert len(ips) >= 0
+        self.ips = ips
+        return self
+
+    def set_repo(self, repo):
+        """Set the repository to get the stack from"""
+        Console.debug_msg('Factory set_repo: {}'.format(repo))
+        self.repo = repo
+        return self
+
+
+    def set_branch(self, branch='master'):
+        """Set the branch of the repository to use"""
+        Console.debug_msg('Factory set_branch: {}'.format(branch))
+        self.branch = branch
+        return self
+
+
+    def set_overrides(self, overrides=None):
+        """Set the overrides for deployment"""
+        Console.debug_msg('Factory set_overrides: {}'.format(overrides))
+        overrides = overrides or defaultdict(lambda: defaultdict(list))
+        self.overrides = overrides
+        return self
+
+
+    def set_playbooks(self, playbooks=None):
+        """Set the playbooks to deploy"""
+        Console.debug_msg('Factory set_playbooks: {}'.format(playbooks))
+        playbooks = playbooks or list()
+        self.playbooks = playbooks
+        return self
+
+
+    def set_force(self, force=False):
+        """Set the `force` parameter"""
+        Console.debug_msg('Factory set_force: {}'.format(force))
+        self.force = force
+        return self
+
+
+    def set_update(self, update=False):
+        """Set the `update` parameter"""
+        Console.debug_msg('Factory set_update: {}'.format(update))
+        self.update = update
+        return self
+
+
+    def activate(self, make_active=True):
+        """Set whether or not the created project should be activated"""
+        Console.debug_msg('Factory activate: {}'.format(make_active))
+        self.make_active = make_active
+        return self
 
 
 
 class Project(object):
+    """Captures the parameters and stack for a deployment.  Note: this is
+    a lower-level API that should be predominantly be constructed
+    using the :class:`ProjectFactory`.
+    """
 
-    metadata_file = '.properties.yml'
+    filename = '.cloudmesh_project.yml'
 
-    def __init__(self, name=None):
+    def __init__(self, name, stack, deployparams=None):
+        assert deployparams is not None
+
+        self.name = name
         self.ctime = time.gmtime()
-        self.name = name  # this is set by ProjectList if None
-        self._pid = -1 # this is set by ProjectList
+        self.stack = stack
+        self.is_deployed = False
+        self.deployparams = deployparams
+        self.deployparams['name'] = name
+
 
     @classmethod
     def load(cls, path):
-        with open(os.path.join(path, self.metadata_file), 'r') as fd:
+        with open(os.path.join(path, cls.filename), 'r') as fd:
             y = yaml.load(fd)
 
-        # pop keys that do not appear in the __dict__
-        # see 'sync()' implementation for the ones to remove
-        y.pop('type', None)
-
-        project = cls()
+        project = cls(y['name'], y['stack'], deployparams=y['deployparams'])
         project.__dict__.update(y)
-
-
-    @property
-    def pid(self): return self._pid
+        return project
 
 
     @property
@@ -226,141 +441,146 @@ class Project(object):
         return m
 
 
-    def sync(self, path):
-        """Implemented by subclasses
-        """
-        raise NotImplementedError
+    def sync_metadata(self, path):
+        y = yaml.dump(self.metadata, default_flow_style=False)
+        with open(os.path.join(path, Project.filename), 'w') as fd:
+            fd.write(y)
 
 
-    def deploy(self, path, **kwargs):
-        """Implemented by subclasses
-        """
-        raise NotImplementedError
+    def init(self, force=False, update=False):
+        self.stack.init(force=force, update=update)
 
 
-class BDSProject(Project):
-    def __init__(self, ips=None, user=None, branch='master', **kwargs):
-        super(BDSProject, self).__init__(**kwargs)
+    def deploy(self, force=False):
 
-        assert ips is not None, ips
-        assert type(ips) is list, type(ips)
-        assert user is not None, user
-        assert type(user) is str, type(user)
+        if not self.is_deployed or force:
+            self.stack.deploy(**self.deployparams)
+        else:
+            Console.info('Already deployed')
 
-        self.ips = ips
-        self.user = user
+        self.is_deployed = True
+
+
+class KWArgs(object):
+    def __init__(self, **kwargs):
+        self.kwargs = kwargs
+
+
+    def __getitem__(self, key):
+        return self.kwargs[key]
+
+
+    def __setitem__(self, key, value):
+        self.kwargs[key] = value
+
+
+class BigDataStack(object):
+    def __init__(self, dest, repo='git://github.com/futuresystems/big-data-stack.git', branch='master'):
+        self.path = os.path.abspath(dest)
+        self.repo = repo
         self.branch = branch
-        self.repo = kwargs.pop('repo', 'git://github.com/futuresystems/big-data-stack.git')
-        self.repo_is_local = kwargs.pop('repo_is_local', False)
+        self.local = os.path.isdir(repo)
+        self._env = dict()
 
 
-    def in_venv(self, cmd, **kwargs):
-        name = cmd.pop(0)
-        path = os.path.join('venv', 'bin', name)
-        real_cmd = [path] + cmd
-        return Subprocess(real_cmd, **kwargs)
+    def init(self, force=False, update=False):
+        """Initialize by cloning (or updating if requested) a local copy of the Big Data Stack repository.
+
+        :param force: redo some of the setup steps if the project has already been initialized
+        :type force: :class:`bool`
+        :param update: update the local repository from the origin of a previously initialized clone
+        :type update: :class:`bool`
+        """
+
+        if not os.path.isdir(os.path.join(self.path, '.git')):
+            Console.debug_msg('Cloning branch {} of {} to {}'.format(self.branch, self.repo, self.path))
+            Subprocess(['git', 'clone', '--recursive', '--branch', self.branch, self.repo, self.path])
+
+        elif update:
+            Console.debug_msg('Updating to branch {} for {}'.format(self.branch, self.path))
+            Subprocess(['git', 'fetch', '--recurse-submodules', 'origin', self.branch], cwd=self.path)
+            Subprocess(['git', 'checkout', self.branch], cwd=self.path)
+            Subprocess(['git', 'merge', 'origin/{}'.format(self.branch)], cwd=self.path)
 
 
-    def sync(self, path):
+        venvname = 'venv'
+        venvdir = os.path.join(self.path, venvname)
+
+        if force and os.path.isfile(os.path.join(venvdir, 'bin', 'activate')):
+            Console.debug_msg('Removing {}'.format(venvdir))
+            shutil.rmtree(venvdir)
+
+        if not os.path.isdir(venvdir):
+            Console.debug_msg('Creating virtualenv {}'.format(venvdir))
+            Subprocess(['virtualenv', venvdir])
+
+        self._env = get_virtualenv_environment(venvdir)
+        cmd = ['pip', 'install', '-r', 'requirements.txt'] + (['-U'] if force else [])
+        Console.debug_msg('Installing requirements to {}'.format(venvdir))
+        Subprocess(cmd, cwd=self.path, env=self._env)
 
 
-        if not os.path.isdir(os.path.join(path, '.git')):
-            # clone BDS from the local cache
-            cmd = ['git', 'clone', '--recursive', '--branch', self.branch]
-            if self.repo_is_local:
-                cmd.append('--local')
-            cmd.extend([self.repo, path])
-            Subprocess(cmd)
+    def deploy(self, ips=None, name=None, user=None, playbooks=None,
+               defines=None, ping_max=10, ping_sleep=10):
+        """Deploy the big-data-stack to a previously stood up cluster located
+        at `ips` with login user `user`.
 
-        if not os.path.isdir(os.path.join('path', 'venv')):
-            Subprocess(['virtualenv', 'venv'], cwd=path)
+        :param ips: the ip addresses of the cluster to deploy to
+        :type ips: :class:`list` of :class:`str` IP addresses
+        :param name: the name of the cluster
+        :type name: :class:`str`
+        :param user: the login username of the cluster
+        :type user: :class:`str`
+        :param playbooks: the list of playbooks to deploy. These are paths relative to the root directory of the BDS repository.
+        :type playbooks: :class:`list` of :class:`str`
+        :param defines: the overridden variables defined for each playbook
+        :type defines: :class:`dict` from playbook name to :class:`dict` of variable name to value
+        :param ping_max: the maximum number of time to attempt to ping the cluster during the verification step.
+        :type ping_max: :class:`int`
+        :param ping_sleep: the number of seconds to wait between each attempt to ping
+        :type ping_sleep: :class:`int`
+        """
+        assert ips is not None
+        assert ping_max > 0, ping_max
+        assert ping_sleep > 0, ping_sleep
 
-        self.in_venv(['pip', 'install', '-r', 'requirements.txt'], cwd=path)
+        name = name or os.getenv('USER') + '-' + os.path.basename(self.path)
+        user = user or 'defaultuser'
+        playbooks = playbooks or list()
+        defines = defines or defaultdict(list)
 
-        # generate the inventory file
-        local_user = os.getenv('USER')
-        cmd = ['python', 'mk-inventory', '-n', '{}-{}'.format(local_user, self.name)]
-        cmd.extend(self.ips)
-        inventory = self.in_venv(cmd, cwd=path)
-        with open(os.path.join(path, 'inventory.txt'), 'w') as fd:
+
+        Console.debug_msg('Calling mk-inventory in {}'.format(self.path))
+        cmd = ['python', 'mk-inventory', '-n', name] + ips
+        inventory = Subprocess(cmd, cwd=self.path, env=self._env)
+        Console.debug_msg('Writing inventory file')
+        Console.debug_msg('\n    ' + ('\n' + 4*' ').join(inventory.stdout.split('\n')))
+        with open(os.path.join(self.path, 'inventory.txt'), 'w') as fd:
             fd.write(inventory.stdout)
 
-        # write the metadata file
-        metadata = yaml.dump(self.metadata, default_flow_style=False)
-        with open(os.path.join(path, self.metadata_file), 'w') as fd:
-            fd.write(metadata)
 
-
-    def deploy(self, path, plays=None, defines=None, ping_sleep=5, ping_max=500):
-
-        plays = plays or []
-        defines0 = defines or []
-
-        # cleanup defines to dict[play name] ->  list("key=value")
-        defines0 = map(lambda s: s.split(':'), defines)
-        defines = defaultdict(list)
-        for playname, keyvalue in defines0:
-            defines[playname].append(keyvalue)
-
-        # wait for the cluster to be accessible
-        for _ in xrange(ping_max):
+        Console.info('Waiting for cluster to be accessible')
+        for i in xrange(ping_max):
+            Console.debug_msg('Attempt {} / {}'.format(i+1, ping_max))
             try:
-                self.in_venv(['ansible', 'all', '-m', 'ping', '-u', self.user],
-                           cwd=path, stdout=None, stderr=None)
+                Subprocess(['ansible', 'all', '-m', 'ping', '-u', user],
+                           cwd=self.path, env=self._env, stdout=None, stderr=None)
+                Console.debug_msg('Success!')
                 break
             except SubprocessError as e:
+                Console.debug_msg('Failure, sleeping for {} seconds'.format(ping_sleep))
                 time.sleep(ping_sleep)
 
 
-        for play in plays:
-            cmd = ['ansible-playbook', play, '-u', self.user]
-            if play in defines:
-                cmd.extend(['-e', ' '.join(defines[play])])
-
-            self.in_venv(cmd, cwd=path, stdout=None, stderr=None)
-
-
-class Stack(object):
-    """
-    Not intended to be directly instantiated. Instead use one of the subclasses.
-    """
-
-    def __init__(self, name=None):
-        assert name is not None
-        self.name = name
-
-
-    @property
-    def cachedir(self):
-        cfgpath = Config.find_file('cloudmesh.yaml')
-        dotcloudmesh = os.path.dirname(cfgpath)
-        return os.path.join(dotcloudmesh, 'stack', self.name, 'cache')
-
-
-    def sanity_check(self):
-        """Verifies that the environment supports installing and running the stack.
-
-        To be implemented by subclasses
-
-        :rtype: :class:`bool`
-        """
-        raise NotImplementedError
-
-
-    def initialize(self, *args, **kwargs):
-        """Initialize the stack.
-
-        Implemented by subclass
-        """
-        raise NotImplementedError
-
-
-    def update(self, *args, **kwargs):
-        """Update the stack
-
-        Implemented by subclass
-        """
-        raise NotImplementedError
+        basic_command = ['ansible-playbook', '-u', user]
+        Console.debug_msg('Running playbooks {}'.format(playbooks))
+        for play in playbooks:
+            cmd = basic_command + [play]
+            define = ['{}={}'.format(k, v) for k, v in defines[play]]
+            if define:
+                cmd.extend(['-e', ','.join(define)])
+            Console.info('Running playbook {} with overrides {}'.format(play, define))
+            Subprocess(cmd, cwd=self.path, env=self._env, stdout=None, stderr=None)
 
 
 
@@ -454,144 +674,78 @@ class SanityChecker(object):
                 raise SanityCheckError('SSH authentication to github.com failed',
                                        'did you add your public key to https://github.com/settings/ssh ?')
 
+def sanity_check():
+    """Verifies that the environment is set up correctly for BDS usage:
 
+    :returns: boolean indicating pass or fail of the sanity check
+    :rtype: :class:`bool`
+    """
 
-class BigDataStack(Stack):
+    def pprint_check(msg, maxchar=20, filler='.', stream=sys.stdout):
+        """fancy way for printing out aligned messages
 
-    def __init__(self):
-        super(BigDataStack, self).__init__(name='bds')
-
-
-    @property
-    def cached_repo(self):
-        return os.path.join(self.cachedir, 'bds.git')
-
-
-    def sanity_check(self):
-        """Verifies that the environment is set up correctly for BDS usage:
-
-        :returns: boolean indicating pass or fail of the sanity check
-        :rtype: :class:`bool`
-
+        :param msg: the message
+        :param maxchar: maximum number of characters to elide
+        :param filler: the filler character
+        :param stream: the output stream
         """
+        nfiller = maxchar - len(msg)
+        nfiller = max(nfiller, 2)
 
-        def pprint_check(msg, maxchar=20, filler='.', stream=sys.stdout):
-            """fancy way for printing out aligned messages
-
-            :param msg: the message
-            :param maxchar: maximum number of characters to elide
-            :param filler: the filler character
-            :param stream: the output stream
-            """
-            nfiller = maxchar - len(msg)
-            nfiller = max(nfiller, 2)
-
-            stream.write(msg)
-            stream.write(nfiller * filler)
+        stream.write(msg)
+        stream.write(nfiller * filler)
 
 
-        checker = SanityChecker()
+    checker = SanityChecker()
 
-        # so all errors can be reported at once
-        errors = []
+    # so all errors can be reported at once
+    errors = []
 
-        def check(fn, *args, **kws):
-            try:
-                fn(*args, **kws)
-                print('OK')
-            except SanityChecker as e:
-                print('FAILED')
-                errors.append(e)
-
-
-        ################################################## programs
-
-        # these should be available
-        programs = [
-            'python',
-            'virtualenv',
-            'pip',
-            'ansible',
-            'ansible-playbook',
-            'ansible-vault',
-            'git',
-            'ssh',
-        ]
-
-        for prog in programs:
-            pprint_check(prog)
-            check(checker.check_program, prog)
-
-        ################################################## ssh key
-
-        pprint_check('ssh key')
-        check(checker.check_sshkey)
-
-        ################################################## ssh to github
-
-        pprint_check('github')
-        check(checker.check_github)
+    def check(fn, *args, **kws):
+        try:
+            fn(*args, **kws)
+            print('OK')
+        except SanityChecker as e:
+            print('FAILED')
+            errors.append(e)
 
 
-        ################################################## errors
+    ################################################## programs
 
-        if len(errors) > 0:
-            sys.stderr.write('The following errors were detected:\n\n')
+    # these should be available
+    programs = [
+        'python',
+        'virtualenv',
+        'pip',
+        'git',
+        'ssh',
+    ]
 
-            for e in errors:
-                sys.stderr.write('* {}\n'.format(e.message))
-                sys.stderr.write('  >{}\n'.format(e.reason))
+    for prog in programs:
+        pprint_check(prog)
+        check(checker.check_program, prog)
 
-            return False
+    ################################################## ssh key
 
-        else:
-            return True
+    pprint_check('ssh key')
+    check(checker.check_sshkey)
 
+    ################################################## ssh to github
 
-    def initialize(self, ips, user=None, branch='master',
-                   repo='git://github.com/futuresystems/big-data-stack.git'):
-        """Initialize a BDS stack-based project
-
-        :param ips: list of ip addresses
-        :param user: the ssh-login username on the nodes with admin privileges
-        :param branch: the branch of BDS to use
-        :param repo: the upstream git repository to clone
-        """
-
-        print ('Initializing {}'.format(self.name))
-
-        if not os.path.exists(self.cached_repo):
-            Subprocess(['git', 'clone', '--recursive', repo, self.cached_repo])
-
-        if not os.path.isdir(self.cached_repo):
-            raise OSError('{} is not a directory'.format(prefix))
+    pprint_check('github')
+    check(checker.check_github)
 
 
-    def update(self, user=None, branch='master', name=None):
-        """Updated a previous initialized/cloned stack
+    ################################################## errors
 
-        :param user: 
-        :param branch: 
-        :param name: 
-        :returns: 
-        :rtype: 
+    if len(errors) > 0:
+        sys.stderr.write('The following errors were detected:\n\n')
 
-        """
+        for e in errors:
+            sys.stderr.write('* {}\n'.format(e.message))
+            sys.stderr.write('  >{}\n'.format(e.reason))
 
-        print ('Updating {}'.format(self.name))
+        return False
 
-        assert os.path.isdir(self.cachedir)
-        assert os.path.isdir(os.path.join(self.cachedir, '.git'))
-
-        current_branch = Subprocess(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], cwd=self.cached_repo)\
-                        .stdout.strip()
-
-        if current_branch == branch:
-            Subprocess(['git', 'pull', '--recurse-submodules', 'origin', branch], cwd=self.cached_repo)
-            Subprocess(['git', 'submodule', 'update'], cwd=self.cached_repo)
-
-        else:
-            Subprocess(['git', 'fetch'], cwd=self.cached_repo)
-            Subprocess(['git', 'pull', 'origin', branch], cwd=self.cached_repo)
-
-
+    else:
+        return True

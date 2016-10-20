@@ -2,8 +2,9 @@ from __future__ import print_function
 
 import os
 import time
+from collections import defaultdict
 
-from cloudmesh_client.cloud.stack import BigDataStack, BDSProject, ProjectList
+from cloudmesh_client.cloud.stack import sanity_check, ProjectDB, ProjectFactory, BigDataStack
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.default import Default
@@ -11,6 +12,25 @@ from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 from cloudmesh_client.default import Default
 from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.common.dotdict import dotdict
+
+
+def cleanup_overrides(overrides):
+    """Cleanup shell-parameterized overrides definitions
+
+    :param overrides: list of [(play:k1=v1,k2=v2)...]
+    :returns: 
+    :rtype: dict[play] -> dict[key] -> value
+    """
+
+    result = defaultdict(dict)
+    for definition in overrides:
+        play, defs = definition.split(':', 1)
+        pairs = defs.split(',')
+        for pair in pairs:
+            k, v = pair.split('=', 1)
+            result[play][k] = v
+
+    return result
 
 
 
@@ -23,100 +43,65 @@ class StackCommand(PluginCommand, CloudPluginCommand):
             print("init command stack")
 
 
-    def check(self, stackname='bds'):
+    def check(self):
+        sanity_check()
+
+
+    def init(self, stackname='bds', activate=True, name=None, user=None, branch=None, overrides=None, playbooks=None, ips=None, force=False, update=False):
+        factory = ProjectFactory()
+
         if stackname == 'bds':
-            stack = BigDataStack()
+            factory.use_bds()
         else:
             raise NotImplementedError(stackname)
 
-        stack.sanity_check()
+        factory\
+            .set_project_name(name)\
+            .set_user_name(os.getenv('USER') if user is '$USER' else user)\
+            .set_branch(branch)\
+            .set_ips(ips)\
+            .set_overrides(overrides)\
+            .set_playbooks(playbooks)\
+            .activate(activate)\
+            .set_force(force=force)\
+            .set_update(update)
 
 
-    def init(self, stackname='bds', activate=True, **kwargs):
-        if stackname == 'bds':
-            project = self.init_bds(**kwargs)
-        else:
-            raise NotImplementedError(stackname)
-
-        projectlist = ProjectList.load()
-        projectlist.add(project)
-
-        if activate:
-            projectlist.activate(project)
-
-        projectlist.sync()
+        project = factory()
+        Console.info('Created project {}'.format(project.name))
 
 
-    def init_bds(self, branch=None, ips=None, user=None, name=None):
-        stack = BigDataStack()
-        stack.initialize(ips, user=user, branch=branch)
-        project = BDSProject(ips=ips, user=user, name=name, branch=branch)
-        return project
+    def deploy(self, project_name=None, force=False):
+
+        db = ProjectDB()
+        project = db.lookup(project_name)
+        project.deploy(force=force)
+        db.update(project)
 
 
-    def list(self, sort=None, list=None, json=False):
-        """List the deployment stacks and projects
+    def project(self, list_projects=False, name=None):
 
-        :param sort: field to sort by
-        :param list: comma-separated subset of {'stack', 'project'}
-        :param json: output in json-format
-        """
+        db = ProjectDB()
 
-        projectlist = ProjectList.load()
-
-        print ('Projects')
-        for project in projectlist:
-            activated = '>' if projectlist.isactive(project) else ' '
-            name = project.name
-            stack = project.__class__.__name__ # FIXME: temporary workaround
-            date = time.strftime('%Y-%m-%d %H:%M:%S UTC', project.ctime)
-            path = os.path.join(projectlist.prefix(), project.name)
-            msg = '- {activated} {name:10} {stack:10} {date:24} {path}'.format(
-                activated=activated,
-                name=name,
-                stack=stack,
-                date=date,
-                path=path,
-            )
-            print (msg)
+        # set if name is given
+        if name:
+            project = db.lookup(name)
+            db.activate(project)
 
 
-    def project(self, name=None):
-        """View or set the current active project
-
-        :param name: active this project
-        """
-
-        projectlist = ProjectList.load()
-
-        if name is None:
-            print (projectlist.getactive().name)
-
-        else:
-            project = projectlist.lookup(name)
-            projectlist.activate(project)
-            projectlist.sync()
-            print ('Switched to project {}'.format(project.name))
-
-
-    def deploy(self, **kwargs):
-        """Deploy the currently active project
-
-        :param **kwargs: passed to the implementing method (eg deploy_bds)
-        """
-
-        print (42)
-        print (kwargs)
-
-        projectlist = ProjectList.load()
-        project = projectlist.getactive()
-        path = projectlist.projectdir(project.name)
-        if isinstance(project, BDSProject):
-            project.deploy(path, **kwargs)
-        else:
-            raise ValueError('Unknown project type {}'.format(type(project)))
-
-
+        # list of asked to do so
+        if list_projects:
+            for project in db:
+                isactive = '>' if db.isactive(project) else ''
+                ctime = time.strftime('%Y-%m-%d %H:%M:%S', project.ctime)
+                msg = ''
+                msg += '{isactive:3s}'
+                msg += '{project.name:10s}'
+                msg += 'created: {ctime}'
+                msg += 'stack: {project.stack.__class__.__name__:16s}'
+                msg += 'deployed: {project.is_deployed}'
+                msg = msg.format(isactive=isactive, project=project, ctime=ctime)
+                Console.info(msg)
 
 
     # noinspection PyUnusedLocal
@@ -126,16 +111,36 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         ::
 
             Usage:
-                stack check [--stack=bds]
-                stack init [--no-activate] [--branch=master] [--user=$USER] [--name=<project>] <ip>...
-                stack list [--sort=<field=date>] [--list=<field,...=all>] [--json]
-                stack project [<name>]
-                stack deploy [<play>...] [--define=<define>...]
+              stack check
+              stack init [-fU] [--no-activate] [-s STACK] [-n NAME] [-u NAME] [-b NAME] [-o DEFN]... [-p PLAY] <ip>...
+              stack deploy [-f] [-n NAME]
+              stack project [-l] [<name>]
 
+            Commands:
+              check     Sanity check
+              init      Initialize a stack
+              deploy    Deploy a stack
+              project   List and activate projects
 
-            Options:
-               --format=FORMAT  the output format [default: table]
-               --cloud=CLOUD    the cloud name
+            Arguments:
+              STACK  Name of the stack. Options: (bds)
+              NAME   Alphanumeric name
+              DEFN   In the form: play1:k1=v1,k2=v2,...
+              PLAY   In the form: playbook,playbook,...
+
+           Options:
+
+              -v --verbose
+              --no-activate                 Do not activate a project upon creation
+              -s STACK --stack=STACK        The stack name [default: bds]
+              -n NAME --name=NAME           Name of the project (if not specified during creation, generated).
+              -u NAME --user=NAME           Name of login user to cluster [default: $USER]
+              -b NAME --branch=NAME         Name of the stack's branch to clone from [default: master]
+              -o DEFN --overrides=DEFN      Overrides for a playbook, may be specified multiple times
+              -p PLAY --playbooks=PLAY      Playbooks to run
+              -f --force                    Force rerunning a command to continue
+              -U --update                   Update the stack
+              -l --list                     List
 
             Examples:
 
@@ -148,90 +153,44 @@ class StackCommand(PluginCommand, CloudPluginCommand):
                 cm stack check
 
                 # create a project for the cluster with given username and addresses
-                cm stack init --user ubuntu 10.0.0.10 10.0.0.11 10.0.0.12
+                cm stack init -u ubuntu -p play-hadoop.yml,addons/spark.yml 10.0.0.10 10.0.0.11 10.0.0.12
 
-                # get the name of the project
-                cm stack project
-
-                # deploy hadoop, spark, and hbase to the cluster
-                cm stack deploy play-hadoop.yml addons/spark.yml addons/hbase.yml
+                # deploy hadoop, spark to the cluster
+                cm stack deploy
 
         """
 
-        ################################################## cleanup
-        arg = dotdict(arguments)
-        arg.ips = arguments['<ip>']
-
-        # arg.cloud = arguments["--cloud"] or Default.cloud
-        # arg.FORMAT = arguments["--format"] or "table"
-
-        ##################################################  defaults
-        arg.stack = arguments['--stack'] or 'bds'
-
-        if arg.init:
-            arg.branch = arguments['--branch'] or 'master'
-            arg.user = arguments['--user'] or os.getenv('USER')
-            arg.activate = not arguments['--no-activate']
-
-        ################################################## list
-        if arg.list:
-            arg.sort = arguments['--sort']
-            arg.listparts = arguments['--list']
-
-        ##################################################
-        arg.name = arguments['<name>']
-
-        ##################################################
-        if arg.deploy:
-            arg.plays = arguments['<play>']
-            arg.define = arguments['--define']
+        a = dotdict(arguments)
+        print(a)
 
 
-        print (arg)
+        if a.check:
+            self.check()
 
-        if arg.check:
-            self.check(stackname=arg.stack)
+        if a.init:
+            defns = cleanup_overrides(a['--overrides']) if a['--overrides'] else None
+            plays = a['--playbooks'].split(',') if a['--playbooks'] else None
 
-        elif arg.init:
-            self.init(stackname='bds', branch=arg.branch, user=arg.user, name=arg['--name'], ips=arg.ips, activate=arg.activate)
+            self.init(stackname = a['--stack'],
+                      name      = a['--name'],
+                      branch    = a['--branch'],
+                      user      = a['--user'],
+                      activate  = not a['--no-activate'],
+                      overrides = defns,
+                      playbooks = plays,
+                      ips       = a['<ip>'],
+                      force     = a['--force'],
+                      update    = a['--update'],
+            )
 
-        elif arg.list:
-            self.list(sort=arg['--sort'], list=arg['--list'], json=arg.json)
+        if a.deploy:
+            self.deploy(project_name=a['--name'],
+                        force = a['--force'],
+            )
 
-        elif arg.project:
-            self.project(name=arg.name)
+        if a.project:
+            self.project(list_projects = a['--list'],
+                         name          = a['<name>'],
+            )
 
-        elif arg.deploy:
-            self.deploy(plays=arg.plays, defines=arg.define)
-
-        """
-        # TAKEN FRO INFO COMMAND TO DEMONSTRATE SOME SIMPLE USAGE
-
-        d = {
-            "cloud": arg.cloud,
-            "key": Default.key,
-            "user": Default.user,
-            "vm": Default.vm,
-            "group": Default.group,
-            "secgroup": Default.secgroup,
-            "counter": Default.get_counter(name="name"),
-            "image": Default.get_image(category=arg.cloud),
-            "flavor": Default.get_flavor(category=arg.cloud),
-            "refresh": str(Default.refresh),
-            "debug": str(Default.debug),
-            "interactive": str(Default.interactive),
-            "purge": str(Default.purge),
-
-        }
-        order = ["cloud", "key", "user", "vm", "group", "secgroup",
-                 "counter", "image", "flavor", "refresh", "debug", "interactive", "purge"]
-        print(Printer.attribute(d, order=order, output=arg.FORMAT, sort_keys=False))
-
-        if d["key"] in ["TBD", ""] or d["user"] in ["TBD", ""]:
-            msg = "Please replace the TBD values"
-            msg = msg + "\nSee Also: \n\n" \
-                  + "    cm register profile \n" \
-                  + "    cm default user=YOURUSERNAME\n"
-            Console.error(msg, traceflag=False)
-        """
         return ""
