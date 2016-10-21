@@ -10,6 +10,7 @@
 from __future__ import print_function
 
 from pipes import quote
+import errno
 import glob
 import os
 import os.path
@@ -421,18 +422,22 @@ class Shell(object):
         - parent directory(ies) does not exist, make them as well
         """
         """http://code.activestate.com/recipes/82465-a-friendly-mkdir/"""
-        _newdir = path_expand(newdir)
-        if os.path.isdir(_newdir):
-            pass
-        elif os.path.isfile(_newdir):
-            raise OSError("a file with the same name as the desired "
-                          "dir, '%s', already exists." % _newdir)
-        else:
-            head, tail = os.path.split(_newdir)
-            if head and not os.path.isdir(head):
-                os.mkdir(head)
-            if tail:
-                os.mkdir(_newdir)
+
+        newdir = path_expand(newdir)
+        try:
+            os.makedirs(newdir)
+        except OSError as e:
+
+            # EEXIST (errno 17) occurs under two conditions when the path exists:
+            # - it is a file
+            # - it is a directory
+            #
+            # if it is a file, this is a valid error, otherwise, all
+            # is fine.
+            if e.errno == errno.EEXIST and os.path.isdir(newdir):
+                pass
+            else: raise
+
 
     def unzip(source_filename, dest_dir):
         """
