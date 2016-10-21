@@ -53,6 +53,13 @@ class Shell(object):
     '''
 
     @classmethod
+    def check_output(cls, *args, **kwargs):
+        """Thin wrapper around :func:`subprocess.check_output`
+        """
+        return subprocess.check_output(*args, **kwargs)
+
+
+    @classmethod
     def ls(cls, *args):
         return cls.execute('ls', args)
 
