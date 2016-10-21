@@ -2,7 +2,6 @@
 
 from __future__ import print_function
 
-from pipes import quote
 import copy
 import glob
 import os
@@ -17,6 +16,7 @@ import yaml
 
 import requests
 
+from cloudmesh_client.common.Shell import Subprocess, SubprocessError
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.db import CloudmeshDatabase
@@ -62,49 +62,6 @@ def get_virtualenv_environment(venvpath):
     return env
 
 
-
-class SubprocessError(Exception):
-    def __init__(self, cmd, returncode, stderr, stdout):
-        self.cmd = cmd
-        self.returncode = returncode
-        self.stderr = stderr
-        self.stdout = stdout
-
-
-    def __str__(self):
-
-        def indent(lines, amount, ch=' '):
-            padding = amount * ch
-            return padding + ('\n'+padding).join(lines.split('\n'))
-
-        cmd = ' '.join(map(quote, self.cmd))
-        s = ''
-        s += 'Command: %s\n' % cmd
-        s += 'Exit code: %s\n' % self.returncode
-
-        if self.stderr:
-            s += 'Stderr:\n' + indent(self.stderr, 4)
-        if self.stdout:
-            s += 'Stdout:\n' + indent(self.stdout, 4)
-
-        return s
-
-
-class Subprocess(object):
-
-    def __init__(self, cmd, cwd=None, stderr=subprocess.PIPE, stdout=subprocess.PIPE, env=None):
-
-        Console.debug_msg('Running cmd: {}'.format(' '.join(map(quote, cmd))))
-
-        proc = subprocess.Popen(cmd, stderr=stderr, stdout=stdout, cwd=cwd, env=env)
-        stdout, stderr = proc.communicate()
-
-        self.returncode = proc.returncode
-        self.stderr = stderr
-        self.stdout = stdout
-
-        if self.returncode != 0:
-            raise SubprocessError(cmd, self.returncode, self.stderr, self.stdout)
 
 
 class ProjectDB(object):
