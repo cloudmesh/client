@@ -100,8 +100,11 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
                 Prints list of keys. NAME of the key can be specified
 
-               
-           key add [--name=keyname] FILENAME
+           key add ssh
+
+               adds the default key with the name id_rsa.pub
+
+           key add NAME  --source=FILENAME
 
                adds the key specifid by the filename to the key
                database
