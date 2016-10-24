@@ -564,6 +564,13 @@ class CloudmeshDatabase(object):
         b) a single entry that matches the first occurance of the query specified by kwargs,
            such as name="vm_001"
 
+        To select a value from a specific table:
+        1) identify the table of interest with :meth:`table`
+           >>> t = db.table(name='default')
+        2) specify the 'table' keywork:
+           >>> db.find(table=t, cm_id=42)
+
+
         :param kwargs: the arguments to be matched, scope defines if all or just the first value
                is returned. first is default.
         :return: a list of objects, if scope is first a single object in dotdict format is returned
