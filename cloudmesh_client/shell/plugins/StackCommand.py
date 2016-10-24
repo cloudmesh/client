@@ -4,13 +4,10 @@ import os
 import time
 from collections import defaultdict
 
-from cloudmesh_client.cloud.stack import sanity_check, ProjectDB, ProjectFactory, BigDataStack
+from cloudmesh_client.cloud.stack import sanity_check, ProjectDB, ProjectFactory
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.default import Default
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
-from cloudmesh_client.default import Default
-from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.common.dotdict import dotdict
 
 
@@ -44,7 +41,9 @@ class StackCommand(PluginCommand, CloudPluginCommand):
     def check(self):
         sanity_check()
 
-    def init(self, stackname='bds', activate=True, name=None, user=None, branch=None, overrides=None, playbooks=None, ips=None, force=False, update=False):
+    def init(self, stackname='bds', activate=True, name=None,
+             user=None, branch=None, overrides=None, playbooks=None, ips=None,
+             force=False, update=False):
         factory = ProjectFactory()
 
         if stackname == 'bds':
