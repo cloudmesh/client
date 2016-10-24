@@ -33,7 +33,6 @@ def cleanup_overrides(overrides):
     return result
 
 
-
 class StackCommand(PluginCommand, CloudPluginCommand):
     topics = {"stack": "cloud"}
 
@@ -42,10 +41,8 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         if self.context.debug:
             print("init command stack")
 
-
     def check(self):
         sanity_check()
-
 
     def init(self, stackname='bds', activate=True, name=None, user=None, branch=None, overrides=None, playbooks=None, ips=None, force=False, update=False):
         factory = ProjectFactory()
@@ -66,10 +63,8 @@ class StackCommand(PluginCommand, CloudPluginCommand):
             .set_force(force=force)\
             .set_update(update)
 
-
         project = factory()
         Console.info('Created project {}'.format(project.name))
-
 
     def deploy(self, project_name=None, force=False):
 
@@ -77,7 +72,6 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         project = db.lookup(project_name)
         project.deploy(force=force)
         db.update(project)
-
 
     def project(self, list_projects=False, name=None):
 
@@ -87,7 +81,6 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         if name:
             project = db.lookup(name)
             db.activate(project)
-
 
         # list of asked to do so
         if list_projects:
@@ -100,9 +93,9 @@ class StackCommand(PluginCommand, CloudPluginCommand):
                 msg += 'created: {ctime}'
                 msg += 'stack: {project.stack.__class__.__name__:16s}'
                 msg += 'deployed: {project.is_deployed}'
-                msg = msg.format(isactive=isactive, project=project, ctime=ctime)
+                msg = msg.format(isactive=isactive,
+                                 project=project, ctime=ctime)
                 Console.info(msg)
-
 
     # noinspection PyUnusedLocal
     @command
@@ -163,34 +156,34 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         a = dotdict(arguments)
         print(a)
 
-
         if a.check:
             self.check()
 
         if a.init:
-            defns = cleanup_overrides(a['--overrides']) if a['--overrides'] else None
+            defns = cleanup_overrides(
+                a['--overrides']) if a['--overrides'] else None
             plays = a['--playbooks'].split(',') if a['--playbooks'] else None
 
-            self.init(stackname = a['--stack'],
-                      name      = a['--name'],
-                      branch    = a['--branch'],
-                      user      = a['--user'],
-                      activate  = not a['--no-activate'],
-                      overrides = defns,
-                      playbooks = plays,
-                      ips       = a['<ip>'],
-                      force     = a['--force'],
-                      update    = a['--update'],
-            )
+            self.init(stackname=a['--stack'],
+                      name=a['--name'],
+                      branch=a['--branch'],
+                      user=a['--user'],
+                      activate=not a['--no-activate'],
+                      overrides=defns,
+                      playbooks=plays,
+                      ips=a['<ip>'],
+                      force=a['--force'],
+                      update=a['--update'],
+                      )
 
         if a.deploy:
             self.deploy(project_name=a['--name'],
-                        force = a['--force'],
-            )
+                        force=a['--force'],
+                        )
 
         if a.project:
-            self.project(list_projects = a['--list'],
-                         name          = a['<name>'],
-            )
+            self.project(list_projects=a['--list'],
+                         name=a['<name>'],
+                         )
 
         return ""
