@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-from cloudmesh_client.cloud.cluster import Cluster
+from cloudmesh_client.cloud.cluster import Cluster, ClusterModel
 from cloudmesh_client.common.Shell import Subprocess, SubprocessError
 from cloudmesh_client.shell.command import command, PluginCommand, CloudPluginCommand
 from cloudmesh_client.shell.console import Console
@@ -45,7 +45,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         key = key or Default.key
         secgroup = secgroup or Default.secgroup
 
-        cluster = Cluster.create(
+        cluster = Cluster(
             name=clustername,
             cloudname=cloud,
             username=username,
@@ -58,15 +58,17 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         for i in xrange(count - len(cluster)):
             cluster.add_instance()
 
+        ClusterModel.register(cluster)
+
 
 if __name__ == '__main__':
-    c = Cluster2Command()
-    c.create(
+    cmd = Cluster2Command()
+    cmd.create(
         clustername='test',
         image='CC-Ubuntu14.04',
         flavor='m1.medium',
         key='gambit',
-        count=3,
+        count=1,
     )
 
 
