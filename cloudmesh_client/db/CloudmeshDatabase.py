@@ -209,6 +209,31 @@ class CloudmeshDatabase(object):
             return False
 
     @classmethod
+    def insert(cls, obj):
+        """Insert a row into the database
+
+        :param obj: the object model to insert
+        :returns:
+        :rtype:
+        """
+
+        # this method was written because I was having difficulty
+        # getting others to work. Not ideal, but there is a deadline
+        # and it is faster to write it myself than dig through the
+        # rest of the code to figure out how it works and how to
+        # deal with corner cases :(
+
+        # since some models may not be defined in the module
+        # db.general.model or db.openstack.model, etc, ensure that the
+        # DB knows about the table
+        if obj.__tablename__ not in cls.Base.metadata.tables.keys():
+            cls.create_model()
+
+        cls.session.add(obj)
+        cls.save()
+
+
+
     def find_new(cls, **kwargs):
         """
         This method returns either
