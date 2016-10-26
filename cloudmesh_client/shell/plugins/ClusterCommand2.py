@@ -1,5 +1,7 @@
 from __future__ import print_function
 
+from pprint import pprint
+
 from cloudmesh_client.exc import UnrecoverableErrorException
 from cloudmesh_client.cloud.cluster import Cluster, ClusterNameClashException, generate_cluster_name
 from cloudmesh_client.shell.command import command, PluginCommand, CloudPluginCommand
@@ -70,17 +72,23 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         """
         ::
             Usage:
-              create [-cCifk] [NAME]
+              cluster2 create [-n NAME] [-c COUNT] [-C CLOUD] [-u USER] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME]
 
             Arguments:
+
               NAME                Alphanumeric name
+              COUNT               Integer > 0
 
             Options:
-              -c COUNT  --count=COUNT         Number of nodes in the cluster
-              -C CLOUD  --cloud=CLOUD         Name of the cloud
-              -i IMAGE  --image=IMAGE         Name of the image
-              -f FLAVOR  --flavor=FLAVOR      Name of the flavor
-              -k KEY  --key=KEY               Name of the key
+
+              -n NAME --name=NAME            Name of the cluster
+              -c COUNT --count=COUNT         Number of nodes in the cluster
+              -C NAME --cloud=NAME           Name of the cloud
+              -u USER --user=NAME
+              -i NAME --image=NAME           Name of the image
+              -f NAME --flavor=NAME          Name of the flavor
+              -k NAME --key=NAME             Name of the key
+              -s NAME --secgroup=NAME        NAME of the security group
         """
 
         arguments = dotdict(arguments)
@@ -88,7 +96,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         if arguments.create:
 
             self.create(
-                clustername=arguments.name or generate_cluster_name(),
+                clustername=arguments['--name'] or generate_cluster_name(),
                 count=arguments['--count'] or 1,
                 cloud=arguments['--cloud'] or Default.cloud,
                 user=arguments['--user'] or Default.user,
