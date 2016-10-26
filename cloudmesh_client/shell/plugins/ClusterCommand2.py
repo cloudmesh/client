@@ -1,8 +1,7 @@
 from __future__ import print_function
 
-from cloudmesh_client.cloud.cluster import Cluster, ClusterModel
-from cloudmesh_client.common.Shell import Subprocess, SubprocessError
-from cloudmesh_client.shell.command import command, PluginCommand, CloudPluginCommand
+from cloudmesh_client.cloud.cluster import Cluster
+from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 from cloudmesh_client.shell.console import Console
 
 from cloudmesh_client.default import Default
@@ -33,7 +32,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         :param str key: key name
         :param str secgroup: security group name
         :returns: a cluster
-        :rtype: 
+        :rtype: :class:`Cluster`
         """
 
         clustername = clustername or None  # FIXME
@@ -55,10 +54,9 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
             secgroupname=secgroup
         )
 
-        for i in xrange(count - len(cluster)):
-            cluster.add_instance()
-
-        ClusterModel.register(cluster)
+        cluster.boot()
+        Console.ok('Cluster {} created'.format(clustername))
+        return cluster
 
 
 if __name__ == '__main__':

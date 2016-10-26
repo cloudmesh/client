@@ -68,6 +68,17 @@ class CloudmeshMixin(object):
         return str(s)
 
 
+class CloudmeshVMMixin(object):
+
+    _mapper_args__ = {'always_refresh': True}
+
+    cluster = Column(String, default=None)
+
+    def set_defaults(self, **kwargs):   # TODO: what is this method used for?
+        Console.debug_msg('Call to CloudmeshVMMixin')
+        pass
+
+
 class CloudmeshDatabase(object):
     '''
 
@@ -230,7 +241,20 @@ class CloudmeshDatabase(object):
             cls.create_model()
 
         cls.session.add(obj)
-        cls.save()
+        cls.session.commit()
+
+
+    @classmethod
+    def select(cls, table, **filter_args):
+        """Return rows of the table matching filter args.
+
+        This is a proxy for sqlalchemy's ``session.query(table).filter(**kwargs)``
+
+        :param type table: the model class
+        :returns: all rows in the table matching ``**filter_args``
+        """
+
+        return cls.session.query(table).filter_by(**filter_args)
 
 
 
@@ -457,6 +481,16 @@ class CloudmeshDatabase(object):
                 }
                 result.append(entry)
         return result
+
+    @classmethod
+    def table_from_name(cls, tablename):
+        """Retrieve the model from the given table's name
+
+        :param str tablename: table's name
+        :returns: the model's class
+        :rtype: `type`, a subclass of sqlalchemy's `Base`
+        """
+        return cls.Base.metadata.tables[tablename]
 
     @classmethod
     def table(cls, provider=None, kind=None, name=None):

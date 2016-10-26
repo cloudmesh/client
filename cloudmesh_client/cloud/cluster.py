@@ -1,116 +1,33 @@
 from __future__ import print_function
 
-from sqlalchemy import Column, Boolean, String
-
-from cloudmesh_client.common.dotdict import dotdict
-from cloudmesh_client.db import CloudmeshDatabase, CloudmeshMixin
-from cloudmesh_client.cloud.vm import Vm
-
+from cloudmesh_client.db import CloudmeshDatabase
+from cloudmesh_client.db.general.model import CLUSTER
+from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.cloud.network import Network
+from cloudmesh_client.cloud.vm import Vm
 
 
 _db = CloudmeshDatabase()
 
 
-class ClusterModel(CloudmeshMixin, CloudmeshDatabase.Base):
-    __tablename__ = 'cluster'
-    __kind__ = 'cluster'
+class Cluster(CLUSTER):
 
-    name = Column(String)
-    cloudname = Column(String)
-    username = Column(String)
-    imagename = Column(String)
-    flavorname = Column(String)
-    keyname = Column(String)
-    secgroupname = Column(String)
-    assignFloatingIP = Column(Boolean)
+    def __init__(self, *args, **kwargs):
+        super(Cluster, self).__init__(*args, **kwargs)
 
-    @classmethod
-    def _cluster(cls, **kwargs):
-        """Create a single :class:`Cluster` instance from a single row in the
-        cluster table
+        self.provider = CloudProvider(self.cloud).provider.cloud_type
 
-        Here, ``kwargs`` is a :class:`dict` mapping column name to
-        value for this row.
+        _db.insert(self)
 
-        :returns: the cluster
-        :rtype: :class:`Cluster`
-        """
+    @property
+    def instances(self):
 
-        cluster_details = dotdict(kwargs)
-        table_name = 'vm_{}'.format(cluster_details.provider)
-        table = _db.table(name=table_name)
-
-        cluster = Cluster(
-            name=cluster_details.name,
-            cloudname=cluster_details.cloud,
-            username=cluster_details.user,
-            imagename=cluster_details.image,
-            secgroupname=cluster_details.secgroup,
-            assignFloatingIP=cluster_details.assignFloatingIP
-        )
-
-        for vm_details in _db.find(table=table,
-                                   cluster=cluster_details.cluster):
-            cluster.add_existing_instance(vm_details)
-
-        return cluster
-
-    @classmethod
-    def iter(cls):
-        """List all the entries
-
-        :returns: all the Clusters
-        :rtype: :class:`list` of :class:`Cluster`
-        """
-
-        for key_value in _db.find(table=cls):
-            cluster = cls._cluster(**key_value)
-            yield cluster
-
-
-    @classmethod
-    def register(cls, cluster):
-        """Register a cluster to the database
-
-        :param Cluster cluster: the cluster to register
-        :returns: 
-        :rtype: 
-        """
-
-        row_values = cluster.__dict__
-        row_values.pop('_instances')
-        obj = cls(**row_values)
-
-        _db.insert(obj)
-
-
-
-class Cluster(object):
-
-    def __init__(self, name=None, cloudname=None, username=None,
-                 imagename=None, flavorname=None, keyname=None,
-                 secgroupname=None, assignFloatingIP=True):
-
-        assert cloudname is not None
-        assert imagename is not None
-        assert flavorname is not None
-        assert keyname is not None
-
-        self.name = name
-        self.cloudname = cloudname
-        self.username = username
-        self.imagename = imagename
-        self.flavorname = flavorname
-        self.keyname = keyname
-        self.secgroupname = secgroupname
-        self.assignFloatingIP = True
-
-        self._instances = list()
+        tablename = 'vm_{}'.format(self.provider)
+        table = _db.table_from_name(tablename)
+        return _db.select(table, cluster=self.name).all()
 
     def __len__(self):
-        return len(self._instances)
-
+        return len(self.instances)
 
     def _assign_floating_ip(self, vm):
         """Assign a floating ip
@@ -120,41 +37,50 @@ class Cluster(object):
         """
 
         ip = Network.find_assign_floating_ip(
-            cloudname=self.cloudname,
-            instance_id=vm['name'],
+            cloudname=self.cloud,
+            instance_id=vm.name,
         )
 
-        Vm.refresh(cloud=self.cloudname)
+        Vm.refresh(cloud=self.cloud)
 
         return ip
 
-    def add_instance(self):
+    def assign_floating_ip(self):
+        """Assign a floating ip to all nodes in the cluster, if they do not
+        already have one
+        """
+
+        for vm in self.instances:
+            if not vm.floating_ip:
+                self._assign_floating_ip(vm)
+
+    def boot_single(self):
         """Boots a new instance and adds it to this cluster
         """
 
         instance_name = Vm.generate_vm_name()
 
         uuid = Vm.boot(
-            cloud=self.cloudname,
-            key=self.keyname,
+            cloud=self.cloud,
+            key=self.key,
             name=instance_name,
-            image=self.imagename,
-            flavor=self.flavorname,
-            group=self.secgroupname,
+            image=self.image,
+            flavor=self.flavor,
+            group=self.secgroup,
+            cluster=self.name,
         )
 
-        vm = Vm.get(instance_name)
+        model = _db.table(name='vm_{}'.format(self.provider))
+        vm = _db.select(model, uuid=uuid).all()
+        assert len(vm) == 1, vm
+        vm = vm[0]
 
         if self.assignFloatingIP:
-            vm['floating_ip'] = self._assign_floating_ip(vm)
+            vm.floating_ip = self._assign_floating_ip(vm)
 
-        self.add_existing_instance(vm)
-
-    def add_existing_instance(self, vm_details):
-        """Adds a previously booted instance to the cluster.
-
-        :param vm_details: a dict-like object containing the 
-                           details of the vm (eg from Vm.boot)
+    def boot(self):
+        """Boot all the nodes in the cluster
         """
 
-        self._instances.append(vm_details)
+        for _ in xrange(self.count - len(self.instances)):
+            self.boot_single()

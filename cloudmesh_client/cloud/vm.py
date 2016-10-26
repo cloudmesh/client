@@ -166,6 +166,7 @@ class Vm(ListResource):
             "nics": nics,
             "meta": {'kind': 'cloudmesh',
                      'group': arg.group,
+                     'cluster': arg.get('cluster', None),
                      'image': arg.image,
                      'flavor': arg.flavor,
                      'key': arg.key,
@@ -217,6 +218,8 @@ class Vm(ListResource):
                 cls.cm.set(d.name, "flavor", d.flavor, scope="first", kind="vm")
                 cls.cm.set(d.name, "group", arg.group, scope="first", kind="vm")
                 cls.cm.set(d.name, "user", arg.user, scope="first", kind="vm")
+                cls.cm.set(d.name, 'cluster', arg.cluster, scope='first', kind='vm')
+
             except:
                 # cm.set error is identified as a warning, not an error
                 import sys
