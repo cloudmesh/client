@@ -217,10 +217,6 @@ class Default(object):
     def output(cls):
         return cls.get(name="output")
 
-    @readable_classproperty
-    def cluster(cls):
-        return cls.get(name='cluster')
-
 
     @classmethod
     def set_loglevel(cls, level):
