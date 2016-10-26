@@ -6,6 +6,7 @@ from sqlalchemy import create_engine
 
 from cloudmesh_client.common.dotdict import dotdict
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 from pprint import pprint
 from sqlalchemy import update
