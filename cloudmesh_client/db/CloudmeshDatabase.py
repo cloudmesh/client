@@ -257,6 +257,14 @@ class CloudmeshDatabase(object):
 
         return cls.session.query(table).filter_by(**filter_args)
 
+    @classmethod
+    def delete_(cls, table, **filter_args):
+        """Delete rows in the table matching ``filter_args``
+
+        :param type table: the model class
+        """
+        cls.session.query(table).filter_by(**filter_args).delete()
+        cls.session.commit()
 
 
     def find_new(cls, **kwargs):
