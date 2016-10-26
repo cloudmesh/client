@@ -1,13 +1,32 @@
 from __future__ import print_function
 
-from cloudmesh_client.db import CloudmeshDatabase
+from cloudmesh_client.db import CloudmeshDatabase, IntegrityError
 from cloudmesh_client.db.general.model import CLUSTER
+from cloudmesh_client.exc import ClusterNameClashException
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.cloud.network import Network
 from cloudmesh_client.cloud.vm import Vm
+from cloudmesh_client.default import Default
+from cloudmesh_client.shell.console import Console
 
 
 _db = CloudmeshDatabase()
+
+
+# FIXME: refactor with Vm.generate_vm_name
+# duplicate functionality
+# check cloudmesh_client.cloud.counter.Counter
+def generate_cluster_name(prefix=None, offset=0, fill=3):
+    prefix = (prefix + '-') if prefix else ''
+
+    counter_name = 'cluster'
+    counter = Default.get_counter(counter_name)
+    Default.set_counter(counter_name, counter + 1)
+
+    index = str(counter).zfill(fill)
+    name = prefix + 'cluster' + '-' + index
+
+    return  name
 
 
 class Cluster(CLUSTER):
@@ -17,7 +36,15 @@ class Cluster(CLUSTER):
 
         self.provider = CloudProvider(self.cloud).provider.cloud_type
 
-        _db.insert(self)
+        try:
+            _db.insert(self)
+        except IntegrityError as e:
+            line = 'UNIQUE constraint failed: {}.name'\
+                   .format(self.__tablename__)
+            if line in e.message:
+                raise ClusterNameClashException(self.__tablename__, self.name)
+            else:
+                raise
 
     @property
     def instances(self):

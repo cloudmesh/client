@@ -1,10 +1,11 @@
 from __future__ import print_function
 
-from cloudmesh_client.cloud.cluster import Cluster
-from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
+from cloudmesh_client.exc import UnrecoverableErrorException
+from cloudmesh_client.cloud.cluster import Cluster, ClusterNameClashException, generate_cluster_name
+from cloudmesh_client.shell.command import command, PluginCommand, CloudPluginCommand
 from cloudmesh_client.shell.console import Console
-
 from cloudmesh_client.default import Default
+from cloudmesh_client.common.dotdict import dotdict
 
 # from cloudmesh_client.cloud.vm import Vm
 from cloudmesh_client.cloud.image import Image
@@ -13,6 +14,7 @@ from cloudmesh_client.cloud.image import Image
 
 
 class Cluster2Command(PluginCommand, CloudPluginCommand):
+    topics = {'cluster2': 'cluster'}
 
     def create(self, clustername=None, cloud=None, count=1, user=None,
                username=None, image=None, flavor=None, key=None,
@@ -44,29 +46,66 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         key = key or Default.key
         secgroup = secgroup or Default.secgroup
 
-        cluster = Cluster(
-            name=clustername,
-            cloudname=cloud,
-            username=username,
-            imagename=image,
-            flavorname=flavor,
-            keyname=key,
-            secgroupname=secgroup
-        )
+        try:
+            cluster = Cluster(
+                name=clustername,
+                count=count,
+                cloud=cloud,
+                user=username,
+                image=image,
+                flavor=flavor,
+                key=key,
+                secgroup=secgroup
+            )
+        except ClusterNameClashException as e:
+            Console.error(str(e))
+            raise UnrecoverableErrorException(str(e))
 
         cluster.boot()
         Console.ok('Cluster {} created'.format(clustername))
         return cluster
 
+    @command
+    def do_cluster2(self, args, arguments):
+        """
+        ::
+            Usage:
+              create [-cCifk] [NAME]
+
+            Arguments:
+              NAME                Alphanumeric name
+
+            Options:
+              -c COUNT  --count=COUNT         Number of nodes in the cluster
+              -C CLOUD  --cloud=CLOUD         Name of the cloud
+              -i IMAGE  --image=IMAGE         Name of the image
+              -f FLAVOR  --flavor=FLAVOR      Name of the flavor
+              -k KEY  --key=KEY               Name of the key
+        """
+
+        arguments = dotdict(arguments)
+
+        if arguments.create:
+
+            self.create(
+                clustername=arguments.name or generate_cluster_name(),
+                count=arguments['--count'] or 1,
+                cloud=arguments['--cloud'] or Default.cloud,
+                user=arguments['--user'] or Default.user,
+                image=arguments['--image'] or Default.image,
+                flavor=arguments['--flavor'] or Default.flavor,
+                key=arguments['--key'] or Default.key,
+                secgroup=arguments['--secgroup'] or Default.secgroup,
+            )
 
 if __name__ == '__main__':
     cmd = Cluster2Command()
     cmd.create(
-        clustername='test',
+        clustername='test3',
         image='CC-Ubuntu14.04',
         flavor='m1.medium',
         key='gambit',
-        count=1,
+        count=3,
     )
 
 

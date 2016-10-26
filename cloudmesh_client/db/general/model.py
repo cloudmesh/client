@@ -238,22 +238,23 @@ class CLUSTER(CloudmeshMixin, CloudmeshDatabase.Base):
     secgroupname = Column(String)
     assignFloatingIP = Column(Boolean, default=True)
 
-    def __init__(self, name=None, cloudname=None, count=None,
-                 username=None, imagename=None, flavorname=None,
-                 keyname=None, secgroupname=None,
+    def __init__(self, name=None, cloud=None, count=None,
+                 user=None, image=None, flavor=None,
+                 key=None, secgroup=None,
                  assignFloatingIP=True):
 
-        assert cloudname is not None
-        assert imagename is not None
-        assert flavorname is not None
-        assert keyname is not None
+        assert cloud is not None
+        assert image is not None
+        assert flavor is not None
+        assert key is not None
 
         self.name = name
-        self.cloud = cloudname
-        self.user = username
-        self.image = imagename
-        self.flavor = flavorname
-        self.key = keyname
-        self.secgroup = secgroupname
+        self.count = count
+        self.cloud = cloud
+        self.user = user
+        self.image = image
+        self.flavor = flavor
+        self.key = key
+        self.secgroup = secgroup
         self.assignFloatingIP = assignFloatingIP
 
