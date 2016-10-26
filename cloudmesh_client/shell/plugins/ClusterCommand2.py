@@ -8,11 +8,15 @@ from cloudmesh_client.shell.command import command, PluginCommand, CloudPluginCo
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.default import Default
 from cloudmesh_client.common.dotdict import dotdict
+from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
 # from cloudmesh_client.cloud.vm import Vm
 from cloudmesh_client.cloud.image import Image
 # from cloudmesh_client.cloud.flavor import Flavor
 # from cloudmesh_client.cloud.group import Group
+
+
+db = CloudmeshDatabase
 
 
 class Cluster2Command(PluginCommand, CloudPluginCommand):
@@ -67,12 +71,27 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         Console.ok('Cluster {} created'.format(clustername))
         return cluster
 
+    def list(self):
+        """List the clusters created
+
+        :returns: a list of clusters
+        :rtype: :class:`list` of :class:`Cluster`
+        """
+
+        return db.select(Cluster).all()
+
     @command
     def do_cluster2(self, args, arguments):
         """
         ::
             Usage:
               cluster2 create [-n NAME] [-c COUNT] [-C CLOUD] [-u USER] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME]
+              cluster2 list
+
+            Commands:
+
+              create     Create a cluster
+              list       List the available clusters
 
             Arguments:
 
@@ -105,6 +124,12 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
                 key=arguments['--key'] or Default.key,
                 secgroup=arguments['--secgroup'] or Default.secgroup,
             )
+
+        elif arguments.list:
+
+            for cluster in self.list():
+                print(cluster.name)
+
 
 if __name__ == '__main__':
     cmd = Cluster2Command()
