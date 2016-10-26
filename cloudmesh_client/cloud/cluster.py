@@ -26,7 +26,7 @@ def generate_cluster_name(prefix=None, offset=0, fill=3):
     index = str(counter).zfill(fill)
     name = prefix + 'cluster' + '-' + index
 
-    return  name
+    return name
 
 
 class Cluster(CLUSTER):
