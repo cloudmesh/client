@@ -111,3 +111,12 @@ class Cluster(CLUSTER):
 
         for _ in xrange(self.count - len(self.instances)):
             self.boot_single()
+
+    def delete(self, force=False):
+        """Delete this cluster and all component nodes
+        """
+
+        for node in self.instances:
+            Vm.delete(servers=[node.name], force=force)
+
+        _db.delete_(self.__class__, cm_id=self.cm_id)
