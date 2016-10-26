@@ -199,7 +199,7 @@ class Default(object):
 
     @readable_classproperty
     def cluster(cls):
-        return cls.get(name="cluster")
+        return cls.get(name="active-cluster")
 
     @readable_classproperty
     def user(cls):
@@ -216,6 +216,10 @@ class Default(object):
     @readable_classproperty
     def output(cls):
         return cls.get(name="output")
+
+    @readable_classproperty
+    def cluster(cls):
+        return cls.get(name='cluster')
 
 
     @classmethod
@@ -441,6 +445,14 @@ class Default(object):
         :return:
         """
         cls.set("timer", value)
+
+    @classmethod
+    def set_cluster(cls, value):
+        """Sets the cluster
+
+        :param str value: cluster name
+        """
+        cls.set('active-cluster', value)
 
     @classmethod
     def load(cls, filename):

@@ -24,7 +24,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
 
     def create(self, clustername=None, cloud=None, count=1, user=None,
                username=None, image=None, flavor=None, key=None,
-               secgroup=None):
+               secgroup=None, activate=True):
         """Create a cluster.
 
         If values are `None`, they are automatically determined via
@@ -39,6 +39,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         :param str flavor: instance flavor
         :param str key: key name
         :param str secgroup: security group name
+        :param bool activate: activate this cluster after creation
         :returns: a cluster
         :rtype: :class:`Cluster`
         """
@@ -69,6 +70,11 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
 
         cluster.boot()
         Console.ok('Cluster {} created'.format(clustername))
+
+        if activate:
+            Default.set_cluster(clustername)
+            Console.ok('Cluster {} is now active'.format(clustername))
+
         return cluster
 
     def list(self):
@@ -85,7 +91,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         """
         ::
             Usage:
-              cluster2 create [-n NAME] [-c COUNT] [-C CLOUD] [-u USER] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME]
+              cluster2 create [-n NAME] [-c COUNT] [-C CLOUD] [-u USER] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-A]
               cluster2 list
 
             Commands:
@@ -100,6 +106,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
 
             Options:
 
+              -A --no-activate               Don't activate this cluster
               -n NAME --name=NAME            Name of the cluster
               -c COUNT --count=COUNT         Number of nodes in the cluster
               -C NAME --cloud=NAME           Name of the cloud
