@@ -107,6 +107,14 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
             cluster.delete(force=force)
             Console.ok('Deleted cluster {}: {} nodes'.format(cluster.name, cluster.count))
 
+        remaining_clusters = db.select(Cluster).all()
+        if remaining_clusters:
+            name = remaining_clusters[-1].name
+        else:
+            name = None
+        Default.set_cluster(name)
+        Console.ok('Active cluster: {}'.format(name))
+
     @command
     def do_cluster2(self, args, arguments):
         """
