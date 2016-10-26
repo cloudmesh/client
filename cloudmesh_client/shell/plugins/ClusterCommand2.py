@@ -86,6 +86,27 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
 
         return db.select(Cluster).all()
 
+    def delete(self, clusternames=None, force=False, all=False):
+        """Delete clusters that have these names.
+
+        If not specified, delete the active cluster.
+        If there is no active cluster, delete the first cluster.
+
+        :param list clusternames: list of cluster names to delete
+        """
+
+        if all:
+            clusters = db.select(Cluster)
+        else:
+
+            clusternames = clusternames or [Default.cluster]
+            clusters = [db.select(Cluster, name=name).one() for name in clusternames]
+
+        for cluster in clusters:
+            Console.ok('Deleting cluster {}'.format(cluster.name))
+            cluster.delete(force=force)
+            Console.ok('Deleted cluster {}: {} nodes'.format(cluster.name, cluster.count))
+
     @command
     def do_cluster2(self, args, arguments):
         """
@@ -93,6 +114,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
             Usage:
               cluster2 create [-n NAME] [-c COUNT] [-C CLOUD] [-u USER] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-A]
               cluster2 list
+              cluster2 delete [--all] [--force] [NAME]...
 
             Commands:
 
@@ -115,6 +137,8 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
               -f NAME --flavor=NAME          Name of the flavor
               -k NAME --key=NAME             Name of the key
               -s NAME --secgroup=NAME        NAME of the security group
+              --force
+              --all
         """
 
         arguments = dotdict(arguments)
@@ -136,6 +160,10 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
 
             for cluster in self.list():
                 print(cluster.name)
+
+        elif arguments.delete:
+
+            self.delete(arguments.NAME, force=arguments['--force'], all=arguments['--all'])
 
 
 if __name__ == '__main__':
