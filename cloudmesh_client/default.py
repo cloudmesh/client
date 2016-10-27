@@ -1,14 +1,9 @@
 from __future__ import print_function
 
-from cloudmesh_client.common import Printer
-import cloudmesh_client
-from cloudmesh_client.common.ConfigDict import ConfigDict
-
-# from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client import CloudmeshDatabase
+from cloudmesh_client.common import Printer
+from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.common.dotdict import dotdict
-from cloudmesh_client.common.Printer import Printer
 
 
 # noinspection PyPep8Naming
