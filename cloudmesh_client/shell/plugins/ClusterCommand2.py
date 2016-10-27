@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+import sys
 from pprint import pprint
 
 from cloudmesh_client.exc import UnrecoverableErrorException
@@ -81,11 +82,19 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
     def list(self):
         """List the clusters created
 
-        :returns: a list of clusters
-        :rtype: :class:`list` of :class:`Cluster`
+        The currently active cluster is given as the first element in
+        the tuple, while the remainder are listed in the second
+        position.
+
+        :returns: a pair: (active, [clusters])
+        :rtype: :class:`tuple` (:class:`Cluster`, :class:`list` of :class:`Cluster`)
         """
 
-        return db.select(Cluster).all()
+        activename = Default.cluster
+        clusters = db.select(Cluster).all()
+        active = filter(lambda c: c.name == activename, clusters)[0]
+        clusters = filter(lambda c: c.name != activename, clusters)
+        return active, clusters
 
     def delete(self, clusternames=None, force=False, all=False):
         """Delete clusters that have these names.
@@ -169,8 +178,21 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
 
         elif arguments.list:
 
-            for cluster in self.list():
-                print(cluster.name)
+            active, inactive = self.list()
+
+            def show(cluster, isactive=False, stream=sys.stdout):
+                if not cluster:
+                    return
+                if isactive:
+                    stream.write('> ')
+                else:
+                    stream.write('  ')
+                stream.write(cluster.name)
+                stream.write('\n')
+                stream.flush()
+
+            show(active, isactive=True)
+            map(show, inactive)
 
         elif arguments.delete:
 
