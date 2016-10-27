@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+from cloudmesh_client.exc import NoActiveClusterException
 from cloudmesh_client import CloudmeshDatabase
 from cloudmesh_client.common import Printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
@@ -195,6 +196,19 @@ class Default(object):
     @readable_classproperty
     def cluster(cls):
         return cls.get(name="active-cluster")
+
+    @readable_classproperty
+    def active_cluster(cls):
+        name = cls.cluster
+        if not name:
+            raise NoActiveClusterException()
+
+        # dynamically lookup the class for the cluster.
+        # this is to avoid circular dependencies.
+        Cluster = [clazz for clazz in cls.cm.tables
+                   if clazz.__name__ == 'CLUSTER'][0].__subclasses__()[0]
+
+        return cls.cm.select(Cluster, name=name).one()
 
     @readable_classproperty
     def user(cls):

@@ -88,10 +88,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         :raises: :class:`NoActiveClusterException` if no cluster is active, meaning there are no clusters
         """
 
-        activename = Default.cluster
-        if not activename:
-            raise NoActiveClusterException()
-
+        activename = Default.active_cluster.name
         clusters = db.select(Cluster).all()
         active = filter(lambda c: c.name == activename, clusters)[0]
         clusters = filter(lambda c: c.name != activename, clusters)
