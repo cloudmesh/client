@@ -128,6 +128,30 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         Default.set_cluster(name)
         Console.ok('Active cluster: {}'.format(name))
 
+    def get(self, property, cluster=None):
+        """Retrieve the property for a cluster/nodes in a cluster.
+
+        If no cluster is specified, use the currently active cluster.
+
+        :param str property: name of the property
+        :param Cluster cluster: the cluster (default: currently active)
+        :returns: a list of the values
+        :rtype: :class:`list`
+
+        """
+        cluster = cluster or db.select(Cluster, name=Default.cluster).one()
+
+        # getting from the cluster itself:
+        if hasattr(cluster, property):
+            return [getattr(cluster, property)]
+
+        # assume it is a property of the instances
+        else:
+            values = [getattr(node, property) for node in cluster.instances]
+            return values
+
+
+
     @command
     def do_cluster2(self, args, arguments):
         """
@@ -136,12 +160,14 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
               cluster2 create [-n NAME] [-c COUNT] [-C CLOUD] [-u USER] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]
               cluster2 list
               cluster2 delete [--all] [--force] [NAME]...
+              cluster2 get [-n NAME] PROPERTY
 
             Commands:
 
               create     Create a cluster
               list       List the available clusters
               delete     Delete clusters and associated instances
+              get        Get properties of a cluster/nodes in a cluster
 
             Arguments:
 
@@ -208,6 +234,13 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
                 force=arguments['--force'],
                 all=arguments['--all']
             )
+
+        elif arguments.get:
+
+            values = self.get(arguments['PROPERTY'], cluster=arguments['--name'])
+            for v in values:
+                print(v)
+
 
 
 if __name__ == '__main__':
