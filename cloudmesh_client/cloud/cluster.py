@@ -50,7 +50,7 @@ class Cluster(CLUSTER):
     def instances(self):
 
         tablename = 'vm_{}'.format(self.provider)
-        table = _db.table_from_name(tablename)
+        table = _db.table(name=tablename)
         return _db.select(table, cluster=self.name).all()
 
     def __len__(self):

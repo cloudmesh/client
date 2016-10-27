@@ -492,16 +492,6 @@ class CloudmeshDatabase(object):
         return result
 
     @classmethod
-    def table_from_name(cls, tablename):
-        """Retrieve the model from the given table's name
-
-        :param str tablename: table's name
-        :returns: the model's class
-        :rtype: `type`, a subclass of sqlalchemy's `Base`
-        """
-        return cls.Base.metadata.tables[tablename]
-
-    @classmethod
     def table(cls, provider=None, kind=None, name=None):
         """
 
