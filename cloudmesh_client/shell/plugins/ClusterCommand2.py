@@ -147,6 +147,19 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
             values = [getattr(node, property) for node in cluster.instances]
             return values
 
+    def nodes(self, cluster=None):
+        """Retrieve the nodes of a cluster
+
+        If no cluster is specified, use the currently active cluster.
+
+        :param Cluster cluster: the cluster (default: currently active)
+        :returns: a list of instances
+        :rtype: a VM instance
+
+        """
+
+        cluster = cluster or Default.active_cluster
+        return cluster.instances
 
 
     @command
@@ -156,6 +169,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
             Usage:
               cluster2 create [-n NAME] [-c COUNT] [-C CLOUD] [-u USER] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]
               cluster2 list
+              cluster2 nodes [CLUSTER]
               cluster2 delete [--all] [--force] [NAME]...
               cluster2 get [-n NAME] PROPERTY
 
@@ -223,6 +237,15 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
 
             show(active, isactive=True)
             map(show, inactive)
+
+        elif arguments.nodes:
+
+            cluster = db.select(Cluster, name=arguments.CLUSTER).one() \
+                    if arguments.CLUSTER \
+                    else None
+            nodes = self.nodes(cluster=cluster)
+            for node in nodes:
+                print(node.name)
 
         elif arguments.delete:
 
