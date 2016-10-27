@@ -8,7 +8,7 @@ from cloudmesh_client.cloud.image import Image
 from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.default import Default
-from cloudmesh_client.exc import UnrecoverableErrorException
+from cloudmesh_client.exc import UnrecoverableErrorException, NoActiveClusterException
 from cloudmesh_client.shell.command import (CloudPluginCommand, PluginCommand,
                                             command)
 from cloudmesh_client.shell.console import Console
@@ -85,9 +85,13 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
 
         :returns: a pair: (active, [clusters])
         :rtype: :class:`tuple` (:class:`Cluster`, :class:`list` of :class:`Cluster`)
+        :raises: :class:`NoActiveClusterException` if no cluster is active, meaning there are no clusters
         """
 
         activename = Default.cluster
+        if not activename:
+            raise NoActiveClusterException()
+
         clusters = db.select(Cluster).all()
         active = filter(lambda c: c.name == activename, clusters)[0]
         clusters = filter(lambda c: c.name != activename, clusters)
@@ -178,7 +182,10 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
 
         elif arguments.list:
 
-            active, inactive = self.list()
+            try:
+                active, inactive = self.list()
+            except NoActiveClusterException:
+                return
 
             def show(cluster, isactive=False, stream=sys.stdout):
                 if not cluster:

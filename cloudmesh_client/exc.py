@@ -3,13 +3,16 @@ This module contains the exceptions
 """
 
 
-
 class UnrecoverableErrorException(Exception):
     """Occurs on an error that cannot be recovered automatically.
     Requires user interaction to change the state.
     """
 
     pass
+
+
+class NoActiveClusterException(Exception):
+    """Occurs when an active cluster is requested but non is set_cloud"""
 
 
 class ClusterNameClashException(Exception):
