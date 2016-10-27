@@ -3,7 +3,6 @@
 from __future__ import print_function
 
 import copy
-import glob
 import os
 import stat
 import shutil
@@ -18,21 +17,16 @@ import requests
 
 from cloudmesh_client.common.Shell import Subprocess, SubprocessError
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.db import CloudmeshDatabase
-from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
-from cloudmesh_client.cloud.ListResource import ListResource
-from cloudmesh_client.common.LibcloudDict import LibcloudDict
-from cloudmesh_client.common.dotdict import dotdict
 from pprint import pprint
-from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 from cloudmesh_client.default import Default
 
 requests.packages.urllib3.disable_warnings()
 
 
 def get_virtualenv_environment(venvpath):
-    """Figures out the environment variables that are set when activating a virtualenv
+    """Figures out the environment variables that are set when activating
+    a virtualenv
 
     Example:
     >>> os.system('virtualenv /tmp/venv')
@@ -42,6 +36,7 @@ def get_virtualenv_environment(venvpath):
     :param venvpath: path to the virtual environment
     :returns: dictionary of environment variables
     :rtype: :class:`dict`
+
     """
 
     command = 'source %s/bin/activate' % venvpath
@@ -55,13 +50,12 @@ def get_virtualenv_environment(venvpath):
 
     env = dict()
     for line in output.split('\n'):
-        if '=' not in line: continue
+        if '=' not in line:
+            continue
         k, v = line.strip().split('=', 1)
         env[k] = v
 
     return env
-
-
 
 
 class ProjectDB(object):
@@ -70,7 +64,13 @@ class ProjectDB(object):
     default_name = 'p-'
 
     def __init__(self, prefix='~/.cloudmesh/projects'):
-        prefix = os.path.abspath(os.path.expanduser(os.path.expandvars(prefix)))
+        prefix = os.path.abspath(
+            os.path.expanduser(
+                os.path.expandvars(
+                    prefix
+                )
+            )
+        )
 
         if os.path.exists(os.path.join(prefix, self.filename)):
             yp = os.path.join(prefix, self.filename)
@@ -82,7 +82,8 @@ class ProjectDB(object):
         else:
 
             if os.path.isfile(prefix):
-                raise OSError('`{}` is a file, should be a directory'.format(prefix))
+                raise OSError('`{}` is a file, should be a directory'
+                              .format(prefix))
 
             if not os.path.isdir(prefix):
                 os.makedirs(prefix)
@@ -90,7 +91,6 @@ class ProjectDB(object):
             self.path = prefix
             self.active = None
             self.generated_pid = 0
-
 
     def __iter__(self):
         for name in os.listdir(self.path):
@@ -100,13 +100,11 @@ class ProjectDB(object):
                 project = Project.load(projdir)
                 yield project
 
-
     def __getitem__(self, projname):
         return Project.load(os.path.join(self.path, projname))
 
-
     def lookup(self, projname):
-        """Lookup the project with the given name. 
+        """Lookup the project with the given name.
 
         If `projname` is None, this returns the currently active project.
 
@@ -118,7 +116,6 @@ class ProjectDB(object):
             return self.getactive()
         else:
             return self[projname]
-
 
     def add(self, project, force=False, update=False):
         """Add a project to the database
@@ -132,16 +129,16 @@ class ProjectDB(object):
         """
         projdir = self.projectdir(project.name)
         if os.path.exists(projdir) and not force:
-            raise ValueError('Project {} already exists: {}'.format(project.name, projdir))
+            raise ValueError('Project {} already exists: {}'
+                             .format(project.name, projdir))
 
         project.init(force=force, update=update)
         project.sync_metadata(projdir)
 
-
     def sync_metadata(self, projects=True):
         """Synchronize the metadata to the backend store
 
-        :param projects: whether or not the project metadata should be saved as well.
+        :param bool projects: project metadata should be saved as well.
         :type projects: :class:`bool`
         """
         if projects:
@@ -154,7 +151,6 @@ class ProjectDB(object):
         with open(os.path.join(self.path, ProjectDB.filename), 'w') as fd:
             fd.write(y)
 
-
     def update(self, project):
         """Update the database with the given project
 
@@ -163,7 +159,6 @@ class ProjectDB(object):
         """
         path = os.path.join(self.path, project.name)
         project.sync_metadata(path)
-
 
     def projectdir(self, name):
         """Get the project directory.
@@ -174,7 +169,6 @@ class ProjectDB(object):
         :rtype: :class:`str`
         """
         return os.path.join(self.path, name)
-
 
     def new_project_name(self):
         """Automatically generate a new project name
@@ -191,7 +185,6 @@ class ProjectDB(object):
         self.sync_metadata(projects=False)
         return name
 
-
     def activate(self, project):
         """Activate the given project
 
@@ -201,7 +194,6 @@ class ProjectDB(object):
         self.active = project.name
         self.sync_metadata(projects=False)
 
-
     def isactive(self, project):
         """Predicate indicating activation status of the project
 
@@ -210,7 +202,6 @@ class ProjectDB(object):
         :rtype: :class:`bool`
         """
         return self.active == project.name
-
 
     def getactive(self):
         """Returns the currently active project.
@@ -223,11 +214,12 @@ class ProjectDB(object):
         return self[self.active]
 
 
-
 class ProjectFactory(object):
-    """
-    Outer API used to create projects.
-    This factory should be used rather than directly constructing :class:`Project` instances.
+    """Outer API used to create projects.
+
+    This factory should be used rather than directly constructing
+    :class:`Project` instances.
+
     """
 
     def __init__(self, prefix='~/.cloudmesh/projects'):
@@ -242,7 +234,6 @@ class ProjectFactory(object):
         self.force = False
         self.udpate = False
 
-
     def __call__(self):
         name = self.project_name or self.db.new_project_name()
         projdir = self.db.projectdir(name)
@@ -255,8 +246,8 @@ class ProjectFactory(object):
                 kwargs['branch'] = self.branch
             stack = BigDataStack(projdir, **kwargs)
         else:
-            raise NotImplementedError('Unknown stack type {}'.format(self.stacktype))
-
+            raise NotImplementedError('Unknown stack type {}'
+                                      .format(self.stacktype))
 
         deployparams = dict()
 
@@ -272,7 +263,6 @@ class ProjectFactory(object):
         if self.playbooks:
             deployparams['playbooks'] = self.playbooks
 
-
         project = Project(name, stack, deployparams)
         self.db.add(project, force=self.force, update=self.udpate)
 
@@ -281,13 +271,11 @@ class ProjectFactory(object):
 
         return project
 
-
     def use_bds(self):
         """Use the BigDataStack backend"""
         Console.debug_msg('Factory use_bds')
         self.is_bds = True
         return self
-
 
     def set_user_name(self, username):
         """Set the cluster login user name"""
@@ -295,13 +283,11 @@ class ProjectFactory(object):
         self.username = username
         return self
 
-
     def set_project_name(self, name):
         """Set the project name"""
         Console.debug_msg('Factory set_project_name: {}'.format(name))
         self.project_name = name
         return self
-
 
     def set_ips(self, ips):
         """Set the cluster IP addresses"""
@@ -316,13 +302,11 @@ class ProjectFactory(object):
         self.repo = repo
         return self
 
-
     def set_branch(self, branch='master'):
         """Set the branch of the repository to use"""
         Console.debug_msg('Factory set_branch: {}'.format(branch))
         self.branch = branch
         return self
-
 
     def set_overrides(self, overrides=None):
         """Set the overrides for deployment"""
@@ -331,7 +315,6 @@ class ProjectFactory(object):
         self.overrides = overrides
         return self
 
-
     def set_playbooks(self, playbooks=None):
         """Set the playbooks to deploy"""
         Console.debug_msg('Factory set_playbooks: {}'.format(playbooks))
@@ -339,13 +322,11 @@ class ProjectFactory(object):
         self.playbooks = playbooks
         return self
 
-
     def set_force(self, force=False):
         """Set the `force` parameter"""
         Console.debug_msg('Factory set_force: {}'.format(force))
         self.force = force
         return self
-
 
     def set_update(self, update=False):
         """Set the `update` parameter"""
@@ -353,13 +334,11 @@ class ProjectFactory(object):
         self.update = update
         return self
 
-
     def activate(self, make_active=True):
         """Set whether or not the created project should be activated"""
         Console.debug_msg('Factory activate: {}'.format(make_active))
         self.make_active = make_active
         return self
-
 
 
 class Project(object):
@@ -380,7 +359,6 @@ class Project(object):
         self.deployparams = deployparams
         self.deployparams['name'] = name
 
-
     @classmethod
     def load(cls, path):
         with open(os.path.join(path, cls.filename), 'r') as fd:
@@ -390,23 +368,19 @@ class Project(object):
         project.__dict__.update(y)
         return project
 
-
     @property
     def metadata(self):
         m = dict(type=self.__class__.__name__)
         m.update(self.__dict__)
         return m
 
-
     def sync_metadata(self, path):
         y = yaml.dump(self.metadata, default_flow_style=False)
         with open(os.path.join(path, Project.filename), 'w') as fd:
             fd.write(y)
 
-
     def init(self, force=False, update=False):
         self.stack.init(force=force, update=update)
-
 
     def deploy(self, force=False):
 
@@ -422,43 +396,49 @@ class KWArgs(object):
     def __init__(self, **kwargs):
         self.kwargs = kwargs
 
-
     def __getitem__(self, key):
         return self.kwargs[key]
-
 
     def __setitem__(self, key, value):
         self.kwargs[key] = value
 
 
 class BigDataStack(object):
-    def __init__(self, dest, repo='git://github.com/futuresystems/big-data-stack.git', branch='master'):
+    def __init__(self, dest,
+                 repo='git://github.com/futuresystems/big-data-stack.git',
+                 branch='master'):
         self.path = os.path.abspath(dest)
         self.repo = repo
         self.branch = branch
         self.local = os.path.isdir(repo)
         self._env = dict()
 
-
     def init(self, force=False, update=False):
-        """Initialize by cloning (or updating if requested) a local copy of the Big Data Stack repository.
+        """Initialize by cloning (or updating if requested) a local copy of
+        the Big Data Stack repository.
 
-        :param force: redo some of the setup steps if the project has already been initialized
+        :param bool force: setup previously setup project
         :type force: :class:`bool`
-        :param update: update the local repository from the origin of a previously initialized clone
+        :param bool update: update the local repository from the origin
         :type update: :class:`bool`
+
         """
 
         if not os.path.isdir(os.path.join(self.path, '.git')):
-            Console.debug_msg('Cloning branch {} of {} to {}'.format(self.branch, self.repo, self.path))
-            Subprocess(['git', 'clone', '--recursive', '--branch', self.branch, self.repo, self.path])
+            Console.debug_msg('Cloning branch {} of {} to {}'
+                              .format(self.branch, self.repo, self.path))
+            Subprocess(['git', 'clone', '--recursive', '--branch',
+                        self.branch, self.repo, self.path])
 
         elif update:
-            Console.debug_msg('Updating to branch {} for {}'.format(self.branch, self.path))
-            Subprocess(['git', 'fetch', '--recurse-submodules', 'origin', self.branch], cwd=self.path)
+            Console.debug_msg('Updating to branch {} for {}'
+                              .format(self.branch, self.path))
+            Subprocess(['git', 'fetch', '--recurse-submodules', 'origin',
+                        self.branch],
+                       cwd=self.path)
             Subprocess(['git', 'checkout', self.branch], cwd=self.path)
-            Subprocess(['git', 'merge', 'origin/{}'.format(self.branch)], cwd=self.path)
-
+            Subprocess(['git', 'merge', 'origin/{}'.format(self.branch)],
+                       cwd=self.path)
 
         venvname = 'venv'
         venvdir = os.path.join(self.path, venvname)
@@ -472,10 +452,11 @@ class BigDataStack(object):
             Subprocess(['virtualenv', venvdir])
 
         self._env = get_virtualenv_environment(venvdir)
-        cmd = ['pip', 'install', '-r', 'requirements.txt'] + (['-U'] if force else [])
+        cmd = ['pip', 'install', '-r', 'requirements.txt'] + (['-U']
+                                                              if force
+                                                              else [])
         Console.debug_msg('Installing requirements to {}'.format(venvdir))
         Subprocess(cmd, cwd=self.path, env=self._env)
-
 
     def deploy(self, ips=None, name=None, user=None, playbooks=None,
                defines=None, ping_max=10, ping_sleep=10):
@@ -506,7 +487,6 @@ class BigDataStack(object):
         playbooks = playbooks or list()
         defines = defines or defaultdict(list)
 
-
         Console.debug_msg('Calling mk-inventory in {}'.format(self.path))
         cmd = ['python', 'mk-inventory', '-n', name] + ips
         inventory = Subprocess(cmd, cwd=self.path, env=self._env)
@@ -515,19 +495,19 @@ class BigDataStack(object):
         with open(os.path.join(self.path, 'inventory.txt'), 'w') as fd:
             fd.write(inventory.stdout)
 
-
         Console.info('Waiting for cluster to be accessible')
         for i in xrange(ping_max):
             Console.debug_msg('Attempt {} / {}'.format(i+1, ping_max))
             try:
                 Subprocess(['ansible', 'all', '-m', 'ping', '-u', user],
-                           cwd=self.path, env=self._env, stdout=None, stderr=None)
+                           cwd=self.path, env=self._env,
+                           stdout=None, stderr=None)
                 Console.debug_msg('Success!')
                 break
-            except SubprocessError as e:
-                Console.debug_msg('Failure, sleeping for {} seconds'.format(ping_sleep))
+            except SubprocessError:
+                Console.debug_msg('Failure, sleeping for {} seconds'
+                                  .format(ping_sleep))
                 time.sleep(ping_sleep)
-
 
         basic_command = ['ansible-playbook', '-u', user]
         Console.debug_msg('Running playbooks {}'.format(playbooks))
@@ -536,17 +516,17 @@ class BigDataStack(object):
             define = ['{}={}'.format(k, v) for k, v in defines[play]]
             if define:
                 cmd.extend(['-e', ','.join(define)])
-            Console.info('Running playbook {} with overrides {}'.format(play, define))
-            Subprocess(cmd, cwd=self.path, env=self._env, stdout=None, stderr=None)
-
+            Console.info('Running playbook {} with overrides {}'
+                         .format(play, define))
+            Subprocess(cmd, cwd=self.path, env=self._env,
+                       stdout=None, stderr=None)
 
 
 class SanityCheckError(Exception):
 
     def __init__(self, message, reason):
         self.message = message
-        self.reason  = reason
-
+        self.reason = reason
 
 
 class SanityChecker(object):
@@ -567,9 +547,8 @@ class SanityChecker(object):
             if os.path.exists(os.path.join(prefix, program)):
                 return
 
-        raise SanityCheckError('{} not installed correctly'.format(prog),
-                               '`{}` not found in $PATH'.format(prog))
-
+        raise SanityCheckError('{} not installed correctly'.format(program),
+                               '`{}` not found in $PATH'.format(program))
 
     def check_sshkey(self):
         """Ensure that the default ssh key exists with correct permissions
@@ -592,30 +571,40 @@ class SanityChecker(object):
         dotssh = os.path.expanduser('~/.ssh')
 
         if not os.path.exists(dotssh):
-            raise SanityCheckError(msg, 'directory `{}` does not exist, please run ssh-keygen'.format(dotssh))
-        
+            raise SanityCheckError(
+                msg,
+                'directory `{}` does not exist, please run ssh-keygen'
+                .format(dotssh))
+
         if not os.path.isdir(dotssh):
-            raise SanityCheckError(msg, 'path `{}` exists but is not a directory'.format(dotssh))
+            raise SanityCheckError(msg,
+                                   'path `{}` exists but is not a directory'
+                                   .format(dotssh))
 
         s = os.stat(dotssh)
         if not bool(s.st_mode & stat.S_IRWXU):
-            raise SanityCheckError(msg, 'incorrect permissions, run: chmod 0700 "{}"'.format(dotssh))
-            
+            raise SanityCheckError(msg,
+                                   'incorrect permissions, run: chmod 0700 "{}"'
+                                   .format(dotssh))
+
         found = 0
         for typ in valid_key_types:
             private = os.path.join(dotssh, typ)
-            public  = private + '.pub'
+            public = private + '.pub'
 
             if os.path.exists(private) and os.path.exists(public):
                 found += 1
                 for p in [private, public]:
                     s = os.stat(p)
                     if bool(s.st_mode & (stat.S_IRGRP | stat.S_IROTH)):
-                        raise SanityCheckError(msg, 'Permissions on {} are too open')
+                        raise SanityCheckError(
+                            msg,
+                            'Permissions on {} are too open')
 
         if found > 0:
-            raise SanityCheckError(msg, 'No id_<type> ssh keys found in {}'.format(dotssh))
-
+            raise SanityCheckError(msg,
+                                   'No id_<type> ssh keys found in {}'
+                                   .format(dotssh))
 
     def check_github(self):
         """Ensure that the default ssh key has been uploaded to github.com
@@ -628,8 +617,10 @@ class SanityChecker(object):
             Subprocess(['ssh', '-T', 'git@github.com'])
         except SubprocessError as e:
             if "You've successfully authenticated" not in e.stderr:
-                raise SanityCheckError('SSH authentication to github.com failed',
-                                       'did you add your public key to https://github.com/settings/ssh ?')
+                raise SanityCheckError(
+                    'SSH authentication to github.com failed',
+                    'did you add your public key to https://github.com/settings/ssh ?')
+
 
 def sanity_check():
     """Verifies that the environment is set up correctly for BDS usage:
@@ -651,7 +642,6 @@ def sanity_check():
 
         stream.write(msg)
         stream.write(nfiller * filler)
-
 
     checker = SanityChecker()
 
