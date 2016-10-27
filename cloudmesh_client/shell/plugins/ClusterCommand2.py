@@ -110,12 +110,14 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         else:
 
             clusternames = clusternames or [Default.cluster]
-            clusters = [db.select(Cluster, name=name).one() for name in clusternames]
+            clusters = [db.select(Cluster, name=name).one()
+                        for name in clusternames]
 
         for cluster in clusters:
             Console.ok('Deleting cluster {}'.format(cluster.name))
             cluster.delete(force=force)
-            Console.ok('Deleted cluster {}: {} nodes'.format(cluster.name, cluster.count))
+            Console.ok('Deleted cluster {}: {} nodes'
+                       .format(cluster.name, cluster.count))
 
         remaining_clusters = db.select(Cluster).all()
         if remaining_clusters:
@@ -196,7 +198,11 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
 
         elif arguments.delete:
 
-            self.delete(arguments.NAME, force=arguments['--force'], all=arguments['--all'])
+            self.delete(
+                arguments.NAME,
+                force=arguments['--force'],
+                all=arguments['--all']
+            )
 
 
 if __name__ == '__main__':
