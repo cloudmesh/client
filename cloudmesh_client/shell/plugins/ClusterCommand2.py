@@ -1,20 +1,17 @@
 from __future__ import print_function
 
 import sys
-from pprint import pprint
 
-from cloudmesh_client.exc import UnrecoverableErrorException
-from cloudmesh_client.cloud.cluster import Cluster, ClusterNameClashException, generate_cluster_name
-from cloudmesh_client.shell.command import command, PluginCommand, CloudPluginCommand
-from cloudmesh_client.shell.console import Console
-from cloudmesh_client.default import Default
+from cloudmesh_client.cloud.cluster import (Cluster, ClusterNameClashException,
+                                            generate_cluster_name)
+from cloudmesh_client.cloud.image import Image
 from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
-
-# from cloudmesh_client.cloud.vm import Vm
-from cloudmesh_client.cloud.image import Image
-# from cloudmesh_client.cloud.flavor import Flavor
-# from cloudmesh_client.cloud.group import Group
+from cloudmesh_client.default import Default
+from cloudmesh_client.exc import UnrecoverableErrorException
+from cloudmesh_client.shell.command import (CloudPluginCommand, PluginCommand,
+                                            command)
+from cloudmesh_client.shell.console import Console
 
 
 db = CloudmeshDatabase
