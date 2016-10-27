@@ -1,12 +1,14 @@
 from __future__ import print_function
 
-from cloudmesh_client.db import CloudmeshDatabase, IntegrityError
-from cloudmesh_client.db.general.model import CLUSTER
-from cloudmesh_client.exc import ClusterNameClashException
+import time
+
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.cloud.network import Network
 from cloudmesh_client.cloud.vm import Vm
+from cloudmesh_client.db import CloudmeshDatabase, IntegrityError
+from cloudmesh_client.db.general.model import CLUSTER
 from cloudmesh_client.default import Default
+from cloudmesh_client.exc import ClusterNameClashException
 from cloudmesh_client.shell.console import Console
 
 
@@ -70,6 +72,8 @@ class Cluster(CLUSTER):
 
         Vm.refresh(cloud=self.cloud)
 
+        Console.ok('Assigned ip to {}: {}'.format(vm.name, ip))
+
         return ip
 
     def assign_floating_ip(self):
@@ -80,6 +84,27 @@ class Cluster(CLUSTER):
         for vm in self.instances:
             if not vm.floating_ip:
                 self._assign_floating_ip(vm)
+
+    def _wait_until_active(self, vm, sleeptime_s=5):
+        Console.info('Waiting until {} is active'.format(vm.name))
+
+        while True:
+            Vm.refresh(cloud=self.cloud)
+            vm = self.get_vm(cm_id=vm.cm_id)
+
+            if vm.status == 'ACTIVE':
+                return
+            else:
+                Console.debug_msg('Status is: {}'.format(vm.status))
+                Console.debug_msg('Waiting for {} seconds'.format(sleeptime_s))
+                time.sleep(sleeptime_s)
+
+    def get_vm(self, **kwargs):
+        model = _db.table(name='vm_{}'.format(self.provider))
+        vm = _db.select(model, **kwargs).all()
+        assert len(vm) == 1, vm
+        vm = vm[0]
+        return vm
 
     def boot_single(self):
         """Boots a new instance and adds it to this cluster
@@ -97,10 +122,8 @@ class Cluster(CLUSTER):
             cluster=self.name,
         )
 
-        model = _db.table(name='vm_{}'.format(self.provider))
-        vm = _db.select(model, uuid=uuid).all()
-        assert len(vm) == 1, vm
-        vm = vm[0]
+        vm = self.get_vm(uuid=uuid)
+        self._wait_until_active(vm)
 
         if self.assignFloatingIP:
             vm.floating_ip = self._assign_floating_ip(vm)
