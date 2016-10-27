@@ -24,7 +24,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
 
     def create(self, clustername=None, cloud=None, count=1, user=None,
                username=None, image=None, flavor=None, key=None,
-               secgroup=None, activate=True):
+               secgroup=None, assignFloatingIP=True, activate=True):
         """Create a cluster.
 
         If values are `None`, they are automatically determined via
@@ -62,7 +62,8 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
                 image=image,
                 flavor=flavor,
                 key=key,
-                secgroup=secgroup
+                secgroup=secgroup,
+                assignFloatingIP=assignFloatingIP,
             )
         except ClusterNameClashException as e:
             Console.error(str(e))
@@ -120,7 +121,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         """
         ::
             Usage:
-              cluster2 create [-n NAME] [-c COUNT] [-C CLOUD] [-u USER] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-A]
+              cluster2 create [-n NAME] [-c COUNT] [-C CLOUD] [-u USER] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]
               cluster2 list
               cluster2 delete [--all] [--force] [NAME]...
 
@@ -137,6 +138,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
             Options:
 
               -A --no-activate               Don't activate this cluster
+              -I --no-floating-ip            Don't assign floating IPs
               -n NAME --name=NAME            Name of the cluster
               -c COUNT --count=COUNT         Number of nodes in the cluster
               -C NAME --cloud=NAME           Name of the cloud
@@ -162,6 +164,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
                 flavor=arguments['--flavor'] or Default.flavor,
                 key=arguments['--key'] or Default.key,
                 secgroup=arguments['--secgroup'] or Default.secgroup,
+                assignFloatingIP=not arguments['--no-floating-ip'],
             )
 
         elif arguments.list:
