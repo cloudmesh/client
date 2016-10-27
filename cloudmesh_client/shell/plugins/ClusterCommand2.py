@@ -137,6 +137,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
 
               create     Create a cluster
               list       List the available clusters
+              delete     Delete clusters and associated instances
 
             Arguments:
 
