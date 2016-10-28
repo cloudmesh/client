@@ -40,7 +40,7 @@ class Command(object):
             :rtype: :class:`Cluster`
             """
 
-            clustername = clustername or None  # FIXME
+            clustername = clustername or generate_cluster_name()
             cloud = cloud or Default.cloud
             user = user or Default.user
             image = image or Default.image
@@ -208,7 +208,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         if arguments.create:
 
             cmd.create(
-                clustername=arguments['--name'] or generate_cluster_name(),
+                clustername=arguments['--name'],
                 count=arguments['--count'] or 1,
                 cloud=arguments['--cloud'] or Default.cloud,
                 user=arguments['--user'] or Default.user,
