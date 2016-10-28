@@ -1,7 +1,9 @@
 from __future__ import absolute_import, print_function
 
-from .ClusterCommand2 import Cluster2Command
-from .StackCommand import StackCommand
+import os.path
+
+from .ClusterCommand2 import Command as ClusterCommand
+from .StackCommand import Command as StackCommand
 from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.shell.command import (CloudPluginCommand, PluginCommand,
     command)
@@ -20,8 +22,26 @@ class Command(object):
         :param str user: login user name
         """
 
-        Console.error('hadoop.start not implemented')
-        raise NotImplementedError()
+        clustercmd = ClusterCommand()
+        cluster = clustercmd.create(
+            count=count,
+            user=user,
+            flavor=flavor,
+            image=image,
+        )
+
+        stackcmd = StackCommand()
+
+        addons = addons or []
+        playbooks = ['play-hadoop.yml'] + \
+                    [os.path.join('addons', name) for name in addons]
+
+        stackcmd.init(
+            user=user,
+            playbooks=playbooks,
+            ips=clustercmd.get('floating_ip', cluster=cluster),
+        )
+        stackcmd.deploy()
 
     def list(self):
         """List the known deployments
@@ -98,7 +118,13 @@ class HadoopCommand(PluginCommand, CloudPluginCommand):
 
         if arguments.start:
 
-            cmd.start(count=arguments.COUNT, addons=arguments.ADDON)
+            cmd.start(
+                count=arguments.COUNT or 3,
+                addons=arguments.ADDON,
+                flavor=arguments['--flavor'],
+                image=arguments['--image'],
+                user=arguments['--user'],
+            )
 
         elif arguments.list:
 
