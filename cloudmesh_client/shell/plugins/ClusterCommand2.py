@@ -17,64 +17,62 @@ from cloudmesh_client.shell.console import Console
 db = CloudmeshDatabase
 
 
-class Cluster2Command(PluginCommand, CloudPluginCommand):
-    topics = {'cluster2': 'cluster'}
-
+class Command(object):
     def create(self, clustername=None, cloud=None, count=1, user=None,
-               username=None, image=None, flavor=None, key=None,
-               secgroup=None, assignFloatingIP=True, activate=True):
-        """Create a cluster.
+                   username=None, image=None, flavor=None, key=None,
+                   secgroup=None, assignFloatingIP=True, activate=True):
+            """Create a cluster.
 
-        If values are `None`, they are automatically determined via
-        defaults.
+            If values are `None`, they are automatically determined via
+            defaults.
 
-        :param str clustername: name of this cluster (generated if None)
-        :param str cloud: cloud name
-        :param int count: number of instances in the cluster
-        :param str user: cloudmesh user
-        :param str username: cloud image username
-        :param str image: image name
-        :param str flavor: instance flavor
-        :param str key: key name
-        :param str secgroup: security group name
-        :param bool activate: activate this cluster after creation
-        :returns: a cluster
-        :rtype: :class:`Cluster`
-        """
+            :param str clustername: name of this cluster (generated if None)
+            :param str cloud: cloud name
+            :param int count: number of instances in the cluster
+            :param str user: cloudmesh user
+            :param str username: cloud image username
+            :param str image: image name
+            :param str flavor: instance flavor
+            :param str key: key name
+            :param str secgroup: security group name
+            :param bool activate: activate this cluster after creation
+            :returns: a cluster
+            :rtype: :class:`Cluster`
+            """
 
-        clustername = clustername or None  # FIXME
-        cloud = cloud or Default.cloud
-        user = user or Default.user
-        image = image or Default.image
-        username = username or Image.guess_username(image)
-        flavor = flavor or Default.flavor
-        key = key or Default.key
-        secgroup = secgroup or Default.secgroup
+            clustername = clustername or None  # FIXME
+            cloud = cloud or Default.cloud
+            user = user or Default.user
+            image = image or Default.image
+            username = username or Image.guess_username(image)
+            flavor = flavor or Default.flavor
+            key = key or Default.key
+            secgroup = secgroup or Default.secgroup
 
-        try:
-            cluster = Cluster(
-                name=clustername,
-                count=count,
-                cloud=cloud,
-                user=username,
-                image=image,
-                flavor=flavor,
-                key=key,
-                secgroup=secgroup,
-                assignFloatingIP=assignFloatingIP,
-            )
-        except ClusterNameClashException as e:
-            Console.error(str(e))
-            raise UnrecoverableErrorException(str(e))
+            try:
+                cluster = Cluster(
+                    name=clustername,
+                    count=count,
+                    cloud=cloud,
+                    user=username,
+                    image=image,
+                    flavor=flavor,
+                    key=key,
+                    secgroup=secgroup,
+                    assignFloatingIP=assignFloatingIP,
+                )
+            except ClusterNameClashException as e:
+                Console.error(str(e))
+                raise UnrecoverableErrorException(str(e))
 
-        cluster.boot()
-        Console.ok('Cluster {} created'.format(clustername))
+            cluster.boot()
+            Console.ok('Cluster {} created'.format(clustername))
 
-        if activate:
-            Default.set_cluster(clustername)
-            Console.ok('Cluster {} is now active'.format(clustername))
+            if activate:
+                Default.set_cluster(clustername)
+                Console.ok('Cluster {} is now active'.format(clustername))
 
-        return cluster
+            return cluster
 
     def list(self):
         """List the clusters created
@@ -162,6 +160,9 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         return cluster.instances
 
 
+class Cluster2Command(PluginCommand, CloudPluginCommand):
+    topics = {'cluster2': 'cluster'}
+
     @command
     def do_cluster2(self, args, arguments):
         """
@@ -202,10 +203,11 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         """
 
         arguments = dotdict(arguments)
+        cmd = Command()
 
         if arguments.create:
 
-            self.create(
+            cmd.create(
                 clustername=arguments['--name'] or generate_cluster_name(),
                 count=arguments['--count'] or 1,
                 cloud=arguments['--cloud'] or Default.cloud,
@@ -220,7 +222,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         elif arguments.list:
 
             try:
-                active, inactive = self.list()
+                active, inactive = cmd.list()
             except NoActiveClusterException:
                 return
 
@@ -243,13 +245,13 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
             cluster = db.select(Cluster, name=arguments.CLUSTER).one() \
                     if arguments.CLUSTER \
                     else None
-            nodes = self.nodes(cluster=cluster)
+            nodes = cmd.nodes(cluster=cluster)
             for node in nodes:
                 print(node.name)
 
         elif arguments.delete:
 
-            self.delete(
+            cmd.delete(
                 arguments.NAME,
                 force=arguments['--force'],
                 all=arguments['--all']
@@ -257,7 +259,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
 
         elif arguments.get:
 
-            values = self.get(arguments['PROPERTY'], cluster=arguments['--name'])
+            values = cmd.get(arguments['PROPERTY'], cluster=arguments['--name'])
             for v in values:
                 print(v)
 

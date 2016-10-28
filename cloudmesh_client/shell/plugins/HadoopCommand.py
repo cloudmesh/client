@@ -8,9 +8,7 @@ from cloudmesh_client.shell.command import (CloudPluginCommand, PluginCommand,
 from cloudmesh_client.shell.console import Console
 
 
-class HadoopCommand(PluginCommand, CloudPluginCommand):
-
-    topics = {"hadoop": "cluster"}
+class Command(object):
 
     def start(self, count=3, addons=None, flavor=None, image=None, user=None):
         """Start a hadoop cluster
@@ -64,13 +62,17 @@ class HadoopCommand(PluginCommand, CloudPluginCommand):
         Console.error('hadoop.delete not implemented')
         raise NotImplementedError()
 
+
+class HadoopCommand(PluginCommand, CloudPluginCommand):
+
+    topics = {"hadoop": "cluster"}
+
     @command
     def do_hadoop(self, arg, arguments):
         """
         ::
 
            Usage:
-
              hadoop start [-f NAME] [-i NAME] [-u NAME] [COUNT] [ADDON]...
              hadoop list
              hadoop switch NAME
@@ -92,20 +94,21 @@ class HadoopCommand(PluginCommand, CloudPluginCommand):
         """
 
         arguments = dotdict(arguments)
+        cmd = Command()
 
         if arguments.start:
 
-            self.start(count=arguments.COUNT, addons=arguments.ADDON)
+            cmd.start(count=arguments.COUNT, addons=arguments.ADDON)
 
         elif arguments.list:
 
-            self.list()
+            cmd.list()
 
         elif arguments.switch:
 
-            self.switch(arguments.NAME)
+            cmd.switch(arguments.NAME)
 
         elif arguments.delete:
 
-            self.delete(arguments.NAME, all=arguments['--all'])
+            cmd.delete(arguments.NAME, all=arguments['--all'])
 
