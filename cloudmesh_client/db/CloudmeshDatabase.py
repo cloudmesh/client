@@ -6,6 +6,7 @@ from sqlalchemy import create_engine
 
 from cloudmesh_client.common.dotdict import dotdict
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 from pprint import pprint
 from sqlalchemy import update
@@ -66,6 +67,17 @@ class CloudmeshMixin(object):
         except:
             pass
         return str(s)
+
+
+class CloudmeshVMMixin(object):
+
+    _mapper_args__ = {'always_refresh': True}
+
+    cluster = Column(String, default=None)
+
+    def set_defaults(self, **kwargs):   # TODO: what is this method used for?
+        Console.debug_msg('Call to CloudmeshVMMixin')
+        pass
 
 
 class CloudmeshDatabase(object):
@@ -209,6 +221,52 @@ class CloudmeshDatabase(object):
             return False
 
     @classmethod
+    def insert(cls, obj):
+        """Insert a row into the database
+
+        :param obj: the object model to insert
+        :returns:
+        :rtype:
+        """
+
+        # this method was written because I was having difficulty
+        # getting others to work. Not ideal, but there is a deadline
+        # and it is faster to write it myself than dig through the
+        # rest of the code to figure out how it works and how to
+        # deal with corner cases :(
+
+        # since some models may not be defined in the module
+        # db.general.model or db.openstack.model, etc, ensure that the
+        # DB knows about the table
+        if obj.__tablename__ not in cls.Base.metadata.tables.keys():
+            cls.create_model()
+
+        cls.session.add(obj)
+        cls.session.commit()
+
+
+    @classmethod
+    def select(cls, table, **filter_args):
+        """Return rows of the table matching filter args.
+
+        This is a proxy for sqlalchemy's ``session.query(table).filter(**kwargs)``
+
+        :param type table: the model class
+        :returns: all rows in the table matching ``**filter_args``
+        """
+
+        return cls.session.query(table).filter_by(**filter_args)
+
+    @classmethod
+    def delete_(cls, table, **filter_args):
+        """Delete rows in the table matching ``filter_args``
+
+        :param type table: the model class
+        """
+        cls.session.query(table).filter_by(**filter_args).delete()
+        cls.session.commit()
+
+
     def find_new(cls, **kwargs):
         """
         This method returns either
@@ -492,6 +550,7 @@ class CloudmeshDatabase(object):
     @classmethod
     def all(cls,
             provider='general',
+            category=None,
             kind=None,
             table=None):
 
@@ -562,6 +621,13 @@ class CloudmeshDatabase(object):
            If the kind is not specified vm is used. one of the arguments must be scope="all"
         b) a single entry that matches the first occurance of the query specified by kwargs,
            such as name="vm_001"
+
+        To select a value from a specific table:
+        1) identify the table of interest with :meth:`table`
+           >>> t = db.table(name='default')
+        2) specify the 'table' keywork:
+           >>> db.find(table=t, cm_id=42)
+
 
         :param kwargs: the arguments to be matched, scope defines if all or just the first value
                is returned. first is default.

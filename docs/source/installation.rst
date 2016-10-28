@@ -5,8 +5,10 @@ Installation
 
 We assume that you have prepared your system (see Section
 :ref:`_my-reference-label`) on which you like to install the cloudmesh
-client. We recommend that you use python 2.7.10, pip 7.1.2 and use
-virtualenv. Furthermore we recommend that on Linux systems you have
+client. We recommend that you use at least python 2.7.10, pip 7.1.2 and use
+virtualenv.
+
+Furthermore we recommend that on Linux systems you have
 readline installed as it is a convenient tool for command line
 manipulation. In the next sections we will walk you through a setup
 that has been proven to work for developers and users and is very easy

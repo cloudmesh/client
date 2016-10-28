@@ -1,9 +1,12 @@
 from cloudmesh_client.common.FlatDict import FlatDict
+import six
 
 
 class FlatDict2(object):
-
-    primitive = (int, str, bool, unicode, dict, list)
+    if six.PY2:
+        primitive = (int, str, bool, unicode, dict, list)
+    elif six.PY3:
+        primitive = (int, str, bool, str, bytes, dict, list)
 
     @classmethod
     def is_primitive(cls, thing):

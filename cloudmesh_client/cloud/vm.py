@@ -22,6 +22,20 @@ class Vm(ListResource):
     cm = CloudmeshDatabase()
 
     @classmethod
+    def generate_vm_name(cls, prefix=None, offset=0, fill=3):
+        prefix = (prefix + '-') if prefix else ''
+
+        counter_name = 'next-image-id'
+        counter = Default.get_counter(counter_name)
+        Default.set_counter(counter_name, counter + 1)
+
+        index = str(counter).zfill(fill)
+        name = prefix + Default.user + '-' + index
+
+        return name
+
+
+    @classmethod
     def get_vm_name(cls, name=None, offset=0, fill=3):
 
         if name is None:
@@ -152,6 +166,7 @@ class Vm(ListResource):
             "nics": nics,
             "meta": {'kind': 'cloudmesh',
                      'group': arg.group,
+                     'cluster': arg.get('cluster', None),
                      'image': arg.image,
                      'flavor': arg.flavor,
                      'key': arg.key,
@@ -203,6 +218,8 @@ class Vm(ListResource):
                 cls.cm.set(d.name, "flavor", d.flavor, scope="first", kind="vm")
                 cls.cm.set(d.name, "group", arg.group, scope="first", kind="vm")
                 cls.cm.set(d.name, "user", arg.user, scope="first", kind="vm")
+                cls.cm.set(d.name, 'cluster', arg.cluster, scope='first', kind='vm')
+
             except:
                 # cm.set error is identified as a warning, not an error
                 import sys

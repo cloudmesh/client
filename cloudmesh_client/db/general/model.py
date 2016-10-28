@@ -1,6 +1,8 @@
 from __future__ import print_function
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase, CloudmeshMixin
-from sqlalchemy import Column, Date, Integer, String
+
+from sqlalchemy import Column, Date, Integer, String, Boolean
+from sqlalchemy.orm.session import object_session
 
 
 class WORKFLOW(CloudmeshMixin, CloudmeshDatabase.Base):
@@ -204,3 +206,55 @@ class BATCHJOB(CloudmeshMixin, CloudmeshDatabase.Base):
         self.time = kwargs.pop('time')
         self.group = kwargs.pop('group')
         self.job_id = kwargs.pop('job_id')
+
+
+class CLUSTER(CloudmeshMixin, CloudmeshDatabase.Base):
+    """This is a proxy for the main implementation, given in
+    :module:`cloudmesh_client.cloud.cluster`.
+
+    The implementation is split from the definitions in order to avoid
+    recursive dependencies. If the implementation of various methods
+    were done withing this class, various helper functions would need
+    to be imported (eg :module:`cloudmesh_client.cloud.vm`). These
+    module import :module:`cloudmesh_client.db.CloudmeshDatabase`,
+    which import the various ``models`` modules. When this happens,
+    the error that is an ImportError for CloudmeshDatabase.
+
+    When modifying, add attributes to this class, then update the
+    implementation in subclass.
+    """
+
+    __tablename__ = 'cluster'
+    __kind__ = 'cluster'
+    __provider__ = 'general'
+
+    name = Column(String, unique=True)
+    count = Column(Integer, default=1)
+    cloud = Column(String)
+    user = Column(String)
+    image = Column(String)
+    flavor = Column(String)
+    key = Column(String)
+    secgroupname = Column(String)
+    assignFloatingIP = Column(Boolean, default=True)
+
+    def __init__(self, name=None, cloud=None, count=None,
+                 user=None, image=None, flavor=None,
+                 key=None, secgroup=None,
+                 assignFloatingIP=True):
+
+        assert cloud is not None
+        assert image is not None
+        assert flavor is not None
+        assert key is not None
+
+        self.name = name
+        self.count = count
+        self.cloud = cloud
+        self.user = user
+        self.image = image
+        self.flavor = flavor
+        self.key = key
+        self.secgroup = secgroup
+        self.assignFloatingIP = assignFloatingIP
+

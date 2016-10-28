@@ -175,6 +175,7 @@ class ConfigDict(object):
         :rtype: ConfigDict
         """
 
+
         if ConfigDict.data != {} and not reload:
             return
 

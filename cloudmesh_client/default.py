@@ -1,14 +1,10 @@
 from __future__ import print_function
 
-from cloudmesh_client.common import Printer
-import cloudmesh_client
-from cloudmesh_client.common.ConfigDict import ConfigDict
-
-# from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
+from cloudmesh_client.exc import NoActiveClusterException
 from cloudmesh_client import CloudmeshDatabase
+from cloudmesh_client.common import Printer
+from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.common.dotdict import dotdict
-from cloudmesh_client.common.Printer import Printer
 
 
 # noinspection PyPep8Naming
@@ -68,7 +64,7 @@ class Default(object):
             if category is None:
                 result = cls.cm.all(kind=cls.__kind__)
             else:
-                result = cls.cm.all(category=category, kind=cls.__kind__)
+                result = cls.cm.all(provider=category, kind=cls.__kind__)
 
             table = Printer.write(result,
                                   output=output)
@@ -199,7 +195,20 @@ class Default(object):
 
     @readable_classproperty
     def cluster(cls):
-        return cls.get(name="cluster")
+        return cls.get(name="active-cluster")
+
+    @readable_classproperty
+    def active_cluster(cls):
+        name = cls.cluster
+        if not name:
+            raise NoActiveClusterException()
+
+        # dynamically lookup the class for the cluster.
+        # this is to avoid circular dependencies.
+        Cluster = [clazz for clazz in cls.cm.tables
+                   if clazz.__name__ == 'CLUSTER'][0].__subclasses__()[0]
+
+        return cls.cm.select(Cluster, name=name).one()
 
     @readable_classproperty
     def user(cls):
@@ -441,6 +450,14 @@ class Default(object):
         :return:
         """
         cls.set("timer", value)
+
+    @classmethod
+    def set_cluster(cls, value):
+        """Sets the cluster
+
+        :param str value: cluster name
+        """
+        cls.set('active-cluster', value)
 
     @classmethod
     def load(cls, filename):
