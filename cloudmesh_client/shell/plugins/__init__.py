@@ -44,6 +44,7 @@ from cloudmesh_client.shell.plugins.VcCommand import VcCommand
 from cloudmesh_client.shell.plugins.SetupCommand import SetupCommand
 from cloudmesh_client.shell.plugins.StackCommand import StackCommand
 from cloudmesh_client.shell.plugins.ClusterCommand2 import Cluster2Command
+from cloudmesh_client.shell.plugins.HadoopCommand import HadoopCommand
 
 # from cloudmesh_client.shell.plugins.LogLevelCommand import LogLevelCommand
 # from cloudmesh_client.shell.plugins.WhoCommand .import WhoCommand
