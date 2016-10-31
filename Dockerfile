@@ -8,7 +8,7 @@
 # docker run -ti -v ~/.ssh:/root/.ssh -v ~/.cloudmesh:/root/.cloudmesh cm-docker bash
 # docker cp ~/.ssh <DOCKERID>:/root/.ssh
 
-FROM    ubuntu:14.04
+FROM    ubuntu:16.04
 MAINTAINER laszewski@gmail.com
 
 ### update system
@@ -20,9 +20,12 @@ RUN apt-get install zlib1g-dev -y
 
 ### install python
 RUN apt-get install -y \
-    git python python-dev python-distribute python-pip libjpeg-dev
+    git python python-pip python-dev \
+    libffi-dev libssl-dev libxml2-dev libxslt1-dev libjpeg8-dev zlib1g-dev \
+    python-distribute 
 RUN pip install -U pip
 RUN apt-get remove python-six -y
+
 
 ### setup ssh
 RUN mkdir -p /root/.ssh

@@ -139,7 +139,7 @@ rmtag:
 # DOCKER
 ######################################################################
 
-docker-mahine:
+docker-machine:
 	docker-machine create --driver virtualbox cloudmesh
 
 docker-machine-login:
@@ -167,3 +167,5 @@ docker-run:
 docker-clean-images:
 	bin/docker-clean-images
 
+docker-cm:
+	docker build -t docker-cloudmesh .
