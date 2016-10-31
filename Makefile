@@ -161,11 +161,11 @@ docker-pull:
 #
 # does not work yet
 #
-docker-run:
-	docker run -t -i cloudmesh /bin/bash
-
 docker-clean-images:
 	bin/docker-clean-images
 
 docker-cm:
-	docker build -t docker-cloudmesh .
+	docker build -t cloudmesh .
+
+docker-run:
+	docker run -t -i cloudmesh /bin/bash
