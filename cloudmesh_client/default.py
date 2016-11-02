@@ -1,9 +1,9 @@
 from __future__ import print_function
 
-from cloudmesh_client.exc import NoActiveClusterException
 from cloudmesh_client import CloudmeshDatabase
 from cloudmesh_client.common import Printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.exc import NoActiveClusterException
 from cloudmesh_client.shell.console import Console
 
 
@@ -14,6 +14,14 @@ class readable_classproperty(object):
 
     def __get__(self, obj, owner):
         return self.f(owner)
+
+
+class Names:
+
+    VM_COUNTER = 'vm_counter'
+
+    CLUSTER_COUNTER = 'cluster'
+    ACTIVE_CLUSTER = 'active-cluster'
 
 
 # noinspection PyBroadException
@@ -195,7 +203,11 @@ class Default(object):
 
     @readable_classproperty
     def cluster(cls):
-        return cls.get(name="active-cluster")
+        return cls.get(name=Names.ACTIVE_CLUSTER)
+
+    @readable_classproperty
+    def cluster_counter(cls):
+        return cls.get(name=Names.CLUSTER_COUNTER)
 
     @readable_classproperty
     def active_cluster(cls):
@@ -244,6 +256,29 @@ class Default(object):
     # ###################################
     # COUNTER
     # ###################################
+
+    @classmethod
+    def generate_name(cls, counter_name, display_name=None,
+                      prefix=None, fill=3):
+        """Generate a name based on a counter
+
+        :param str counter_name: name of the counter in the database
+        :param str display_name: pretty name to show user (defaults to ``counter_name``)
+        :param str prefix: prefix the generated name with this
+        :param int fill: number of zeros to fill with
+        :returns: a generated name
+        :rtype: :class:`str`
+        """
+
+        prefix = (prefix + '-') if prefix else ''
+
+        counter = cls.get_counter(name=counter_name)
+        index = str(counter).zfill(fill)
+        name = prefix + (display_name or counter_name) + '-' + index
+        cls.incr_counter(name=counter_name)
+
+        return name
+
     @classmethod
     def incr_counter(cls, name="index"):
         count = cls.get_counter(name=name)

@@ -2,12 +2,11 @@ from __future__ import print_function
 
 import sys
 
-from cloudmesh_client.cloud.cluster import (Cluster, ClusterNameClashException,
-                                            generate_cluster_name)
+from cloudmesh_client.cloud.cluster import (Cluster, ClusterNameClashException)
 from cloudmesh_client.cloud.image import Image
 from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
-from cloudmesh_client.default import Default
+from cloudmesh_client.default import (Names, Default)
 from cloudmesh_client.exc import UnrecoverableErrorException, NoActiveClusterException
 from cloudmesh_client.shell.command import (CloudPluginCommand, PluginCommand,
                                             command)
@@ -40,7 +39,7 @@ class Command(object):
             :rtype: :class:`Cluster`
             """
 
-            clustername = clustername or generate_cluster_name()
+            clustername = clustername or Default.generate_name(Names.CLUSTER_COUNTER)
             cloud = cloud or Default.cloud
             user = user or Default.user
             image = image or Default.image

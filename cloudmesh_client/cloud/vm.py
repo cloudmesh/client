@@ -14,7 +14,7 @@ from cloudmesh_client.common.dotdict import dotdict
 from builtins import input
 from pprint import pprint
 from cloudmesh_client.cloud.network import Network
-from cloudmesh_client.default import Default
+from cloudmesh_client.default import (Names, Default)
 import traceback
 
 # noinspection PyPep8Naming
@@ -22,18 +22,11 @@ class Vm(ListResource):
     cm = CloudmeshDatabase()
 
     @classmethod
-    def generate_vm_name(cls, prefix=None, offset=0, fill=3):
-        prefix = (prefix + '-') if prefix else ''
-
-        counter_name = 'next-image-id'
-        counter = Default.get_counter(counter_name)
-        Default.set_counter(counter_name, counter + 1)
-
-        index = str(counter).zfill(fill)
-        name = prefix + Default.user + '-' + index
-
-        return name
-
+    def generate_vm_name(cls, prefix=None, fill=3):
+        return Default.generate_name(Names.VM_COUNTER,
+                                     display_name=Default.user,
+                                     prefix=prefix,
+                                     fill=fill)
 
     @classmethod
     def get_vm_name(cls, name=None, offset=0, fill=3):

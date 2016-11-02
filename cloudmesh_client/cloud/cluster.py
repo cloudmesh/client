@@ -18,7 +18,7 @@ _db = CloudmeshDatabase()
 # FIXME: refactor with Vm.generate_vm_name
 # duplicate functionality
 # check cloudmesh_client.cloud.counter.Counter
-def generate_cluster_name(prefix=None, offset=0, fill=3):
+def generate_cluster_name(prefix=None, fill=3):
     prefix = (prefix + '-') if prefix else ''
 
     counter_name = 'cluster'
