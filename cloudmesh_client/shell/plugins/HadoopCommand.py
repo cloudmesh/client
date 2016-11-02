@@ -87,6 +87,11 @@ class HadoopCommand(PluginCommand, CloudPluginCommand):
 
     topics = {"hadoop": "cluster"}
 
+    def __init__(self, context):
+        self.context = context
+        if self.context.debug:
+            print("init command hadoop")
+
     @command
     def do_hadoop(self, arg, arguments):
         """

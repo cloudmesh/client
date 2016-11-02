@@ -163,6 +163,11 @@ class Command(object):
 class Cluster2Command(PluginCommand, CloudPluginCommand):
     topics = {'cluster2': 'cluster'}
 
+    def __init__(self, context):
+        self.context = context
+        if self.context.debug:
+            print("init command cluster2 ")
+
     @command
     def do_cluster2(self, args, arguments):
         """
