@@ -1,6 +1,4 @@
-class cluster(object):  // list abstraction see other commands
-
-
+class Cluster(object):  # list abstraction see other commands
     def __init__(self):
         pass
 
@@ -17,7 +15,6 @@ class cluster(object):  // list abstraction see other commands
         "add nodes to the cluster"
         pass
 
-
     def remove(self):
         "add nodes to the cluster"
         pass
@@ -25,7 +22,6 @@ class cluster(object):  // list abstraction see other commands
     def modify(self):
         "modifies nodes to the cluster"
         pass
-
 
     def terminate(self):
         "is same as delete?"
