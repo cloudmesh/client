@@ -536,6 +536,12 @@ class CloudmeshDatabase(object):
         Console.error("No table found for name={}, provider={}, kind={}".format(name, provider, kind))
 
     @classmethod
+    def vm_table_from_provider(cls, provider):
+        tablename = 'vm_{}'.format(provider)
+        table = cls.table(name=tablename)
+        return table
+
+    @classmethod
     def get_table_from_kind(cls, kind):
         providers = set()
         for t in cls.tables:
