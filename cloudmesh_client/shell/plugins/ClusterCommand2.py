@@ -2,12 +2,14 @@ from __future__ import print_function
 
 import sys
 
-from cloudmesh_client.cloud.cluster import (Cluster, ClusterNameClashException)
+from cloudmesh_client.platform.virtual_cluster.cluster import Cluster
 from cloudmesh_client.cloud.image import Image
 from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.default import (Names, Default)
-from cloudmesh_client.exc import UnrecoverableErrorException, NoActiveClusterException
+from cloudmesh_client.exc import (UnrecoverableErrorException,
+                                  NoActiveClusterException,
+                                  ClusterNameClashException)
 from cloudmesh_client.shell.command import (CloudPluginCommand, PluginCommand,
                                             command)
 from cloudmesh_client.shell.console import Console
@@ -18,8 +20,9 @@ db = CloudmeshDatabase
 
 class Command(object):
     def create(self, clustername=None, cloud=None, count=1, user=None,
-                   username=None, image=None, flavor=None, key=None,
-                   secgroup=None, assignFloatingIP=True, activate=True):
+               username=None, image=None, flavor=None, key=None,
+               secgroup=None, assignFloatingIP=True,
+               activate=True):
             """Create a cluster.
 
             If values are `None`, they are automatically determined via
@@ -64,7 +67,7 @@ class Command(object):
                 Console.error(str(e))
                 raise UnrecoverableErrorException(str(e))
 
-            cluster.boot()
+            cluster.create()
             Console.ok('Cluster {} created'.format(clustername))
 
             if activate:
@@ -141,7 +144,7 @@ class Command(object):
 
         # assume it is a property of the instances
         else:
-            values = [getattr(node, property) for node in cluster.instances]
+            values = [getattr(node, property) for node in cluster]
             return values
 
     def nodes(self, cluster=None):
@@ -156,7 +159,7 @@ class Command(object):
         """
 
         cluster = cluster or Default.active_cluster
-        return cluster.instances
+        return cluster.list()
 
 
 class Cluster2Command(PluginCommand, CloudPluginCommand):
