@@ -1,17 +1,17 @@
 from __future__ import print_function
 
 import sys
-
 from cloudmesh_client.platform.virtual_cluster.cluster import Cluster
+
 from cloudmesh_client.cloud.image import Image
 from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
-from cloudmesh_client.default import (Names, Default)
-from cloudmesh_client.exc import (UnrecoverableErrorException,
-                                  NoActiveClusterException,
-                                  ClusterNameClashException)
+from cloudmesh_client.default import Default, Names
+from cloudmesh_client.deployer.ansible.inventory import InventoryBuilder, Node
+from cloudmesh_client.exc import (ClusterNameClashException,
+    NoActiveClusterException, UnrecoverableErrorException)
 from cloudmesh_client.shell.command import (CloudPluginCommand, PluginCommand,
-                                            command)
+    command)
 from cloudmesh_client.shell.console import Console
 
 
@@ -162,6 +162,28 @@ class Command(object):
         return cluster.list()
 
 
+    def inventory(self, cluster=None, format=None, path=None):
+
+        cluster = cluster or Default.active_cluster
+        format = format or 'ansible'
+
+        if format == 'ansible':
+
+            builder = InventoryBuilder()
+            for node in cluster:
+                Console.debug_msg('Adding node to inventory: ' + node.name)
+                n = Node(node.name, address=node.floating_ip, user=node.user)
+                builder.add_node(n)
+
+            inv_ini = builder.ini()
+
+            if not path:
+                print(inv_ini)
+            else:
+                with open(path, 'w') as fd:
+                    fd.write(inv_ini)
+
+
 class Cluster2Command(PluginCommand, CloudPluginCommand):
     topics = {'cluster2': 'cluster'}
 
@@ -180,11 +202,13 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
               cluster2 nodes [CLUSTER]
               cluster2 delete [--all] [--force] [NAME]...
               cluster2 get [-n NAME] PROPERTY
+              cluster2 inventory [-F NAME] [-o PATH] [NAME]
 
             Commands:
 
               create     Create a cluster
               list       List the available clusters
+              inventory  Obtain an inventory file
               delete     Delete clusters and associated instances
               get        Get properties of a cluster/nodes in a cluster
 
@@ -192,6 +216,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
 
               NAME                Alphanumeric name
               COUNT               Integer > 0
+              PATH                Path to entry on the filesystem
 
             Options:
 
@@ -205,8 +230,14 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
               -f NAME --flavor=NAME          Name of the flavor
               -k NAME --key=NAME             Name of the key
               -s NAME --secgroup=NAME        NAME of the security group
+              -F NAME --format=NAME          Name of the output format
+              -o PATH --path=PATH            Output to this path
               --force
               --all
+
+            Inventory File Format:
+
+              ansible  [default]            Ansible-compatible inventory
         """
 
         arguments = dotdict(arguments)
@@ -264,11 +295,18 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
                 all=arguments['--all']
             )
 
-        elif arguments.get:
+        elif arguments['get']:
 
             values = cmd.get(arguments['PROPERTY'], cluster=arguments['--name'])
             for v in values:
                 print(v)
+
+        elif arguments.inventory:
+            cmd.inventory(
+                cluster=arguments.NAME,
+                format=arguments['--format'],
+                path=arguments['--path'],
+            )
 
 
 
