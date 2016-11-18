@@ -1,11 +1,15 @@
 
+import os.path
+
 from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.default import Default
 from cloudmesh_client.deployer.ansible import AnsibleDeployer
 from cloudmesh_client.deployer.ansible.role import AnsibleRole
-from cloudmesh_client.shell.command import (CloudPluginCommand, PluginCommand, command)
+from cloudmesh_client.shell.command import (CloudPluginCommand, PluginCommand,
+    command)
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.shell.plugins.ClusterCommand2 import (Command as ClusterCommand)
+from cloudmesh_client.shell.plugins.ClusterCommand2 import (
+    Command as ClusterCommand)
 
 
 class AnsibleCommand(object):
@@ -42,8 +46,7 @@ class DeployCommand(PluginCommand, CloudPluginCommand):
         """
         ::
             Usage:
-              deploy ansible playbook [-p PATH...] [CLUSTER]
-              deploy ansible role [-p PATH...] [CLUSTER]
+              deploy ansible [-p PATH...] [CLUSTER]
 
             Commands:
 
@@ -55,7 +58,7 @@ class DeployCommand(PluginCommand, CloudPluginCommand):
 
             Arguments:
 
-              CLUSTER [default=active]       Cluster name to deploy to
+              CLUSTER                        Cluster name to deploy to
               NAME                           Alphanumeric name
               COUNT                          Integer > 0
               PATH                           Path to entry on the filesystem
@@ -67,20 +70,26 @@ class DeployCommand(PluginCommand, CloudPluginCommand):
         """
 
         arguments = dotdict(arguments)
+        from pprint import pprint
+        pprint(arguments)
 
-        if arguments.ansible and arguments.playbook:
+        if arguments.ansible:
             ansible = AnsibleCommand()
-            ansible.playbook(
-                cluster = arguments.CLUSTER,
-                path = arguments['--path'],
-            )
+            for path in arguments['--path']:
 
-        elif arguments.ansible and arguments.role:
-            ansible = AnsibleCommand()
-            ansible.role(
-                cluster = arguments.CLUSTER,
-                path = arguments['--path'],
-            )
+                # playbook
+                if os.path.isfile(path):
+                    ansible.playbook(
+                        cluster = arguments.CLUSTER,
+                        path = path,
+                    )
+
+                # role
+                elif os.path.isdir(path):
+                    ansible.role(
+                        cluster = arguments.CLUSTER,
+                        path = path,
+                    )
 
 
 if __name__ == '__main__':
