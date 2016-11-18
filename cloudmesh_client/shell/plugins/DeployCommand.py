@@ -18,7 +18,7 @@ class AnsibleCommand(object):
         Console.debug_msg('NotImplementedError')
 
 
-    def role(self, cluster=None, path=None):
+    def role(self, cluster=None, path=None, user=None):
         """Deploy a role to all the nodes in the cluster
 
         :param str cluster: cluster name (default is the active cluster)
@@ -31,7 +31,7 @@ class AnsibleCommand(object):
 
         inventory = ClusterCommand().inventory(cluster=cluster, format='ansible').ini()
         role = AnsibleRole(path)
-        role.run(inventory, user='cc')  # FIXME
+        role.run(inventory, user=user)
 
 
 
@@ -46,7 +46,7 @@ class DeployCommand(PluginCommand, CloudPluginCommand):
         """
         ::
             Usage:
-              deploy ansible [-p PATH...] [CLUSTER]
+              deploy ansible [-p PATH...] [-u NAME] [CLUSTER]
 
             Commands:
 
@@ -66,6 +66,7 @@ class DeployCommand(PluginCommand, CloudPluginCommand):
             Options:
 
               -p --path=PATH                 Path to the location of the item
+              -u --user=NAME                 Username of the nodes to manage
 
         """
 
@@ -82,6 +83,7 @@ class DeployCommand(PluginCommand, CloudPluginCommand):
                     ansible.playbook(
                         cluster = arguments.CLUSTER,
                         path = path,
+                        user = arguments['--user'],
                     )
 
                 # role
@@ -89,6 +91,7 @@ class DeployCommand(PluginCommand, CloudPluginCommand):
                     ansible.role(
                         cluster = arguments.CLUSTER,
                         path = path,
+                        user = arguments['--user'],
                     )
 
 
