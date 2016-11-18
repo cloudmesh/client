@@ -12,13 +12,15 @@ from cloudmesh_client.common.Shell import Subprocess, SubprocessError
 class AnsiblePlaybookRunner(object):
 
     def __init__(self, inventory, path, user=None, become=False,
-                 become_user=None, forks=None, extra_vars=None):
+                 become_user=None, forks=None, modifyKnownHosts=True,
+                 extra_vars=None):
         self._inventory = inventory
         self._path = path
         self._user = user
         self._become = become
         self._become_user = become_user
         self._forks = forks
+        self._modifyKnownHosts = modifyKnownHosts
         self._extra_vars = extra_vars
 
         self._subprocess_kwargs = dict()
@@ -39,6 +41,10 @@ class AnsiblePlaybookRunner(object):
         self._subprocess_kwargs['env'] = environment
         return self
 
+    def set_secure(self, secure_p):
+        self._modifyKnownHosts = secure_p
+        return self
+
     def __call__(self):
         cmd_builder_monoid = [
             ['ansible-playbook'],
@@ -47,7 +53,9 @@ class AnsiblePlaybookRunner(object):
             ['--become'] if self._become else [],
             ['--become-user', self._become_user] if self._become_user else [],
             ['--forks', str(self._forks)] if self._forks else [],
+            ['--ssh-extra-args', '-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'] if not self._modifyKnownHosts else []
             ['--extra-vars', json.dumps(self._extra_vars)] if self._extra_vars else [],
+            [self._path]
         ]
 
         cmd = reduce(operator.concat, cmd_builder_monoid)

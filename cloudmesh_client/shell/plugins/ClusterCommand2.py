@@ -183,6 +183,8 @@ class Command(object):
                 with open(path, 'w') as fd:
                     fd.write(inv_ini)
 
+            return builder
+
 
 class Cluster2Command(PluginCommand, CloudPluginCommand):
     topics = {'cluster2': 'cluster'}

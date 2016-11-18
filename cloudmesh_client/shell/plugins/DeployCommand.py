@@ -1,10 +1,11 @@
 
-
-
 from cloudmesh_client.common.dotdict import dotdict
-from cloudmesh_client.shell.command import (CloudPluginCommand, PluginCommand,
-    command)
+from cloudmesh_client.default import Default
+from cloudmesh_client.deployer.ansible import AnsibleDeployer
+from cloudmesh_client.deployer.ansible.role import AnsibleRole
+from cloudmesh_client.shell.command import (CloudPluginCommand, PluginCommand, command)
 from cloudmesh_client.shell.console import Console
+from cloudmesh_client.shell.plugins.ClusterCommand2 import (Command as ClusterCommand)
 
 
 class AnsibleCommand(object):
@@ -14,7 +15,20 @@ class AnsibleCommand(object):
 
 
     def role(self, cluster=None, path=None):
-        Console.debug_msg('NotImplementedError')
+        """Deploy a role to all the nodes in the cluster
+
+        :param str cluster: cluster name (default is the active cluster)
+        :param str path: path to the role (default is current working directory)
+        :param str name: name of the role
+
+        """
+
+        cluster = cluster or Default.active_cluster
+
+        inventory = ClusterCommand().inventory(cluster=cluster, format='ansible').ini()
+        role = AnsibleRole(path)
+        role.run(inventory, user='cc')  # FIXME
+
 
 
 class DeployCommand(PluginCommand, CloudPluginCommand):
@@ -67,3 +81,11 @@ class DeployCommand(PluginCommand, CloudPluginCommand):
                 cluster = arguments.CLUSTER,
                 path = arguments['--path'],
             )
+
+
+if __name__ == '__main__':
+    import sys
+    rolepath = sys.argv[1]
+
+    c = AnsibleCommand()
+    c.role(path=rolepath)
