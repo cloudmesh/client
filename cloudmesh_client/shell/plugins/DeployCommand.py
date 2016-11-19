@@ -3,7 +3,6 @@ import os.path
 
 from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.default import Default
-from cloudmesh_client.deployer.ansible import AnsibleDeployer
 from cloudmesh_client.deployer.ansible.role import AnsibleRole
 from cloudmesh_client.shell.command import (CloudPluginCommand, PluginCommand,
     command)
