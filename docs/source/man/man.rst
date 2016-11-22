@@ -194,6 +194,54 @@ Command - cluster::
                           detailed table
 
 
+cluster2
+----------------------------------------------------------------------
+Command - cluster2::
+
+    ::
+        Usage:
+          cluster2 create [-n NAME] [-c COUNT] [-C CLOUD] [-u USER] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]
+          cluster2 list
+          cluster2 nodes [CLUSTER]
+          cluster2 delete [--all] [--force] [NAME]...
+          cluster2 get [-n NAME] PROPERTY
+          cluster2 inventory [-F NAME] [-o PATH] [NAME]
+
+        Commands:
+
+          create     Create a cluster
+          list       List the available clusters
+          inventory  Obtain an inventory file
+          delete     Delete clusters and associated instances
+          get        Get properties of a cluster/nodes in a cluster
+
+        Arguments:
+
+          NAME                Alphanumeric name
+          COUNT               Integer > 0
+          PATH                Path to entry on the filesystem
+
+        Options:
+
+          -A --no-activate               Don't activate this cluster
+          -I --no-floating-ip            Don't assign floating IPs
+          -n NAME --name=NAME            Name of the cluster
+          -c COUNT --count=COUNT         Number of nodes in the cluster
+          -C NAME --cloud=NAME           Name of the cloud
+          -u USER --user=NAME
+          -i NAME --image=NAME           Name of the image
+          -f NAME --flavor=NAME          Name of the flavor
+          -k NAME --key=NAME             Name of the key
+          -s NAME --secgroup=NAME        NAME of the security group
+          -F NAME --format=NAME          Name of the output format
+          -o PATH --path=PATH            Output to this path
+          --force
+          --all
+
+        Inventory File Format:
+
+          ansible  [default]            Ansible-compatible inventory
+
 color
 ----------------------------------------------------------------------
 Command - color::
@@ -398,6 +446,35 @@ Command - default::
             cloud kilo
 
 
+deploy
+----------------------------------------------------------------------
+Command - deploy::
+
+    ::
+        Usage:
+          deploy ansible [-p PATH...] [-u NAME] [CLUSTER]
+
+        Commands:
+
+          ansible                        Ansible deployment
+
+        Ansible Commands:
+          playbook                       Deploy a pre-prepared playbook
+          role                           Deploy a role to all nodes
+
+        Arguments:
+
+          CLUSTER                        Cluster name to deploy to
+          NAME                           Alphanumeric name
+          COUNT                          Integer > 0
+          PATH                           Path to entry on the filesystem
+
+        Options:
+
+          -p --path=PATH                 Path to the location of the item
+          -u --user=NAME                 Username of the nodes to manage
+
+
 echo
 ----------------------------------------------------------------------
 Command - echo::
@@ -542,6 +619,30 @@ Command - h::
         history list
         history last
         history ID
+
+hadoop
+----------------------------------------------------------------------
+Command - hadoop::
+
+    Usage:
+      hadoop start [-f NAME] [-i NAME] [-u NAME] [COUNT] [ADDON]...
+      hadoop list
+      hadoop switch NAME
+      hadoop delete [-a] [NAME]...
+
+    Arguments:
+
+      COUNT
+      ADDON
+      NAME
+
+    Options:
+
+      -a --all
+      -f --flavor=NAME
+      -i --image=NAME
+      -u --user=NAME
+
 
 help
 ----------------------------------------------------------------------
@@ -845,8 +946,11 @@ Command - key::
 
          Prints list of keys. NAME of the key can be specified
 
+    key add ssh
 
-    key add [--name=keyname] FILENAME
+        adds the default key with the name id_rsa.pub
+
+    key add NAME  --source=FILENAME
 
         adds the key specifid by the filename to the key
         database
@@ -1658,6 +1762,59 @@ Command - ssh::
                     conducts an ssh login to myhost if it is defined in
                     ~/.ssh/config file
 
+stack
+----------------------------------------------------------------------
+Command - stack::
+
+     Usage:
+       stack check
+       stack init [-fU] [--no-activate] [-s STACK] [-n NAME] [-u NAME] [-b NAME] [-o DEFN]... [-p PLAY] <ip>...
+       stack deploy [-f] [-n NAME]
+       stack project [-l] [<name>]
+
+     Commands:
+       check     Sanity check
+       init      Initialize a stack
+       deploy    Deploy a stack
+       project   List and activate projects
+
+     Arguments:
+       STACK  Name of the stack. Options: (bds)
+       NAME   Alphanumeric name
+       DEFN   In the form: play1:k1=v1,k2=v2,...
+       PLAY   In the form: playbook,playbook,...
+
+    Options:
+
+       -v --verbose
+       --no-activate                 Do not activate a project upon creation
+       -s STACK --stack=STACK        The stack name [default: bds]
+       -n NAME --name=NAME           Name of the project (if not specified during creation, generated).
+       -u NAME --user=NAME           Name of login user to cluster [default: $USER]
+       -b NAME --branch=NAME         Name of the stack's branch to clone from [default: master]
+       -o DEFN --overrides=DEFN      Overrides for a playbook, may be specified multiple times
+       -p PLAY --playbooks=PLAY      Playbooks to run
+       -f --force                    Force rerunning a command to continue
+       -U --update                   Update the stack
+       -l --list                     List
+
+     Examples:
+
+      The following example assumes that a cluster (Ubuntu
+      14.04) has been launched already and can be accessed by
+      the 'ubuntu` user at addresses 10.0.0.10, 10.0.0.11, and
+      10.0.0.12.
+
+         # verify the environment
+         cm stack check
+
+         # create a project for the cluster with given username and addresses
+         cm stack init -u ubuntu -p play-hadoop.yml,addons/spark.yml 10.0.0.10 10.0.0.11 10.0.0.12
+
+         # deploy hadoop, spark to the cluster
+         cm stack deploy
+
+
 submit
 ----------------------------------------------------------------------
 Command - submit::
@@ -1949,6 +2106,7 @@ Command - vm::
                  [--cloud=CLOUD]
                  [--key=KEY]
                  [--command=COMMAND]
+                 [--modify-knownhosts]
         vm rename [OLDNAMES] [NEWNAMES] [--force] [--dryrun]
         vm list [NAMES]
                 [--cloud=CLOUDS|--active]
@@ -1976,6 +2134,7 @@ Command - vm::
         OLDNAMES       Old names of the VM while renaming.
 
     Options:
+      -H --modify-knownhosts  Do not modify ~/.ssh/known_hosts file when ssh'ing into a machine
         --username=USERNAME  the username to login into the vm. If not specified it will be guessed
                              from the image name and the cloud
         --ip=IP          give the public ip of the server
