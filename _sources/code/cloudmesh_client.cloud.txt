@@ -172,6 +172,14 @@ cloudmesh_client.cloud.secgroup module
     :undoc-members:
     :show-inheritance:
 
+cloudmesh_client.cloud.stack module
+-----------------------------------
+
+.. automodule:: cloudmesh_client.cloud.stack
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.cloud.sync module
 ----------------------------------
 

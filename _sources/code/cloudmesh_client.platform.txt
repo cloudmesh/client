@@ -1,0 +1,18 @@
+cloudmesh_client.platform package
+=================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    cloudmesh_client.platform.hadoop
+    cloudmesh_client.platform.virtual_cluster
+
+Module contents
+---------------
+
+.. automodule:: cloudmesh_client.platform
+    :members:
+    :undoc-members:
+    :show-inheritance:

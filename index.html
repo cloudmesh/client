@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Cloudmesh Client Toolkit &mdash; cloudmesh_client 4.3.7 documentation</title>
+  <title>Cloudmesh Client Toolkit &mdash; cloudmesh_client 4.4.0 documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="#"/>
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="#"/>
         <link rel="next" title="Prefix" href="prefix.html"/> 
 
   
@@ -59,7 +62,7 @@
             
             
               <div class="version">
-                4.3.7
+                4.4.0
               </div>
             
           
@@ -297,17 +300,20 @@ process of integrating them back into the client.</p>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#clear">clear</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#cloud">cloud</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#cluster">cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#cluster2">cluster2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#color">color</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#comet">comet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#context">context</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#debug">debug</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#default">default</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#deploy">deploy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#echo">echo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#eof">EOF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#exec">exec</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#flavor">flavor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#group">group</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#h">h</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#hadoop">hadoop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#help">help</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#history">history</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#hpc">hpc</a></li>
@@ -342,6 +348,7 @@ process of integrating them back into the client.</p>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#shell-exec">shell_exec</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#sleep">sleep</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#ssh">ssh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#stack">stack</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#submit">submit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#sync">sync</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#test">test</a></li>
@@ -747,6 +754,7 @@ process of integrating them back into the client.</p>
 <li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.register">cloudmesh_client.cloud.register module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.reservation">cloudmesh_client.cloud.reservation module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.secgroup">cloudmesh_client.cloud.secgroup module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.stack">cloudmesh_client.cloud.stack module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.sync">cloudmesh_client.cloud.sync module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.usage">cloudmesh_client.cloud.usage module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.vc">cloudmesh_client.cloud.vc module</a></li>
@@ -799,6 +807,11 @@ process of integrating them back into the client.</p>
 <li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.db.html#module-cloudmesh_client.db">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="code/cloudmesh_client.deployer.html">cloudmesh_client.deployer package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.deployer.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.deployer.html#module-cloudmesh_client.deployer">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="code/cloudmesh_client.etc.html">cloudmesh_client.etc package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.etc.html#module-cloudmesh_client.etc">Module contents</a></li>
 </ul>
@@ -808,6 +821,11 @@ process of integrating them back into the client.</p>
 <li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.extend.html#module-cloudmesh_client.extend.my">cloudmesh_client.extend.my module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.extend.html#module-cloudmesh_client.extend.summary">cloudmesh_client.extend.summary module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.extend.html#module-cloudmesh_client.extend">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="code/cloudmesh_client.platform.html">cloudmesh_client.platform package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.platform.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="code/cloudmesh_client.platform.html#module-cloudmesh_client.platform">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="code/cloudmesh_client.provider.html">cloudmesh_client.provider package</a><ul>
@@ -836,6 +854,7 @@ process of integrating them back into the client.</p>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="code/cloudmesh_client.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code/cloudmesh_client.html#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code/cloudmesh_client.html#module-cloudmesh_client.exc">cloudmesh_client.exc module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code/cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code/cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code/cloudmesh_client.html#module-cloudmesh_client.main">cloudmesh_client.main module</a></li>
@@ -940,7 +959,7 @@ process of integrating them back into the client.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.3.7',
+            VERSION:'4.4.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

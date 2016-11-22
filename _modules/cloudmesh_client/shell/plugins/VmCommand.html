@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins.VmCommand &mdash; cloudmesh_client 4.3.7 documentation</title>
+  <title>cloudmesh_client.shell.plugins.VmCommand &mdash; cloudmesh_client 4.4.0 documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="../../../../index.html"/>
+        <link rel="index" title="Index"
+              href="../../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +62,7 @@
             
             
               <div class="version">
-                4.3.7
+                4.4.0
               </div>
             
           
@@ -285,6 +288,7 @@
 <span class="sd">                         [--cloud=CLOUD]</span>
 <span class="sd">                         [--key=KEY]</span>
 <span class="sd">                         [--command=COMMAND]</span>
+<span class="sd">                         [--modify-knownhosts]</span>
 <span class="sd">                vm rename [OLDNAMES] [NEWNAMES] [--force] [--dryrun]</span>
 <span class="sd">                vm list [NAMES]</span>
 <span class="sd">                        [--cloud=CLOUDS|--active]</span>
@@ -312,6 +316,7 @@
 <span class="sd">                OLDNAMES       Old names of the VM while renaming.</span>
 
 <span class="sd">            Options:</span>
+<span class="sd">              -H --modify-knownhosts  Do not modify ~/.ssh/known_hosts file when ssh&#39;ing into a machine</span>
 <span class="sd">                --username=USERNAME  the username to login into the vm. If not specified it will be guessed</span>
 <span class="sd">                                     from the image name and the cloud</span>
 <span class="sd">                --ip=IP          give the public ip of the server</span>
@@ -1037,6 +1042,7 @@
                 <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">sshcommand</span> <span class="o">+=</span> <span class="s2">&quot; -i </span><span class="si">{:}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
                 <span class="n">sshcommand</span> <span class="o">+=</span> <span class="s2">&quot; -o StrictHostKeyChecking=no&quot;</span>
+                <span class="n">sshcommand</span> <span class="o">+=</span> <span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--modify-knownhosts&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="s1">&#39; -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no&#39;</span>
                 <span class="n">sshcommand</span> <span class="o">+=</span> <span class="s2">&quot; </span><span class="si">{:}</span><span class="s2">@</span><span class="si">{:}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">ip</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">commands</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">sshcommand</span> <span class="o">+=</span> <span class="s2">&quot; </span><span class="se">\&quot;</span><span class="si">{:}</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">commands</span><span class="p">)</span>
@@ -1184,7 +1190,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'4.3.7',
+            VERSION:'4.4.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation &mdash; cloudmesh_client 4.3.7 documentation</title>
+  <title>Installation &mdash; cloudmesh_client 4.4.0 documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="index.html"/>
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="index.html"/>
         <link rel="up" title="Setup" href="setup.html"/>
         <link rel="next" title="Configuration" href="configuration.html"/>
         <link rel="prev" title="Preparation" href="system.html"/> 
@@ -61,7 +64,7 @@
             
             
               <div class="version">
-                4.3.7
+                4.4.0
               </div>
             
           
@@ -134,6 +137,7 @@
 <p class="caption"><span class="caption-text">Future and Old</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stack.html">Stack</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul>
@@ -194,8 +198,9 @@
 <span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <p>We assume that you have prepared your system (see Section
 <span class="xref std std-ref">_my-reference-label</span>) on which you like to install the cloudmesh
-client. We recommend that you use python 2.7.10, pip 7.1.2 and use
-virtualenv. Furthermore we recommend that on Linux systems you have
+client. We recommend that you use at least python 2.7.10, pip 7.1.2 and use
+virtualenv.</p>
+<p>Furthermore we recommend that on Linux systems you have
 readline installed as it is a convenient tool for command line
 manipulation. In the next sections we will walk you through a setup
 that has been proven to work for developers and users and is very easy
@@ -232,9 +237,9 @@ base directory. Please use the following commands</p>
 <span class="prompt1">git clone https://github.com/cloudmesh/client.git</span>
 <span class="prompt1"><span class="nb">cd</span> client</span>
 <span class="prompt1"><span class="c1"># make sure you have a virtualenv configured and activated</span></span>
-<span class="prompt1"><span class="c1"># chose your branch and do either</span></span>
+<span class="prompt1"><span class="c1"># chose your branch for example: git checkout dev</span></span>
 <span class="prompt1">pip install -r requirements.txt</span>
-<span class="prompt1">pip install .</span>
+<span class="prompt1">pip install . -U</span>
 </pre><div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p>We do not at this time support the instalation with:</p>
@@ -243,15 +248,18 @@ base directory. Please use the following commands</p>
 </div>
 <p>Instead we require you to use</p>
 <blockquote class="last">
-<div>pip install -U .</div></blockquote>
+<div>pip install . -U</div></blockquote>
 </div>
 <p>We have two branches in the code. The <cite>master</cite> branch and the <cite>dev</cite> branch.</p>
 <p>The master branch provides a snapshot of the code that should work and has
 passed the unit tests. If you have issues, please send us mail.</p>
-<p>However, in some circumstances you may which to use the newest version of
-cloudmesh which you can get from the <cite>dev</cite> branch. To get the newest version issue the command</p>
+<p>However, in some circumstances you may wish to use the newest version
+of cloudmesh which you can get from the <cite>dev</cite> branch. To get the
+newest version issue the command</p>
 <pre class="highlight"><span class="prompt1">git checkout dev</span>
-</pre><p>before you call the command <cite>pip install -U .</cite>. For more information about git see the
+</pre><p>before you call the command</p>
+<pre class="highlight"><span class="prompt1">pip install . -U</span>
+</pre><p>For more information about git see the
 github manual on the github.com web page.</p>
 <div class="section" id="updating-an-existing-source-distribution">
 <h3>Updating an existing source distribution<a class="headerlink" href="#updating-an-existing-source-distribution" title="Permalink to this headline">¶</a></h3>
@@ -261,7 +269,7 @@ code from source. Please do not forget to update them accordingly</p>
 <span class="prompt1"><span class="nb">cd</span> <span class="nv">$CLOUDMESH_HOME</span>/client</span>
 <span class="prompt1">git pull</span>
 <span class="prompt1">pip install -r requirements.txt</span>
-<span class="prompt1">pip install .</span>
+<span class="prompt1">pip install . -U</span>
 </pre></div>
 </div>
 </div>
@@ -306,7 +314,7 @@ code from source. Please do not forget to update them accordingly</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.3.7',
+            VERSION:'4.4.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

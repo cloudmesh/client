@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.db.openstack package &mdash; cloudmesh_client 4.3.7 documentation</title>
+  <title>cloudmesh_client.db.openstack package &mdash; cloudmesh_client 4.4.0 documentation</title>
   
 
   
@@ -30,9 +30,12 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client.db package" href="cloudmesh_client.db.html"/>
-        <link rel="next" title="cloudmesh_client.etc package" href="cloudmesh_client.etc.html"/>
+        <link rel="next" title="cloudmesh_client.deployer package" href="cloudmesh_client.deployer.html"/>
         <link rel="prev" title="cloudmesh_client.db.libcloud package" href="cloudmesh_client.db.libcloud.html"/> 
 
   
@@ -61,7 +64,7 @@
             
             
               <div class="version">
-                4.3.7
+                4.4.0
               </div>
             
           
@@ -137,8 +140,10 @@
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.db.html#module-cloudmesh_client.db">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.deployer.html">cloudmesh_client.deployer package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.etc.html">cloudmesh_client.etc package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.extend.html">cloudmesh_client.extend package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.platform.html">cloudmesh_client.platform package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.provider.html">cloudmesh_client.provider package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.shell.html">cloudmesh_client.shell package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.system.html">cloudmesh_client.system package</a></li>
@@ -146,6 +151,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.exc">cloudmesh_client.exc module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.main">cloudmesh_client.main module</a></li>
@@ -542,7 +548,7 @@ self[key] = value</div></blockquote>
 <dl class="class">
 <dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK">
 <em class="property">class </em><code class="descclassname">cloudmesh_client.db.openstack.model.</code><code class="descname">VM_OPENSTACK</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/openstack/model.html#VM_OPENSTACK"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.db.html#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin" title="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.db.html#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin" title="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin</span></code></a>, <a class="reference internal" href="cloudmesh_client.db.html#cloudmesh_client.db.CloudmeshDatabase.CloudmeshVMMixin" title="cloudmesh_client.db.CloudmeshDatabase.CloudmeshVMMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.CloudmeshDatabase.CloudmeshVMMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.accessIPv4">
 <code class="descname">accessIPv4</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.accessIPv4" title="Permalink to this definition">¶</a></dt>
@@ -561,6 +567,11 @@ self[key] = value</div></blockquote>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.category">
 <code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.openstack.model.VM_OPENSTACK.cluster">
+<code class="descname">cluster</code><a class="headerlink" href="#cloudmesh_client.db.openstack.model.VM_OPENSTACK.cluster" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -758,7 +769,7 @@ self[key] = value</div></blockquote>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cloudmesh_client.etc.html" class="btn btn-neutral float-right" title="cloudmesh_client.etc package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cloudmesh_client.deployer.html" class="btn btn-neutral float-right" title="cloudmesh_client.deployer package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="cloudmesh_client.db.libcloud.html" class="btn btn-neutral" title="cloudmesh_client.db.libcloud package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -791,7 +802,7 @@ self[key] = value</div></blockquote>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.3.7',
+            VERSION:'4.4.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

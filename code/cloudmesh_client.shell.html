@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell package &mdash; cloudmesh_client 4.3.7 documentation</title>
+  <title>cloudmesh_client.shell package &mdash; cloudmesh_client 4.4.0 documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client package" href="cloudmesh_client.html"/>
         <link rel="next" title="cloudmesh_client.shell.plugins package" href="cloudmesh_client.shell.plugins.html"/>
         <link rel="prev" title="cloudmesh_client.provider.openstack package" href="cloudmesh_client.provider.openstack.html"/> 
@@ -61,7 +64,7 @@
             
             
               <div class="version">
-                4.3.7
+                4.4.0
               </div>
             
           
@@ -131,8 +134,10 @@
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.comet.html">cloudmesh_client.comet package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.db.html">cloudmesh_client.db package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.deployer.html">cloudmesh_client.deployer package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.etc.html">cloudmesh_client.etc package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.extend.html">cloudmesh_client.extend package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.platform.html">cloudmesh_client.platform package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.provider.html">cloudmesh_client.provider package</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">cloudmesh_client.shell package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
@@ -149,6 +154,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.exc">cloudmesh_client.exc module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.main">cloudmesh_client.main module</a></li>
@@ -224,12 +230,15 @@
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.CheckCommand">cloudmesh_client.shell.plugins.CheckCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.CloudCommand">cloudmesh_client.shell.plugins.CloudCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ClusterCommand">cloudmesh_client.shell.plugins.ClusterCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ClusterCommand2">cloudmesh_client.shell.plugins.ClusterCommand2 module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ColorCommand">cloudmesh_client.shell.plugins.ColorCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.CometCommand">cloudmesh_client.shell.plugins.CometCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.DebugCommand">cloudmesh_client.shell.plugins.DebugCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.DefaultCommand">cloudmesh_client.shell.plugins.DefaultCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.DeployCommand">cloudmesh_client.shell.plugins.DeployCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.FlavorCommand">cloudmesh_client.shell.plugins.FlavorCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.GroupCommand">cloudmesh_client.shell.plugins.GroupCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.HadoopCommand">cloudmesh_client.shell.plugins.HadoopCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.HpcCommand">cloudmesh_client.shell.plugins.HpcCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ImageCommand">cloudmesh_client.shell.plugins.ImageCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.InfoCommand">cloudmesh_client.shell.plugins.InfoCommand module</a></li>
@@ -256,6 +265,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.SelectCommand">cloudmesh_client.shell.plugins.SelectCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ServerCommand">cloudmesh_client.shell.plugins.ServerCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.SetupCommand">cloudmesh_client.shell.plugins.SetupCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.StackCommand">cloudmesh_client.shell.plugins.StackCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.SubmitCommands">cloudmesh_client.shell.plugins.SubmitCommands module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.SyncCommand">cloudmesh_client.shell.plugins.SyncCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.TerminalCommands">cloudmesh_client.shell.plugins.TerminalCommands module</a></li>
@@ -737,6 +747,11 @@ warnings, errors, ok and regular messages.</p>
 <code class="descname">debug</code><em class="property"> = True</em><a class="headerlink" href="#cloudmesh_client.shell.console.Console.debug" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="staticmethod">
+<dt id="cloudmesh_client.shell.console.Console.debug_msg">
+<em class="property">static </em><code class="descname">debug_msg</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/console.html#Console.debug_msg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.console.Console.debug_msg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="classmethod">
 <dt id="cloudmesh_client.shell.console.Console.error">
 <em class="property">classmethod </em><code class="descname">error</code><span class="sig-paren">(</span><em>message</em>, <em>prefix=True</em>, <em>traceflag=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/console.html#Console.error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.console.Console.error" title="Permalink to this definition">¶</a></dt>
@@ -845,7 +860,7 @@ warnings, errors, ok and regular messages.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.3.7',
+            VERSION:'4.4.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

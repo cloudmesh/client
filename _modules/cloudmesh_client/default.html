@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.default &mdash; cloudmesh_client 4.3.7 documentation</title>
+  <title>cloudmesh_client.default &mdash; cloudmesh_client 4.4.0 documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="../../index.html"/>
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../cloudmesh_client.html"/> 
 
   
@@ -59,7 +62,7 @@
             
             
               <div class="version">
-                4.3.7
+                4.4.0
               </div>
             
           
@@ -179,15 +182,11 @@
   <h1>Source code for cloudmesh_client.default</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
 
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common</span> <span class="k">import</span> <span class="n">Printer</span>
-<span class="kn">import</span> <span class="nn">cloudmesh_client</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="k">import</span> <span class="n">ConfigDict</span>
-
-<span class="c1"># from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client</span> <span class="k">import</span> <span class="n">CloudmeshDatabase</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common</span> <span class="k">import</span> <span class="n">Printer</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="k">import</span> <span class="n">ConfigDict</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.exc</span> <span class="k">import</span> <span class="n">NoActiveClusterException</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="k">import</span> <span class="n">Console</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.dotdict</span> <span class="k">import</span> <span class="n">dotdict</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="k">import</span> <span class="n">Printer</span>
 
 
 <span class="c1"># noinspection PyPep8Naming</span>
@@ -197,6 +196,14 @@
 
     <span class="k">def</span> <span class="nf">__get__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">owner</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">(</span><span class="n">owner</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Names"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Names">[docs]</a><span class="k">class</span> <span class="nc">Names</span><span class="p">:</span>
+
+    <span class="n">VM_COUNTER</span> <span class="o">=</span> <span class="s1">&#39;vm_counter&#39;</span>
+
+    <span class="n">CLUSTER_COUNTER</span> <span class="o">=</span> <span class="s1">&#39;cluster&#39;</span>
+    <span class="n">ACTIVE_CLUSTER</span> <span class="o">=</span> <span class="s1">&#39;active-cluster&#39;</span></div>
 
 
 <span class="c1"># noinspection PyBroadException</span>
@@ -378,7 +385,24 @@
 
     <span class="nd">@readable_classproperty</span>
     <span class="k">def</span> <span class="nf">cluster</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;cluster&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">Names</span><span class="o">.</span><span class="n">ACTIVE_CLUSTER</span><span class="p">)</span>
+
+    <span class="nd">@readable_classproperty</span>
+    <span class="k">def</span> <span class="nf">cluster_counter</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">Names</span><span class="o">.</span><span class="n">CLUSTER_COUNTER</span><span class="p">)</span>
+
+    <span class="nd">@readable_classproperty</span>
+    <span class="k">def</span> <span class="nf">active_cluster</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cluster</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">NoActiveClusterException</span><span class="p">()</span>
+
+        <span class="c1"># dynamically lookup the class for the cluster.</span>
+        <span class="c1"># this is to avoid circular dependencies.</span>
+        <span class="n">Cluster</span> <span class="o">=</span> <span class="p">[</span><span class="n">clazz</span> <span class="k">for</span> <span class="n">clazz</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">tables</span>
+                   <span class="k">if</span> <span class="n">clazz</span><span class="o">.</span><span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;CLUSTER&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">Cluster</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">one</span><span class="p">()</span>
 
     <span class="nd">@readable_classproperty</span>
     <span class="k">def</span> <span class="nf">user</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
@@ -414,6 +438,29 @@
     <span class="c1"># ###################################</span>
     <span class="c1"># COUNTER</span>
     <span class="c1"># ###################################</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.generate_name"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.generate_name">[docs]</a>    <span class="k">def</span> <span class="nf">generate_name</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">counter_name</span><span class="p">,</span> <span class="n">display_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">prefix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Generate a name based on a counter</span>
+
+<span class="sd">        :param str counter_name: name of the counter in the database</span>
+<span class="sd">        :param str display_name: pretty name to show user (defaults to ``counter_name``)</span>
+<span class="sd">        :param str prefix: prefix the generated name with this</span>
+<span class="sd">        :param int fill: number of zeros to fill with</span>
+<span class="sd">        :returns: a generated name</span>
+<span class="sd">        :rtype: :class:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">prefix</span> <span class="o">=</span> <span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">prefix</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="n">counter</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_counter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">counter_name</span><span class="p">)</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="n">fill</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="p">(</span><span class="n">display_name</span> <span class="ow">or</span> <span class="n">counter_name</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="n">index</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">incr_counter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">counter_name</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">name</span></div>
+
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.incr_counter"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.incr_counter">[docs]</a>    <span class="k">def</span> <span class="nf">incr_counter</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;index&quot;</span><span class="p">):</span>
         <span class="n">count</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_counter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
@@ -555,13 +602,13 @@
         <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.set_cluster"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_cluster">[docs]</a>    <span class="k">def</span> <span class="nf">set_cluster</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">set_cluster</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        sets the default cluster</span>
 <span class="sd">        :param value: the cluster name as defined in the cloudmesh yaml file.</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;cluster&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;cluster&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.set_debug"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_debug">[docs]</a>    <span class="k">def</span> <span class="nf">set_debug</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
@@ -620,6 +667,14 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;timer&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.set_cluster"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_cluster">[docs]</a>    <span class="k">def</span> <span class="nf">set_cluster</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the cluster</span>
+
+<span class="sd">        :param str value: cluster name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;active-cluster&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.load"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
@@ -710,7 +765,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'4.3.7',
+            VERSION:'4.4.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

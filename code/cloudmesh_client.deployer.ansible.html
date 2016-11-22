@@ -1,0 +1,455 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.deployer.ansible package &mdash; cloudmesh_client 4.4.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../index.html"/>
+        <link rel="up" title="cloudmesh_client.deployer package" href="cloudmesh_client.deployer.html"/>
+        <link rel="next" title="cloudmesh_client.etc package" href="cloudmesh_client.etc.html"/>
+        <link rel="prev" title="cloudmesh_client.deployer package" href="cloudmesh_client.deployer.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comet.html">Comet Virtual Cluster</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/comet_cloudmesh.html">Comet Cloudmesh Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/comet_bigdata.html">Comet Big Data Tutorial</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stack.html">Stack</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="cloudmesh_client.html">cloudmesh_client package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cloudmesh_client.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.cloud.html">cloudmesh_client.cloud package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.comet.html">cloudmesh_client.comet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.db.html">cloudmesh_client.db package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="cloudmesh_client.deployer.html">cloudmesh_client.deployer package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="cloudmesh_client.deployer.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.deployer.html#module-cloudmesh_client.deployer">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.etc.html">cloudmesh_client.etc package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.extend.html">cloudmesh_client.extend package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.platform.html">cloudmesh_client.platform package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.provider.html">cloudmesh_client.provider package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.shell.html">cloudmesh_client.shell package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.system.html">cloudmesh_client.system package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.exc">cloudmesh_client.exc module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.main">cloudmesh_client.main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.setup">cloudmesh_client.setup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.shell_commad">cloudmesh_client.shell_commad module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.var">cloudmesh_client.var module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.version">cloudmesh_client.version module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html#python-guidelines">Python Guidelines</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="cloudmesh_client.html">cloudmesh_client package</a> &raquo;</li>
+      
+          <li><a href="cloudmesh_client.deployer.html">cloudmesh_client.deployer package</a> &raquo;</li>
+      
+    <li>cloudmesh_client.deployer.ansible package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/code/cloudmesh_client.deployer.ansible.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cloudmesh-client-deployer-ansible-package">
+<h1>cloudmesh_client.deployer.ansible package<a class="headerlink" href="#cloudmesh-client-deployer-ansible-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cloudmesh_client.deployer.ansible.inventory">
+<span id="cloudmesh-client-deployer-ansible-inventory-module"></span><h2>cloudmesh_client.deployer.ansible.inventory module<a class="headerlink" href="#module-cloudmesh_client.deployer.ansible.inventory" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.deployer.ansible.inventory.InventoryBuilder">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.deployer.ansible.inventory.</code><code class="descname">InventoryBuilder</code><a class="reference internal" href="../_modules/cloudmesh_client/deployer/ansible/inventory.html#InventoryBuilder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.deployer.ansible.inventory.InventoryBuilder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Build an inventory by dynamically adding :class:<a href="#id1"><span class="problematic" id="id2">`</span></a>Host`s to :class:<a href="#id3"><span class="problematic" id="id4">`</span></a>Group`s</p>
+<dl class="method">
+<dt id="cloudmesh_client.deployer.ansible.inventory.InventoryBuilder.add_node">
+<code class="descname">add_node</code><span class="sig-paren">(</span><em>node</em>, <em>*groupnames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/deployer/ansible/inventory.html#InventoryBuilder.add_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.deployer.ansible.inventory.InventoryBuilder.add_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a host to the inventory</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>groupname</strong> (<em>str</em>) &#8211; </li>
+<li><strong>host</strong> (<a class="reference internal" href="#cloudmesh_client.deployer.ansible.inventory.Node" title="cloudmesh_client.deployer.ansible.inventory.Node"><em>Node</em></a>) &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.deployer.ansible.inventory.InventoryBuilder.ini">
+<code class="descname">ini</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/deployer/ansible/inventory.html#InventoryBuilder.ini"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.deployer.ansible.inventory.InventoryBuilder.ini" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the ansible inventory file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the inventory as ini format</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.deployer.ansible.inventory.Node">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.deployer.ansible.inventory.</code><code class="descname">Node</code><span class="sig-paren">(</span><em>name</em>, <em>address=None</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/deployer/ansible/inventory.html#Node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.deployer.ansible.inventory.Node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cloudmesh_client.deployer.ansible.inventory.Node.add_var">
+<code class="descname">add_var</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/deployer/ansible/inventory.html#Node.add_var"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.deployer.ansible.inventory.Node.add_var" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a variable and value to a node</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>key</strong> (<em>str</em>) &#8211; </li>
+<li><strong>value</strong> (<em>str</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.deployer.ansible.inventory.Node.address">
+<code class="descname">address</code><a class="headerlink" href="#cloudmesh_client.deployer.ansible.inventory.Node.address" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.deployer.ansible.inventory.Node.name">
+<code class="descname">name</code><a class="headerlink" href="#cloudmesh_client.deployer.ansible.inventory.Node.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.deployer.ansible.inventory.Node.user">
+<code class="descname">user</code><a class="headerlink" href="#cloudmesh_client.deployer.ansible.inventory.Node.user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.deployer.ansible.inventory.Node.variables">
+<code class="descname">variables</code><a class="headerlink" href="#cloudmesh_client.deployer.ansible.inventory.Node.variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the dictionary of variables</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cloudmesh_client.deployer.ansible.playbook">
+<span id="cloudmesh-client-deployer-ansible-playbook-module"></span><h2>cloudmesh_client.deployer.ansible.playbook module<a class="headerlink" href="#module-cloudmesh_client.deployer.ansible.playbook" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.deployer.ansible.playbook.</code><code class="descname">AnsiblePlaybookRunner</code><span class="sig-paren">(</span><em>inventory</em>, <em>path</em>, <em>user=None</em>, <em>become=False</em>, <em>become_user=None</em>, <em>forks=None</em>, <em>modifyKnownHosts=True</em>, <em>extra_vars=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/deployer/ansible/playbook.html#AnsiblePlaybookRunner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner.set_cwd">
+<code class="descname">set_cwd</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/deployer/ansible/playbook.html#AnsiblePlaybookRunner.set_cwd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner.set_cwd" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner.set_env">
+<code class="descname">set_env</code><span class="sig-paren">(</span><em>environment</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/deployer/ansible/playbook.html#AnsiblePlaybookRunner.set_env"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner.set_env" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner.set_secure">
+<code class="descname">set_secure</code><span class="sig-paren">(</span><em>secure_p</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/deployer/ansible/playbook.html#AnsiblePlaybookRunner.set_secure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner.set_secure" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner.set_stderr">
+<code class="descname">set_stderr</code><span class="sig-paren">(</span><em>stream</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/deployer/ansible/playbook.html#AnsiblePlaybookRunner.set_stderr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner.set_stderr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner.set_stdout">
+<code class="descname">set_stdout</code><span class="sig-paren">(</span><em>stream</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/deployer/ansible/playbook.html#AnsiblePlaybookRunner.set_stdout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner.set_stdout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cloudmesh_client.deployer.ansible.role">
+<span id="cloudmesh-client-deployer-ansible-role-module"></span><h2>cloudmesh_client.deployer.ansible.role module<a class="headerlink" href="#module-cloudmesh_client.deployer.ansible.role" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.deployer.ansible.role.AnsibleRole">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.deployer.ansible.role.</code><code class="descname">AnsibleRole</code><span class="sig-paren">(</span><em>path</em>, <em>become=True</em>, <em>variables=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/deployer/ansible/role.html#AnsibleRole"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.deployer.ansible.role.AnsibleRole" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cloudmesh_client.deployer.ansible.role.AnsibleRole.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>inventory</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/deployer/ansible/role.html#AnsibleRole.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.deployer.ansible.role.AnsibleRole.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cloudmesh_client.deployer.ansible">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cloudmesh_client.deployer.ansible" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.deployer.ansible.AnsibleDeployer">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.deployer.ansible.</code><code class="descname">AnsibleDeployer</code><span class="sig-paren">(</span><em>roles=None</em>, <em>inventory=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/deployer/ansible.html#AnsibleDeployer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.deployer.ansible.AnsibleDeployer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cloudmesh_client.deployer.ansible.AnsibleDeployer.generate_playbook">
+<code class="descname">generate_playbook</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/deployer/ansible.html#AnsibleDeployer.generate_playbook"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.deployer.ansible.AnsibleDeployer.generate_playbook" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.deployer.ansible.AnsibleDeployer.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/deployer/ansible.html#AnsibleDeployer.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.deployer.ansible.AnsibleDeployer.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cloudmesh_client.etc.html" class="btn btn-neutral float-right" title="cloudmesh_client.etc package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cloudmesh_client.deployer.html" class="btn btn-neutral" title="cloudmesh_client.deployer package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

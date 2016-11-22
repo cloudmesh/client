@@ -1,0 +1,504 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.platform.virtual_cluster package &mdash; cloudmesh_client 4.4.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../index.html"/>
+        <link rel="up" title="cloudmesh_client.platform package" href="cloudmesh_client.platform.html"/>
+        <link rel="next" title="cloudmesh_client.provider package" href="cloudmesh_client.provider.html"/>
+        <link rel="prev" title="cloudmesh_client.platform package" href="cloudmesh_client.platform.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comet.html">Comet Virtual Cluster</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/comet_cloudmesh.html">Comet Cloudmesh Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/comet_bigdata.html">Comet Big Data Tutorial</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stack.html">Stack</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="cloudmesh_client.html">cloudmesh_client package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cloudmesh_client.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.cloud.html">cloudmesh_client.cloud package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.comet.html">cloudmesh_client.comet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.db.html">cloudmesh_client.db package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.deployer.html">cloudmesh_client.deployer package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.etc.html">cloudmesh_client.etc package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.extend.html">cloudmesh_client.extend package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="cloudmesh_client.platform.html">cloudmesh_client.platform package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="cloudmesh_client.platform.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.platform.html#module-cloudmesh_client.platform">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.provider.html">cloudmesh_client.provider package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.shell.html">cloudmesh_client.shell package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.system.html">cloudmesh_client.system package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.exc">cloudmesh_client.exc module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.main">cloudmesh_client.main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.setup">cloudmesh_client.setup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.shell_commad">cloudmesh_client.shell_commad module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.var">cloudmesh_client.var module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.version">cloudmesh_client.version module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html#python-guidelines">Python Guidelines</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="cloudmesh_client.html">cloudmesh_client package</a> &raquo;</li>
+      
+          <li><a href="cloudmesh_client.platform.html">cloudmesh_client.platform package</a> &raquo;</li>
+      
+    <li>cloudmesh_client.platform.virtual_cluster package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/code/cloudmesh_client.platform.virtual_cluster.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cloudmesh-client-platform-virtual-cluster-package">
+<h1>cloudmesh_client.platform.virtual_cluster package<a class="headerlink" href="#cloudmesh-client-platform-virtual-cluster-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cloudmesh_client.platform.virtual_cluster.cluster">
+<span id="cloudmesh-client-platform-virtual-cluster-cluster-module"></span><h2>cloudmesh_client.platform.virtual_cluster.cluster module<a class="headerlink" href="#module-cloudmesh_client.platform.virtual_cluster.cluster" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.platform.virtual_cluster.cluster.</code><code class="descname">Cluster</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/platform/virtual_cluster/cluster.html#Cluster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.db.general.html#cloudmesh_client.db.general.model.CLUSTER" title="cloudmesh_client.db.general.model.CLUSTER"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.general.model.CLUSTER</span></code></a></p>
+<dl class="method">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>sleeptime_s=5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/platform/virtual_cluster/cluster.html#Cluster.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Boots a new instance and adds it to this cluster</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.add_key">
+<code class="descname">add_key</code><span class="sig-paren">(</span><em>public_key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/platform/virtual_cluster/cluster.html#Cluster.add_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.add_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds an ssh public key to the cluster</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.assignFloatingIP">
+<code class="descname">assignFloatingIP</code><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.assignFloatingIP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.category">
+<code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.cloud">
+<code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.cloud" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.cm_id">
+<code class="descname">cm_id</code><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.cm_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.count">
+<code class="descname">count</code><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.create">
+<code class="descname">create</code><span class="sig-paren">(</span><em>sleeptime_s=5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/platform/virtual_cluster/cluster.html#Cluster.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Boot all nodes in this cluster</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sleeptime_s</strong> (<em>float</em>) &#8211; sleep this number of seconds between
+polling VMs for ACTIVE status</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.created_at">
+<code class="descname">created_at</code><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.created_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>force=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/platform/virtual_cluster/cluster.html#Cluster.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete this cluster and all component nodes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.delete_key">
+<code class="descname">delete_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/platform/virtual_cluster/cluster.html#Cluster.delete_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.delete_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.disable_cross_ssh_login">
+<code class="descname">disable_cross_ssh_login</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/platform/virtual_cluster/cluster.html#Cluster.disable_cross_ssh_login"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.disable_cross_ssh_login" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.enable_cross_ssh_login">
+<code class="descname">enable_cross_ssh_login</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/platform/virtual_cluster/cluster.html#Cluster.enable_cross_ssh_login"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.enable_cross_ssh_login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enables each node to log into all other nodes of the cluster</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.flavor">
+<code class="descname">flavor</code><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.flavor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.image">
+<code class="descname">image</code><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.key">
+<code class="descname">key</code><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.kind">
+<code class="descname">kind</code><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.kind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.label">
+<code class="descname">label</code><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.list">
+<code class="descname">list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/platform/virtual_cluster/cluster.html#Cluster.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the nodes in the cluster.</p>
+<p>The type of the instance is determined by the provider.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the nodes of the cluster</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.list" title="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.list"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a> of instances</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.modify">
+<code class="descname">modify</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/platform/virtual_cluster/cluster.html#Cluster.modify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.modify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modifies the cluster</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.name">
+<code class="descname">name</code><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.project">
+<code class="descname">project</code><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.project" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.provider">
+<code class="descname">provider</code><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.provider" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.remove">
+<code class="descname">remove</code><span class="sig-paren">(</span><em>cm_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/platform/virtual_cluster/cluster.html#Cluster.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a node to the cluster, but otherwise leaves it intact.</p>
+<p>See <a class="reference internal" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.delete" title="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.delete"><code class="xref py py-meth docutils literal"><span class="pre">delete()</span></code></a> to delete this cluster</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cm_id</strong> (<em>int</em>) &#8211; the node id of the instance to remove</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.remove_key">
+<code class="descname">remove_key</code><span class="sig-paren">(</span><em>public_key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/platform/virtual_cluster/cluster.html#Cluster.remove_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.remove_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes an ssh public key from the cluster</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.resume">
+<code class="descname">resume</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/platform/virtual_cluster/cluster.html#Cluster.resume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.resume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resumes the cluster</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.secgroupname">
+<code class="descname">secgroupname</code><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.secgroupname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.suspend">
+<code class="descname">suspend</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/platform/virtual_cluster/cluster.html#Cluster.suspend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.suspend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Suspends the cluster</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.terminate">
+<code class="descname">terminate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/platform/virtual_cluster/cluster.html#Cluster.terminate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.terminate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Terminates the cluster</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.type">
+<code class="descname">type</code><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.updated_at">
+<code class="descname">updated_at</code><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.updated_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.user">
+<code class="descname">user</code><a class="headerlink" href="#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cloudmesh_client.platform.virtual_cluster">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cloudmesh_client.platform.virtual_cluster" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cloudmesh_client.provider.html" class="btn btn-neutral float-right" title="cloudmesh_client.provider package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cloudmesh_client.platform.html" class="btn btn-neutral" title="cloudmesh_client.platform package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

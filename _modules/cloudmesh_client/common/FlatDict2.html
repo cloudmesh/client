@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.common.FlatDict2 &mdash; cloudmesh_client 4.3.7 documentation</title>
+  <title>cloudmesh_client.common.FlatDict2 &mdash; cloudmesh_client 4.4.0 documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="../../../index.html"/>
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +62,7 @@
             
             
               <div class="version">
-                4.3.7
+                4.4.0
               </div>
             
           
@@ -178,11 +181,14 @@
             
   <h1>Source code for cloudmesh_client.common.FlatDict2</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">cloudmesh_client.common.FlatDict</span> <span class="k">import</span> <span class="n">FlatDict</span>
+<span class="kn">import</span> <span class="nn">six</span>
 
 
 <div class="viewcode-block" id="FlatDict2"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.FlatDict2.FlatDict2">[docs]</a><span class="k">class</span> <span class="nc">FlatDict2</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-
-    <span class="n">primitive</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">unicode</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">six</span><span class="o">.</span><span class="n">PY2</span><span class="p">:</span>
+        <span class="n">primitive</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">unicode</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">six</span><span class="o">.</span><span class="n">PY3</span><span class="p">:</span>
+        <span class="n">primitive</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="FlatDict2.is_primitive"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.FlatDict2.FlatDict2.is_primitive">[docs]</a>    <span class="k">def</span> <span class="nf">is_primitive</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">thing</span><span class="p">):</span>
@@ -262,7 +268,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'4.3.7',
+            VERSION:'4.4.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

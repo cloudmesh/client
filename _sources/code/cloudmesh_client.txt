@@ -10,8 +10,10 @@ Subpackages
     cloudmesh_client.comet
     cloudmesh_client.common
     cloudmesh_client.db
+    cloudmesh_client.deployer
     cloudmesh_client.etc
     cloudmesh_client.extend
+    cloudmesh_client.platform
     cloudmesh_client.provider
     cloudmesh_client.shell
     cloudmesh_client.system
@@ -23,6 +25,14 @@ cloudmesh_client.default module
 -------------------------------
 
 .. automodule:: cloudmesh_client.default
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.exc module
+---------------------------
+
+.. automodule:: cloudmesh_client.exc
     :members:
     :undoc-members:
     :show-inheritance:

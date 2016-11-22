@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.db.openstack.model &mdash; cloudmesh_client 4.3.7 documentation</title>
+  <title>cloudmesh_client.db.openstack.model &mdash; cloudmesh_client 4.4.0 documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="../../../../index.html"/>
+        <link rel="index" title="Index"
+              href="../../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +62,7 @@
             
             
               <div class="version">
-                4.3.7
+                4.4.0
               </div>
             
           
@@ -177,7 +180,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.db.openstack.model</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">..CloudmeshDatabase</span> <span class="k">import</span> <span class="n">CloudmeshDatabase</span><span class="p">,</span> <span class="n">CloudmeshMixin</span>
+<span></span><span class="kn">from</span> <span class="nn">..CloudmeshDatabase</span> <span class="k">import</span> <span class="n">CloudmeshDatabase</span><span class="p">,</span> <span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">CloudmeshVMMixin</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">Date</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">String</span>
 
 
@@ -304,7 +307,7 @@
 
 
 <span class="c1"># noinspection PyPep8Naming</span>
-<div class="viewcode-block" id="VM_OPENSTACK"><a class="viewcode-back" href="../../../../code/cloudmesh_client.db.openstack.html#cloudmesh_client.db.openstack.model.VM_OPENSTACK">[docs]</a><span class="k">class</span> <span class="nc">VM_OPENSTACK</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">CloudmeshDatabase</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="VM_OPENSTACK"><a class="viewcode-back" href="../../../../code/cloudmesh_client.db.openstack.html#cloudmesh_client.db.openstack.model.VM_OPENSTACK">[docs]</a><span class="k">class</span> <span class="nc">VM_OPENSTACK</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">CloudmeshVMMixin</span><span class="p">,</span> <span class="n">CloudmeshDatabase</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
     <span class="n">__tablename__</span> <span class="o">=</span> <span class="s2">&quot;vm_openstack&quot;</span>
     <span class="n">__kind__</span> <span class="o">=</span> <span class="s1">&#39;vm&#39;</span>
     <span class="n">__provider__</span> <span class="o">=</span> <span class="s2">&quot;openstack&quot;</span>
@@ -408,7 +411,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'4.3.7',
+            VERSION:'4.4.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.db package &mdash; cloudmesh_client 4.3.7 documentation</title>
+  <title>cloudmesh_client.db package &mdash; cloudmesh_client 4.4.0 documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client package" href="cloudmesh_client.html"/>
         <link rel="next" title="cloudmesh_client.db.azure package" href="cloudmesh_client.db.azure.html"/>
         <link rel="prev" title="cloudmesh_client.common package" href="cloudmesh_client.common.html"/> 
@@ -61,7 +64,7 @@
             
             
               <div class="version">
-                4.3.7
+                4.4.0
               </div>
             
           
@@ -137,8 +140,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.db">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.deployer.html">cloudmesh_client.deployer package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.etc.html">cloudmesh_client.etc package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.extend.html">cloudmesh_client.extend package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.platform.html">cloudmesh_client.platform package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.provider.html">cloudmesh_client.provider package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.shell.html">cloudmesh_client.shell package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.system.html">cloudmesh_client.system package</a></li>
@@ -146,6 +151,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.exc">cloudmesh_client.exc module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.main">cloudmesh_client.main module</a></li>
@@ -391,6 +397,20 @@ from the cloudmesh database
 </table>
 </dd></dl>
 
+<dl class="classmethod">
+<dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.delete_">
+<em class="property">classmethod </em><code class="descclassname">CloudmeshDatabase.</code><code class="descname">delete_</code><span class="sig-paren">(</span><em>table</em>, <em>**filter_args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/CloudmeshDatabase.html#CloudmeshDatabase.delete_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.delete_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete rows in the table matching <code class="docutils literal"><span class="pre">filter_args</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>table</strong> (<a class="reference internal" href="cloudmesh_client.db.azure.html#cloudmesh_client.db.azure.model.KEY_AZURE.type" title="cloudmesh_client.db.azure.model.KEY_AZURE.type"><em>type</em></a>) &#8211; the model class</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.engine">
 <code class="descclassname">CloudmeshDatabase.</code><code class="descname">engine</code><em class="property"> = Engine(sqlite:////Users/big/.cloudmesh/cloudmesh.db)</em><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.engine" title="Permalink to this definition">¶</a></dt>
@@ -431,6 +451,15 @@ a) an array of objects from the database in dict format, that match a particular
 <li>a single entry that matches the first occurance of the query specified by kwargs,
 such as name=&#8221;vm_001&#8221;</li>
 </ol>
+<p>To select a value from a specific table:
+1) identify the table of interest with <a class="reference internal" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.table" title="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.table"><code class="xref py py-meth docutils literal"><span class="pre">table()</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>specify the &#8216;table&#8217; keywork:
+&gt;&gt;&gt; db.find(table=t, cm_id=42)</li>
+</ol>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -444,9 +473,9 @@ is returned. first is default.</td>
 </table>
 </dd></dl>
 
-<dl class="classmethod">
+<dl class="method">
 <dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.find_new">
-<em class="property">classmethod </em><code class="descclassname">CloudmeshDatabase.</code><code class="descname">find_new</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/CloudmeshDatabase.html#CloudmeshDatabase.find_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.find_new" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">CloudmeshDatabase.</code><code class="descname">find_new</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/CloudmeshDatabase.html#CloudmeshDatabase.find_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.find_new" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method returns either
 a) an array of objects from the database in dict format, that match a particular kind.</p>
 <blockquote>
@@ -484,6 +513,24 @@ is returned. first is default.</td>
 <dd></dd></dl>
 
 <dl class="classmethod">
+<dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.insert">
+<em class="property">classmethod </em><code class="descclassname">CloudmeshDatabase.</code><code class="descname">insert</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/CloudmeshDatabase.html#CloudmeshDatabase.insert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert a row into the database</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>obj</strong> &#8211; the object model to insert</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
 <dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.refresh">
 <em class="property">classmethod </em><code class="descclassname">CloudmeshDatabase.</code><code class="descname">refresh</code><span class="sig-paren">(</span><em>kind</em>, <em>name</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/CloudmeshDatabase.html#CloudmeshDatabase.refresh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.refresh" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method refreshes the local database
@@ -509,6 +556,23 @@ with the live cloud details
 <dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.save">
 <em class="property">classmethod </em><code class="descclassname">CloudmeshDatabase.</code><code class="descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/CloudmeshDatabase.html#CloudmeshDatabase.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.save" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.select">
+<em class="property">classmethod </em><code class="descclassname">CloudmeshDatabase.</code><code class="descname">select</code><span class="sig-paren">(</span><em>table</em>, <em>**filter_args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/CloudmeshDatabase.html#CloudmeshDatabase.select"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return rows of the table matching filter args.</p>
+<p>This is a proxy for sqlalchemy&#8217;s <code class="docutils literal"><span class="pre">session.query(table).filter(**kwargs)</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>table</strong> (<a class="reference internal" href="cloudmesh_client.db.azure.html#cloudmesh_client.db.azure.model.KEY_AZURE.type" title="cloudmesh_client.db.azure.model.KEY_AZURE.type"><em>type</em></a>) &#8211; the model class</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">all rows in the table matching <code class="docutils literal"><span class="pre">**filter_args</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.session">
@@ -548,7 +612,7 @@ In case the table does not exist an exception is thrown</p>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.tables">
-<code class="descclassname">CloudmeshDatabase.</code><code class="descname">tables</code><em class="property"> = [&lt;class 'cloudmesh_client.db.general.model.WORKFLOW'&gt;, &lt;class 'cloudmesh_client.db.general.model.DEFAULT'&gt;, &lt;class 'cloudmesh_client.db.general.model.VAR'&gt;, &lt;class 'cloudmesh_client.db.general.model.LAUNCHER'&gt;, &lt;class 'cloudmesh_client.db.general.model.KEY'&gt;, &lt;class 'cloudmesh_client.db.general.model.GROUP'&gt;, &lt;class 'cloudmesh_client.db.general.model.RESERVATION'&gt;, &lt;class 'cloudmesh_client.db.general.model.SECGROUPRULE'&gt;, &lt;class 'cloudmesh_client.db.general.model.BATCHJOB'&gt;, &lt;class 'cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK'&gt;, &lt;class 'cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK'&gt;, &lt;class 'cloudmesh_client.db.openstack.model.VM_OPENSTACK'&gt;, &lt;class 'cloudmesh_client.db.azure.model.IMAGE_AZURE'&gt;, &lt;class 'cloudmesh_client.db.azure.model.FLAVOR_AZURE'&gt;, &lt;class 'cloudmesh_client.db.azure.model.VM_AZURE'&gt;, &lt;class 'cloudmesh_client.db.azure.model.KEY_AZURE'&gt;, &lt;class 'cloudmesh_client.db.libcloud.model.IMAGE_LIBCLOUD'&gt;, &lt;class 'cloudmesh_client.db.libcloud.model.FLAVOR_LIBCLOUD'&gt;, &lt;class 'cloudmesh_client.db.libcloud.model.VM_LIBCLOUD'&gt;]</em><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.tables" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">CloudmeshDatabase.</code><code class="descname">tables</code><em class="property"> = [&lt;class 'cloudmesh_client.db.general.model.WORKFLOW'&gt;, &lt;class 'cloudmesh_client.db.general.model.DEFAULT'&gt;, &lt;class 'cloudmesh_client.db.general.model.VAR'&gt;, &lt;class 'cloudmesh_client.db.general.model.LAUNCHER'&gt;, &lt;class 'cloudmesh_client.db.general.model.KEY'&gt;, &lt;class 'cloudmesh_client.db.general.model.GROUP'&gt;, &lt;class 'cloudmesh_client.db.general.model.RESERVATION'&gt;, &lt;class 'cloudmesh_client.db.general.model.SECGROUPRULE'&gt;, &lt;class 'cloudmesh_client.db.general.model.BATCHJOB'&gt;, &lt;class 'cloudmesh_client.db.general.model.CLUSTER'&gt;, &lt;class 'cloudmesh_client.db.openstack.model.IMAGE_OPENSTACK'&gt;, &lt;class 'cloudmesh_client.db.openstack.model.FLAVOR_OPENSTACK'&gt;, &lt;class 'cloudmesh_client.db.openstack.model.VM_OPENSTACK'&gt;, &lt;class 'cloudmesh_client.db.azure.model.IMAGE_AZURE'&gt;, &lt;class 'cloudmesh_client.db.azure.model.FLAVOR_AZURE'&gt;, &lt;class 'cloudmesh_client.db.azure.model.VM_AZURE'&gt;, &lt;class 'cloudmesh_client.db.azure.model.KEY_AZURE'&gt;, &lt;class 'cloudmesh_client.db.libcloud.model.IMAGE_LIBCLOUD'&gt;, &lt;class 'cloudmesh_client.db.libcloud.model.FLAVOR_LIBCLOUD'&gt;, &lt;class 'cloudmesh_client.db.libcloud.model.VM_LIBCLOUD'&gt;]</em><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.tables" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -603,9 +667,34 @@ In case the table does not exist an exception is thrown</p>
 </table>
 </dd></dl>
 
+<dl class="classmethod">
+<dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.update_">
+<em class="property">classmethod </em><code class="descclassname">CloudmeshDatabase.</code><code class="descname">update_</code><span class="sig-paren">(</span><em>table</em>, <em>where=None</em>, <em>values=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/CloudmeshDatabase.html#CloudmeshDatabase.update_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.update_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates a subset of rows in the table, filtered by <code class="docutils literal"><span class="pre">where</span></code>,
+setting to <code class="docutils literal"><span class="pre">values</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>table</strong> (<a class="reference internal" href="cloudmesh_client.db.azure.html#cloudmesh_client.db.azure.model.KEY_AZURE.type" title="cloudmesh_client.db.azure.model.KEY_AZURE.type"><em>type</em></a>) &#8211; the table class</li>
+<li><strong>where</strong> (<a class="reference internal" href="cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.FlatDict.dict" title="cloudmesh_client.common.FlatDict.FlatDict.dict"><em>dict</em></a>) &#8211; match rows where all these properties hold</li>
+<li><strong>values</strong> (<a class="reference internal" href="cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.FlatDict.dict" title="cloudmesh_client.common.FlatDict.FlatDict.dict"><em>dict</em></a>) &#8211; set the columns to these values</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.user">
 <code class="descclassname">CloudmeshDatabase.</code><code class="descname">user</code><em class="property"> = None</em><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.vm_table_from_provider">
+<em class="property">classmethod </em><code class="descclassname">CloudmeshDatabase.</code><code class="descname">vm_table_from_provider</code><span class="sig-paren">(</span><em>provider</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/CloudmeshDatabase.html#CloudmeshDatabase.vm_table_from_provider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.vm_table_from_provider" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -626,7 +715,7 @@ In case the table does not exist an exception is thrown</p>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin.created_at">
-<code class="descname">created_at</code><em class="property"> = Column(None, String(), table=None, default=ColumnDefault('2016-10-04 12:31:41'))</em><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin.created_at" title="Permalink to this definition">¶</a></dt>
+<code class="descname">created_at</code><em class="property"> = Column(None, String(), table=None, default=ColumnDefault('2016-11-21 20:49:59'))</em><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin.created_at" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -671,12 +760,28 @@ In case the table does not exist an exception is thrown</p>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin.updated_at">
-<code class="descname">updated_at</code><em class="property"> = Column(None, String(), table=None, onupdate=ColumnDefault('2016-10-04 12:31:41'), default=ColumnDefault('2016-10-04 12:31:41'))</em><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin.updated_at" title="Permalink to this definition">¶</a></dt>
+<code class="descname">updated_at</code><em class="property"> = Column(None, String(), table=None, onupdate=ColumnDefault('2016-11-21 20:49:59'), default=ColumnDefault('2016-11-21 20:49:59'))</em><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin.updated_at" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin.user">
 <code class="descname">user</code><em class="property"> = Column(None, String(), table=None)</em><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin.user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshVMMixin">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.db.CloudmeshDatabase.</code><code class="descname">CloudmeshVMMixin</code><a class="reference internal" href="../_modules/cloudmesh_client/db/CloudmeshDatabase.html#CloudmeshVMMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshVMMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshVMMixin.cluster">
+<code class="descname">cluster</code><em class="property"> = Column(None, String(), table=None)</em><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshVMMixin.cluster" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshVMMixin.set_defaults">
+<code class="descname">set_defaults</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/CloudmeshDatabase.html#CloudmeshVMMixin.set_defaults"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshVMMixin.set_defaults" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -727,7 +832,7 @@ In case the table does not exist an exception is thrown</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.3.7',
+            VERSION:'4.4.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

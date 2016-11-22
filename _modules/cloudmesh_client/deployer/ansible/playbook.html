@@ -1,0 +1,317 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.deployer.ansible.playbook &mdash; cloudmesh_client 4.4.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../../../../index.html"/>
+        <link rel="up" title="cloudmesh_client.deployer.ansible" href="../ansible.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../prefix.html">Prefix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../comet.html">Comet Virtual Cluster</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorials/comet_cloudmesh.html">Comet Cloudmesh Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorials/comet_bigdata.html">Comet Big Data Tutorial</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../stack.html">Stack</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hackathon.html#python-guidelines">Python Guidelines</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      
+          <li><a href="../../../cloudmesh_client.html">cloudmesh_client</a> &raquo;</li>
+      
+          <li><a href="../ansible.html">cloudmesh_client.deployer.ansible</a> &raquo;</li>
+      
+    <li>cloudmesh_client.deployer.ansible.playbook</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cloudmesh_client.deployer.ansible.playbook</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">operator</span>
+
+<span class="kn">from</span> <span class="nn">ansible.inventory</span> <span class="k">import</span> <span class="n">Inventory</span>
+<span class="kn">from</span> <span class="nn">ansible.parsing.dataloader</span> <span class="k">import</span> <span class="n">DataLoader</span>
+<span class="kn">from</span> <span class="nn">ansible.playbook</span> <span class="k">import</span> <span class="n">Playbook</span>
+<span class="kn">from</span> <span class="nn">ansible.vars</span> <span class="k">import</span> <span class="n">VariableManager</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="k">import</span> <span class="n">Subprocess</span><span class="p">,</span> <span class="n">SubprocessError</span>
+
+
+<div class="viewcode-block" id="AnsiblePlaybookRunner"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner">[docs]</a><span class="k">class</span> <span class="nc">AnsiblePlaybookRunner</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inventory</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">become</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">become_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">forks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">modifyKnownHosts</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">extra_vars</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_inventory</span> <span class="o">=</span> <span class="n">inventory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_path</span> <span class="o">=</span> <span class="n">path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_user</span> <span class="o">=</span> <span class="n">user</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_become</span> <span class="o">=</span> <span class="n">become</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_become_user</span> <span class="o">=</span> <span class="n">become_user</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_forks</span> <span class="o">=</span> <span class="n">forks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_modifyKnownHosts</span> <span class="o">=</span> <span class="n">modifyKnownHosts</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_extra_vars</span> <span class="o">=</span> <span class="n">extra_vars</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_subprocess_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+<div class="viewcode-block" id="AnsiblePlaybookRunner.set_cwd"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner.set_cwd">[docs]</a>    <span class="k">def</span> <span class="nf">set_cwd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_subprocess_kwargs</span><span class="p">[</span><span class="s1">&#39;cwd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="AnsiblePlaybookRunner.set_stderr"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner.set_stderr">[docs]</a>    <span class="k">def</span> <span class="nf">set_stderr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_subprocess_kwargs</span><span class="p">[</span><span class="s1">&#39;stderr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stream</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="AnsiblePlaybookRunner.set_stdout"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner.set_stdout">[docs]</a>    <span class="k">def</span> <span class="nf">set_stdout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_subprocess_kwargs</span><span class="p">[</span><span class="s1">&#39;stdout&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stream</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="AnsiblePlaybookRunner.set_env"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner.set_env">[docs]</a>    <span class="k">def</span> <span class="nf">set_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">environment</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_subprocess_kwargs</span><span class="p">[</span><span class="s1">&#39;env&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">environment</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="AnsiblePlaybookRunner.set_secure"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner.set_secure">[docs]</a>    <span class="k">def</span> <span class="nf">set_secure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">secure_p</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_modifyKnownHosts</span> <span class="o">=</span> <span class="n">secure_p</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cmd_builder_monoid</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">[</span><span class="s1">&#39;ansible-playbook&#39;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s1">&#39;--inventory&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inventory</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inventory</span> <span class="k">else</span> <span class="p">[],</span>
+            <span class="p">[</span><span class="s1">&#39;--user&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_user</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_user</span> <span class="k">else</span> <span class="p">[],</span>
+            <span class="p">[</span><span class="s1">&#39;--become&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_become</span> <span class="k">else</span> <span class="p">[],</span>
+            <span class="p">[</span><span class="s1">&#39;--become-user&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_become_user</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_become_user</span> <span class="k">else</span> <span class="p">[],</span>
+            <span class="p">[</span><span class="s1">&#39;--forks&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_forks</span><span class="p">)]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forks</span> <span class="k">else</span> <span class="p">[],</span>
+            <span class="p">[</span><span class="s1">&#39;--ssh-extra-args&#39;</span><span class="p">,</span> <span class="s1">&#39;-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modifyKnownHosts</span> <span class="k">else</span> <span class="p">[]</span>
+            <span class="p">[</span><span class="s1">&#39;--extra-vars&#39;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_extra_vars</span><span class="p">)]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extra_vars</span> <span class="k">else</span> <span class="p">[],</span>
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">]</span>
+        <span class="p">]</span>
+
+        <span class="n">cmd</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">concat</span><span class="p">,</span> <span class="n">cmd_builder_monoid</span><span class="p">)</span>
+        <span class="n">Subprocess</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_subprocess_kwargs</span><span class="p">)</span></div>
+
+
+        <span class="c1">################################################################</span>
+
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">()</span>
+    <span class="n">variable_manager</span> <span class="o">=</span> <span class="n">VariableManager</span><span class="p">()</span>
+    <span class="n">playbook</span> <span class="o">=</span> <span class="n">Playbook</span><span class="p">(</span><span class="n">loader</span><span class="p">)</span>
+    <span class="n">Inventory</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="n">variable_manager</span><span class="p">,</span> <span class="n">host_list</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;baz&#39;</span><span class="p">]})</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'4.4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

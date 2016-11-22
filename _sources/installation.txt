@@ -5,8 +5,10 @@ Installation
 
 We assume that you have prepared your system (see Section
 :ref:`_my-reference-label`) on which you like to install the cloudmesh
-client. We recommend that you use python 2.7.10, pip 7.1.2 and use
-virtualenv. Furthermore we recommend that on Linux systems you have
+client. We recommend that you use at least python 2.7.10, pip 7.1.2 and use
+virtualenv.
+
+Furthermore we recommend that on Linux systems you have
 readline installed as it is a convenient tool for command line
 manipulation. In the next sections we will walk you through a setup
 that has been proven to work for developers and users and is very easy
@@ -49,9 +51,9 @@ base directory. Please use the following commands
    git clone https://github.com/cloudmesh/client.git
    cd client
    # make sure you have a virtualenv configured and activated
-   # chose your branch and do either
+   # chose your branch for example: git checkout dev
    pip install -r requirements.txt
-   pip install .
+   pip install . -U
 
 
 .. warning:: We do not at this time support the instalation with::
@@ -60,7 +62,7 @@ base directory. Please use the following commands
 
              Instead we require you to use
 
-	       pip install -U .
+	       pip install . -U
      
    
 We have two branches in the code. The `master` branch and the `dev` branch.
@@ -68,14 +70,21 @@ We have two branches in the code. The `master` branch and the `dev` branch.
 The master branch provides a snapshot of the code that should work and has
 passed the unit tests. If you have issues, please send us mail.
 
-However, in some circumstances you may which to use the newest version of
-cloudmesh which you can get from the `dev` branch. To get the newest version issue the command
+However, in some circumstances you may wish to use the newest version
+of cloudmesh which you can get from the `dev` branch. To get the
+newest version issue the command
 
 .. prompt:: bash
 
    git checkout dev
 
-before you call the command `pip install -U .`. For more information about git see the
+before you call the command
+
+.. prompt:: bash
+
+   pip install . -U
+
+For more information about git see the
 github manual on the github.com web page.
 
 
@@ -91,6 +100,6 @@ code from source. Please do not forget to update them accordingly
    cd $CLOUDMESH_HOME/client
    git pull
    pip install -r requirements.txt
-   pip install .
+   pip install . -U
 
 

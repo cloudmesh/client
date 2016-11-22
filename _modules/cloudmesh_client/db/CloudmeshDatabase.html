@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.db.CloudmeshDatabase &mdash; cloudmesh_client 4.3.7 documentation</title>
+  <title>cloudmesh_client.db.CloudmeshDatabase &mdash; cloudmesh_client 4.4.0 documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="../../../index.html"/>
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +62,7 @@
             
             
               <div class="version">
-                4.3.7
+                4.4.0
               </div>
             
           
@@ -185,6 +188,7 @@
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.dotdict</span> <span class="k">import</span> <span class="n">dotdict</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.ext.declarative</span> <span class="k">import</span> <span class="n">declarative_base</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.exc</span> <span class="k">import</span> <span class="n">IntegrityError</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="k">import</span> <span class="n">sessionmaker</span>
 <span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">update</span>
@@ -245,6 +249,17 @@
         <span class="k">except</span><span class="p">:</span>
             <span class="k">pass</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CloudmeshVMMixin"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshVMMixin">[docs]</a><span class="k">class</span> <span class="nc">CloudmeshVMMixin</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="n">_mapper_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;always_refresh&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+
+    <span class="n">cluster</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CloudmeshVMMixin.set_defaults"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshVMMixin.set_defaults">[docs]</a>    <span class="k">def</span> <span class="nf">set_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>   <span class="c1"># TODO: what is this method used for?</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Call to CloudmeshVMMixin&#39;</span><span class="p">)</span>
+        <span class="k">pass</span></div></div>
 
 
 <div class="viewcode-block" id="CloudmeshDatabase"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase">[docs]</a><span class="k">class</span> <span class="nc">CloudmeshDatabase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -388,6 +403,66 @@
             <span class="k">return</span> <span class="kc">False</span></div>
 
     <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="CloudmeshDatabase.insert"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Insert a row into the database</span>
+
+<span class="sd">        :param obj: the object model to insert</span>
+<span class="sd">        :returns:</span>
+<span class="sd">        :rtype:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># this method was written because I was having difficulty</span>
+        <span class="c1"># getting others to work. Not ideal, but there is a deadline</span>
+        <span class="c1"># and it is faster to write it myself than dig through the</span>
+        <span class="c1"># rest of the code to figure out how it works and how to</span>
+        <span class="c1"># deal with corner cases :(</span>
+
+        <span class="c1"># since some models may not be defined in the module</span>
+        <span class="c1"># db.general.model or db.openstack.model, etc, ensure that the</span>
+        <span class="c1"># DB knows about the table</span>
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">__tablename__</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">create_model</span><span class="p">()</span>
+
+        <span class="n">cls</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
+
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="CloudmeshDatabase.select"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="o">**</span><span class="n">filter_args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return rows of the table matching filter args.</span>
+
+<span class="sd">        This is a proxy for sqlalchemy&#39;s ``session.query(table).filter(**kwargs)``</span>
+
+<span class="sd">        :param type table: the model class</span>
+<span class="sd">        :returns: all rows in the table matching ``**filter_args``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">table</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="o">**</span><span class="n">filter_args</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="CloudmeshDatabase.delete_"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.delete_">[docs]</a>    <span class="k">def</span> <span class="nf">delete_</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="o">**</span><span class="n">filter_args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete rows in the table matching ``filter_args``</span>
+
+<span class="sd">        :param type table: the model class</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">table</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="o">**</span><span class="n">filter_args</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="CloudmeshDatabase.update_"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.update_">[docs]</a>    <span class="k">def</span> <span class="nf">update_</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Updates a subset of rows in the table, filtered by ``where``,</span>
+<span class="sd">        setting to ``values``.</span>
+
+<span class="sd">        :param type table: the table class</span>
+<span class="sd">        :param dict where: match rows where all these properties hold</span>
+<span class="sd">        :param dict values: set the columns to these values</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">cls</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>\
+            <span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="o">**</span><span class="n">where</span><span class="p">)</span>\
+            <span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="CloudmeshDatabase.find_new"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.find_new">[docs]</a>    <span class="k">def</span> <span class="nf">find_new</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns either</span>
@@ -643,6 +718,12 @@
         <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No table found for name=</span><span class="si">{}</span><span class="s2">, provider=</span><span class="si">{}</span><span class="s2">, kind=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">provider</span><span class="p">,</span> <span class="n">kind</span><span class="p">))</span></div>
 
     <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="CloudmeshDatabase.vm_table_from_provider"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.vm_table_from_provider">[docs]</a>    <span class="k">def</span> <span class="nf">vm_table_from_provider</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">provider</span><span class="p">):</span>
+        <span class="n">tablename</span> <span class="o">=</span> <span class="s1">&#39;vm_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">tablename</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">table</span></div>
+
+    <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="CloudmeshDatabase.get_table_from_kind"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.get_table_from_kind">[docs]</a>    <span class="k">def</span> <span class="nf">get_table_from_kind</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
         <span class="n">providers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">tables</span><span class="p">:</span>
@@ -742,6 +823,13 @@
 <span class="sd">           If the kind is not specified vm is used. one of the arguments must be scope=&quot;all&quot;</span>
 <span class="sd">        b) a single entry that matches the first occurance of the query specified by kwargs,</span>
 <span class="sd">           such as name=&quot;vm_001&quot;</span>
+
+<span class="sd">        To select a value from a specific table:</span>
+<span class="sd">        1) identify the table of interest with :meth:`table`</span>
+<span class="sd">           &gt;&gt;&gt; t = db.table(name=&#39;default&#39;)</span>
+<span class="sd">        2) specify the &#39;table&#39; keywork:</span>
+<span class="sd">           &gt;&gt;&gt; db.find(table=t, cm_id=42)</span>
+
 
 <span class="sd">        :param kwargs: the arguments to be matched, scope defines if all or just the first value</span>
 <span class="sd">               is returned. first is default.</span>
@@ -1203,7 +1291,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'4.3.7',
+            VERSION:'4.4.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

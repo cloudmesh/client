@@ -44,6 +44,14 @@ cloudmesh_client.shell.plugins.ClusterCommand module
     :undoc-members:
     :show-inheritance:
 
+cloudmesh_client.shell.plugins.ClusterCommand2 module
+-----------------------------------------------------
+
+.. automodule:: cloudmesh_client.shell.plugins.ClusterCommand2
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.shell.plugins.ColorCommand module
 --------------------------------------------------
 
@@ -76,6 +84,14 @@ cloudmesh_client.shell.plugins.DefaultCommand module
     :undoc-members:
     :show-inheritance:
 
+cloudmesh_client.shell.plugins.DeployCommand module
+---------------------------------------------------
+
+.. automodule:: cloudmesh_client.shell.plugins.DeployCommand
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.shell.plugins.FlavorCommand module
 ---------------------------------------------------
 
@@ -88,6 +104,14 @@ cloudmesh_client.shell.plugins.GroupCommand module
 --------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.GroupCommand
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.shell.plugins.HadoopCommand module
+---------------------------------------------------
+
+.. automodule:: cloudmesh_client.shell.plugins.HadoopCommand
     :members:
     :undoc-members:
     :show-inheritance:
@@ -296,6 +320,14 @@ cloudmesh_client.shell.plugins.SetupCommand module
 --------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.SetupCommand
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.shell.plugins.StackCommand module
+--------------------------------------------------
+
+.. automodule:: cloudmesh_client.shell.plugins.StackCommand
     :members:
     :undoc-members:
     :show-inheritance:

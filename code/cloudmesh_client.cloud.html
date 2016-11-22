@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud package &mdash; cloudmesh_client 4.3.7 documentation</title>
+  <title>cloudmesh_client.cloud package &mdash; cloudmesh_client 4.4.0 documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client package" href="cloudmesh_client.html"/>
         <link rel="next" title="cloudmesh_client.cloud.hpc package" href="cloudmesh_client.cloud.hpc.html"/>
         <link rel="prev" title="cloudmesh_client package" href="cloudmesh_client.html"/> 
@@ -61,7 +64,7 @@
             
             
               <div class="version">
-                4.3.7
+                4.4.0
               </div>
             
           
@@ -150,6 +153,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.register">cloudmesh_client.cloud.register module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.reservation">cloudmesh_client.cloud.reservation module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.secgroup">cloudmesh_client.cloud.secgroup module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.stack">cloudmesh_client.cloud.stack module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.sync">cloudmesh_client.cloud.sync module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.usage">cloudmesh_client.cloud.usage module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.cloud.vc">cloudmesh_client.cloud.vc module</a></li>
@@ -161,8 +165,10 @@
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.comet.html">cloudmesh_client.comet package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.db.html">cloudmesh_client.db package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.deployer.html">cloudmesh_client.deployer package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.etc.html">cloudmesh_client.etc package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.extend.html">cloudmesh_client.extend package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.platform.html">cloudmesh_client.platform package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.provider.html">cloudmesh_client.provider package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.shell.html">cloudmesh_client.shell package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.system.html">cloudmesh_client.system package</a></li>
@@ -170,6 +176,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.exc">cloudmesh_client.exc module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.main">cloudmesh_client.main module</a></li>
@@ -1960,6 +1967,442 @@ the database, then inserting new data
 </dd></dl>
 
 </div>
+<div class="section" id="module-cloudmesh_client.cloud.stack">
+<span id="cloudmesh-client-cloud-stack-module"></span><h2>cloudmesh_client.cloud.stack module<a class="headerlink" href="#module-cloudmesh_client.cloud.stack" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.cloud.stack.BigDataStack">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.stack.</code><code class="descname">BigDataStack</code><span class="sig-paren">(</span><em>dest</em>, <em>repo='git://github.com/futuresystems/big-data-stack.git'</em>, <em>branch='master'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#BigDataStack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.BigDataStack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.BigDataStack.deploy">
+<code class="descname">deploy</code><span class="sig-paren">(</span><em>ips=None</em>, <em>name=None</em>, <em>user=None</em>, <em>playbooks=None</em>, <em>defines=None</em>, <em>ping_max=10</em>, <em>ping_sleep=10</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#BigDataStack.deploy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.BigDataStack.deploy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deploy the big-data-stack to a previously stood up cluster located
+at <cite>ips</cite> with login user <cite>user</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ips</strong> (<code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <code class="xref py py-class docutils literal"><span class="pre">str</span></code> IP addresses) &#8211; the ip addresses of the cluster to deploy to</li>
+<li><strong>name</strong> (<code class="xref py py-class docutils literal"><span class="pre">str</span></code>) &#8211; the name of the cluster</li>
+<li><strong>user</strong> (<code class="xref py py-class docutils literal"><span class="pre">str</span></code>) &#8211; the login username of the cluster</li>
+<li><strong>playbooks</strong> (<code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <code class="xref py py-class docutils literal"><span class="pre">str</span></code>) &#8211; the list of playbooks to deploy. These are paths relative to the root directory of the BDS repository.</li>
+<li><strong>defines</strong> (<code class="xref py py-class docutils literal"><span class="pre">dict</span></code> from playbook name to <code class="xref py py-class docutils literal"><span class="pre">dict</span></code> of variable name to value) &#8211; the overridden variables defined for each playbook</li>
+<li><strong>ping_max</strong> (<code class="xref py py-class docutils literal"><span class="pre">int</span></code>) &#8211; the maximum number of time to attempt to ping the cluster during the verification step.</li>
+<li><strong>ping_sleep</strong> (<code class="xref py py-class docutils literal"><span class="pre">int</span></code>) &#8211; the number of seconds to wait between each attempt to ping</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.BigDataStack.init">
+<code class="descname">init</code><span class="sig-paren">(</span><em>force=False</em>, <em>update=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#BigDataStack.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.BigDataStack.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize by cloning (or updating if requested) a local copy of
+the Big Data Stack repository.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>force</strong> (<code class="xref py py-class docutils literal"><span class="pre">bool</span></code>) &#8211; setup previously setup project</li>
+<li><strong>update</strong> (<code class="xref py py-class docutils literal"><span class="pre">bool</span></code>) &#8211; update the local repository from the origin</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.cloud.stack.KWArgs">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.stack.</code><code class="descname">KWArgs</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#KWArgs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.KWArgs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.cloud.stack.Project">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.stack.</code><code class="descname">Project</code><span class="sig-paren">(</span><em>name</em>, <em>stack</em>, <em>deployparams=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#Project"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.Project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Captures the parameters and stack for a deployment.  Note: this is
+a lower-level API that should be predominantly be constructed
+using the <a class="reference internal" href="#cloudmesh_client.cloud.stack.ProjectFactory" title="cloudmesh_client.cloud.stack.ProjectFactory"><code class="xref py py-class docutils literal"><span class="pre">ProjectFactory</span></code></a>.</p>
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.Project.deploy">
+<code class="descname">deploy</code><span class="sig-paren">(</span><em>force=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#Project.deploy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.Project.deploy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.cloud.stack.Project.filename">
+<code class="descname">filename</code><em class="property"> = '.cloudmesh_project.yml'</em><a class="headerlink" href="#cloudmesh_client.cloud.stack.Project.filename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.Project.init">
+<code class="descname">init</code><span class="sig-paren">(</span><em>force=False</em>, <em>update=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#Project.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.Project.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.stack.Project.load">
+<em class="property">classmethod </em><code class="descname">load</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#Project.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.Project.load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.cloud.stack.Project.metadata">
+<code class="descname">metadata</code><a class="headerlink" href="#cloudmesh_client.cloud.stack.Project.metadata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.Project.sync_metadata">
+<code class="descname">sync_metadata</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#Project.sync_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.Project.sync_metadata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.cloud.stack.ProjectDB">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.stack.</code><code class="descname">ProjectDB</code><span class="sig-paren">(</span><em>prefix='~/.cloudmesh/projects'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#ProjectDB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectDB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.ProjectDB.activate">
+<code class="descname">activate</code><span class="sig-paren">(</span><em>project</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#ProjectDB.activate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectDB.activate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activate the given project</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>project</strong> (<a class="reference internal" href="#cloudmesh_client.cloud.stack.Project" title="cloudmesh_client.cloud.stack.Project"><code class="xref py py-class docutils literal"><span class="pre">Project</span></code></a>) &#8211; the project to make active</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.ProjectDB.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>project</em>, <em>force=False</em>, <em>update=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#ProjectDB.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectDB.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a project to the database</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>project</strong> (<a class="reference internal" href="#cloudmesh_client.cloud.stack.Project" title="cloudmesh_client.cloud.stack.Project"><code class="xref py py-class docutils literal"><span class="pre">Project</span></code></a>) &#8211; the project to add_from_path</li>
+<li><strong>force</strong> (<code class="xref py py-class docutils literal"><span class="pre">bool</span></code>) &#8211; whether or not to force initialiation</li>
+<li><strong>update</strong> (<code class="xref py py-class docutils literal"><span class="pre">bool</span></code>) &#8211; whether or not to update a previous initialied project</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.cloud.stack.ProjectDB.default_name">
+<code class="descname">default_name</code><em class="property"> = 'p-'</em><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectDB.default_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.cloud.stack.ProjectDB.filename">
+<code class="descname">filename</code><em class="property"> = '.cloudmesh_projectdb.yml'</em><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectDB.filename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.ProjectDB.getactive">
+<code class="descname">getactive</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#ProjectDB.getactive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectDB.getactive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the currently active project.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the currently active project</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">subclass of <a class="reference internal" href="#cloudmesh_client.cloud.stack.Project" title="cloudmesh_client.cloud.stack.Project"><code class="xref py py-class docutils literal"><span class="pre">Project</span></code></a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">KeyError</span></code> if no project is currently active</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.ProjectDB.isactive">
+<code class="descname">isactive</code><span class="sig-paren">(</span><em>project</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#ProjectDB.isactive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectDB.isactive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predicate indicating activation status of the project</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>project</strong> (<a class="reference internal" href="#cloudmesh_client.cloud.stack.Project" title="cloudmesh_client.cloud.stack.Project"><code class="xref py py-class docutils literal"><span class="pre">Project</span></code></a>) &#8211; the project to check</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.ProjectDB.lookup">
+<code class="descname">lookup</code><span class="sig-paren">(</span><em>projname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#ProjectDB.lookup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectDB.lookup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lookup the project with the given name.</p>
+<p>If <cite>projname</cite> is None, this returns the currently active project.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>projname</strong> &#8211; Project name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the project</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cloudmesh_client.cloud.stack.Project" title="cloudmesh_client.cloud.stack.Project"><code class="xref py py-class docutils literal"><span class="pre">Project</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.ProjectDB.new_project_name">
+<code class="descname">new_project_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#ProjectDB.new_project_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectDB.new_project_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Automatically generate a new project name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a project name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.ProjectDB.projectdir">
+<code class="descname">projectdir</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#ProjectDB.projectdir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectDB.projectdir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the project directory.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<code class="xref py py-class docutils literal"><span class="pre">str</span></code>) &#8211; the name of a project</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the path to the project</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.ProjectDB.sync_metadata">
+<code class="descname">sync_metadata</code><span class="sig-paren">(</span><em>projects=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#ProjectDB.sync_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectDB.sync_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Synchronize the metadata to the backend store</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>projects</strong> (<code class="xref py py-class docutils literal"><span class="pre">bool</span></code>) &#8211; project metadata should be saved as well.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.ProjectDB.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>project</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#ProjectDB.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectDB.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the database with the given project</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>project</strong> (<a class="reference internal" href="#cloudmesh_client.cloud.stack.Project" title="cloudmesh_client.cloud.stack.Project"><code class="xref py py-class docutils literal"><span class="pre">Project</span></code></a>) &#8211; the project</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.cloud.stack.ProjectFactory">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.stack.</code><code class="descname">ProjectFactory</code><span class="sig-paren">(</span><em>prefix='~/.cloudmesh/projects'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#ProjectFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Outer API used to create projects.</p>
+<p>This factory should be used rather than directly constructing
+<a class="reference internal" href="#cloudmesh_client.cloud.stack.Project" title="cloudmesh_client.cloud.stack.Project"><code class="xref py py-class docutils literal"><span class="pre">Project</span></code></a> instances.</p>
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.ProjectFactory.activate">
+<code class="descname">activate</code><span class="sig-paren">(</span><em>make_active=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#ProjectFactory.activate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectFactory.activate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set whether or not the created project should be activated</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.ProjectFactory.set_branch">
+<code class="descname">set_branch</code><span class="sig-paren">(</span><em>branch='master'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#ProjectFactory.set_branch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectFactory.set_branch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the branch of the repository to use</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.ProjectFactory.set_force">
+<code class="descname">set_force</code><span class="sig-paren">(</span><em>force=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#ProjectFactory.set_force"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectFactory.set_force" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the <cite>force</cite> parameter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.ProjectFactory.set_ips">
+<code class="descname">set_ips</code><span class="sig-paren">(</span><em>ips</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#ProjectFactory.set_ips"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectFactory.set_ips" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the cluster IP addresses</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.ProjectFactory.set_overrides">
+<code class="descname">set_overrides</code><span class="sig-paren">(</span><em>overrides=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#ProjectFactory.set_overrides"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectFactory.set_overrides" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the overrides for deployment</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.ProjectFactory.set_playbooks">
+<code class="descname">set_playbooks</code><span class="sig-paren">(</span><em>playbooks=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#ProjectFactory.set_playbooks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectFactory.set_playbooks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the playbooks to deploy</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.ProjectFactory.set_project_name">
+<code class="descname">set_project_name</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#ProjectFactory.set_project_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectFactory.set_project_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the project name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.ProjectFactory.set_repo">
+<code class="descname">set_repo</code><span class="sig-paren">(</span><em>repo</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#ProjectFactory.set_repo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectFactory.set_repo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the repository to get the stack from</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.ProjectFactory.set_update">
+<code class="descname">set_update</code><span class="sig-paren">(</span><em>update=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#ProjectFactory.set_update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectFactory.set_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the <cite>update</cite> parameter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.ProjectFactory.set_user_name">
+<code class="descname">set_user_name</code><span class="sig-paren">(</span><em>username</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#ProjectFactory.set_user_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectFactory.set_user_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the cluster login user name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.ProjectFactory.use_bds">
+<code class="descname">use_bds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#ProjectFactory.use_bds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.ProjectFactory.use_bds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use the BigDataStack backend</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="cloudmesh_client.cloud.stack.SanityCheckError">
+<em class="property">exception </em><code class="descclassname">cloudmesh_client.cloud.stack.</code><code class="descname">SanityCheckError</code><span class="sig-paren">(</span><em>message</em>, <em>reason</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#SanityCheckError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.SanityCheckError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.cloud.stack.SanityChecker">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.stack.</code><code class="descname">SanityChecker</code><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#SanityChecker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.SanityChecker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.SanityChecker.check_github">
+<code class="descname">check_github</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#SanityChecker.check_github"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.SanityChecker.check_github" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure that the default ssh key has been uploaded to github.com</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#cloudmesh_client.cloud.stack.SanityCheckError" title="cloudmesh_client.cloud.stack.SanityCheckError"><code class="xref py py-class docutils literal"><span class="pre">SanityCheckError</span></code></a> on failure</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.SanityChecker.check_program">
+<code class="descname">check_program</code><span class="sig-paren">(</span><em>program</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#SanityChecker.check_program"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.SanityChecker.check_program" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify that the named program is available and executable by the user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>program</strong> &#8211; commands that must be present by checking in the PATH</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#cloudmesh_client.cloud.stack.SanityCheckError" title="cloudmesh_client.cloud.stack.SanityCheckError"><code class="xref py py-class docutils literal"><span class="pre">SanityCheckError</span></code></a> on failure</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.SanityChecker.check_sshkey">
+<code class="descname">check_sshkey</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#SanityChecker.check_sshkey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.SanityChecker.check_sshkey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure that the default ssh key exists with correct permissions</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#cloudmesh_client.cloud.stack.SanityCheckError" title="cloudmesh_client.cloud.stack.SanityCheckError"><code class="xref py py-class docutils literal"><span class="pre">SanityCheckError</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="cloudmesh_client.cloud.stack.get_virtualenv_environment">
+<code class="descclassname">cloudmesh_client.cloud.stack.</code><code class="descname">get_virtualenv_environment</code><span class="sig-paren">(</span><em>venvpath</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#get_virtualenv_environment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.get_virtualenv_environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Figures out the environment variables that are set when activating
+a virtualenv</p>
+<p>Example:
+&gt;&gt;&gt; os.system(&#8216;virtualenv /tmp/venv&#8217;)
+&gt;&gt;&gt; get_virtualenv_environment(&#8216;/tmp/venv&#8217;)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>venvpath</strong> &#8211; path to the virtual environment</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dictionary of environment variables</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="cloudmesh_client.cloud.stack.sanity_check">
+<code class="descclassname">cloudmesh_client.cloud.stack.</code><code class="descname">sanity_check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#sanity_check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.sanity_check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verifies that the environment is set up correctly for BDS usage:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">boolean indicating pass or fail of the sanity check</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
 <div class="section" id="module-cloudmesh_client.cloud.sync">
 <span id="cloudmesh-client-cloud-sync-module"></span><h2>cloudmesh_client.cloud.sync module<a class="headerlink" href="#module-cloudmesh_client.cloud.sync" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -2078,6 +2521,11 @@ Either from local to remote OR vice-versa
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.vm.Vm.delete">
 <em class="property">classmethod </em><code class="descname">delete</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/vm.html#Vm.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.vm.Vm.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.vm.Vm.generate_vm_name">
+<em class="property">classmethod </em><code class="descname">generate_vm_name</code><span class="sig-paren">(</span><em>prefix=None</em>, <em>fill=3</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/vm.html#Vm.generate_vm_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.vm.Vm.generate_vm_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -2295,7 +2743,7 @@ the database, then inserting new data
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.3.7',
+            VERSION:'4.4.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

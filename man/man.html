@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Commands &mdash; cloudmesh_client 4.3.7 documentation</title>
+  <title>Commands &mdash; cloudmesh_client 4.4.0 documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../index.html"/>
         <link rel="next" title="Exercises" href="../exercises.html"/>
         <link rel="prev" title="Inventory Command" href="../commands/command_inventory.html"/> 
 
@@ -60,7 +63,7 @@
             
             
               <div class="version">
-                4.3.7
+                4.4.0
               </div>
             
           
@@ -104,17 +107,20 @@
 <li class="toctree-l2"><a class="reference internal" href="#clear">clear</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cloud">cloud</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cluster">cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cluster2">cluster2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#color">color</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#comet">comet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#context">context</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#debug">debug</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#default">default</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deploy">deploy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#echo">echo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#eof">EOF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#exec">exec</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#flavor">flavor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#group">group</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#h">h</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hadoop">hadoop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#help">help</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#history">history</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#hpc">hpc</a></li>
@@ -149,6 +155,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#shell-exec">shell_exec</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#sleep">sleep</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ssh">ssh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stack">stack</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#submit">submit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#sync">sync</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#test">test</a></li>
@@ -440,6 +447,55 @@
 </pre></div>
 </div>
 </div>
+<div class="section" id="cluster2">
+<h2>cluster2<a class="headerlink" href="#cluster2" title="Permalink to this headline">¶</a></h2>
+<p>Command - cluster2:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">::</span>
+    <span class="n">Usage</span><span class="p">:</span>
+      <span class="n">cluster2</span> <span class="n">create</span> <span class="p">[</span><span class="o">-</span><span class="n">n</span> <span class="n">NAME</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">c</span> <span class="n">COUNT</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">C</span> <span class="n">CLOUD</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">u</span> <span class="n">USER</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">i</span> <span class="n">IMAGE</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">f</span> <span class="n">FLAVOR</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">k</span> <span class="n">KEY</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">s</span> <span class="n">NAME</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">AI</span><span class="p">]</span>
+      <span class="n">cluster2</span> <span class="nb">list</span>
+      <span class="n">cluster2</span> <span class="n">nodes</span> <span class="p">[</span><span class="n">CLUSTER</span><span class="p">]</span>
+      <span class="n">cluster2</span> <span class="n">delete</span> <span class="p">[</span><span class="o">--</span><span class="nb">all</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">force</span><span class="p">]</span> <span class="p">[</span><span class="n">NAME</span><span class="p">]</span><span class="o">...</span>
+      <span class="n">cluster2</span> <span class="n">get</span> <span class="p">[</span><span class="o">-</span><span class="n">n</span> <span class="n">NAME</span><span class="p">]</span> <span class="n">PROPERTY</span>
+      <span class="n">cluster2</span> <span class="n">inventory</span> <span class="p">[</span><span class="o">-</span><span class="n">F</span> <span class="n">NAME</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">PATH</span><span class="p">]</span> <span class="p">[</span><span class="n">NAME</span><span class="p">]</span>
+
+    <span class="n">Commands</span><span class="p">:</span>
+
+      <span class="n">create</span>     <span class="n">Create</span> <span class="n">a</span> <span class="n">cluster</span>
+      <span class="nb">list</span>       <span class="n">List</span> <span class="n">the</span> <span class="n">available</span> <span class="n">clusters</span>
+      <span class="n">inventory</span>  <span class="n">Obtain</span> <span class="n">an</span> <span class="n">inventory</span> <span class="n">file</span>
+      <span class="n">delete</span>     <span class="n">Delete</span> <span class="n">clusters</span> <span class="ow">and</span> <span class="n">associated</span> <span class="n">instances</span>
+      <span class="n">get</span>        <span class="n">Get</span> <span class="n">properties</span> <span class="n">of</span> <span class="n">a</span> <span class="n">cluster</span><span class="o">/</span><span class="n">nodes</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">cluster</span>
+
+    <span class="n">Arguments</span><span class="p">:</span>
+
+      <span class="n">NAME</span>                <span class="n">Alphanumeric</span> <span class="n">name</span>
+      <span class="n">COUNT</span>               <span class="n">Integer</span> <span class="o">&gt;</span> <span class="mi">0</span>
+      <span class="n">PATH</span>                <span class="n">Path</span> <span class="n">to</span> <span class="n">entry</span> <span class="n">on</span> <span class="n">the</span> <span class="n">filesystem</span>
+
+    <span class="n">Options</span><span class="p">:</span>
+
+      <span class="o">-</span><span class="n">A</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">activate</span>               <span class="n">Don</span><span class="s1">&#39;t activate this cluster</span>
+      <span class="o">-</span><span class="n">I</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floating</span><span class="o">-</span><span class="n">ip</span>            <span class="n">Don</span><span class="s1">&#39;t assign floating IPs</span>
+      <span class="o">-</span><span class="n">n</span> <span class="n">NAME</span> <span class="o">--</span><span class="n">name</span><span class="o">=</span><span class="n">NAME</span>            <span class="n">Name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">cluster</span>
+      <span class="o">-</span><span class="n">c</span> <span class="n">COUNT</span> <span class="o">--</span><span class="n">count</span><span class="o">=</span><span class="n">COUNT</span>         <span class="n">Number</span> <span class="n">of</span> <span class="n">nodes</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">cluster</span>
+      <span class="o">-</span><span class="n">C</span> <span class="n">NAME</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">NAME</span>           <span class="n">Name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">cloud</span>
+      <span class="o">-</span><span class="n">u</span> <span class="n">USER</span> <span class="o">--</span><span class="n">user</span><span class="o">=</span><span class="n">NAME</span>
+      <span class="o">-</span><span class="n">i</span> <span class="n">NAME</span> <span class="o">--</span><span class="n">image</span><span class="o">=</span><span class="n">NAME</span>           <span class="n">Name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">image</span>
+      <span class="o">-</span><span class="n">f</span> <span class="n">NAME</span> <span class="o">--</span><span class="n">flavor</span><span class="o">=</span><span class="n">NAME</span>          <span class="n">Name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">flavor</span>
+      <span class="o">-</span><span class="n">k</span> <span class="n">NAME</span> <span class="o">--</span><span class="n">key</span><span class="o">=</span><span class="n">NAME</span>             <span class="n">Name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">key</span>
+      <span class="o">-</span><span class="n">s</span> <span class="n">NAME</span> <span class="o">--</span><span class="n">secgroup</span><span class="o">=</span><span class="n">NAME</span>        <span class="n">NAME</span> <span class="n">of</span> <span class="n">the</span> <span class="n">security</span> <span class="n">group</span>
+      <span class="o">-</span><span class="n">F</span> <span class="n">NAME</span> <span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">NAME</span>          <span class="n">Name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">output</span> <span class="nb">format</span>
+      <span class="o">-</span><span class="n">o</span> <span class="n">PATH</span> <span class="o">--</span><span class="n">path</span><span class="o">=</span><span class="n">PATH</span>            <span class="n">Output</span> <span class="n">to</span> <span class="n">this</span> <span class="n">path</span>
+      <span class="o">--</span><span class="n">force</span>
+      <span class="o">--</span><span class="nb">all</span>
+
+    <span class="n">Inventory</span> <span class="n">File</span> <span class="n">Format</span><span class="p">:</span>
+
+      <span class="n">ansible</span>  <span class="p">[</span><span class="n">default</span><span class="p">]</span>            <span class="n">Ansible</span><span class="o">-</span><span class="n">compatible</span> <span class="n">inventory</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="color">
 <h2>color<a class="headerlink" href="#color" title="Permalink to this headline">¶</a></h2>
 <p>Command - color:</p>
@@ -647,6 +703,35 @@
 </pre></div>
 </div>
 </div>
+<div class="section" id="deploy">
+<h2>deploy<a class="headerlink" href="#deploy" title="Permalink to this headline">¶</a></h2>
+<p>Command - deploy:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">::</span>
+    <span class="n">Usage</span><span class="p">:</span>
+      <span class="n">deploy</span> <span class="n">ansible</span> <span class="p">[</span><span class="o">-</span><span class="n">p</span> <span class="n">PATH</span><span class="o">...</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">u</span> <span class="n">NAME</span><span class="p">]</span> <span class="p">[</span><span class="n">CLUSTER</span><span class="p">]</span>
+
+    <span class="n">Commands</span><span class="p">:</span>
+
+      <span class="n">ansible</span>                        <span class="n">Ansible</span> <span class="n">deployment</span>
+
+    <span class="n">Ansible</span> <span class="n">Commands</span><span class="p">:</span>
+      <span class="n">playbook</span>                       <span class="n">Deploy</span> <span class="n">a</span> <span class="n">pre</span><span class="o">-</span><span class="n">prepared</span> <span class="n">playbook</span>
+      <span class="n">role</span>                           <span class="n">Deploy</span> <span class="n">a</span> <span class="n">role</span> <span class="n">to</span> <span class="nb">all</span> <span class="n">nodes</span>
+
+    <span class="n">Arguments</span><span class="p">:</span>
+
+      <span class="n">CLUSTER</span>                        <span class="n">Cluster</span> <span class="n">name</span> <span class="n">to</span> <span class="n">deploy</span> <span class="n">to</span>
+      <span class="n">NAME</span>                           <span class="n">Alphanumeric</span> <span class="n">name</span>
+      <span class="n">COUNT</span>                          <span class="n">Integer</span> <span class="o">&gt;</span> <span class="mi">0</span>
+      <span class="n">PATH</span>                           <span class="n">Path</span> <span class="n">to</span> <span class="n">entry</span> <span class="n">on</span> <span class="n">the</span> <span class="n">filesystem</span>
+
+    <span class="n">Options</span><span class="p">:</span>
+
+      <span class="o">-</span><span class="n">p</span> <span class="o">--</span><span class="n">path</span><span class="o">=</span><span class="n">PATH</span>                 <span class="n">Path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">location</span> <span class="n">of</span> <span class="n">the</span> <span class="n">item</span>
+      <span class="o">-</span><span class="n">u</span> <span class="o">--</span><span class="n">user</span><span class="o">=</span><span class="n">NAME</span>                 <span class="n">Username</span> <span class="n">of</span> <span class="n">the</span> <span class="n">nodes</span> <span class="n">to</span> <span class="n">manage</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="echo">
 <h2>echo<a class="headerlink" href="#echo" title="Permalink to this headline">¶</a></h2>
 <p>Command - echo:</p>
@@ -794,6 +879,30 @@
     <span class="n">history</span> <span class="nb">list</span>
     <span class="n">history</span> <span class="n">last</span>
     <span class="n">history</span> <span class="n">ID</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="hadoop">
+<h2>hadoop<a class="headerlink" href="#hadoop" title="Permalink to this headline">¶</a></h2>
+<p>Command - hadoop:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span>
+  <span class="n">hadoop</span> <span class="n">start</span> <span class="p">[</span><span class="o">-</span><span class="n">f</span> <span class="n">NAME</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">i</span> <span class="n">NAME</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">u</span> <span class="n">NAME</span><span class="p">]</span> <span class="p">[</span><span class="n">COUNT</span><span class="p">]</span> <span class="p">[</span><span class="n">ADDON</span><span class="p">]</span><span class="o">...</span>
+  <span class="n">hadoop</span> <span class="nb">list</span>
+  <span class="n">hadoop</span> <span class="n">switch</span> <span class="n">NAME</span>
+  <span class="n">hadoop</span> <span class="n">delete</span> <span class="p">[</span><span class="o">-</span><span class="n">a</span><span class="p">]</span> <span class="p">[</span><span class="n">NAME</span><span class="p">]</span><span class="o">...</span>
+
+<span class="n">Arguments</span><span class="p">:</span>
+
+  <span class="n">COUNT</span>
+  <span class="n">ADDON</span>
+  <span class="n">NAME</span>
+
+<span class="n">Options</span><span class="p">:</span>
+
+  <span class="o">-</span><span class="n">a</span> <span class="o">--</span><span class="nb">all</span>
+  <span class="o">-</span><span class="n">f</span> <span class="o">--</span><span class="n">flavor</span><span class="o">=</span><span class="n">NAME</span>
+  <span class="o">-</span><span class="n">i</span> <span class="o">--</span><span class="n">image</span><span class="o">=</span><span class="n">NAME</span>
+  <span class="o">-</span><span class="n">u</span> <span class="o">--</span><span class="n">user</span><span class="o">=</span><span class="n">NAME</span>
 </pre></div>
 </div>
 </div>
@@ -1102,8 +1211,11 @@
 
      <span class="n">Prints</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">keys</span><span class="o">.</span> <span class="n">NAME</span> <span class="n">of</span> <span class="n">the</span> <span class="n">key</span> <span class="n">can</span> <span class="n">be</span> <span class="n">specified</span>
 
+<span class="n">key</span> <span class="n">add</span> <span class="n">ssh</span>
 
-<span class="n">key</span> <span class="n">add</span> <span class="p">[</span><span class="o">--</span><span class="n">name</span><span class="o">=</span><span class="n">keyname</span><span class="p">]</span> <span class="n">FILENAME</span>
+    <span class="n">adds</span> <span class="n">the</span> <span class="n">default</span> <span class="n">key</span> <span class="k">with</span> <span class="n">the</span> <span class="n">name</span> <span class="n">id_rsa</span><span class="o">.</span><span class="n">pub</span>
+
+<span class="n">key</span> <span class="n">add</span> <span class="n">NAME</span>  <span class="o">--</span><span class="n">source</span><span class="o">=</span><span class="n">FILENAME</span>
 
     <span class="n">adds</span> <span class="n">the</span> <span class="n">key</span> <span class="n">specifid</span> <span class="n">by</span> <span class="n">the</span> <span class="n">filename</span> <span class="n">to</span> <span class="n">the</span> <span class="n">key</span>
     <span class="n">database</span>
@@ -1933,6 +2045,59 @@ Description:
 </pre></div>
 </div>
 </div>
+<div class="section" id="stack">
+<h2>stack<a class="headerlink" href="#stack" title="Permalink to this headline">¶</a></h2>
+<p>Command - stack:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span> Usage:
+   stack check
+   stack init [-fU] [--no-activate] [-s STACK] [-n NAME] [-u NAME] [-b NAME] [-o DEFN]... [-p PLAY] &lt;ip&gt;...
+   stack deploy [-f] [-n NAME]
+   stack project [-l] [&lt;name&gt;]
+
+ Commands:
+   check     Sanity check
+   init      Initialize a stack
+   deploy    Deploy a stack
+   project   List and activate projects
+
+ Arguments:
+   STACK  Name of the stack. Options: (bds)
+   NAME   Alphanumeric name
+   DEFN   In the form: play1:k1=v1,k2=v2,...
+   PLAY   In the form: playbook,playbook,...
+
+Options:
+
+   -v --verbose
+   --no-activate                 Do not activate a project upon creation
+   -s STACK --stack=STACK        The stack name [default: bds]
+   -n NAME --name=NAME           Name of the project (if not specified during creation, generated).
+   -u NAME --user=NAME           Name of login user to cluster [default: $USER]
+   -b NAME --branch=NAME         Name of the stack&#39;s branch to clone from [default: master]
+   -o DEFN --overrides=DEFN      Overrides for a playbook, may be specified multiple times
+   -p PLAY --playbooks=PLAY      Playbooks to run
+   -f --force                    Force rerunning a command to continue
+   -U --update                   Update the stack
+   -l --list                     List
+
+ Examples:
+
+  The following example assumes that a cluster (Ubuntu
+  14.04) has been launched already and can be accessed by
+  the &#39;ubuntu` user at addresses 10.0.0.10, 10.0.0.11, and
+  10.0.0.12.
+
+     # verify the environment
+     cm stack check
+
+     # create a project for the cluster with given username and addresses
+     cm stack init -u ubuntu -p play-hadoop.yml,addons/spark.yml 10.0.0.10 10.0.0.11 10.0.0.12
+
+     # deploy hadoop, spark to the cluster
+     cm stack deploy
+</pre></div>
+</div>
+</div>
 <div class="section" id="submit">
 <h2>submit<a class="headerlink" href="#submit" title="Permalink to this headline">¶</a></h2>
 <p>Command - submit:</p>
@@ -2225,6 +2390,7 @@ Description:
              <span class="p">[</span><span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUD</span><span class="p">]</span>
              <span class="p">[</span><span class="o">--</span><span class="n">key</span><span class="o">=</span><span class="n">KEY</span><span class="p">]</span>
              <span class="p">[</span><span class="o">--</span><span class="n">command</span><span class="o">=</span><span class="n">COMMAND</span><span class="p">]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">modify</span><span class="o">-</span><span class="n">knownhosts</span><span class="p">]</span>
     <span class="n">vm</span> <span class="n">rename</span> <span class="p">[</span><span class="n">OLDNAMES</span><span class="p">]</span> <span class="p">[</span><span class="n">NEWNAMES</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">force</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">dryrun</span><span class="p">]</span>
     <span class="n">vm</span> <span class="nb">list</span> <span class="p">[</span><span class="n">NAMES</span><span class="p">]</span>
             <span class="p">[</span><span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUDS</span><span class="o">|--</span><span class="n">active</span><span class="p">]</span>
@@ -2252,6 +2418,7 @@ Description:
     <span class="n">OLDNAMES</span>       <span class="n">Old</span> <span class="n">names</span> <span class="n">of</span> <span class="n">the</span> <span class="n">VM</span> <span class="k">while</span> <span class="n">renaming</span><span class="o">.</span>
 
 <span class="n">Options</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">H</span> <span class="o">--</span><span class="n">modify</span><span class="o">-</span><span class="n">knownhosts</span>  <span class="n">Do</span> <span class="ow">not</span> <span class="n">modify</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">known_hosts</span> <span class="n">file</span> <span class="n">when</span> <span class="n">ssh</span><span class="s1">&#39;ing into a machine</span>
     <span class="o">--</span><span class="n">username</span><span class="o">=</span><span class="n">USERNAME</span>  <span class="n">the</span> <span class="n">username</span> <span class="n">to</span> <span class="n">login</span> <span class="n">into</span> <span class="n">the</span> <span class="n">vm</span><span class="o">.</span> <span class="n">If</span> <span class="ow">not</span> <span class="n">specified</span> <span class="n">it</span> <span class="n">will</span> <span class="n">be</span> <span class="n">guessed</span>
                          <span class="kn">from</span> <span class="nn">the</span> <span class="n">image</span> <span class="n">name</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">cloud</span>
     <span class="o">--</span><span class="n">ip</span><span class="o">=</span><span class="n">IP</span>          <span class="n">give</span> <span class="n">the</span> <span class="n">public</span> <span class="n">ip</span> <span class="n">of</span> <span class="n">the</span> <span class="n">server</span>
@@ -2398,7 +2565,7 @@ Description:
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.3.7',
+            VERSION:'4.4.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

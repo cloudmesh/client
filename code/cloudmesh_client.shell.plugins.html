@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins package &mdash; cloudmesh_client 4.3.7 documentation</title>
+  <title>cloudmesh_client.shell.plugins package &mdash; cloudmesh_client 4.4.0 documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client.shell package" href="cloudmesh_client.shell.html"/>
         <link rel="next" title="cloudmesh_client.system package" href="cloudmesh_client.system.html"/>
         <link rel="prev" title="cloudmesh_client.shell package" href="cloudmesh_client.shell.html"/> 
@@ -61,7 +64,7 @@
             
             
               <div class="version">
-                4.3.7
+                4.4.0
               </div>
             
           
@@ -131,8 +134,10 @@
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.comet.html">cloudmesh_client.comet package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.db.html">cloudmesh_client.db package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.deployer.html">cloudmesh_client.deployer package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.etc.html">cloudmesh_client.etc package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.extend.html">cloudmesh_client.extend package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.platform.html">cloudmesh_client.platform package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.provider.html">cloudmesh_client.provider package</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="cloudmesh_client.shell.html">cloudmesh_client.shell package</a><ul class="current">
 <li class="toctree-l4 current"><a class="reference internal" href="cloudmesh_client.shell.html#subpackages">Subpackages</a></li>
@@ -149,6 +154,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.exc">cloudmesh_client.exc module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.main">cloudmesh_client.main module</a></li>
@@ -484,6 +490,195 @@
 <dd></dd></dl>
 
 </div>
+<div class="section" id="module-cloudmesh_client.shell.plugins.ClusterCommand2">
+<span id="cloudmesh-client-shell-plugins-clustercommand2-module"></span><h2>cloudmesh_client.shell.plugins.ClusterCommand2 module<a class="headerlink" href="#module-cloudmesh_client.shell.plugins.ClusterCommand2" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.shell.plugins.ClusterCommand2.Cluster2Command">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.plugins.ClusterCommand2.</code><code class="descname">Cluster2Command</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/ClusterCommand2.html#Cluster2Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Cluster2Command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.shell.html#cloudmesh_client.shell.command.PluginCommand" title="cloudmesh_client.shell.command.PluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.PluginCommand</span></code></a>, <a class="reference internal" href="cloudmesh_client.shell.html#cloudmesh_client.shell.command.CloudPluginCommand" title="cloudmesh_client.shell.command.CloudPluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.CloudPluginCommand</span></code></a></p>
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.ClusterCommand2.Cluster2Command.do_cluster2">
+<code class="descname">do_cluster2</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Cluster2Command.do_cluster2" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>::</dt>
+<dd><dl class="first docutils">
+<dt>Usage:</dt>
+<dd>cluster2 create [-n NAME] [-c COUNT] [-C CLOUD] [-u USER] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]
+cluster2 list
+cluster2 nodes [CLUSTER]
+cluster2 delete [&#8211;all] [&#8211;force] [NAME]...
+cluster2 get [-n NAME] PROPERTY
+cluster2 inventory [-F NAME] [-o PATH] [NAME]</dd>
+</dl>
+<p>Commands:</p>
+<blockquote>
+<div>create     Create a cluster
+list       List the available clusters
+inventory  Obtain an inventory file
+delete     Delete clusters and associated instances
+get        Get properties of a cluster/nodes in a cluster</div></blockquote>
+<p>Arguments:</p>
+<blockquote>
+<div>NAME                Alphanumeric name
+COUNT               Integer &gt; 0
+PATH                Path to entry on the filesystem</div></blockquote>
+<p>Options:</p>
+<blockquote>
+<div>-A &#8211;no-activate               Don&#8217;t activate this cluster
+-I &#8211;no-floating-ip            Don&#8217;t assign floating IPs
+-n NAME &#8211;name=NAME            Name of the cluster
+-c COUNT &#8211;count=COUNT         Number of nodes in the cluster
+-C NAME &#8211;cloud=NAME           Name of the cloud
+-u USER &#8211;user=NAME
+-i NAME &#8211;image=NAME           Name of the image
+-f NAME &#8211;flavor=NAME          Name of the flavor
+-k NAME &#8211;key=NAME             Name of the key
+-s NAME &#8211;secgroup=NAME        NAME of the security group
+-F NAME &#8211;format=NAME          Name of the output format
+-o PATH &#8211;path=PATH            Output to this path
+&#8211;force
+&#8211;all</div></blockquote>
+<p>Inventory File Format:</p>
+<blockquote class="last">
+<div>ansible  [default]            Ansible-compatible inventory</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.shell.plugins.ClusterCommand2.Cluster2Command.topics">
+<code class="descname">topics</code><em class="property"> = {'cluster2': 'cluster'}</em><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Cluster2Command.topics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.shell.plugins.ClusterCommand2.Command">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.plugins.ClusterCommand2.</code><code class="descname">Command</code><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/ClusterCommand2.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.ClusterCommand2.Command.create">
+<code class="descname">create</code><span class="sig-paren">(</span><em>clustername=None</em>, <em>cloud=None</em>, <em>count=1</em>, <em>user=None</em>, <em>username=None</em>, <em>image=None</em>, <em>flavor=None</em>, <em>key=None</em>, <em>secgroup=None</em>, <em>assignFloatingIP=True</em>, <em>activate=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/ClusterCommand2.html#Command.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Command.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a cluster.</p>
+<p>If values are <cite>None</cite>, they are automatically determined via
+defaults.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>clustername</strong> (<em>str</em>) &#8211; name of this cluster (generated if None)</li>
+<li><strong>cloud</strong> (<em>str</em>) &#8211; cloud name</li>
+<li><strong>count</strong> (<em>int</em>) &#8211; number of instances in the cluster</li>
+<li><strong>user</strong> (<em>str</em>) &#8211; cloudmesh user</li>
+<li><strong>username</strong> (<em>str</em>) &#8211; cloud image username</li>
+<li><strong>image</strong> (<em>str</em>) &#8211; image name</li>
+<li><strong>flavor</strong> (<em>str</em>) &#8211; instance flavor</li>
+<li><strong>key</strong> (<em>str</em>) &#8211; key name</li>
+<li><strong>secgroup</strong> (<em>str</em>) &#8211; security group name</li>
+<li><strong>activate</strong> (<em>bool</em>) &#8211; activate this cluster after creation</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a cluster</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal"><span class="pre">Cluster</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.ClusterCommand2.Command.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>clusternames=None</em>, <em>force=False</em>, <em>all=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/ClusterCommand2.html#Command.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Command.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete clusters that have these names.</p>
+<p>If not specified, delete the active cluster.
+If there is no active cluster, delete the first cluster.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>clusternames</strong> (<a class="reference internal" href="cloudmesh_client.html#cloudmesh_client.default.Default.list" title="cloudmesh_client.default.Default.list"><em>list</em></a>) &#8211; list of cluster names to delete</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.ClusterCommand2.Command.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>property</em>, <em>cluster=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/ClusterCommand2.html#Command.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Command.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the property for a cluster/nodes in a cluster.</p>
+<p>If no cluster is specified, use the currently active cluster.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>property</strong> (<em>str</em>) &#8211; name of the property</li>
+<li><strong>cluster</strong> (<a class="reference internal" href="cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster" title="cloudmesh_client.comet.cluster.Cluster"><em>Cluster</em></a>) &#8211; the cluster (default: currently active)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a list of the values</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Command.list" title="cloudmesh_client.shell.plugins.ClusterCommand2.Command.list"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.ClusterCommand2.Command.inventory">
+<code class="descname">inventory</code><span class="sig-paren">(</span><em>cluster=None</em>, <em>format=None</em>, <em>path=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/ClusterCommand2.html#Command.inventory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Command.inventory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.ClusterCommand2.Command.list">
+<code class="descname">list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/ClusterCommand2.html#Command.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Command.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the clusters created</p>
+<p>The currently active cluster is given as the first element in
+the tuple, while the remainder are listed in the second
+position.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a pair: (active, [clusters])</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> (<code class="xref py py-class docutils literal"><span class="pre">Cluster</span></code>, <a class="reference internal" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Command.list" title="cloudmesh_client.shell.plugins.ClusterCommand2.Command.list"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a> of <code class="xref py py-class docutils literal"><span class="pre">Cluster</span></code>)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">NoActiveClusterException</span></code> if no cluster is active, meaning there are no clusters</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.ClusterCommand2.Command.nodes">
+<code class="descname">nodes</code><span class="sig-paren">(</span><em>cluster=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/ClusterCommand2.html#Command.nodes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Command.nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the nodes of a cluster</p>
+<p>If no cluster is specified, use the currently active cluster.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cluster</strong> (<a class="reference internal" href="cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster" title="cloudmesh_client.comet.cluster.Cluster"><em>Cluster</em></a>) &#8211; the cluster (default: currently active)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a list of instances</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">a VM instance</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-cloudmesh_client.shell.plugins.ColorCommand">
 <span id="cloudmesh-client-shell-plugins-colorcommand-module"></span><h2>cloudmesh_client.shell.plugins.ColorCommand module<a class="headerlink" href="#module-cloudmesh_client.shell.plugins.ColorCommand" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -730,6 +925,81 @@ cloud kilo</dd>
 </dd></dl>
 
 </div>
+<div class="section" id="module-cloudmesh_client.shell.plugins.DeployCommand">
+<span id="cloudmesh-client-shell-plugins-deploycommand-module"></span><h2>cloudmesh_client.shell.plugins.DeployCommand module<a class="headerlink" href="#module-cloudmesh_client.shell.plugins.DeployCommand" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.shell.plugins.DeployCommand.AnsibleCommand">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.plugins.DeployCommand.</code><code class="descname">AnsibleCommand</code><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/DeployCommand.html#AnsibleCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.DeployCommand.AnsibleCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.DeployCommand.AnsibleCommand.playbook">
+<code class="descname">playbook</code><span class="sig-paren">(</span><em>cluster=None</em>, <em>path=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/DeployCommand.html#AnsibleCommand.playbook"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.DeployCommand.AnsibleCommand.playbook" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.DeployCommand.AnsibleCommand.role">
+<code class="descname">role</code><span class="sig-paren">(</span><em>cluster=None</em>, <em>path=None</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/DeployCommand.html#AnsibleCommand.role"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.DeployCommand.AnsibleCommand.role" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deploy a role to all the nodes in the cluster</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cluster</strong> (<em>str</em>) &#8211; cluster name (default is the active cluster)</li>
+<li><strong>path</strong> (<em>str</em>) &#8211; path to the role (default is current working directory)</li>
+<li><strong>name</strong> (<em>str</em>) &#8211; name of the role</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.shell.plugins.DeployCommand.DeployCommand">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.plugins.DeployCommand.</code><code class="descname">DeployCommand</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/DeployCommand.html#DeployCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.DeployCommand.DeployCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.shell.html#cloudmesh_client.shell.command.PluginCommand" title="cloudmesh_client.shell.command.PluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.PluginCommand</span></code></a>, <a class="reference internal" href="cloudmesh_client.shell.html#cloudmesh_client.shell.command.CloudPluginCommand" title="cloudmesh_client.shell.command.CloudPluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.CloudPluginCommand</span></code></a></p>
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.DeployCommand.DeployCommand.do_deploy">
+<code class="descname">do_deploy</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.DeployCommand.DeployCommand.do_deploy" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>::</dt>
+<dd><dl class="first docutils">
+<dt>Usage:</dt>
+<dd>deploy ansible [-p PATH...] [-u NAME] [CLUSTER]</dd>
+</dl>
+<p>Commands:</p>
+<blockquote>
+<div>ansible                        Ansible deployment</div></blockquote>
+<dl class="docutils">
+<dt>Ansible Commands:</dt>
+<dd>playbook                       Deploy a pre-prepared playbook
+role                           Deploy a role to all nodes</dd>
+</dl>
+<p>Arguments:</p>
+<blockquote>
+<div>CLUSTER                        Cluster name to deploy to
+NAME                           Alphanumeric name
+COUNT                          Integer &gt; 0
+PATH                           Path to entry on the filesystem</div></blockquote>
+<p>Options:</p>
+<blockquote class="last">
+<div>-p &#8211;path=PATH                 Path to the location of the item
+-u &#8211;user=NAME                 Username of the nodes to manage</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.shell.plugins.DeployCommand.DeployCommand.topics">
+<code class="descname">topics</code><em class="property"> = {'deploy': 'cluster'}</em><a class="headerlink" href="#cloudmesh_client.shell.plugins.DeployCommand.DeployCommand.topics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-cloudmesh_client.shell.plugins.FlavorCommand">
 <span id="cloudmesh-client-shell-plugins-flavorcommand-module"></span><h2>cloudmesh_client.shell.plugins.FlavorCommand module<a class="headerlink" href="#module-cloudmesh_client.shell.plugins.FlavorCommand" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -853,6 +1123,132 @@ cloud kilo</dd>
 <dl class="attribute">
 <dt id="cloudmesh_client.shell.plugins.GroupCommand.GroupCommand.topics">
 <code class="descname">topics</code><em class="property"> = {'group': 'cloud'}</em><a class="headerlink" href="#cloudmesh_client.shell.plugins.GroupCommand.GroupCommand.topics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cloudmesh_client.shell.plugins.HadoopCommand">
+<span id="cloudmesh-client-shell-plugins-hadoopcommand-module"></span><h2>cloudmesh_client.shell.plugins.HadoopCommand module<a class="headerlink" href="#module-cloudmesh_client.shell.plugins.HadoopCommand" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.shell.plugins.HadoopCommand.Command">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.plugins.HadoopCommand.</code><code class="descname">Command</code><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/HadoopCommand.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.HadoopCommand.Command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.HadoopCommand.Command.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>names</em>, <em>all=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/HadoopCommand.html#Command.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.HadoopCommand.Command.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete deployments.</p>
+<p>If no names are specified, delete the currently active
+deployment.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>names</strong> (<a class="reference internal" href="cloudmesh_client.html#cloudmesh_client.default.Default.list" title="cloudmesh_client.default.Default.list"><em>list</em></a>) &#8211; names of deployments to delete</li>
+<li><strong>all</strong> (<em>bool</em>) &#8211; delete all deployments</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.HadoopCommand.Command.list">
+<code class="descname">list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/HadoopCommand.html#Command.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.HadoopCommand.Command.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the known deployments</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.HadoopCommand.Command.start">
+<code class="descname">start</code><span class="sig-paren">(</span><em>count=3</em>, <em>addons=None</em>, <em>flavor=None</em>, <em>image=None</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/HadoopCommand.html#Command.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.HadoopCommand.Command.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start a hadoop cluster</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>count</strong> (<em>int</em>) &#8211; number of nodes to use (minimum of 3)</li>
+<li><strong>addons</strong> (<em>list(str)</em>) &#8211; names of addons to deploy as well</li>
+<li><strong>flavor</strong> (<em>str</em>) &#8211; instance flavor</li>
+<li><strong>image</strong> (<em>str</em>) &#8211; image name</li>
+<li><strong>user</strong> (<em>str</em>) &#8211; login user name</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.HadoopCommand.Command.switch">
+<code class="descname">switch</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/HadoopCommand.html#Command.switch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.HadoopCommand.Command.switch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Switch active deployments</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) &#8211; name of deployment to switch to</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.shell.plugins.HadoopCommand.HadoopCommand">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.plugins.HadoopCommand.</code><code class="descname">HadoopCommand</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/HadoopCommand.html#HadoopCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.HadoopCommand.HadoopCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.shell.html#cloudmesh_client.shell.command.PluginCommand" title="cloudmesh_client.shell.command.PluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.PluginCommand</span></code></a>, <a class="reference internal" href="cloudmesh_client.shell.html#cloudmesh_client.shell.command.CloudPluginCommand" title="cloudmesh_client.shell.command.CloudPluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.CloudPluginCommand</span></code></a></p>
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.HadoopCommand.HadoopCommand.do_hadoop">
+<code class="descname">do_hadoop</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.HadoopCommand.HadoopCommand.do_hadoop" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span>
+  <span class="n">hadoop</span> <span class="n">start</span> <span class="p">[</span><span class="o">-</span><span class="n">f</span> <span class="n">NAME</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">i</span> <span class="n">NAME</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">u</span> <span class="n">NAME</span><span class="p">]</span> <span class="p">[</span><span class="n">COUNT</span><span class="p">]</span> <span class="p">[</span><span class="n">ADDON</span><span class="p">]</span><span class="o">...</span>
+  <span class="n">hadoop</span> <span class="nb">list</span>
+  <span class="n">hadoop</span> <span class="n">switch</span> <span class="n">NAME</span>
+  <span class="n">hadoop</span> <span class="n">delete</span> <span class="p">[</span><span class="o">-</span><span class="n">a</span><span class="p">]</span> <span class="p">[</span><span class="n">NAME</span><span class="p">]</span><span class="o">...</span>
+
+<span class="n">Arguments</span><span class="p">:</span>
+
+  <span class="n">COUNT</span>
+  <span class="n">ADDON</span>
+  <span class="n">NAME</span>
+
+<span class="n">Options</span><span class="p">:</span>
+
+  <span class="o">-</span><span class="n">a</span> <span class="o">--</span><span class="nb">all</span>
+  <span class="o">-</span><span class="n">f</span> <span class="o">--</span><span class="n">flavor</span><span class="o">=</span><span class="n">NAME</span>
+  <span class="o">-</span><span class="n">i</span> <span class="o">--</span><span class="n">image</span><span class="o">=</span><span class="n">NAME</span>
+  <span class="o">-</span><span class="n">u</span> <span class="o">--</span><span class="n">user</span><span class="o">=</span><span class="n">NAME</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.shell.plugins.HadoopCommand.HadoopCommand.topics">
+<code class="descname">topics</code><em class="property"> = {'hadoop': 'cluster'}</em><a class="headerlink" href="#cloudmesh_client.shell.plugins.HadoopCommand.HadoopCommand.topics" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1205,8 +1601,11 @@ cloud kilo</dd>
 
      <span class="n">Prints</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">keys</span><span class="o">.</span> <span class="n">NAME</span> <span class="n">of</span> <span class="n">the</span> <span class="n">key</span> <span class="n">can</span> <span class="n">be</span> <span class="n">specified</span>
 
+<span class="n">key</span> <span class="n">add</span> <span class="n">ssh</span>
 
-<span class="n">key</span> <span class="n">add</span> <span class="p">[</span><span class="o">--</span><span class="n">name</span><span class="o">=</span><span class="n">keyname</span><span class="p">]</span> <span class="n">FILENAME</span>
+    <span class="n">adds</span> <span class="n">the</span> <span class="n">default</span> <span class="n">key</span> <span class="k">with</span> <span class="n">the</span> <span class="n">name</span> <span class="n">id_rsa</span><span class="o">.</span><span class="n">pub</span>
+
+<span class="n">key</span> <span class="n">add</span> <span class="n">NAME</span>  <span class="o">--</span><span class="n">source</span><span class="o">=</span><span class="n">FILENAME</span>
 
     <span class="n">adds</span> <span class="n">the</span> <span class="n">key</span> <span class="n">specifid</span> <span class="n">by</span> <span class="n">the</span> <span class="n">filename</span> <span class="n">to</span> <span class="n">the</span> <span class="n">key</span>
     <span class="n">database</span>
@@ -2349,6 +2748,118 @@ existing cloudmesh database.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-cloudmesh_client.shell.plugins.StackCommand">
+<span id="cloudmesh-client-shell-plugins-stackcommand-module"></span><h2>cloudmesh_client.shell.plugins.StackCommand module<a class="headerlink" href="#module-cloudmesh_client.shell.plugins.StackCommand" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.shell.plugins.StackCommand.Command">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.plugins.StackCommand.</code><code class="descname">Command</code><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/StackCommand.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.StackCommand.Command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.StackCommand.Command.check">
+<code class="descname">check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/StackCommand.html#Command.check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.StackCommand.Command.check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.StackCommand.Command.deploy">
+<code class="descname">deploy</code><span class="sig-paren">(</span><em>project_name=None</em>, <em>force=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/StackCommand.html#Command.deploy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.StackCommand.Command.deploy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.StackCommand.Command.init">
+<code class="descname">init</code><span class="sig-paren">(</span><em>stackname='bds'</em>, <em>activate=True</em>, <em>name=None</em>, <em>user=None</em>, <em>branch=None</em>, <em>overrides=None</em>, <em>playbooks=None</em>, <em>ips=None</em>, <em>force=False</em>, <em>update=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/StackCommand.html#Command.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.StackCommand.Command.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.StackCommand.Command.project">
+<code class="descname">project</code><span class="sig-paren">(</span><em>list_projects=False</em>, <em>name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/StackCommand.html#Command.project"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.StackCommand.Command.project" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.shell.plugins.StackCommand.StackCommand">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.plugins.StackCommand.</code><code class="descname">StackCommand</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/StackCommand.html#StackCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.StackCommand.StackCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.shell.html#cloudmesh_client.shell.command.PluginCommand" title="cloudmesh_client.shell.command.PluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.PluginCommand</span></code></a>, <a class="reference internal" href="cloudmesh_client.shell.html#cloudmesh_client.shell.command.CloudPluginCommand" title="cloudmesh_client.shell.command.CloudPluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.CloudPluginCommand</span></code></a></p>
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.StackCommand.StackCommand.do_stack">
+<code class="descname">do_stack</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.StackCommand.StackCommand.do_stack" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-default"><div class="highlight"><pre><span></span> Usage:
+   stack check
+   stack init [-fU] [--no-activate] [-s STACK] [-n NAME] [-u NAME] [-b NAME] [-o DEFN]... [-p PLAY] &lt;ip&gt;...
+   stack deploy [-f] [-n NAME]
+   stack project [-l] [&lt;name&gt;]
+
+ Commands:
+   check     Sanity check
+   init      Initialize a stack
+   deploy    Deploy a stack
+   project   List and activate projects
+
+ Arguments:
+   STACK  Name of the stack. Options: (bds)
+   NAME   Alphanumeric name
+   DEFN   In the form: play1:k1=v1,k2=v2,...
+   PLAY   In the form: playbook,playbook,...
+
+Options:
+
+   -v --verbose
+   --no-activate                 Do not activate a project upon creation
+   -s STACK --stack=STACK        The stack name [default: bds]
+   -n NAME --name=NAME           Name of the project (if not specified during creation, generated).
+   -u NAME --user=NAME           Name of login user to cluster [default: $USER]
+   -b NAME --branch=NAME         Name of the stack&#39;s branch to clone from [default: master]
+   -o DEFN --overrides=DEFN      Overrides for a playbook, may be specified multiple times
+   -p PLAY --playbooks=PLAY      Playbooks to run
+   -f --force                    Force rerunning a command to continue
+   -U --update                   Update the stack
+   -l --list                     List
+
+ Examples:
+
+  The following example assumes that a cluster (Ubuntu
+  14.04) has been launched already and can be accessed by
+  the &#39;ubuntu` user at addresses 10.0.0.10, 10.0.0.11, and
+  10.0.0.12.
+
+     # verify the environment
+     cm stack check
+
+     # create a project for the cluster with given username and addresses
+     cm stack init -u ubuntu -p play-hadoop.yml,addons/spark.yml 10.0.0.10 10.0.0.11 10.0.0.12
+
+     # deploy hadoop, spark to the cluster
+     cm stack deploy
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.shell.plugins.StackCommand.StackCommand.topics">
+<code class="descname">topics</code><em class="property"> = {'stack': 'cloud'}</em><a class="headerlink" href="#cloudmesh_client.shell.plugins.StackCommand.StackCommand.topics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="cloudmesh_client.shell.plugins.StackCommand.cleanup_overrides">
+<code class="descclassname">cloudmesh_client.shell.plugins.StackCommand.</code><code class="descname">cleanup_overrides</code><span class="sig-paren">(</span><em>overrides</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/StackCommand.html#cleanup_overrides"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.StackCommand.cleanup_overrides" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cleanup shell-parameterized overrides definitions</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>overrides</strong> &#8211; list of [(play:k1=v1,k2=v2)...]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict[play] -&gt; dict[key] -&gt; value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
 <div class="section" id="module-cloudmesh_client.shell.plugins.SubmitCommands">
 <span id="cloudmesh-client-shell-plugins-submitcommands-module"></span><h2>cloudmesh_client.shell.plugins.SubmitCommands module<a class="headerlink" href="#module-cloudmesh_client.shell.plugins.SubmitCommands" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -2819,6 +3330,7 @@ toggled.</p>
              <span class="p">[</span><span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUD</span><span class="p">]</span>
              <span class="p">[</span><span class="o">--</span><span class="n">key</span><span class="o">=</span><span class="n">KEY</span><span class="p">]</span>
              <span class="p">[</span><span class="o">--</span><span class="n">command</span><span class="o">=</span><span class="n">COMMAND</span><span class="p">]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">modify</span><span class="o">-</span><span class="n">knownhosts</span><span class="p">]</span>
     <span class="n">vm</span> <span class="n">rename</span> <span class="p">[</span><span class="n">OLDNAMES</span><span class="p">]</span> <span class="p">[</span><span class="n">NEWNAMES</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">force</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">dryrun</span><span class="p">]</span>
     <span class="n">vm</span> <span class="nb">list</span> <span class="p">[</span><span class="n">NAMES</span><span class="p">]</span>
             <span class="p">[</span><span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUDS</span><span class="o">|--</span><span class="n">active</span><span class="p">]</span>
@@ -2846,6 +3358,7 @@ toggled.</p>
     <span class="n">OLDNAMES</span>       <span class="n">Old</span> <span class="n">names</span> <span class="n">of</span> <span class="n">the</span> <span class="n">VM</span> <span class="k">while</span> <span class="n">renaming</span><span class="o">.</span>
 
 <span class="n">Options</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">H</span> <span class="o">--</span><span class="n">modify</span><span class="o">-</span><span class="n">knownhosts</span>  <span class="n">Do</span> <span class="ow">not</span> <span class="n">modify</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">known_hosts</span> <span class="n">file</span> <span class="n">when</span> <span class="n">ssh</span><span class="s1">&#39;ing into a machine</span>
     <span class="o">--</span><span class="n">username</span><span class="o">=</span><span class="n">USERNAME</span>  <span class="n">the</span> <span class="n">username</span> <span class="n">to</span> <span class="n">login</span> <span class="n">into</span> <span class="n">the</span> <span class="n">vm</span><span class="o">.</span> <span class="n">If</span> <span class="ow">not</span> <span class="n">specified</span> <span class="n">it</span> <span class="n">will</span> <span class="n">be</span> <span class="n">guessed</span>
                          <span class="kn">from</span> <span class="nn">the</span> <span class="n">image</span> <span class="n">name</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">cloud</span>
     <span class="o">--</span><span class="n">ip</span><span class="o">=</span><span class="n">IP</span>          <span class="n">give</span> <span class="n">the</span> <span class="n">public</span> <span class="n">ip</span> <span class="n">of</span> <span class="n">the</span> <span class="n">server</span>
@@ -3042,7 +3555,7 @@ toggled.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.3.7',
+            VERSION:'4.4.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

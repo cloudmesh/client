@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Stack &mdash; cloudmesh_client 4.3.7 documentation</title>
+  <title>Stack &mdash; cloudmesh_client 4.4.0 documentation</title>
   
 
   
@@ -30,7 +30,12 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="index.html"/> 
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="index.html"/>
+        <link rel="next" title="cloudmesh_client package" href="code/cloudmesh_client.html"/>
+        <link rel="prev" title="Docker" href="docker.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -58,7 +63,7 @@
             
             
               <div class="version">
-                4.3.7
+                4.4.0
               </div>
             
           
@@ -116,8 +121,36 @@
 <li class="toctree-l1"><a class="reference internal" href="appendix.html">Appendix</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Future and Old</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Stack</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#questions">Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#about-bds">About BDS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bds-requirements">BDS Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-bds">Using BDS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#integrating-bds-with-cloudmesh-client">Integrating BDS with Cloudmesh Client</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#proposed-cloudmesh-changes">Proposed Cloudmesh Changes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cm-stack"><code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cm-hadoop"><code class="docutils literal"><span class="pre">cm</span> <span class="pre">hadoop</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cloudmesh-stack-yml"><code class="docutils literal"><span class="pre">.cloudmesh/stack.yml</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#use-case-hadoop-with-spark-hbase-drill">Use Case: Hadoop with Spark, HBase, Drill</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#implementation-overview">Implementation Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sanity-check-cm-stack-check">Sanity Check <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">check</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initialization-cm-stack-init">Initialization <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">init</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#listing-stacks-cm-stack-list">Listing Stacks <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">list</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#switching-projects-cm-stack-project">Switching Projects <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">project</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deploying-onto-nodes-cm-stack-deploy">Deploying Onto Nodes <code class="docutils literal"><span class="pre">cm</span> <span class="pre">stack</span> <span class="pre">deploy</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deploying-hadoop-with-addons-cm-hadoop">Deploying Hadoop with Addons <code class="docutils literal"><span class="pre">cm</span> <span class="pre">hadoop</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul>
@@ -492,6 +525,15 @@ Done.
           </div>
           <footer>
   
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="code/cloudmesh_client.html" class="btn btn-neutral float-right" title="cloudmesh_client package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="docker.html" class="btn btn-neutral" title="Docker" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
   <hr/>
 
@@ -518,7 +560,7 @@ Done.
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.3.7',
+            VERSION:'4.4.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

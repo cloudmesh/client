@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Overview: module code &mdash; cloudmesh_client 4.3.7 documentation</title>
+  <title>Overview: module code &mdash; cloudmesh_client 4.4.0 documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="../index.html"/> 
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -58,7 +61,7 @@
             
             
               <div class="version">
-                4.3.7
+                4.4.0
               </div>
             
           
@@ -205,6 +208,7 @@
 <li><a href="cloudmesh_client/cloud/register.html">cloudmesh_client.cloud.register</a></li>
 <li><a href="cloudmesh_client/cloud/reservation.html">cloudmesh_client.cloud.reservation</a></li>
 <li><a href="cloudmesh_client/cloud/secgroup.html">cloudmesh_client.cloud.secgroup</a></li>
+<li><a href="cloudmesh_client/cloud/stack.html">cloudmesh_client.cloud.stack</a></li>
 <li><a href="cloudmesh_client/cloud/sync.html">cloudmesh_client.cloud.sync</a></li>
 <li><a href="cloudmesh_client/cloud/usage.html">cloudmesh_client.cloud.usage</a></li>
 <li><a href="cloudmesh_client/cloud/vc.html">cloudmesh_client.cloud.vc</a></li>
@@ -243,10 +247,16 @@
 <li><a href="cloudmesh_client/db/libcloud/model.html">cloudmesh_client.db.libcloud.model</a></li>
 <li><a href="cloudmesh_client/db/openstack/model.html">cloudmesh_client.db.openstack.model</a></li>
 <li><a href="cloudmesh_client/default.html">cloudmesh_client.default</a></li>
+<li><a href="cloudmesh_client/deployer/ansible.html">cloudmesh_client.deployer.ansible</a></li>
+<ul><li><a href="cloudmesh_client/deployer/ansible/inventory.html">cloudmesh_client.deployer.ansible.inventory</a></li>
+<li><a href="cloudmesh_client/deployer/ansible/playbook.html">cloudmesh_client.deployer.ansible.playbook</a></li>
+<li><a href="cloudmesh_client/deployer/ansible/role.html">cloudmesh_client.deployer.ansible.role</a></li>
+</ul><li><a href="cloudmesh_client/exc.html">cloudmesh_client.exc</a></li>
 <li><a href="cloudmesh_client/extend/my.html">cloudmesh_client.extend.my</a></li>
 <li><a href="cloudmesh_client/extend/summary.html">cloudmesh_client.extend.summary</a></li>
 <li><a href="cloudmesh_client/locations.html">cloudmesh_client.locations</a></li>
 <li><a href="cloudmesh_client/logger.html">cloudmesh_client.logger</a></li>
+<li><a href="cloudmesh_client/platform/virtual_cluster/cluster.html">cloudmesh_client.platform.virtual_cluster.cluster</a></li>
 <li><a href="cloudmesh_client/provider.html">cloudmesh_client.provider</a></li>
 <ul><li><a href="cloudmesh_client/provider/general/attributes.html">cloudmesh_client.provider.general.attributes</a></li>
 <li><a href="cloudmesh_client/provider/libcloud/attributes.html">cloudmesh_client.provider.libcloud.attributes</a></li>
@@ -261,12 +271,15 @@
 <li><a href="cloudmesh_client/shell/plugins/CheckCommand.html">cloudmesh_client.shell.plugins.CheckCommand</a></li>
 <li><a href="cloudmesh_client/shell/plugins/CloudCommand.html">cloudmesh_client.shell.plugins.CloudCommand</a></li>
 <li><a href="cloudmesh_client/shell/plugins/ClusterCommand.html">cloudmesh_client.shell.plugins.ClusterCommand</a></li>
+<li><a href="cloudmesh_client/shell/plugins/ClusterCommand2.html">cloudmesh_client.shell.plugins.ClusterCommand2</a></li>
 <li><a href="cloudmesh_client/shell/plugins/ColorCommand.html">cloudmesh_client.shell.plugins.ColorCommand</a></li>
 <li><a href="cloudmesh_client/shell/plugins/CometCommand.html">cloudmesh_client.shell.plugins.CometCommand</a></li>
 <li><a href="cloudmesh_client/shell/plugins/DebugCommand.html">cloudmesh_client.shell.plugins.DebugCommand</a></li>
 <li><a href="cloudmesh_client/shell/plugins/DefaultCommand.html">cloudmesh_client.shell.plugins.DefaultCommand</a></li>
+<li><a href="cloudmesh_client/shell/plugins/DeployCommand.html">cloudmesh_client.shell.plugins.DeployCommand</a></li>
 <li><a href="cloudmesh_client/shell/plugins/FlavorCommand.html">cloudmesh_client.shell.plugins.FlavorCommand</a></li>
 <li><a href="cloudmesh_client/shell/plugins/GroupCommand.html">cloudmesh_client.shell.plugins.GroupCommand</a></li>
+<li><a href="cloudmesh_client/shell/plugins/HadoopCommand.html">cloudmesh_client.shell.plugins.HadoopCommand</a></li>
 <li><a href="cloudmesh_client/shell/plugins/HpcCommand.html">cloudmesh_client.shell.plugins.HpcCommand</a></li>
 <li><a href="cloudmesh_client/shell/plugins/ImageCommand.html">cloudmesh_client.shell.plugins.ImageCommand</a></li>
 <li><a href="cloudmesh_client/shell/plugins/InfoCommand.html">cloudmesh_client.shell.plugins.InfoCommand</a></li>
@@ -293,6 +306,7 @@
 <li><a href="cloudmesh_client/shell/plugins/SelectCommand.html">cloudmesh_client.shell.plugins.SelectCommand</a></li>
 <li><a href="cloudmesh_client/shell/plugins/ServerCommand.html">cloudmesh_client.shell.plugins.ServerCommand</a></li>
 <li><a href="cloudmesh_client/shell/plugins/SetupCommand.html">cloudmesh_client.shell.plugins.SetupCommand</a></li>
+<li><a href="cloudmesh_client/shell/plugins/StackCommand.html">cloudmesh_client.shell.plugins.StackCommand</a></li>
 <li><a href="cloudmesh_client/shell/plugins/SubmitCommands.html">cloudmesh_client.shell.plugins.SubmitCommands</a></li>
 <li><a href="cloudmesh_client/shell/plugins/SyncCommand.html">cloudmesh_client.shell.plugins.SyncCommand</a></li>
 <li><a href="cloudmesh_client/shell/plugins/TerminalCommands.html">cloudmesh_client.shell.plugins.TerminalCommands</a></li>
@@ -343,7 +357,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.3.7',
+            VERSION:'4.4.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

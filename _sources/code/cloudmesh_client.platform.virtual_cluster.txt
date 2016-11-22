@@ -1,0 +1,22 @@
+cloudmesh_client.platform.virtual_cluster package
+=================================================
+
+Submodules
+----------
+
+cloudmesh_client.platform.virtual_cluster.cluster module
+--------------------------------------------------------
+
+.. automodule:: cloudmesh_client.platform.virtual_cluster.cluster
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: cloudmesh_client.platform.virtual_cluster
+    :members:
+    :undoc-members:
+    :show-inheritance:

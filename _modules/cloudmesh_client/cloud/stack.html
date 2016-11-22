@@ -1,0 +1,940 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.cloud.stack &mdash; cloudmesh_client 4.4.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../prefix.html">Prefix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../comet.html">Comet Virtual Cluster</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/comet_cloudmesh.html">Comet Cloudmesh Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/comet_bigdata.html">Comet Big Data Tutorial</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../stack.html">Stack</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hackathon.html#python-guidelines">Python Guidelines</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+          <li><a href="../../cloudmesh_client.html">cloudmesh_client</a> &raquo;</li>
+      
+    <li>cloudmesh_client.cloud.stack</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cloudmesh_client.cloud.stack</h1><div class="highlight"><pre>
+<span></span><span class="c1"># this is where the stack class is implemented</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">stat</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">defaultdict</span>
+
+<span class="kn">import</span> <span class="nn">yaml</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="k">import</span> <span class="n">Subprocess</span><span class="p">,</span> <span class="n">SubprocessError</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="k">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.db</span> <span class="k">import</span> <span class="n">CloudmeshDatabase</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="k">import</span> <span class="n">Default</span>
+
+<span class="n">requests</span><span class="o">.</span><span class="n">packages</span><span class="o">.</span><span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="get_virtualenv_environment"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.get_virtualenv_environment">[docs]</a><span class="k">def</span> <span class="nf">get_virtualenv_environment</span><span class="p">(</span><span class="n">venvpath</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Figures out the environment variables that are set when activating</span>
+<span class="sd">    a virtualenv</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">    &gt;&gt;&gt; os.system(&#39;virtualenv /tmp/venv&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; get_virtualenv_environment(&#39;/tmp/venv&#39;)</span>
+
+
+<span class="sd">    :param venvpath: path to the virtual environment</span>
+<span class="sd">    :returns: dictionary of environment variables</span>
+<span class="sd">    :rtype: :class:`dict`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;source </span><span class="si">%s</span><span class="s1">/bin/activate&#39;</span> <span class="o">%</span> <span class="n">venvpath</span>
+    <span class="n">script_lines</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;source </span><span class="si">{venvpath}</span><span class="s1">/bin/activate &gt;/dev/null 2&gt;&amp;1&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;</span><span class="si">{command}</span><span class="s1"> &gt;/dev/null 2&gt;&amp;1&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;env&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="n">script</span> <span class="o">=</span> <span class="s1">&#39;;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">script_lines</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">([</span><span class="s1">&#39;bash&#39;</span><span class="p">,</span> <span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="n">script</span><span class="p">])</span>
+
+    <span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">output</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39;=&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">env</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+    <span class="k">return</span> <span class="n">env</span></div>
+
+
+<div class="viewcode-block" id="ProjectDB"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.ProjectDB">[docs]</a><span class="k">class</span> <span class="nc">ProjectDB</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;.cloudmesh_projectdb.yml&#39;</span>
+    <span class="n">default_name</span> <span class="o">=</span> <span class="s1">&#39;p-&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;~/.cloudmesh/projects&#39;</span><span class="p">):</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expandvars</span><span class="p">(</span>
+                    <span class="n">prefix</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)):</span>
+            <span class="n">yp</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">yp</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">prefix</span>
+
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s1">&#39;`</span><span class="si">{}</span><span class="s1">` is a file, should be a directory&#39;</span>
+                              <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prefix</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">prefix</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">generated_pid</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">):</span>
+            <span class="n">projdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">projfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">projdir</span><span class="p">,</span> <span class="n">Project</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">projdir</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">projfile</span><span class="p">):</span>
+                <span class="n">project</span> <span class="o">=</span> <span class="n">Project</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">projdir</span><span class="p">)</span>
+                <span class="k">yield</span> <span class="n">project</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projname</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Project</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">projname</span><span class="p">))</span>
+
+<div class="viewcode-block" id="ProjectDB.lookup"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.ProjectDB.lookup">[docs]</a>    <span class="k">def</span> <span class="nf">lookup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projname</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Lookup the project with the given name.</span>
+
+<span class="sd">        If `projname` is None, this returns the currently active project.</span>
+
+<span class="sd">        :param projname: Project name</span>
+<span class="sd">        :returns: the project</span>
+<span class="sd">        :rtype: :class:`Project`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">projname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getactive</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">projname</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="ProjectDB.add"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.ProjectDB.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add a project to the database</span>
+
+<span class="sd">        :param project: the project to add_from_path</span>
+<span class="sd">        :type project: :class:`Project`</span>
+<span class="sd">        :param force: whether or not to force initialiation</span>
+<span class="sd">        :type force: :class:`bool`</span>
+<span class="sd">        :param update: whether or not to update a previous initialied project</span>
+<span class="sd">        :type update: :class:`bool`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">projdir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">projectdir</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">projdir</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Project </span><span class="si">{}</span><span class="s1"> already exists: </span><span class="si">{}</span><span class="s1">&#39;</span>
+                             <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">projdir</span><span class="p">))</span>
+
+        <span class="n">project</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="n">update</span><span class="p">)</span>
+        <span class="n">project</span><span class="o">.</span><span class="n">sync_metadata</span><span class="p">(</span><span class="n">projdir</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ProjectDB.sync_metadata"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.ProjectDB.sync_metadata">[docs]</a>    <span class="k">def</span> <span class="nf">sync_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projects</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Synchronize the metadata to the backend store</span>
+
+<span class="sd">        :param bool projects: project metadata should be saved as well.</span>
+<span class="sd">        :type projects: :class:`bool`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">projects</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">project</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
+
+        <span class="n">prop</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>
+        <span class="n">prop</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">prop</span><span class="p">,</span> <span class="n">default_flow_style</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">ProjectDB</span><span class="o">.</span><span class="n">filename</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
+            <span class="n">fd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">y</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ProjectDB.update"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.ProjectDB.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Update the database with the given project</span>
+
+<span class="sd">        :param project: the project</span>
+<span class="sd">        :type project: :class:`Project`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">project</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">project</span><span class="o">.</span><span class="n">sync_metadata</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ProjectDB.projectdir"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.ProjectDB.projectdir">[docs]</a>    <span class="k">def</span> <span class="nf">projectdir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the project directory.</span>
+
+<span class="sd">        :param name: the name of a project</span>
+<span class="sd">        :type name: :class:`str`</span>
+<span class="sd">        :returns: the path to the project</span>
+<span class="sd">        :rtype: :class:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ProjectDB.new_project_name"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.ProjectDB.new_project_name">[docs]</a>    <span class="k">def</span> <span class="nf">new_project_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Automatically generate a new project name</span>
+
+<span class="sd">        :returns: a project name</span>
+<span class="sd">        :rtype: :class:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">pid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generated_pid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generated_pid</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_name</span><span class="p">,</span> <span class="n">pid</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sync_metadata</span><span class="p">(</span><span class="n">projects</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">name</span></div>
+
+<div class="viewcode-block" id="ProjectDB.activate"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.ProjectDB.activate">[docs]</a>    <span class="k">def</span> <span class="nf">activate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Activate the given project</span>
+
+<span class="sd">        :param project: the project to make active</span>
+<span class="sd">        :type project: :class:`Project`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sync_metadata</span><span class="p">(</span><span class="n">projects</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ProjectDB.isactive"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.ProjectDB.isactive">[docs]</a>    <span class="k">def</span> <span class="nf">isactive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Predicate indicating activation status of the project</span>
+
+<span class="sd">        :param project: the project to check</span>
+<span class="sd">        :type project: :class:`Project`</span>
+<span class="sd">        :rtype: :class:`bool`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">active</span> <span class="o">==</span> <span class="n">project</span><span class="o">.</span><span class="n">name</span></div>
+
+<div class="viewcode-block" id="ProjectDB.getactive"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.ProjectDB.getactive">[docs]</a>    <span class="k">def</span> <span class="nf">getactive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the currently active project.</span>
+
+<span class="sd">        :returns: the currently active project</span>
+<span class="sd">        :rtype: subclass of :class:`Project`</span>
+<span class="sd">        :raises: :class:`KeyError` if no project is currently active</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">active</span><span class="p">]</span></div></div>
+
+
+<div class="viewcode-block" id="ProjectFactory"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.ProjectFactory">[docs]</a><span class="k">class</span> <span class="nc">ProjectFactory</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Outer API used to create projects.</span>
+
+<span class="sd">    This factory should be used rather than directly constructing</span>
+<span class="sd">    :class:`Project` instances.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;~/.cloudmesh/projects&#39;</span><span class="p">):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expandvars</span><span class="p">(</span><span class="n">prefix</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">ProjectDB</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stacktype</span> <span class="o">=</span> <span class="s1">&#39;bds&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project_name</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">repo</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">branch</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">overrides</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">playbooks</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">force</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">udpate</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project_name</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">new_project_name</span><span class="p">()</span>
+        <span class="n">projdir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">projectdir</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stacktype</span> <span class="o">==</span> <span class="s1">&#39;bds&#39;</span><span class="p">:</span>
+            <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">repo</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;repo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">repo</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">branch</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;branch&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">branch</span>
+            <span class="n">stack</span> <span class="o">=</span> <span class="n">BigDataStack</span><span class="p">(</span><span class="n">projdir</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Unknown stack type </span><span class="si">{}</span><span class="s1">&#39;</span>
+                                      <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stacktype</span><span class="p">))</span>
+
+        <span class="n">deployparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">:</span>
+            <span class="n">deployparams</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ips</span><span class="p">:</span>
+            <span class="n">deployparams</span><span class="p">[</span><span class="s1">&#39;ips&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ips</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">overrides</span><span class="p">:</span>
+            <span class="n">deployparams</span><span class="p">[</span><span class="s1">&#39;overrides&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">overrides</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">playbooks</span><span class="p">:</span>
+            <span class="n">deployparams</span><span class="p">[</span><span class="s1">&#39;playbooks&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">playbooks</span>
+
+        <span class="n">project</span> <span class="o">=</span> <span class="n">Project</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">stack</span><span class="p">,</span> <span class="n">deployparams</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">force</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">udpate</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">activate</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">project</span>
+
+<div class="viewcode-block" id="ProjectFactory.use_bds"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.ProjectFactory.use_bds">[docs]</a>    <span class="k">def</span> <span class="nf">use_bds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Use the BigDataStack backend&quot;&quot;&quot;</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Factory use_bds&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_bds</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="ProjectFactory.set_user_name"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.ProjectFactory.set_user_name">[docs]</a>    <span class="k">def</span> <span class="nf">set_user_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the cluster login user name&quot;&quot;&quot;</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Factory set_user_name: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">username</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">username</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="ProjectFactory.set_project_name"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.ProjectFactory.set_project_name">[docs]</a>    <span class="k">def</span> <span class="nf">set_project_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the project name&quot;&quot;&quot;</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Factory set_project_name: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project_name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="ProjectFactory.set_ips"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.ProjectFactory.set_ips">[docs]</a>    <span class="k">def</span> <span class="nf">set_ips</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ips</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the cluster IP addresses&quot;&quot;&quot;</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Factory set_ips: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ips</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">ips</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ips</span> <span class="o">=</span> <span class="n">ips</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="ProjectFactory.set_repo"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.ProjectFactory.set_repo">[docs]</a>    <span class="k">def</span> <span class="nf">set_repo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repo</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the repository to get the stack from&quot;&quot;&quot;</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Factory set_repo: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">repo</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">repo</span> <span class="o">=</span> <span class="n">repo</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="ProjectFactory.set_branch"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.ProjectFactory.set_branch">[docs]</a>    <span class="k">def</span> <span class="nf">set_branch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">branch</span><span class="o">=</span><span class="s1">&#39;master&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the branch of the repository to use&quot;&quot;&quot;</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Factory set_branch: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">branch</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">branch</span> <span class="o">=</span> <span class="n">branch</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="ProjectFactory.set_overrides"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.ProjectFactory.set_overrides">[docs]</a>    <span class="k">def</span> <span class="nf">set_overrides</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overrides</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the overrides for deployment&quot;&quot;&quot;</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Factory set_overrides: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">overrides</span><span class="p">))</span>
+        <span class="n">overrides</span> <span class="o">=</span> <span class="n">overrides</span> <span class="ow">or</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">overrides</span> <span class="o">=</span> <span class="n">overrides</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="ProjectFactory.set_playbooks"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.ProjectFactory.set_playbooks">[docs]</a>    <span class="k">def</span> <span class="nf">set_playbooks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">playbooks</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the playbooks to deploy&quot;&quot;&quot;</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Factory set_playbooks: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">playbooks</span><span class="p">))</span>
+        <span class="n">playbooks</span> <span class="o">=</span> <span class="n">playbooks</span> <span class="ow">or</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">playbooks</span> <span class="o">=</span> <span class="n">playbooks</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="ProjectFactory.set_force"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.ProjectFactory.set_force">[docs]</a>    <span class="k">def</span> <span class="nf">set_force</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the `force` parameter&quot;&quot;&quot;</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Factory set_force: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">force</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">force</span> <span class="o">=</span> <span class="n">force</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="ProjectFactory.set_update"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.ProjectFactory.set_update">[docs]</a>    <span class="k">def</span> <span class="nf">set_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the `update` parameter&quot;&quot;&quot;</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Factory set_update: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">update</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span> <span class="o">=</span> <span class="n">update</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="ProjectFactory.activate"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.ProjectFactory.activate">[docs]</a>    <span class="k">def</span> <span class="nf">activate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">make_active</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set whether or not the created project should be activated&quot;&quot;&quot;</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Factory activate: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">make_active</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">make_active</span> <span class="o">=</span> <span class="n">make_active</span>
+        <span class="k">return</span> <span class="bp">self</span></div></div>
+
+
+<div class="viewcode-block" id="Project"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.Project">[docs]</a><span class="k">class</span> <span class="nc">Project</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Captures the parameters and stack for a deployment.  Note: this is</span>
+<span class="sd">    a lower-level API that should be predominantly be constructed</span>
+<span class="sd">    using the :class:`ProjectFactory`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;.cloudmesh_project.yml&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">stack</span><span class="p">,</span> <span class="n">deployparams</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">deployparams</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctime</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">gmtime</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stack</span> <span class="o">=</span> <span class="n">stack</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_deployed</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deployparams</span> <span class="o">=</span> <span class="n">deployparams</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deployparams</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Project.load"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.Project.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">cls</span><span class="o">.</span><span class="n">filename</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
+
+        <span class="n">project</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="s1">&#39;stack&#39;</span><span class="p">],</span> <span class="n">deployparams</span><span class="o">=</span><span class="n">y</span><span class="p">[</span><span class="s1">&#39;deployparams&#39;</span><span class="p">])</span>
+        <span class="n">project</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">project</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">m</span>
+
+<div class="viewcode-block" id="Project.sync_metadata"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.Project.sync_metadata">[docs]</a>    <span class="k">def</span> <span class="nf">sync_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span> <span class="n">default_flow_style</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">Project</span><span class="o">.</span><span class="n">filename</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
+            <span class="n">fd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">y</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Project.init"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.Project.init">[docs]</a>    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="n">update</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Project.deploy"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.Project.deploy">[docs]</a>    <span class="k">def</span> <span class="nf">deploy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_deployed</span> <span class="ow">or</span> <span class="n">force</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">deploy</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">deployparams</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Already deployed&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_deployed</span> <span class="o">=</span> <span class="kc">True</span></div></div>
+
+
+<div class="viewcode-block" id="KWArgs"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.KWArgs">[docs]</a><span class="k">class</span> <span class="nc">KWArgs</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
+
+
+<div class="viewcode-block" id="BigDataStack"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.BigDataStack">[docs]</a><span class="k">class</span> <span class="nc">BigDataStack</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span>
+                 <span class="n">repo</span><span class="o">=</span><span class="s1">&#39;git://github.com/futuresystems/big-data-stack.git&#39;</span><span class="p">,</span>
+                 <span class="n">branch</span><span class="o">=</span><span class="s1">&#39;master&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">repo</span> <span class="o">=</span> <span class="n">repo</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">branch</span> <span class="o">=</span> <span class="n">branch</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">local</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+<div class="viewcode-block" id="BigDataStack.init"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.BigDataStack.init">[docs]</a>    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize by cloning (or updating if requested) a local copy of</span>
+<span class="sd">        the Big Data Stack repository.</span>
+
+<span class="sd">        :param bool force: setup previously setup project</span>
+<span class="sd">        :type force: :class:`bool`</span>
+<span class="sd">        :param bool update: update the local repository from the origin</span>
+<span class="sd">        :type update: :class:`bool`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;.git&#39;</span><span class="p">)):</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Cloning branch </span><span class="si">{}</span><span class="s1"> of </span><span class="si">{}</span><span class="s1"> to </span><span class="si">{}</span><span class="s1">&#39;</span>
+                              <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">branch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">repo</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>
+            <span class="n">Subprocess</span><span class="p">([</span><span class="s1">&#39;git&#39;</span><span class="p">,</span> <span class="s1">&#39;clone&#39;</span><span class="p">,</span> <span class="s1">&#39;--recursive&#39;</span><span class="p">,</span> <span class="s1">&#39;--branch&#39;</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">branch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">repo</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">])</span>
+
+        <span class="k">elif</span> <span class="n">update</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Updating to branch </span><span class="si">{}</span><span class="s1"> for </span><span class="si">{}</span><span class="s1">&#39;</span>
+                              <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">branch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>
+            <span class="n">Subprocess</span><span class="p">([</span><span class="s1">&#39;git&#39;</span><span class="p">,</span> <span class="s1">&#39;fetch&#39;</span><span class="p">,</span> <span class="s1">&#39;--recurse-submodules&#39;</span><span class="p">,</span> <span class="s1">&#39;origin&#39;</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">branch</span><span class="p">],</span>
+                       <span class="n">cwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+            <span class="n">Subprocess</span><span class="p">([</span><span class="s1">&#39;git&#39;</span><span class="p">,</span> <span class="s1">&#39;checkout&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">branch</span><span class="p">],</span> <span class="n">cwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+            <span class="n">Subprocess</span><span class="p">([</span><span class="s1">&#39;git&#39;</span><span class="p">,</span> <span class="s1">&#39;merge&#39;</span><span class="p">,</span> <span class="s1">&#39;origin/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">branch</span><span class="p">)],</span>
+                       <span class="n">cwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="n">venvname</span> <span class="o">=</span> <span class="s1">&#39;venv&#39;</span>
+        <span class="n">venvdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">venvname</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">force</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">venvdir</span><span class="p">,</span> <span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="s1">&#39;activate&#39;</span><span class="p">)):</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Removing </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">venvdir</span><span class="p">))</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">venvdir</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">venvdir</span><span class="p">):</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Creating virtualenv </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">venvdir</span><span class="p">))</span>
+            <span class="n">Subprocess</span><span class="p">([</span><span class="s1">&#39;virtualenv&#39;</span><span class="p">,</span> <span class="n">venvdir</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_env</span> <span class="o">=</span> <span class="n">get_virtualenv_environment</span><span class="p">(</span><span class="n">venvdir</span><span class="p">)</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pip&#39;</span><span class="p">,</span> <span class="s1">&#39;install&#39;</span><span class="p">,</span> <span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="s1">&#39;requirements.txt&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">([</span><span class="s1">&#39;-U&#39;</span><span class="p">]</span>
+                                                              <span class="k">if</span> <span class="n">force</span>
+                                                              <span class="k">else</span> <span class="p">[])</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Installing requirements to </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">venvdir</span><span class="p">))</span>
+        <span class="n">Subprocess</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BigDataStack.deploy"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.BigDataStack.deploy">[docs]</a>    <span class="k">def</span> <span class="nf">deploy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ips</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">playbooks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">defines</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ping_max</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ping_sleep</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Deploy the big-data-stack to a previously stood up cluster located</span>
+<span class="sd">        at `ips` with login user `user`.</span>
+
+<span class="sd">        :param ips: the ip addresses of the cluster to deploy to</span>
+<span class="sd">        :type ips: :class:`list` of :class:`str` IP addresses</span>
+<span class="sd">        :param name: the name of the cluster</span>
+<span class="sd">        :type name: :class:`str`</span>
+<span class="sd">        :param user: the login username of the cluster</span>
+<span class="sd">        :type user: :class:`str`</span>
+<span class="sd">        :param playbooks: the list of playbooks to deploy. These are paths relative to the root directory of the BDS repository.</span>
+<span class="sd">        :type playbooks: :class:`list` of :class:`str`</span>
+<span class="sd">        :param defines: the overridden variables defined for each playbook</span>
+<span class="sd">        :type defines: :class:`dict` from playbook name to :class:`dict` of variable name to value</span>
+<span class="sd">        :param ping_max: the maximum number of time to attempt to ping the cluster during the verification step.</span>
+<span class="sd">        :type ping_max: :class:`int`</span>
+<span class="sd">        :param ping_sleep: the number of seconds to wait between each attempt to ping</span>
+<span class="sd">        :type ping_sleep: :class:`int`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">ips</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">assert</span> <span class="n">ping_max</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ping_max</span>
+        <span class="k">assert</span> <span class="n">ping_sleep</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ping_sleep</span>
+
+        <span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;USER&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">user</span> <span class="ow">or</span> <span class="s1">&#39;defaultuser&#39;</span>
+        <span class="n">playbooks</span> <span class="o">=</span> <span class="n">playbooks</span> <span class="ow">or</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">defines</span> <span class="o">=</span> <span class="n">defines</span> <span class="ow">or</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+
+        <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Calling mk-inventory in </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;python&#39;</span><span class="p">,</span> <span class="s1">&#39;mk-inventory&#39;</span><span class="p">,</span> <span class="s1">&#39;-n&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">]</span> <span class="o">+</span> <span class="n">ips</span>
+        <span class="n">inventory</span> <span class="o">=</span> <span class="n">Subprocess</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="p">)</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Writing inventory file&#39;</span><span class="p">)</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">    &#39;</span> <span class="o">+</span> <span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">inventory</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)))</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;inventory.txt&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
+            <span class="n">fd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">inventory</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+
+        <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Waiting for cluster to be accessible&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">ping_max</span><span class="p">):</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Attempt </span><span class="si">{}</span><span class="s1"> / </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">ping_max</span><span class="p">))</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">Subprocess</span><span class="p">([</span><span class="s1">&#39;ansible&#39;</span><span class="p">,</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;ping&#39;</span><span class="p">,</span> <span class="s1">&#39;-u&#39;</span><span class="p">,</span> <span class="n">user</span><span class="p">],</span>
+                           <span class="n">cwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="p">,</span>
+                           <span class="n">stdout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Success!&#39;</span><span class="p">)</span>
+                <span class="k">break</span>
+            <span class="k">except</span> <span class="n">SubprocessError</span><span class="p">:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Failure, sleeping for </span><span class="si">{}</span><span class="s1"> seconds&#39;</span>
+                                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ping_sleep</span><span class="p">))</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">ping_sleep</span><span class="p">)</span>
+
+        <span class="n">basic_command</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ansible-playbook&#39;</span><span class="p">,</span> <span class="s1">&#39;-u&#39;</span><span class="p">,</span> <span class="n">user</span><span class="p">]</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Running playbooks </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">playbooks</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">play</span> <span class="ow">in</span> <span class="n">playbooks</span><span class="p">:</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="n">basic_command</span> <span class="o">+</span> <span class="p">[</span><span class="n">play</span><span class="p">]</span>
+            <span class="n">define</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">defines</span><span class="p">[</span><span class="n">play</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="n">define</span><span class="p">:</span>
+                <span class="n">cmd</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;-e&#39;</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">define</span><span class="p">)])</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Running playbook </span><span class="si">{}</span><span class="s1"> with overrides </span><span class="si">{}</span><span class="s1">&#39;</span>
+                         <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">play</span><span class="p">,</span> <span class="n">define</span><span class="p">))</span>
+            <span class="n">Subprocess</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="p">,</span>
+                       <span class="n">stdout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="SanityCheckError"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.SanityCheckError">[docs]</a><span class="k">class</span> <span class="nc">SanityCheckError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">reason</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reason</span> <span class="o">=</span> <span class="n">reason</span></div>
+
+
+<div class="viewcode-block" id="SanityChecker"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.SanityChecker">[docs]</a><span class="k">class</span> <span class="nc">SanityChecker</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="SanityChecker.check_program"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.SanityChecker.check_program">[docs]</a>    <span class="k">def</span> <span class="nf">check_program</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">program</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify that the named program is available and executable by the user.</span>
+
+<span class="sd">        :param program: commands that must be present by checking in the PATH</span>
+<span class="sd">        :type programs: :class:`str`</span>
+<span class="sd">        :returns: None</span>
+<span class="sd">        :raises: :class:`SanityCheckError` on failure</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;PATH&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">prefix</span> <span class="ow">in</span> <span class="n">PATH</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">program</span><span class="p">)):</span>
+                <span class="k">return</span>
+
+        <span class="k">raise</span> <span class="n">SanityCheckError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> not installed correctly&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">program</span><span class="p">),</span>
+                               <span class="s1">&#39;`</span><span class="si">{}</span><span class="s1">` not found in $PATH&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">program</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="SanityChecker.check_sshkey"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.SanityChecker.check_sshkey">[docs]</a>    <span class="k">def</span> <span class="nf">check_sshkey</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Ensure that the default ssh key exists with correct permissions</span>
+
+<span class="sd">        :returns: None</span>
+<span class="sd">        :raises: :class:`SanityCheckError`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">valid_key_types</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;dsa&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ecdsa&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ed25519&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rsa&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rsa1&#39;</span>
+        <span class="p">]</span>
+
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;SSH incorrectly configured&#39;</span>
+
+        <span class="n">dotssh</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/.ssh&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dotssh</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">SanityCheckError</span><span class="p">(</span>
+                <span class="n">msg</span><span class="p">,</span>
+                <span class="s1">&#39;directory `</span><span class="si">{}</span><span class="s1">` does not exist, please run ssh-keygen&#39;</span>
+                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dotssh</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">dotssh</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">SanityCheckError</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span>
+                                   <span class="s1">&#39;path `</span><span class="si">{}</span><span class="s1">` exists but is not a directory&#39;</span>
+                                   <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dotssh</span><span class="p">))</span>
+
+        <span class="n">s</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">dotssh</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">st_mode</span> <span class="o">&amp;</span> <span class="n">stat</span><span class="o">.</span><span class="n">S_IRWXU</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">SanityCheckError</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span>
+                                   <span class="s1">&#39;incorrect permissions, run: chmod 0700 &quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span>
+                                   <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dotssh</span><span class="p">))</span>
+
+        <span class="n">found</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">typ</span> <span class="ow">in</span> <span class="n">valid_key_types</span><span class="p">:</span>
+            <span class="n">private</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dotssh</span><span class="p">,</span> <span class="n">typ</span><span class="p">)</span>
+            <span class="n">public</span> <span class="o">=</span> <span class="n">private</span> <span class="o">+</span> <span class="s1">&#39;.pub&#39;</span>
+
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">private</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">public</span><span class="p">):</span>
+                <span class="n">found</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[</span><span class="n">private</span><span class="p">,</span> <span class="n">public</span><span class="p">]:</span>
+                    <span class="n">s</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">st_mode</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">stat</span><span class="o">.</span><span class="n">S_IRGRP</span> <span class="o">|</span> <span class="n">stat</span><span class="o">.</span><span class="n">S_IROTH</span><span class="p">)):</span>
+                        <span class="k">raise</span> <span class="n">SanityCheckError</span><span class="p">(</span>
+                            <span class="n">msg</span><span class="p">,</span>
+                            <span class="s1">&#39;Permissions on </span><span class="si">{}</span><span class="s1"> are too open&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">found</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">SanityCheckError</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span>
+                                   <span class="s1">&#39;No id_&lt;type&gt; ssh keys found in </span><span class="si">{}</span><span class="s1">&#39;</span>
+                                   <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dotssh</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="SanityChecker.check_github"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.SanityChecker.check_github">[docs]</a>    <span class="k">def</span> <span class="nf">check_github</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Ensure that the default ssh key has been uploaded to github.com</span>
+
+<span class="sd">        :returns: None</span>
+<span class="sd">        :raises: :class:`SanityCheckError` on failure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">Subprocess</span><span class="p">([</span><span class="s1">&#39;ssh&#39;</span><span class="p">,</span> <span class="s1">&#39;-T&#39;</span><span class="p">,</span> <span class="s1">&#39;git@github.com&#39;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="n">SubprocessError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;You&#39;ve successfully authenticated&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">stderr</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">SanityCheckError</span><span class="p">(</span>
+                    <span class="s1">&#39;SSH authentication to github.com failed&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;did you add your public key to https://github.com/settings/ssh ?&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="sanity_check"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.stack.sanity_check">[docs]</a><span class="k">def</span> <span class="nf">sanity_check</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Verifies that the environment is set up correctly for BDS usage:</span>
+
+<span class="sd">    :returns: boolean indicating pass or fail of the sanity check</span>
+<span class="sd">    :rtype: :class:`bool`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">pprint_check</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">maxchar</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">filler</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;fancy way for printing out aligned messages</span>
+
+<span class="sd">        :param msg: the message</span>
+<span class="sd">        :param maxchar: maximum number of characters to elide</span>
+<span class="sd">        :param filler: the filler character</span>
+<span class="sd">        :param stream: the output stream</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">nfiller</span> <span class="o">=</span> <span class="n">maxchar</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">nfiller</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">nfiller</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">nfiller</span> <span class="o">*</span> <span class="n">filler</span><span class="p">)</span>
+
+    <span class="n">checker</span> <span class="o">=</span> <span class="n">SanityChecker</span><span class="p">()</span>
+
+    <span class="c1"># so all errors can be reported at once</span>
+    <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;OK&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">SanityChecker</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;FAILED&#39;</span><span class="p">)</span>
+            <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+
+    <span class="c1">################################################## programs</span>
+
+    <span class="c1"># these should be available</span>
+    <span class="n">programs</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;python&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;virtualenv&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;pip&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;git&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;ssh&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">prog</span> <span class="ow">in</span> <span class="n">programs</span><span class="p">:</span>
+        <span class="n">pprint_check</span><span class="p">(</span><span class="n">prog</span><span class="p">)</span>
+        <span class="n">check</span><span class="p">(</span><span class="n">checker</span><span class="o">.</span><span class="n">check_program</span><span class="p">,</span> <span class="n">prog</span><span class="p">)</span>
+
+    <span class="c1">################################################## ssh key</span>
+
+    <span class="n">pprint_check</span><span class="p">(</span><span class="s1">&#39;ssh key&#39;</span><span class="p">)</span>
+    <span class="n">check</span><span class="p">(</span><span class="n">checker</span><span class="o">.</span><span class="n">check_sshkey</span><span class="p">)</span>
+
+    <span class="c1">################################################## ssh to github</span>
+
+    <span class="n">pprint_check</span><span class="p">(</span><span class="s1">&#39;github&#39;</span><span class="p">)</span>
+    <span class="n">check</span><span class="p">(</span><span class="n">checker</span><span class="o">.</span><span class="n">check_github</span><span class="p">)</span>
+
+
+    <span class="c1">################################################## errors</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;The following errors were detected:</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">errors</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;* </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">))</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;  &gt;</span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">reason</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'4.4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

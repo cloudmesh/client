@@ -1,0 +1,17 @@
+cloudmesh_client.deployer package
+=================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    cloudmesh_client.deployer.ansible
+
+Module contents
+---------------
+
+.. automodule:: cloudmesh_client.deployer
+    :members:
+    :undoc-members:
+    :show-inheritance:

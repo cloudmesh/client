@@ -1,0 +1,434 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.shell.plugins.StackCommand &mdash; cloudmesh_client 4.4.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../../../../index.html"/>
+        <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../prefix.html">Prefix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../comet.html">Comet Virtual Cluster</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorials/comet_cloudmesh.html">Comet Cloudmesh Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorials/comet_bigdata.html">Comet Big Data Tutorial</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../stack.html">Stack</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hackathon.html#python-guidelines">Python Guidelines</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      
+          <li><a href="../../../cloudmesh_client.html">cloudmesh_client</a> &raquo;</li>
+      
+    <li>cloudmesh_client.shell.plugins.StackCommand</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cloudmesh_client.shell.plugins.StackCommand</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">defaultdict</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.stack</span> <span class="k">import</span> <span class="n">sanity_check</span><span class="p">,</span> <span class="n">ProjectDB</span><span class="p">,</span> <span class="n">ProjectFactory</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="k">import</span> <span class="n">command</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="k">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="k">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.dotdict</span> <span class="k">import</span> <span class="n">dotdict</span>
+
+
+<div class="viewcode-block" id="cleanup_overrides"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.StackCommand.cleanup_overrides">[docs]</a><span class="k">def</span> <span class="nf">cleanup_overrides</span><span class="p">(</span><span class="n">overrides</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Cleanup shell-parameterized overrides definitions</span>
+
+<span class="sd">    :param overrides: list of [(play:k1=v1,k2=v2)...]</span>
+<span class="sd">    :returns: </span>
+<span class="sd">    :rtype: dict[play] -&gt; dict[key] -&gt; value</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">definition</span> <span class="ow">in</span> <span class="n">overrides</span><span class="p">:</span>
+        <span class="n">play</span><span class="p">,</span> <span class="n">defs</span> <span class="o">=</span> <span class="n">definition</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">pairs</span> <span class="o">=</span> <span class="n">defs</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">:</span>
+            <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">pair</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">play</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.StackCommand.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Command.check"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.StackCommand.Command.check">[docs]</a>    <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">sanity_check</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Command.init"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.StackCommand.Command.init">[docs]</a>    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stackname</span><span class="o">=</span><span class="s1">&#39;bds&#39;</span><span class="p">,</span> <span class="n">activate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+             <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">branch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">overrides</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">playbooks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ips</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+             <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">factory</span> <span class="o">=</span> <span class="n">ProjectFactory</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">stackname</span> <span class="o">==</span> <span class="s1">&#39;bds&#39;</span><span class="p">:</span>
+            <span class="n">factory</span><span class="o">.</span><span class="n">use_bds</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">stackname</span><span class="p">)</span>
+
+        <span class="n">factory</span>\
+            <span class="o">.</span><span class="n">set_project_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>\
+            <span class="o">.</span><span class="n">set_user_name</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;USER&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="s1">&#39;$USER&#39;</span> <span class="k">else</span> <span class="n">user</span><span class="p">)</span>\
+            <span class="o">.</span><span class="n">set_branch</span><span class="p">(</span><span class="n">branch</span><span class="p">)</span>\
+            <span class="o">.</span><span class="n">set_ips</span><span class="p">(</span><span class="n">ips</span><span class="p">)</span>\
+            <span class="o">.</span><span class="n">set_overrides</span><span class="p">(</span><span class="n">overrides</span><span class="p">)</span>\
+            <span class="o">.</span><span class="n">set_playbooks</span><span class="p">(</span><span class="n">playbooks</span><span class="p">)</span>\
+            <span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="n">activate</span><span class="p">)</span>\
+            <span class="o">.</span><span class="n">set_force</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>\
+            <span class="o">.</span><span class="n">set_update</span><span class="p">(</span><span class="n">update</span><span class="p">)</span>
+
+        <span class="n">project</span> <span class="o">=</span> <span class="n">factory</span><span class="p">()</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Created project </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">name</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Command.deploy"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.StackCommand.Command.deploy">[docs]</a>    <span class="k">def</span> <span class="nf">deploy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+        <span class="n">db</span> <span class="o">=</span> <span class="n">ProjectDB</span><span class="p">()</span>
+        <span class="n">project</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">project_name</span><span class="p">)</span>
+        <span class="n">project</span><span class="o">.</span><span class="n">deploy</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">project</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Command.project"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.StackCommand.Command.project">[docs]</a>    <span class="k">def</span> <span class="nf">project</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">list_projects</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="n">db</span> <span class="o">=</span> <span class="n">ProjectDB</span><span class="p">()</span>
+
+        <span class="c1"># set if name is given</span>
+        <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
+            <span class="n">project</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
+
+        <span class="c1"># list of asked to do so</span>
+        <span class="k">if</span> <span class="n">list_projects</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">project</span> <span class="ow">in</span> <span class="n">db</span><span class="p">:</span>
+                <span class="n">isactive</span> <span class="o">=</span> <span class="s1">&#39;&gt;&#39;</span> <span class="k">if</span> <span class="n">db</span><span class="o">.</span><span class="n">isactive</span><span class="p">(</span><span class="n">project</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+                <span class="n">ctime</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">,</span> <span class="n">project</span><span class="o">.</span><span class="n">ctime</span><span class="p">)</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="si">{isactive:3s}</span><span class="s1">&#39;</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="si">{project.name:10s}</span><span class="s1">&#39;</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;created: </span><span class="si">{ctime}</span><span class="s1">&#39;</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;stack: </span><span class="si">{project.stack.__class__.__name__:16s}</span><span class="s1">&#39;</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;deployed: </span><span class="si">{project.is_deployed}</span><span class="s1">&#39;</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">isactive</span><span class="o">=</span><span class="n">isactive</span><span class="p">,</span>
+                                 <span class="n">project</span><span class="o">=</span><span class="n">project</span><span class="p">,</span> <span class="n">ctime</span><span class="o">=</span><span class="n">ctime</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="StackCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.StackCommand.StackCommand">[docs]</a><span class="k">class</span> <span class="nc">StackCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
+    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;stack&quot;</span><span class="p">:</span> <span class="s2">&quot;cloud&quot;</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;init command stack&quot;</span><span class="p">)</span>
+
+
+    <span class="c1"># noinspection PyUnusedLocal</span>
+    <span class="nd">@command</span>
+    <span class="k">def</span> <span class="nf">do_stack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        ::</span>
+
+<span class="sd">            Usage:</span>
+<span class="sd">              stack check</span>
+<span class="sd">              stack init [-fU] [--no-activate] [-s STACK] [-n NAME] [-u NAME] [-b NAME] [-o DEFN]... [-p PLAY] &lt;ip&gt;...</span>
+<span class="sd">              stack deploy [-f] [-n NAME]</span>
+<span class="sd">              stack project [-l] [&lt;name&gt;]</span>
+
+<span class="sd">            Commands:</span>
+<span class="sd">              check     Sanity check</span>
+<span class="sd">              init      Initialize a stack</span>
+<span class="sd">              deploy    Deploy a stack</span>
+<span class="sd">              project   List and activate projects</span>
+
+<span class="sd">            Arguments:</span>
+<span class="sd">              STACK  Name of the stack. Options: (bds)</span>
+<span class="sd">              NAME   Alphanumeric name</span>
+<span class="sd">              DEFN   In the form: play1:k1=v1,k2=v2,...</span>
+<span class="sd">              PLAY   In the form: playbook,playbook,...</span>
+
+<span class="sd">           Options:</span>
+
+<span class="sd">              -v --verbose</span>
+<span class="sd">              --no-activate                 Do not activate a project upon creation</span>
+<span class="sd">              -s STACK --stack=STACK        The stack name [default: bds]</span>
+<span class="sd">              -n NAME --name=NAME           Name of the project (if not specified during creation, generated).</span>
+<span class="sd">              -u NAME --user=NAME           Name of login user to cluster [default: $USER]</span>
+<span class="sd">              -b NAME --branch=NAME         Name of the stack&#39;s branch to clone from [default: master]</span>
+<span class="sd">              -o DEFN --overrides=DEFN      Overrides for a playbook, may be specified multiple times</span>
+<span class="sd">              -p PLAY --playbooks=PLAY      Playbooks to run</span>
+<span class="sd">              -f --force                    Force rerunning a command to continue</span>
+<span class="sd">              -U --update                   Update the stack</span>
+<span class="sd">              -l --list                     List</span>
+
+<span class="sd">            Examples:</span>
+
+<span class="sd">             The following example assumes that a cluster (Ubuntu</span>
+<span class="sd">             14.04) has been launched already and can be accessed by</span>
+<span class="sd">             the &#39;ubuntu` user at addresses 10.0.0.10, 10.0.0.11, and</span>
+<span class="sd">             10.0.0.12.</span>
+
+<span class="sd">                # verify the environment</span>
+<span class="sd">                cm stack check</span>
+
+<span class="sd">                # create a project for the cluster with given username and addresses</span>
+<span class="sd">                cm stack init -u ubuntu -p play-hadoop.yml,addons/spark.yml 10.0.0.10 10.0.0.11 10.0.0.12</span>
+
+<span class="sd">                # deploy hadoop, spark to the cluster</span>
+<span class="sd">                cm stack deploy</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">a</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="n">Command</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">check</span><span class="p">:</span>
+            <span class="n">cmd</span><span class="o">.</span><span class="n">check</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">init</span><span class="p">:</span>
+            <span class="n">defns</span> <span class="o">=</span> <span class="n">cleanup_overrides</span><span class="p">(</span>
+                <span class="n">a</span><span class="p">[</span><span class="s1">&#39;--overrides&#39;</span><span class="p">])</span> <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;--overrides&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="n">plays</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;--playbooks&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;--playbooks&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="kc">None</span>
+
+            <span class="n">cmd</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">stackname</span><span class="o">=</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;--stack&#39;</span><span class="p">],</span>
+                     <span class="n">name</span><span class="o">=</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;--name&#39;</span><span class="p">],</span>
+                     <span class="n">branch</span><span class="o">=</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;--branch&#39;</span><span class="p">],</span>
+                     <span class="n">user</span><span class="o">=</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;--user&#39;</span><span class="p">],</span>
+                     <span class="n">activate</span><span class="o">=</span><span class="ow">not</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;--no-activate&#39;</span><span class="p">],</span>
+                     <span class="n">overrides</span><span class="o">=</span><span class="n">defns</span><span class="p">,</span>
+                     <span class="n">playbooks</span><span class="o">=</span><span class="n">plays</span><span class="p">,</span>
+                     <span class="n">ips</span><span class="o">=</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;&lt;ip&gt;&#39;</span><span class="p">],</span>
+                     <span class="n">force</span><span class="o">=</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;--force&#39;</span><span class="p">],</span>
+                     <span class="n">update</span><span class="o">=</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;--update&#39;</span><span class="p">],</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">deploy</span><span class="p">:</span>
+            <span class="n">cmd</span><span class="o">.</span><span class="n">deploy</span><span class="p">(</span><span class="n">project_name</span><span class="o">=</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;--name&#39;</span><span class="p">],</span>
+                       <span class="n">force</span><span class="o">=</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;--force&#39;</span><span class="p">],</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">project</span><span class="p">:</span>
+            <span class="n">cmd</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">list_projects</span><span class="o">=</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;--list&#39;</span><span class="p">],</span>
+                        <span class="n">name</span><span class="o">=</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;&lt;name&gt;&#39;</span><span class="p">],</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'4.4.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

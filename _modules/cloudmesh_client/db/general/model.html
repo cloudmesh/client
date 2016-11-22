@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.db.general.model &mdash; cloudmesh_client 4.3.7 documentation</title>
+  <title>cloudmesh_client.db.general.model &mdash; cloudmesh_client 4.4.0 documentation</title>
   
 
   
@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.3.7 documentation" href="../../../../index.html"/>
+        <link rel="index" title="Index"
+              href="../../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
@@ -59,7 +62,7 @@
             
             
               <div class="version">
-                4.3.7
+                4.4.0
               </div>
             
           
@@ -179,7 +182,9 @@
   <h1>Source code for cloudmesh_client.db.general.model</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.db.CloudmeshDatabase</span> <span class="k">import</span> <span class="n">CloudmeshDatabase</span><span class="p">,</span> <span class="n">CloudmeshMixin</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">Date</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">String</span>
+
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">Date</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">Boolean</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm.session</span> <span class="k">import</span> <span class="n">object_session</span>
 
 
 <div class="viewcode-block" id="WORKFLOW"><a class="viewcode-back" href="../../../../code/cloudmesh_client.db.general.html#cloudmesh_client.db.general.model.WORKFLOW">[docs]</a><span class="k">class</span> <span class="nc">WORKFLOW</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">CloudmeshDatabase</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
@@ -383,6 +388,58 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">group</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">job_id</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;job_id&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CLUSTER"><a class="viewcode-back" href="../../../../code/cloudmesh_client.db.general.html#cloudmesh_client.db.general.model.CLUSTER">[docs]</a><span class="k">class</span> <span class="nc">CLUSTER</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">CloudmeshDatabase</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This is a proxy for the main implementation, given in</span>
+<span class="sd">    :module:`cloudmesh_client.cloud.cluster`.</span>
+
+<span class="sd">    The implementation is split from the definitions in order to avoid</span>
+<span class="sd">    recursive dependencies. If the implementation of various methods</span>
+<span class="sd">    were done withing this class, various helper functions would need</span>
+<span class="sd">    to be imported (eg :module:`cloudmesh_client.cloud.vm`). These</span>
+<span class="sd">    module import :module:`cloudmesh_client.db.CloudmeshDatabase`,</span>
+<span class="sd">    which import the various ``models`` modules. When this happens,</span>
+<span class="sd">    the error that is an ImportError for CloudmeshDatabase.</span>
+
+<span class="sd">    When modifying, add attributes to this class, then update the</span>
+<span class="sd">    implementation in subclass.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;cluster&#39;</span>
+    <span class="n">__kind__</span> <span class="o">=</span> <span class="s1">&#39;cluster&#39;</span>
+    <span class="n">__provider__</span> <span class="o">=</span> <span class="s1">&#39;general&#39;</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">cloud</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
+    <span class="n">flavor</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
+    <span class="n">secgroupname</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
+    <span class="n">assignFloatingIP</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Boolean</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">flavor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">secgroup</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">assignFloatingIP</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+        <span class="k">assert</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">assert</span> <span class="n">image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">assert</span> <span class="n">flavor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">assert</span> <span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="n">count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cloud</span> <span class="o">=</span> <span class="n">cloud</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">user</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flavor</span> <span class="o">=</span> <span class="n">flavor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">key</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">secgroup</span> <span class="o">=</span> <span class="n">secgroup</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assignFloatingIP</span> <span class="o">=</span> <span class="n">assignFloatingIP</span></div>
+
 </pre></div>
 
            </div>
@@ -415,7 +472,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'4.3.7',
+            VERSION:'4.4.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
