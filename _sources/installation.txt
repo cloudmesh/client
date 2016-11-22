@@ -9,7 +9,7 @@ client. We recommend that you use:
 
 * python 2.7.12
 * pip 9.0.1
-* vortualenv 15.0.1
+* virtualenv 15.0.1
 
 However, we have worked with this release of cloudmesh client since
 versions of python 2.7.10, and pip 7.1.2. Thus it probably will work
