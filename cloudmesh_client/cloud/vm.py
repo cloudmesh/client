@@ -496,7 +496,30 @@ class Vm(ListResource):
     def refresh(cls, **kwargs):
         # print("Inside refresh")
 
-        return cls.cm.refresh("vm", kwargs["cloud"])
+        refreshed = cls.cm.refresh("vm", kwargs["cloud"])
+
+        # update counter
+        vms = cls.cm.find(kind='vm')
+        me  = Default.user
+        for vm in vms:
+            if not vm['user_id'] == me:
+                continue
+            name = vm['name']
+            number = name.split('-')[-1]
+
+            try:
+                # +1 as the stored counter is the next available counter
+                new_counter = int(number) + 1
+            except ValueError:
+                # name is not formatted correctly, possibly due to not
+                # being started using cloudmesh
+                continue
+
+            old_counter = Default.get_counter(Names.VM_COUNTER)
+            counter = max(new_counter, old_counter)
+            Default.set_counter(Names.VM_COUNTER, counter)
+
+        return refreshed
 
     @classmethod
     def status_from_cloud(cls, **kwargs):
