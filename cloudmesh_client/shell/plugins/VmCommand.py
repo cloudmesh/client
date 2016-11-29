@@ -317,7 +317,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         if arguments["boot"]:
 
-            arg.username = arguments["--username"] or Image.guess_username(arg.image)
+            arg.username = arguments["--username"] or Image.guess_username_from_category(arg.cloud, arg.image)
             is_name_provided = arg.name is not None
 
             arg.user = Default.user
@@ -334,11 +334,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     "username": arg.username,
                     "user": arg.user
                 })
-                # correct the username
-                vm_details.username = Image.guess_username_from_category(
-                    vm_details.cloud,
-                    vm_details.image,
-                    username=arg.username)
+
                 try:
 
                     if arg.dryrun:

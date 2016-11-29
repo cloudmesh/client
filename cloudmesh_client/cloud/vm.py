@@ -129,7 +129,7 @@ class Vm(ListResource):
                 raise ValueError(a + " not in arguments to vm boot")
 
         conf = ConfigDict("cloudmesh.yaml")
-        arg.username = conf["cloudmesh"]["profile"]["user"]
+        arg.user = arg.user or conf["cloudmesh"]["profile"]["user"]
         arg.group = arg.group or Default.group
         cloud_provider = CloudProvider(arg.cloud).provider
 
@@ -203,6 +203,7 @@ class Vm(ListResource):
                 cls.cm.set(d.name, "flavor", d.flavor, scope="first", kind="vm")
                 cls.cm.set(d.name, "group", arg.group, scope="first", kind="vm")
                 cls.cm.set(d.name, "user", arg.user, scope="first", kind="vm")
+                cls.cm.set(d.name, 'username', arg.username, scope='first', kind='vm')
                 cls.cm.set(d.name, 'cluster', arg.cluster, scope='first', kind='vm')
 
             except:

@@ -19,7 +19,7 @@ db = CloudmeshDatabase
 
 
 class Command(object):
-    def create(self, clustername=None, cloud=None, count=1, user=None,
+    def create(self, clustername=None, cloud=None, count=1,
                username=None, image=None, flavor=None, key=None,
                secgroup=None, assignFloatingIP=True,
                activate=True):
@@ -44,9 +44,8 @@ class Command(object):
 
             clustername = clustername or Default.generate_name(Names.CLUSTER_COUNTER)
             cloud = cloud or Default.cloud
-            user = user or Default.user
-            image = image or Default.image
             username = username or Image.guess_username(image)
+            image = image or Default.image
             flavor = flavor or Default.flavor
             key = key or Default.key
             secgroup = secgroup or Default.secgroup
@@ -56,7 +55,7 @@ class Command(object):
                     name=clustername,
                     count=count,
                     cloud=cloud,
-                    user=username,
+                    username=username,
                     image=image,
                     flavor=flavor,
                     key=key,
@@ -172,7 +171,7 @@ class Command(object):
             builder = InventoryBuilder()
             for node in cluster:
                 Console.debug_msg('Adding node to inventory: ' + node.name)
-                n = Node(node.name, address=node.floating_ip, user=node.user)
+                n = Node(node.name, address=node.floating_ip, user=node.username)
                 builder.add_node(n)
 
             inv_ini = builder.ini()
@@ -199,7 +198,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         """
         ::
             Usage:
-              cluster2 create [-n NAME] [-c COUNT] [-C CLOUD] [-u USER] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]
+              cluster2 create [-n NAME] [-c COUNT] [-C CLOUD] [-u NAME] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]
               cluster2 list
               cluster2 nodes [CLUSTER]
               cluster2 delete [--all] [--force] [NAME]...
@@ -227,7 +226,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
               -n NAME --name=NAME            Name of the cluster
               -c COUNT --count=COUNT         Number of nodes in the cluster
               -C NAME --cloud=NAME           Name of the cloud
-              -u USER --user=NAME
+              -u NAME --username=NAME        Name of the image login user
               -i NAME --image=NAME           Name of the image
               -f NAME --flavor=NAME          Name of the flavor
               -k NAME --key=NAME             Name of the key
@@ -251,7 +250,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
                 clustername=arguments['--name'],
                 count=arguments['--count'] or 1,
                 cloud=arguments['--cloud'] or Default.cloud,
-                user=arguments['--user'] or Default.user,
+                username=arguments['--username'],
                 image=arguments['--image'] or Default.image,
                 flavor=arguments['--flavor'] or Default.flavor,
                 key=arguments['--key'] or Default.key,

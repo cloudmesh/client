@@ -231,7 +231,7 @@ class CLUSTER(CloudmeshMixin, CloudmeshDatabase.Base):
     name = Column(String, unique=True)
     count = Column(Integer, default=1)
     cloud = Column(String)
-    user = Column(String)
+    username = Column(String)
     image = Column(String)
     flavor = Column(String)
     key = Column(String)
@@ -239,7 +239,7 @@ class CLUSTER(CloudmeshMixin, CloudmeshDatabase.Base):
     assignFloatingIP = Column(Boolean, default=True)
 
     def __init__(self, name=None, cloud=None, count=None,
-                 user=None, image=None, flavor=None,
+                 username=None, image=None, flavor=None,
                  key=None, secgroup=None,
                  assignFloatingIP=True):
 
@@ -251,7 +251,7 @@ class CLUSTER(CloudmeshMixin, CloudmeshDatabase.Base):
         self.name = name
         self.count = count
         self.cloud = cloud
-        self.user = user
+        self.username = username
         self.image = image
         self.flavor = flavor
         self.key = key

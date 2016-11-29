@@ -96,6 +96,7 @@ class Cluster(CLUSTER):  # list abstraction see other commands
             flavor=self.flavor,
             group=self.secgroup,
             cluster=self.name,
+            username=self.username,
         )
 
         # helper function: the Vm.boot only returns a UUID, but we
