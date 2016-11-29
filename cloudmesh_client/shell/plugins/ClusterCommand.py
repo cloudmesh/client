@@ -23,7 +23,7 @@ def boot_from_args(arg):
     for index in range(0, arg.count):
         vm_details = dotdict({
             "cloud": arg.cloud,
-            "name": Vm.get_vm_name(arg.name, index),
+            "name": Vm.generate_vm_name(arg.name, index),
             "image": arg.image,
             "flavor": arg.flavor,
             "key": arg.key,

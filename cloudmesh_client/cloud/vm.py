@@ -30,21 +30,6 @@ class Vm(ListResource):
                                      fill=fill)
 
     @classmethod
-    def get_vm_name(cls, name=None, offset=0, fill=3):
-
-        if name is None:
-            count = Default.get_counter(name='name') + offset
-            prefix = Default.user
-            if prefix is None or count is None:
-                Console.error(
-                    "Prefix and Count could not be retrieved correctly.",
-                    traceflag=False
-                )
-                return
-            name = prefix + "-" + str(count).zfill(fill)
-        return name
-
-    @classmethod
     def uuid(cls, name, category=None):
         vm = cls.get(name, category=category)
         if vm is None:
