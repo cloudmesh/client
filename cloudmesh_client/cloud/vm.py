@@ -502,9 +502,10 @@ class Vm(ListResource):
         vms = cls.cm.find(kind='vm')
         me  = Default.user
         for vm in vms:
-            if not vm['user_id'] == me:
-                continue
             name = vm['name']
+            if not name.startswith(me):
+                continue
+
             number = name.split('-')[-1]
 
             try:
@@ -518,6 +519,9 @@ class Vm(ListResource):
             old_counter = Default.get_counter(Names.VM_COUNTER)
             counter = max(new_counter, old_counter)
             Default.set_counter(Names.VM_COUNTER, counter)
+
+        Console.debug_msg('Set counter ' + Names.VM_COUNTER + ' to ' +
+                          str(Default.get_counter(Names.VM_COUNTER)))
 
         return refreshed
 
