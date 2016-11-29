@@ -4,6 +4,7 @@ import os.path
 
 from .ClusterCommand2 import Command as ClusterCommand
 from .StackCommand import Command as StackCommand
+from cloudmesh_client.cloud.stack import SanityCheckError
 from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.shell.command import (CloudPluginCommand, PluginCommand,
     command)
@@ -41,7 +42,11 @@ class Command(object):
             playbooks=playbooks,
             ips=clustercmd.get('floating_ip', cluster=cluster),
         )
-        stackcmd.deploy()
+
+        try:
+            stackcmd.deploy()
+        except SanityCheckError:
+            return None
 
     def list(self):
         """List the known deployments
