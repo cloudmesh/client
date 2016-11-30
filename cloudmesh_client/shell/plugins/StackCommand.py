@@ -36,7 +36,7 @@ class Command(object):
         sanity_check()
 
     def init(self, stackname='bds', activate=True, name=None,
-             user=None, branch=None, overrides=None, playbooks=None, ips=None,
+             username=None, branch=None, overrides=None, playbooks=None, ips=None,
              force=False, update=False):
         factory = ProjectFactory()
 
@@ -47,7 +47,7 @@ class Command(object):
 
         factory\
             .set_project_name(name)\
-            .set_user_name(os.getenv('USER') if user is '$USER' else user)\
+            .set_user_name(os.getenv('USER') if username is '$USER' else username)\
             .set_branch(branch)\
             .set_ips(ips)\
             .set_overrides(overrides)\
@@ -129,7 +129,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
               --no-activate                 Do not activate a project upon creation
               -s STACK --stack=STACK        The stack name [default: bds]
               -n NAME --name=NAME           Name of the project (if not specified during creation, generated).
-              -u NAME --user=NAME           Name of login user to cluster [default: $USER]
+              -u NAME --username=NAME       Name of login user to cluster [default: $USER]
               -b NAME --branch=NAME         Name of the stack's branch to clone from [default: master]
               -o DEFN --overrides=DEFN      Overrides for a playbook, may be specified multiple times
               -p PLAY --playbooks=PLAY      Playbooks to run
@@ -170,7 +170,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
             cmd.init(stackname=a['--stack'],
                      name=a['--name'],
                      branch=a['--branch'],
-                     user=a['--user'],
+                     username=a['--username'],
                      activate=not a['--no-activate'],
                      overrides=defns,
                      playbooks=plays,

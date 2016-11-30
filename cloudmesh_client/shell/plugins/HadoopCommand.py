@@ -13,20 +13,20 @@ from cloudmesh_client.shell.console import Console
 
 class Command(object):
 
-    def start(self, count=3, addons=None, flavor=None, image=None, user=None):
+    def start(self, count=3, addons=None, flavor=None, image=None, username=None):
         """Start a hadoop cluster
 
         :param int count: number of nodes to use (minimum of 3)
         :param list(str) addons: names of addons to deploy as well
         :param str flavor: instance flavor
         :param str image: image name
-        :param str user: login user name
+        :param str username: login user name
         """
 
         clustercmd = ClusterCommand()
         cluster = clustercmd.create(
             count=count,
-            user=user,
+            username=username,
             flavor=flavor,
             image=image,
         )
@@ -38,7 +38,7 @@ class Command(object):
                     [os.path.join('addons', name) for name in addons]
 
         stackcmd.init(
-            user=user,
+            username=username,
             playbooks=playbooks,
             ips=clustercmd.get('floating_ip', cluster=cluster),
         )
@@ -119,7 +119,7 @@ class HadoopCommand(PluginCommand, CloudPluginCommand):
              -a --all
              -f --flavor=NAME
              -i --image=NAME
-             -u --user=NAME
+             -u --username=NAME
 
         """
 
@@ -133,7 +133,7 @@ class HadoopCommand(PluginCommand, CloudPluginCommand):
                 addons=arguments.ADDON,
                 flavor=arguments['--flavor'],
                 image=arguments['--image'],
-                user=arguments['--user'],
+                username=arguments['--username'],
             )
 
         elif arguments.list:
