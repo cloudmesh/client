@@ -34,6 +34,11 @@ class Cluster(CLUSTER):  # list abstraction see other commands
                 raise ClusterNameClashException(self.__tablename__,
                                                 self.name)
 
+    @classmethod
+    def from_name(cls, name):
+        return cls.cm.select(Cluster, name=name).one()
+
+
     def __iter__(self):
         return iter(self.list())
 

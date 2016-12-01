@@ -215,12 +215,11 @@ class Default(object):
         if not name:
             raise NoActiveClusterException()
 
-        # dynamically lookup the class for the cluster.
-        # this is to avoid circular dependencies.
-        Cluster = [clazz for clazz in cls.cm.tables
-                   if clazz.__name__ == 'CLUSTER'][0].__subclasses__()[0]
+        # this import is here rather than the top to avoid circular
+        # dependencies
+        from cloudmesh_client.platform.virtual_cluster.cluster import Cluster
 
-        return cls.cm.select(Cluster, name=name).one()
+        return Cluster.from_name(name)
 
     @readable_classproperty
     def user(cls):
