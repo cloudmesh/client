@@ -7,7 +7,7 @@ from cloudmesh_client.cloud.image import Image
 from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.default import Default, Names
-from cloudmesh_client.deployer.ansible.inventory import InventoryBuilder, Node
+from cloudmesh_client.deployer.ansible.inventory import Inventory, Node
 from cloudmesh_client.exc import (ClusterNameClashException,
     NoActiveClusterException, UnrecoverableErrorException)
 from cloudmesh_client.shell.command import (CloudPluginCommand, PluginCommand,
@@ -168,13 +168,8 @@ class Command(object):
 
         if format == 'ansible':
 
-            builder = InventoryBuilder()
-            for node in cluster:
-                Console.debug_msg('Adding node to inventory: ' + node.name)
-                n = Node(node.name, address=node.floating_ip, user=node.username)
-                builder.add_node(n)
-
-            inv_ini = builder.ini()
+            inventory = Inventory.from_cluster(cluster)
+            inv_ini = inventory.ini()
 
             if not path:
                 print(inv_ini)
@@ -182,7 +177,7 @@ class Command(object):
                 with open(path, 'w') as fd:
                     fd.write(inv_ini)
 
-            return builder
+            return inventory
 
 
 class Cluster2Command(PluginCommand, CloudPluginCommand):
