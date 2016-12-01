@@ -142,34 +142,19 @@ class Inventory(object):
 
 
 if __name__ == '__main__':
+    from cloudmesh_client.default import Default
+    cluster = Default.active_cluster
+    i = Inventory.from_cluster(cluster)
+    print(i.ini())
+
     n1 = Node('foo', address='129.114.110.195', user='cc')
     n2 = Node('bar', address='129.114.110.127', user='cc')
     n3 = Node('baz', address='129.114.111.200', user='cc')
 
-    b = InventoryBuilder()
-    b.add_node(n1, 'a', 'b')
-    b.add_node(n2, 'c')
-    b.add_node(n3, 'b', 'c')
+    inventory = Inventory()
+    inventory.add_node(n1, 'a', 'b')
+    inventory.add_node(n2, 'c')
+    inventory.add_node(n3, 'b', 'c')
 
-    i = b.inventory()
-
-    Options = namedtuple('Options', ['module_path'])
-    loader = DataLoader()
-    variable_manager = VariableManager()
-    results_callback = CallbackBase()
-    variable_manager.set_inventory
-    play_source = dict(
-        name = 'Ansible Play',
-        hosts = 'all',
-        tasks = [
-            dict(action=dict(module='ping'))
-        ],
-    )
-    play = Play().load(play_source, variable_manager=variable_manager, loader=loader)
-    tqm = TaskQueueManager(
-        inventory = i,
-        variable_manager = variable_manager,
-        loader = loader,
-        options = Options(),
-        passwords = dict(),
-    )
+    i = inventory.ini()
+    print(i)
