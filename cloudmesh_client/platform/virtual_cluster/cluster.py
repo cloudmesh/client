@@ -9,10 +9,10 @@ from cloudmesh_client.exc import ClusterNameClashException
 from cloudmesh_client.shell.console import Console
 
 
-db = CloudmeshDatabase()
-
-
 class Cluster(CLUSTER):  # list abstraction see other commands
+
+    cm = CloudmeshDatabase()
+
 
     def __init__(self, *args, **kwargs):
 
@@ -26,7 +26,7 @@ class Cluster(CLUSTER):  # list abstraction see other commands
         # be unique
 
         try:
-            db.insert(self)
+            self.cm.insert(self)
         except IntegrityError as e:
             line = 'UNIQUE constraint failed: {}.name'\
                    .format(self.__tablename__)
@@ -46,15 +46,15 @@ class Cluster(CLUSTER):  # list abstraction see other commands
         :rtype: :class:`list` of instances
         """
 
-        table = db.vm_table_from_provider(self.provider)
-        return db.select(table, cluster=self.name).all()
+        table = self.cm.vm_table_from_provider(self.provider)
+        return self.cm.select(table, cluster=self.name).all()
 
     def delete(self, force=False):
         """Delete this cluster and all component nodes"""
         for node in self:
             Vm.delete(servers=[node.name], force=force)
 
-        db.delete_(self.__class__, cm_id=self.cm_id)
+        self.cm.delete_(self.__class__, cm_id=self.cm_id)
 
     def create(self, sleeptime_s=5):
         """Boot all nodes in this cluster
@@ -107,8 +107,8 @@ class Cluster(CLUSTER):  # list abstraction see other commands
         # eg: uuid=???, cm_id=???, etc
         def get_vm(**kwargs):
             """Selects the VM based on the given properties"""
-            model = db.vm_table_from_provider(self.provider)
-            vm = db.select(model, **kwargs).all()
+            model = self.cm.vm_table_from_provider(self.provider)
+            vm = self.cm.select(model, **kwargs).all()
             assert len(vm) == 1, vm
             vm = vm[0]
             return vm
@@ -140,10 +140,12 @@ class Cluster(CLUSTER):  # list abstraction see other commands
         :param int cm_id: the node id of the instance to remove
         """
 
-        table = db.vm_table_from_provider(self.provider)
-        db.update_(table,
-                   where={'cm_id': cm_id},
-                   values={'cluster': None})
+        table = self.cm.vm_table_from_provider(self.provider)
+        self.cm.update_(
+            table,
+            where={'cm_id': cm_id},
+            values={'cluster': None}
+        )
 
     def modify(self):
         "Modifies the cluster"
