@@ -1,18 +1,10 @@
 
 from StringIO import StringIO
-from collections import defaultdict, namedtuple
-from tempfile import NamedTemporaryFile
-
-from ansible.executor.task_queue_manager import TaskQueueManager
-from ansible.inventory import Group, Host, Inventory
-from ansible.inventory.ini import InventoryParser
-from ansible.parsing.dataloader import DataLoader
-from ansible.playbook.play import Play
-from ansible.plugins.callback import CallbackBase
-from ansible.vars import VariableManager
+from collections import defaultdict
 
 
-__all__ = ['InventoryBuilder', 'Node']
+
+__all__ = ['Inventory', 'Node']
 
 
 class Node(object):
@@ -28,8 +20,8 @@ class Node(object):
     def add_var(self, key, value):
         """Add a variable and value to a node
 
-        :param str key: 
-        :param str value: 
+        :param str key:
+        :param str value:
         """
 
         self._variables[key] = value
@@ -68,12 +60,33 @@ class Node(object):
 ################################################################################
 
 
-class InventoryBuilder(object):
+class Inventory(object):
     """Build an inventory by dynamically adding :class:`Host`s to :class:`Group`s"""
 
     def __init__(self):
         self._groups = defaultdict(list)
         self._nodes = set(['all'])
+
+    @classmethod
+    def from_cluster(cls, cluster):
+        """Creates an inventory from a :class:`Cluster`
+
+        :param cls:
+        :param cluster:
+        :returns:
+        :rtype:
+        """
+
+        inventory = cls()
+        for instance in cluster:
+            node = Node(
+                name = instance.name,
+                address = instance.floating_ip or instance.static_ip,
+                user = instance.username or None
+            )
+            inventory.add_node(node)
+
+        return inventory
 
     def add_node(self, node, *groupnames):
         """Add a host to the inventory
