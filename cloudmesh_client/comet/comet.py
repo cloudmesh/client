@@ -330,8 +330,11 @@ class Comet(object):
                         r = requests.get(url, headers=headers,
                                          allow_redirects=allow_redirects, verify=cacert)
 
-            # print ("KKK --- DEBUGGING HTTP CALL")
-            # pprint (r)
+            #print ("KKK --- DEBUGGING HTTP CALL (USERPASS)")
+            #pprint (r)
+            #pprint (r.status_code)
+            #pprint (r.headers)
+            #pprint (r.text)
 
             # 303 redirect
             if r.status_code == 303:
@@ -417,8 +420,11 @@ class Comet(object):
 
             ret = None
 
-            # print ("KKK", r.status_code)
-            # print ("KKK", r.text)
+            #print ("KKK --- DEBUGGING HTTP CALL (APIKEY)")
+            #pprint (r)
+            #pprint (r.status_code)
+            #pprint (r.headers)
+            #pprint (r.text)
 
             # 303 redirect
             if r.status_code == 303:
@@ -552,7 +558,7 @@ class Comet(object):
     @staticmethod
     def console(clusterid, nodeid=None, linkonly=False):
         url = Comet.console_url(clusterid, nodeid)
-        # pprint (url)
+        #pprint (url)
         if url:
             if 'error' in url:
                 Console.error(url['error'], traceflag=False)
