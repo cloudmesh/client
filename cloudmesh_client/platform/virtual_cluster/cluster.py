@@ -108,6 +108,13 @@ class Cluster(CLUSTER):  # list abstraction see other commands
         # need to use the VM model instead. Additionally, we'll need
         # to poll the VM to wait until it is active.
         #
+        # Note 1: this is not really the case. Vm.boot is the API
+        # entry-point and it returns whatever the underlying provider
+        # does. In the case of openstack, this is the uuid, but in the
+        # case of libcloud, it is a libcloud.compute.base.Node. (this
+        # note was written some time after the implementation of this
+        # class)
+        #
         # The kwargs are used to select the item from the DB:
         # eg: uuid=???, cm_id=???, etc
         def get_vm(**kwargs):
