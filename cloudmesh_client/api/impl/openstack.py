@@ -143,19 +143,19 @@ class OpenstackNode(Node):
 
     @property
     def name(self):
-        return self._vm.name
+        return self._model.name
 
     @property
     def username(self):
-        return self._vm.username
+        return self._model.username
 
     @property
     def private_ip(self):
-        return self._vm.static_ip
+        return self.model.static_ip
 
     @property
     def public_ip(self):
-        return self._vm.floating_ip
+        return self.model.floating_ip
 
     def boot(self, **kwargs):
         pass
