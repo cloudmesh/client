@@ -18,7 +18,7 @@ import random
 def exponential_backoff(fn, sleeptime_s_max=30*60):
     """Calls `fn` until it returns True, with an exponentially increasing wait time between calls"""
 
-    sleeptime_ms = 1
+    sleeptime_ms = 500
     while True:
         if fn() == True:
             return True
