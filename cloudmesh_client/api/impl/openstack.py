@@ -1,3 +1,5 @@
+from cloudmesh_client.cloud.network import Network
+
 from cloudmesh_client.cloud.image import Image
 
 from cloudmesh_client.cloud.vm import Vm
@@ -126,6 +128,16 @@ class OpenstackProvider(Provider):
 
         return OpenstackNode(model=vm, provider=self)
 
+    def create_ip(self, node):
+
+        ip = Network.find_assign_floating_ip(
+            cloudname=self.cloud,
+            instance_id=node.name,
+        )
+
+        Vm.refresh(cloud=self.cloud)
+
+        Console.ok('Assigned ip to {}: {}'.format(node.name, ip))
 
     def delete(self, nodde):
         raise NotImplementedError
@@ -173,4 +185,4 @@ class OpenstackNode(Node):
         raise NotImplementedError
 
     def create_ip(self):
-        raise NotImplementedError
+        self._provider.create_ip(self)
