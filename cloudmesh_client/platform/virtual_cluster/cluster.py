@@ -1,4 +1,5 @@
 import time
+from cloudmesh_client.api import Provider
 
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.cloud.network import Network
@@ -68,81 +69,25 @@ class Cluster(CLUSTER):  # list abstraction see other commands
                                   polling VMs for ACTIVE status
         """
         for _ in xrange(self.count - len(self.list())):
-            self.add(sleeptime_s=sleeptime_s)
+            self.add()
 
-    def _assign_floating_ip(self, vm):
-        """Assign a floating ip
-
-        :returns: floating ip
-        :rtype: :class:`str`
-        """
-
-        ip = Network.find_assign_floating_ip(
-            cloudname=self.cloud,
-            instance_id=vm.name,
-        )
-
-        Vm.refresh(cloud=self.cloud)
-
-        Console.ok('Assigned ip to {}: {}'.format(vm.name, ip))
-
-        return ip
-
-    def add(self, sleeptime_s=5):
+    def add(self):
         """Boots a new instance and adds it to this cluster"""
 
-        # boot
+        provider = Provider.from_cloud(self.cloud)
+
         Console.info('Booting VM for cluster {}'.format(self.name))
-        uuid = Vm.boot(
-            cloud=self.cloud,
-            key=self.key,
-            name=Vm.generate_vm_name(),
-            image=self.image,
-            flavor=self.flavor,
-            group=self.secgroup,
-            cluster=self.name,
-            username=self.username,
+        node = provider.boot(
+            key      = self.key,
+            image    = self.image,
+            flavor   = self.flavor,
+            secgroup = self.secgroup,
+            cluster  = self.name,
+            username = self.username
         )
 
-        # helper function: the Vm.boot only returns a UUID, but we
-        # need to use the VM model instead. Additionally, we'll need
-        # to poll the VM to wait until it is active.
-        #
-        # Note 1: this is not really the case. Vm.boot is the API
-        # entry-point and it returns whatever the underlying provider
-        # does. In the case of openstack, this is the uuid, but in the
-        # case of libcloud, it is a libcloud.compute.base.Node. (this
-        # note was written some time after the implementation of this
-        # class)
-        #
-        # The kwargs are used to select the item from the DB:
-        # eg: uuid=???, cm_id=???, etc
-        def get_vm(**kwargs):
-            """Selects the VM based on the given properties"""
-            model = self.cm.vm_table_from_provider(self.provider)
-            vm = self.cm.select(model, **kwargs).all()
-            assert len(vm) == 1, vm
-            vm = vm[0]
-            return vm
-
-        # get the VM from the UUID
-        vm = get_vm(uuid=uuid)
-
-        # wait until active
-        Console.info('Waiting until {} is active'.format(vm.name))
-        while True:
-            Vm.refresh(cloud=self.cloud)
-            vm = get_vm(cm_id=vm.cm_id)
-            if vm.status == 'ACTIVE':
-                break
-            else:
-                Console.debug_msg('Status is {}'.format(vm.status))
-                Console.debug_msg('Waiting for {} seconds'.format(sleeptime_s))
-                time.sleep(sleeptime_s)
-
-        # floating ip
         if self.assignFloatingIP:
-            vm.floating_ip = self._assign_floating_ip(vm)
+            node.create_ip()
 
     def remove(self, cm_id):
         """Removes a node to the cluster, but otherwise leaves it intact.
