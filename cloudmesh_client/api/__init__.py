@@ -1,5 +1,5 @@
 """
-This module defines the main for operating with cloudmesh.
+This module defines the main API for operating with cloudmesh.
 """
 
 from abc import ABCMeta, abstractmethod, abstractproperty
