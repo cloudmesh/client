@@ -172,10 +172,13 @@ class Comet(object):
         cls.auth_provider = auth_provider
 
     @classmethod
-    def logon(cls, username=None, password=None):
+    def logon(cls, endpoint=None, username=None, password=None):
         config = ConfigDict("cloudmesh.yaml")
         cometConf = config["cloudmesh.comet"]
-        cls.set_endpoint(cometConf["active"])
+        if endpoint:
+            cls.set_endpoint(endpoint)
+        else:
+            cls.set_endpoint(cometConf["active"])
         cls.set_base_uri(cometConf["endpoints"][cls.endpoint]["nucleus_base_url"])
         cls.set_api_version(cometConf["endpoints"][cls.endpoint]["api_version"])
         if not cls.auth_provider:

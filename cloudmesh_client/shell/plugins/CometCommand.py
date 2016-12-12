@@ -28,28 +28,41 @@ class CometCommand(PluginCommand, CometPluginCommand):
             Usage:
                comet init
                comet active [ENDPOINT]
-               comet ll [CLUSTERID] [--format=FORMAT]
+               comet ll [CLUSTERID] [--format=FORMAT] [--endpoint=ENDPOINT]
                comet cluster [CLUSTERID]
                              [--format=FORMAT]
                              [--sort=SORTKEY]
+                             [--endpoint=ENDPOINT]
                comet computeset [COMPUTESETID]
                             [--allocation=ALLOCATION]
                             [--cluster=CLUSTERID]
                             [--state=COMPUTESESTATE]
+                            [--endpoint=ENDPOINT]
                comet start CLUSTERID [--count=NUMNODES] [COMPUTENODEIDS]
                             [--allocation=ALLOCATION]
                             [--walltime=WALLTIME]
-               comet terminate COMPUTESETID
+                            [--endpoint=ENDPOINT]
+               comet terminate COMPUTESETID [--endpoint=ENDPOINT]
                comet power (on|off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
+                            [--endpoint=ENDPOINT]
                comet console [--link] CLUSTERID [COMPUTENODEID]
+                            [--endpoint=ENDPOINT]
                comet node info CLUSTERID [COMPUTENODEID] [--format=FORMAT]
+                            [--endpoint=ENDPOINT]
                comet node rename CLUSTERID OLDNAMES NEWNAMES
-               comet iso list
+                            [--endpoint=ENDPOINT]
+               comet iso list [--endpoint=ENDPOINT]
                comet iso upload [--isoname=ISONAME] PATHISOFILE
+                            [--endpoint=ENDPOINT]
                comet iso attach ISOIDNAME CLUSTERID [COMPUTENODEIDS]
+                            [--endpoint=ENDPOINT]
                comet iso detach CLUSTERID [COMPUTENODEIDS]
+                            [--endpoint=ENDPOINT]
 
             Options:
+                --endpoint=ENDPOINT     Specify the comet nucleus service
+                                        endpoint to work with, e.g., dev
+                                        or production
                 --format=FORMAT         Format is either table, json, yaml,
                                         csv, rest
                                         [default: table]
@@ -381,7 +394,20 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                   "Check config file!",
                                   traceflag = False)
         try:
-            logon = Comet.logon()
+            endpoint = None
+            config = ConfigDict("cloudmesh.yaml")
+            cometConf = config["cloudmesh.comet"]
+            if arguments["--endpoint"]:
+                endpoint = arguments["--endpoint"]
+                if "endpoints" in cometConf.keys():
+                    endpoints = cometConf["endpoints"].keys()
+                    if endpoint not in endpoints:
+                        Console.error("The provided endpoint does not match "
+                                      "any available service endpoints. Try %s."
+                                              % "/".join(endpoints),
+                                     traceflag = False)
+                        return ''
+            logon = Comet.logon(endpoint=endpoint)
             if logon is False:
                 Console.error("Could not logon. Please try first:\n"
                               "cm comet init",
