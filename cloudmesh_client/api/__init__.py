@@ -4,6 +4,8 @@ This module defines the main for operating with cloudmesh.
 
 from abc import ABCMeta, abstractmethod, abstractproperty
 
+from cloudmesh_client.common.ConfigDict import ConfigDict
+
 from cloudmesh_client import CloudmeshDatabase
 
 
@@ -48,6 +50,7 @@ class Provider(object):
 
     __metaclass__ = ABCMeta
     db = CloudmeshDatabase()
+    cfg = ConfigDict("~/.cloudmesh/cloudmesh.yaml")
 
     _resources = list()
 
@@ -58,17 +61,27 @@ class Provider(object):
     def resources(self):
         return self._resources.copy()
 
+    def __init__(self, cloud):
+        self._cloud = cloud
+
+    @property
+    def cloud(self):
+        return self._cloud
+
     @classmethod
-    def make(cls, provider_name):
+    def from_cloud(cls, cloud_name):
         """
 
-        :type provider_name: str
+        :param str cloud_name: name of the cloud as found in cloudmesh.yaml
         """
+
+        provider_name = cls.cfg['cloudmesh']['clouds'][cloud_name]['cm_type']
+
         if provider_name == 'openstack':
             from cloudmesh_client.api.impl.openstack import OpenstackProvider
-            return OpenstackProvider()
+            return OpenstackProvider(cloud=cloud_name)
         else:
-            raise ValueError(provider_name)
+            raise NotImplemented('Provider %s' % provider_name)
 
     @abstractmethod
     def node(self):
@@ -84,6 +97,16 @@ class Provider(object):
     @abstractmethod
     def delete(self, node):
         """Deletes a running :class:`Node`"""
+        pass
+
+    @abstractmethod
+    def create_ip(self, node):
+        """
+        Creates and associeates a public ip with given node
+
+        :param Node node:
+        :return:
+        """
         pass
 
 
