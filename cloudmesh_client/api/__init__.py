@@ -61,6 +61,8 @@ class Provider(object):
     def resources(self):
         return self._resources.copy()
 
+    ###################################################################
+
     def __init__(self, cloud):
         self._cloud = cloud
 
