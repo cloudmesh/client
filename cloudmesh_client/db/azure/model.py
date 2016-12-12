@@ -1,5 +1,5 @@
 from __future__ import print_function
-from ..CloudmeshDatabase import CloudmeshDatabase, CloudmeshMixin
+from ..CloudmeshDatabase import CloudmeshDatabase, CloudmeshMixin, CloudmeshVMMixin
 from sqlalchemy import Column, Date, Integer, String
 
 '''
@@ -104,7 +104,7 @@ class FLAVOR_AZURE(CloudmeshMixin, CloudmeshDatabase.Base):
         self.name = kwargs.get("name", None)
 
 
-class VM_AZURE(CloudmeshMixin, CloudmeshDatabase.Base):
+class VM_AZURE(CloudmeshMixin, CloudmeshVMMixin, CloudmeshDatabase.Base):
     __tablename__ = "vm_azure"
 
     __kind__ = 'vm'
