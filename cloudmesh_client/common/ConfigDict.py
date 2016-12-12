@@ -151,6 +151,7 @@ class Config(object):
         return None
 
 class ConfigDict(object):
+    __shared_state = {}
     versions = ['4.1']
     data = {}
     filename = None
@@ -175,6 +176,8 @@ class ConfigDict(object):
         :rtype: ConfigDict
         """
 
+
+        self.__dict__ = self.__shared_state
 
         if ConfigDict.data != {} and not reload:
             return
