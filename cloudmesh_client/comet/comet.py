@@ -420,7 +420,7 @@ class Comet(object):
                     r = requests.get(url, auth=Comet.api_auth, headers=headers,
                                      allow_redirects=allow_redirects,
                                      verify=cacert)
-
+            # pprint (r.url)
             ret = None
 
             #print ("KKK --- DEBUGGING HTTP CALL (APIKEY)")
@@ -493,6 +493,7 @@ class Comet(object):
             params = {'state': state}
             geturl = Comet.url("computeset/")
             r = Comet.get(geturl, data=params)
+            # pprint (r)
         else:
             geturl = Comet.url("computeset/{}/".format(id))
             r = Comet.get(geturl)
