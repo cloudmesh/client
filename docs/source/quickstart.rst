@@ -13,9 +13,9 @@ Quickstart
 Setup
 ------
 
-.. warning:: At this time do not use the pip install as we have not
-             yet uploaded the newest version to pypi. Instead, plase
-             use the source install discussed in our manual
+.. warning:: We offer the way to install from pip install. However,
+             those that need the newest features should always use
+             the installation from source as discussed in our manual.
 
 The setup of cloudmesh client is quite simple and can be done with::
 
