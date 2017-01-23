@@ -347,6 +347,13 @@ In some cases the python2 package may not be installed on Ubuntu 16.04. In this 
 
     sudo apt install python-minimal
 
+You can also try the one line script to setup the system and install cloudmesh_client:
+
+.. prompt:: bash
+
+    wget -O cm-setup.sh https://raw.githubusercontent.com/cloudmesh/client/bin/install_ubuntu1604.sh
+    sh cm-setup.sh
+
 Ubuntu Xenial VM with pip
 --------------------------
 
