@@ -57,7 +57,7 @@ man: cloudmesh
 # cm man | grep -A10000 \"Commands\"  | sed \$d	 > docs/source/man/man.rst
 
 cloudmesh:
-	python setup.py install
+	pip install .
 
 setup:
 	python setup.py install
