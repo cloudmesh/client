@@ -331,6 +331,22 @@ Add the following to your .bashrc file::
 
      source $HOME/ENV/bin/activate
 
+Ubuntu 16.04
+----------------------------------------------------------------------
+
+Similar to the instructions for Ubuntu 14.04/15.04, but these packages would be needed to be installed with 'apt'
+
+.. prompt:: bash
+
+    sudo apt update
+    sudo apt install build-essential checkinstall python-dev virtualenv libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev
+
+In some cases the python2 package may not be installed on Ubuntu 16.04. In this case you also need to install it:
+
+.. prompt:: bash
+
+    sudo apt install python-minimal
+
 Ubuntu Xenial VM with pip
 --------------------------
 
