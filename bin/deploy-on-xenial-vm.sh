@@ -1,11 +1,14 @@
 #! /bin/sh
 
-sudo apt install python-pip -y
-sudo apt install libssl-dev -y
-sudo pip install pip -U
-sudo apt install git -y
-sudo pip install ansible
-sudo pip install cloudmesh_client
-python --version
-pip --version
-# git -–version
+sudo apt-update
+sudo apt install -y \
+     python-dev \
+     python-pip \
+     python-virtualenv \
+     libssl-dev \
+     libffi-dev \
+     git
+pip install cloudmesh_client
+
+cm help && echo "SUCCESS: Cloudmesh Installed"
+
