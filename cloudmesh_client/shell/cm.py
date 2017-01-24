@@ -291,6 +291,8 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         r = Default.secgroup
 
         if r is None:
+            Secgroup.reset_defaults()
+            '''
             #secgroup = "{}-default".format(Default.user)
             secgroup = "default"
             Default.set_secgroup(secgroup)
@@ -298,6 +300,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             SecGroup.add_rule_to_db(group=secgroup, name="http",from_port="80",to_port="80",protocol="tcp", cidr="0.0.0.0/0")
             SecGroup.add_rule_to_db(group=secgroup, name="https", from_port="443", to_port="443", protocol="tcp", cidr="0.0.0.0/0")
             SecGroup.add_rule_to_db(group=secgroup, name="ping", from_port="0", to_port="0", protocol="icmp", cidr="0.0.0.0/0")
+            '''
 
         """
         try:
