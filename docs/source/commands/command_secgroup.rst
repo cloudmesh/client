@@ -19,75 +19,53 @@ The manual page of the `secgroup` command can be found at: `secgroup
 Security Group Create
 ----------------------
 
-To create a security group in cloudmesh for a cloud and tenant use:
+To create a security group with defined rule:
 
 .. prompt:: bash, cm>
-	    
-  secgroup create --cloud india --tenant fg478 test-group02
 
-::
-   
-   Created a new security group [test-group02] with UUID [bd9cb15e-5fcf-11e5-85fd-d8eb97bdb464]
+  secgroup add my_new_group webapp 8080 8080 tcp 0.0.0.0/0
+
+This will create locally a secgroup named 'my_new_group', with a rule 'webapp'
+defined, which opens port 8080 for protocol tcp and for the network 0.0.0.0/0.
+
+To upload/update the group/rules into a cloud:
+
+.. prompt:: bash, cm>
+
+  secgroup upload --cloud=india
+
+This will upload the locally defined security groups(s) and rule(s) to cloud
+india, for the current (as specified in the yaml config file) user and project.
+If no '--cloud' parameter is specified, or set to 'all', it will upload to all
+'active' clouds.
 
 Security Group List
 --------------------
 
-To list Security Groups in cloudmesh for a cloud and tenant use:
+To list the Security Groups defined locally:
 
 .. prompt:: bash, cm>
 	    
-  secgroup list --cloud india --tenant fg478
+  secgroup list
 
 ::
    
-    +--------------------------------------+--------------------------------------+----------------------------------------------------+
-    | Id                                   | Name                                 | Description                                        |
-    +--------------------------------------+--------------------------------------+----------------------------------------------------+
-    | 7ee21121-5fcc-11e5-8497-d8eb97bdb464 | albert-security_group-q5ukqwab4odq   | SSL(443), Web(5000), Celery-Flower(8888)           |
-    | 4bc8bbb1-014d-4a84-a62c-f216d620c2bc | albert-security_group-r2qpv3kefysi   | SSL(443), Web(5000), Celery-Flower(8888)           |
-    | 68c31654-7f5f-4944-a295-b9ff29a7e170 | albert-security_group-ayzancofltyf   | SSL(443), Web(5000), Celery-Flower(8888)           |
-    +--------------------------------------+--------------------------------------+----------------------------------------------------+
++--------+----------------+----------+--------+-----------+----------+
+| name   | group          | fromPort | toPort | cidr      | protocol |
++--------+----------------+----------+--------+-----------+----------+
+| http   | default        | 80       | 80     | 0.0.0.0/0 | tcp      |
+| ssh    | default        | 22       | 22     | 0.0.0.0/0 | tcp      |
+| ping   | default        | 0        | 0      | 0.0.0.0/0 | icmp     |
+| https  | default        | 443      | 443    | 0.0.0.0/0 | tcp      |
+| webapp | my-default     | 8080     | 8080   | 0.0.0.0/0 | tcp      |
++--------+----------------+----------+--------+-----------+----------+
 
-
-Security Group Rule Add
-------------------------
-
-To add a new rule to the security group use:
+To list the Security Groups currently in a specified cloud 'india':
 
 .. prompt:: bash, cm>
 	    
-  secgroup rules-add --cloud india --tenant fg478 test-group 80 80 tcp  0.0.0.0/0
+  secgroup list --cloud=india
 
-::
-   
-   Added rule [80 | 80 | tcp | 0.0.0.0/0] to secgroup [test-group]
-
-.. prompt:: bash, cm>
-	       
-  secgroup rules-add --cloud india --tenant fg478 test-group 443 443 udp  0.0.0.0/0
-
-::
-
-    Added rule
-    [443 | 443 | udp | 0.0.0.0/0] to secgroup [test-group]
-
-Security Group Rules List
---------------------------
-
-To list all the rules assigned to the security group use:
-
-.. prompt:: bash, cm>
-	    
-  secgroup rules-list --cloud india --tenant fg478 test-group
-
-::
-   
-    +----------+-------+------------+----------+--------+----------+-----------+
-    | user     | cloud | name       | fromPort | toPort | protocol | cidr      |
-    +----------+-------+------------+----------+--------+----------+-----------+
-    | albert   | india | test-group | 80       | 80     | tcp      | 0.0.0.0/0 |
-    | albert   | india | test-group | 443      | 443    | udp      | 0.0.0.0/0 |
-    +----------+-------+------------+----------+--------+----------+-----------+
 
 Security Group Rule Delete
 ---------------------------
@@ -96,23 +74,11 @@ To delete a specific rule within a security group use:
 
 .. prompt:: bash, cm>
 	    
-  secgroup rules-delete --cloud india --tenant fg478 test-group 80 80 tcp 0.0.0.0/0
+  secgroup delete my_secgroup_name rule_name
 
-::
-   
-   Rule [80 | 80 | tcp | 0.0.0.0/0] deleted
-
-.. prompt:: bash, cm>
-	       
-  secgroup rules-list india fg478 test-group
-
-::
-   
-    +----------+-------+--------------+----------+--------+----------+-----------+
-    | user     | cloud | name         | fromPort | toPort | protocol | cidr      |
-    +----------+-------+--------------+----------+--------+----------+-----------+
-    | albert   | india | test-group   | 443      | 443    | udp      | 0.0.0.0/0 |
-    +----------+-------+--------------+----------+--------+----------+-----------+
+This will delete the named rule from the specified secgroup from the local
+database. Use the 'secgroup upload' command to sync the changes to remote
+cloud(s).
 
 Security Group Delete
 ----------------------
@@ -121,17 +87,22 @@ To delete an entire security group use:
 
 .. prompt:: bash, cm>
 	    
-  secgroup delete --cloud india --tenant fg478 test-group
+  secgroup delete my_unused_secgroup --cloud=india
 
-::
-   
-    Rule [443 | 443 | udp | 0.0.0.0/0] deleted
-    Security Group [test-group] for cloud [india], & tenant [fg478] deleted
+Use the --cloud parameter to specify on which cloud the named secgroup will
+be deleted. If not specified, it will delete the secgroup locally, and use
+'secgroup upload' to sync the changes to remote cloud(s).
+
+
+Security Group/Rule upload/update
+---------------------------------
 
 .. prompt:: bash, cm>
-		
-  secgroup rules-list --cloud india --tenant fg478 test-group
 
-::
-   
-  ERROR: Security Group with label [test-group], cloud [india], & tenant [fg478] not found!
+  secgroup upload my_secgroup --cloud=india
+
+This uploads the named secgroup 'my_secgroup' to the cloud 'india'. If no
+secgroup name specified, it will upload/update all locally defined groups.
+If no --cloud parameter specified, or set to 'all', it will upload to all
+active clouds (as defined in the yaml config file).
+
