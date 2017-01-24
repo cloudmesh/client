@@ -342,7 +342,7 @@ in the VM start a terminal in which you execute the follwoing command
 
 .. prompt:: bash
 
-   wget -O cm-setup.sh http://bit.ly/cloudmesh-client-xenial
+   wget -O cm-setup.sh https://raw.githubusercontent.com/cloudmesh/client/dev/bin/deploy-on-xenial-vm.sh
    sh cm-setup.sh
 
 THis will install the needed software
