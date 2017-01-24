@@ -353,18 +353,6 @@ You can also try the one line script to setup the system and install cloudmesh_c
 
 .. prompt:: bash
 
-    wget -O cm-setup.sh https://raw.githubusercontent.com/cloudmesh/client/bin/install_ubuntu1604.sh
-    sh cm-setup.sh
-
-Ubuntu Xenial VM with pip
---------------------------
-
-In case you run an ubuntu xenial desktop VM on virtual box the instalation is actually quite easy.
-
-in the VM start a terminal in which you execute the follwoing command
-
-.. prompt:: bash
-
    wget -O cm-setup.sh https://raw.githubusercontent.com/cloudmesh/client/dev/bin/deploy-on-xenial-vm.sh
    sh cm-setup.sh
 
