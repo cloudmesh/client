@@ -88,7 +88,7 @@ class SecGroup(ListResource):
 
     @classmethod
     def upload(cls, cloud=None, group=None):
-        if cloud is None:
+        if cloud is None or cloud=='all':
             clouds = ConfigDict("cloudmesh.yaml")["cloudmesh"]["active"]
         else:
             clouds = [cloud]
