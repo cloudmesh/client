@@ -1,5 +1,7 @@
 #! /bin/sh
 
+set -x
+
 sudo apt-update
 sudo apt install -y \
      python-dev \
@@ -10,5 +12,6 @@ sudo apt install -y \
      git
 pip install cloudmesh_client
 
-cm help && echo "SUCCESS: Cloudmesh Installed"
+cm help
+
 
