@@ -180,30 +180,16 @@ class Cluster(object):
                               .format(id))
                 return result
             r = [r]
-        #
-        # stuck state included in cluster data via API
-        '''
-        stuck_computesets = {}
-        computesets = Comet.get_computeset()
-        if computesets:
-            for computeset in computesets:
-                if computeset["state"] in Cluster.STUCK_COMPUTESETS:
-                    cluster = computeset["cluster"]
-                    id = computeset["id"]
-                    nodes = computeset["computes"]
 
-                    if cluster not in stuck_computesets:
-                        stuck_computesets[cluster] = {}
-                    for node in nodes:
-                        stuck_computesets[cluster][node["name"]] = \
-                            "{}({})".format(id, computeset["state"])
-        '''
         #
         # getting account/allocation for each computeset
         # to display in the cluster view
         computeset_account = {}
-        stuck_computesets = {}
+        # stuck_computesets = {}
         computesets = Comet.get_computeset()
+        computesets += Comet.get_computeset(state="submitted")
+        computesets += Comet.get_computeset(state="ending")
+        # pprint (computesets)
         if computesets:
             for computeset in computesets:
                 id = computeset["id"]
@@ -211,6 +197,9 @@ class Cluster(object):
                 if id not in computeset_account:
                     computeset_account[id] = account
 
+        # no longer track and display the (possible) stuck
+        # computeset in this way
+        '''
         stuck_computesets = {}
         computesets = Comet.get_computeset()
         if computesets:
@@ -225,6 +214,7 @@ class Cluster(object):
                     for node in nodes:
                         stuck_computesets[cluster][node["name"]] = \
                             "{}({})".format (id, computeset["state"])
+        '''
 
         if r is not None:
             if format == "rest":
@@ -284,16 +274,20 @@ class Cluster(object):
                             bnode["mac"] = ";".join(macs)
 
                         if "active_computeset_state" in anode and \
-                                    anode["active_computeset"] is not None and \
-                                    anode["active_computeset_state"] is not None:
+                                anode["active_computeset"] is not None and \
+                                anode["active_computeset_state"] is not None:
+                            # if not running state, show also the status after
+                            # the computeset id
                             if anode["active_computeset_state"] != 'running':
                                 bnode["active_computeset"] = "%s(%s)" % \
                                                     (anode["active_computeset"],
                                                      anode["active_computeset_state"])
-                            else:
-                                if anode["active_computeset"] in computeset_account:
-                                    bnode["allocation"] = \
-                                        computeset_account[anode["active_computeset"]]
+                            # if an active computeset has a valid account
+                            # associated with it, display the account/allocation
+                            # does this for computeset in all states
+                            if anode["active_computeset"] in computeset_account:
+                                bnode["allocation"] = \
+                                computeset_account[anode["active_computeset"]]
 
                         if "compute_state" in anode:
                             bnode["admin_state"] = anode["compute_state"]

@@ -172,10 +172,13 @@ class Comet(object):
         cls.auth_provider = auth_provider
 
     @classmethod
-    def logon(cls, username=None, password=None):
+    def logon(cls, endpoint=None, username=None, password=None):
         config = ConfigDict("cloudmesh.yaml")
         cometConf = config["cloudmesh.comet"]
-        cls.set_endpoint(cometConf["active"])
+        if endpoint:
+            cls.set_endpoint(endpoint)
+        else:
+            cls.set_endpoint(cometConf["active"])
         cls.set_base_uri(cometConf["endpoints"][cls.endpoint]["nucleus_base_url"])
         cls.set_api_version(cometConf["endpoints"][cls.endpoint]["api_version"])
         if not cls.auth_provider:
@@ -330,8 +333,11 @@ class Comet(object):
                         r = requests.get(url, headers=headers,
                                          allow_redirects=allow_redirects, verify=cacert)
 
-            # print ("KKK --- DEBUGGING HTTP CALL")
-            # pprint (r)
+            #print ("KKK --- DEBUGGING HTTP CALL (USERPASS)")
+            #pprint (r)
+            #pprint (r.status_code)
+            #pprint (r.headers)
+            #pprint (r.text)
 
             # 303 redirect
             if r.status_code == 303:
@@ -414,11 +420,14 @@ class Comet(object):
                     r = requests.get(url, auth=Comet.api_auth, headers=headers,
                                      allow_redirects=allow_redirects,
                                      verify=cacert)
-
+            # pprint (r.url)
             ret = None
 
-            # print ("KKK", r.status_code)
-            # print ("KKK", r.text)
+            #print ("KKK --- DEBUGGING HTTP CALL (APIKEY)")
+            #pprint (r)
+            #pprint (r.status_code)
+            #pprint (r.headers)
+            #pprint (r.text)
 
             # 303 redirect
             if r.status_code == 303:
@@ -484,6 +493,7 @@ class Comet(object):
             params = {'state': state}
             geturl = Comet.url("computeset/")
             r = Comet.get(geturl, data=params)
+            # pprint (r)
         else:
             geturl = Comet.url("computeset/{}/".format(id))
             r = Comet.get(geturl)
@@ -494,12 +504,18 @@ class Comet(object):
         config = ConfigDict("cloudmesh.yaml")
         cometConf = config["cloudmesh.comet"]
         defaultUser = cometConf["username"]
-
+        '''
         user = input("Comet nucleus username [%s]: " \
                      % defaultUser)
         if not user:
             user = defaultUser
-        password = getpass.getpass()
+        '''
+        user = None
+        if defaultUser and 'TBD'!=defaultUser:
+            user = defaultUser
+        else:
+            user = input("Enter comet nucleus username: ")
+        password = getpass.getpass("Enter comet nucleus password: ")
         return_url = None
         # console access requires 2-factor, and only supported by userpass
         Comet.set_auth_provider(auth_provider="USERPASS")
@@ -548,21 +564,26 @@ class Comet(object):
         url = Comet.console_url(clusterid, nodeid)
         #pprint (url)
         if url:
-            newurl_esc = url.replace("&", "\&")
-            print ("Console URL: {}".format(url))
-            if not linkonly:
-                # for OSX
-                if 'darwin' == sys.platform:
-                    os.system("open {}".format(newurl_esc))
-                # for linux - tested on Ubuntu 14.04 and CentOS 7.1
-                elif 'linux2' == sys.platform:
-                    os.system("firefox {} &".format(newurl_esc))
-                else:
-                    print("No supportted OS/browser detected!"
-                          "Use the above url manually in your brower:\n")
+            if 'error' in url:
+                Console.error(url['error'], traceflag=False)
+            else:
+                newurl_esc = url.replace("&", "\&")
+                print ("Console URL: {}".format(url))
+                if not linkonly:
+                    # for OSX
+                    if 'darwin' == sys.platform:
+                        os.system("open {}".format(newurl_esc))
+                    # for linux - tested on Ubuntu 14.04 and CentOS 7.1
+                    elif 'linux2' == sys.platform:
+                        os.system("firefox {} &".format(newurl_esc))
+                    else:
+                        Console.error("No supportted OS/browser detected!"
+                                      "Use the above url manually in your brower:\n",
+                                      traceflag=False)
         else:
-            print("Console URL not available."\
-                  "Please make sure the node is running and try again!")
+            Console.error("Console URL not available."\
+                          "Please make sure the node is running and try again!",
+                          traceflag=False)
 
     @staticmethod
     def md5(fname):
