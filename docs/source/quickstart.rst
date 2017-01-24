@@ -244,7 +244,7 @@ The output will look somewhat similar to the following::
 	+-----------+---------------+
 	| Attribute | Value         |
 	+-----------+---------------+
-	| secgroup  |               |
+	| secgroup  | default       |
 	| name      | albert-001    |
 	| image     | Ubuntu 14.04  |
 	| cloud     | kilo          |
