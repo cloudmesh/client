@@ -49,16 +49,16 @@ To list the Security Groups defined locally:
   secgroup list
 
 ::
-   
-+--------+----------------+----------+--------+-----------+----------+
-| name   | group          | fromPort | toPort | cidr      | protocol |
-+--------+----------------+----------+--------+-----------+----------+
-| http   | default        | 80       | 80     | 0.0.0.0/0 | tcp      |
-| ssh    | default        | 22       | 22     | 0.0.0.0/0 | tcp      |
-| ping   | default        | 0        | 0      | 0.0.0.0/0 | icmp     |
-| https  | default        | 443      | 443    | 0.0.0.0/0 | tcp      |
-| webapp | my-default     | 8080     | 8080   | 0.0.0.0/0 | tcp      |
-+--------+----------------+----------+--------+-----------+----------+
+
+    +--------+----------------+----------+--------+-----------+----------+
+    | name   | group          | fromPort | toPort | cidr      | protocol |
+    +--------+----------------+----------+--------+-----------+----------+
+    | http   | default        | 80       | 80     | 0.0.0.0/0 | tcp      |
+    | ssh    | default        | 22       | 22     | 0.0.0.0/0 | tcp      |
+    | ping   | default        | 0        | 0      | 0.0.0.0/0 | icmp     |
+    | https  | default        | 443      | 443    | 0.0.0.0/0 | tcp      |
+    | webapp | my-default     | 8080     | 8080   | 0.0.0.0/0 | tcp      |
+    +--------+----------------+----------+--------+-----------+----------+
 
 To list the Security Groups currently in a specified cloud 'india':
 
