@@ -291,7 +291,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         r = Default.secgroup
 
         if r is None:
-            Secgroup.reset_defaults()
+            SecGroup.reset_defaults()
             '''
             #secgroup = "{}-default".format(Default.user)
             secgroup = "default"
