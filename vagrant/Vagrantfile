@@ -1,0 +1,27 @@
+$install_cm = <<SCRIPT
+sudo apt-update
+sudo apt install -y \
+   python-dev \
+   python-pip \
+   python-virtualenv \
+   libssl-dev \
+   libffi-dev \
+   git
+pip install cloudmesh_client
+
+cm help && echo "SUCCESS: Cloudmesh Installed"
+SCRIPT
+
+CPUS = 2
+MEMORY = 2048
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/xenial64"
+  config.vm.provision "shell", inline: $install_cm
+
+  config.vm.provider "virtualbox" do |v|
+    v.cpus = CPUS
+    v.memory = MEMORY
+  end
+
+end
