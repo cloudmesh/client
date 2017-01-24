@@ -43,6 +43,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                 secgroup list GROUP [--format=FORMAT]
                 secgroup add GROUP RULE FROMPORT TOPORT PROTOCOL CIDR
                 secgroup delete GROUP [--cloud=CLOUD]
+                secgroup delete GROUP RULE
                 secgroup upload [GROUP] [--cloud=CLOUD]
 
             Options:
@@ -73,8 +74,9 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
             Examples:
                 secgroup list
                 secgroup list --cloud=kilo
-                secgroup upload --cloud=kilo
                 secgroup add my_new_group webapp 8080 8080 tcp 0.0.0.0/0
+                seggroup delete my_group my_rule
+                secgroup delete my_unused_group --cloud=kilo
                 secgroup upload --cloud=kilo
 
             Description:
@@ -96,17 +98,24 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                     adds a security rule with the given group and the details
                     of the security ruls
 
-                secgroup delete GROUP
-                    deletes all security rules related to the specified group
+                secgroup delete GROUP [--cloud=CLOUD]
+                    Deletes a security group from the local database. To make
+                    the change on the remote cloud, using the 'upload' command
+                    afterwards.
+                    If the --cloud parameter is specified, the change would be
+                    made directly on the specified cloud
 
                 secgroup delete GROUP RULE
-                    deletes just the given rule from the group
+                    deletes the given rule from the group. To make this change
+                    on the remote cloud, using 'upload' command.
 
                 secgroup upload [GROUP] [--cloud=CLOUD...]
                     uploads a given group to the given cloud. If the cloud is
                     not specified the default cloud is used.
                     If the parameter for cloud is "all" the rules and groups
                     will be uploaded to all active clouds.
+                    This will synchronize the changes (add/delete on security
+                    groups, rules) made locally to the remote cloud(s).
 
         """
 
@@ -150,8 +159,11 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
         # Delete a security-group
         elif arguments["delete"]:
-
-            self._delete(arg)
+            if arg["RULE"] is not None:
+                SecGroup.delete_rule_from_db(group=arg["GROUP"],
+                                             name=arg["RULE"])
+            else:
+                self._delete(arg)
 
         elif arguments["upload"]:
 
