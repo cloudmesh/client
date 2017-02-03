@@ -1,7 +1,7 @@
 from __future__ import print_function
 
 from cloudmesh_client import CloudmeshDatabase
-from cloudmesh_client.common import Printer
+from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.exc import NoActiveClusterException
 from cloudmesh_client.shell.console import Console

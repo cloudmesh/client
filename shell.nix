@@ -36,5 +36,8 @@ stdenv.mkDerivation {
     export SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt
     test -d venv || virtualenv venv
     source venv/bin/activate
+
+    pip install jedi rope importmagic autopep8 yapf
+    pip install -r requirements.txt
   '';
 }
