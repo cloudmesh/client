@@ -4,6 +4,9 @@ BROWSER=firefox
 ifeq ($(UNAME), Darwin)
 BROWSER=open
 endif
+ifeq ($(UNAME), Linux)
+BROWSER=xdg-open
+endif
 ifeq ($(UNAME), Windows)
 BROWSER=/cygdrive/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
 endif
@@ -57,7 +60,7 @@ man: cloudmesh
 # cm man | grep -A10000 \"Commands\"  | sed \$d	 > docs/source/man/man.rst
 
 cloudmesh:
-	python setup.py install
+	pip install .
 
 setup:
 	python setup.py install
@@ -139,7 +142,7 @@ rmtag:
 # DOCKER
 ######################################################################
 
-docker-mahine:
+docker-machine:
 	docker-machine create --driver virtualbox cloudmesh
 
 docker-machine-login:
@@ -161,9 +164,11 @@ docker-pull:
 #
 # does not work yet
 #
-docker-run:
-	docker run -t -i cloudmesh /bin/bash
-
 docker-clean-images:
 	bin/docker-clean-images
 
+docker-cm:
+	docker build -t cloudmesh .
+
+docker-run:
+	docker run -t -i cloudmesh /bin/bash

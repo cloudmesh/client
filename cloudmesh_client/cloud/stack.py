@@ -496,18 +496,26 @@ class BigDataStack(object):
             fd.write(inventory.stdout)
 
         Console.info('Waiting for cluster to be accessible')
+        ping_ok = False
         for i in xrange(ping_max):
             Console.debug_msg('Attempt {} / {}'.format(i+1, ping_max))
             try:
                 Subprocess(['ansible', 'all', '-m', 'ping', '-u', user],
                            cwd=self.path, env=self._env,
                            stdout=None, stderr=None)
+                ping_ok = True
                 Console.debug_msg('Success!')
                 break
             except SubprocessError:
                 Console.debug_msg('Failure, sleeping for {} seconds'
                                   .format(ping_sleep))
                 time.sleep(ping_sleep)
+
+        if not ping_ok:
+            msg = 'Ping Failure'
+            reason = 'Unable to connect to all nodes'
+            Console.error(' '.join([msg, reason]))
+            raise SanityCheckError(message=msg, reason=reason)
 
         basic_command = ['ansible-playbook', '-u', user]
         Console.debug_msg('Running playbooks {}'.format(playbooks))

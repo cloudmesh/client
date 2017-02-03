@@ -6,12 +6,30 @@ import os
 import shutil
 import collections
 # import pip
+import time
 import sys
 import re
 
 from builtins import input
 from past.builtins import basestring
 import random
+
+
+def exponential_backoff(fn, sleeptime_s_max=30*60):
+    """Calls `fn` until it returns True, with an exponentially increasing wait time between calls"""
+
+    sleeptime_ms = 500
+    while True:
+        if fn() == True:
+            return True
+        else:
+            print ('Sleepting {} ms'.format(sleeptime_ms))
+            time.sleep(sleeptime_ms / 1000.0)
+            sleeptime_ms *= 2
+
+        if sleeptime_ms/1000.0 > sleeptime_s_max:
+            return False
+
 
 def search(lines, pattern):
     p = pattern.replace("*", ".*")

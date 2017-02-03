@@ -27,28 +27,42 @@ class CometCommand(PluginCommand, CometPluginCommand):
 
             Usage:
                comet init
-               comet ll [CLUSTERID] [--format=FORMAT]
+               comet active [ENDPOINT]
+               comet ll [CLUSTERID] [--format=FORMAT] [--endpoint=ENDPOINT]
                comet cluster [CLUSTERID]
                              [--format=FORMAT]
                              [--sort=SORTKEY]
+                             [--endpoint=ENDPOINT]
                comet computeset [COMPUTESETID]
                             [--allocation=ALLOCATION]
                             [--cluster=CLUSTERID]
                             [--state=COMPUTESESTATE]
+                            [--endpoint=ENDPOINT]
                comet start CLUSTERID [--count=NUMNODES] [COMPUTENODEIDS]
                             [--allocation=ALLOCATION]
                             [--walltime=WALLTIME]
-               comet terminate COMPUTESETID
+                            [--endpoint=ENDPOINT]
+               comet terminate COMPUTESETID [--endpoint=ENDPOINT]
                comet power (on|off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
+                            [--endpoint=ENDPOINT]
                comet console [--link] CLUSTERID [COMPUTENODEID]
+                            [--endpoint=ENDPOINT]
                comet node info CLUSTERID [COMPUTENODEID] [--format=FORMAT]
+                            [--endpoint=ENDPOINT]
                comet node rename CLUSTERID OLDNAMES NEWNAMES
-               comet iso list
+                            [--endpoint=ENDPOINT]
+               comet iso list [--endpoint=ENDPOINT]
                comet iso upload [--isoname=ISONAME] PATHISOFILE
+                            [--endpoint=ENDPOINT]
                comet iso attach ISOIDNAME CLUSTERID [COMPUTENODEIDS]
+                            [--endpoint=ENDPOINT]
                comet iso detach CLUSTERID [COMPUTENODEIDS]
+                            [--endpoint=ENDPOINT]
 
             Options:
+                --endpoint=ENDPOINT     Specify the comet nucleus service
+                                        endpoint to work with, e.g., dev
+                                        or production
                 --format=FORMAT         Format is either table, json, yaml,
                                         csv, rest
                                         [default: table]
@@ -70,6 +84,8 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 --link                  Whether to open the console url or just show the link
 
             Arguments:
+                ENDPOINT        Service endpoint based on the yaml config file.
+                                By default it's either dev or production.
                 CLUSTERID       The assigned name of a cluster, e.g. vc1
                 COMPUTESETID    An integer identifier assigned to a computeset
                 COMPUTENODEID   A compute node name, e.g., vm-vc1-0
@@ -272,8 +288,9 @@ class CometCommand(PluginCommand, CometPluginCommand):
             if "endpoints" in cometConf.keys():
                 endpoints = cometConf["endpoints"].keys()
                 if len(endpoints) < 1:
-                    Console.error("No service endpoints available."\
-                                  " Please check the config template")
+                    Console.error("No service endpoints available. "
+                                  "Please check the config template",
+                                  traceflag=False)
                     return ""
             if "username" in cometConf.keys():
                 default_username = cometConf['username']
@@ -301,9 +318,10 @@ class CometCommand(PluginCommand, CometPluginCommand):
                         config.save()
                         Console.ok("Comet active service endpoint set!")
                     else:
-                        Console.error("The provided endpoint does not match any "
-                                      "available service endpoints. Try %s"
-                                      % "/".join(endpoints))
+                        Console.error("The provided endpoint does not match "
+                                      "any available service endpoints. Try %s"
+                                      % "/".join(endpoints),
+                                      traceflag=False)
 
             if cometConf['active'] in endpoints:
                 endpoint_url = cometConf["endpoints"] \
@@ -342,13 +360,62 @@ class CometCommand(PluginCommand, CometPluginCommand):
 
             return ''
             # Comet.get_apikey()
+        if arguments["active"]:
+            config = ConfigDict("cloudmesh.yaml")
+            cometConf = config["cloudmesh.comet"]
+            endpoint = arguments["ENDPOINT"] or None
+            # parameter specified, intended to change
+            if endpoint:
+                if "endpoints" in cometConf.keys():
+                    endpoints = cometConf["endpoints"].keys()
+                    if endpoint in endpoints:
+                        config.data["cloudmesh"] \
+                                   ["comet"] \
+                                   ["active"] = endpoint
+                        config.save()
+                        Console.ok("Comet active service endpoint set"
+                                   " to: %s" % endpoint)
+                    else:
+                        Console.error("The provided endpoint does not match "
+                                      "any available service endpoints. Try %s."
+                                              % "/".join(endpoints),
+                                     traceflag = False)
+                else:
+                    Console.error("No available endpoint to set. "
+                                  "Check config file!",
+                                  traceflag=False)
+            else:
+                if "active" in cometConf.keys():
+                    active_endpoint = cometConf['active']
+                    Console.ok("Current active service endpoint is: %s"
+                                 % active_endpoint)
+                else:
+                    Console.error("Cannot set active endpoint. "
+                                  "Check config file!",
+                                  traceflag = False)
         try:
-            logon = Comet.logon()
+            endpoint = None
+            config = ConfigDict("cloudmesh.yaml")
+            cometConf = config["cloudmesh.comet"]
+            if arguments["--endpoint"]:
+                endpoint = arguments["--endpoint"]
+                if "endpoints" in cometConf.keys():
+                    endpoints = cometConf["endpoints"].keys()
+                    if endpoint not in endpoints:
+                        Console.error("The provided endpoint does not match "
+                                      "any available service endpoints. Try %s."
+                                              % "/".join(endpoints),
+                                     traceflag = False)
+                        return ''
+            logon = Comet.logon(endpoint=endpoint)
             if logon is False:
-                Console.error("Could not logon. Please try first:\ncm comet init")
+                Console.error("Could not logon. Please try first:\n"
+                              "cm comet init",
+                              traceflag = False)
                 return ""
         except:
-            Console.error("Could not logon")
+            Console.error("Could not logon",
+                          traceflag = False)
 
         output_format = arguments["--format"] or "table"
 
@@ -382,7 +449,8 @@ class CometCommand(PluginCommand, CometPluginCommand):
             except:
                 # print (cluster)
                 Console.error("No allocation available for the specified cluster."\
-                              "Please check with the comet help team")
+                              "Please check with the comet help team",
+                              traceflag=False)
                 return ""
 
             # checking whether the computesetids is in valid hostlist format
@@ -397,15 +465,18 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 try:
                     param = int(numnodes)
                 except ValueError:
-                    Console.error("Invalid count value specified!", traceflag=False)
+                    Console.error("Invalid count value specified!",
+                                  traceflag=False)
                     return ""
                 if param <= 0:
-                    Console.error("count value has to be greather than zero")
+                    Console.error("count value has to be greather than zero",
+                                  traceflag=False)
                     return ""
                 numnodes = param
             else:
                 Console.error("You have to specify either the count of nodes, " \
-                              "or the names of nodes in hostlist format")
+                              "or the names of nodes in hostlist format",
+                              traceflag=False)
                 return ""
 
             walltime = arguments["--walltime"] or None

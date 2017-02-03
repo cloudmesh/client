@@ -22,7 +22,7 @@ You can have a list of relevant default attributes required for VM operations::
     | user        | albert          |
     | vm          |                 |
     | group       | default         |
-    | secgroup    | albert-default  |
+    | secgroup    | default         |
     | counter     | 1               |
     | image       | Ubuntu-14.04-64 |
     | flavor      | m1.small        |
@@ -76,7 +76,7 @@ then you can simply run the following to boot a vm.:
     | name      | albert-001                     |
     | nics      |                                |
     | secgroup  | +                              |
-    |   -       | albert-default                 |
+    |   -       | default                        |
     +-----------+--------------------------------+
     info. OK.
 

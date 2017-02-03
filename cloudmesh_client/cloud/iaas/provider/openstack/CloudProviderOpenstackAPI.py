@@ -539,6 +539,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
           block_device_mapping_v2=None, nics=None, scheduler_hints=None, config_drive=None, disk_config=None,
           admin_pass=None, access_ip_v4=None, access_ip_v6=None, **kwargs)
         """
+        if meta['cluster'] is None:
+            meta['cluster'] = 'None'
         d = {
             "name": name,
             "image_id": image_id,
@@ -547,9 +549,10 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             "key_name": key,
             "security_groups": secgroup,
             "nics": nics}
-        # pprint (d)
+        pprint (d)
         id = None
         try:
+
             server = self.provider.servers.create(name,
                                                   image_id,
                                                   flavor_id,
@@ -557,6 +560,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                                                   key_name=key,
                                                   security_groups=secgroup,
                                                   nics=nics)
+
             # return the server id
             id = server.__dict__["id"]
             return id

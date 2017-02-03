@@ -14,38 +14,20 @@ from cloudmesh_client.common.dotdict import dotdict
 from builtins import input
 from pprint import pprint
 from cloudmesh_client.cloud.network import Network
-from cloudmesh_client.default import Default
+from cloudmesh_client.default import (Names, Default)
 import traceback
+
 
 # noinspection PyPep8Naming
 class Vm(ListResource):
     cm = CloudmeshDatabase()
 
     @classmethod
-    def generate_vm_name(cls, prefix=None, offset=0, fill=3):
-        prefix = (prefix + '-') if prefix else ''
-
-        counter_name = 'next-image-id'
-        counter = Default.get_counter(counter_name)
-        Default.set_counter(counter_name, counter + 1)
-
-        index = str(counter).zfill(fill)
-        name = prefix + Default.user + '-' + index
-
-        return name
-
-
-    @classmethod
-    def get_vm_name(cls, name=None, offset=0, fill=3):
-
-        if name is None:
-            count = Default.get_counter(name='name') + offset
-            prefix = Default.user
-            if prefix is None or count is None:
-                Console.error("Prefix and Count could not be retrieved correctly.", traceflag=False)
-                return
-            name = prefix + "-" + str(count).zfill(fill)
-        return name
+    def generate_vm_name(cls, prefix=None, fill=3):
+        return Default.generate_name(Names.VM_COUNTER,
+                                     display_name=Default.user,
+                                     prefix=prefix,
+                                     fill=fill)
 
     @classmethod
     def uuid(cls, name, category=None):
@@ -105,8 +87,8 @@ class Vm(ListResource):
 
             # Handle EC2 Specific Output
             if cloud_details["cm_type"] == "ec2":
-                #Console.TODO("ec2 ip dict yet to be implemented")
-                #TODO.implement()
+                # Console.TODO("ec2 ip dict yet to be implemented")
+                # TODO.implement()
                 # :type str: ip_addr
                 index = 0
                 ipaddr = {}
@@ -147,7 +129,7 @@ class Vm(ListResource):
                 raise ValueError(a + " not in arguments to vm boot")
 
         conf = ConfigDict("cloudmesh.yaml")
-        arg.username = conf["cloudmesh"]["profile"]["user"]
+        arg.user = arg.user or conf["cloudmesh"]["profile"]["user"]
         arg.group = arg.group or Default.group
         cloud_provider = CloudProvider(arg.cloud).provider
 
@@ -164,14 +146,15 @@ class Vm(ListResource):
             "key": arg.key,
             "secgroup": [arg.secgroup],
             "nics": nics,
-            "meta": {'kind': 'cloudmesh',
-                     'group': arg.group,
-                     'cluster': arg.get('cluster', None),
-                     'image': arg.image,
-                     'flavor': arg.flavor,
-                     'key': arg.key,
-                     'category': arg.cloud
-                    }
+            "meta": {
+                'kind': 'cloudmesh',
+                'group': arg.group,
+                'cluster': arg.get('cluster', None),
+                'image': arg.image,
+                'flavor': arg.flavor,
+                'key': arg.key,
+                'category': arg.cloud
+            }
         }
 
         # Special case for Azure where certificate details needs to be added
@@ -201,7 +184,8 @@ class Vm(ListResource):
                 pprint("Exception while processing azure boot arguments")
         d = dotdict(basic_dict)
 
-        Console.ok("Machine {name} is being booted on cloud {cloud} ...".format(**arg))
+        Console.ok("Machine {name} is being booted on cloud {cloud} ..."
+                   .format(**arg))
 
         print(Printer.attribute(d))
 
@@ -210,14 +194,16 @@ class Vm(ListResource):
             cls.refresh(cloud=arg.cloud)
 
             try:
-                # TODO: Repair db schema for vm_azure, vm_libcloud, vm_openstack
-                # The following set only works with openstack, no libcloud, no azure
+                # TODO: Repair db schema for vm_azure, vm_libcloud,
+                # vm_openstack. The following set only works with
+                # openstack, no libcloud, no azure
 
                 cls.cm.set(d.name, "key", d.key, scope="first", kind="vm")
                 cls.cm.set(d.name, "image", d.image, scope="first", kind="vm")
                 cls.cm.set(d.name, "flavor", d.flavor, scope="first", kind="vm")
                 cls.cm.set(d.name, "group", arg.group, scope="first", kind="vm")
                 cls.cm.set(d.name, "user", arg.user, scope="first", kind="vm")
+                cls.cm.set(d.name, 'username', arg.username, scope='first', kind='vm')
                 cls.cm.set(d.name, 'cluster', arg.cluster, scope='first', kind='vm')
 
             except:
@@ -237,7 +223,8 @@ class Vm(ListResource):
         cloud_provider = CloudProvider(arg.cloud).provider
         for server in kwargs["servers"]:
             cloud_provider.start_vm(server)
-            Console.ok("Machine {:} is being started on {:} Cloud...".format(server, cloud_provider.cloud))
+            Console.ok("Machine {:} is being started on {:} Cloud..."
+                       .format(server, cloud_provider.cloud))
 
             # Explicit refresh called after VM start, to update db.
             # cls.refresh(cloud=kwargs["cloud"])
@@ -248,7 +235,8 @@ class Vm(ListResource):
         cloud_provider = CloudProvider(arg.cloud).provider
         for server in kwargs["servers"]:
             cloud_provider.stop_vm(server)
-            Console.ok("Machine {:} is being stopped on {:} Cloud...".format(server, cloud_provider.cloud))
+            Console.ok("Machine {:} is being stopped on {:} Cloud..."
+                       .format(server, cloud_provider.cloud))
 
             # Explicit refresh called after VM stop, to update db.
             # cls.refresh(cloud=kwargs["cloud"])
@@ -259,11 +247,11 @@ class Vm(ListResource):
 
         force = kwargs.get("force", Default.purge)
 
-
         if "cloud" in arg:
             cloud_provider = CloudProvider(arg.cloud).provider
             for server in kwargs["servers"]:
-                vm = cls.cm.find(name=server, kind="vm", cloud=arg.cloud, scope="first")
+                vm = cls.cm.find(name=server, kind="vm",
+                                 cloud=arg.cloud, scope="first")
                 #vm_by_id = cls.cm.find(cm_id=server, kind="vm", cloud=arg.cloud, scope="first")
                 #print (vm)
                 #print(vm_by_id)
@@ -273,28 +261,33 @@ class Vm(ListResource):
                     cloud = vm["category"]
 
                     # If server has a floating ip associated, release it
-                    server_dict = Network.get_instance_dict(cloudname=arg.cloud,
-                                                            instance_id=server)
+                    server_dict = Network.get_instance_dict(
+                        cloudname=arg.cloud,
+                        instance_id=server)
                     floating_ip = server_dict["floating_ip"]
                     if floating_ip is not None:
-                        Network.disassociate_floating_ip(cloudname=arg.cloud,
-                                                         instance_name=server,
-                                                         floating_ip=floating_ip)
+                        Network.disassociate_floating_ip(
+                            cloudname=arg.cloud,
+                            instance_name=server,
+                            floating_ip=floating_ip)
                     cloud_provider.delete_vm(server)
                     if force:
                         cls.cm.delete(kind="vm",
                                       provider=provider,
                                       category=cloud,
                                       name=server)  # delete the record from db
-                        Console.ok("VM record {:} is being deleted from the local database..." \
-                                   .format(server))
+                        Console.ok(
+                            "VM record {:} is being deleted from the local database..."
+                            .format(server))
 
                     else:
-                        cls.cm.set(server, "status", "deleted", kind="vm", scope="first")
+                        cls.cm.set(server, "status", "deleted",
+                                   kind="vm", scope="first")
 
                     # Console.ok("VM {:} is being deleted on {:} cloud...".format(server, cloud_provider.cloud))
                 else:
-                    Console.error("VM {:} can not be found.".format(server), traceflag=False)
+                    Console.error("VM {:} can not be found."
+                                  .format(server), traceflag=False)
         else:
 
             clouds = set()
@@ -312,16 +305,18 @@ class Vm(ListResource):
                                       provider=provider,
                                       category=cloud,
                                       name=server)
-                        Console.ok("VM record {:} is being deleted from the local database..." \
-                                   .format(server))
+                        Console.ok(
+                            "VM record {:} is being deleted from the local database..."
+                            .format(server))
 
                     else:
-                        cls.cm.set(server, "status", "deleted", kind="vm", scope="first")
+                        cls.cm.set(server, "status", "deleted",
+                                   kind="vm", scope="first")
 
                     # Console.ok("VM {:} is being deleted on {:} cloud...".format(server, cloud))
                 else:
-                    Console.error("VM {:} can not be found.".format(server), traceflag=False)
-
+                    Console.error("VM {:} can not be found."
+                                  .format(server), traceflag=False)
 
     @classmethod
     def get_vms_by_name(cls, name, cloud):
@@ -330,7 +325,6 @@ class Vm(ListResource):
         if vm_data is None or len(vm_data) == 0:
             raise RuntimeError("VM data not found in database.")
         return vm_data
-
 
     @classmethod
     def get_vms_by_group(cls, name):
@@ -359,8 +353,10 @@ class Vm(ListResource):
             users_choice = "y"
 
             if not arg.force:
-                print("More than 1 vms found with the same name as {}.".format(server))
-                users_choice = input("Would you like to auto-order the new names? (y/n): ")
+                print("More than 1 vms found with the same name as {}."
+                      .format(server))
+                users_choice = input(
+                    "Would you like to auto-order the new names? (y/n): ")
 
             if users_choice.strip() == "y":
                 count = 1
@@ -368,23 +364,28 @@ class Vm(ListResource):
                     count_new_name = "{0}{1}".format(arg.newname, count)
                     # print(vms[index])
 
-                    cloud_provider.rename_vm(vms[index]["uuid"], count_new_name)
+                    cloud_provider.rename_vm(vms[index]["uuid"],
+                                             count_new_name)
 
-                    print("Machine {0} with UUID {1} renamed to {2} on {3} cloud".format(vms[index]["name"],
-                                                                                         vms[index]["uuid"],
-                                                                                         count_new_name,
-                                                                                         cloud_provider.cloud))
+                    print(
+                        "Machine {0} with UUID {1} renamed to {2} on {3} cloud"
+                        .format(vms[index]["name"],
+                                vms[index]["uuid"],
+                                count_new_name,
+                                cloud_provider.cloud))
                     count += 1
             elif users_choice.strip() == "n":
                 cloud_provider.rename_vm(arg.oldname, arg.newname)
                 print(
-                    "Machine {0} renamed to {1} on {2} Cloud...".format(arg.oldname, arg.newname, cloud_provider.cloud))
+                    "Machine {0} renamed to {1} on {2} Cloud..."
+                    .format(arg.oldname, arg.newname, cloud_provider.cloud))
             else:
                 Console.error("Invalid Choice.")
                 return
         else:
             cloud_provider.rename_vm(arg.oldname, arg.newname)
-            print("Machine {0} renamed to {1} on {2} Cloud...".format(arg.oldname, arg.newname, cloud_provider.cloud))
+            print("Machine {0} renamed to {1} on {2} Cloud..."
+                  .format(arg.oldname, arg.newname, cloud_provider.cloud))
 
         # Explicit refresh called after VM rename, to update db.
         cls.refresh(cloud=arg.cloud)
@@ -481,7 +482,34 @@ class Vm(ListResource):
     def refresh(cls, **kwargs):
         # print("Inside refresh")
 
-        return cls.cm.refresh("vm", kwargs["cloud"])
+        refreshed = cls.cm.refresh("vm", kwargs["cloud"])
+
+        # update counter
+        vms = cls.cm.find(kind='vm')
+        me  = Default.user
+        for vm in vms:
+            name = vm['name']
+            if not name.startswith(me):
+                continue
+
+            number = name.split('-')[-1]
+
+            try:
+                # +1 as the stored counter is the next available counter
+                new_counter = int(number) + 1
+            except ValueError:
+                # name is not formatted correctly, possibly due to not
+                # being started using cloudmesh
+                continue
+
+            old_counter = Default.get_counter(Names.VM_COUNTER)
+            counter = max(new_counter, old_counter)
+            Default.set_counter(Names.VM_COUNTER, counter)
+
+        Console.debug_msg('Set counter ' + Names.VM_COUNTER + ' to ' +
+                          str(Default.get_counter(Names.VM_COUNTER)))
+
+        return refreshed
 
     @classmethod
     def status_from_cloud(cls, **kwargs):

@@ -266,6 +266,20 @@ class CloudmeshDatabase(object):
         cls.session.query(table).filter_by(**filter_args).delete()
         cls.session.commit()
 
+    @classmethod
+    def update_(cls, table, where=None, values=None):
+        """Updates a subset of rows in the table, filtered by ``where``,
+        setting to ``values``.
+
+        :param type table: the table class
+        :param dict where: match rows where all these properties hold
+        :param dict values: set the columns to these values
+        """
+
+        cls.session.query(table)\
+            .filter_by(**where)\
+            .update(values)
+        cls.session.commit()
 
     def find_new(cls, **kwargs):
         """
@@ -520,6 +534,12 @@ class CloudmeshDatabase(object):
                 return t
 
         Console.error("No table found for name={}, provider={}, kind={}".format(name, provider, kind))
+
+    @classmethod
+    def vm_table_from_provider(cls, provider):
+        tablename = 'vm_{}'.format(provider)
+        table = cls.table(name=tablename)
+        return table
 
     @classmethod
     def get_table_from_kind(cls, kind):

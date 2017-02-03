@@ -30,19 +30,13 @@ def cleanup_overrides(overrides):
     return result
 
 
-class StackCommand(PluginCommand, CloudPluginCommand):
-    topics = {"stack": "cloud"}
-
-    def __init__(self, context):
-        self.context = context
-        if self.context.debug:
-            print("init command stack")
+class Command(object):
 
     def check(self):
         sanity_check()
 
     def init(self, stackname='bds', activate=True, name=None,
-             user=None, branch=None, overrides=None, playbooks=None, ips=None,
+             username=None, branch=None, overrides=None, playbooks=None, ips=None,
              force=False, update=False):
         factory = ProjectFactory()
 
@@ -53,7 +47,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
 
         factory\
             .set_project_name(name)\
-            .set_user_name(os.getenv('USER') if user is '$USER' else user)\
+            .set_user_name(os.getenv('USER') if username is '$USER' else username)\
             .set_branch(branch)\
             .set_ips(ips)\
             .set_overrides(overrides)\
@@ -96,6 +90,15 @@ class StackCommand(PluginCommand, CloudPluginCommand):
                                  project=project, ctime=ctime)
                 Console.info(msg)
 
+class StackCommand(PluginCommand, CloudPluginCommand):
+    topics = {"stack": "cloud"}
+
+    def __init__(self, context):
+        self.context = context
+        if self.context.debug:
+            print("init command stack")
+
+
     # noinspection PyUnusedLocal
     @command
     def do_stack(self, args, arguments):
@@ -126,7 +129,7 @@ class StackCommand(PluginCommand, CloudPluginCommand):
               --no-activate                 Do not activate a project upon creation
               -s STACK --stack=STACK        The stack name [default: bds]
               -n NAME --name=NAME           Name of the project (if not specified during creation, generated).
-              -u NAME --user=NAME           Name of login user to cluster [default: $USER]
+              -u NAME --username=NAME       Name of login user to cluster [default: $USER]
               -b NAME --branch=NAME         Name of the stack's branch to clone from [default: master]
               -o DEFN --overrides=DEFN      Overrides for a playbook, may be specified multiple times
               -p PLAY --playbooks=PLAY      Playbooks to run
@@ -153,36 +156,37 @@ class StackCommand(PluginCommand, CloudPluginCommand):
         """
 
         a = dotdict(arguments)
+        cmd = Command()
         print(a)
 
         if a.check:
-            self.check()
+            cmd.check()
 
         if a.init:
             defns = cleanup_overrides(
                 a['--overrides']) if a['--overrides'] else None
             plays = a['--playbooks'].split(',') if a['--playbooks'] else None
 
-            self.init(stackname=a['--stack'],
-                      name=a['--name'],
-                      branch=a['--branch'],
-                      user=a['--user'],
-                      activate=not a['--no-activate'],
-                      overrides=defns,
-                      playbooks=plays,
-                      ips=a['<ip>'],
-                      force=a['--force'],
-                      update=a['--update'],
-                      )
+            cmd.init(stackname=a['--stack'],
+                     name=a['--name'],
+                     branch=a['--branch'],
+                     username=a['--username'],
+                     activate=not a['--no-activate'],
+                     overrides=defns,
+                     playbooks=plays,
+                     ips=a['<ip>'],
+                     force=a['--force'],
+                     update=a['--update'],
+            )
 
         if a.deploy:
-            self.deploy(project_name=a['--name'],
-                        force=a['--force'],
-                        )
+            cmd.deploy(project_name=a['--name'],
+                       force=a['--force'],
+            )
 
         if a.project:
-            self.project(list_projects=a['--list'],
-                         name=a['<name>'],
-                         )
+            cmd.project(list_projects=a['--list'],
+                        name=a['<name>'],
+            )
 
         return ""

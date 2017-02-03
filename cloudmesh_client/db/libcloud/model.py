@@ -1,4 +1,4 @@
-from ..CloudmeshDatabase import CloudmeshDatabase, CloudmeshMixin
+from ..CloudmeshDatabase import CloudmeshDatabase, CloudmeshMixin, CloudmeshVMMixin
 from sqlalchemy import Column, Date, Integer, String
 
 
@@ -79,7 +79,7 @@ class FLAVOR_LIBCLOUD(CloudmeshMixin, CloudmeshDatabase.Base):
 
 
 # noinspection PyPep8Naming
-class VM_LIBCLOUD(CloudmeshMixin, CloudmeshDatabase.Base):
+class VM_LIBCLOUD(CloudmeshMixin, CloudmeshVMMixin, CloudmeshDatabase.Base):
     __tablename__ = "vm_libcloud"
 
     __kind__ = 'vm'
