@@ -5,7 +5,7 @@ import os
 if 'VIRTUAL_ENV' in os.environ:
 
     os.system("make clean")
-    os.system("python setup.py install")
+    os.system("pip install .")
 
 else:
 
