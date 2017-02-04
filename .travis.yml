@@ -40,9 +40,9 @@ before_install:
   - sudo apt-get install -y tk-dev
   - sudo apt-get install -y zlib1g-dev
   # - cd /tmp
-  - wget http://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz
-  - tar xzvf Python-2.7.12.tgz
-  - cd Python-2.7.12
+  - wget http://www.python.org/ftp/python/2.7.13/Python-2.7.13.tgz
+  - tar xzvf Python-2.7.13.tgz
+  - cd Python-2.7.13
   - ./configure --enable-shared > python-install.log 2>&1
   - sudo make >> python-install.log 2>&1
   - sudo make install >> python-install.log 2>&1
