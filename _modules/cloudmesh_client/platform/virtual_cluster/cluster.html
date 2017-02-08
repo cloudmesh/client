@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.platform.virtual_cluster.cluster &mdash; cloudmesh_client 4.4.0 documentation</title>
+  <title>cloudmesh_client.platform.virtual_cluster.cluster &mdash; cloudmesh_client 4.5.2 documentation</title>
   
 
   
@@ -30,10 +30,7 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
@@ -62,7 +59,7 @@
             
             
               <div class="version">
-                4.4.0
+                4.5.2
               </div>
             
           
@@ -181,20 +178,21 @@
             
   <h1>Source code for cloudmesh_client.platform.virtual_cluster.cluster</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.api</span> <span class="kn">import</span> <span class="n">Provider</span>
 
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.CloudProvider</span> <span class="k">import</span> <span class="n">CloudProvider</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.network</span> <span class="k">import</span> <span class="n">Network</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.vm</span> <span class="k">import</span> <span class="n">Vm</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.db</span> <span class="k">import</span> <span class="n">CloudmeshDatabase</span><span class="p">,</span> <span class="n">IntegrityError</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.db.general.model</span> <span class="k">import</span> <span class="n">CLUSTER</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.exc</span> <span class="k">import</span> <span class="n">ClusterNameClashException</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="k">import</span> <span class="n">Console</span>
-
-
-<span class="n">db</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.CloudProvider</span> <span class="kn">import</span> <span class="n">CloudProvider</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.network</span> <span class="kn">import</span> <span class="n">Network</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.vm</span> <span class="kn">import</span> <span class="n">Vm</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.db</span> <span class="kn">import</span> <span class="n">CloudmeshDatabase</span><span class="p">,</span> <span class="n">IntegrityError</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.db.general.model</span> <span class="kn">import</span> <span class="n">CLUSTER</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.exc</span> <span class="kn">import</span> <span class="n">ClusterNameClashException</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
 
 
 <div class="viewcode-block" id="Cluster"><a class="viewcode-back" href="../../../../code/cloudmesh_client.platform.virtual_cluster.html#cloudmesh_client.platform.virtual_cluster.cluster.Cluster">[docs]</a><span class="k">class</span> <span class="nc">Cluster</span><span class="p">(</span><span class="n">CLUSTER</span><span class="p">):</span>  <span class="c1"># list abstraction see other commands</span>
+
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">()</span>
+
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
@@ -208,13 +206,18 @@
         <span class="c1"># be unique</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">db</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">IntegrityError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">line</span> <span class="o">=</span> <span class="s1">&#39;UNIQUE constraint failed: </span><span class="si">{}</span><span class="s1">.name&#39;</span>\
+            <span class="n">line</span> <span class="o">=</span> <span class="s1">&#39;UNIQUE constraint failed: {}.name&#39;</span>\
                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__tablename__</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">ClusterNameClashException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__tablename__</span><span class="p">,</span>
                                                 <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Cluster.from_name"><a class="viewcode-back" href="../../../../code/cloudmesh_client.platform.virtual_cluster.html#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.from_name">[docs]</a>    <span class="k">def</span> <span class="nf">from_name</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">Cluster</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">one</span><span class="p">()</span></div>
+
 
     <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list</span><span class="p">())</span>
@@ -228,15 +231,15 @@
 <span class="sd">        :rtype: :class:`list` of instances</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">vm_table_from_provider</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">db</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span></div>
+        <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">vm_table_from_provider</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Cluster.delete"><a class="viewcode-back" href="../../../../code/cloudmesh_client.platform.virtual_cluster.html#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Cluster.delete"><a class="viewcode-back" href="../../../../code/cloudmesh_client.platform.virtual_cluster.html#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Delete this cluster and all component nodes&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
             <span class="n">Vm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">servers</span><span class="o">=</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">],</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
 
-        <span class="n">db</span><span class="o">.</span><span class="n">delete_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">,</span> <span class="n">cm_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cm_id</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">,</span> <span class="n">cm_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cm_id</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Cluster.create"><a class="viewcode-back" href="../../../../code/cloudmesh_client.platform.virtual_cluster.html#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sleeptime_s</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Boot all nodes in this cluster</span>
@@ -244,74 +247,26 @@
 <span class="sd">        :param float sleeptime_s: sleep this number of seconds between</span>
 <span class="sd">                                  polling VMs for ACTIVE status</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list</span><span class="p">())):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sleeptime_s</span><span class="o">=</span><span class="n">sleeptime_s</span><span class="p">)</span></div>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list</span><span class="p">())):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">()</span></div>
 
-    <span class="k">def</span> <span class="nf">_assign_floating_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vm</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Assign a floating ip</span>
-
-<span class="sd">        :returns: floating ip</span>
-<span class="sd">        :rtype: :class:`str`</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="n">ip</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">find_assign_floating_ip</span><span class="p">(</span>
-            <span class="n">cloudname</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span>
-            <span class="n">instance_id</span><span class="o">=</span><span class="n">vm</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-        <span class="p">)</span>
-
-        <span class="n">Vm</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span>
-
-        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s1">&#39;Assigned ip to </span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vm</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">ip</span><span class="p">))</span>
-
-        <span class="k">return</span> <span class="n">ip</span>
-
-<div class="viewcode-block" id="Cluster.add"><a class="viewcode-back" href="../../../../code/cloudmesh_client.platform.virtual_cluster.html#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sleeptime_s</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+<div class="viewcode-block" id="Cluster.add"><a class="viewcode-back" href="../../../../code/cloudmesh_client.platform.virtual_cluster.html#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Boots a new instance and adds it to this cluster&quot;&quot;&quot;</span>
 
-        <span class="c1"># boot</span>
-        <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Booting VM for cluster </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
-        <span class="n">uuid</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span>
-            <span class="n">cloud</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span>
-            <span class="n">key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span>
-            <span class="n">name</span><span class="o">=</span><span class="n">Vm</span><span class="o">.</span><span class="n">generate_vm_name</span><span class="p">(),</span>
-            <span class="n">image</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span>
-            <span class="n">flavor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">flavor</span><span class="p">,</span>
-            <span class="n">group</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">secgroup</span><span class="p">,</span>
-            <span class="n">cluster</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+        <span class="n">provider</span> <span class="o">=</span> <span class="n">Provider</span><span class="o">.</span><span class="n">from_cloud</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span>
+
+        <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Booting VM for cluster {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span>
+            <span class="n">key</span>      <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span>
+            <span class="n">image</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span>
+            <span class="n">flavor</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flavor</span><span class="p">,</span>
+            <span class="n">secgroup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">secgroup</span><span class="p">,</span>
+            <span class="n">cluster</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">username</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span>
         <span class="p">)</span>
 
-        <span class="c1"># helper function: the Vm.boot only returns a UUID, but we</span>
-        <span class="c1"># need to use the VM model instead. Additionally, we&#39;ll need</span>
-        <span class="c1"># to poll the VM to wait until it is active.</span>
-        <span class="c1">#</span>
-        <span class="c1"># The kwargs are used to select the item from the DB:</span>
-        <span class="c1"># eg: uuid=???, cm_id=???, etc</span>
-        <span class="k">def</span> <span class="nf">get_vm</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-            <span class="sd">&quot;&quot;&quot;Selects the VM based on the given properties&quot;&quot;&quot;</span>
-            <span class="n">model</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">vm_table_from_provider</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="p">)</span>
-            <span class="n">vm</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">vm</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="n">vm</span>
-            <span class="n">vm</span> <span class="o">=</span> <span class="n">vm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="k">return</span> <span class="n">vm</span>
-
-        <span class="c1"># get the VM from the UUID</span>
-        <span class="n">vm</span> <span class="o">=</span> <span class="n">get_vm</span><span class="p">(</span><span class="n">uuid</span><span class="o">=</span><span class="n">uuid</span><span class="p">)</span>
-
-        <span class="c1"># wait until active</span>
-        <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Waiting until </span><span class="si">{}</span><span class="s1"> is active&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vm</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
-        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="n">Vm</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span>
-            <span class="n">vm</span> <span class="o">=</span> <span class="n">get_vm</span><span class="p">(</span><span class="n">cm_id</span><span class="o">=</span><span class="n">vm</span><span class="o">.</span><span class="n">cm_id</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">vm</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;ACTIVE&#39;</span><span class="p">:</span>
-                <span class="k">break</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Status is </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vm</span><span class="o">.</span><span class="n">status</span><span class="p">))</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Waiting for </span><span class="si">{}</span><span class="s1"> seconds&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sleeptime_s</span><span class="p">))</span>
-                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleeptime_s</span><span class="p">)</span>
-
-        <span class="c1"># floating ip</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">assignFloatingIP</span><span class="p">:</span>
-            <span class="n">vm</span><span class="o">.</span><span class="n">floating_ip</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_assign_floating_ip</span><span class="p">(</span><span class="n">vm</span><span class="p">)</span></div>
+            <span class="n">node</span><span class="o">.</span><span class="n">create_ip</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Cluster.remove"><a class="viewcode-back" href="../../../../code/cloudmesh_client.platform.virtual_cluster.html#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cm_id</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Removes a node to the cluster, but otherwise leaves it intact.</span>
@@ -321,10 +276,12 @@
 <span class="sd">        :param int cm_id: the node id of the instance to remove</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">table</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">vm_table_from_provider</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="p">)</span>
-        <span class="n">db</span><span class="o">.</span><span class="n">update_</span><span class="p">(</span><span class="n">table</span><span class="p">,</span>
-                   <span class="n">where</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;cm_id&#39;</span><span class="p">:</span> <span class="n">cm_id</span><span class="p">},</span>
-                   <span class="n">values</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;cluster&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">})</span></div>
+        <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">vm_table_from_provider</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">update_</span><span class="p">(</span>
+            <span class="n">table</span><span class="p">,</span>
+            <span class="n">where</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;cm_id&#39;</span><span class="p">:</span> <span class="n">cm_id</span><span class="p">},</span>
+            <span class="n">values</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;cluster&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">}</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Cluster.modify"><a class="viewcode-back" href="../../../../code/cloudmesh_client.platform.virtual_cluster.html#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.modify">[docs]</a>    <span class="k">def</span> <span class="nf">modify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="s2">&quot;Modifies the cluster&quot;</span>
@@ -412,7 +369,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'4.4.0',
+            VERSION:'4.5.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

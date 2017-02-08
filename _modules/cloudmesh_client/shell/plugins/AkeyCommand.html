@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins.AkeyCommand &mdash; cloudmesh_client 4.4.0 documentation</title>
+  <title>cloudmesh_client.shell.plugins.AkeyCommand &mdash; cloudmesh_client 4.5.2 documentation</title>
   
 
   
@@ -30,10 +30,7 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
@@ -62,7 +59,7 @@
             
             
               <div class="version">
-                4.4.0
+                4.5.2
               </div>
             
           
@@ -181,12 +178,12 @@
             
   <h1>Source code for cloudmesh_client.shell.plugins.AkeyCommand</h1><div class="highlight"><pre>
 <span></span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="k">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.dotdict</span> <span class="k">import</span> <span class="n">dotdict</span>
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="k">import</span> <span class="n">command</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.key</span> <span class="k">import</span> <span class="n">Key</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="k">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.dotdict</span> <span class="kn">import</span> <span class="n">dotdict</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.key</span> <span class="kn">import</span> <span class="n">Key</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
 
 <div class="viewcode-block" id="AkeyCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.AkeyCommand.AkeyCommand">[docs]</a><span class="k">class</span> <span class="nc">AkeyCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
     <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;akey&quot;</span><span class="p">:</span> <span class="s2">&quot;security&quot;</span><span class="p">}</span>
@@ -194,7 +191,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;init command akey&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;init command akey&quot;</span><span class="p">)</span>
 
     <span class="nd">@command</span>
     <span class="k">def</span> <span class="nf">do_akey</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
@@ -210,20 +207,20 @@
         <span class="c1"># pprint(args)</span>
         <span class="c1"># pprint(arguments)</span>
         <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;list&#39;</span><span class="p">]:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Key list time&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Key list time&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;add&#39;</span><span class="p">]:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Azure key addition invoked&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--name&#39;</span><span class="p">]:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;name:&quot;</span><span class="o">+</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--name&#39;</span><span class="p">])</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;name:&quot;</span><span class="o">+</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--name&#39;</span><span class="p">])</span>
                 <span class="n">key_name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--name&#39;</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--cert&#39;</span><span class="p">]:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;cert:&quot;</span><span class="o">+</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--cert&#39;</span><span class="p">])</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;cert:&quot;</span><span class="o">+</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--cert&#39;</span><span class="p">])</span>
                 <span class="n">certificate_path</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--cert&#39;</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--pub&#39;</span><span class="p">]:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;pub:&quot;</span><span class="o">+</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--pub&#39;</span><span class="p">])</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;pub:&quot;</span><span class="o">+</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--pub&#39;</span><span class="p">])</span>
                 <span class="n">key_path</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--pub&#39;</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--pfx&#39;</span><span class="p">]:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;pfx:&quot;</span><span class="o">+</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--pfx&#39;</span><span class="p">])</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;pfx:&quot;</span><span class="o">+</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--pfx&#39;</span><span class="p">])</span>
                 <span class="n">pfx_path</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--pfx&#39;</span><span class="p">]</span>
             <span class="n">Key</span><span class="o">.</span><span class="n">add_azure_key_to_db</span><span class="p">(</span><span class="n">key_name</span><span class="p">,</span> <span class="n">key_path</span><span class="p">,</span> <span class="n">certificate_path</span><span class="p">,</span> <span class="n">pfx_path</span><span class="p">)</span>
         <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
@@ -259,7 +256,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'4.4.0',
+            VERSION:'4.5.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

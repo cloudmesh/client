@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.db package &mdash; cloudmesh_client 4.4.0 documentation</title>
+  <title>cloudmesh_client.db package &mdash; cloudmesh_client 4.5.2 documentation</title>
   
 
   
@@ -30,10 +30,7 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client package" href="cloudmesh_client.html"/>
         <link rel="next" title="cloudmesh_client.db.azure package" href="cloudmesh_client.db.azure.html"/>
         <link rel="prev" title="cloudmesh_client.common package" href="cloudmesh_client.common.html"/> 
@@ -64,7 +61,7 @@
             
             
               <div class="version">
-                4.4.0
+                4.5.2
               </div>
             
           
@@ -130,6 +127,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="cloudmesh_client.html">cloudmesh_client package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="cloudmesh_client.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.api.html">cloudmesh_client.api package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.cloud.html">cloudmesh_client.cloud package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.comet.html">cloudmesh_client.comet package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
@@ -150,7 +148,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#cloudmesh-client-default-module">cloudmesh_client.default module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.exc">cloudmesh_client.exc module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
@@ -294,6 +292,7 @@ if not os.path.isfile(filename):</p>
 <dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.Base">
 <em class="property">class </em><code class="descname">Base</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.Base" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>The most base type</p>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.Base.metadata">
 <code class="descname">metadata</code><em class="property"> = MetaData(bind=None)</em><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.Base.metadata" title="Permalink to this definition">¶</a></dt>
@@ -379,7 +378,7 @@ from the cloudmesh database
 
 <dl class="attribute">
 <dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.data">
-<code class="descclassname">CloudmeshDatabase.</code><code class="descname">data</code><em class="property"> = {'filename': '/Users/big/.cloudmesh/cloudmesh.db'}</em><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.data" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">CloudmeshDatabase.</code><code class="descname">data</code><em class="property"> = {'filename': '/Users/fuwang/.cloudmesh/cloudmesh.db'}</em><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -413,7 +412,7 @@ from the cloudmesh database
 
 <dl class="attribute">
 <dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.engine">
-<code class="descclassname">CloudmeshDatabase.</code><code class="descname">engine</code><em class="property"> = Engine(sqlite:////Users/big/.cloudmesh/cloudmesh.db)</em><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.engine" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">CloudmeshDatabase.</code><code class="descname">engine</code><em class="property"> = Engine(sqlite:////Users/fuwang/.cloudmesh/cloudmesh.db)</em><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.engine" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -715,7 +714,7 @@ setting to <code class="docutils literal"><span class="pre">values</span></code>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin.created_at">
-<code class="descname">created_at</code><em class="property"> = Column(None, String(), table=None, default=ColumnDefault('2016-11-21 21:00:21'))</em><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin.created_at" title="Permalink to this definition">¶</a></dt>
+<code class="descname">created_at</code><em class="property"> = Column(None, String(), table=None, default=ColumnDefault('2017-02-08 13:35:13'))</em><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin.created_at" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -760,7 +759,7 @@ setting to <code class="docutils literal"><span class="pre">values</span></code>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin.updated_at">
-<code class="descname">updated_at</code><em class="property"> = Column(None, String(), table=None, onupdate=ColumnDefault('2016-11-21 21:00:21'), default=ColumnDefault('2016-11-21 21:00:21'))</em><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin.updated_at" title="Permalink to this definition">¶</a></dt>
+<code class="descname">updated_at</code><em class="property"> = Column(None, String(), table=None, onupdate=ColumnDefault('2017-02-08 13:35:13'), default=ColumnDefault('2017-02-08 13:35:13'))</em><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin.updated_at" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -832,7 +831,7 @@ setting to <code class="docutils literal"><span class="pre">values</span></code>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.4.0',
+            VERSION:'4.5.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

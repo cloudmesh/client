@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client package &mdash; cloudmesh_client 4.4.0 documentation</title>
+  <title>cloudmesh_client package &mdash; cloudmesh_client 4.5.2 documentation</title>
   
 
   
@@ -30,11 +30,8 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../index.html"/>
-        <link rel="next" title="cloudmesh_client.cloud package" href="cloudmesh_client.cloud.html"/>
+    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../index.html"/>
+        <link rel="next" title="cloudmesh_client.api package" href="cloudmesh_client.api.html"/>
         <link rel="prev" title="Stack" href="../stack.html"/> 
 
   
@@ -63,7 +60,7 @@
             
             
               <div class="version">
-                4.4.0
+                4.5.2
               </div>
             
           
@@ -129,6 +126,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">cloudmesh_client package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.api.html">cloudmesh_client.api package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.cloud.html">cloudmesh_client.cloud package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.comet.html">cloudmesh_client.comet package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
@@ -143,7 +141,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloudmesh-client-default-module">cloudmesh_client.default module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-cloudmesh_client.exc">cloudmesh_client.exc module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
@@ -211,6 +209,19 @@
 <h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="cloudmesh_client.api.html">cloudmesh_client.api package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.api.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.api.impl.html">cloudmesh_client.api.impl package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.api.impl.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.api.impl.html#module-cloudmesh_client.api.impl.openstack">cloudmesh_client.api.impl.openstack module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.api.impl.html#module-cloudmesh_client.api.impl">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.api.html#module-cloudmesh_client.api">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="cloudmesh_client.cloud.html">cloudmesh_client.cloud package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.cloud.html#subpackages">Subpackages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.cloud.hpc.html">cloudmesh_client.cloud.hpc package</a><ul>
@@ -534,9 +545,9 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-cloudmesh_client.default">
-<span id="cloudmesh-client-default-module"></span><h2>cloudmesh_client.default module<a class="headerlink" href="#module-cloudmesh_client.default" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<div class="section" id="cloudmesh-client-default-module">
+<h2>cloudmesh_client.default module<a class="headerlink" href="#cloudmesh-client-default-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-cloudmesh_client.default"></span><dl class="class">
 <dt id="cloudmesh_client.default.Default">
 <em class="property">class </em><code class="descclassname">cloudmesh_client.default.</code><code class="descname">Default</code><a class="reference internal" href="../_modules/cloudmesh_client/default.html#Default"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.default.Default" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
@@ -545,11 +556,6 @@ categories (we will rename cloud to categories). A category can be a
 cloud name or the name &#8216;general&#8217;. The category general is a &#8216;global&#8217;
 name space and contains defaults of global value (in future we will
 rename the value to global).</p>
-<dl class="attribute">
-<dt id="cloudmesh_client.default.Default.active_cluster">
-<code class="descname">active_cluster</code><a class="headerlink" href="#cloudmesh_client.default.Default.active_cluster" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="classmethod">
 <dt id="cloudmesh_client.default.Default.clear">
 <em class="property">classmethod </em><code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/default.html#Default.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.default.Default.clear" title="Permalink to this definition">¶</a></dt>
@@ -559,7 +565,7 @@ rename the value to global).</p>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.cloud">
-<code class="descname">cloud</code><em class="property"> = u'chameleon'</em><a class="headerlink" href="#cloudmesh_client.default.Default.cloud" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cloud</code><em class="property"> = u'kilo'</em><a class="headerlink" href="#cloudmesh_client.default.Default.cloud" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -569,7 +575,7 @@ rename the value to global).</p>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.cluster_counter">
-<code class="descname">cluster_counter</code><em class="property"> = u'gregor'</em><a class="headerlink" href="#cloudmesh_client.default.Default.cluster_counter" title="Permalink to this definition">¶</a></dt>
+<code class="descname">cluster_counter</code><em class="property"> = None</em><a class="headerlink" href="#cloudmesh_client.default.Default.cluster_counter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -654,7 +660,7 @@ If it is not present in db, it creates a new entry.
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.image">
-<code class="descname">image</code><em class="property"> = u'Ubuntu-Server-14.04-LTS'</em><a class="headerlink" href="#cloudmesh_client.default.Default.image" title="Permalink to this definition">¶</a></dt>
+<code class="descname">image</code><em class="property"> = u'Ubuntu-14.04-64'</em><a class="headerlink" href="#cloudmesh_client.default.Default.image" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -664,7 +670,7 @@ If it is not present in db, it creates a new entry.
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.index">
-<code class="descname">index</code><em class="property"> = None</em><a class="headerlink" href="#cloudmesh_client.default.Default.index" title="Permalink to this definition">¶</a></dt>
+<code class="descname">index</code><em class="property"> = 1</em><a class="headerlink" href="#cloudmesh_client.default.Default.index" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -730,7 +736,7 @@ it is a special category that is used for global values.</li>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.secgroup">
-<code class="descname">secgroup</code><em class="property"> = u'gvonlasz-default'</em><a class="headerlink" href="#cloudmesh_client.default.Default.secgroup" title="Permalink to this definition">¶</a></dt>
+<code class="descname">secgroup</code><em class="property"> = u'default'</em><a class="headerlink" href="#cloudmesh_client.default.Default.secgroup" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -909,12 +915,12 @@ it is a special category that is used for global values.</li>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.user">
-<code class="descname">user</code><em class="property"> = u'gvonlasz'</em><a class="headerlink" href="#cloudmesh_client.default.Default.user" title="Permalink to this definition">¶</a></dt>
+<code class="descname">user</code><em class="property"> = u'fuwang'</em><a class="headerlink" href="#cloudmesh_client.default.Default.user" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.vm">
-<code class="descname">vm</code><em class="property"> = u'gvonlasz-001'</em><a class="headerlink" href="#cloudmesh_client.default.Default.vm" title="Permalink to this definition">¶</a></dt>
+<code class="descname">vm</code><em class="property"> = None</em><a class="headerlink" href="#cloudmesh_client.default.Default.vm" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1197,7 +1203,7 @@ it is a special category that is used for global values.</li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cloudmesh_client.cloud.html" class="btn btn-neutral float-right" title="cloudmesh_client.cloud package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cloudmesh_client.api.html" class="btn btn-neutral float-right" title="cloudmesh_client.api package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../stack.html" class="btn btn-neutral" title="Stack" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -1230,7 +1236,7 @@ it is a special category that is used for global values.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.4.0',
+            VERSION:'4.5.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

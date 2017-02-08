@@ -1,0 +1,17 @@
+cloudmesh_client.api package
+============================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    cloudmesh_client.api.impl
+
+Module contents
+---------------
+
+.. automodule:: cloudmesh_client.api
+    :members:
+    :undoc-members:
+    :show-inheritance:

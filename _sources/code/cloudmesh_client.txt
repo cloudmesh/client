@@ -6,6 +6,7 @@ Subpackages
 
 .. toctree::
 
+    cloudmesh_client.api
     cloudmesh_client.cloud
     cloudmesh_client.comet
     cloudmesh_client.common

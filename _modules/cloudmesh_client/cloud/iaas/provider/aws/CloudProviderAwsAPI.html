@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.iaas.provider.aws.CloudProviderAwsAPI &mdash; cloudmesh_client 4.4.0 documentation</title>
+  <title>cloudmesh_client.cloud.iaas.provider.aws.CloudProviderAwsAPI &mdash; cloudmesh_client 4.5.2 documentation</title>
   
 
   
@@ -30,10 +30,7 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../../../../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../../../../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../../../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../../../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../../../cloudmesh_client.html"/> 
 
   
@@ -62,7 +59,7 @@
             
             
               <div class="version">
-                4.4.0
+                4.5.2
               </div>
             
           
@@ -180,29 +177,29 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.cloud.iaas.provider.aws.CloudProviderAwsAPI</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="k">import</span> <span class="n">Console</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.CloudProviderBase</span> <span class="k">import</span> <span class="n">CloudProviderBase</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.CloudProviderBase</span> <span class="kn">import</span> <span class="n">CloudProviderBase</span>
 
 <div class="viewcode-block" id="CloudProviderOpenstackAPI"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.aws.html#cloudmesh_client.cloud.iaas.provider.aws.CloudProviderAwsAPI.CloudProviderOpenstackAPI">[docs]</a><span class="k">class</span> <span class="nc">CloudProviderOpenstackAPI</span><span class="p">(</span><span class="n">CloudProviderBase</span><span class="p">):</span>
     <span class="n">cloud_type</span> <span class="o">=</span> <span class="s2">&quot;openstack&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloud_name</span><span class="p">,</span> <span class="n">cloud_details</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloud_name</span><span class="p">,</span> <span class="n">cloud_details</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">CloudProviderOpenstackAPI</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">cloud_name</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">cloud_type</span> <span class="o">=</span> <span class="s2">&quot;openstack&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="s2">&quot;vm&quot;</span><span class="p">]</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">default_image</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">default_flavor</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cloud</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cloud_details</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_image</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_flavor</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cloud</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cloud_details</span> <span class="o">=</span> <span class="bp">None</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">cloud_name</span><span class="p">,</span> <span class="n">cloud_details</span><span class="p">)</span>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.initialize"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.aws.html#cloudmesh_client.cloud.iaas.provider.aws.CloudProviderAwsAPI.CloudProviderOpenstackAPI.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.initialize"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.aws.html#cloudmesh_client.cloud.iaas.provider.aws.CloudProviderAwsAPI.CloudProviderOpenstackAPI.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        reads the details for the initialization from the cloudname defined in the yaml file</span>
 <span class="sd">        :param cloudname:</span>
@@ -228,18 +225,18 @@
 
 <div class="viewcode-block" id="CloudProviderOpenstackAPI.boot_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.aws.html#cloudmesh_client.cloud.iaas.provider.aws.CloudProviderAwsAPI.CloudProviderOpenstackAPI.boot_vm">[docs]</a>    <span class="k">def</span> <span class="nf">boot_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                 <span class="n">name</span><span class="p">,</span>
-                <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">flavor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">cloud</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">secgroup</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">meta</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">nics</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">image</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">flavor</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">key</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">secgroup</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">meta</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">nics</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                 <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">Console</span><span class="o">.</span><span class="n">TODO</span><span class="p">(</span><span class="s2">&quot;not yet implemented&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.delete_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.aws.html#cloudmesh_client.cloud.iaas.provider.aws.CloudProviderAwsAPI.CloudProviderOpenstackAPI.delete_vm">[docs]</a>    <span class="k">def</span> <span class="nf">delete_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.delete_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.aws.html#cloudmesh_client.cloud.iaas.provider.aws.CloudProviderAwsAPI.CloudProviderOpenstackAPI.delete_vm">[docs]</a>    <span class="k">def</span> <span class="nf">delete_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">Console</span><span class="o">.</span><span class="n">TODO</span><span class="p">(</span><span class="s2">&quot;not yet implemented&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="CloudProviderOpenstackAPI.assign_ip"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.aws.html#cloudmesh_client.cloud.iaas.provider.aws.CloudProviderAwsAPI.CloudProviderOpenstackAPI.assign_ip">[docs]</a>    <span class="k">def</span> <span class="nf">assign_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
@@ -280,7 +277,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../../../',
-            VERSION:'4.4.0',
+            VERSION:'4.5.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.deployer.ansible.role &mdash; cloudmesh_client 4.4.0 documentation</title>
+  <title>cloudmesh_client.deployer.ansible.role &mdash; cloudmesh_client 4.5.2 documentation</title>
   
 
   
@@ -30,10 +30,7 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client.deployer.ansible" href="../ansible.html"/> 
 
   
@@ -62,7 +59,7 @@
             
             
               <div class="version">
-                4.4.0
+                4.5.2
               </div>
             
           
@@ -185,56 +182,67 @@
 <span></span>
 
 <span class="kn">import</span> <span class="nn">os.path</span>
-<span class="kn">import</span> <span class="nn">shutil</span>
-<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="c1"># import shutil</span>
+<span class="c1"># import tempfile</span>
 
-<span class="kn">import</span> <span class="nn">yaml</span>
-
-<span class="kn">from</span> <span class="nn">cloudmesh_client.deployer.ansible.playbook</span> <span class="k">import</span> <span class="n">AnsiblePlaybookRunner</span>
+<span class="c1"># import yaml</span>
 
 
 <div class="viewcode-block" id="AnsibleRole"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.role.AnsibleRole">[docs]</a><span class="k">class</span> <span class="nc">AnsibleRole</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">become</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="n">path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">hosts</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">become</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">uri</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">uri</span> <span class="o">=</span> <span class="n">uri</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_materialize_uri</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uri</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span> <span class="o">=</span> <span class="n">hosts</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">become</span> <span class="o">=</span> <span class="n">become</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">variables</span> <span class="o">=</span> <span class="n">variables</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">group</span> <span class="o">=</span> <span class="n">group</span>
 
 
-<div class="viewcode-block" id="AnsibleRole.run"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.role.AnsibleRole.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inventory</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="n">tempdir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">_materialize_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">uri</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">uri</span>
+        <span class="k">elif</span> <span class="n">uri</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;file://&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">uri</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39;file://&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span></div>
 
-        <span class="n">playbook</span> <span class="o">=</span> <span class="p">[{</span>
-            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Cloudmesh Role: &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
-            <span class="s1">&#39;hosts&#39;</span><span class="p">:</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;become&#39;</span><span class="p">:</span> <span class="kc">True</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">become</span> <span class="k">else</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="s1">&#39;roles&#39;</span><span class="p">:</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">role</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
-                           <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">)]</span>
-        <span class="p">}]</span>
 
-        <span class="n">y</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">playbook</span><span class="p">,</span> <span class="n">default_flow_style</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="n">play</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempdir</span><span class="p">,</span> <span class="s1">&#39;playbook.yml&#39;</span><span class="p">)</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">play</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
-            <span class="n">fd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="c1"># def run(self, inventory, user=None):</span>
+    <span class="c1">#     tempdir = tempfile.mkdtemp()</span>
 
-        <span class="n">inventory_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempdir</span><span class="p">,</span> <span class="s1">&#39;inventory.txt&#39;</span><span class="p">)</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">inventory_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
-            <span class="n">fd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">inventory</span><span class="p">)</span>
+    <span class="c1">#     playbook = [{</span>
+    <span class="c1">#         &#39;name&#39;: &#39;Cloudmesh Role: &#39; + self.path,</span>
+    <span class="c1">#         &#39;hosts&#39;: &#39;all&#39;,</span>
+    <span class="c1">#         &#39;become&#39;: True if self.become else False,</span>
+    <span class="c1">#         &#39;roles&#39;: [dict(role=self.path,</span>
+    <span class="c1">#                        **self.variables)]</span>
+    <span class="c1">#     }]</span>
 
-        <span class="n">runner</span> <span class="o">=</span> <span class="n">AnsiblePlaybookRunner</span><span class="p">(</span><span class="n">inventory_file</span><span class="p">,</span> <span class="n">play</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span> <span class="n">modifyKnownHosts</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="n">runner</span><span class="o">.</span><span class="n">set_cwd</span><span class="p">(</span><span class="n">tempdir</span><span class="p">)</span>
+    <span class="c1">#     y = yaml.dump(playbook, default_flow_style=False)</span>
+    <span class="c1">#     play = os.path.join(tempdir, &#39;playbook.yml&#39;)</span>
+    <span class="c1">#     with open(play, &#39;w&#39;) as fd:</span>
+    <span class="c1">#         fd.write(y)</span>
 
-        <span class="c1"># don&#39;t hide ansible&#39;s stderr/stdout</span>
-        <span class="n">runner</span><span class="o">.</span><span class="n">set_stderr</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-        <span class="n">runner</span><span class="o">.</span><span class="n">set_stdout</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+    <span class="c1">#     inventory_file = os.path.join(tempdir, &#39;inventory.txt&#39;)</span>
+    <span class="c1">#     with open(inventory_file, &#39;w&#39;) as fd:</span>
+    <span class="c1">#         fd.write(inventory)</span>
 
-        <span class="n">runner</span><span class="p">()</span>
+    <span class="c1">#     runner = AnsiblePlaybookRunner(inventory_file, play, user=user, modifyKnownHosts=False)</span>
+    <span class="c1">#     runner.set_cwd(tempdir)</span>
 
-        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">tempdir</span><span class="p">)</span></div></div>
+    <span class="c1">#     # don&#39;t hide ansible&#39;s stderr/stdout</span>
+    <span class="c1">#     runner.set_stderr(None)</span>
+    <span class="c1">#     runner.set_stdout(None)</span>
+
+    <span class="c1">#     runner()</span>
+
+    <span class="c1">#     shutil.rmtree(tempdir)</span>
 </pre></div>
 
            </div>
@@ -267,7 +275,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'4.4.0',
+            VERSION:'4.5.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.deployer.ansible.playbook &mdash; cloudmesh_client 4.4.0 documentation</title>
+  <title>cloudmesh_client.deployer.ansible.playbook &mdash; cloudmesh_client 4.5.2 documentation</title>
   
 
   
@@ -30,10 +30,7 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client.deployer.ansible" href="../ansible.html"/> 
 
   
@@ -62,7 +59,7 @@
             
             
               <div class="version">
-                4.4.0
+                4.5.2
               </div>
             
           
@@ -184,65 +181,93 @@
   <h1>Source code for cloudmesh_client.deployer.ansible.playbook</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">operator</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
 
-<span class="kn">from</span> <span class="nn">ansible.inventory</span> <span class="k">import</span> <span class="n">Inventory</span>
-<span class="kn">from</span> <span class="nn">ansible.parsing.dataloader</span> <span class="k">import</span> <span class="n">DataLoader</span>
-<span class="kn">from</span> <span class="nn">ansible.playbook</span> <span class="k">import</span> <span class="n">Playbook</span>
-<span class="kn">from</span> <span class="nn">ansible.vars</span> <span class="k">import</span> <span class="n">VariableManager</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
 
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="k">import</span> <span class="n">Subprocess</span><span class="p">,</span> <span class="n">SubprocessError</span>
+<span class="kn">from</span> <span class="nn">ansible.inventory</span> <span class="kn">import</span> <span class="n">Inventory</span>
+<span class="kn">from</span> <span class="nn">ansible.parsing.dataloader</span> <span class="kn">import</span> <span class="n">DataLoader</span>
+<span class="kn">from</span> <span class="nn">ansible.playbook</span> <span class="kn">import</span> <span class="n">Playbook</span>
+<span class="kn">from</span> <span class="nn">ansible.vars</span> <span class="kn">import</span> <span class="n">VariableManager</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="kn">import</span> <span class="n">Subprocess</span>
 
 
-<div class="viewcode-block" id="AnsiblePlaybookRunner"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner">[docs]</a><span class="k">class</span> <span class="nc">AnsiblePlaybookRunner</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="AnsiblePlaybook"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybook">[docs]</a><span class="k">class</span> <span class="nc">AnsiblePlaybook</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inventory</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">become</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                 <span class="n">become_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">forks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">modifyKnownHosts</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                 <span class="n">extra_vars</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inventory</span><span class="p">,</span> <span class="n">roles</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">become</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                 <span class="n">become_user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">forks</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">modifyKnownHosts</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                 <span class="n">extra_vars</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">subprocess_kwargs</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_inventory</span> <span class="o">=</span> <span class="n">inventory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_roles</span> <span class="o">=</span> <span class="n">roles</span> <span class="ow">or</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_path</span> <span class="o">=</span> <span class="n">path</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_user</span> <span class="o">=</span> <span class="n">user</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_username</span> <span class="o">=</span> <span class="n">username</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_become</span> <span class="o">=</span> <span class="n">become</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_become_user</span> <span class="o">=</span> <span class="n">become_user</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_forks</span> <span class="o">=</span> <span class="n">forks</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_modifyKnownHosts</span> <span class="o">=</span> <span class="n">modifyKnownHosts</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_extra_vars</span> <span class="o">=</span> <span class="n">extra_vars</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_subprocess_kwargs</span> <span class="o">=</span> <span class="n">subprocess_kwargs</span> <span class="ow">or</span> <span class="nb">dict</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_subprocess_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="c1">################################################################ rest of setup</span>
 
-<div class="viewcode-block" id="AnsiblePlaybookRunner.set_cwd"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner.set_cwd">[docs]</a>    <span class="k">def</span> <span class="nf">set_cwd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_subprocess_kwargs</span><span class="p">[</span><span class="s1">&#39;cwd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
-        <span class="k">return</span> <span class="bp">self</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_inventory_file</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_playbook_file</span>  <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">()</span>
 
-<div class="viewcode-block" id="AnsiblePlaybookRunner.set_stderr"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner.set_stderr">[docs]</a>    <span class="k">def</span> <span class="nf">set_stderr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_subprocess_kwargs</span><span class="p">[</span><span class="s1">&#39;stderr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stream</span>
-        <span class="k">return</span> <span class="bp">self</span></div>
+        <span class="c1"># write inventory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_inventory_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_inventory</span><span class="o">.</span><span class="n">ini</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_inventory_file</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
 
-<div class="viewcode-block" id="AnsiblePlaybookRunner.set_stdout"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner.set_stdout">[docs]</a>    <span class="k">def</span> <span class="nf">set_stdout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_subprocess_kwargs</span><span class="p">[</span><span class="s1">&#39;stdout&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stream</span>
-        <span class="k">return</span> <span class="bp">self</span></div>
+        <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Inventory:</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inventory</span><span class="o">.</span><span class="n">ini</span><span class="p">())</span>
 
-<div class="viewcode-block" id="AnsiblePlaybookRunner.set_env"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner.set_env">[docs]</a>    <span class="k">def</span> <span class="nf">set_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">environment</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_subprocess_kwargs</span><span class="p">[</span><span class="s1">&#39;env&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">environment</span>
-        <span class="k">return</span> <span class="bp">self</span></div>
+        <span class="c1"># write playbook</span>
+        <span class="n">playbook</span> <span class="o">=</span> <span class="p">[{</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">role</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s1">&#39;hosts&#39;</span><span class="p">:</span> <span class="n">role</span><span class="o">.</span><span class="n">hosts</span><span class="p">,</span>
+            <span class="s1">&#39;become&#39;</span><span class="p">:</span> <span class="n">role</span><span class="o">.</span><span class="n">become</span><span class="p">,</span>
+            <span class="s1">&#39;roles&#39;</span><span class="p">:</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">role</span><span class="o">=</span><span class="n">role</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+                           <span class="o">**</span><span class="n">role</span><span class="o">.</span><span class="n">variables</span><span class="p">)]}</span>
+                    <span class="k">for</span> <span class="n">role</span> <span class="ow">in</span> <span class="n">roles</span><span class="p">]</span>
+        <span class="n">yml</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">playbook</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_playbook_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">yml</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_playbook_file</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
 
-<div class="viewcode-block" id="AnsiblePlaybookRunner.set_secure"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybookRunner.set_secure">[docs]</a>    <span class="k">def</span> <span class="nf">set_secure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">secure_p</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_modifyKnownHosts</span> <span class="o">=</span> <span class="n">secure_p</span>
-        <span class="k">return</span> <span class="bp">self</span></div>
+        <span class="n">Console</span><span class="o">.</span><span class="n">debug_msg</span><span class="p">(</span><span class="s1">&#39;Playbook:</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">yml</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AnsiblePlaybook.run"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.playbook.AnsiblePlaybook.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
         <span class="n">cmd_builder_monoid</span> <span class="o">=</span> <span class="p">[</span>
             <span class="p">[</span><span class="s1">&#39;ansible-playbook&#39;</span><span class="p">],</span>
-            <span class="p">[</span><span class="s1">&#39;--inventory&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inventory</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inventory</span> <span class="k">else</span> <span class="p">[],</span>
-            <span class="p">[</span><span class="s1">&#39;--user&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_user</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_user</span> <span class="k">else</span> <span class="p">[],</span>
-            <span class="p">[</span><span class="s1">&#39;--become&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_become</span> <span class="k">else</span> <span class="p">[],</span>
-            <span class="p">[</span><span class="s1">&#39;--become-user&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_become_user</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_become_user</span> <span class="k">else</span> <span class="p">[],</span>
-            <span class="p">[</span><span class="s1">&#39;--forks&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_forks</span><span class="p">)]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forks</span> <span class="k">else</span> <span class="p">[],</span>
-            <span class="p">[</span><span class="s1">&#39;--ssh-extra-args&#39;</span><span class="p">,</span> <span class="s1">&#39;-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modifyKnownHosts</span> <span class="k">else</span> <span class="p">[]</span>
-            <span class="p">[</span><span class="s1">&#39;--extra-vars&#39;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_extra_vars</span><span class="p">)]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extra_vars</span> <span class="k">else</span> <span class="p">[],</span>
-            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">]</span>
+
+            <span class="p">[</span><span class="s1">&#39;--inventory&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inventory_file</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inventory</span> <span class="k">else</span> <span class="p">[],</span>
+
+            <span class="p">[</span><span class="s1">&#39;--user&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_username</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_username</span> <span class="k">else</span> <span class="p">[],</span>
+
+            <span class="p">[</span><span class="s1">&#39;--become&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_become</span> <span class="k">else</span> <span class="p">[],</span>
+
+            <span class="p">[</span><span class="s1">&#39;--become-user&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_become_user</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_become_user</span> <span class="k">else</span> <span class="p">[],</span>
+
+            <span class="p">[</span><span class="s1">&#39;--forks&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_forks</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forks</span> <span class="k">else</span> <span class="p">[],</span>
+
+            <span class="p">[</span><span class="s1">&#39;--ssh-extra-args&#39;</span><span class="p">,</span> <span class="s1">&#39;-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modifyKnownHosts</span> <span class="k">else</span> <span class="p">[]</span>
+
+            <span class="p">[</span><span class="s1">&#39;--extra-vars&#39;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_extra_vars</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extra_vars</span> <span class="k">else</span> <span class="p">[],</span>
+
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_playbook_file</span><span class="o">.</span><span class="n">name</span><span class="p">],</span>
         <span class="p">]</span>
 
-        <span class="n">cmd</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">concat</span><span class="p">,</span> <span class="n">cmd_builder_monoid</span><span class="p">)</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="nb">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">concat</span><span class="p">,</span> <span class="n">cmd_builder_monoid</span><span class="p">)</span>
         <span class="n">Subprocess</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_subprocess_kwargs</span><span class="p">)</span></div>
 
 
@@ -287,7 +312,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'4.4.0',
+            VERSION:'4.5.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

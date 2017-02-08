@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins package &mdash; cloudmesh_client 4.4.0 documentation</title>
+  <title>cloudmesh_client.shell.plugins package &mdash; cloudmesh_client 4.5.2 documentation</title>
   
 
   
@@ -30,10 +30,7 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client.shell package" href="cloudmesh_client.shell.html"/>
         <link rel="next" title="cloudmesh_client.system package" href="cloudmesh_client.system.html"/>
         <link rel="prev" title="cloudmesh_client.shell package" href="cloudmesh_client.shell.html"/> 
@@ -64,7 +61,7 @@
             
             
               <div class="version">
-                4.4.0
+                4.5.2
               </div>
             
           
@@ -130,6 +127,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="cloudmesh_client.html">cloudmesh_client package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="cloudmesh_client.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.api.html">cloudmesh_client.api package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.cloud.html">cloudmesh_client.cloud package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.comet.html">cloudmesh_client.comet package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
@@ -153,7 +151,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#cloudmesh-client-default-module">cloudmesh_client.default module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.exc">cloudmesh_client.exc module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
@@ -503,7 +501,7 @@
 <dt>::</dt>
 <dd><dl class="first docutils">
 <dt>Usage:</dt>
-<dd>cluster2 create [-n NAME] [-c COUNT] [-C CLOUD] [-u USER] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]
+<dd>cluster2 create [-n NAME] [-c COUNT] [-C CLOUD] [-u NAME] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]
 cluster2 list
 cluster2 nodes [CLUSTER]
 cluster2 delete [&#8211;all] [&#8211;force] [NAME]...
@@ -529,7 +527,7 @@ PATH                Path to entry on the filesystem</div></blockquote>
 -n NAME &#8211;name=NAME            Name of the cluster
 -c COUNT &#8211;count=COUNT         Number of nodes in the cluster
 -C NAME &#8211;cloud=NAME           Name of the cloud
--u USER &#8211;user=NAME
+-u NAME &#8211;username=NAME        Name of the image login user
 -i NAME &#8211;image=NAME           Name of the image
 -f NAME &#8211;flavor=NAME          Name of the flavor
 -k NAME &#8211;key=NAME             Name of the key
@@ -558,7 +556,7 @@ PATH                Path to entry on the filesystem</div></blockquote>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.ClusterCommand2.Command.create">
-<code class="descname">create</code><span class="sig-paren">(</span><em>clustername=None</em>, <em>cloud=None</em>, <em>count=1</em>, <em>user=None</em>, <em>username=None</em>, <em>image=None</em>, <em>flavor=None</em>, <em>key=None</em>, <em>secgroup=None</em>, <em>assignFloatingIP=True</em>, <em>activate=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/ClusterCommand2.html#Command.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Command.create" title="Permalink to this definition">¶</a></dt>
+<code class="descname">create</code><span class="sig-paren">(</span><em>clustername=None</em>, <em>cloud=None</em>, <em>count=1</em>, <em>username=None</em>, <em>image=None</em>, <em>flavor=None</em>, <em>key=None</em>, <em>secgroup=None</em>, <em>assignFloatingIP=True</em>, <em>activate=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/ClusterCommand2.html#Command.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Command.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a cluster.</p>
 <p>If values are <cite>None</cite>, they are automatically determined via
 defaults.</p>
@@ -617,7 +615,7 @@ If there is no active cluster, delete the first cluster.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>property</strong> (<em>str</em>) &#8211; name of the property</li>
-<li><strong>cluster</strong> (<a class="reference internal" href="cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster" title="cloudmesh_client.comet.cluster.Cluster"><em>Cluster</em></a>) &#8211; the cluster (default: currently active)</li>
+<li><strong>cluster</strong> (<a class="reference internal" href="cloudmesh_client.api.html#cloudmesh_client.api.Cluster" title="cloudmesh_client.api.Cluster"><em>Cluster</em></a>) &#8211; the cluster (default: currently active)</li>
 </ul>
 </td>
 </tr>
@@ -666,7 +664,7 @@ position.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cluster</strong> (<a class="reference internal" href="cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster" title="cloudmesh_client.comet.cluster.Cluster"><em>Cluster</em></a>) &#8211; the cluster (default: currently active)</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cluster</strong> (<a class="reference internal" href="cloudmesh_client.api.html#cloudmesh_client.api.Cluster" title="cloudmesh_client.api.Cluster"><em>Cluster</em></a>) &#8211; the cluster (default: currently active)</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a list of instances</td>
 </tr>
@@ -730,28 +728,42 @@ position.</p>
 <code class="descname">do_comet</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.CometCommand.CometCommand.do_comet" title="Permalink to this definition">¶</a></dt>
 <dd><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span>
    <span class="n">comet</span> <span class="n">init</span>
-   <span class="n">comet</span> <span class="n">ll</span> <span class="p">[</span><span class="n">CLUSTERID</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span>
+   <span class="n">comet</span> <span class="n">active</span> <span class="p">[</span><span class="n">ENDPOINT</span><span class="p">]</span>
+   <span class="n">comet</span> <span class="n">ll</span> <span class="p">[</span><span class="n">CLUSTERID</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">endpoint</span><span class="o">=</span><span class="n">ENDPOINT</span><span class="p">]</span>
    <span class="n">comet</span> <span class="n">cluster</span> <span class="p">[</span><span class="n">CLUSTERID</span><span class="p">]</span>
                  <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span>
                  <span class="p">[</span><span class="o">--</span><span class="n">sort</span><span class="o">=</span><span class="n">SORTKEY</span><span class="p">]</span>
+                 <span class="p">[</span><span class="o">--</span><span class="n">endpoint</span><span class="o">=</span><span class="n">ENDPOINT</span><span class="p">]</span>
    <span class="n">comet</span> <span class="n">computeset</span> <span class="p">[</span><span class="n">COMPUTESETID</span><span class="p">]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">allocation</span><span class="o">=</span><span class="n">ALLOCATION</span><span class="p">]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">cluster</span><span class="o">=</span><span class="n">CLUSTERID</span><span class="p">]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">state</span><span class="o">=</span><span class="n">COMPUTESESTATE</span><span class="p">]</span>
+                <span class="p">[</span><span class="o">--</span><span class="n">endpoint</span><span class="o">=</span><span class="n">ENDPOINT</span><span class="p">]</span>
    <span class="n">comet</span> <span class="n">start</span> <span class="n">CLUSTERID</span> <span class="p">[</span><span class="o">--</span><span class="n">count</span><span class="o">=</span><span class="n">NUMNODES</span><span class="p">]</span> <span class="p">[</span><span class="n">COMPUTENODEIDS</span><span class="p">]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">allocation</span><span class="o">=</span><span class="n">ALLOCATION</span><span class="p">]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">walltime</span><span class="o">=</span><span class="n">WALLTIME</span><span class="p">]</span>
-   <span class="n">comet</span> <span class="n">terminate</span> <span class="n">COMPUTESETID</span>
+                <span class="p">[</span><span class="o">--</span><span class="n">endpoint</span><span class="o">=</span><span class="n">ENDPOINT</span><span class="p">]</span>
+   <span class="n">comet</span> <span class="n">terminate</span> <span class="n">COMPUTESETID</span> <span class="p">[</span><span class="o">--</span><span class="n">endpoint</span><span class="o">=</span><span class="n">ENDPOINT</span><span class="p">]</span>
    <span class="n">comet</span> <span class="n">power</span> <span class="p">(</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="o">|</span><span class="n">reboot</span><span class="o">|</span><span class="n">reset</span><span class="o">|</span><span class="n">shutdown</span><span class="p">)</span> <span class="n">CLUSTERID</span> <span class="p">[</span><span class="n">NODESPARAM</span><span class="p">]</span>
+                <span class="p">[</span><span class="o">--</span><span class="n">endpoint</span><span class="o">=</span><span class="n">ENDPOINT</span><span class="p">]</span>
    <span class="n">comet</span> <span class="n">console</span> <span class="p">[</span><span class="o">--</span><span class="n">link</span><span class="p">]</span> <span class="n">CLUSTERID</span> <span class="p">[</span><span class="n">COMPUTENODEID</span><span class="p">]</span>
+                <span class="p">[</span><span class="o">--</span><span class="n">endpoint</span><span class="o">=</span><span class="n">ENDPOINT</span><span class="p">]</span>
    <span class="n">comet</span> <span class="n">node</span> <span class="n">info</span> <span class="n">CLUSTERID</span> <span class="p">[</span><span class="n">COMPUTENODEID</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span>
+                <span class="p">[</span><span class="o">--</span><span class="n">endpoint</span><span class="o">=</span><span class="n">ENDPOINT</span><span class="p">]</span>
    <span class="n">comet</span> <span class="n">node</span> <span class="n">rename</span> <span class="n">CLUSTERID</span> <span class="n">OLDNAMES</span> <span class="n">NEWNAMES</span>
-   <span class="n">comet</span> <span class="n">iso</span> <span class="nb">list</span>
+                <span class="p">[</span><span class="o">--</span><span class="n">endpoint</span><span class="o">=</span><span class="n">ENDPOINT</span><span class="p">]</span>
+   <span class="n">comet</span> <span class="n">iso</span> <span class="nb">list</span> <span class="p">[</span><span class="o">--</span><span class="n">endpoint</span><span class="o">=</span><span class="n">ENDPOINT</span><span class="p">]</span>
    <span class="n">comet</span> <span class="n">iso</span> <span class="n">upload</span> <span class="p">[</span><span class="o">--</span><span class="n">isoname</span><span class="o">=</span><span class="n">ISONAME</span><span class="p">]</span> <span class="n">PATHISOFILE</span>
+                <span class="p">[</span><span class="o">--</span><span class="n">endpoint</span><span class="o">=</span><span class="n">ENDPOINT</span><span class="p">]</span>
    <span class="n">comet</span> <span class="n">iso</span> <span class="n">attach</span> <span class="n">ISOIDNAME</span> <span class="n">CLUSTERID</span> <span class="p">[</span><span class="n">COMPUTENODEIDS</span><span class="p">]</span>
+                <span class="p">[</span><span class="o">--</span><span class="n">endpoint</span><span class="o">=</span><span class="n">ENDPOINT</span><span class="p">]</span>
    <span class="n">comet</span> <span class="n">iso</span> <span class="n">detach</span> <span class="n">CLUSTERID</span> <span class="p">[</span><span class="n">COMPUTENODEIDS</span><span class="p">]</span>
+                <span class="p">[</span><span class="o">--</span><span class="n">endpoint</span><span class="o">=</span><span class="n">ENDPOINT</span><span class="p">]</span>
 
 <span class="n">Options</span><span class="p">:</span>
+    <span class="o">--</span><span class="n">endpoint</span><span class="o">=</span><span class="n">ENDPOINT</span>     <span class="n">Specify</span> <span class="n">the</span> <span class="n">comet</span> <span class="n">nucleus</span> <span class="n">service</span>
+                            <span class="n">endpoint</span> <span class="n">to</span> <span class="n">work</span> <span class="k">with</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">,</span> <span class="n">dev</span>
+                            <span class="ow">or</span> <span class="n">production</span>
     <span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span>         <span class="n">Format</span> <span class="ow">is</span> <span class="n">either</span> <span class="n">table</span><span class="p">,</span> <span class="n">json</span><span class="p">,</span> <span class="n">yaml</span><span class="p">,</span>
                             <span class="n">csv</span><span class="p">,</span> <span class="n">rest</span>
                             <span class="p">[</span><span class="n">default</span><span class="p">:</span> <span class="n">table</span><span class="p">]</span>
@@ -773,6 +785,8 @@ position.</p>
     <span class="o">--</span><span class="n">link</span>                  <span class="n">Whether</span> <span class="n">to</span> <span class="nb">open</span> <span class="n">the</span> <span class="n">console</span> <span class="n">url</span> <span class="ow">or</span> <span class="n">just</span> <span class="n">show</span> <span class="n">the</span> <span class="n">link</span>
 
 <span class="n">Arguments</span><span class="p">:</span>
+    <span class="n">ENDPOINT</span>        <span class="n">Service</span> <span class="n">endpoint</span> <span class="n">based</span> <span class="n">on</span> <span class="n">the</span> <span class="n">yaml</span> <span class="n">config</span> <span class="n">file</span><span class="o">.</span>
+                    <span class="n">By</span> <span class="n">default</span> <span class="n">it</span><span class="s1">&#39;s either dev or production.</span>
     <span class="n">CLUSTERID</span>       <span class="n">The</span> <span class="n">assigned</span> <span class="n">name</span> <span class="n">of</span> <span class="n">a</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">vc1</span>
     <span class="n">COMPUTESETID</span>    <span class="n">An</span> <span class="n">integer</span> <span class="n">identifier</span> <span class="n">assigned</span> <span class="n">to</span> <span class="n">a</span> <span class="n">computeset</span>
     <span class="n">COMPUTENODEID</span>   <span class="n">A</span> <span class="n">compute</span> <span class="n">node</span> <span class="n">name</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">,</span> <span class="n">vm</span><span class="o">-</span><span class="n">vc1</span><span class="o">-</span><span class="mi">0</span>
@@ -938,7 +952,7 @@ cloud kilo</dd>
 
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.DeployCommand.AnsibleCommand.role">
-<code class="descname">role</code><span class="sig-paren">(</span><em>cluster=None</em>, <em>path=None</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/DeployCommand.html#AnsibleCommand.role"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.DeployCommand.AnsibleCommand.role" title="Permalink to this definition">¶</a></dt>
+<code class="descname">role</code><span class="sig-paren">(</span><em>cluster=None</em>, <em>uris=None</em>, <em>hostsPattern='all'</em>, <em>become=True</em>, <em>username=None</em>, <em>modifyKnownHosts=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/DeployCommand.html#AnsibleCommand.role"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.DeployCommand.AnsibleCommand.role" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deploy a role to all the nodes in the cluster</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -947,7 +961,8 @@ cloud kilo</dd>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>cluster</strong> (<em>str</em>) &#8211; cluster name (default is the active cluster)</li>
 <li><strong>path</strong> (<em>str</em>) &#8211; path to the role (default is current working directory)</li>
-<li><strong>name</strong> (<em>str</em>) &#8211; name of the role</li>
+<li><strong>username</strong> (<em>str</em>) &#8211; login username of the nodes (overrides autodetected value)</li>
+<li><strong>modifyKnownHosts</strong> &#8211; whether to update ~/.ssh/known_hosts</li>
 </ul>
 </td>
 </tr>
@@ -968,7 +983,7 @@ cloud kilo</dd>
 <dt>::</dt>
 <dd><dl class="first docutils">
 <dt>Usage:</dt>
-<dd>deploy ansible [-p PATH...] [-u NAME] [CLUSTER]</dd>
+<dd>deploy ansible role [-c CLUSTER] [-u NAME] [-N] [-H HOST] [-b] URI...</dd>
 </dl>
 <p>Commands:</p>
 <blockquote>
@@ -983,11 +998,15 @@ role                           Deploy a role to all nodes</dd>
 <div>CLUSTER                        Cluster name to deploy to
 NAME                           Alphanumeric name
 COUNT                          Integer &gt; 0
-PATH                           Path to entry on the filesystem</div></blockquote>
+URI                            Location of the item as a uri
+HOST                           Host matching pattern</div></blockquote>
 <p>Options:</p>
 <blockquote class="last">
-<div>-p &#8211;path=PATH                 Path to the location of the item
--u &#8211;user=NAME                 Username of the nodes to manage</div></blockquote>
+<div>-c &#8211;cluster=CLUSTER           Cluster name to operate on (defaults to active)
+-N &#8211;no-modify-known-hosts     Don&#8217;t let ssh update ~/.ssh/known_hosts
+-u &#8211;username=NAME             Username of the nodes to manage
+-H HOST &#8211;hosts=HOST           Host matching pattern [default: all]
+-b &#8211;no-become                 Don&#8217;t become privileged user</div></blockquote>
 </dd>
 </dl>
 </dd></dl>
@@ -1178,7 +1197,7 @@ deployment.</p>
 
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.HadoopCommand.Command.start">
-<code class="descname">start</code><span class="sig-paren">(</span><em>count=3</em>, <em>addons=None</em>, <em>flavor=None</em>, <em>image=None</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/HadoopCommand.html#Command.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.HadoopCommand.Command.start" title="Permalink to this definition">¶</a></dt>
+<code class="descname">start</code><span class="sig-paren">(</span><em>count=3</em>, <em>addons=None</em>, <em>flavor=None</em>, <em>image=None</em>, <em>username=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/HadoopCommand.html#Command.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.HadoopCommand.Command.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start a hadoop cluster</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1189,7 +1208,7 @@ deployment.</p>
 <li><strong>addons</strong> (<em>list(str)</em>) &#8211; names of addons to deploy as well</li>
 <li><strong>flavor</strong> (<em>str</em>) &#8211; instance flavor</li>
 <li><strong>image</strong> (<em>str</em>) &#8211; image name</li>
-<li><strong>user</strong> (<em>str</em>) &#8211; login user name</li>
+<li><strong>username</strong> (<em>str</em>) &#8211; login user name</li>
 </ul>
 </td>
 </tr>
@@ -1241,7 +1260,7 @@ deployment.</p>
   <span class="o">-</span><span class="n">a</span> <span class="o">--</span><span class="nb">all</span>
   <span class="o">-</span><span class="n">f</span> <span class="o">--</span><span class="n">flavor</span><span class="o">=</span><span class="n">NAME</span>
   <span class="o">-</span><span class="n">i</span> <span class="o">--</span><span class="n">image</span><span class="o">=</span><span class="n">NAME</span>
-  <span class="o">-</span><span class="n">u</span> <span class="o">--</span><span class="n">user</span><span class="o">=</span><span class="n">NAME</span>
+  <span class="o">-</span><span class="n">u</span> <span class="o">--</span><span class="n">username</span><span class="o">=</span><span class="n">NAME</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -2492,16 +2511,22 @@ Description:
 <dt id="cloudmesh_client.shell.plugins.SecgroupCommand.SecgroupCommand.do_secgroup">
 <code class="descname">do_secgroup</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.SecgroupCommand.SecgroupCommand.do_secgroup" title="Permalink to this definition">¶</a></dt>
 <dd><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span>
-    <span class="n">secgroup</span> <span class="nb">list</span>
+    <span class="n">secgroup</span> <span class="nb">list</span> <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span>
     <span class="n">secgroup</span> <span class="nb">list</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUD</span> <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span>
-    <span class="n">secgroup</span> <span class="nb">list</span> <span class="n">GROUP</span> <span class="p">[</span><span class="n">RULE</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span>
+    <span class="n">secgroup</span> <span class="nb">list</span> <span class="n">GROUP</span> <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span>
     <span class="n">secgroup</span> <span class="n">add</span> <span class="n">GROUP</span> <span class="n">RULE</span> <span class="n">FROMPORT</span> <span class="n">TOPORT</span> <span class="n">PROTOCOL</span> <span class="n">CIDR</span>
     <span class="n">secgroup</span> <span class="n">delete</span> <span class="n">GROUP</span> <span class="p">[</span><span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUD</span><span class="p">]</span>
+    <span class="n">secgroup</span> <span class="n">delete</span> <span class="n">GROUP</span> <span class="n">RULE</span>
     <span class="n">secgroup</span> <span class="n">upload</span> <span class="p">[</span><span class="n">GROUP</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUD</span><span class="p">]</span>
 
 <span class="n">Options</span><span class="p">:</span>
-    <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUD</span>       <span class="n">Name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">IaaS</span> <span class="n">cloud</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">kilo</span><span class="p">,</span> <span class="n">chameleoon</span><span class="o">.</span> <span class="n">The</span> <span class="n">clouds</span> <span class="n">are</span> <span class="n">defined</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">yaml</span>
-                        <span class="n">file</span><span class="o">.</span> <span class="n">If</span> <span class="n">the</span> <span class="n">name</span> <span class="s2">&quot;all&quot;</span> <span class="ow">is</span> <span class="n">used</span> <span class="k">for</span> <span class="n">the</span> <span class="n">cloud</span> <span class="nb">all</span> <span class="n">clouds</span> <span class="n">will</span> <span class="n">be</span> <span class="n">selected</span><span class="o">.</span>
+    <span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span> <span class="n">Specify</span> <span class="n">output</span> <span class="nb">format</span><span class="p">,</span> <span class="ow">in</span> <span class="n">one</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span><span class="p">:</span>
+                    <span class="n">table</span><span class="p">,</span> <span class="n">csv</span><span class="p">,</span> <span class="n">json</span><span class="p">,</span> <span class="n">yaml</span><span class="p">,</span> <span class="nb">dict</span><span class="o">.</span> <span class="n">The</span> <span class="n">default</span> <span class="n">value</span>
+                    <span class="ow">is</span> <span class="s1">&#39;table&#39;</span><span class="o">.</span>
+    <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUD</span>   <span class="n">Name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">IaaS</span> <span class="n">cloud</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">kilo</span><span class="p">,</span><span class="n">chameleoon</span><span class="o">.</span>
+                    <span class="n">The</span> <span class="n">clouds</span> <span class="n">are</span> <span class="n">defined</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">yaml</span> <span class="n">file</span><span class="o">.</span>
+                    <span class="n">If</span> <span class="n">the</span> <span class="n">name</span> <span class="s2">&quot;all&quot;</span> <span class="ow">is</span> <span class="n">used</span> <span class="k">for</span> <span class="n">the</span> <span class="n">cloud</span> <span class="nb">all</span>
+                    <span class="n">clouds</span> <span class="n">will</span> <span class="n">be</span> <span class="n">selected</span><span class="o">.</span>
 
 <span class="n">Arguments</span><span class="p">:</span>
     <span class="n">RULE</span>          <span class="n">The</span> <span class="n">security</span> <span class="n">group</span> <span class="n">rule</span> <span class="n">name</span>
@@ -2509,7 +2534,8 @@ Description:
     <span class="n">FROMPORT</span>      <span class="n">Staring</span> <span class="n">port</span> <span class="n">of</span> <span class="n">the</span> <span class="n">rule</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="mi">22</span>
     <span class="n">TOPORT</span>        <span class="n">Ending</span> <span class="n">port</span> <span class="n">of</span> <span class="n">the</span> <span class="n">rule</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="mi">22</span>
     <span class="n">PROTOCOL</span>      <span class="n">Protocol</span> <span class="n">applied</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">TCP</span><span class="p">,</span><span class="n">UDP</span><span class="p">,</span><span class="n">ICMP</span>
-    <span class="n">CIDR</span>          <span class="n">IP</span> <span class="n">address</span> <span class="nb">range</span> <span class="ow">in</span> <span class="n">CIDR</span> <span class="nb">format</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">,</span> <span class="mf">129.79</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">16</span>
+    <span class="n">CIDR</span>          <span class="n">IP</span> <span class="n">address</span> <span class="nb">range</span> <span class="ow">in</span> <span class="n">CIDR</span> <span class="nb">format</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">,</span>
+                  <span class="mf">129.79</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">16</span>
 
 <span class="n">Description</span><span class="p">:</span>
     <span class="n">security_group</span> <span class="n">command</span> <span class="n">provides</span> <span class="nb">list</span><span class="o">/</span><span class="n">add</span><span class="o">/</span><span class="n">delete</span>
@@ -2519,48 +2545,50 @@ Description:
 
 
 <span class="n">Examples</span><span class="p">:</span>
-    <span class="n">secgroup</span> <span class="nb">list</span> <span class="o">--</span><span class="n">cloud</span> <span class="n">india</span>
-    <span class="n">secgroup</span> <span class="n">rules</span><span class="o">-</span><span class="nb">list</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">kilo</span> <span class="n">default</span>
-    <span class="n">secgroup</span> <span class="n">create</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">kilo</span> <span class="n">webservice</span>
-    <span class="n">secgroup</span> <span class="n">rules</span><span class="o">-</span><span class="n">add</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">kilo</span> <span class="n">webservice</span> <span class="mi">8080</span> <span class="mi">8088</span> <span class="n">TCP</span> <span class="mf">129.79</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">16</span>
-    <span class="n">secgroup</span> <span class="n">rules</span><span class="o">-</span><span class="n">delete</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">kilo</span> <span class="n">webservice</span> <span class="mi">8080</span> <span class="mi">8088</span> <span class="n">TCP</span> <span class="mf">129.79</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">16</span>
-    <span class="n">secgroup</span> <span class="n">rules</span><span class="o">-</span><span class="n">delete</span> <span class="o">--</span><span class="nb">all</span>
+    <span class="n">secgroup</span> <span class="nb">list</span>
+    <span class="n">secgroup</span> <span class="nb">list</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">kilo</span>
+    <span class="n">secgroup</span> <span class="n">add</span> <span class="n">my_new_group</span> <span class="n">webapp</span> <span class="mi">8080</span> <span class="mi">8080</span> <span class="n">tcp</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">0</span>
+    <span class="n">seggroup</span> <span class="n">delete</span> <span class="n">my_group</span> <span class="n">my_rule</span>
+    <span class="n">secgroup</span> <span class="n">delete</span> <span class="n">my_unused_group</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">kilo</span>
+    <span class="n">secgroup</span> <span class="n">upload</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">kilo</span>
 
 <span class="n">Description</span><span class="p">:</span>
 
-    <span class="n">Security</span> <span class="n">groups</span> <span class="n">are</span> <span class="n">first</span> <span class="n">assembled</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">local</span> <span class="n">database</span><span class="o">.</span> <span class="n">Once</span> <span class="n">they</span> <span class="n">are</span> <span class="n">defined</span> <span class="n">they</span> <span class="n">can</span> <span class="n">be</span> <span class="n">added</span> <span class="n">to</span> <span class="n">the</span>
-    <span class="n">clouds</span><span class="o">.</span>
+    <span class="n">Security</span> <span class="n">groups</span> <span class="n">are</span> <span class="n">first</span> <span class="n">assembled</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">local</span> <span class="n">database</span><span class="o">.</span>
+    <span class="n">Once</span> <span class="n">they</span> <span class="n">are</span> <span class="n">defined</span> <span class="n">they</span> <span class="n">can</span> <span class="n">be</span> <span class="n">added</span> <span class="n">to</span> <span class="n">the</span> <span class="n">clouds</span><span class="o">.</span>
 
-    <span class="n">secgroup</span> <span class="nb">list</span>
+    <span class="n">secgroup</span> <span class="nb">list</span> <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span>
         <span class="n">lists</span> <span class="nb">all</span> <span class="n">security</span> <span class="n">groups</span> <span class="ow">and</span> <span class="n">rules</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">database</span>
 
-    <span class="n">secgroup</span> <span class="nb">list</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUD</span><span class="o">...</span> <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span>
+    <span class="n">secgroup</span> <span class="nb">list</span> <span class="n">GROUP</span> <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span>
+        <span class="n">lists</span> <span class="n">a</span> <span class="n">given</span> <span class="n">security</span> <span class="n">group</span> <span class="ow">and</span> <span class="n">its</span> <span class="n">rules</span> <span class="n">defined</span>
+        <span class="n">locally</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">database</span>
+
+    <span class="n">secgroup</span> <span class="nb">list</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUD</span> <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span>
         <span class="n">lists</span> <span class="n">the</span> <span class="n">security</span> <span class="n">groups</span> <span class="ow">and</span> <span class="n">rules</span> <span class="n">on</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">clouds</span><span class="o">.</span>
 
-    <span class="n">secgroup</span> <span class="nb">list</span> <span class="n">GROUP</span> <span class="p">[</span><span class="n">RULE</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span>
-        <span class="n">lists</span> <span class="n">a</span> <span class="n">given</span> <span class="n">security</span> <span class="n">group</span><span class="o">.</span> <span class="n">If</span> <span class="ow">in</span> <span class="n">addition</span> <span class="n">the</span> <span class="n">RULE</span> <span class="ow">is</span> <span class="n">specified</span> <span class="n">it</span> <span class="n">only</span> <span class="n">lists</span> <span class="n">the</span> <span class="n">RULE</span>
-
     <span class="n">secgroup</span> <span class="n">add</span> <span class="n">GROUP</span> <span class="n">RULE</span> <span class="n">FROMPORT</span> <span class="n">TOPORT</span> <span class="n">PROTOCOL</span> <span class="n">CIDR</span>
-        <span class="n">adds</span> <span class="n">a</span> <span class="n">security</span> <span class="n">rule</span> <span class="k">with</span> <span class="n">the</span> <span class="n">given</span> <span class="n">group</span> <span class="ow">and</span> <span class="n">teh</span> <span class="n">details</span> <span class="n">of</span> <span class="n">the</span> <span class="n">security</span> <span class="n">ruls</span>
+        <span class="n">adds</span> <span class="n">a</span> <span class="n">security</span> <span class="n">rule</span> <span class="k">with</span> <span class="n">the</span> <span class="n">given</span> <span class="n">group</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">details</span>
+        <span class="n">of</span> <span class="n">the</span> <span class="n">security</span> <span class="n">ruls</span>
 
-    <span class="n">secgroup</span> <span class="n">delete</span> <span class="n">GROUP</span>
-        <span class="n">deletes</span> <span class="nb">all</span> <span class="n">security</span> <span class="n">rules</span> <span class="n">related</span> <span class="n">to</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">group</span>
+    <span class="n">secgroup</span> <span class="n">delete</span> <span class="n">GROUP</span> <span class="p">[</span><span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUD</span><span class="p">]</span>
+        <span class="n">Deletes</span> <span class="n">a</span> <span class="n">security</span> <span class="n">group</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">local</span> <span class="n">database</span><span class="o">.</span> <span class="n">To</span> <span class="n">make</span>
+        <span class="n">the</span> <span class="n">change</span> <span class="n">on</span> <span class="n">the</span> <span class="n">remote</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">using</span> <span class="n">the</span> <span class="s1">&#39;upload&#39;</span> <span class="n">command</span>
+        <span class="n">afterwards</span><span class="o">.</span>
+        <span class="n">If</span> <span class="n">the</span> <span class="o">--</span><span class="n">cloud</span> <span class="n">parameter</span> <span class="ow">is</span> <span class="n">specified</span><span class="p">,</span> <span class="n">the</span> <span class="n">change</span> <span class="n">would</span> <span class="n">be</span>
+        <span class="n">made</span> <span class="n">directly</span> <span class="n">on</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">cloud</span>
 
     <span class="n">secgroup</span> <span class="n">delete</span> <span class="n">GROUP</span> <span class="n">RULE</span>
-        <span class="n">deletes</span> <span class="n">just</span> <span class="n">the</span> <span class="n">given</span> <span class="n">rule</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">group</span>
+        <span class="n">deletes</span> <span class="n">the</span> <span class="n">given</span> <span class="n">rule</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">group</span><span class="o">.</span> <span class="n">To</span> <span class="n">make</span> <span class="n">this</span> <span class="n">change</span>
+        <span class="n">on</span> <span class="n">the</span> <span class="n">remote</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">using</span> <span class="s1">&#39;upload&#39;</span> <span class="n">command</span><span class="o">.</span>
 
     <span class="n">secgroup</span> <span class="n">upload</span> <span class="p">[</span><span class="n">GROUP</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">CLOUD</span><span class="o">...</span><span class="p">]</span>
-        <span class="n">uploads</span> <span class="n">a</span> <span class="n">given</span> <span class="n">group</span> <span class="n">to</span> <span class="n">the</span> <span class="n">given</span> <span class="n">cloud</span><span class="o">.</span> <span class="k">if</span> <span class="n">the</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">specified</span> <span class="n">the</span> <span class="n">default</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="n">used</span><span class="o">.</span>
-        <span class="n">If</span> <span class="n">the</span> <span class="n">parameter</span> <span class="k">for</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="s2">&quot;all&quot;</span> <span class="n">the</span> <span class="n">rules</span> <span class="ow">and</span> <span class="n">groups</span> <span class="n">will</span> <span class="n">be</span> <span class="n">uploaded</span> <span class="n">to</span> <span class="nb">all</span> <span class="n">active</span> <span class="n">clouds</span><span class="o">.</span>
-
-
-<span class="n">Example</span><span class="p">:</span>
-
-    <span class="n">cm</span> <span class="n">secgroup</span> <span class="nb">list</span>
-    <span class="n">cm</span> <span class="n">secgroup</span> <span class="nb">list</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">kilo</span>
-    <span class="n">cm</span> <span class="n">secgroup</span> <span class="n">add</span>  <span class="n">cm</span><span class="o">-</span><span class="n">gregor</span><span class="o">-</span><span class="n">default</span> <span class="n">web</span> <span class="mi">80</span> <span class="mi">80</span> <span class="n">tcp</span>  <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">0</span>
-    <span class="n">cm</span> <span class="n">secgroup</span> <span class="n">add</span>  <span class="n">cm</span><span class="o">-</span><span class="n">gregor</span><span class="o">-</span><span class="n">default</span> <span class="n">ssh</span> <span class="mi">22</span> <span class="mi">22</span> <span class="n">tcp</span>  <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">0</span>
-    <span class="n">cm</span> <span class="n">secgroup</span> <span class="n">upload</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">kilo</span>
+        <span class="n">uploads</span> <span class="n">a</span> <span class="n">given</span> <span class="n">group</span> <span class="n">to</span> <span class="n">the</span> <span class="n">given</span> <span class="n">cloud</span><span class="o">.</span> <span class="n">If</span> <span class="n">the</span> <span class="n">cloud</span> <span class="ow">is</span>
+        <span class="ow">not</span> <span class="n">specified</span> <span class="n">the</span> <span class="n">default</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="n">used</span><span class="o">.</span>
+        <span class="n">If</span> <span class="n">the</span> <span class="n">parameter</span> <span class="k">for</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="s2">&quot;all&quot;</span> <span class="n">the</span> <span class="n">rules</span> <span class="ow">and</span> <span class="n">groups</span>
+        <span class="n">will</span> <span class="n">be</span> <span class="n">uploaded</span> <span class="n">to</span> <span class="nb">all</span> <span class="n">active</span> <span class="n">clouds</span><span class="o">.</span>
+        <span class="n">This</span> <span class="n">will</span> <span class="n">synchronize</span> <span class="n">the</span> <span class="n">changes</span> <span class="p">(</span><span class="n">add</span><span class="o">/</span><span class="n">delete</span> <span class="n">on</span> <span class="n">security</span>
+        <span class="n">groups</span><span class="p">,</span> <span class="n">rules</span><span class="p">)</span> <span class="n">made</span> <span class="n">locally</span> <span class="n">to</span> <span class="n">the</span> <span class="n">remote</span> <span class="n">cloud</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -2766,7 +2794,7 @@ existing cloudmesh database.</p>
 
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.StackCommand.Command.init">
-<code class="descname">init</code><span class="sig-paren">(</span><em>stackname='bds'</em>, <em>activate=True</em>, <em>name=None</em>, <em>user=None</em>, <em>branch=None</em>, <em>overrides=None</em>, <em>playbooks=None</em>, <em>ips=None</em>, <em>force=False</em>, <em>update=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/StackCommand.html#Command.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.StackCommand.Command.init" title="Permalink to this definition">¶</a></dt>
+<code class="descname">init</code><span class="sig-paren">(</span><em>stackname='bds'</em>, <em>activate=True</em>, <em>name=None</em>, <em>username=None</em>, <em>branch=None</em>, <em>overrides=None</em>, <em>playbooks=None</em>, <em>ips=None</em>, <em>force=False</em>, <em>update=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/StackCommand.html#Command.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.StackCommand.Command.init" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -2807,7 +2835,7 @@ Options:
    --no-activate                 Do not activate a project upon creation
    -s STACK --stack=STACK        The stack name [default: bds]
    -n NAME --name=NAME           Name of the project (if not specified during creation, generated).
-   -u NAME --user=NAME           Name of login user to cluster [default: $USER]
+   -u NAME --username=NAME       Name of login user to cluster [default: $USER]
    -b NAME --branch=NAME         Name of the stack&#39;s branch to clone from [default: master]
    -o DEFN --overrides=DEFN      Overrides for a playbook, may be specified multiple times
    -p PLAY --playbooks=PLAY      Playbooks to run
@@ -3555,7 +3583,7 @@ toggled.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.4.0',
+            VERSION:'4.5.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

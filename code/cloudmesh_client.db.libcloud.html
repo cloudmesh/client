@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.db.libcloud package &mdash; cloudmesh_client 4.4.0 documentation</title>
+  <title>cloudmesh_client.db.libcloud package &mdash; cloudmesh_client 4.5.2 documentation</title>
   
 
   
@@ -30,10 +30,7 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client.db package" href="cloudmesh_client.db.html"/>
         <link rel="next" title="cloudmesh_client.db.openstack package" href="cloudmesh_client.db.openstack.html"/>
         <link rel="prev" title="cloudmesh_client.db.general package" href="cloudmesh_client.db.general.html"/> 
@@ -64,7 +61,7 @@
             
             
               <div class="version">
-                4.4.0
+                4.5.2
               </div>
             
           
@@ -130,6 +127,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="cloudmesh_client.html">cloudmesh_client package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="cloudmesh_client.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.api.html">cloudmesh_client.api package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.cloud.html">cloudmesh_client.cloud package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.comet.html">cloudmesh_client.comet package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
@@ -150,7 +148,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#cloudmesh-client-default-module">cloudmesh_client.default module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.exc">cloudmesh_client.exc module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
@@ -478,7 +476,7 @@
 <dl class="class">
 <dt id="cloudmesh_client.db.libcloud.model.VM_LIBCLOUD">
 <em class="property">class </em><code class="descclassname">cloudmesh_client.db.libcloud.model.</code><code class="descname">VM_LIBCLOUD</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/libcloud/model.html#VM_LIBCLOUD"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.libcloud.model.VM_LIBCLOUD" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.db.html#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin" title="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.db.html#cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin" title="cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.CloudmeshDatabase.CloudmeshMixin</span></code></a>, <a class="reference internal" href="cloudmesh_client.db.html#cloudmesh_client.db.CloudmeshDatabase.CloudmeshVMMixin" title="cloudmesh_client.db.CloudmeshDatabase.CloudmeshVMMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.CloudmeshDatabase.CloudmeshVMMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.libcloud.model.VM_LIBCLOUD.availability">
 <code class="descname">availability</code><a class="headerlink" href="#cloudmesh_client.db.libcloud.model.VM_LIBCLOUD.availability" title="Permalink to this definition">¶</a></dt>
@@ -487,6 +485,11 @@
 <dl class="attribute">
 <dt id="cloudmesh_client.db.libcloud.model.VM_LIBCLOUD.category">
 <code class="descname">category</code><a class="headerlink" href="#cloudmesh_client.db.libcloud.model.VM_LIBCLOUD.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.db.libcloud.model.VM_LIBCLOUD.cluster">
+<code class="descname">cluster</code><a class="headerlink" href="#cloudmesh_client.db.libcloud.model.VM_LIBCLOUD.cluster" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -672,7 +675,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.4.0',
+            VERSION:'4.5.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

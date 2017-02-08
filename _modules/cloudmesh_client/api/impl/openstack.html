@@ -1,0 +1,422 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.api.impl.openstack &mdash; cloudmesh_client 4.5.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../../../../index.html"/>
+        <link rel="up" title="cloudmesh_client.api" href="../../api.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.5.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../prefix.html">Prefix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../comet.html">Comet Virtual Cluster</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorials/comet_cloudmesh.html">Comet Cloudmesh Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorials/comet_bigdata.html">Comet Big Data Tutorial</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../stack.html">Stack</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hackathon.html#python-guidelines">Python Guidelines</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      
+          <li><a href="../../../cloudmesh_client.html">cloudmesh_client</a> &raquo;</li>
+      
+          <li><a href="../../api.html">cloudmesh_client.api</a> &raquo;</li>
+      
+    <li>cloudmesh_client.api.impl.openstack</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cloudmesh_client.api.impl.openstack</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.network</span> <span class="kn">import</span> <span class="n">Network</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.image</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.vm</span> <span class="kn">import</span> <span class="n">Vm</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client</span> <span class="kn">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.api</span> <span class="kn">import</span> <span class="n">Resource</span><span class="p">,</span> <span class="n">Provider</span><span class="p">,</span> <span class="n">Node</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client.db.openstack.model</span> <span class="kn">import</span> <span class="n">IMAGE_OPENSTACK</span><span class="p">,</span> <span class="n">VM_OPENSTACK</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.util</span> <span class="kn">import</span> <span class="n">exponential_backoff</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
+
+
+<div class="viewcode-block" id="ImageResource"><a class="viewcode-back" href="../../../../code/cloudmesh_client.api.impl.html#cloudmesh_client.api.impl.openstack.ImageResource">[docs]</a><span class="k">class</span> <span class="nc">ImageResource</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+<div class="viewcode-block" id="ImageResource.create"><a class="viewcode-back" href="../../../../code/cloudmesh_client.api.impl.html#cloudmesh_client.api.impl.openstack.ImageResource.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="ImageResource.delete"><a class="viewcode-back" href="../../../../code/cloudmesh_client.api.impl.html#cloudmesh_client.api.impl.openstack.ImageResource.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="ImageResource.list"><a class="viewcode-back" href="../../../../code/cloudmesh_client.api.impl.html#cloudmesh_client.api.impl.openstack.ImageResource.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="ImageResource.refresh"><a class="viewcode-back" href="../../../../code/cloudmesh_client.api.impl.html#cloudmesh_client.api.impl.openstack.ImageResource.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div></div>
+
+
+
+<div class="viewcode-block" id="KeyResource"><a class="viewcode-back" href="../../../../code/cloudmesh_client.api.impl.html#cloudmesh_client.api.impl.openstack.KeyResource">[docs]</a><span class="k">class</span> <span class="nc">KeyResource</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="FloatingIpResource"><a class="viewcode-back" href="../../../../code/cloudmesh_client.api.impl.html#cloudmesh_client.api.impl.openstack.FloatingIpResource">[docs]</a><span class="k">class</span> <span class="nc">FloatingIpResource</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="FlavorResource"><a class="viewcode-back" href="../../../../code/cloudmesh_client.api.impl.html#cloudmesh_client.api.impl.openstack.FlavorResource">[docs]</a><span class="k">class</span> <span class="nc">FlavorResource</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="OpenstackProvider"><a class="viewcode-back" href="../../../../code/cloudmesh_client.api.impl.html#cloudmesh_client.api.impl.openstack.OpenstackProvider">[docs]</a><span class="k">class</span> <span class="nc">OpenstackProvider</span><span class="p">(</span><span class="n">Provider</span><span class="p">):</span>
+
+    <span class="c1"># def __init__(self):</span>
+    <span class="c1">#     super(OpenstackProvider, self).__init__()</span>
+    <span class="c1">#</span>
+    <span class="c1">#     self.images = ImageResource()</span>
+    <span class="c1">#     self._add_resource(self.images)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     self.keys = KeyResource()</span>
+    <span class="c1">#     self._add_resource(self.keys)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     self.flavors = FlavorResource()</span>
+    <span class="c1">#     self._add_resource(self.flavors)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     self.floating_ips = FloatingIpResource()</span>
+    <span class="c1">#     self._add_resource(self.floating_ips)</span>
+
+
+<div class="viewcode-block" id="OpenstackProvider.boot"><a class="viewcode-back" href="../../../../code/cloudmesh_client.api.impl.html#cloudmesh_client.api.impl.openstack.OpenstackProvider.boot">[docs]</a>    <span class="k">def</span> <span class="nf">boot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Boot a single VM</span>
+
+<span class="sd">        :param kwargs: parameters to :meth:`Vm.boot`</span>
+<span class="sd">        :return: the vm details</span>
+<span class="sd">        :rtype: :class:`Node`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">cloud</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cloud&#39;</span><span class="p">,</span> <span class="n">Default</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">Vm</span><span class="o">.</span><span class="n">generate_vm_name</span><span class="p">())</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;image&#39;</span><span class="p">,</span> <span class="n">Default</span><span class="o">.</span><span class="n">image</span><span class="p">)</span>
+        <span class="n">flavor</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;flavor&#39;</span><span class="p">,</span> <span class="n">Default</span><span class="o">.</span><span class="n">flavor</span><span class="p">)</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="n">Default</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">secgroup</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;secgroup&#39;</span><span class="p">,</span> <span class="n">Default</span><span class="o">.</span><span class="n">secgroup</span><span class="p">)</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">Default</span><span class="o">.</span><span class="n">group</span><span class="p">)</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="n">Image</span><span class="o">.</span><span class="n">guess_username</span><span class="p">(</span><span class="n">image</span><span class="p">))</span>
+        <span class="n">cluster</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+        <span class="c1"># shorthand for getting a dict of all the vm details</span>
+        <span class="c1">#</span>
+        <span class="c1"># IMPORTANT: anything declared prior to the call to `locals()`</span>
+        <span class="c1"># may be passed to `Vm.boot`, so make sure that only parameters are</span>
+        <span class="c1"># defined above this comment.</span>
+        <span class="n">details</span> <span class="o">=</span> <span class="nb">locals</span><span class="p">()</span>
+        <span class="n">details</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;kwargs&#39;</span><span class="p">)</span>
+
+        <span class="c1"># currently, Vm.boot returns the instance UUID from the provider for openstack images</span>
+        <span class="c1"># 2016/12/12</span>
+        <span class="n">uuid</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="o">**</span><span class="n">details</span><span class="p">)</span>
+
+
+        <span class="c1"># helper function: the Vm.boot only returns a UUID, but we</span>
+        <span class="c1"># need to use the VM model instead. Additionally, we&#39;ll need</span>
+        <span class="c1"># to poll the VM to wait until it is active.</span>
+        <span class="c1">#</span>
+        <span class="c1"># The kwargs are used to select the item from the DB:</span>
+        <span class="c1"># eg: uuid=???, cm_id=???, etc</span>
+        <span class="k">def</span> <span class="nf">get_vm</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;Selects the VM based on the given properties&quot;&quot;&quot;</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">vm_table_from_provider</span><span class="p">(</span><span class="s1">&#39;openstack&#39;</span><span class="p">)</span>
+            <span class="n">vm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">vm</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="n">vm</span>
+            <span class="n">vm</span> <span class="o">=</span> <span class="n">vm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">vm</span>
+
+        <span class="c1"># get the VM from the UUID</span>
+        <span class="n">vm</span> <span class="o">=</span> <span class="n">get_vm</span><span class="p">(</span><span class="n">uuid</span><span class="o">=</span><span class="n">uuid</span><span class="p">)</span>
+        <span class="n">cm_id</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">cm_id</span>
+
+        <span class="k">def</span> <span class="nf">is_active</span><span class="p">():</span>
+            <span class="n">Vm</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
+            <span class="n">vm</span> <span class="o">=</span> <span class="n">get_vm</span><span class="p">(</span><span class="n">cm_id</span><span class="o">=</span><span class="n">cm_id</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">vm</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;ACTIVE&#39;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">exponential_backoff</span><span class="p">(</span><span class="n">is_active</span><span class="p">):</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Failed to get ACTIVE vm within timeframe&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span>
+
+        <span class="k">assert</span> <span class="n">is_active</span><span class="p">()</span>
+        <span class="n">vm</span> <span class="o">=</span> <span class="n">get_vm</span><span class="p">(</span><span class="n">cm_id</span><span class="o">=</span><span class="n">cm_id</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span> <span class="n">VM_OPENSTACK</span><span class="p">),</span> <span class="n">vm</span><span class="o">.</span><span class="n">__class__</span>
+
+        <span class="k">return</span> <span class="n">OpenstackNode</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">vm</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenstackProvider.create_ip"><a class="viewcode-back" href="../../../../code/cloudmesh_client.api.impl.html#cloudmesh_client.api.impl.openstack.OpenstackProvider.create_ip">[docs]</a>    <span class="k">def</span> <span class="nf">create_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+
+        <span class="n">ip</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">find_assign_floating_ip</span><span class="p">(</span>
+            <span class="n">cloudname</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span>
+            <span class="n">instance_id</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">Vm</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span>
+
+        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s1">&#39;Assigned ip to {}: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">ip</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="OpenstackProvider.delete"><a class="viewcode-back" href="../../../../code/cloudmesh_client.api.impl.html#cloudmesh_client.api.impl.openstack.OpenstackProvider.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodde</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="OpenstackProvider.node"><a class="viewcode-back" href="../../../../code/cloudmesh_client.api.impl.html#cloudmesh_client.api.impl.openstack.OpenstackProvider.node">[docs]</a>    <span class="k">def</span> <span class="nf">node</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div></div>
+
+
+<div class="viewcode-block" id="OpenstackNode"><a class="viewcode-back" href="../../../../code/cloudmesh_client.api.impl.html#cloudmesh_client.api.impl.openstack.OpenstackNode">[docs]</a><span class="k">class</span> <span class="nc">OpenstackNode</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">provider</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Node</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_provider</span> <span class="o">=</span> <span class="n">provider</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">username</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">username</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">private_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">static_ip</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">public_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">floating_ip</span>
+
+<div class="viewcode-block" id="OpenstackNode.boot"><a class="viewcode-back" href="../../../../code/cloudmesh_client.api.impl.html#cloudmesh_client.api.impl.openstack.OpenstackNode.boot">[docs]</a>    <span class="k">def</span> <span class="nf">boot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="OpenstackNode.delete"><a class="viewcode-back" href="../../../../code/cloudmesh_client.api.impl.html#cloudmesh_client.api.impl.openstack.OpenstackNode.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="OpenstackNode.start"><a class="viewcode-back" href="../../../../code/cloudmesh_client.api.impl.html#cloudmesh_client.api.impl.openstack.OpenstackNode.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="OpenstackNode.stop"><a class="viewcode-back" href="../../../../code/cloudmesh_client.api.impl.html#cloudmesh_client.api.impl.openstack.OpenstackNode.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="OpenstackNode.ssh"><a class="viewcode-back" href="../../../../code/cloudmesh_client.api.impl.html#cloudmesh_client.api.impl.openstack.OpenstackNode.ssh">[docs]</a>    <span class="k">def</span> <span class="nf">ssh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="OpenstackNode.create_ip"><a class="viewcode-back" href="../../../../code/cloudmesh_client.api.impl.html#cloudmesh_client.api.impl.openstack.OpenstackNode.create_ip">[docs]</a>    <span class="k">def</span> <span class="nf">create_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_provider</span><span class="o">.</span><span class="n">create_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'4.5.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>sqlalchemy.engine.base &mdash; cloudmesh_client 4.4.0 documentation</title>
+  <title>sqlalchemy.engine.base &mdash; cloudmesh_client 4.5.2 documentation</title>
   
 
   
@@ -30,10 +30,7 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -62,7 +59,7 @@
             
             
               <div class="version">
-                4.4.0
+                4.5.2
               </div>
             
           
@@ -179,12 +176,12 @@
             
   <h1>Source code for sqlalchemy.engine.base</h1><div class="highlight"><pre>
 <span></span><span class="c1"># engine/base.py</span>
-<span class="c1"># Copyright (C) 2005-2016 the SQLAlchemy authors and contributors</span>
+<span class="c1"># Copyright (C) 2005-2017 the SQLAlchemy authors and contributors</span>
 <span class="c1"># &lt;see AUTHORS file&gt;</span>
 <span class="c1">#</span>
 <span class="c1"># This module is part of SQLAlchemy and is released under</span>
 <span class="c1"># the MIT License: http://www.opensource.org/licenses/mit-license.php</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">with_statement</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">with_statement</span>
 
 <span class="sd">&quot;&quot;&quot;Defines :class:`.Connection` and :class:`.Engine`.</span>
 
@@ -192,10 +189,11 @@
 
 
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">..</span> <span class="k">import</span> <span class="n">exc</span><span class="p">,</span> <span class="n">util</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">interfaces</span>
-<span class="kn">from</span> <span class="nn">..sql</span> <span class="k">import</span> <span class="n">util</span> <span class="k">as</span> <span class="n">sql_util</span>
-<span class="kn">from</span> <span class="nn">.interfaces</span> <span class="k">import</span> <span class="n">Connectable</span><span class="p">,</span> <span class="n">ExceptionContext</span>
-<span class="kn">from</span> <span class="nn">.util</span> <span class="k">import</span> <span class="n">_distill_params</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">exc</span><span class="p">,</span> <span class="n">util</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">interfaces</span>
+<span class="kn">from</span> <span class="nn">..sql</span> <span class="kn">import</span> <span class="n">util</span> <span class="k">as</span> <span class="n">sql_util</span>
+<span class="kn">from</span> <span class="nn">..sql</span> <span class="kn">import</span> <span class="n">schema</span>
+<span class="kn">from</span> <span class="nn">.interfaces</span> <span class="kn">import</span> <span class="n">Connectable</span><span class="p">,</span> <span class="n">ExceptionContext</span>
+<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">_distill_params</span>
 <span class="kn">import</span> <span class="nn">contextlib</span>
 
 
@@ -224,10 +222,26 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="n">connection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">close_with_result</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                 <span class="n">_branch_from</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_execution_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">_dispatch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">_has_events</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">schema_for_object</span> <span class="o">=</span> <span class="n">schema</span><span class="o">.</span><span class="n">_schema_getter</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;Return the &quot;.schema&quot; attribute for an object.</span>
+
+<span class="sd">    Used for :class:`.Table`, :class:`.Sequence` and similar objects,</span>
+<span class="sd">    and takes into account</span>
+<span class="sd">    the :paramref:`.Connection.execution_options.schema_translate_map`</span>
+<span class="sd">    parameter.</span>
+
+<span class="sd">      .. versionadded:: 1.1</span>
+
+<span class="sd">      .. seealso::</span>
+
+<span class="sd">          :ref:`schema_translating`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="n">connection</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">close_with_result</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                 <span class="n">_branch_from</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">_execution_options</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">_dispatch</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">_has_events</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Construct a new Connection.</span>
 
 <span class="sd">        The constructor here is not public and is only called only by an</span>
@@ -238,32 +252,33 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">engine</span> <span class="o">=</span> <span class="n">engine</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dialect</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">dialect</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__branch_from</span> <span class="o">=</span> <span class="n">_branch_from</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__branch</span> <span class="o">=</span> <span class="n">_branch_from</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__branch</span> <span class="o">=</span> <span class="n">_branch_from</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
 
         <span class="k">if</span> <span class="n">_branch_from</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__connection</span> <span class="o">=</span> <span class="n">connection</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_execution_options</span> <span class="o">=</span> <span class="n">_execution_options</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_echo</span> <span class="o">=</span> <span class="n">_branch_from</span><span class="o">.</span><span class="n">_echo</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">should_close_with_result</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">should_close_with_result</span> <span class="o">=</span> <span class="bp">False</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span> <span class="o">=</span> <span class="n">_dispatch</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_has_events</span> <span class="o">=</span> <span class="n">_branch_from</span><span class="o">.</span><span class="n">_has_events</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">schema_for_object</span> <span class="o">=</span> <span class="n">_branch_from</span><span class="o">.</span><span class="n">schema_for_object</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__connection</span> <span class="o">=</span> <span class="n">connection</span> \
-                <span class="k">if</span> <span class="n">connection</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">engine</span><span class="o">.</span><span class="n">raw_connection</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">if</span> <span class="n">connection</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">engine</span><span class="o">.</span><span class="n">raw_connection</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="o">=</span> <span class="bp">None</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__savepoint_seq</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">should_close_with_result</span> <span class="o">=</span> <span class="n">close_with_result</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__invalid</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__can_reconnect</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__invalid</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__can_reconnect</span> <span class="o">=</span> <span class="bp">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_echo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">_should_log_info</span><span class="p">()</span>
 
-            <span class="k">if</span> <span class="n">_has_events</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">_has_events</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="c1"># if _has_events is sent explicitly as False,</span>
                 <span class="c1"># then don&#39;t join the dispatch of the engine; we don&#39;t</span>
                 <span class="c1"># want to handle any of the engine&#39;s events in that case.</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">_join</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">dispatch</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_has_events</span> <span class="o">=</span> <span class="n">_has_events</span> <span class="ow">or</span> <span class="p">(</span>
-                <span class="n">_has_events</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">engine</span><span class="o">.</span><span class="n">_has_events</span><span class="p">)</span>
+                <span class="n">_has_events</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">engine</span><span class="o">.</span><span class="n">_has_events</span><span class="p">)</span>
 
             <span class="k">assert</span> <span class="ow">not</span> <span class="n">_execution_options</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_execution_options</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">_execution_options</span>
@@ -327,7 +342,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">execution_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">opt</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Set non-SQL options for the connection which take effect</span>
+        <span class="sd">r&quot;&quot;&quot; Set non-SQL options for the connection which take effect</span>
 <span class="sd">        during execution.</span>
 
 <span class="sd">        The method returns a copy of this :class:`.Connection` which references</span>
@@ -337,7 +352,7 @@
 <span class="sd">        underlying resource, it&#39;s usually a good idea to ensure that the copies</span>
 <span class="sd">        will be discarded immediately, which is implicit if used as in::</span>
 
-<span class="sd">            result = connection.execution_options(stream_results=True).\\</span>
+<span class="sd">            result = connection.execution_options(stream_results=True).\</span>
 <span class="sd">                                execute(stmt)</span>
 
 <span class="sd">        Note that any key/value can be passed to</span>
@@ -384,7 +399,7 @@
 <span class="sd">        :param isolation_level: Available on: :class:`.Connection`.</span>
 <span class="sd">          Set the transaction isolation level for</span>
 <span class="sd">          the lifespan of this :class:`.Connection` object (*not* the</span>
-<span class="sd">          underyling DBAPI connection, for which the level is reset</span>
+<span class="sd">          underlying DBAPI connection, for which the level is reset</span>
 <span class="sd">          to its original setting upon termination of this</span>
 <span class="sd">          :class:`.Connection` object).</span>
 
@@ -431,9 +446,11 @@
 
 <span class="sd">                :ref:`SQLite Transaction Isolation &lt;sqlite_isolation_level&gt;`</span>
 
-<span class="sd">                :ref:`Postgresql Transaction Isolation &lt;postgresql_isolation_level&gt;`</span>
+<span class="sd">                :ref:`PostgreSQL Transaction Isolation &lt;postgresql_isolation_level&gt;`</span>
 
 <span class="sd">                :ref:`MySQL Transaction Isolation &lt;mysql_isolation_level&gt;`</span>
+
+<span class="sd">                :ref:`SQL Server Transaction Isolation &lt;mssql_isolation_level&gt;`</span>
 
 <span class="sd">                :ref:`session_transaction_isolation` - for the ORM</span>
 
@@ -455,7 +472,20 @@
 <span class="sd">          Indicate to the dialect that results should be</span>
 <span class="sd">          &quot;streamed&quot; and not pre-buffered, if possible.  This is a limitation</span>
 <span class="sd">          of many DBAPIs.  The flag is currently understood only by the</span>
-<span class="sd">          psycopg2 dialect.</span>
+<span class="sd">          psycopg2, mysqldb and pymysql dialects.</span>
+
+<span class="sd">        :param schema_translate_map: Available on: Connection, Engine.</span>
+<span class="sd">          A dictionary mapping schema names to schema names, that will be</span>
+<span class="sd">          applied to the :paramref:`.Table.schema` element of each</span>
+<span class="sd">          :class:`.Table` encountered when SQL or DDL expression elements</span>
+<span class="sd">          are compiled into strings; the resulting schema name will be</span>
+<span class="sd">          converted based on presence in the map of the original name.</span>
+
+<span class="sd">          .. versionadded:: 1.1</span>
+
+<span class="sd">          .. seealso::</span>
+
+<span class="sd">            :ref:`schema_translating`</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
@@ -494,8 +524,8 @@
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revalidate_connection</span><span class="p">()</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_handle_dbapi_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">BaseException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_handle_dbapi_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_isolation_level</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return the current isolation level assigned to this</span>
@@ -530,8 +560,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">get_isolation_level</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_handle_dbapi_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">BaseException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_handle_dbapi_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">default_isolation_level</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -566,12 +596,12 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__branch_from</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__branch_from</span><span class="o">.</span><span class="n">_revalidate_connection</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__can_reconnect</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__invalid</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">exc</span><span class="o">.</span><span class="n">InvalidRequestError</span><span class="p">(</span>
                     <span class="s2">&quot;Can&#39;t reconnect until invalid &quot;</span>
                     <span class="s2">&quot;transaction is rolled back&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__connection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">raw_connection</span><span class="p">(</span><span class="n">_connection</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__invalid</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__invalid</span> <span class="o">=</span> <span class="bp">False</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__connection</span>
         <span class="k">raise</span> <span class="n">exc</span><span class="o">.</span><span class="n">ResourceClosedError</span><span class="p">(</span><span class="s2">&quot;This Connection is closed&quot;</span><span class="p">)</span>
 
@@ -581,14 +611,14 @@
         <span class="c1"># dialect initializer, where the connection is not wrapped in</span>
         <span class="c1"># _ConnectionFairy</span>
 
-        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__connection</span><span class="p">,</span> <span class="s1">&#39;is_valid&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__connection</span><span class="p">,</span> <span class="s1">&#39;is_valid&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_still_open_and_connection_is_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> \
             <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">closed</span> <span class="ow">and</span> \
             <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">invalidated</span> <span class="ow">and</span> \
-            <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__connection</span><span class="p">,</span> <span class="s1">&#39;is_valid&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__connection</span><span class="p">,</span> <span class="s1">&#39;is_valid&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -634,7 +664,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_branch</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">invalidate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exception</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">invalidate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exception</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Invalidate the underlying DBAPI connection associated with</span>
 <span class="sd">        this :class:`.Connection`.</span>
 
@@ -646,7 +676,7 @@
 <span class="sd">        :meth:`.Connection.execute` method or similar),</span>
 <span class="sd">        this :class:`.Connection` will attempt to</span>
 <span class="sd">        procure a new DBAPI connection using the services of the</span>
-<span class="sd">        :class:`.Pool` as a source of connectivty (e.g. a &quot;reconnection&quot;).</span>
+<span class="sd">        :class:`.Pool` as a source of connectivity (e.g. a &quot;reconnection&quot;).</span>
 
 <span class="sd">        If a transaction was in progress (e.g. the</span>
 <span class="sd">        :meth:`.Connection.begin` method has been called) when</span>
@@ -682,7 +712,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="o">.</span><span class="n">_connection_is_valid</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="o">.</span><span class="n">__connection</span><span class="o">.</span><span class="n">invalidate</span><span class="p">(</span><span class="n">exception</span><span class="p">)</span>
         <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="o">.</span><span class="n">__connection</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="o">.</span><span class="n">__invalid</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="o">.</span><span class="n">__invalid</span> <span class="o">=</span> <span class="bp">True</span>
 
     <span class="k">def</span> <span class="nf">detach</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Detach the underlying DB-API connection from its connection pool.</span>
@@ -748,7 +778,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__branch_from</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__branch_from</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="o">=</span> <span class="n">RootTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span>
         <span class="k">else</span><span class="p">:</span>
@@ -771,13 +801,13 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__branch_from</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__branch_from</span><span class="o">.</span><span class="n">begin_nested</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="o">=</span> <span class="n">RootTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="o">=</span> <span class="n">NestedTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span>
 
-    <span class="k">def</span> <span class="nf">begin_twophase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">begin_twophase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xid</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Begin a two-phase or XA transaction and return a transaction</span>
 <span class="sd">        handle.</span>
 
@@ -797,11 +827,11 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__branch_from</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__branch_from</span><span class="o">.</span><span class="n">begin_twophase</span><span class="p">(</span><span class="n">xid</span><span class="o">=</span><span class="n">xid</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">exc</span><span class="o">.</span><span class="n">InvalidRequestError</span><span class="p">(</span>
                 <span class="s2">&quot;Cannot start a two phase transaction when a transaction &quot;</span>
                 <span class="s2">&quot;is already in progress.&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">xid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">xid</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">xid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">create_xid</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="o">=</span> <span class="n">TwoPhaseTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xid</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span>
@@ -809,15 +839,15 @@
     <span class="k">def</span> <span class="nf">recover_twophase</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">do_recover_twophase</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">rollback_prepared</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xid</span><span class="p">,</span> <span class="n">recover</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">rollback_prepared</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xid</span><span class="p">,</span> <span class="n">recover</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">do_rollback_twophase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xid</span><span class="p">,</span> <span class="n">recover</span><span class="o">=</span><span class="n">recover</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">commit_prepared</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xid</span><span class="p">,</span> <span class="n">recover</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">commit_prepared</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xid</span><span class="p">,</span> <span class="n">recover</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">do_commit_twophase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xid</span><span class="p">,</span> <span class="n">recover</span><span class="o">=</span><span class="n">recover</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">in_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return True if a transaction is in progress.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="o">.</span><span class="n">__transaction</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="o">.</span><span class="n">__transaction</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
 
     <span class="k">def</span> <span class="nf">_begin_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
         <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__branch_from</span>
@@ -830,10 +860,10 @@
 
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">do_begin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="p">)</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_reset_agent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_reset_agent</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_reset_agent</span> <span class="o">=</span> <span class="n">transaction</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_handle_dbapi_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">BaseException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_handle_dbapi_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_rollback_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__branch_from</span>
@@ -846,17 +876,17 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ROLLBACK&quot;</span><span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">do_rollback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_handle_dbapi_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">BaseException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_handle_dbapi_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
             <span class="k">finally</span><span class="p">:</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__invalid</span> <span class="ow">and</span> \
                         <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_reset_agent</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_reset_agent</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_reset_agent</span> <span class="o">=</span> <span class="bp">None</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="o">=</span> <span class="bp">None</span>
 
-    <span class="k">def</span> <span class="nf">_commit_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">autocommit</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_commit_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">autocommit</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__branch_from</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_events</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">_has_events</span><span class="p">:</span>
@@ -866,21 +896,21 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;COMMIT&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">do_commit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_handle_dbapi_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">BaseException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_handle_dbapi_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
         <span class="k">finally</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__invalid</span> <span class="ow">and</span> \
                     <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_reset_agent</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_reset_agent</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_reset_agent</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="o">=</span> <span class="bp">None</span>
 
-    <span class="k">def</span> <span class="nf">_savepoint_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_savepoint_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__branch_from</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_events</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">_has_events</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">savepoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__savepoint_seq</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;sa_savepoint_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__savepoint_seq</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_still_open_and_connection_is_valid</span><span class="p">:</span>
@@ -918,7 +948,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_still_open_and_connection_is_valid</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">do_begin_twophase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="o">.</span><span class="n">xid</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_reset_agent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_reset_agent</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_reset_agent</span> <span class="o">=</span> <span class="n">transaction</span>
 
     <span class="k">def</span> <span class="nf">_prepare_twophase_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xid</span><span class="p">):</span>
@@ -944,10 +974,10 @@
                     <span class="bp">self</span><span class="p">,</span> <span class="n">xid</span><span class="p">,</span> <span class="n">is_prepared</span><span class="p">)</span>
             <span class="k">finally</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_reset_agent</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_reset_agent</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_reset_agent</span> <span class="o">=</span> <span class="bp">None</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="o">=</span> <span class="bp">None</span>
 
     <span class="k">def</span> <span class="nf">_commit_twophase_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xid</span><span class="p">,</span> <span class="n">is_prepared</span><span class="p">):</span>
         <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__branch_from</span>
@@ -961,10 +991,10 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">do_commit_twophase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xid</span><span class="p">,</span> <span class="n">is_prepared</span><span class="p">)</span>
             <span class="k">finally</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_reset_agent</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_reset_agent</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_reset_agent</span> <span class="o">=</span> <span class="bp">None</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="o">=</span> <span class="bp">None</span>
 
     <span class="k">def</span> <span class="nf">_autorollback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="o">.</span><span class="n">in_transaction</span><span class="p">():</span>
@@ -995,7 +1025,7 @@
             <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                 <span class="k">pass</span>
             <span class="k">finally</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__can_reconnect</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__can_reconnect</span> <span class="o">=</span> <span class="bp">False</span>
                 <span class="k">return</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__connection</span>
@@ -1005,15 +1035,15 @@
 
             <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">conn</span><span class="o">.</span><span class="n">_reset_agent</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span><span class="p">:</span>
-                <span class="n">conn</span><span class="o">.</span><span class="n">_reset_agent</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">conn</span><span class="o">.</span><span class="n">_reset_agent</span> <span class="o">=</span> <span class="bp">None</span>
 
             <span class="c1"># the close() process can end up invalidating us,</span>
             <span class="c1"># as the pool will call our transaction as the &quot;reset_agent&quot;</span>
             <span class="c1"># for rollback(), which can then cause an invalidation</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__invalid</span><span class="p">:</span>
                 <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">__connection</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__can_reconnect</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__can_reconnect</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__transaction</span> <span class="o">=</span> <span class="bp">None</span>
 
     <span class="k">def</span> <span class="nf">scalar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">object</span><span class="p">,</span> <span class="o">*</span><span class="n">multiparams</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Executes and returns the first column of the first row.</span>
@@ -1024,7 +1054,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="o">*</span><span class="n">multiparams</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span><span class="o">.</span><span class="n">scalar</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">object</span><span class="p">,</span> <span class="o">*</span><span class="n">multiparams</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Executes a SQL statement construct and returns a</span>
+        <span class="sd">r&quot;&quot;&quot;Executes a SQL statement construct and returns a</span>
 <span class="sd">        :class:`.ResultProxy`.</span>
 
 <span class="sd">        :param object: The statement to be executed.  May be</span>
@@ -1087,9 +1117,7 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">meth</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="n">_execute_on_connection</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">exc</span><span class="o">.</span><span class="n">InvalidRequestError</span><span class="p">(</span>
-                <span class="s2">&quot;Unexecutable object type: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
-                <span class="nb">type</span><span class="p">(</span><span class="nb">object</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">exc</span><span class="o">.</span><span class="n">ObjectNotExecutableError</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">meth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">multiparams</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 
@@ -1116,10 +1144,10 @@
             <span class="n">dialect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dialect</span>
             <span class="n">ctx</span> <span class="o">=</span> <span class="n">dialect</span><span class="o">.</span><span class="n">execution_ctx_cls</span><span class="o">.</span><span class="n">_init_default</span><span class="p">(</span>
                 <span class="n">dialect</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_handle_dbapi_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">BaseException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_handle_dbapi_exception</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
 
-        <span class="n">ret</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">_exec_default</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">_exec_default</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">should_close_with_result</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
@@ -1139,12 +1167,15 @@
 
         <span class="n">dialect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dialect</span>
 
-        <span class="n">compiled</span> <span class="o">=</span> <span class="n">ddl</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">dialect</span><span class="o">=</span><span class="n">dialect</span><span class="p">)</span>
+        <span class="n">compiled</span> <span class="o">=</span> <span class="n">ddl</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+            <span class="n">dialect</span><span class="o">=</span><span class="n">dialect</span><span class="p">,</span>
+            <span class="n">schema_translate_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">schema_for_object</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema_for_object</span><span class="o">.</span><span class="n">is_default</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute_context</span><span class="p">(</span>
             <span class="n">dialect</span><span class="p">,</span>
             <span class="n">dialect</span><span class="o">.</span><span class="n">execution_ctx_cls</span><span class="o">.</span><span class="n">_init_ddl</span><span class="p">,</span>
             <span class="n">compiled</span><span class="p">,</span>
-            <span class="kc">None</span><span class="p">,</span>
+            <span class="bp">None</span><span class="p">,</span>
             <span class="n">compiled</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_events</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">_has_events</span><span class="p">:</span>
@@ -1170,17 +1201,26 @@
 
         <span class="n">dialect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dialect</span>
         <span class="k">if</span> <span class="s1">&#39;compiled_cache&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execution_options</span><span class="p">:</span>
-            <span class="n">key</span> <span class="o">=</span> <span class="n">dialect</span><span class="p">,</span> <span class="n">elem</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">keys</span><span class="p">)),</span> <span class="nb">len</span><span class="p">(</span><span class="n">distilled_params</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">dialect</span><span class="p">,</span> <span class="n">elem</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">keys</span><span class="p">)),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">schema_for_object</span><span class="o">.</span><span class="n">hash_key</span><span class="p">,</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">distilled_params</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span>
+            <span class="p">)</span>
             <span class="n">compiled_sql</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execution_options</span><span class="p">[</span><span class="s1">&#39;compiled_cache&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">compiled_sql</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">compiled_sql</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="n">compiled_sql</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
                     <span class="n">dialect</span><span class="o">=</span><span class="n">dialect</span><span class="p">,</span> <span class="n">column_keys</span><span class="o">=</span><span class="n">keys</span><span class="p">,</span>
-                    <span class="n">inline</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">distilled_params</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">inline</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">distilled_params</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="n">schema_translate_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">schema_for_object</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema_for_object</span><span class="o">.</span><span class="n">is_default</span> <span class="k">else</span> <span class="bp">None</span>
+                <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_execution_options</span><span class="p">[</span><span class="s1">&#39;compiled_cache&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">compiled_sql</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">compiled_sql</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
                 <span class="n">dialect</span><span class="o">=</span><span class="n">dialect</span><span class="p">,</span> <span class="n">column_keys</span><span class="o">=</span><span class="n">keys</span><span class="p">,</span>
-                <span class="n">inline</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">distilled_params</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">inline</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">distilled_params</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="n">schema_translate_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">schema_for_object</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema_for_object</span><span class="o">.</span><span class="n">is_default</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
 
         <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute_context</span><span class="p">(</span>
             <span class="n">dialect</span><span class="p">,</span>
@@ -1251,11 +1291,11 @@
                 <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revalidate_connection</span><span class="p">()</span>
 
             <span class="n">context</span> <span class="o">=</span> <span class="n">constructor</span><span class="p">(</span><span class="n">dialect</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">except</span> <span class="ne">BaseException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_handle_dbapi_exception</span><span class="p">(</span>
                 <span class="n">e</span><span class="p">,</span>
                 <span class="n">util</span><span class="o">.</span><span class="n">text_type</span><span class="p">(</span><span class="n">statement</span><span class="p">),</span> <span class="n">parameters</span><span class="p">,</span>
-                <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">compiled</span><span class="p">:</span>
             <span class="n">context</span><span class="o">.</span><span class="n">pre_exec</span><span class="p">()</span>
@@ -1280,13 +1320,13 @@
                 <span class="n">sql_util</span><span class="o">.</span><span class="n">_repr_params</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">batches</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
             <span class="p">)</span>
 
-        <span class="n">evt_handled</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">evt_handled</span> <span class="o">=</span> <span class="bp">False</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">executemany</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">_has_events</span><span class="p">:</span>
                     <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">do_executemany</span><span class="p">:</span>
                         <span class="k">if</span> <span class="n">fn</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-                            <span class="n">evt_handled</span> <span class="o">=</span> <span class="kc">True</span>
+                            <span class="n">evt_handled</span> <span class="o">=</span> <span class="bp">True</span>
                             <span class="k">break</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">evt_handled</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">do_executemany</span><span class="p">(</span>
@@ -1298,7 +1338,7 @@
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">_has_events</span><span class="p">:</span>
                     <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">do_execute_no_params</span><span class="p">:</span>
                         <span class="k">if</span> <span class="n">fn</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-                            <span class="n">evt_handled</span> <span class="o">=</span> <span class="kc">True</span>
+                            <span class="n">evt_handled</span> <span class="o">=</span> <span class="bp">True</span>
                             <span class="k">break</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">evt_handled</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">do_execute_no_params</span><span class="p">(</span>
@@ -1309,7 +1349,7 @@
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">_has_events</span><span class="p">:</span>
                     <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">do_execute</span><span class="p">:</span>
                         <span class="k">if</span> <span class="n">fn</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-                            <span class="n">evt_handled</span> <span class="o">=</span> <span class="kc">True</span>
+                            <span class="n">evt_handled</span> <span class="o">=</span> <span class="bp">True</span>
                             <span class="k">break</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">evt_handled</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">do_execute</span><span class="p">(</span>
@@ -1317,7 +1357,7 @@
                         <span class="n">statement</span><span class="p">,</span>
                         <span class="n">parameters</span><span class="p">,</span>
                         <span class="n">context</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">except</span> <span class="ne">BaseException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_handle_dbapi_exception</span><span class="p">(</span>
                 <span class="n">e</span><span class="p">,</span>
                 <span class="n">statement</span><span class="p">,</span>
@@ -1339,18 +1379,18 @@
             <span class="n">result</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">_setup_crud_result_proxy</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">get_result_proxy</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">_metadata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">result</span><span class="o">.</span><span class="n">_soft_close</span><span class="p">(</span><span class="n">_autoclose_connection</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">_metadata</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">_soft_close</span><span class="p">(</span><span class="n">_autoclose_connection</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">should_autocommit</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="o">.</span><span class="n">__transaction</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="o">.</span><span class="n">_commit_impl</span><span class="p">(</span><span class="n">autocommit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">should_autocommit</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="o">.</span><span class="n">__transaction</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="o">.</span><span class="n">_commit_impl</span><span class="p">(</span><span class="n">autocommit</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">_soft_closed</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">should_close_with_result</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
         <span class="k">return</span> <span class="n">result</span>
 
-    <span class="k">def</span> <span class="nf">_cursor_execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cursor</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_cursor_execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cursor</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Execute a statement + params on the given cursor.</span>
 
 <span class="sd">        Adds appropriate logging and exception handling.</span>
@@ -1366,7 +1406,7 @@
                 <span class="n">statement</span><span class="p">,</span> <span class="n">parameters</span> <span class="o">=</span> \
                     <span class="n">fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cursor</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span>
                        <span class="n">context</span><span class="p">,</span>
-                       <span class="kc">False</span><span class="p">)</span>
+                       <span class="bp">False</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_echo</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span>
@@ -1382,7 +1422,7 @@
                     <span class="n">statement</span><span class="p">,</span>
                     <span class="n">parameters</span><span class="p">,</span>
                     <span class="n">context</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">except</span> <span class="ne">BaseException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_handle_dbapi_exception</span><span class="p">(</span>
                 <span class="n">e</span><span class="p">,</span>
                 <span class="n">statement</span><span class="p">,</span>
@@ -1395,7 +1435,7 @@
                                                <span class="n">statement</span><span class="p">,</span>
                                                <span class="n">parameters</span><span class="p">,</span>
                                                <span class="n">context</span><span class="p">,</span>
-                                               <span class="kc">False</span><span class="p">)</span>
+                                               <span class="bp">False</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_safe_close_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cursor</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Close the given cursor, catching exceptions</span>
@@ -1407,10 +1447,10 @@
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="c1"># log the error through the connection pool&#39;s logger.</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">pool</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="s2">&quot;Error closing cursor&quot;</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="s2">&quot;Error closing cursor&quot;</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
-    <span class="n">_reentrant_error</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="n">_is_disconnect</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">_reentrant_error</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">_is_disconnect</span> <span class="o">=</span> <span class="bp">False</span>
 
     <span class="k">def</span> <span class="nf">_handle_dbapi_exception</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                                 <span class="n">e</span><span class="p">,</span>
@@ -1420,21 +1460,27 @@
                                 <span class="n">context</span><span class="p">):</span>
         <span class="n">exc_info</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="n">context</span> <span class="ow">and</span> <span class="n">context</span><span class="o">.</span><span class="n">exception</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">context</span> <span class="ow">and</span> <span class="n">context</span><span class="o">.</span><span class="n">exception</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">context</span><span class="o">.</span><span class="n">exception</span> <span class="o">=</span> <span class="n">e</span>
 
+        <span class="n">is_exit_exception</span> <span class="o">=</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_disconnect</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_is_disconnect</span> <span class="o">=</span>  \
-                <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">dbapi</span><span class="o">.</span><span class="n">Error</span><span class="p">)</span> <span class="ow">and</span> \
-                <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">closed</span> <span class="ow">and</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">_is_disconnect</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">dbapi</span><span class="o">.</span><span class="n">Error</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">closed</span> <span class="ow">and</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">is_disconnect</span><span class="p">(</span>
                     <span class="n">e</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__connection</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">invalidated</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__connection</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">invalidated</span> <span class="k">else</span> <span class="bp">None</span><span class="p">,</span>
                     <span class="n">cursor</span><span class="p">)</span>
+            <span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
+                <span class="n">is_exit_exception</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">closed</span>
+            <span class="p">)</span>
+
             <span class="k">if</span> <span class="n">context</span><span class="p">:</span>
                 <span class="n">context</span><span class="o">.</span><span class="n">is_disconnect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_disconnect</span>
 
-        <span class="n">invalidate_pool_on_disconnect</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">invalidate_pool_on_disconnect</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">is_exit_exception</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reentrant_error</span><span class="p">:</span>
             <span class="n">util</span><span class="o">.</span><span class="n">raise_from_cause</span><span class="p">(</span>
@@ -1445,12 +1491,13 @@
                                         <span class="n">dialect</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dialect</span><span class="p">),</span>
                 <span class="n">exc_info</span>
             <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_reentrant_error</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reentrant_error</span> <span class="o">=</span> <span class="bp">True</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># non-DBAPI error - if we already got a context,</span>
             <span class="c1"># or there&#39;s no string statement, don&#39;t wrap it</span>
             <span class="n">should_wrap</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">dbapi</span><span class="o">.</span><span class="n">Error</span><span class="p">)</span> <span class="ow">or</span> \
-                <span class="p">(</span><span class="n">statement</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">context</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="p">(</span><span class="n">statement</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
+                 <span class="ow">and</span> <span class="n">context</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_exit_exception</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">should_wrap</span><span class="p">:</span>
                 <span class="n">sqlalchemy_exception</span> <span class="o">=</span> <span class="n">exc</span><span class="o">.</span><span class="n">DBAPIError</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span>
@@ -1461,13 +1508,13 @@
                     <span class="n">connection_invalidated</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_is_disconnect</span><span class="p">,</span>
                     <span class="n">dialect</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dialect</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">sqlalchemy_exception</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">sqlalchemy_exception</span> <span class="o">=</span> <span class="bp">None</span>
 
-            <span class="n">newraise</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">newraise</span> <span class="o">=</span> <span class="bp">None</span>
 
             <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_has_events</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">_has_events</span><span class="p">)</span> <span class="ow">and</span> \
                 <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execution_options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                    <span class="s1">&#39;skip_user_error_events&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                    <span class="s1">&#39;skip_user_error_events&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">):</span>
                 <span class="c1"># legacy dbapi_error event</span>
                 <span class="k">if</span> <span class="n">should_wrap</span> <span class="ow">and</span> <span class="n">context</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">dbapi_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
@@ -1481,24 +1528,26 @@
                 <span class="n">ctx</span> <span class="o">=</span> <span class="n">ExceptionContextImpl</span><span class="p">(</span>
                     <span class="n">e</span><span class="p">,</span> <span class="n">sqlalchemy_exception</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">,</span>
                     <span class="bp">self</span><span class="p">,</span> <span class="n">cursor</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span>
-                    <span class="n">parameters</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_disconnect</span><span class="p">)</span>
+                    <span class="n">parameters</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_disconnect</span><span class="p">,</span>
+                    <span class="n">invalidate_pool_on_disconnect</span><span class="p">)</span>
 
                 <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">handle_error</span><span class="p">:</span>
                     <span class="k">try</span><span class="p">:</span>
                         <span class="c1"># handler returns an exception;</span>
                         <span class="c1"># call next handler in a chain</span>
                         <span class="n">per_fn</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
-                        <span class="k">if</span> <span class="n">per_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">per_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                             <span class="n">ctx</span><span class="o">.</span><span class="n">chained_exception</span> <span class="o">=</span> <span class="n">newraise</span> <span class="o">=</span> <span class="n">per_fn</span>
                     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">_raised</span><span class="p">:</span>
                         <span class="c1"># handler raises an exception - stop processing</span>
                         <span class="n">newraise</span> <span class="o">=</span> <span class="n">_raised</span>
                         <span class="k">break</span>
 
-                <span class="k">if</span> <span class="n">sqlalchemy_exception</span> <span class="ow">and</span> \
-                        <span class="bp">self</span><span class="o">.</span><span class="n">_is_disconnect</span> <span class="o">!=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">is_disconnect</span><span class="p">:</span>
-                    <span class="n">sqlalchemy_exception</span><span class="o">.</span><span class="n">connection_invalidated</span> <span class="o">=</span> \
-                        <span class="bp">self</span><span class="o">.</span><span class="n">_is_disconnect</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">is_disconnect</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_disconnect</span> <span class="o">!=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">is_disconnect</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_is_disconnect</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">is_disconnect</span>
+                    <span class="k">if</span> <span class="n">sqlalchemy_exception</span><span class="p">:</span>
+                        <span class="n">sqlalchemy_exception</span><span class="o">.</span><span class="n">connection_invalidated</span> <span class="o">=</span> \
+                            <span class="n">ctx</span><span class="o">.</span><span class="n">is_disconnect</span>
 
                 <span class="c1"># set up potentially user-defined value for</span>
                 <span class="c1"># invalidate pool.</span>
@@ -1537,35 +1586,34 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_handle_dbapi_exception_noconnection</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">dialect</span><span class="p">,</span> <span class="n">engine</span><span class="p">):</span>
-
         <span class="n">exc_info</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()</span>
 
-        <span class="n">is_disconnect</span> <span class="o">=</span> <span class="n">dialect</span><span class="o">.</span><span class="n">is_disconnect</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">is_disconnect</span> <span class="o">=</span> <span class="n">dialect</span><span class="o">.</span><span class="n">is_disconnect</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
 
         <span class="n">should_wrap</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">dialect</span><span class="o">.</span><span class="n">dbapi</span><span class="o">.</span><span class="n">Error</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">should_wrap</span><span class="p">:</span>
             <span class="n">sqlalchemy_exception</span> <span class="o">=</span> <span class="n">exc</span><span class="o">.</span><span class="n">DBAPIError</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span>
-                <span class="kc">None</span><span class="p">,</span>
-                <span class="kc">None</span><span class="p">,</span>
+                <span class="bp">None</span><span class="p">,</span>
+                <span class="bp">None</span><span class="p">,</span>
                 <span class="n">e</span><span class="p">,</span>
                 <span class="n">dialect</span><span class="o">.</span><span class="n">dbapi</span><span class="o">.</span><span class="n">Error</span><span class="p">,</span>
                 <span class="n">connection_invalidated</span><span class="o">=</span><span class="n">is_disconnect</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">sqlalchemy_exception</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">sqlalchemy_exception</span> <span class="o">=</span> <span class="bp">None</span>
 
-        <span class="n">newraise</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">newraise</span> <span class="o">=</span> <span class="bp">None</span>
 
         <span class="k">if</span> <span class="n">engine</span><span class="o">.</span><span class="n">_has_events</span><span class="p">:</span>
             <span class="n">ctx</span> <span class="o">=</span> <span class="n">ExceptionContextImpl</span><span class="p">(</span>
-                <span class="n">e</span><span class="p">,</span> <span class="n">sqlalchemy_exception</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span>
-                <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">is_disconnect</span><span class="p">)</span>
+                <span class="n">e</span><span class="p">,</span> <span class="n">sqlalchemy_exception</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span>
+                <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">is_disconnect</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">engine</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">handle_error</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="c1"># handler returns an exception;</span>
                     <span class="c1"># call next handler in a chain</span>
                     <span class="n">per_fn</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="n">per_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">per_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                         <span class="n">ctx</span><span class="o">.</span><span class="n">chained_exception</span> <span class="o">=</span> <span class="n">newraise</span> <span class="o">=</span> <span class="n">per_fn</span>
                 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">_raised</span><span class="p">:</span>
                     <span class="c1"># handler raises an exception - stop processing</span>
@@ -1587,11 +1635,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">util</span><span class="o">.</span><span class="n">reraise</span><span class="p">(</span><span class="o">*</span><span class="n">exc_info</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">default_schema_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">get_default_schema_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
     <span class="k">def</span> <span class="nf">transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callable_</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Execute the given function within a transaction boundary.</span>
+        <span class="sd">r&quot;&quot;&quot;Execute the given function within a transaction boundary.</span>
 
 <span class="sd">        The function is passed this :class:`.Connection`</span>
 <span class="sd">        as the first argument, followed by the given \*args and \**kwargs,</span>
@@ -1642,7 +1687,7 @@
                 <span class="n">trans</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">run_callable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callable_</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Given a callable object or function, execute it, passing</span>
+        <span class="sd">r&quot;&quot;&quot;Given a callable object or function, execute it, passing</span>
 <span class="sd">        a :class:`.Connection` as the first argument.</span>
 
 <span class="sd">        The given \*args and \**kwargs are passed subsequent</span>
@@ -1666,7 +1711,7 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exception</span><span class="p">,</span> <span class="n">sqlalchemy_exception</span><span class="p">,</span>
                  <span class="n">engine</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">cursor</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span>
-                 <span class="n">context</span><span class="p">,</span> <span class="n">is_disconnect</span><span class="p">):</span>
+                 <span class="n">context</span><span class="p">,</span> <span class="n">is_disconnect</span><span class="p">,</span> <span class="n">invalidate_pool_on_disconnect</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">engine</span> <span class="o">=</span> <span class="n">engine</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connection</span> <span class="o">=</span> <span class="n">connection</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sqlalchemy_exception</span> <span class="o">=</span> <span class="n">sqlalchemy_exception</span>
@@ -1675,6 +1720,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">statement</span> <span class="o">=</span> <span class="n">statement</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_disconnect</span> <span class="o">=</span> <span class="n">is_disconnect</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">invalidate_pool_on_disconnect</span> <span class="o">=</span> <span class="n">invalidate_pool_on_disconnect</span>
 
 
 <span class="k">class</span> <span class="nc">Transaction</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -1712,7 +1758,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connection</span> <span class="o">=</span> <span class="n">connection</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_actual_parent</span> <span class="o">=</span> <span class="n">parent</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="bp">True</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1741,7 +1787,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_do_rollback</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="bp">False</span>
 
     <span class="k">def</span> <span class="nf">_do_rollback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
@@ -1752,7 +1798,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">exc</span><span class="o">.</span><span class="n">InvalidRequestError</span><span class="p">(</span><span class="s2">&quot;This transaction is inactive&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_do_commit</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="bp">False</span>
 
     <span class="k">def</span> <span class="nf">_do_commit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
@@ -1761,7 +1807,7 @@
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">type</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">type</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
             <span class="k">except</span><span class="p">:</span>
@@ -1773,7 +1819,7 @@
 
 <span class="k">class</span> <span class="nc">RootTransaction</span><span class="p">(</span><span class="n">Transaction</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">RootTransaction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RootTransaction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_begin_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_do_rollback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1822,8 +1868,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">xid</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">TwoPhaseTransaction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_is_prepared</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TwoPhaseTransaction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_prepared</span> <span class="o">=</span> <span class="bp">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xid</span> <span class="o">=</span> <span class="n">xid</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_begin_twophase_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
@@ -1836,7 +1882,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">exc</span><span class="o">.</span><span class="n">InvalidRequestError</span><span class="p">(</span><span class="s2">&quot;This transaction is inactive&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_prepare_twophase_impl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xid</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_is_prepared</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_prepared</span> <span class="o">=</span> <span class="bp">True</span>
 
     <span class="k">def</span> <span class="nf">_do_rollback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">_rollback_twophase_impl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_prepared</span><span class="p">)</span>
@@ -1863,17 +1909,32 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_execution_options</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">immutabledict</span><span class="p">()</span>
-    <span class="n">_has_events</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">_has_events</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="n">_connection_cls</span> <span class="o">=</span> <span class="n">Connection</span>
 
+    <span class="n">schema_for_object</span> <span class="o">=</span> <span class="n">schema</span><span class="o">.</span><span class="n">_schema_getter</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;Return the &quot;.schema&quot; attribute for an object.</span>
+
+<span class="sd">    Used for :class:`.Table`, :class:`.Sequence` and similar objects,</span>
+<span class="sd">    and takes into account</span>
+<span class="sd">    the :paramref:`.Connection.execution_options.schema_translate_map`</span>
+<span class="sd">    parameter.</span>
+
+<span class="sd">      .. versionadded:: 1.1</span>
+
+<span class="sd">      .. seealso::</span>
+
+<span class="sd">          :ref:`schema_translating`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pool</span><span class="p">,</span> <span class="n">dialect</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span>
-                 <span class="n">logging_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">echo</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">proxy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">execution_options</span><span class="o">=</span><span class="kc">None</span>
+                 <span class="n">logging_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">echo</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">proxy</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">execution_options</span><span class="o">=</span><span class="bp">None</span>
                  <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pool</span> <span class="o">=</span> <span class="n">pool</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dialect</span> <span class="o">=</span> <span class="n">dialect</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="o">.</span><span class="n">_dialect</span> <span class="o">=</span> <span class="n">dialect</span>
         <span class="k">if</span> <span class="n">logging_name</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logging_name</span> <span class="o">=</span> <span class="n">logging_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">echo</span> <span class="o">=</span> <span class="n">echo</span>
@@ -1885,7 +1946,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">update_execution_options</span><span class="p">(</span><span class="o">**</span><span class="n">execution_options</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">update_execution_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">opt</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update the default execution_options dictionary</span>
+        <span class="sd">r&quot;&quot;&quot;Update the default execution_options dictionary</span>
 <span class="sd">        of this :class:`.Engine`.</span>
 
 <span class="sd">        The given keys/values in \**opt are added to the</span>
@@ -2022,16 +2083,16 @@
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">contextual_connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">conn</span><span class="o">.</span><span class="n">_execute_default</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="p">(),</span> <span class="p">{})</span>
 
-    <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
-    <span class="k">def</span> <span class="nf">_optional_conn_ctx_manager</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">connection</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nd">@contextlib.contextmanager</span>
+    <span class="k">def</span> <span class="nf">_optional_conn_ctx_manager</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">connection</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">contextual_connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
                 <span class="k">yield</span> <span class="n">conn</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">connection</span>
 
     <span class="k">def</span> <span class="nf">_run_visitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">visitorcallable</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span>
-                     <span class="n">connection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                     <span class="n">connection</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_optional_conn_ctx_manager</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
             <span class="n">conn</span><span class="o">.</span><span class="n">_run_visitor</span><span class="p">(</span><span class="n">visitorcallable</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -2045,14 +2106,14 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span>
 
         <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
-            <span class="k">if</span> <span class="nb">type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">close_with_result</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">begin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">close_with_result</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">begin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">close_with_result</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return a context manager delivering a :class:`.Connection`</span>
 <span class="sd">        with a :class:`.Transaction` established.</span>
 
@@ -2094,7 +2155,7 @@
         <span class="k">return</span> <span class="n">Engine</span><span class="o">.</span><span class="n">_trans_ctx</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">trans</span><span class="p">,</span> <span class="n">close_with_result</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callable_</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Execute the given function within a transaction boundary.</span>
+        <span class="sd">r&quot;&quot;&quot;Execute the given function within a transaction boundary.</span>
 
 <span class="sd">        The function is passed a :class:`.Connection` newly procured</span>
 <span class="sd">        from :meth:`.Engine.contextual_connect` as the first argument,</span>
@@ -2136,7 +2197,7 @@
             <span class="k">return</span> <span class="n">conn</span><span class="o">.</span><span class="n">transaction</span><span class="p">(</span><span class="n">callable_</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">run_callable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callable_</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Given a callable object or function, execute it, passing</span>
+        <span class="sd">r&quot;&quot;&quot;Given a callable object or function, execute it, passing</span>
 <span class="sd">        a :class:`.Connection` as the first argument.</span>
 
 <span class="sd">        The given \*args and \**kwargs are passed subsequent</span>
@@ -2167,18 +2228,18 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">connection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contextual_connect</span><span class="p">(</span><span class="n">close_with_result</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contextual_connect</span><span class="p">(</span><span class="n">close_with_result</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="o">*</span><span class="n">multiparams</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">scalar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">statement</span><span class="p">,</span> <span class="o">*</span><span class="n">multiparams</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="o">*</span><span class="n">multiparams</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span><span class="o">.</span><span class="n">scalar</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_execute_clauseelement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elem</span><span class="p">,</span> <span class="n">multiparams</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="n">connection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contextual_connect</span><span class="p">(</span><span class="n">close_with_result</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_execute_clauseelement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elem</span><span class="p">,</span> <span class="n">multiparams</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contextual_connect</span><span class="p">(</span><span class="n">close_with_result</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">connection</span><span class="o">.</span><span class="n">_execute_clauseelement</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">multiparams</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_execute_compiled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compiled</span><span class="p">,</span> <span class="n">multiparams</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
-        <span class="n">connection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contextual_connect</span><span class="p">(</span><span class="n">close_with_result</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contextual_connect</span><span class="p">(</span><span class="n">close_with_result</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">connection</span><span class="o">.</span><span class="n">_execute_compiled</span><span class="p">(</span><span class="n">compiled</span><span class="p">,</span> <span class="n">multiparams</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -2197,7 +2258,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection_cls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">contextual_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">close_with_result</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">contextual_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">close_with_result</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return a :class:`.Connection` object which may be part of some</span>
 <span class="sd">        ongoing context.</span>
 
@@ -2216,11 +2277,11 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection_cls</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_wrap_pool_connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="o">.</span><span class="n">connect</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_wrap_pool_connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="o">.</span><span class="n">connect</span><span class="p">,</span> <span class="bp">None</span><span class="p">),</span>
             <span class="n">close_with_result</span><span class="o">=</span><span class="n">close_with_result</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">table_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">connection</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">table_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">connection</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return a list of all table names available in the database.</span>
 
 <span class="sd">        :param schema: Optional, retrieve names from a non-default schema.</span>
@@ -2234,7 +2295,7 @@
                 <span class="n">schema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">default_schema_name</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dialect</span><span class="o">.</span><span class="n">get_table_names</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">has_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">has_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return True if the given backend has a table of the given name.</span>
 
 <span class="sd">        .. seealso::</span>
@@ -2253,13 +2314,13 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">fn</span><span class="p">()</span>
         <span class="k">except</span> <span class="n">dialect</span><span class="o">.</span><span class="n">dbapi</span><span class="o">.</span><span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">connection</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">connection</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="n">Connection</span><span class="o">.</span><span class="n">_handle_dbapi_exception_noconnection</span><span class="p">(</span>
                     <span class="n">e</span><span class="p">,</span> <span class="n">dialect</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">util</span><span class="o">.</span><span class="n">reraise</span><span class="p">(</span><span class="o">*</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">())</span>
 
-    <span class="k">def</span> <span class="nf">raw_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_connection</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">raw_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_connection</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return a &quot;raw&quot; DBAPI connection from the connection pool.</span>
 
 <span class="sd">        The returned object is a proxied version of the DBAPI</span>
@@ -2306,7 +2367,7 @@
 
     <span class="k">def</span> <span class="nf">_get_has_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxied</span><span class="o">.</span><span class="n">_has_events</span> <span class="ow">or</span> \
-            <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;_has_events&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;_has_events&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_set_has_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="s1">&#39;_has_events&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
@@ -2344,7 +2405,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'4.4.0',
+            VERSION:'4.5.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins.SelectCommand &mdash; cloudmesh_client 4.4.0 documentation</title>
+  <title>cloudmesh_client.shell.plugins.SelectCommand &mdash; cloudmesh_client 4.5.2 documentation</title>
   
 
   
@@ -30,10 +30,7 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
@@ -62,7 +59,7 @@
             
             
               <div class="version">
-                4.4.0
+                4.5.2
               </div>
             
           
@@ -180,17 +177,17 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.shell.plugins.SelectCommand</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="k">import</span> <span class="n">Console</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="k">import</span> <span class="n">command</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.menu</span> <span class="k">import</span> <span class="n">menu_return_num</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="k">import</span> <span class="n">Default</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.image</span> <span class="k">import</span> <span class="n">Image</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.flavor</span> <span class="k">import</span> <span class="n">Flavor</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="k">import</span> <span class="n">ConfigDict</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="k">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.key</span> <span class="k">import</span> <span class="n">Key</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.menu</span> <span class="kn">import</span> <span class="n">menu_return_num</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.image</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.flavor</span> <span class="kn">import</span> <span class="n">Flavor</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.key</span> <span class="kn">import</span> <span class="n">Key</span>
 
 <span class="c1"># noinspection PyBroadException,PyBroadException</span>
 <div class="viewcode-block" id="SelectCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.SelectCommand.SelectCommand">[docs]</a><span class="k">class</span> <span class="nc">SelectCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
@@ -199,7 +196,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;init command select&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;init command select&quot;</span><span class="p">)</span>
 
     <span class="c1"># noinspection PyUnusedLocal</span>
     <span class="nd">@command</span>
@@ -233,7 +230,7 @@
                 <span class="k">if</span> <span class="n">refresh</span><span class="p">:</span>
                     <span class="n">Image</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
 
-                <span class="n">image_dict</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">)</span>
+                <span class="n">image_dict</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">)</span>
 
                 <span class="n">image_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
                 <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">image_dict</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
@@ -242,16 +239,16 @@
                 <span class="n">number</span> <span class="o">=</span> <span class="n">menu_return_num</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Select an Image&quot;</span><span class="p">,</span>
                                          <span class="n">menu_list</span><span class="o">=</span><span class="n">image_names</span><span class="p">,</span>
                                          <span class="n">tries</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                                         <span class="n">with_display</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                                         <span class="n">with_display</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="s2">&quot;q&quot;</span><span class="p">:</span>
                     <span class="k">pass</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">image</span> <span class="o">=</span> <span class="n">image_names</span><span class="p">[</span><span class="n">number</span><span class="p">]</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Selected image &quot;</span> <span class="o">+</span> <span class="n">image</span><span class="p">)</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Selected image &quot;</span> <span class="o">+</span> <span class="n">image</span><span class="p">)</span>
                     <span class="n">Default</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
             <span class="k">except</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR: could not set image.&quot;</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ERROR: could not set image.&quot;</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;flavor&quot;</span><span class="p">]:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -259,7 +256,7 @@
                 <span class="k">if</span> <span class="n">refresh</span><span class="p">:</span>
                     <span class="n">Flavor</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
 
-                <span class="n">flavor_dict</span> <span class="o">=</span> <span class="n">Flavor</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">)</span>
+                <span class="n">flavor_dict</span> <span class="o">=</span> <span class="n">Flavor</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">)</span>
 
                 <span class="n">flavor_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
                 <span class="k">for</span> <span class="n">flavor</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">flavor_dict</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
@@ -268,16 +265,16 @@
                 <span class="n">number</span> <span class="o">=</span> <span class="n">menu_return_num</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Select a Flavor&quot;</span><span class="p">,</span>
                                          <span class="n">menu_list</span><span class="o">=</span><span class="n">flavor_names</span><span class="p">,</span>
                                          <span class="n">tries</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                                         <span class="n">with_display</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                                         <span class="n">with_display</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="s2">&quot;q&quot;</span><span class="p">:</span>
                     <span class="k">pass</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">flavor</span> <span class="o">=</span> <span class="n">flavor_names</span><span class="p">[</span><span class="n">number</span><span class="p">]</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Selected flavor &quot;</span> <span class="o">+</span> <span class="n">flavor</span><span class="p">)</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Selected flavor &quot;</span> <span class="o">+</span> <span class="n">flavor</span><span class="p">)</span>
                     <span class="n">Default</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="n">flavor</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
             <span class="k">except</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR: could not set flavor.&quot;</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ERROR: could not set flavor.&quot;</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">]:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -290,15 +287,15 @@
                 <span class="n">number</span> <span class="o">=</span> <span class="n">menu_return_num</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Select a cloud&quot;</span><span class="p">,</span>
                                          <span class="n">menu_list</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">clouds</span><span class="p">),</span>
                                          <span class="n">tries</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                                         <span class="n">with_display</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                                         <span class="n">with_display</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="s2">&quot;q&quot;</span><span class="p">:</span>
                     <span class="k">pass</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">cloud</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">clouds</span><span class="p">)[</span><span class="n">number</span><span class="p">]</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Selected cloud &quot;</span> <span class="o">+</span> <span class="n">cloud</span><span class="p">)</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Selected cloud &quot;</span> <span class="o">+</span> <span class="n">cloud</span><span class="p">)</span>
                     <span class="n">Default</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;cloud&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="s2">&quot;general&quot;</span><span class="p">)</span>
             <span class="k">except</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR: could not set cloud.&quot;</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ERROR: could not set cloud.&quot;</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">]:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -313,20 +310,20 @@
                 <span class="n">number</span> <span class="o">=</span> <span class="n">menu_return_num</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Select a Key&quot;</span><span class="p">,</span>
                                          <span class="n">menu_list</span><span class="o">=</span><span class="n">key_names</span><span class="p">,</span>
                                          <span class="n">tries</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                                         <span class="n">with_display</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                                         <span class="n">with_display</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="s2">&quot;q&quot;</span><span class="p">:</span>
                     <span class="k">pass</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">key</span> <span class="o">=</span> <span class="n">key_names</span><span class="p">[</span><span class="n">number</span><span class="p">]</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Selected key &quot;</span> <span class="o">+</span> <span class="n">key</span><span class="p">)</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Selected key &quot;</span> <span class="o">+</span> <span class="n">key</span><span class="p">)</span>
 
                     <span class="c1"># TODO Fix default key setting in key DB</span>
                     <span class="c1"># db.set_default(key)</span>
 
                     <span class="n">Default</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
             <span class="k">except</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR: could not set key&quot;</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ERROR: could not set key&quot;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
 
@@ -362,7 +359,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'4.4.0',
+            VERSION:'4.5.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

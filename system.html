@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Preparation &mdash; cloudmesh_client 4.4.0 documentation</title>
+  <title>Preparation &mdash; cloudmesh_client 4.5.2 documentation</title>
   
 
   
@@ -30,10 +30,7 @@
   
 
   
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="index.html"/>
         <link rel="up" title="Setup" href="setup.html"/>
         <link rel="next" title="Installation" href="installation.html"/>
         <link rel="prev" title="Upgrade" href="upgrade.html"/> 
@@ -64,7 +61,7 @@
             
             
               <div class="version">
-                4.4.0
+                4.5.2
               </div>
             
           
@@ -110,7 +107,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#ubuntu-quick-install-scripts-untested">Ubuntu Quick Install Scripts (untested)</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#ubuntu-xenial-vm-with-pip">Ubuntu Xenial VM with pip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ubuntu-16-04">Ubuntu 16.04</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#centos">CentOS</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#one-line-install">One line install</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#deatailed-step-by-step-system-preparation">Deatailed Step-by-Step system preparation</a></li>
@@ -234,7 +231,7 @@ span.prompt1:before {
   content: "$ ";
 }
 </style><span class="prompt1">xcode-select --install</span>
-</pre><p>We recommend that you use python at 2.7.12, but not python 3. At this time
+</pre><p>We recommend that you use python at 2.7.13, but not python 3.
 This version of python is easy to install while downloading
 the dmg and installing it on the system. You can find the python
 version at:</p>
@@ -265,7 +262,7 @@ command line</p>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>Python</td>
-<td>2.7.12</td>
+<td>2.7.13</td>
 </tr>
 <tr class="row-odd"><td>pip</td>
 <td>8.1.2</td>
@@ -281,14 +278,15 @@ use virtualenv. First you need to find which version of python you
 use. You can say</p>
 <pre class="highlight"><span class="prompt1">which python</span>
 </pre><p>It will give you the path of the python interpreter.</p>
-<p>If you have a vanilla OS X at the time of writing of this documentation,
-the python version is 2.7.10 hence you can use alos this. However, it may be better
-to upgrade to 2.7.12 while using virtualenv.</p>
+<p>If you have a vanilla OS X at the time of writing of this
+documentation, the python version is 2.7.10 hence you can use also
+this version. However, it may be better to upgrade to 2.7.13 and using
+it via virtualenv.</p>
 <pre class="highlight"><span class="prompt1">virtualenv -p /user/bin/python ~/ENV</span>
 </pre><p>to setup the virtualenv on your computer.</p>
 <p>In case you are using a different version of python please use the
-appropriate path. Let us assume the interpreter was found in <cite>/usr/local/bin/python</cite>.
-Next you can create a virtual ENV with</p>
+appropriate path. Let us assume the interpreter was found in
+<cite>/usr/local/bin/python</cite>.  Next you can create a virtual ENV with</p>
 <pre class="highlight"><span class="prompt1">virtualenv -p /user/local/bin/python ~/ENV</span>
 </pre><p>You will need to activate the virtualenv with</p>
 <pre class="highlight"><span class="prompt1"><span class="nb">source</span> ~/ENV/bin/activate</span>
@@ -317,14 +315,15 @@ despite the fact that pip claimed to have installed them.
 However, the version installed with pip were not usable. The
 workaround is to use easy_install for these packages as
 shown above.  If you have better idea how to fix this, let
-us know and send mail to <a class="reference external" href="mailto:laszewski&#37;&#52;&#48;gmail&#46;com">laszewski<span>&#64;</span>gmail<span>&#46;</span>com</a>.</p>
+us know and send mail to <a class="reference external" href="mailto:laszewski&#37;&#52;&#48;gmail&#46;com">laszewski<span>&#64;</span>gmail<span>&#46;</span>com</a>. Alternatively
+you can install them with homebrew.</p>
 </div>
 <p>It is recommended that you test the version of the python interpreter
 and pip again</p>
 <pre class="highlight"><span class="prompt1">pip --version</span>
 </pre><p>which should give the version 8.1.2</p>
 <pre class="highlight"><span class="prompt1">python --version</span>
-</pre><p>which should give the version Python 2.7.10 or 2.7.12 if you installed that</p>
+</pre><p>which should give the version Python 2.7.10 or 2.7.13 if you installed that.</p>
 <div class="section" id="osx-quick-install-scripts-untested">
 <h3>OSX Quick Install Scripts (untested)<a class="headerlink" href="#osx-quick-install-scripts-untested" title="Permalink to this headline">¶</a></h3>
 <p>Use at your own risk, we recommend that you follow the more detailed
@@ -465,14 +464,17 @@ script if you wish.</p>
 </div>
 </div>
 </div>
-<div class="section" id="ubuntu-xenial-vm-with-pip">
-<h2>Ubuntu Xenial VM with pip<a class="headerlink" href="#ubuntu-xenial-vm-with-pip" title="Permalink to this headline">¶</a></h2>
-<p>In case you run an ubuntu xenial desktop VM on virtual box the instalation is actually quite easy.</p>
-<p>in the VM start a terminal in which you execute the follwoing command</p>
-<pre class="highlight"><span class="prompt1">wget -O cm-setup.sh http://bit.ly/cloudmesh-client-xenial</span>
+<div class="section" id="ubuntu-16-04">
+<h2>Ubuntu 16.04<a class="headerlink" href="#ubuntu-16-04" title="Permalink to this headline">¶</a></h2>
+<p>Similar to the instructions for Ubuntu 14.04/15.04, but these packages would be needed to be installed with &#8216;apt&#8217;</p>
+<pre class="highlight"><span class="prompt1">sudo apt update</span>
+<span class="prompt1">sudo apt install build-essential checkinstall python-dev virtualenv libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev</span>
+</pre><p>In some cases the python2 package may not be installed on Ubuntu 16.04. In this case you also need to install it:</p>
+<pre class="highlight"><span class="prompt1">sudo apt install python-minimal</span>
+</pre><p>You can also try the one line script to setup the system and install cloudmesh_client:</p>
+<pre class="highlight"><span class="prompt1">wget -O cm-setup.sh https://raw.githubusercontent.com/cloudmesh/client/bin/deploy-on-xenial.sh</span>
 <span class="prompt1">sh cm-setup.sh</span>
-</pre><p>THis will install the needed software</p>
-</div>
+</pre></div>
 <div class="section" id="centos">
 <h2>CentOS<a class="headerlink" href="#centos" title="Permalink to this headline">¶</a></h2>
 <p>This documentation assumes that the user is advanced enough to use
@@ -835,7 +837,7 @@ It generally is at ~/.ssh/id_rsa.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.4.0',
+            VERSION:'4.5.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

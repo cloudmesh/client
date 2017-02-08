@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.deployer.ansible.inventory &mdash; cloudmesh_client 4.4.0 documentation</title>
+  <title>cloudmesh_client.deployer.ansible.inventory &mdash; cloudmesh_client 4.5.2 documentation</title>
   
 
   
@@ -30,10 +30,7 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client.deployer.ansible" href="../ansible.html"/> 
 
   
@@ -62,7 +59,7 @@
             
             
               <div class="version">
-                4.4.0
+                4.5.2
               </div>
             
           
@@ -183,28 +180,20 @@
             
   <h1>Source code for cloudmesh_client.deployer.ansible.inventory</h1><div class="highlight"><pre>
 <span></span>
-<span class="kn">from</span> <span class="nn">StringIO</span> <span class="k">import</span> <span class="n">StringIO</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">defaultdict</span><span class="p">,</span> <span class="n">namedtuple</span>
-<span class="kn">from</span> <span class="nn">tempfile</span> <span class="k">import</span> <span class="n">NamedTemporaryFile</span>
-
-<span class="kn">from</span> <span class="nn">ansible.executor.task_queue_manager</span> <span class="k">import</span> <span class="n">TaskQueueManager</span>
-<span class="kn">from</span> <span class="nn">ansible.inventory</span> <span class="k">import</span> <span class="n">Group</span><span class="p">,</span> <span class="n">Host</span><span class="p">,</span> <span class="n">Inventory</span>
-<span class="kn">from</span> <span class="nn">ansible.inventory.ini</span> <span class="k">import</span> <span class="n">InventoryParser</span>
-<span class="kn">from</span> <span class="nn">ansible.parsing.dataloader</span> <span class="k">import</span> <span class="n">DataLoader</span>
-<span class="kn">from</span> <span class="nn">ansible.playbook.play</span> <span class="k">import</span> <span class="n">Play</span>
-<span class="kn">from</span> <span class="nn">ansible.plugins.callback</span> <span class="k">import</span> <span class="n">CallbackBase</span>
-<span class="kn">from</span> <span class="nn">ansible.vars</span> <span class="k">import</span> <span class="n">VariableManager</span>
+<span class="kn">from</span> <span class="nn">StringIO</span> <span class="kn">import</span> <span class="n">StringIO</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;InventoryBuilder&#39;</span><span class="p">,</span> <span class="s1">&#39;Node&#39;</span><span class="p">]</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Inventory&#39;</span><span class="p">,</span> <span class="s1">&#39;Node&#39;</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="Node"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.inventory.Node">[docs]</a><span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_address</span> <span class="o">=</span> <span class="n">address</span> <span class="ow">or</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_user</span> <span class="o">=</span> <span class="n">user</span> <span class="ow">or</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_user</span> <span class="o">=</span> <span class="n">user</span> <span class="ow">or</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_variables</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
     <span class="c1">################################################################ main api</span>
@@ -212,8 +201,8 @@
 <div class="viewcode-block" id="Node.add_var"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.inventory.Node.add_var">[docs]</a>    <span class="k">def</span> <span class="nf">add_var</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add a variable and value to a node</span>
 
-<span class="sd">        :param str key: </span>
-<span class="sd">        :param str value: </span>
+<span class="sd">        :param str key:</span>
+<span class="sd">        :param str value:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_variables</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
@@ -252,14 +241,35 @@
 <span class="c1">################################################################################</span>
 
 
-<div class="viewcode-block" id="InventoryBuilder"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.inventory.InventoryBuilder">[docs]</a><span class="k">class</span> <span class="nc">InventoryBuilder</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Inventory"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.inventory.Inventory">[docs]</a><span class="k">class</span> <span class="nc">Inventory</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Build an inventory by dynamically adding :class:`Host`s to :class:`Group`s&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_groups</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;all&#39;</span><span class="p">])</span>
 
-<div class="viewcode-block" id="InventoryBuilder.add_node"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.inventory.InventoryBuilder.add_node">[docs]</a>    <span class="k">def</span> <span class="nf">add_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="o">*</span><span class="n">groupnames</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Inventory.from_cluster"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.inventory.Inventory.from_cluster">[docs]</a>    <span class="k">def</span> <span class="nf">from_cluster</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cluster</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates an inventory from a :class:`Cluster`</span>
+
+<span class="sd">        :param cls:</span>
+<span class="sd">        :param cluster:</span>
+<span class="sd">        :returns:</span>
+<span class="sd">        :rtype:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">inventory</span> <span class="o">=</span> <span class="n">cls</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="n">cluster</span><span class="p">:</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">address</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">floating_ip</span> <span class="ow">or</span> <span class="n">instance</span><span class="o">.</span><span class="n">static_ip</span><span class="p">,</span>
+                <span class="n">user</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">username</span> <span class="ow">or</span> <span class="bp">None</span>
+            <span class="p">)</span>
+            <span class="n">inventory</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">inventory</span></div>
+
+<div class="viewcode-block" id="Inventory.add_node"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.inventory.Inventory.add_node">[docs]</a>    <span class="k">def</span> <span class="nf">add_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="o">*</span><span class="n">groupnames</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add a host to the inventory</span>
 
 <span class="sd">        :param str groupname:</span>
@@ -273,7 +283,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="InventoryBuilder.ini"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.inventory.InventoryBuilder.ini">[docs]</a>    <span class="k">def</span> <span class="nf">ini</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Inventory.ini"><a class="viewcode-back" href="../../../../code/cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.inventory.Inventory.ini">[docs]</a>    <span class="k">def</span> <span class="nf">ini</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Generates the ansible inventory file</span>
 
 <span class="sd">        :returns: the inventory as ini format</span>
@@ -282,11 +292,11 @@
 
         <span class="n">builder</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">groupname</span><span class="p">,</span> <span class="n">nodes</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_groups</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
-            <span class="n">builder</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;[</span><span class="si">{}</span><span class="s1">]</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">groupname</span><span class="p">))</span>
+            <span class="n">builder</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;[{}]</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">groupname</span><span class="p">))</span>
             <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
-                <span class="n">builder</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+                <span class="n">builder</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
                 <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
-                    <span class="n">builder</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39; </span><span class="si">{}</span><span class="s1">=&quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+                    <span class="n">builder</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39; {}=&quot;{}&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
                 <span class="n">builder</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="n">builder</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
@@ -313,37 +323,22 @@
 
 
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
+    <span class="n">cluster</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">active_cluster</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">Inventory</span><span class="o">.</span><span class="n">from_cluster</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">ini</span><span class="p">())</span>
+
     <span class="n">n1</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="s1">&#39;129.114.110.195&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">)</span>
     <span class="n">n2</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="s1">&#39;129.114.110.127&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">)</span>
     <span class="n">n3</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s1">&#39;baz&#39;</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="s1">&#39;129.114.111.200&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">)</span>
 
-    <span class="n">b</span> <span class="o">=</span> <span class="n">InventoryBuilder</span><span class="p">()</span>
-    <span class="n">b</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
-    <span class="n">b</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">n2</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
-    <span class="n">b</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">n3</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+    <span class="n">inventory</span> <span class="o">=</span> <span class="n">Inventory</span><span class="p">()</span>
+    <span class="n">inventory</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+    <span class="n">inventory</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">n2</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+    <span class="n">inventory</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">n3</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
 
-    <span class="n">i</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">inventory</span><span class="p">()</span>
-
-    <span class="n">Options</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Options&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;module_path&#39;</span><span class="p">])</span>
-    <span class="n">loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">()</span>
-    <span class="n">variable_manager</span> <span class="o">=</span> <span class="n">VariableManager</span><span class="p">()</span>
-    <span class="n">results_callback</span> <span class="o">=</span> <span class="n">CallbackBase</span><span class="p">()</span>
-    <span class="n">variable_manager</span><span class="o">.</span><span class="n">set_inventory</span>
-    <span class="n">play_source</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Ansible Play&#39;</span><span class="p">,</span>
-        <span class="n">hosts</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span>
-        <span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="nb">dict</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="s1">&#39;ping&#39;</span><span class="p">))</span>
-        <span class="p">],</span>
-    <span class="p">)</span>
-    <span class="n">play</span> <span class="o">=</span> <span class="n">Play</span><span class="p">()</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">play_source</span><span class="p">,</span> <span class="n">variable_manager</span><span class="o">=</span><span class="n">variable_manager</span><span class="p">,</span> <span class="n">loader</span><span class="o">=</span><span class="n">loader</span><span class="p">)</span>
-    <span class="n">tqm</span> <span class="o">=</span> <span class="n">TaskQueueManager</span><span class="p">(</span>
-        <span class="n">inventory</span> <span class="o">=</span> <span class="n">i</span><span class="p">,</span>
-        <span class="n">variable_manager</span> <span class="o">=</span> <span class="n">variable_manager</span><span class="p">,</span>
-        <span class="n">loader</span> <span class="o">=</span> <span class="n">loader</span><span class="p">,</span>
-        <span class="n">options</span> <span class="o">=</span> <span class="n">Options</span><span class="p">(),</span>
-        <span class="n">passwords</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(),</span>
-    <span class="p">)</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">inventory</span><span class="o">.</span><span class="n">ini</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 </pre></div>
 
            </div>
@@ -376,7 +371,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'4.4.0',
+            VERSION:'4.5.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

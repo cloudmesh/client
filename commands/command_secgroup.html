@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>SecGroup Command &mdash; cloudmesh_client 4.4.0 documentation</title>
+  <title>SecGroup Command &mdash; cloudmesh_client 4.5.2 documentation</title>
   
 
   
@@ -30,10 +30,7 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.4.0 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="VM Command" href="command_vm.html"/>
         <link rel="prev" title="List Command" href="command_list.html"/> 
@@ -64,7 +61,7 @@
             
             
               <div class="version">
-                4.4.0
+                4.5.2
               </div>
             
           
@@ -112,10 +109,9 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">SecGroup Command</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#security-group-create">Security Group Create</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#security-group-list">Security Group List</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#security-group-rule-add">Security Group Rule Add</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#security-group-rules-list">Security Group Rules List</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#security-group-rule-delete">Security Group Rule Delete</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#security-group-delete">Security Group Delete</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#security-group-rule-upload-update">Security Group/Rule upload/update</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="command_vm.html">VM Command</a></li>
@@ -227,84 +223,62 @@ and you can modify rules for the default and any other security group.</p>
 <p>The manual page of the <cite>secgroup</cite> command can be found at: <a class="reference external" href="../man/man.html#secgroup">secgroup</a></p>
 <div class="section" id="security-group-create">
 <h2>Security Group Create<a class="headerlink" href="#security-group-create" title="Permalink to this headline">¶</a></h2>
-<p>To create a security group in cloudmesh for a cloud and tenant use:</p>
+<p>To create a security group with defined rule:</p>
 <pre class="highlight"><style type="text/css">
 span.prompt1:before {
   content: "cm> ";
 }
-</style><span class="prompt1">secgroup create --cloud india --tenant fg478 test-group02</span>
-</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Created</span> <span class="n">a</span> <span class="n">new</span> <span class="n">security</span> <span class="n">group</span> <span class="p">[</span><span class="n">test</span><span class="o">-</span><span class="n">group02</span><span class="p">]</span> <span class="k">with</span> <span class="n">UUID</span> <span class="p">[</span><span class="n">bd9cb15e</span><span class="o">-</span><span class="mi">5</span><span class="n">fcf</span><span class="o">-</span><span class="mi">11</span><span class="n">e5</span><span class="o">-</span><span class="mi">85</span><span class="n">fd</span><span class="o">-</span><span class="n">d8eb97bdb464</span><span class="p">]</span>
-</pre></div>
-</div>
+</style><span class="prompt1">secgroup add my_new_group webapp 8080 8080 tcp 0.0.0.0/0</span>
+</pre><p>This will create locally a secgroup named &#8216;my_new_group&#8217;, with a rule &#8216;webapp&#8217;
+defined, which opens port 8080 for protocol tcp and for the network 0.0.0.0/0.</p>
+<p>To upload/update the group/rules into a cloud:</p>
+<pre class="highlight"><span class="prompt1">secgroup upload --cloud=india</span>
+</pre><p>This will upload the locally defined security groups(s) and rule(s) to cloud
+india, for the current (as specified in the yaml config file) user and project.
+If no &#8216;&#8211;cloud&#8217; parameter is specified, or set to &#8216;all&#8217;, it will upload to all
+&#8216;active&#8217; clouds.</p>
 </div>
 <div class="section" id="security-group-list">
 <h2>Security Group List<a class="headerlink" href="#security-group-list" title="Permalink to this headline">¶</a></h2>
-<p>To list Security Groups in cloudmesh for a cloud and tenant use:</p>
-<pre class="highlight"><span class="prompt1">secgroup list --cloud india --tenant fg478</span>
-</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+--------------------------------------+--------------------------------------+----------------------------------------------------+</span>
-<span class="o">|</span> <span class="n">Id</span>                                   <span class="o">|</span> <span class="n">Name</span>                                 <span class="o">|</span> <span class="n">Description</span>                                        <span class="o">|</span>
-<span class="o">+--------------------------------------+--------------------------------------+----------------------------------------------------+</span>
-<span class="o">|</span> <span class="mi">7</span><span class="n">ee21121</span><span class="o">-</span><span class="mi">5</span><span class="n">fcc</span><span class="o">-</span><span class="mi">11</span><span class="n">e5</span><span class="o">-</span><span class="mi">8497</span><span class="o">-</span><span class="n">d8eb97bdb464</span> <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="n">security_group</span><span class="o">-</span><span class="n">q5ukqwab4odq</span>   <span class="o">|</span> <span class="n">SSL</span><span class="p">(</span><span class="mi">443</span><span class="p">),</span> <span class="n">Web</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">Celery</span><span class="o">-</span><span class="n">Flower</span><span class="p">(</span><span class="mi">8888</span><span class="p">)</span>           <span class="o">|</span>
-<span class="o">|</span> <span class="mi">4</span><span class="n">bc8bbb1</span><span class="o">-</span><span class="mi">014</span><span class="n">d</span><span class="o">-</span><span class="mi">4</span><span class="n">a84</span><span class="o">-</span><span class="n">a62c</span><span class="o">-</span><span class="n">f216d620c2bc</span> <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="n">security_group</span><span class="o">-</span><span class="n">r2qpv3kefysi</span>   <span class="o">|</span> <span class="n">SSL</span><span class="p">(</span><span class="mi">443</span><span class="p">),</span> <span class="n">Web</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">Celery</span><span class="o">-</span><span class="n">Flower</span><span class="p">(</span><span class="mi">8888</span><span class="p">)</span>           <span class="o">|</span>
-<span class="o">|</span> <span class="mi">68</span><span class="n">c31654</span><span class="o">-</span><span class="mi">7</span><span class="n">f5f</span><span class="o">-</span><span class="mi">4944</span><span class="o">-</span><span class="n">a295</span><span class="o">-</span><span class="n">b9ff29a7e170</span> <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="n">security_group</span><span class="o">-</span><span class="n">ayzancofltyf</span>   <span class="o">|</span> <span class="n">SSL</span><span class="p">(</span><span class="mi">443</span><span class="p">),</span> <span class="n">Web</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">Celery</span><span class="o">-</span><span class="n">Flower</span><span class="p">(</span><span class="mi">8888</span><span class="p">)</span>           <span class="o">|</span>
-<span class="o">+--------------------------------------+--------------------------------------+----------------------------------------------------+</span>
+<p>To list the Security Groups defined locally:</p>
+<pre class="highlight"><span class="prompt1">secgroup list</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+--------+----------------+----------+--------+-----------+----------+</span>
+<span class="o">|</span> <span class="n">name</span>   <span class="o">|</span> <span class="n">group</span>          <span class="o">|</span> <span class="n">fromPort</span> <span class="o">|</span> <span class="n">toPort</span> <span class="o">|</span> <span class="n">cidr</span>      <span class="o">|</span> <span class="n">protocol</span> <span class="o">|</span>
+<span class="o">+--------+----------------+----------+--------+-----------+----------+</span>
+<span class="o">|</span> <span class="n">http</span>   <span class="o">|</span> <span class="n">default</span>        <span class="o">|</span> <span class="mi">80</span>       <span class="o">|</span> <span class="mi">80</span>     <span class="o">|</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">0</span> <span class="o">|</span> <span class="n">tcp</span>      <span class="o">|</span>
+<span class="o">|</span> <span class="n">ssh</span>    <span class="o">|</span> <span class="n">default</span>        <span class="o">|</span> <span class="mi">22</span>       <span class="o">|</span> <span class="mi">22</span>     <span class="o">|</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">0</span> <span class="o">|</span> <span class="n">tcp</span>      <span class="o">|</span>
+<span class="o">|</span> <span class="n">ping</span>   <span class="o">|</span> <span class="n">default</span>        <span class="o">|</span> <span class="mi">0</span>        <span class="o">|</span> <span class="mi">0</span>      <span class="o">|</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">0</span> <span class="o">|</span> <span class="n">icmp</span>     <span class="o">|</span>
+<span class="o">|</span> <span class="n">https</span>  <span class="o">|</span> <span class="n">default</span>        <span class="o">|</span> <span class="mi">443</span>      <span class="o">|</span> <span class="mi">443</span>    <span class="o">|</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">0</span> <span class="o">|</span> <span class="n">tcp</span>      <span class="o">|</span>
+<span class="o">|</span> <span class="n">webapp</span> <span class="o">|</span> <span class="n">my</span><span class="o">-</span><span class="n">default</span>     <span class="o">|</span> <span class="mi">8080</span>     <span class="o">|</span> <span class="mi">8080</span>   <span class="o">|</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">0</span> <span class="o">|</span> <span class="n">tcp</span>      <span class="o">|</span>
+<span class="o">+--------+----------------+----------+--------+-----------+----------+</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="security-group-rule-add">
-<h2>Security Group Rule Add<a class="headerlink" href="#security-group-rule-add" title="Permalink to this headline">¶</a></h2>
-<p>To add a new rule to the security group use:</p>
-<pre class="highlight"><span class="prompt1">secgroup rules-add --cloud india --tenant fg478 test-group 80 80 tcp  0.0.0.0/0</span>
-</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Added</span> <span class="n">rule</span> <span class="p">[</span><span class="mi">80</span> <span class="o">|</span> <span class="mi">80</span> <span class="o">|</span> <span class="n">tcp</span> <span class="o">|</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">0</span><span class="p">]</span> <span class="n">to</span> <span class="n">secgroup</span> <span class="p">[</span><span class="n">test</span><span class="o">-</span><span class="n">group</span><span class="p">]</span>
+<p>To list the Security Groups currently in a specified cloud &#8216;india&#8217;:</p>
+<pre class="highlight"><span class="prompt1">secgroup list --cloud=india</span>
 </pre></div>
-</div>
-<pre class="highlight"><span class="prompt1">secgroup rules-add --cloud india --tenant fg478 test-group 443 443 udp  0.0.0.0/0</span>
-</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Added</span> <span class="n">rule</span>
-<span class="p">[</span><span class="mi">443</span> <span class="o">|</span> <span class="mi">443</span> <span class="o">|</span> <span class="n">udp</span> <span class="o">|</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">0</span><span class="p">]</span> <span class="n">to</span> <span class="n">secgroup</span> <span class="p">[</span><span class="n">test</span><span class="o">-</span><span class="n">group</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="security-group-rules-list">
-<h2>Security Group Rules List<a class="headerlink" href="#security-group-rules-list" title="Permalink to this headline">¶</a></h2>
-<p>To list all the rules assigned to the security group use:</p>
-<pre class="highlight"><span class="prompt1">secgroup rules-list --cloud india --tenant fg478 test-group</span>
-</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+----------+-------+------------+----------+--------+----------+-----------+</span>
-<span class="o">|</span> <span class="n">user</span>     <span class="o">|</span> <span class="n">cloud</span> <span class="o">|</span> <span class="n">name</span>       <span class="o">|</span> <span class="n">fromPort</span> <span class="o">|</span> <span class="n">toPort</span> <span class="o">|</span> <span class="n">protocol</span> <span class="o">|</span> <span class="n">cidr</span>      <span class="o">|</span>
-<span class="o">+----------+-------+------------+----------+--------+----------+-----------+</span>
-<span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">india</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="n">group</span> <span class="o">|</span> <span class="mi">80</span>       <span class="o">|</span> <span class="mi">80</span>     <span class="o">|</span> <span class="n">tcp</span>      <span class="o">|</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">0</span> <span class="o">|</span>
-<span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">india</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="n">group</span> <span class="o">|</span> <span class="mi">443</span>      <span class="o">|</span> <span class="mi">443</span>    <span class="o">|</span> <span class="n">udp</span>      <span class="o">|</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">0</span> <span class="o">|</span>
-<span class="o">+----------+-------+------------+----------+--------+----------+-----------+</span>
-</pre></div>
-</div>
-</div>
 <div class="section" id="security-group-rule-delete">
 <h2>Security Group Rule Delete<a class="headerlink" href="#security-group-rule-delete" title="Permalink to this headline">¶</a></h2>
 <p>To delete a specific rule within a security group use:</p>
-<pre class="highlight"><span class="prompt1">secgroup rules-delete --cloud india --tenant fg478 test-group 80 80 tcp 0.0.0.0/0</span>
-</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Rule</span> <span class="p">[</span><span class="mi">80</span> <span class="o">|</span> <span class="mi">80</span> <span class="o">|</span> <span class="n">tcp</span> <span class="o">|</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">0</span><span class="p">]</span> <span class="n">deleted</span>
-</pre></div>
-</div>
-<pre class="highlight"><span class="prompt1">secgroup rules-list india fg478 test-group</span>
-</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+----------+-------+--------------+----------+--------+----------+-----------+</span>
-<span class="o">|</span> <span class="n">user</span>     <span class="o">|</span> <span class="n">cloud</span> <span class="o">|</span> <span class="n">name</span>         <span class="o">|</span> <span class="n">fromPort</span> <span class="o">|</span> <span class="n">toPort</span> <span class="o">|</span> <span class="n">protocol</span> <span class="o">|</span> <span class="n">cidr</span>      <span class="o">|</span>
-<span class="o">+----------+-------+--------------+----------+--------+----------+-----------+</span>
-<span class="o">|</span> <span class="n">albert</span>   <span class="o">|</span> <span class="n">india</span> <span class="o">|</span> <span class="n">test</span><span class="o">-</span><span class="n">group</span>   <span class="o">|</span> <span class="mi">443</span>      <span class="o">|</span> <span class="mi">443</span>    <span class="o">|</span> <span class="n">udp</span>      <span class="o">|</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">0</span> <span class="o">|</span>
-<span class="o">+----------+-------+--------------+----------+--------+----------+-----------+</span>
-</pre></div>
-</div>
+<pre class="highlight"><span class="prompt1">secgroup delete my_secgroup_name rule_name</span>
+</pre><p>This will delete the named rule from the specified secgroup from the local
+database. Use the &#8216;secgroup upload&#8217; command to sync the changes to remote
+cloud(s).</p>
 </div>
 <div class="section" id="security-group-delete">
 <h2>Security Group Delete<a class="headerlink" href="#security-group-delete" title="Permalink to this headline">¶</a></h2>
 <p>To delete an entire security group use:</p>
-<pre class="highlight"><span class="prompt1">secgroup delete --cloud india --tenant fg478 test-group</span>
-</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Rule</span> <span class="p">[</span><span class="mi">443</span> <span class="o">|</span> <span class="mi">443</span> <span class="o">|</span> <span class="n">udp</span> <span class="o">|</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">0</span><span class="p">]</span> <span class="n">deleted</span>
-<span class="n">Security</span> <span class="n">Group</span> <span class="p">[</span><span class="n">test</span><span class="o">-</span><span class="n">group</span><span class="p">]</span> <span class="k">for</span> <span class="n">cloud</span> <span class="p">[</span><span class="n">india</span><span class="p">],</span> <span class="o">&amp;</span> <span class="n">tenant</span> <span class="p">[</span><span class="n">fg478</span><span class="p">]</span> <span class="n">deleted</span>
-</pre></div>
+<pre class="highlight"><span class="prompt1">secgroup delete my_unused_secgroup --cloud=india</span>
+</pre><p>Use the &#8211;cloud parameter to specify on which cloud the named secgroup will
+be deleted. If not specified, it will delete the secgroup locally, and use
+&#8216;secgroup upload&#8217; to sync the changes to remote cloud(s).</p>
 </div>
-<pre class="highlight"><span class="prompt1">secgroup rules-list --cloud india --tenant fg478 test-group</span>
-</pre><div class="highlight-default"><div class="highlight"><pre><span></span>ERROR: Security Group with label [test-group], cloud [india], &amp; tenant [fg478] not found!
-</pre></div>
-</div>
+<div class="section" id="security-group-rule-upload-update">
+<h2>Security Group/Rule upload/update<a class="headerlink" href="#security-group-rule-upload-update" title="Permalink to this headline">¶</a></h2>
+<pre class="highlight"><span class="prompt1">secgroup upload my_secgroup --cloud=india</span>
+</pre><p>This uploads the named secgroup &#8216;my_secgroup&#8217; to the cloud &#8216;india&#8217;. If no
+secgroup name specified, it will upload/update all locally defined groups.
+If no &#8211;cloud parameter specified, or set to &#8216;all&#8217;, it will upload to all
+active clouds (as defined in the yaml config file).</p>
 </div>
 </div>
 
@@ -348,7 +322,7 @@ span.prompt1:before {
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.4.0',
+            VERSION:'4.5.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

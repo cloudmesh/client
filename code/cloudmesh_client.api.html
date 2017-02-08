@@ -1,0 +1,523 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.api package &mdash; cloudmesh_client 4.5.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../index.html"/>
+        <link rel="up" title="cloudmesh_client package" href="cloudmesh_client.html"/>
+        <link rel="next" title="cloudmesh_client.api.impl package" href="cloudmesh_client.api.impl.html"/>
+        <link rel="prev" title="cloudmesh_client package" href="cloudmesh_client.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                4.5.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comet.html">Comet Virtual Cluster</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/comet_cloudmesh.html">Comet Cloudmesh Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/comet_bigdata.html">Comet Big Data Tutorial</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stack.html">Stack</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="cloudmesh_client.html">cloudmesh_client package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cloudmesh_client.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">cloudmesh_client.api package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.api">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.cloud.html">cloudmesh_client.cloud package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.comet.html">cloudmesh_client.comet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.db.html">cloudmesh_client.db package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.deployer.html">cloudmesh_client.deployer package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.etc.html">cloudmesh_client.etc package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.extend.html">cloudmesh_client.extend package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.platform.html">cloudmesh_client.platform package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.provider.html">cloudmesh_client.provider package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.shell.html">cloudmesh_client.shell package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.system.html">cloudmesh_client.system package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#cloudmesh-client-default-module">cloudmesh_client.default module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.exc">cloudmesh_client.exc module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.main">cloudmesh_client.main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.setup">cloudmesh_client.setup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.shell_commad">cloudmesh_client.shell_commad module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.var">cloudmesh_client.var module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.version">cloudmesh_client.version module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html#python-guidelines">Python Guidelines</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="cloudmesh_client.html">cloudmesh_client package</a> &raquo;</li>
+      
+    <li>cloudmesh_client.api package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/code/cloudmesh_client.api.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cloudmesh-client-api-package">
+<h1>cloudmesh_client.api package<a class="headerlink" href="#cloudmesh-client-api-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cloudmesh_client.api.impl.html">cloudmesh_client.api.impl package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.api.impl.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.api.impl.html#module-cloudmesh_client.api.impl.openstack">cloudmesh_client.api.impl.openstack module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.api.impl.html#module-cloudmesh_client.api.impl">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="module-cloudmesh_client.api">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cloudmesh_client.api" title="Permalink to this headline">¶</a></h2>
+<p>This module defines the main API for operating with cloudmesh.</p>
+<dl class="class">
+<dt id="cloudmesh_client.api.Cluster">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.api.</code><code class="descname">Cluster</code><a class="reference internal" href="../_modules/cloudmesh_client/api.html#Cluster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.api.Cluster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A Cluster is a collection of <a class="reference internal" href="#cloudmesh_client.api.Node" title="cloudmesh_client.api.Node"><code class="xref py py-class docutils literal"><span class="pre">Node</span></code></a>&#8216;s that need to interact</p>
+<dl class="attribute">
+<dt id="cloudmesh_client.api.Cluster.db">
+<code class="descname">db</code><em class="property"> = &lt;cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase object&gt;</em><a class="headerlink" href="#cloudmesh_client.api.Cluster.db" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.api.Config">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.api.</code><code class="descname">Config</code><a class="reference internal" href="../_modules/cloudmesh_client/api.html#Config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.api.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>The Cloudmesh configuration</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.api.Layer">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.api.</code><code class="descname">Layer</code><a class="reference internal" href="../_modules/cloudmesh_client/api.html#Layer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.api.Layer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="cloudmesh_client.api.Layer.db">
+<code class="descname">db</code><em class="property"> = &lt;cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase object&gt;</em><a class="headerlink" href="#cloudmesh_client.api.Layer.db" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.api.Node">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.api.</code><code class="descname">Node</code><a class="reference internal" href="../_modules/cloudmesh_client/api.html#Node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.api.Node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A Node is machine running on some <a class="reference internal" href="#cloudmesh_client.api.Provider" title="cloudmesh_client.api.Provider"><code class="xref py py-class docutils literal"><span class="pre">Provider</span></code></a></p>
+<dl class="method">
+<dt id="cloudmesh_client.api.Node.create_ip">
+<code class="descname">create_ip</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/api.html#Node.create_ip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.api.Node.create_ip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.api.Node.db">
+<code class="descname">db</code><em class="property"> = &lt;cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase object&gt;</em><a class="headerlink" href="#cloudmesh_client.api.Node.db" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.api.Node.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/api.html#Node.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.api.Node.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.api.Node.name">
+<code class="descname">name</code><a class="headerlink" href="#cloudmesh_client.api.Node.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of this machine</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.api.Node.private_ip">
+<code class="descname">private_ip</code><a class="headerlink" href="#cloudmesh_client.api.Node.private_ip" title="Permalink to this definition">¶</a></dt>
+<dd><p>The private ip address of this node</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.api.Node.public_ip">
+<code class="descname">public_ip</code><a class="headerlink" href="#cloudmesh_client.api.Node.public_ip" title="Permalink to this definition">¶</a></dt>
+<dd><p>The public ip address of this node</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.api.Node.ssh">
+<code class="descname">ssh</code><span class="sig-paren">(</span><em>cmd=None</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/api.html#Node.ssh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.api.Node.ssh" title="Permalink to this definition">¶</a></dt>
+<dd><p>ssh into and optionally run a command on this node</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cmd</strong> (<em>list(str)</em>) &#8211; the command to run</li>
+<li><strong>user</strong> (<em>str</em>) &#8211; the user to login as (defaults to self.name</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.api.Node.start">
+<code class="descname">start</code><span class="sig-paren">(</span><em>selfs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/api.html#Node.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.api.Node.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.api.Node.stop">
+<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/api.html#Node.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.api.Node.stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.api.Node.username">
+<code class="descname">username</code><a class="headerlink" href="#cloudmesh_client.api.Node.username" title="Permalink to this definition">¶</a></dt>
+<dd><p>The login username for this machine. None if unknown</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.api.Provider">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.api.</code><code class="descname">Provider</code><span class="sig-paren">(</span><em>cloud</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/api.html#Provider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.api.Provider" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A Provider is a collection of <a class="reference internal" href="#cloudmesh_client.api.Resource" title="cloudmesh_client.api.Resource"><code class="xref py py-class docutils literal"><span class="pre">Resource</span></code></a>s
+that may be operated upon.</p>
+<dl class="method">
+<dt id="cloudmesh_client.api.Provider.boot">
+<code class="descname">boot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/api.html#Provider.boot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.api.Provider.boot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Boots a single VM</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.api.Provider.cfg">
+<code class="descname">cfg</code><em class="property"> = &lt;cloudmesh_client.common.ConfigDict.ConfigDict object&gt;</em><a class="headerlink" href="#cloudmesh_client.api.Provider.cfg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.api.Provider.cloud">
+<code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.api.Provider.cloud" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.api.Provider.create_ip">
+<code class="descname">create_ip</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/api.html#Provider.create_ip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.api.Provider.create_ip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates and associeates a public ip with given node</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node</strong> (<a class="reference internal" href="cloudmesh_client.deployer.ansible.html#cloudmesh_client.deployer.ansible.inventory.Node" title="cloudmesh_client.deployer.ansible.inventory.Node"><em>Node</em></a>) &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.api.Provider.db">
+<code class="descname">db</code><em class="property"> = &lt;cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase object&gt;</em><a class="headerlink" href="#cloudmesh_client.api.Provider.db" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.api.Provider.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/api.html#Provider.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.api.Provider.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a running <a class="reference internal" href="#cloudmesh_client.api.Node" title="cloudmesh_client.api.Node"><code class="xref py py-class docutils literal"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.api.Provider.from_cloud">
+<em class="property">classmethod </em><code class="descname">from_cloud</code><span class="sig-paren">(</span><em>cloud_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/api.html#Provider.from_cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.api.Provider.from_cloud" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cloud_name</strong> (<em>str</em>) &#8211; name of the cloud as found in cloudmesh.yaml</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.api.Provider.node">
+<code class="descname">node</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/api.html#Provider.node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.api.Provider.node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Factory method to create an instance of the
+appropriate subclass of <a class="reference internal" href="#cloudmesh_client.api.Node" title="cloudmesh_client.api.Node"><code class="xref py py-class docutils literal"><span class="pre">Node</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.api.Provider.resources">
+<code class="descname">resources</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/api.html#Provider.resources"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.api.Provider.resources" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.api.Resource">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.api.</code><code class="descname">Resource</code><a class="reference internal" href="../_modules/cloudmesh_client/api.html#Resource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.api.Resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cloudmesh_client.api.Resource.create">
+<code class="descname">create</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/api.html#Resource.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.api.Resource.create" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.api.Resource.db">
+<code class="descname">db</code><em class="property"> = &lt;cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase object&gt;</em><a class="headerlink" href="#cloudmesh_client.api.Resource.db" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.api.Resource.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/api.html#Resource.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.api.Resource.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.api.Resource.list">
+<code class="descname">list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/api.html#Resource.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.api.Resource.list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.api.Resource.refresh">
+<code class="descname">refresh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/api.html#Resource.refresh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.api.Resource.refresh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.api.Stack">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.api.</code><code class="descname">Stack</code><a class="reference internal" href="../_modules/cloudmesh_client/api.html#Stack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.api.Stack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="cloudmesh_client.api.Stack.db">
+<code class="descname">db</code><em class="property"> = &lt;cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase object&gt;</em><a class="headerlink" href="#cloudmesh_client.api.Stack.db" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cloudmesh_client.api.impl.html" class="btn btn-neutral float-right" title="cloudmesh_client.api.impl package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cloudmesh_client.html" class="btn btn-neutral" title="cloudmesh_client package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.5.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
