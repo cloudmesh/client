@@ -44,8 +44,8 @@ class Command(object):
 
             clustername = clustername or Default.generate_name(Names.CLUSTER_COUNTER)
             cloud = cloud or Default.cloud
-            username = username or Image.guess_username(image)
             image = image or Default.image
+            username = username or Image.guess_username(image)
             flavor = flavor or Default.flavor
             key = key or Default.key
             secgroup = secgroup or Default.secgroup
