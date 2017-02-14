@@ -181,7 +181,7 @@ class Command(object):
 
 
 class Cluster2Command(PluginCommand, CloudPluginCommand):
-    topics = {'cluster2': 'cluster'}
+    topics = {'cluster': 'cluster'}
 
     def __init__(self, context):
         self.context = context
@@ -189,16 +189,16 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
             print("init command cluster2 ")
 
     @command
-    def do_cluster2(self, args, arguments):
+    def do_cluster(self, args, arguments):
         """
         ::
             Usage:
-              cluster2 create [-n NAME] [-c COUNT] [-C CLOUD] [-u NAME] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]
-              cluster2 list
-              cluster2 nodes [CLUSTER]
-              cluster2 delete [--all] [--force] [NAME]...
-              cluster2 get [-n NAME] PROPERTY
-              cluster2 inventory [-F NAME] [-o PATH] [NAME]
+              cluster create [-n NAME] [-c COUNT] [-C CLOUD] [-u NAME] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]
+              cluster list
+              cluster nodes [CLUSTER]
+              cluster delete [--all] [--force] [NAME]...
+              cluster get [-n NAME] PROPERTY
+              cluster inventory [-F NAME] [-o PATH] [NAME]
 
             Commands:
 
