@@ -93,6 +93,16 @@ class Command(object):
         clusters = filter(lambda c: c.name != activename, clusters)
         return active, clusters
 
+    def show(self):
+        """Print the information for the active cluster
+
+        :returns: 
+        :rtype: 
+
+        """
+        cluster = Default.active_cluster
+        return cluster.list()
+
     def delete(self, clusternames=None, force=False, all=False):
         """Delete clusters that have these names.
 
@@ -195,6 +205,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
             Usage:
               cluster create [-n NAME] [-c COUNT] [-C CLOUD] [-u NAME] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]
               cluster list
+              cluster show
               cluster nodes [CLUSTER]
               cluster delete [--all] [--force] [NAME]...
               cluster get [-n NAME] PROPERTY
@@ -203,6 +214,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
             Commands:
 
               create     Create a cluster
+              show       Show the nodes of the cluster
               list       List the available clusters
               inventory  Obtain an inventory file
               delete     Delete clusters and associated instances
@@ -273,6 +285,12 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
 
             show(active, isactive=True)
             map(show, inactive)
+
+        elif arguments.show:
+            nodes = cmd.show()
+
+            for node in nodes:
+                print(node.name, node.floating_ip)
 
         elif arguments.nodes:
 
