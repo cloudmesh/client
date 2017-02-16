@@ -22,6 +22,7 @@ class Names:
 
     CLUSTER_COUNTER = 'cluster'
     ACTIVE_CLUSTER = 'active-cluster'
+    ACTIVE_SPECIFICATION = 'active-specification'
 
 
 # noinspection PyBroadException
@@ -222,6 +223,10 @@ class Default(object):
         return Cluster.from_name(name)
 
     @readable_classproperty
+    def active_specification(cls):
+        return cls.get(name=Names.ACTIVE_SPECIFICATION)
+
+    @readable_classproperty
     def user(cls):
         return cls.get(name="user")
 
@@ -419,13 +424,25 @@ class Default(object):
         cls.set("key", name)
 
     @classmethod
-    def set_cluster(cls, value):
+    def set_cluster_counter(cls, value):
         """
         sets the default cluster
         :param value: the cluster name as defined in the cloudmesh yaml file.
         :return:
         """
-        cls.set("cluster", value)
+        cls.set(Names.CLUSTER_COUNTER, value)
+
+    @classmethod
+    def set_specification(cls, value):
+        """Sets the default specification
+
+        :param cls: 
+        :param value: 
+        :returns: 
+        :rtype: 
+
+        """
+        cls.set(Names.ACTIVE_SPECIFICATION, value)
 
     @classmethod
     def set_debug(cls, value):
@@ -491,7 +508,7 @@ class Default(object):
 
         :param str value: cluster name
         """
-        cls.set('active-cluster', value)
+        cls.set(Names.ACTIVE_CLUSTER, value)
 
     @classmethod
     def load(cls, filename):

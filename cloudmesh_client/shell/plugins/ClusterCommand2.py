@@ -1,11 +1,13 @@
 from __future__ import print_function
 
 import sys
+from pprint import pprint
 from cloudmesh_client.platform.virtual_cluster.cluster import Cluster
 
 from cloudmesh_client.cloud.image import Image
 from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.db import SPECIFICATION
 from cloudmesh_client.default import Default, Names
 from cloudmesh_client.deployer.ansible.inventory import Inventory, Node
 from cloudmesh_client.exc import (ClusterNameClashException,
@@ -14,66 +16,88 @@ from cloudmesh_client.shell.command import (CloudPluginCommand, PluginCommand,
     command)
 from cloudmesh_client.shell.console import Console
 
-
 db = CloudmeshDatabase
 
 
 class Command(object):
-    def create(self, clustername=None, cloud=None, count=1,
-               username=None, image=None, flavor=None, key=None,
-               secgroup=None, assignFloatingIP=True,
-               activate=True):
-            """Create a cluster.
+    def define(self, clustername=None, **kwargs):
+            """Define a cluster.
 
-            If values are `None`, they are automatically determined via
-            defaults.
+            kwargs are passed to Cluster
 
-            :param str clustername: name of this cluster (generated if None)
-            :param str cloud: cloud name
-            :param int count: number of instances in the cluster
-            :param str user: cloudmesh user
-            :param str username: cloud image username
-            :param str image: image name
-            :param str flavor: instance flavor
-            :param str key: key name
-            :param str secgroup: security group name
-            :param bool activate: activate this cluster after creation
             :returns: a cluster
             :rtype: :class:`Cluster`
             """
 
             clustername = clustername or Default.generate_name(Names.CLUSTER_COUNTER)
-            cloud = cloud or Default.cloud
-            image = image or Default.image
-            username = username or Image.guess_username(image)
-            flavor = flavor or Default.flavor
-            key = key or Default.key
-            secgroup = secgroup or Default.secgroup
+
+            # remove None to defer default definitions to later
+            for k in kwargs.keys():
+                if kwargs[k] is None:
+                    del kwargs[k]
 
             try:
-                cluster = Cluster(
-                    name=clustername,
-                    count=count,
-                    cloud=cloud,
-                    username=username,
-                    image=image,
-                    flavor=flavor,
-                    key=key,
-                    secgroup=secgroup,
-                    assignFloatingIP=assignFloatingIP,
-                )
-            except ClusterNameClashException as e:
-                Console.error(str(e))
-                raise UnrecoverableErrorException(str(e))
+                spec = db.select(SPECIFICATION, name=clustername, type='cluster')[0]
+                spec.update(kwargs)
+                db.updateObj(spec)
+            except IndexError:
+                spec = SPECIFICATION(clustername, 'cluster', kwargs)
+                db.insert(spec)
 
-            cluster.create()
-            Console.ok('Cluster {} created'.format(clustername))
+            Default.set_specification(clustername)
+            Console.ok('Defined cluster {}'.format(clustername))
 
-            if activate:
-                Default.set_cluster(clustername)
-                Console.ok('Cluster {} is now active'.format(clustername))
+    def undefine(self, all=False):
 
-            return cluster
+        specs = []
+
+        if all:
+            for spec in db.select(SPECIFICATION, type='cluster'):
+                specs.append(spec)
+
+        for spec in specs:
+            db.delete_(SPECIFICATION, cm_id = spec.cm_id)
+
+
+    def avail(self):
+        """Show the available cluster specifications
+        """
+
+        specs = db.select(SPECIFICATION, type='cluster')
+        active = Default.active_specification
+
+        for spec in specs:
+            marker = '>' if spec.name == active else ' '
+            print('{} {}'.format(marker, spec.name))
+            for k, v in spec.get().iteritems():
+                print('{:>4}{:<30}: {}'.format('', k, v))
+
+
+
+    def create(self, clustername=None):
+
+        specname = clustername or Default.active_specification
+
+        try:
+            spec = db.select(SPECIFICATION, name=specname)[0]
+        except IndexError:
+            Console.error('No specification with name={} found'.format(specname))
+            return 1
+
+        defns = spec.get()
+
+        try:
+            cluster = Cluster(name=spec.name, specId=spec.cm_id, **defns)
+        except ClusterNameClashException as e:
+            Console.error(str(e))
+            raise UnrecoverableErrorException(str(e))
+
+        cluster.create()
+        Console.ok('Cluster {} created'.format(cluster.name))
+        Default.set_cluster(cluster.name)
+        Console.ok('Cluster {} is now active'.format(cluster.name))
+
+        return cluster
 
     def list(self):
         """List the clusters created
@@ -203,7 +227,10 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         """
         ::
             Usage:
-              cluster create [-n NAME] [-c COUNT] [-C CLOUD] [-u NAME] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]
+              cluster define [-n NAME] [-c COUNT] [-C CLOUD] [-u NAME] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]
+              cluster undefine
+              cluster create
+              cluster avail
               cluster list
               cluster show
               cluster nodes [CLUSTER]
@@ -213,7 +240,9 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
 
             Commands:
 
-              create     Create a cluster
+              Define     Create a cluster specification
+              avail      Show available cluster specifications
+              create     Create a cluster from the active specification
               show       Show the nodes of the cluster
               list       List the available clusters
               inventory  Obtain an inventory file
@@ -251,10 +280,10 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         arguments = dotdict(arguments)
         cmd = Command()
 
-        if arguments.create:
+        if arguments.define:
 
-            cmd.create(
-                clustername=arguments['--name'],
+            cmd.define(
+                clustername = arguments['--name'],
                 count=arguments['--count'] or 1,
                 cloud=arguments['--cloud'] or Default.cloud,
                 username=arguments['--username'],
@@ -264,6 +293,17 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
                 secgroup=arguments['--secgroup'] or Default.secgroup,
                 assignFloatingIP=not arguments['--no-floating-ip'],
             )
+
+        elif arguments.undefine:
+            cmd.undefine(all=True)  # FIXME
+
+        elif arguments.avail:
+
+            cmd.avail()
+
+        elif arguments.create:
+
+            cmd.create()
 
         elif arguments.list:
 
