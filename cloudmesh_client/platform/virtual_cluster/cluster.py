@@ -9,6 +9,9 @@ from cloudmesh_client.db.general.model import CLUSTER
 from cloudmesh_client.exc import ClusterNameClashException
 from cloudmesh_client.shell.console import Console
 
+from cloudmesh_client.default import Default
+from cloudmesh_client.cloud.image import Image
+
 
 class Cluster(CLUSTER):  # list abstraction see other commands
 
@@ -19,6 +22,14 @@ class Cluster(CLUSTER):  # list abstraction see other commands
 
         # Use the table defined in the model, but we need to look up
         # the provider object dynamically
+
+        kwargs['cloud'] = kwargs.get('cloud', Default.cloud)
+        kwargs['image'] = kwargs.get('image', Default.image)
+        kwargs['username'] = kwargs.get('username', Image.guess_username(kwargs['image']))
+        kwargs['flavor'] = kwargs.get('flavor', Default.flavor)
+        kwargs['key'] = kwargs.get('key', Default.key)
+        kwargs['secgroup'] = kwargs.get('secgroup', Default.secgroup)
+
 
         super(Cluster, self).__init__(*args, **kwargs)
         self.provider = CloudProvider(self.cloud).provider.cloud_type
