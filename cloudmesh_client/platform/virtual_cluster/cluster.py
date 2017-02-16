@@ -70,6 +70,7 @@ class Cluster(CLUSTER):  # list abstraction see other commands
         """Delete this cluster and all component nodes"""
         for node in self:
             Vm.delete(servers=[node.name], force=force)
+            self.cm.delete(kind="vm", provider=self.provider, name=node.name)
 
         self.cm.delete_(self.__class__, cm_id=self.cm_id)
 
