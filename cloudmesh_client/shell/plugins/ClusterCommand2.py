@@ -49,14 +49,35 @@ class Command(object):
 
     def undefine(self, all=False):
 
-        specs = []
+        specs = set()
 
         if all:
             for spec in db.select(SPECIFICATION, type='cluster'):
-                specs.append(spec)
+                specs.add(spec)
+
+
+        try:
+            spec = db.select(SPECIFICATION, type='cluster', name=Default.active_specification)[0]
+            specs.add(spec)
+        except IndexError:
+            pass
 
         for spec in specs:
             db.delete_(SPECIFICATION, cm_id = spec.cm_id)
+
+        try:
+            spec = db.select(SPECIFICATION, type='cluster')[0]
+            Default.set_specification(spec.name)
+        except IndexError:
+            pass
+
+    def use(self, specname):
+        """Activate the given specification
+
+        :param specname: namne of the specification
+        """
+        spec = db.select(SPECIFICATION, type='cluster', name=specname)[0]
+        Default.set_specification(spec.name)
 
 
     def avail(self):
@@ -74,7 +95,7 @@ class Command(object):
 
 
 
-    def create(self, clustername=None):
+    def allocate(self, clustername=None):
 
         specname = clustername or Default.active_specification
 
@@ -228,9 +249,10 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         ::
             Usage:
               cluster define [-n NAME] [-c COUNT] [-C CLOUD] [-u NAME] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]
-              cluster undefine
-              cluster create
+              cluster undefine [--all]
+              cluster allocate
               cluster avail
+              cluster use <NAME>
               cluster list
               cluster show
               cluster nodes [CLUSTER]
@@ -242,6 +264,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
 
               Define     Create a cluster specification
               avail      Show available cluster specifications
+              use        Activate the specification with the given name
               create     Create a cluster from the active specification
               show       Show the nodes of the cluster
               list       List the available clusters
@@ -295,15 +318,19 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
             )
 
         elif arguments.undefine:
-            cmd.undefine(all=True)  # FIXME
+            cmd.undefine(all=arguments['--all'])
 
         elif arguments.avail:
 
             cmd.avail()
 
-        elif arguments.create:
+        elif arguments.use:
 
-            cmd.create()
+            cmd.use(arguments['<NAME>'])
+
+        elif arguments.allocate:
+
+            cmd.allocate()
 
         elif arguments.list:
 
