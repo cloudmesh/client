@@ -148,16 +148,6 @@ class Command(object):
         clusters = filter(lambda c: c.name != activename, clusters)
         return active, clusters
 
-    def show(self):
-        """Print the information for the active cluster
-
-        :returns: 
-        :rtype: 
-
-        """
-        cluster = Default.active_cluster
-        return cluster.list()
-
     def delete(self, clusternames=None, force=False, all=False):
         """Delete clusters that have these names.
 
@@ -259,12 +249,12 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         ::
             Usage:
               cluster define [-n NAME] [-c COUNT] [-C CLOUD] [-u NAME] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]
-              cluster undefine [--all] [NAME]
-              cluster allocate
+              cluster undefine [--all] [NAME]...
               cluster avail
               cluster use <NAME>
+              cluster allocate
+              cluster add [NAME]...
               cluster list
-              cluster show
               cluster nodes [CLUSTER]
               cluster delete [--all] [--force] [NAME]...
               cluster get [-n NAME] PROPERTY
@@ -272,11 +262,12 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
 
             Commands:
 
-              Define     Create a cluster specification
+              define     Create a cluster specification
+              undefine   Delete the active or given specifications
               avail      Show available cluster specifications
               use        Activate the specification with the given name
-              create     Create a cluster from the active specification
-              show       Show the nodes of the cluster
+              allocate   Create a cluster from the active specification
+              nodes      Show the nodes of the cluster
               list       List the available clusters
               inventory  Obtain an inventory file
               delete     Delete clusters and associated instances
@@ -367,20 +358,11 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
             show(active, isactive=True)
             map(show, inactive)
 
-        elif arguments.show:
-            nodes = cmd.show()
+        elif arguments.nodes:
+            nodes = cmd.nodes()
 
             for node in nodes:
                 print(node.name, node.floating_ip)
-
-        elif arguments.nodes:
-
-            cluster = db.select(Cluster, name=arguments.CLUSTER).one() \
-                    if arguments.CLUSTER \
-                    else None
-            nodes = cmd.nodes(cluster=cluster)
-            for node in nodes:
-                print(node.name)
 
         elif arguments.delete:
 
