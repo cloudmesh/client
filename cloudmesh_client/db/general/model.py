@@ -265,7 +265,7 @@ class CLUSTER(CloudmeshMixin, CloudmeshDatabase.Base):
     image = Column(String)
     flavor = Column(String)
     key = Column(String)
-    secgroupname = Column(String)
+    secgroup = Column(String)
     assignFloatingIP = Column(Boolean, default=True)
 
     def __init__(self, name=None, specId=None, cloud=None, count=None,
