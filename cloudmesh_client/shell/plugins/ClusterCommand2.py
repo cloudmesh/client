@@ -118,15 +118,15 @@ class Command(object):
         defns = spec.get()
 
         try:
+            cluster = db.select(Cluster, name=spec.name, specId=spec.cm_id)[0]
+        except IndexError:
             cluster = Cluster(name=spec.name, specId=spec.cm_id, **defns)
-        except ClusterNameClashException as e:
-            Console.error(str(e))
-            raise UnrecoverableErrorException(str(e))
+
+        Default.set_cluster(cluster.name)
+        Console.ok('Cluster {} is now active'.format(cluster.name))
 
         cluster.create()
         Console.ok('Cluster {} created'.format(cluster.name))
-        Default.set_cluster(cluster.name)
-        Console.ok('Cluster {} is now active'.format(cluster.name))
 
         return cluster
 
