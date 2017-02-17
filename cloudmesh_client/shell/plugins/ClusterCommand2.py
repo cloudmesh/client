@@ -47,7 +47,7 @@ class Command(object):
             Default.set_specification(clustername)
             Console.ok('Defined cluster {}'.format(clustername))
 
-    def undefine(self, all=False):
+    def undefine(self, specname=None, all=False):
 
         specs = set()
 
@@ -57,13 +57,23 @@ class Command(object):
 
 
         try:
-            spec = db.select(SPECIFICATION, type='cluster', name=Default.active_specification)[0]
+            spec = db.select(SPECIFICATION, type='cluster', name=specname or Default.active_specification)[0]
             specs.add(spec)
         except IndexError:
             pass
 
         for spec in specs:
+
+            try:
+                cluster = db.select(Cluster, specId=spec.cm_id)[0]
+                Console.warning('Cannot undefine allocated cluster {}.'.format(cluster.name))
+                Console.warning('Please delete the cluster first')
+                continue
+            except IndexError:
+                pass
+
             db.delete_(SPECIFICATION, cm_id = spec.cm_id)
+            Console.ok('Undefined specification {}'.format(spec.name))
 
         try:
             spec = db.select(SPECIFICATION, type='cluster')[0]
@@ -249,7 +259,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         ::
             Usage:
               cluster define [-n NAME] [-c COUNT] [-C CLOUD] [-u NAME] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]
-              cluster undefine [--all]
+              cluster undefine [--all] [NAME]
               cluster allocate
               cluster avail
               cluster use <NAME>
@@ -318,7 +328,11 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
             )
 
         elif arguments.undefine:
-            cmd.undefine(all=arguments['--all'])
+            if arguments['NAME']:
+                for specname in arguments['NAME']:
+                    cmd.undefine(specname=specname, all=arguments['--all'])
+            else:
+                cmd.undefine(all=arguments['--all'])
 
         elif arguments.avail:
 
