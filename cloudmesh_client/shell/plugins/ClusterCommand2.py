@@ -130,6 +130,12 @@ class Command(object):
 
         return cluster
 
+    def cross_ssh(self, clustername=None):
+
+        clustername = clustername = Default.cluster
+        cluster = db.select(Cluster, name=clustername)[0]
+        cluster.enable_cross_ssh_login()
+
     def list(self):
         """List the clusters created
 
@@ -253,6 +259,7 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
               cluster avail
               cluster use <NAME>
               cluster allocate
+              cluster cross_ssh
               cluster add [NAME]...
               cluster list
               cluster nodes [CLUSTER]
@@ -336,6 +343,10 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
         elif arguments.allocate:
 
             cmd.allocate()
+
+        elif arguments.cross_ssh:
+
+            cmd.cross_ssh()
 
         elif arguments.list:
 
