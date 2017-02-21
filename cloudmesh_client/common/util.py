@@ -1,4 +1,5 @@
 from __future__ import print_function
+from contextlib import contextmanager
 from string import Template
 import inspect
 import glob
@@ -7,12 +8,32 @@ import shutil
 import collections
 # import pip
 import time
+import tempfile
 import sys
 import re
 
 from builtins import input
 from past.builtins import basestring
 import random
+
+
+@contextmanager
+def tempdir(*args, **kwargs):
+    """A contextmanager to work in an auto-removed temporary directory
+
+    Arguments are passed through to tempfile.mkdtemp
+
+    example:
+
+    >>> with tempdir() as path:
+    ...    pass
+    """
+
+    d = tempfile.mkdtemp(*args, **kwargs)
+    try:
+        yield d
+    finally:
+        shutil.rmtree(d)
 
 
 def exponential_backoff(fn, sleeptime_s_max=30*60):
