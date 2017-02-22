@@ -103,22 +103,35 @@ class HadoopCommand(PluginCommand, CloudPluginCommand):
         ::
 
            Usage:
-             hadoop start [-f NAME] [-i NAME] [-u NAME] [COUNT] [ADDON]...
-             hadoop list
-             hadoop switch NAME
-             hadoop delete [-a] [NAME]...
+             hadoop pull [URL] [-b NAME] [-d COUNT]
+             hadoop addons
+             hadoop define [ADDON]...
+             hadoop undefine [NAME]...
+             hadoop avail
+             hadoop use NAME
+             hadoop deploy
 
            Arguments:
 
-             COUNT
-             ADDON
-             NAME
+             CLUSTER         Name of a cluster
+             ADDON           Big Data Stack addon (eg: spark, hbase, pig)
+             NAME            Alphanumeric name
+             COUNT           Integer greater than zero
+
+           Commands:
+
+             pull       Checkout the Big Data Stack
+             addons     List available addons
+             define     Create a deployment specification
+             undefine   Delete the active or given specifications
+             avail      Show available deployment specifications
+             use        Activate the specification with the given name
+             deploy     Deploy the active specification onto the active cluster
 
            Options:
 
-             -a --all
-             -f --flavor=NAME
-             -i --image=NAME
+             -b --branch=NAME      Branch to use
+             -d --depth=COUNT      Clone depth
              -u --username=NAME
 
         """
@@ -126,25 +139,43 @@ class HadoopCommand(PluginCommand, CloudPluginCommand):
         arguments = dotdict(arguments)
         cmd = Command()
 
-        if arguments.start:
+        if arguments.pull:
 
-            cmd.start(
-                count=arguments.COUNT or 3,
-                addons=arguments.ADDON,
-                flavor=arguments['--flavor'],
-                image=arguments['--image'],
-                username=arguments['--username'],
+            cmd.pull(
+                url=arguments['URL'],
+                branch=arguments['--branch'],
+                depth=arguments['--depth'],
             )
 
-        elif arguments.list:
+        elif arguments.addons:
 
-            cmd.list()
+            addons = cmd.addons()
+            for name in addons:
+                print(name)
 
-        elif arguments.switch:
+        elif arguments.define:
 
-            cmd.switch(arguments.NAME)
+            cmd.define(
+                addons=arguments['ADDON'],
+            )
 
-        elif arguments.delete:
+        elif arguments.undefine:
 
-            cmd.delete(arguments.NAME, all=arguments['--all'])
+            cmd.undefine(
+                names=arguments['NAME']
+            )
+
+        elif arguments.avail:
+
+            defns = cmd.avail()
+            for defn in defns:
+                print(defn)
+
+        elif arguments.use:
+
+            cmd.use(arguments['NAME'])
+
+        elif arguments.deploy:
+
+            cmd.deploy()
 
