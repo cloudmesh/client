@@ -21,6 +21,8 @@ class Names:
     VM_COUNTER = 'vm_counter'
 
     CLUSTER_COUNTER = 'cluster'
+    STACK_COUNTER = 'stack'
+    ACTIVE_STACK = 'active-stack'
     ACTIVE_CLUSTER = 'active-cluster'
     ACTIVE_SPECIFICATION = 'active-specification'
 
@@ -201,6 +203,10 @@ class Default(object):
             cls.set_debug(True)
             return True
         return value
+
+    @readable_classproperty
+    def active_stack(cls):
+        return cls.get(name=Names.ACTIVE_STACK)
 
     @readable_classproperty
     def cluster(cls):
@@ -501,6 +507,14 @@ class Default(object):
         :return:
         """
         cls.set("timer", value)
+
+    @classmethod
+    def set_stack(cls, name):
+        """Sets the stack name
+
+        :param str name: stack name
+        """
+        cls.set(Names.ACTIVE_STACK, name)
 
     @classmethod
     def set_cluster(cls, value):

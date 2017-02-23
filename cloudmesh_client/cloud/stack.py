@@ -211,7 +211,10 @@ class ProjectDB(object):
         :raises: :class:`KeyError` if no project is currently active
         """
 
-        return self[self.active]
+        if self.active:
+            return self[self.active]
+        else:
+            raise ValueError('No active project')
 
 
 class ProjectFactory(object):
@@ -406,12 +409,31 @@ class KWArgs(object):
 class BigDataStack(object):
     def __init__(self, dest,
                  repo='git://github.com/futuresystems/big-data-stack.git',
-                 branch='master'):
+                 branch='master',
+                 **kwargs
+    ):
         self.path = os.path.abspath(dest)
         self.repo = repo
         self.branch = branch
         self.local = os.path.isdir(repo)
         self._env = dict()
+
+    @classmethod
+    def load(cls, path):
+        filename = os.path.join(path, '.cloudmesh_metadata')
+        Console.debug_msg('Loading {} to {}'.format(cls.__name__, filename))
+        with open(filename) as fd:
+            d = yaml.load(fd)
+        stack = cls(dest=path, **d)
+        stack._env = d['_env']
+        return stack
+
+    def sync_metadata(self):
+        path = os.path.join(self.path, '.cloudmesh_metadata')
+        Console.debug_msg('Saving {} to {}'.format(self.__class__.__name__, path))
+        y = yaml.dump(self.__dict__, default_flow_style=False)
+        with open(path, 'w') as fd:
+            fd.write(y)
 
     def init(self, force=False, update=False):
         """Initialize by cloning (or updating if requested) a local copy of
