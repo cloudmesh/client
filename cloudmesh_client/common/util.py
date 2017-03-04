@@ -44,7 +44,7 @@ def exponential_backoff(fn, sleeptime_s_max=30*60):
         if fn() == True:
             return True
         else:
-            print ('Sleepting {} ms'.format(sleeptime_ms))
+            print ('Sleeping {} ms'.format(sleeptime_ms))
             time.sleep(sleeptime_ms / 1000.0)
             sleeptime_ms *= 2
 
