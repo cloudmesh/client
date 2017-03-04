@@ -105,6 +105,12 @@ class Command(object):
             defines = opts.get('defines', None),
         )
 
+    def avail(self):
+
+        specs = db.select(SPECIFICATION, type='stack')
+        active = Default.active_stack
+
+        return active, specs
 
 class HadoopCommand(PluginCommand, CloudPluginCommand):
 
@@ -185,9 +191,14 @@ class HadoopCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments.avail:
 
-            defns = cmd.avail()
-            for defn in defns:
-                print(defn)
+            active, specs = cmd.avail()
+
+            for spec in specs:
+                marker = '>' if spec.name == active else ' '
+                print('{} {}'.format(marker, spec.name))
+                for k, v in spec.get().iteritems():
+                    print('{:>4}{:<30}: {}'.format('', k, v))
+
 
         elif arguments.use:
 
