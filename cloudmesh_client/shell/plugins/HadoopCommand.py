@@ -78,7 +78,6 @@ class Command(object):
         # The list of addons are in the addons subdir of the BDS repo:
         # https://github.com/futuresystems/big-data-stack/tree/master/addons
         addons = [
-            'analytics_dependencies',
             'hbase',
             'hive',
             'pig',
