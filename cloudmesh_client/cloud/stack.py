@@ -542,6 +542,11 @@ class BigDataStack(object):
         basic_command = ['ansible-playbook', '-u', user]
         Console.debug_msg('Running playbooks {}'.format(playbooks))
         for play in playbooks:
+            donefile = os.path.join(self.path, play) + '.done'
+            if os.path.exists(donefile):
+                Console.ok('Skipping completed play %s' % play)
+                continue
+
             cmd = basic_command + [play]
             define = ['{}={}'.format(k, v) for k, v in defines[play]]
             if define:
@@ -550,6 +555,8 @@ class BigDataStack(object):
                          .format(play, define))
             Subprocess(cmd, cwd=self.path, env=self._env,
                        stdout=None, stderr=None)
+            with open(donefile, 'w') as fd:
+                fd.write('')
 
 
 class SanityCheckError(Exception):
