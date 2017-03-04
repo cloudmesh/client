@@ -15,6 +15,7 @@ import yaml
 
 import requests
 
+from cloudmesh_client.common.util import exponential_backoff
 from cloudmesh_client.common.Shell import Subprocess, SubprocessError
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.db import CloudmeshDatabase
@@ -481,7 +482,7 @@ class BigDataStack(object):
         Subprocess(cmd, cwd=self.path, env=self._env)
 
     def deploy(self, ips=None, name=None, user=None, playbooks=None,
-               defines=None, ping_max=10, ping_sleep=10):
+               defines=None):
         """Deploy the big-data-stack to a previously stood up cluster located
         at `ips` with login user `user`.
 
@@ -501,8 +502,6 @@ class BigDataStack(object):
         :type ping_sleep: :class:`int`
         """
         assert ips is not None
-        assert ping_max > 0, ping_max
-        assert ping_sleep > 0, ping_sleep
 
         name = name or os.getenv('USER') + '-' + os.path.basename(self.path)
         user = user or 'defaultuser'
@@ -518,26 +517,17 @@ class BigDataStack(object):
             fd.write(inventory.stdout)
 
         Console.info('Waiting for cluster to be accessible')
-        ping_ok = False
-        for i in xrange(ping_max):
-            Console.debug_msg('Attempt {} / {}'.format(i+1, ping_max))
+
+        def ping():
             try:
                 Subprocess(['ansible', 'all', '-m', 'ping', '-u', user],
                            cwd=self.path, env=self._env,
                            stdout=None, stderr=None)
-                ping_ok = True
-                Console.debug_msg('Success!')
-                break
+                return True
             except SubprocessError:
-                Console.debug_msg('Failure, sleeping for {} seconds'
-                                  .format(ping_sleep))
-                time.sleep(ping_sleep)
+                return False
 
-        if not ping_ok:
-            msg = 'Ping Failure'
-            reason = 'Unable to connect to all nodes'
-            Console.error(' '.join([msg, reason]))
-            raise SanityCheckError(message=msg, reason=reason)
+        exponential_backoff(ping)
 
         basic_command = ['ansible-playbook', '-u', user]
         Console.debug_msg('Running playbooks {}'.format(playbooks))
