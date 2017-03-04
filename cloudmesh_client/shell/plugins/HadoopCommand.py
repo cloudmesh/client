@@ -95,10 +95,7 @@ class Command(object):
 
         cluster_cmd = ClusterCommand()
         cluster = cluster_cmd.allocate(clustername=clustername)
-
-        vm_usernames = set([node.username for node in cluster])
-        assert len(vm_usernames) == 1, vm_usernames
-        user = vm_usernames.pop()
+        user = cluster.username
 
         stack = BigDataStack.load(opts.get('local_path'))
         stack.deploy(
