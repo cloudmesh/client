@@ -28,7 +28,7 @@ class ResetCommand(PluginCommand, CloudPluginCommand):
 
         Description:
 
-            DANGER: This method erases the database.
+            DANGER: This method erases the database and quits the shell.
 
 
         Examples:
@@ -41,9 +41,9 @@ class ResetCommand(PluginCommand, CloudPluginCommand):
         Console.ok("Database reset")
         #r = self.do_register("profile")
         #r = self.do_info("")
-
-        r = self.do_quit(None)
-        Console.error(
-            "Quitting the shell does not yet work. please exit the shell now.")
+        os._exit(0)
+        # r = self.do_quit(None)
+        # Console.error(
+        #     "Quitting the shell does not yet work. please exit the shell now.")
         return ""
 

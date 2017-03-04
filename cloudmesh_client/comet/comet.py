@@ -381,7 +381,7 @@ class Comet(object):
                 ret = {"error": "%s" % r.text}
         elif "APIKEY" == Comet.auth_provider:
             headers = {'content-type': 'application/json',
-                       "timestamp": int(time.time()),
+                       "timestamp": str(int(time.time())),
                        "nonce": Comet.get_nonce(),
                        "X-Api-Key": Comet.api_key}
             # print ("KKK", headers)
@@ -390,7 +390,7 @@ class Comet(object):
             # print ("KKK", cacert)
             if 'post' == action:
                 if files:
-                    headers = {"timestamp": int(time.time()),
+                    headers = {"timestamp": str(int(time.time())),
                                "nonce": Comet.get_nonce(),
                                "X-Api-Key": Comet.api_key,
                                "md5": md5}
@@ -445,7 +445,7 @@ class Comet(object):
             elif r.status_code == 201:
                 finished = False
                 newurl = r.headers["Location"]
-                headers["timestamp"] = int(time.time())
+                headers["timestamp"] = str(int(time.time()))
                 headers["nonce"] = Comet.get_nonce()
                 while not finished:
                     ret = requests.get(newurl, auth=Comet.api_auth, headers=headers)
