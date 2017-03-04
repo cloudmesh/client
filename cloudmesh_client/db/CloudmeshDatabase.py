@@ -1083,5 +1083,5 @@ class CloudmeshDatabase(object):
                 Console.error("refresh not supported for this kind: {}".format(kind))
 
         except Exception as ex:
-            Console.error("Problem with secgroup")
+            Console.error("Problem during refresh: %r" % ex)
             return False
