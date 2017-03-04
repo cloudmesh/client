@@ -79,7 +79,6 @@ class Command(object):
         # https://github.com/futuresystems/big-data-stack/tree/master/addons
         addons = [
             'analytics_dependencies',
-            'drill',
             'hbase',
             'hive',
             'pig',
