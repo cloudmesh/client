@@ -110,7 +110,7 @@ class Cluster(object):
             if 'error' in r:
                 Console.error("An error occurred: {error}".format(**r))
                 raise ValueError("COMET Error")
-            elif 'error' in r[0]:
+            elif len(r) > 0 and 'error' in r[0]:
                 Console.error("An error occurred: {error}".format(**r[0]))
                 raise ValueError("COMET Error")
 
