@@ -105,7 +105,7 @@ class Command(object):
             ips = [node.floating_ip or node.static_ip for node in cluster],
             name = stackname,
             user = user,
-            playbooks = ['play-hadoop.yml'] + ['addons/%s' % addon for addon in opts['addons']],
+            playbooks = ['play-hadoop.yml'] + ['addons/%s.yml' % addon for addon in opts['addons']],
             defines = opts.get('defines', None),
         )
 
