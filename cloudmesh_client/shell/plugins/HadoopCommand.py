@@ -112,6 +112,15 @@ class Command(object):
 
         return active, specs
 
+    def use(self, specname):
+        """Activate the given specification
+
+        :param specname: namne of the specification
+        """
+        spec = db.select(SPECIFICATION, type='stack', name=specname)[0]
+        Default.set_stack(spec.name)
+
+
 class HadoopCommand(PluginCommand, CloudPluginCommand):
 
     topics = {"hadoop": "cluster"}
@@ -202,7 +211,7 @@ class HadoopCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments.use:
 
-            cmd.use(arguments['NAME'])
+            cmd.use(arguments['NAME'][0])
 
         elif arguments.deploy:
 
