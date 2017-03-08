@@ -260,7 +260,6 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
               cluster use <NAME>
               cluster allocate
               cluster cross_ssh
-              cluster add [NAME]...
               cluster list
               cluster nodes [CLUSTER]
               cluster delete [--all] [--force] [NAME]...
