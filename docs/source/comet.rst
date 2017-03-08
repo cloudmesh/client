@@ -138,8 +138,7 @@ Comet cluster where the regular HPC jobs are running, thus the starting
 of VC nodes are also subject to the availability of system resources at
 the time when VC requests are being made.
 
-Why the computeset I started shows as 'active' but the nodes of the
-computeset are not running?
+Why the computeset I started shows as 'active' but the nodes of the computeset are not running?
 ~~~~~~~~~~~~
 
 There are various cases that why this might happen.
