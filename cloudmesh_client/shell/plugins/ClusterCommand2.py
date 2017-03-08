@@ -218,8 +218,12 @@ class Command(object):
 
         """
 
-        cluster = cluster or Default.active_cluster
-        return cluster.list()
+        try:
+            cluster = cluster or Default.active_cluster
+            return cluster.list()
+        except NoActiveClusterException:
+            Console.error('No cluster is active. Did you forget to allocate?')
+            return []
 
 
     def inventory(self, cluster=None, format=None, path=None):
