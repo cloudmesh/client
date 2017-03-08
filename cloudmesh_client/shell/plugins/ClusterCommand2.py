@@ -88,6 +88,7 @@ class Command(object):
         """
         spec = db.select(SPECIFICATION, type='cluster', name=specname)[0]
         Default.set_specification(spec.name)
+        Default.set_cluster(spec.name)
 
 
     def avail(self):
@@ -219,10 +220,12 @@ class Command(object):
         """
 
         try:
-            cluster = cluster or Default.active_cluster
+            import pdb; pdb.set_trace()
+            name = cluster or Default.cluster
+            cluster = Cluster.from_name(name)
             return cluster.list()
-        except NoActiveClusterException:
-            Console.error('No cluster is active. Did you forget to allocate?')
+        except:
+            Console.error('Cluster {} is active. Did you forget to allocate?'.format(name))
             return []
 
 
@@ -373,7 +376,8 @@ class Cluster2Command(PluginCommand, CloudPluginCommand):
             map(show, inactive)
 
         elif arguments.nodes:
-            nodes = cmd.nodes()
+
+            nodes = cmd.nodes(cluster=arguments['CLUSTER'])
 
             for node in nodes:
                 print(node.name, node.floating_ip)
