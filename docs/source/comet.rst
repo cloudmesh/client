@@ -59,7 +59,7 @@ Links
 * http://www.sdsc.edu/support/user_guides/comet.html
 * Comet nucleus API Docs: https://comet-nucleus.sdsc.edu/nucleus/docs/
 
-How to get a virtual cluster?
+Steps to get a virtual cluster on comet
 ------------------------------
 
 1. Obtain an allocation via XSEDE as documented at
@@ -127,8 +127,35 @@ How to get a virtual cluster?
 
      cm comet console vc2 vm-vc2-0
 
-Why are the names of the nodes so complicated?
+FAQ
 -----------------------------------------------
+
+Why the nodes/computeset I requested to start was not started immediately?
+~~~~~~~~~~~~
+
+Comet virtual clusters are deployed on the same physical resources of
+Comet cluster where the regular HPC jobs are running, thus the starting
+of VC nodes are also subject to the availability of system resources at
+the time when VC requests are being made.
+
+Why the computeset I started shows as 'active' but the nodes of the
+computeset are not running?
+~~~~~~~~~~~~
+
+There are various cases that why this might happen.
+
+1. The physical host(s) where the VM(s) are to be deployed is having memory
+issue (fragmentation, not enough) which prevents the VM(s) to be running. We
+are consistently working on improving the situation in similar cases, but if
+you encounter this please submit a ticket for help.
+
+2. In some case you might have a 'bad' ISO attached to the node to be started,
+which caused it to be stuck in the booting process. You can verify this by
+attaching to the console access. The fix for this is to detach the ISO, or
+attach another proper one.
+
+Why are the names of the nodes so complicated?
+~~~~~~~~~~~~
 
 And why do I also need to specify the name of the cluster? Can this
 not be omitted?
@@ -153,7 +180,7 @@ This wil than result in a cluster where the frontend name is osg
 osg-1, osg-2, ...
 
 I have the Comet YubiKey mixed up with my other keys. How can I find which one is for Comet?
-----------------------
+~~~~~~~~~~~~
 
 Plug the key in and tap it into notepad or something similar. It will
 generate a string similar to this:
@@ -164,8 +191,7 @@ generate a string similar to this:
  should generate a string starting with these characters.
 
 How do I get support?
-----------------------
+~~~~~~~~~~~~
 
-At this time simply send mail to laszewski AT gmail DOT com and
-kevinwangfg AT gmail DOT com.  We will get back to you ASAP hopefully
-within one business day.
+Please submit a ticket to XSEDE ticket system, while putting COMET VC
+on the subject line.
