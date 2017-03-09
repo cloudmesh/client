@@ -59,6 +59,45 @@ Links
 * http://www.sdsc.edu/support/user_guides/comet.html
 * Comet nucleus API Docs: https://comet-nucleus.sdsc.edu/nucleus/docs/
 
+Eligibility and expectation to get/run a virtual cluster on comet
+------------------------------
+For the project PI, it has the same requirements as for an XSEDE allocation.
+I.e., you must be a U.S. researcher, or collaborating with a U.S. researcher.
+For the VC admins, it is expected that they have experiences on managing
+a cluster similar to the one they are going to manage. E.g., they must be
+comfortable to work on the installation, setup and various configurations
+on the OS and software stack they want to have, especially on the security
+and network configuration aspects. As the VC admins are the people who setup
+their system from scratch and have sole root previledge on their systems, it
+is up to the admins to carefully manage their VCs during the life cycle of
+the nodes.
+
+Is Comet virtual cluster a right solution for your project?
+------------------------------
+Comet VC has its uniqueness that it provides a near bare-metal experience
+on both managemental and performance aspects. It utilized virualization
+based technologies but always has HPC in the mind. You are managing/using
+a VC as if it were an on-premise physical cluster in your institution. You
+have full control (and responsiblity) to your cluster, from the OS flavor
+to what software stacks are going to be deployed. So it's suitable to your
+needs if you want a flexible and customized HPC environment that is totally
+managed by yourself.
+
+So for this scenarios:
+
+  If an existing XSEDE system can fit your needs, then comet VC might not be
+  necessary for you;
+
+  If what you need is one, or a few but unrelated VMs, then comet VC may not
+  be the best choice for you. You may look at other cloud based resources,
+  e.g., Jetstream or Chameleon.
+
+  However if you need a cluster with HPC or bigdata needs, AND you want to
+  have an experience and performance close to what a physical resource provides,
+  AND you need a system with OS flavor and software stack totally determined
+  and managed by you, comet VC would be a good fit for you.
+
+
 Steps to get a virtual cluster on comet
 ------------------------------
 
