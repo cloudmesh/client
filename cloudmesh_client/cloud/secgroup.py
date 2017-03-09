@@ -552,7 +552,11 @@ class SecGroup(ListResource):
         if rules:
             for rule in rules:
                 ruleid = rule['id']
-                provider.delete_secgroup_rule(ruleid)
+                # only refresh those defined with a protocol
+                # This leaves the default rule defined by
+                # allowing the same secgroup untouched
+                if rule['ip_protocol']:
+                    provider.delete_secgroup_rule(ruleid)
         return
 
     @classmethod
