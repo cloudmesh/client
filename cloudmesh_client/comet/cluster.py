@@ -120,12 +120,20 @@ class Cluster(object):
                 elements = {}
                 for cluster in r:
                     element = {}
+                    if 'allocations' in cluster:
+                        if format == 'table':
+                            element["allocations"] = \
+                                    "\n".join(cluster["allocations"])
+                        else:
+                            element["allocations"] = \
+                                    ";".join(cluster["allocations"])
+
                     for attribute in ["project", "name", "description"]:
                         element[attribute] = cluster[attribute]
                         element["nodes"] = len(cluster["computes"])
                     for attribute in cluster["frontend"]:
-                        element["frontend " + attribute] = cluster["frontend"][
-                            attribute]
+                        element["frontend " + attribute] = \
+                                    cluster["frontend"][attribute]
                     names = []
                     for compute in cluster["computes"]:
                         names.append(compute["name"])
@@ -143,6 +151,7 @@ class Cluster(object):
                                            "frontend name",
                                            "frontend state",
                                            "frontend type",
+                                           "allocations",
                                            "description",
                                        ],
                                        header=[
@@ -153,6 +162,7 @@ class Cluster(object):
                                            "Frontend (Fe)",
                                            "State (Fe)",
                                            "Type (Fe)",
+                                           "allocations",
                                            "Description",
                                        ],
 
