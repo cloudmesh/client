@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.network &mdash; cloudmesh_client 4.5.2 documentation</title>
+  <title>cloudmesh_client.cloud.network &mdash; cloudmesh_client 4.6.1 documentation</title>
   
 
+  
+  
   
   
 
@@ -30,7 +32,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../../../index.html"/>
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -40,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -59,7 +65,7 @@
             
             
               <div class="version">
-                4.5.2
+                4.6.1
               </div>
             
           
@@ -80,7 +86,10 @@
           
             
             
-                <p class="caption"><span class="caption-text">Overview</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
@@ -142,8 +151,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../../index.html">cloudmesh_client</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">cloudmesh_client</a>
+        
       </nav>
 
 
@@ -156,41 +167,58 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-      
+        
           <li><a href="../../cloudmesh_client.html">cloudmesh_client</a> &raquo;</li>
-      
-    <li>cloudmesh_client.cloud.network</li>
+        
+      <li>cloudmesh_client.cloud.network</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.cloud.network</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">socket</span>
-<span class="kn">from</span> <span class="nn">uuid</span> <span class="kn">import</span> <span class="n">UUID</span>
+<span class="kn">from</span> <span class="nn">uuid</span> <span class="k">import</span> <span class="n">UUID</span>
 
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">Printer</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.ListResource</span> <span class="kn">import</span> <span class="n">ListResource</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">Printer</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.CloudProvider</span> <span class="kn">import</span> <span class="n">CloudProvider</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.db.CloudmeshDatabase</span> <span class="kn">import</span> <span class="n">CloudmeshDatabase</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="k">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="k">import</span> <span class="n">Printer</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.ListResource</span> <span class="k">import</span> <span class="n">ListResource</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="k">import</span> <span class="n">Printer</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.CloudProvider</span> <span class="k">import</span> <span class="n">CloudProvider</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.db.CloudmeshDatabase</span> <span class="k">import</span> <span class="n">CloudmeshDatabase</span>
 
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">input</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">input</span>
 
 
 <span class="c1"># noinspection PyBroadException,PyPep8Naming</span>
@@ -198,7 +226,7 @@
     <span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">()</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.get_fixed_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.get_fixed_ip">[docs]</a>    <span class="k">def</span> <span class="nf">get_fixed_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">fixed_ip_addr</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.get_fixed_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.get_fixed_ip">[docs]</a>    <span class="k">def</span> <span class="nf">get_fixed_ip</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">fixed_ip_addr</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method retrieves fixed ip info</span>
 <span class="sd">        :param cloudname:</span>
@@ -221,7 +249,7 @@
         <span class="k">return</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.get_floating_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.get_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">get_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">floating_ip_or_id</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.get_floating_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.get_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">get_floating_ip</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">floating_ip_or_id</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to get floating ip info</span>
 <span class="sd">        :param cloudname:</span>
@@ -230,12 +258,12 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
 
             <span class="c1"># check if argument is ip or uuid</span>
-            <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">isIPAddr</span><span class="p">(</span><span class="n">ip_or_id</span><span class="o">=</span><span class="n">floating_ip_or_id</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">isIPAddr</span><span class="p">(</span><span class="n">ip_or_id</span><span class="o">=</span><span class="n">floating_ip_or_id</span><span class="p">):</span>
                 <span class="c1"># get floating ip list</span>
-                <span class="n">floating_ips</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_floating_ip_list</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span>
+                <span class="n">floating_ips</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_floating_ip_list</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">floating_ip</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">floating_ips</span><span class="p">):</span>
                     <span class="n">ip_addr</span> <span class="o">=</span> <span class="n">floating_ip</span><span class="p">[</span><span class="s2">&quot;ip&quot;</span><span class="p">]</span>
 
@@ -248,15 +276,15 @@
                 <span class="n">result</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">get_floating_ip</span><span class="p">(</span><span class="n">floating_ip_id</span><span class="o">=</span><span class="n">floating_ip_or_id</span><span class="p">)</span>
 
             <span class="c1"># Could not find floating IP from given args</span>
-            <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">None</span>
+            <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
 
             <span class="n">instance_id</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;instance_id&quot;</span><span class="p">]</span>
-            <span class="n">instance_name</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="n">instance_name</span> <span class="o">=</span> <span class="kc">None</span>
 
-            <span class="k">if</span> <span class="n">instance_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">instance_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="c1"># lookup instance_name from id</span>
-                <span class="n">instance_name</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">find_instance_name</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
+                <span class="n">instance_name</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">find_instance_name</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                                        <span class="n">instance_id</span><span class="o">=</span><span class="n">instance_id</span><span class="p">)</span>
 
             <span class="c1"># add instance_name to dict</span>
@@ -275,13 +303,13 @@
                                      <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="c1"># auto detect floating-ip-id</span>
-            <span class="n">floating_ips</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_floating_ip_list</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span>
+            <span class="n">floating_ips</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_floating_ip_list</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span>
             <span class="c1"># for each floating-ip from list</span>
             <span class="k">for</span> <span class="n">floating_ip</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">floating_ips</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">floating_ip</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">floating_ip_or_id</span><span class="p">)</span> <span class="ow">or</span> \
                         <span class="n">floating_ip</span><span class="p">[</span><span class="s2">&quot;ip&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">floating_ip_or_id</span><span class="p">):</span>
                     <span class="c1"># confirm choice with user</span>
-                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Did you mean floating-ip [{}] ? (y/n)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">floating_ip</span><span class="p">[</span><span class="s2">&quot;ip&quot;</span><span class="p">]))</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Did you mean floating-ip [</span><span class="si">{}</span><span class="s2">] ? (y/n)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">floating_ip</span><span class="p">[</span><span class="s2">&quot;ip&quot;</span><span class="p">]))</span>
                     <span class="n">choice</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
                     <span class="c1"># if yes, return dict</span>
                     <span class="k">if</span> <span class="n">choice</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
@@ -295,7 +323,7 @@
         <span class="k">return</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.reserve_fixed_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.reserve_fixed_ip">[docs]</a>    <span class="k">def</span> <span class="nf">reserve_fixed_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">fixed_ip_addr</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.reserve_fixed_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.reserve_fixed_ip">[docs]</a>    <span class="k">def</span> <span class="nf">reserve_fixed_ip</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">fixed_ip_addr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Reserve a fixed ip address</span>
 <span class="sd">        :param cloudname:</span>
@@ -313,7 +341,7 @@
         <span class="k">return</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.unreserve_fixed_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.unreserve_fixed_ip">[docs]</a>    <span class="k">def</span> <span class="nf">unreserve_fixed_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">fixed_ip_addr</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.unreserve_fixed_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.unreserve_fixed_ip">[docs]</a>    <span class="k">def</span> <span class="nf">unreserve_fixed_ip</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">fixed_ip_addr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Unreserve a fixed ip address</span>
 <span class="sd">        :param cloudname:</span>
@@ -329,7 +357,7 @@
             <span class="k">return</span> <span class="n">ex</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.associate_floating_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.associate_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">associate_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">,</span> <span class="n">floating_ip</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.associate_floating_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.associate_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">associate_floating_ip</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">,</span> <span class="n">floating_ip</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to associate floating ip to an instance</span>
 <span class="sd">        :param cloudname:</span>
@@ -346,14 +374,14 @@
             <span class="k">return</span> <span class="s2">&quot;Success.&quot;</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
             <span class="k">if</span> <span class="s2">&quot;already has a floating&quot;</span> <span class="ow">in</span> <span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;VM has already floating ip&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;VM has already floating ip&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
                 <span class="k">return</span> <span class="n">ex</span>
         <span class="k">pass</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.disassociate_floating_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.disassociate_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">disassociate_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">,</span> <span class="n">floating_ip</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.disassociate_floating_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.disassociate_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">disassociate_floating_ip</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">,</span> <span class="n">floating_ip</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Disassociates a floating ip from an instance</span>
 <span class="sd">        :param cloudname:</span>
@@ -368,7 +396,7 @@
             <span class="c1"># Remove the floating ip from the instance</span>
             <span class="n">server</span><span class="o">.</span><span class="n">remove_floating_ip</span><span class="p">(</span><span class="n">floating_ip</span><span class="p">)</span>
             <span class="c1"># Release the floating ip to the pool</span>
-            <span class="n">cls</span><span class="o">.</span><span class="n">delete_floating_ip</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">delete_floating_ip</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                    <span class="n">floating_ip_or_id</span><span class="o">=</span><span class="n">floating_ip</span><span class="p">)</span>
             <span class="k">return</span> <span class="s2">&quot;Success.&quot;</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
@@ -377,7 +405,7 @@
         <span class="k">pass</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.create_assign_floating_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.create_assign_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">create_assign_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.create_assign_floating_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.create_assign_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">create_assign_floating_ip</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to create a new floating-ip</span>
 <span class="sd">        and associate it with the instance</span>
@@ -394,7 +422,7 @@
             <span class="k">return</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.create_floating_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.create_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">create_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">floating_pool</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.create_floating_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.create_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">create_floating_ip</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">floating_pool</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to create a floating ip address under a pool</span>
 <span class="sd">        :param cloudname:</span>
@@ -405,9 +433,9 @@
             <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
             <span class="c1"># If floating pool is not given,</span>
             <span class="c1"># get first from list</span>
-            <span class="k">if</span> <span class="n">floating_pool</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">floating_pool</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">floating_pool</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">floating_ip_pools</span><span class="o">.</span><span class="n">list</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Floating pool not provided, selected [{}] as the pool.&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Floating pool not provided, selected [</span><span class="si">{}</span><span class="s2">] as the pool.&quot;</span>
                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">floating_pool</span><span class="p">))</span>
 
             <span class="n">floating_ip</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">create_floating_ip</span><span class="p">(</span><span class="n">float_pool</span><span class="o">=</span><span class="n">floating_pool</span><span class="p">)</span>
@@ -417,7 +445,7 @@
             <span class="k">return</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.delete_floating_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.delete_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">delete_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">floating_ip_or_id</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.delete_floating_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.delete_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">delete_floating_ip</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">floating_ip_or_id</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to delete a floating ip address</span>
 <span class="sd">        :param cloudname:</span>
@@ -426,12 +454,12 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
-            <span class="n">floating_ip_dict</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="n">floating_ip_dict</span> <span class="o">=</span> <span class="kc">None</span>
 
             <span class="c1"># check if argument is ip or uuid</span>
-            <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">isIPAddr</span><span class="p">(</span><span class="n">ip_or_id</span><span class="o">=</span><span class="n">floating_ip_or_id</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">isIPAddr</span><span class="p">(</span><span class="n">ip_or_id</span><span class="o">=</span><span class="n">floating_ip_or_id</span><span class="p">):</span>
                 <span class="c1"># get floating ip list</span>
-                <span class="n">floating_ips</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_floating_ip_list</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span>
+                <span class="n">floating_ips</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_floating_ip_list</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">floating_ip</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">floating_ips</span><span class="p">):</span>
                     <span class="n">ip_addr</span> <span class="o">=</span> <span class="n">floating_ip</span><span class="p">[</span><span class="s2">&quot;ip&quot;</span><span class="p">]</span>
 
@@ -444,14 +472,14 @@
                 <span class="n">floating_ip_dict</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">get_floating_ip</span><span class="p">(</span><span class="n">floating_ip_id</span><span class="o">=</span><span class="n">floating_ip_or_id</span><span class="p">)</span>
 
             <span class="c1"># Could not find floating IP from given args</span>
-            <span class="k">if</span> <span class="n">floating_ip_dict</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">None</span>
+            <span class="k">if</span> <span class="n">floating_ip_dict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
 
             <span class="c1"># Delete the floating ip; returns None if success</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">delete_floating_ip</span><span class="p">(</span><span class="n">floating_ip_dict</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
 
             <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
-                <span class="k">return</span> <span class="s2">&quot;Floating IP [{}] deleted successfully!&quot;</span> \
+                <span class="k">return</span> <span class="s2">&quot;Floating IP [</span><span class="si">{}</span><span class="s2">] deleted successfully!&quot;</span> \
                     <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">floating_ip_dict</span><span class="p">[</span><span class="s2">&quot;ip&quot;</span><span class="p">])</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
@@ -459,22 +487,22 @@
             <span class="k">return</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.list_floating_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.list_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">list_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.list_floating_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.list_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">list_floating_ip</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to list floating ips</span>
 <span class="sd">        :param cloudname:</span>
 <span class="sd">        :return: floating ip list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">floating_ips</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_floating_ip_list</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span>
+            <span class="n">floating_ips</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_floating_ip_list</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span>
 
             <span class="k">for</span> <span class="n">floating_ip</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">floating_ips</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
                 <span class="c1"># Get instance_id associated with instance</span>
                 <span class="n">instance_id</span> <span class="o">=</span> <span class="n">floating_ip</span><span class="p">[</span><span class="s2">&quot;instance_id&quot;</span><span class="p">]</span>
 
-                <span class="k">if</span> <span class="n">instance_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">instance_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="k">try</span><span class="p">:</span>
-                        <span class="n">instance_name</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">find_instance_name</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
+                        <span class="n">instance_name</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">find_instance_name</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                                                <span class="n">instance_id</span><span class="o">=</span><span class="n">instance_id</span><span class="p">)</span>
                         <span class="c1"># Assign it to the dict</span>
                         <span class="n">floating_ip</span><span class="p">[</span><span class="s2">&quot;instance_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">instance_name</span>
@@ -484,7 +512,7 @@
                         <span class="k">continue</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="c1"># If no instance associated, keep None</span>
-                    <span class="n">floating_ip</span><span class="p">[</span><span class="s2">&quot;instance_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span>
+                    <span class="n">floating_ip</span><span class="p">[</span><span class="s2">&quot;instance_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
             <span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">header</span><span class="p">)</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span><span class="o">.</span><span class="n">get_attributes</span><span class="p">(</span><span class="s2">&quot;floating_ip&quot;</span><span class="p">)</span>
 
@@ -498,7 +526,7 @@
         <span class="k">return</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.list_unused_floating_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.list_unused_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">list_unused_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.list_unused_floating_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.list_unused_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">list_unused_floating_ip</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to list unused floating ips</span>
 <span class="sd">        These floating ips are not associated with any instance</span>
@@ -507,7 +535,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># fetch unused floating ips</span>
-            <span class="n">floating_ips</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_unused_floating_ip_list</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span>
+            <span class="n">floating_ips</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_unused_floating_ip_list</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span>
 
             <span class="c1"># print the output</span>
             <span class="k">return</span> <span class="n">Printer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">floating_ips</span><span class="p">,</span>
@@ -530,7 +558,7 @@
         <span class="k">return</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.list_floating_ip_pool"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.list_floating_ip_pool">[docs]</a>    <span class="k">def</span> <span class="nf">list_floating_ip_pool</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.list_floating_ip_pool"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.list_floating_ip_pool">[docs]</a>    <span class="k">def</span> <span class="nf">list_floating_ip_pool</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to list floating ip pool</span>
 <span class="sd">        :param cloudname:</span>
@@ -551,7 +579,7 @@
         <span class="k">pass</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.isIPAddr"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.isIPAddr">[docs]</a>    <span class="k">def</span> <span class="nf">isIPAddr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">ip_or_id</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.isIPAddr"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.isIPAddr">[docs]</a>    <span class="k">def</span> <span class="nf">isIPAddr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">ip_or_id</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to check if argument is IP address or notS</span>
 <span class="sd">        :param ip_or_id:</span>
@@ -559,12 +587,12 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">socket</span><span class="o">.</span><span class="n">inet_aton</span><span class="p">(</span><span class="n">ip_or_id</span><span class="p">)</span>
-            <span class="k">return</span> <span class="bp">True</span>
+            <span class="k">return</span> <span class="kc">True</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">False</span></div>
+            <span class="k">return</span> <span class="kc">False</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.get_unused_floating_ip_list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.get_unused_floating_ip_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_unused_floating_ip_list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.get_unused_floating_ip_list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.get_unused_floating_ip_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_unused_floating_ip_list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to get the unused floating IP list</span>
 <span class="sd">        :param cloudname:</span>
@@ -576,8 +604,8 @@
             <span class="n">unused_floating_ips</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
 
             <span class="k">for</span> <span class="n">floating_ip</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">floating_ips</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
-                <span class="k">if</span> <span class="n">floating_ip</span><span class="p">[</span><span class="s2">&quot;fixed_ip&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> \
-                                <span class="n">floating_ip</span><span class="p">[</span><span class="s2">&quot;instance_id&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">floating_ip</span><span class="p">[</span><span class="s2">&quot;fixed_ip&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> \
+                                <span class="n">floating_ip</span><span class="p">[</span><span class="s2">&quot;instance_id&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="c1"># add to unused list</span>
                     <span class="n">floating_ip</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cloudname</span>
                     <span class="n">unused_floating_ips</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">floating_ip</span><span class="p">)</span>
@@ -587,7 +615,7 @@
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.get_floating_ip_list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.get_floating_ip_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_floating_ip_list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.get_floating_ip_list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.get_floating_ip_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_floating_ip_list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to get the floating IP list</span>
 <span class="sd">        :param cloudname:</span>
@@ -601,7 +629,7 @@
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.find_instance_name"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.find_instance_name">[docs]</a>    <span class="k">def</span> <span class="nf">find_instance_name</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.find_instance_name"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.find_instance_name">[docs]</a>    <span class="k">def</span> <span class="nf">find_instance_name</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to find instance name</span>
 <span class="sd">        :param kwargs:</span>
@@ -613,7 +641,7 @@
         <span class="c1"># Cloudmesh database instance</span>
 
         <span class="c1"># Lookup instance details from db</span>
-        <span class="n">instance_dict</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
+        <span class="n">instance_dict</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                     <span class="n">uuid</span><span class="o">=</span><span class="n">instance_id</span><span class="p">)</span>
 
         <span class="c1"># Get instance_name for vm</span>
@@ -622,7 +650,7 @@
             <span class="k">return</span> <span class="n">instance_name</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.get_instance_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.get_instance_dict">[docs]</a>    <span class="k">def</span> <span class="nf">get_instance_dict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.get_instance_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.get_instance_dict">[docs]</a>    <span class="k">def</span> <span class="nf">get_instance_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to get instance dict</span>
 <span class="sd">        :param kwargs:</span>
@@ -634,82 +662,82 @@
         <span class="c1"># Cloudmesh database instance</span>
 
         <span class="c1"># Lookup instance details from db</span>
-        <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">isUuid</span><span class="p">(</span><span class="n">instance_id</span><span class="p">):</span>
-            <span class="n">instance_dict</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">isUuid</span><span class="p">(</span><span class="n">instance_id</span><span class="p">):</span>
+            <span class="n">instance_dict</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                         <span class="n">uuid</span><span class="o">=</span><span class="n">instance_id</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">instance_dict</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
+            <span class="n">instance_dict</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                         <span class="n">name</span><span class="o">=</span><span class="n">instance_id</span><span class="p">)</span>
 
         <span class="c1"># Instance not found in DB</span>
-        <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">isDictEmpty</span><span class="p">(</span><span class="n">instance_dict</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">isDictEmpty</span><span class="p">(</span><span class="n">instance_dict</span><span class="p">):</span>
             <span class="c1"># auto detect instance_id feature</span>
-            <span class="n">vms</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloudname</span><span class="p">)</span>
+            <span class="n">vms</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloudname</span><span class="p">)</span>
             <span class="c1"># check for each instance in db</span>
             <span class="k">for</span> <span class="n">vm</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">vms</span><span class="p">):</span>
                 <span class="c1"># if match found in either name/id</span>
                 <span class="k">if</span> <span class="n">vm</span><span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">instance_id</span><span class="p">)</span> <span class="ow">or</span> \
                         <span class="n">vm</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">instance_id</span><span class="p">):</span>
                     <span class="c1"># confirm choice with user</span>
-                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Did you mean instance [{}] ? (y/n)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vm</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]))</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Did you mean instance [</span><span class="si">{}</span><span class="s2">] ? (y/n)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vm</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]))</span>
                     <span class="n">choice</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
                     <span class="c1"># if yes, return dict</span>
                     <span class="k">if</span> <span class="n">choice</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
                         <span class="k">return</span> <span class="n">vm</span>
-            <span class="k">return</span> <span class="bp">None</span>
+            <span class="k">return</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">instance_dict</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.find_assign_floating_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.find_assign_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">find_assign_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">instance_id</span><span class="p">):</span>
-        <span class="n">instance_dict</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_instance_dict</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
+<div class="viewcode-block" id="Network.find_assign_floating_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.find_assign_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">find_assign_floating_ip</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">instance_id</span><span class="p">):</span>
+        <span class="n">instance_dict</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_instance_dict</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                               <span class="n">instance_id</span><span class="o">=</span><span class="n">instance_id</span><span class="p">)</span>
         <span class="c1"># Instance not found</span>
-        <span class="k">if</span> <span class="n">instance_dict</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Instance [{}] not found in the cloudmesh database!&quot;</span>
+        <span class="k">if</span> <span class="n">instance_dict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Instance [</span><span class="si">{}</span><span class="s2">] not found in the cloudmesh database!&quot;</span>
                           <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">instance_id</span><span class="p">))</span>
-            <span class="k">return</span> <span class="bp">None</span>
+            <span class="k">return</span> <span class="kc">None</span>
 
         <span class="n">instance_name</span> <span class="o">=</span> <span class="n">instance_dict</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
 
         <span class="c1"># Get an unused ip from pool if exist and associate</span>
-        <span class="n">unused_floating_ips</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_unused_floating_ip_list</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">)</span>
+        <span class="n">unused_floating_ips</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_unused_floating_ip_list</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">unused_floating_ips</span><span class="p">:</span>
             <span class="n">floating_ip</span> <span class="o">=</span> <span class="n">unused_floating_ips</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;ip&quot;</span><span class="p">]</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">assign_floating_ip</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">assign_floating_ip</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                             <span class="n">instance_id</span><span class="o">=</span><span class="n">instance_id</span><span class="p">,</span>
                                             <span class="n">floating_ip</span><span class="o">=</span><span class="n">floating_ip</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;IP {} could not be assigned to VM {} &quot;</span>
+            <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;IP </span><span class="si">{}</span><span class="s2"> could not be assigned to VM </span><span class="si">{}</span><span class="s2"> &quot;</span>
                           <span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">floating_ip</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">))</span>
-                <span class="k">return</span> <span class="bp">None</span>
+                <span class="k">return</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># create a new ip and associate</span>
-            <span class="n">floating_ip</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">create_assign_floating_ip</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
+            <span class="n">floating_ip</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_assign_floating_ip</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                                             <span class="n">instance_name</span><span class="o">=</span><span class="n">instance_name</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">floating_ip</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.assign_floating_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.assign_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">assign_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">instance_id</span><span class="p">,</span> <span class="n">floating_ip</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.assign_floating_ip"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.assign_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">assign_floating_ip</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">instance_id</span><span class="p">,</span> <span class="n">floating_ip</span><span class="p">):</span>
         <span class="c1"># find instance in db</span>
-        <span class="n">instance_dict</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_instance_dict</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
+        <span class="n">instance_dict</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_instance_dict</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                               <span class="n">instance_id</span><span class="o">=</span><span class="n">instance_id</span><span class="p">)</span>
         <span class="c1"># Instance not found</span>
-        <span class="k">if</span> <span class="n">instance_dict</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Instance [{}] not found in the cloudmesh database!&quot;</span>
+        <span class="k">if</span> <span class="n">instance_dict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Instance [</span><span class="si">{}</span><span class="s2">] not found in the cloudmesh database!&quot;</span>
                           <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">instance_id</span><span class="p">))</span>
-            <span class="k">return</span> <span class="bp">None</span>
+            <span class="k">return</span> <span class="kc">None</span>
 
         <span class="n">instance_name</span> <span class="o">=</span> <span class="n">instance_dict</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">associate_floating_ip</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">associate_floating_ip</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                            <span class="n">instance_name</span><span class="o">=</span><span class="n">instance_name</span><span class="p">,</span>
                                            <span class="n">floating_ip</span><span class="o">=</span><span class="n">floating_ip</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.isUuid"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.isUuid">[docs]</a>    <span class="k">def</span> <span class="nf">isUuid</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">argument</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.isUuid"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.isUuid">[docs]</a>    <span class="k">def</span> <span class="nf">isUuid</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">argument</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to check if arg is an UUID</span>
 <span class="sd">        :param argument:</span>
@@ -717,23 +745,26 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">UUID</span><span class="p">(</span><span class="n">argument</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-            <span class="k">return</span> <span class="bp">True</span>
+            <span class="k">return</span> <span class="kc">True</span>
         <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">False</span></div>
+            <span class="k">return</span> <span class="kc">False</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.isDictEmpty"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.isDictEmpty">[docs]</a>    <span class="k">def</span> <span class="nf">isDictEmpty</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.isDictEmpty"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.isDictEmpty">[docs]</a>    <span class="k">def</span> <span class="nf">isDictEmpty</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to test empty Dict</span>
 <span class="sd">        :param dictionary:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">dictionary</span><span class="p">):</span>
-            <span class="k">return</span> <span class="bp">False</span>
+            <span class="k">return</span> <span class="kc">False</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">True</span></div></div>
+            <span class="k">return</span> <span class="kc">True</span></div></div>
 </pre></div>
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -764,10 +795,11 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'4.5.2',
+            VERSION:'4.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../../_static/jquery.js"></script>

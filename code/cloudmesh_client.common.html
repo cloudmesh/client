@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.common package &mdash; cloudmesh_client 4.5.2 documentation</title>
+  <title>cloudmesh_client.common package &mdash; cloudmesh_client 4.6.1 documentation</title>
   
 
+  
+  
   
   
 
@@ -30,9 +32,12 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client package" href="cloudmesh_client.html"/>
-        <link rel="next" title="cloudmesh_client.db package" href="cloudmesh_client.db.html"/>
+        <link rel="next" title="cloudmesh_client.common.ssh package" href="cloudmesh_client.common.ssh.html"/>
         <link rel="prev" title="cloudmesh_client.comet package" href="cloudmesh_client.comet.html"/> 
 
   
@@ -42,6 +47,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -61,7 +67,7 @@
             
             
               <div class="version">
-                4.5.2
+                4.6.1
               </div>
             
           
@@ -82,7 +88,10 @@
           
             
             
-                <p class="caption"><span class="caption-text">Overview</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
@@ -131,6 +140,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.cloud.html">cloudmesh_client.cloud package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.comet.html">cloudmesh_client.comet package</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">cloudmesh_client.common package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.BaseConfigDict">cloudmesh_client.common.BaseConfigDict module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.ConfigDict">cloudmesh_client.common.ConfigDict module</a></li>
@@ -170,7 +180,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#cloudmesh-client-default-module">cloudmesh_client.default module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.exc">cloudmesh_client.exc module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
@@ -200,8 +210,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">cloudmesh_client</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cloudmesh_client</a>
+        
       </nav>
 
 
@@ -210,25 +222,42 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="cloudmesh_client.html">cloudmesh_client package</a> &raquo;</li>
-      
-    <li>cloudmesh_client.common package</li>
+        
+      <li>cloudmesh_client.common package</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="../_sources/code/cloudmesh_client.common.txt" rel="nofollow"> View page source</a>
+            
+            <a href="../_sources/code/cloudmesh_client.common.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -236,6 +265,19 @@
             
   <div class="section" id="cloudmesh-client-common-package">
 <h1>cloudmesh_client.common package<a class="headerlink" href="#cloudmesh-client-common-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cloudmesh_client.common.ssh.html">cloudmesh_client.common.ssh package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.ssh.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.ssh.html#module-cloudmesh_client.common.ssh.authorized_keys">cloudmesh_client.common.ssh.authorized_keys module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.ssh.html#module-cloudmesh_client.common.ssh">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
@@ -549,7 +591,7 @@ array load_order
 
 <dl class="attribute">
 <dt id="cloudmesh_client.common.ConfigDict.ConfigDict.data">
-<code class="descname">data</code><em class="property"> = BaseConfigDict([('meta', OrderedDict([('version', 4.1), ('kind', 'clouds'), ('filename', '/Users/fuwang/.cloudmesh/cloudmesh.yaml'), ('location', '/Users/fuwang/.cloudmesh/cloudmesh.yaml'), ('prefix', None)])), ('cloudmesh', OrderedDict([('profile', OrderedDict([('firstname', 'Fugang'), ('lastname', 'Wang'), ('email', 'TBD'), ('user', 'fuwang')])), ('github', OrderedDict([('username', 'TBD')])), ('portal', OrderedDict([('location', 'TBD'), ('browser', 'firefox')])), ('comet', OrderedDict([('username', 'fugang'), ('active', 'production'), ('endpoints', OrderedDict([('dev', OrderedDict([('nucleus_base_url', 'https://comet-nucleus-dev.sdsc.edu/nucleus'), ('api_version', 'v1'), ('auth_provider', 'apikey'), ('userpass', OrderedDict([('username', 'TBD'), ('password', 'TBD')])), ('apikey', OrderedDict([('api_key', 'TBD'), ('api_secret', 'TBD')]))])), ('production', OrderedDict([('nucleus_base_url', 'https://comet-nucleus.sdsc.edu/nucleus'), ('api_version', 'v1'), ('auth_provider', 'apikey'), ('userpass', OrderedDict([('username', 'TBD'), ('password', 'TBD')])), ('apikey', OrderedDict([('api_key', 'kevinwangfg&#64;gmail.com'), ('api_secret', 'OuZILPt6lVKgA1mSMJ7Tyynh')]))]))]))])), ('hpc', OrderedDict([('experiment', OrderedDict([('name', 'gregor-00000')])), ('active', ['comet', 'juliet']), ('clusters', OrderedDict([('india', OrderedDict([('cm_heading', 'India HPC CLuster'), ('cm_host', 'india'), ('cm_label', 'indiahpc'), ('cm_type', 'slurm'), ('cm_type_version', '14.11.9'), ('credentials', OrderedDict([('username', 'TBD'), ('project', 'None')])), ('default', OrderedDict([('queue', 'delta'), ('experiment_dir', '/N/u/{username}/experiment'), ('prefix', OrderedDict([('username', None)]))]))])), ('comet', OrderedDict([('cm_heading', 'Comet HPC CLuster'), ('cm_host', 'comet'), ('cm_label', 'comethpc'), ('cm_type', 'slurm'), ('cm_type_version', '14.11.9'), ('credentials', OrderedDict([('username', 'TBD'), ('project', 'None')])), ('default', OrderedDict([('queue', 'debug'), ('experiment_dir', '/home/{username}/experiment'), ('prefix', OrderedDict([('username', None)]))]))]))]))])), ('active', ['kilo', 'chameleon']), ('clouds', OrderedDict([('kilo', OrderedDict([('cm_heading', 'India OpenStack, Kilo'), ('cm_host', 'india'), ('cm_label', 'kilo'), ('cm_type', 'openstack'), ('cm_type_version', 'kilo'), ('cm_openrc', '~/.cloudmesh/clouds/india/kilo/openrc.sh'), ('credentials', OrderedDict([('OS_AUTH_URL', 'https://kilo.futuresystems.org:5000/v3'), ('OS_PASSWORD', '3KZz6ZlWMZoMZukpqtDELj297xv1x0Uz'), ('OS_TENANT_NAME', 'fg82'), ('OS_USERNAME', 'fuwang'), ('OS_PROJECT_DOMAIN_ID', 'default'), ('OS_USER_DOMAIN_ID', 'default'), ('OS_PROJECT_NAME', 'fg82'), ('OS_IMAGE_API_VERSION', 2), ('OS_VOLUME_API_VERSION', 2)])), ('default', OrderedDict([('flavor', 'm1.small'), ('image', 'Ubuntu-14.04-64')]))])), ('chameleon', OrderedDict([('cm_heading', 'Chameleon'), ('cm_host', 'chameleoncloud.org'), ('cm_label', 'chameleon'), ('cm_type', 'openstack'), ('cm_type_version', 'liberty'), ('credentials', OrderedDict([('OS_AUTH_URL', 'https://openstack.tacc.chameleoncloud.org:5000/v3'), ('OS_PASSWORD', 'future8usFG.'), ('OS_TENANT_NAME', 'CH-818664'), ('OS_TENANT_ID', 'CH-818144'), ('OS_PROJECT_NAME', 'CH-818664'), ('OS_PROJECT_DOMAIN_ID', 'default'), ('OS_USER_DOMAIN_ID', 'default'), ('OS_USERNAME', 'fuwang'), ('OS_VERSION', 'liberty'), ('OS_REGION_NAME', 'RegionOne')])), ('default', OrderedDict([('flavor', 'm1.small'), ('image', 'Ubuntu-Server-14.04-LTS')]))])), ('jetstream', OrderedDict([('cm_heading', 'Jetstream'), ('cm_host', 'http://jetstream-cloud.org/'), ('cm_label', 'jetstream'), ('cm_type', 'openstack'), ('cm_type_version', 'kilo'), ('credentials', OrderedDict([('OS_PROJECT_DOMAIN_NAME', 'tacc'), ('OS_USER_DOMAIN_NAME', 'tacc'), ('OS_PROJECT_NAME', 'TBD'), ('OS_TENANT_NAME', 'TBD'), ('OS_USERNAME', 'TBD'), ('OS_PASSWORD', 'TBD'), ('OS_AUTH_URL', 'https://jblb.jetstream-cloud.org:35357/v3'), ('OS_IDENTITY_API_VERSION', 3), ('OS_VERSION', 'kilo')])), ('default', OrderedDict([('flavor', 'm1.small'), ('image', 'Ubuntu-Server-14.04-LTS')]))])), ('cybera-c', OrderedDict([('cm_heading', 'Cybera Calgary OpenStack'), ('cm_host', 'cybera'), ('cm_label', 'cybera-c'), ('cm_type', 'openstack'), ('cm_type_version', 'kilo'), ('credentials', OrderedDict([('OS_AUTH_URL', 'TBD'), ('OS_TENANT_ID', 'TBD'), ('OS_TENANT_NAME', 'TBD'), ('OS_PROJECT_NAME', 'TBD'), ('OS_USERNAME', 'TBD'), ('OS_PASSWORD', 'TBD'), ('OS_REGION_NAME', 'Calgary')])), ('default', OrderedDict([('flavor', 'm1.small'), ('image', 'Ubuntu 14.04')]))])), ('cybera-e', OrderedDict([('cm_heading', 'Cybera Edmonton OpenStack'), ('cm_host', 'cybera'), ('cm_label', 'kilo'), ('cm_type', 'openstack'), ('cm_type_version', 'kilo'), ('credentials', OrderedDict([('OS_AUTH_URL', 'https://keystone-yyc.cloud.cybera.ca:5000/v2.0'), ('OS_TENANT_ID', 'TBD'), ('OS_TENANT_NAME', 'TBD'), ('OS_PROJECT_NAME', 'TBD'), ('OS_USERNAME', 'TBD'), ('OS_PASSWORD', 'TBD'), ('OS_REGION_NAME', 'Edmonton')])), ('default', OrderedDict([('flavor', 'm1.small'), ('image', 'Ubuntu 14.04')]))])), ('aws', OrderedDict([('cm_heading', 'Amazon Cloud, AWS'), ('cm_host', 'aws.amazon.com'), ('cm_label', 'aws'), ('cm_type', 'ec2'), ('cm_type_version', None), ('credentials', OrderedDict([('EC2_ACCESS_KEY', 'TBD'), ('EC2_SECRET_KEY', 'TBD'), ('keyname', 'TBD'), ('userid', 'TBD')])), ('default', OrderedDict([('flavor', 't1.micro'), ('image', 'ami-d85e75b0'), ('location', 'us-east-1')]))])), ('chameleon-ec2', OrderedDict([('cm_heading', 'Chameleon, EC2'), ('cm_host', 'chameleoncloud.org'), ('cm_label', 'chameleon_ec2'), ('cm_type', 'ec2'), ('cm_type_version', 'ec2'), ('credentials', OrderedDict([('EC2_ACCESS_KEY', 'TBD'), ('EC2_SECRET_KEY', 'TBD'), ('keyname', 'TBD_not_used'), ('userid', 'TBD_not_used'), ('EC2_URL', 'https://openstack.tacc.chameleoncloud.org:8773/services/Cloud'), ('EC2_USER_ID', 'TBD'), ('EC2_PRIVATE_KEY', '~/.cloudmesh/clouds/chameleon/TBD/pk.pem'), ('EC2_CERT', '~/.cloudmesh/clouds/chameleon/TBD/cert.pem'), ('NOVA_CERT', '~/.cloudmesh/clouds/chameleon/TBD/cacert.pem'), ('EUCALYPTUS_CERT', '~/.cloudmesh/clouds/chameleon/TBD/cacert.pem')])), ('default', OrderedDict([('flavor', 'm1.small'), ('image', 'Ubuntu-Server-14.04-LTS')]))])), ('azure', OrderedDict([('cm_heading', 'Microsoft Azure Virtual Machines'), ('cm_host', 'windowsazure.com'), ('cm_label', 'azure'), ('cm_type', 'azure'), ('cm_type_version', None), ('credentials', OrderedDict([('managementcertfile', 'TBD'), ('servicecertfile', 'TBD'), ('subscriptionid', 'TBD'), ('thumbprint', 'TBD')])), ('default', OrderedDict([('username', 'TBD'), ('password', 'TBD'), ('flavor', 'Basic_A1'), ('image', 'b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-12_04_5-LTS-amd64-server-20160315-en-us-30GB'), ('location', 'Central US')]))]))])), ('system', OrderedDict([('data', '~/.cloudmesh/cloudmesh_inventory.yaml'), ('console_color', True)])), ('logging', OrderedDict([('file', '~/.cloudmesh/cloudmesh.log'), ('level', 'DEBUG')])), ('plugins', [OrderedDict([('vbox', 'cloudmesh_vagrant cloudmesh_vagrant.cm_vbox.do_vbox')])])]))])</em><a class="headerlink" href="#cloudmesh_client.common.ConfigDict.ConfigDict.data" title="Permalink to this definition">¶</a></dt>
+<code class="descname">data</code><em class="property"> = BaseConfigDict([('meta', OrderedDict([('version', 4.1), ('kind', 'clouds'), ('filename', '/Users/fuwang/.cloudmesh/cloudmesh.yaml'), ('location', '/Users/fuwang/.cloudmesh/cloudmesh.yaml'), ('prefix', None)])), ('cloudmesh', OrderedDict([('profile', OrderedDict([('firstname', 'Fugang'), ('lastname', 'Wang'), ('email', 'TBD'), ('user', 'fuwang')])), ('github', OrderedDict([('username', 'TBD')])), ('portal', OrderedDict([('location', 'TBD'), ('browser', 'firefox')])), ('comet', OrderedDict([('username', 'fugang'), ('active', 'production'), ('endpoints', OrderedDict([('dev', OrderedDict([('nucleus_base_url', 'https://comet-nucleus-dev.sdsc.edu/nucleus'), ('api_version', 'v1'), ('auth_provider', 'apikey'), ('userpass', OrderedDict([('username', 'TBD'), ('password', 'TBD')])), ('apikey', OrderedDict([('api_key', 'TBD'), ('api_secret', 'TBD')]))])), ('production', OrderedDict([('nucleus_base_url', 'https://comet-nucleus.sdsc.edu/nucleus'), ('api_version', 'v1'), ('auth_provider', 'apikey'), ('userpass', OrderedDict([('username', 'TBD'), ('password', 'TBD')])), ('apikey', OrderedDict([('api_key', 'kevinwangfg&#64;gmail.com'), ('api_secret', 'OuZILPt6lVKgA1mSMJ7Tyynh')]))]))]))])), ('hpc', OrderedDict([('experiment', OrderedDict([('name', 'gregor-00000')])), ('active', ['comet', 'juliet']), ('clusters', OrderedDict([('india', OrderedDict([('cm_heading', 'India HPC CLuster'), ('cm_host', 'india'), ('cm_label', 'indiahpc'), ('cm_type', 'slurm'), ('cm_type_version', '14.11.9'), ('credentials', OrderedDict([('username', 'TBD'), ('project', 'None')])), ('default', OrderedDict([('queue', 'delta'), ('experiment_dir', '/N/u/{username}/experiment'), ('prefix', OrderedDict([('username', None)]))]))])), ('comet', OrderedDict([('cm_heading', 'Comet HPC CLuster'), ('cm_host', 'comet'), ('cm_label', 'comethpc'), ('cm_type', 'slurm'), ('cm_type_version', '14.11.9'), ('credentials', OrderedDict([('username', 'TBD'), ('project', 'None')])), ('default', OrderedDict([('queue', 'debug'), ('experiment_dir', '/home/{username}/experiment'), ('prefix', OrderedDict([('username', None)]))]))]))]))])), ('active', ['kilo', 'chameleon']), ('clouds', OrderedDict([('kilo', OrderedDict([('cm_heading', 'India OpenStack, Kilo'), ('cm_host', 'india'), ('cm_label', 'kilo'), ('cm_type', 'openstack'), ('cm_type_version', 'kilo'), ('cm_openrc', '~/.cloudmesh/clouds/india/kilo/openrc.sh'), ('credentials', OrderedDict([('OS_AUTH_URL', 'https://kilo.futuresystems.org:5000/v3'), ('OS_PASSWORD', '3KZz6ZlWMZoMZukpqtDELj297xv1x0Uz'), ('OS_TENANT_NAME', 'fg82'), ('OS_USERNAME', 'fuwang'), ('OS_PROJECT_DOMAIN_ID', 'default'), ('OS_USER_DOMAIN_ID', 'default'), ('OS_PROJECT_NAME', 'fg82'), ('OS_IMAGE_API_VERSION', 2), ('OS_VOLUME_API_VERSION', 2)])), ('default', OrderedDict([('flavor', 'm1.small'), ('image', 'Ubuntu-14.04-64')]))])), ('chameleon', OrderedDict([('cm_heading', 'Chameleon'), ('cm_host', 'chameleoncloud.org'), ('cm_label', 'chameleon'), ('cm_type', 'openstack'), ('cm_type_version', 'liberty'), ('credentials', OrderedDict([('OS_AUTH_URL', 'https://openstack.tacc.chameleoncloud.org:5000/v3'), ('OS_PASSWORD', 'future8usFG.'), ('OS_TENANT_NAME', 'CH-818664'), ('OS_TENANT_ID', 'CH-818664'), ('OS_PROJECT_NAME', 'CH-818664'), ('OS_PROJECT_DOMAIN_ID', 'default'), ('OS_USER_DOMAIN_ID', 'default'), ('OS_USERNAME', 'fuwang'), ('OS_VERSION', 'liberty'), ('OS_REGION_NAME', 'RegionOne')])), ('default', OrderedDict([('flavor', 'm1.small'), ('image', 'Ubuntu-Server-14.04-LTS')]))])), ('jetstream', OrderedDict([('cm_heading', 'Jetstream'), ('cm_host', 'http://jetstream-cloud.org/'), ('cm_label', 'jetstream'), ('cm_type', 'openstack'), ('cm_type_version', 'kilo'), ('credentials', OrderedDict([('OS_PROJECT_DOMAIN_NAME', 'tacc'), ('OS_USER_DOMAIN_NAME', 'tacc'), ('OS_PROJECT_NAME', 'TBD'), ('OS_TENANT_NAME', 'TBD'), ('OS_USERNAME', 'TBD'), ('OS_PASSWORD', 'TBD'), ('OS_AUTH_URL', 'https://jblb.jetstream-cloud.org:35357/v3'), ('OS_IDENTITY_API_VERSION', 3), ('OS_VERSION', 'kilo')])), ('default', OrderedDict([('flavor', 'm1.small'), ('image', 'Ubuntu-Server-14.04-LTS')]))])), ('cybera-c', OrderedDict([('cm_heading', 'Cybera Calgary OpenStack'), ('cm_host', 'cybera'), ('cm_label', 'cybera-c'), ('cm_type', 'openstack'), ('cm_type_version', 'kilo'), ('credentials', OrderedDict([('OS_AUTH_URL', 'TBD'), ('OS_TENANT_ID', 'TBD'), ('OS_TENANT_NAME', 'TBD'), ('OS_PROJECT_NAME', 'TBD'), ('OS_USERNAME', 'TBD'), ('OS_PASSWORD', 'TBD'), ('OS_REGION_NAME', 'Calgary')])), ('default', OrderedDict([('flavor', 'm1.small'), ('image', 'Ubuntu 14.04')]))])), ('cybera-e', OrderedDict([('cm_heading', 'Cybera Edmonton OpenStack'), ('cm_host', 'cybera'), ('cm_label', 'kilo'), ('cm_type', 'openstack'), ('cm_type_version', 'kilo'), ('credentials', OrderedDict([('OS_AUTH_URL', 'https://keystone-yyc.cloud.cybera.ca:5000/v2.0'), ('OS_TENANT_ID', 'TBD'), ('OS_TENANT_NAME', 'TBD'), ('OS_PROJECT_NAME', 'TBD'), ('OS_USERNAME', 'TBD'), ('OS_PASSWORD', 'TBD'), ('OS_REGION_NAME', 'Edmonton')])), ('default', OrderedDict([('flavor', 'm1.small'), ('image', 'Ubuntu 14.04')]))])), ('aws', OrderedDict([('cm_heading', 'Amazon Cloud, AWS'), ('cm_host', 'aws.amazon.com'), ('cm_label', 'aws'), ('cm_type', 'ec2'), ('cm_type_version', None), ('credentials', OrderedDict([('EC2_ACCESS_KEY', 'TBD'), ('EC2_SECRET_KEY', 'TBD'), ('keyname', 'TBD'), ('userid', 'TBD')])), ('default', OrderedDict([('flavor', 't1.micro'), ('image', 'ami-d85e75b0'), ('location', 'us-east-1')]))])), ('chameleon-ec2', OrderedDict([('cm_heading', 'Chameleon, EC2'), ('cm_host', 'chameleoncloud.org'), ('cm_label', 'chameleon_ec2'), ('cm_type', 'ec2'), ('cm_type_version', 'ec2'), ('credentials', OrderedDict([('EC2_ACCESS_KEY', 'TBD'), ('EC2_SECRET_KEY', 'TBD'), ('keyname', 'TBD_not_used'), ('userid', 'TBD_not_used'), ('EC2_URL', 'https://openstack.tacc.chameleoncloud.org:8773/services/Cloud'), ('EC2_USER_ID', 'TBD'), ('EC2_PRIVATE_KEY', '~/.cloudmesh/clouds/chameleon/TBD/pk.pem'), ('EC2_CERT', '~/.cloudmesh/clouds/chameleon/TBD/cert.pem'), ('NOVA_CERT', '~/.cloudmesh/clouds/chameleon/TBD/cacert.pem'), ('EUCALYPTUS_CERT', '~/.cloudmesh/clouds/chameleon/TBD/cacert.pem')])), ('default', OrderedDict([('flavor', 'm1.small'), ('image', 'Ubuntu-Server-14.04-LTS')]))])), ('azure', OrderedDict([('cm_heading', 'Microsoft Azure Virtual Machines'), ('cm_host', 'windowsazure.com'), ('cm_label', 'azure'), ('cm_type', 'azure'), ('cm_type_version', None), ('credentials', OrderedDict([('managementcertfile', 'TBD'), ('servicecertfile', 'TBD'), ('subscriptionid', 'TBD'), ('thumbprint', 'TBD')])), ('default', OrderedDict([('username', 'TBD'), ('password', 'TBD'), ('flavor', 'Basic_A1'), ('image', 'b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-12_04_5-LTS-amd64-server-20160315-en-us-30GB'), ('location', 'Central US')]))]))])), ('system', OrderedDict([('data', '~/.cloudmesh/cloudmesh_inventory.yaml'), ('console_color', True)])), ('logging', OrderedDict([('file', '~/.cloudmesh/cloudmesh.log'), ('level', 'DEBUG')])), ('plugins', [OrderedDict([('vbox', 'cloudmesh_vagrant cloudmesh_vagrant.cm_vbox.do_vbox')])])]))])</em><a class="headerlink" href="#cloudmesh_client.common.ConfigDict.ConfigDict.data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1072,7 +1114,7 @@ format is specified as an argument.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>format_arg</strong> &#8211; if &#8220;dict&#8221; is specified a dict will be returned</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict or arry of e-mails dependent on format_arg</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cloudmesh_client.common.FlatDict.FlatDict.dict" title="cloudmesh_client.common.FlatDict.FlatDict.dict">dict</a> or arry of e-mails dependent on format_arg</td>
 </tr>
 </tbody>
 </table>
@@ -1283,7 +1325,7 @@ cloudmesh.yaml
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>header</strong> (<em>list or tuple of field names</em>) &#8211; The Header of each of the columns</li>
+<li><strong>header</strong> (<a class="reference internal" href="cloudmesh_client.html#cloudmesh_client.default.Default.list" title="cloudmesh_client.default.Default.list"><em>list</em></a><em> or </em><em>tuple of field names</em>) &#8211; The Header of each of the columns</li>
 <li><strong>sort_keys</strong> (<em>bool</em>) &#8211; TODO: not yet implemented</li>
 </ul>
 </td>
@@ -1309,7 +1351,7 @@ cloudmesh.yaml
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>header</strong> (<em>list or tuple of field names</em>) &#8211; The Header of each of the columns</li>
+<li><strong>header</strong> (<a class="reference internal" href="cloudmesh_client.html#cloudmesh_client.default.Default.list" title="cloudmesh_client.default.Default.list"><em>list</em></a><em> or </em><em>tuple of field names</em>) &#8211; The Header of each of the columns</li>
 <li><strong>output</strong> (<em>string</em>) &#8211; type of output (table, csv, json, yaml or dict)</li>
 <li><strong>sort_keys</strong> (<em>bool</em>) &#8211; </li>
 </ul>
@@ -1337,7 +1379,7 @@ cloudmesh.yaml
 <li><strong>order</strong> &#8211; The order in which the columns are printed.
 The order is specified by the key names of the dict.</li>
 <li><strong>header</strong> (<em>A list of string</em>) &#8211; The Header of each of the columns</li>
-<li><strong>sort_keys</strong> (<em>string or a tuple of string (for sorting with multiple columns)</em>) &#8211; Key(s) of the dict to be used for sorting.
+<li><strong>sort_keys</strong> (<em>string</em><em> or </em><em>a tuple of string</em><em> (</em><em>for sorting with multiple columns</em><em>)</em><em></em>) &#8211; Key(s) of the dict to be used for sorting.
 This specify the column(s) in the table for sorting.</li>
 </ul>
 </td>
@@ -2370,6 +2412,18 @@ String matching only, does not do REs as currently implemented.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="cloudmesh_client.common.util.tempdir">
+<code class="descclassname">cloudmesh_client.common.util.</code><code class="descname">tempdir</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/util.html#tempdir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.util.tempdir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A contextmanager to work in an auto-removed temporary directory</p>
+<p>Arguments are passed through to tempfile.mkdtemp</p>
+<p>example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">tempdir</span><span class="p">()</span> <span class="k">as</span> <span class="n">path</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="k">pass</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
 <dt id="cloudmesh_client.common.util.writefile">
 <code class="descclassname">cloudmesh_client.common.util.</code><code class="descname">writefile</code><span class="sig-paren">(</span><em>filename</em>, <em>content</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/util.html#writefile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.util.writefile" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -2443,15 +2497,18 @@ digit or arithmetic e.g. +5 or -3 can be used</dd>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cloudmesh_client.db.html" class="btn btn-neutral float-right" title="cloudmesh_client.db package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cloudmesh_client.common.ssh.html" class="btn btn-neutral float-right" title="cloudmesh_client.common.ssh package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="cloudmesh_client.comet.html" class="btn btn-neutral" title="cloudmesh_client.comet package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cloudmesh_client.comet.html" class="btn btn-neutral" title="cloudmesh_client.comet package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -2481,10 +2538,11 @@ digit or arithmetic e.g. +5 or -3 can be used</dd>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.5.2',
+            VERSION:'4.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

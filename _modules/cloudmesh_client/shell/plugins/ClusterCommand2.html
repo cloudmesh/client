@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins.ClusterCommand2 &mdash; cloudmesh_client 4.5.2 documentation</title>
+  <title>cloudmesh_client.shell.plugins.ClusterCommand2 &mdash; cloudmesh_client 4.6.1 documentation</title>
   
 
+  
+  
   
   
 
@@ -30,7 +32,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../../../../index.html"/>
+        <link rel="index" title="Index"
+              href="../../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
@@ -40,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -59,7 +65,7 @@
             
             
               <div class="version">
-                4.5.2
+                4.6.1
               </div>
             
           
@@ -80,7 +86,10 @@
           
             
             
-                <p class="caption"><span class="caption-text">Overview</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../introduction.html">Introduction</a></li>
@@ -142,8 +151,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../../../index.html">cloudmesh_client</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">cloudmesh_client</a>
+        
       </nav>
 
 
@@ -156,103 +167,182 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../../../index.html">Module code</a> &raquo;</li>
-      
+        
           <li><a href="../../../cloudmesh_client.html">cloudmesh_client</a> &raquo;</li>
-      
-    <li>cloudmesh_client.shell.plugins.ClusterCommand2</li>
+        
+      <li>cloudmesh_client.shell.plugins.ClusterCommand2</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.shell.plugins.ClusterCommand2</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.platform.virtual_cluster.cluster</span> <span class="kn">import</span> <span class="n">Cluster</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.platform.virtual_cluster.cluster</span> <span class="k">import</span> <span class="n">Cluster</span>
 
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.image</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.dotdict</span> <span class="kn">import</span> <span class="n">dotdict</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.db.CloudmeshDatabase</span> <span class="kn">import</span> <span class="n">CloudmeshDatabase</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span><span class="p">,</span> <span class="n">Names</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.deployer.ansible.inventory</span> <span class="kn">import</span> <span class="n">Inventory</span><span class="p">,</span> <span class="n">Node</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.exc</span> <span class="kn">import</span> <span class="p">(</span><span class="n">ClusterNameClashException</span><span class="p">,</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.image</span> <span class="k">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.dotdict</span> <span class="k">import</span> <span class="n">dotdict</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.db.CloudmeshDatabase</span> <span class="k">import</span> <span class="n">CloudmeshDatabase</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.db</span> <span class="k">import</span> <span class="n">SPECIFICATION</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="k">import</span> <span class="n">Default</span><span class="p">,</span> <span class="n">Names</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.deployer.ansible.inventory</span> <span class="k">import</span> <span class="n">Inventory</span><span class="p">,</span> <span class="n">Node</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.exc</span> <span class="k">import</span> <span class="p">(</span><span class="n">ClusterNameClashException</span><span class="p">,</span>
     <span class="n">NoActiveClusterException</span><span class="p">,</span> <span class="n">UnrecoverableErrorException</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="p">(</span><span class="n">CloudPluginCommand</span><span class="p">,</span> <span class="n">PluginCommand</span><span class="p">,</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="k">import</span> <span class="p">(</span><span class="n">CloudPluginCommand</span><span class="p">,</span> <span class="n">PluginCommand</span><span class="p">,</span>
     <span class="n">command</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
-
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="k">import</span> <span class="n">Console</span>
 
 <span class="n">db</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span>
 
 
 <div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ClusterCommand2.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<div class="viewcode-block" id="Command.create"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ClusterCommand2.Command.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clustername</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-               <span class="n">username</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">flavor</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-               <span class="n">secgroup</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">assignFloatingIP</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-               <span class="n">activate</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
-            <span class="sd">&quot;&quot;&quot;Create a cluster.</span>
+<div class="viewcode-block" id="Command.define"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ClusterCommand2.Command.define">[docs]</a>    <span class="k">def</span> <span class="nf">define</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clustername</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;Define a cluster.</span>
 
-<span class="sd">            If values are `None`, they are automatically determined via</span>
-<span class="sd">            defaults.</span>
+<span class="sd">            kwargs are passed to Cluster</span>
 
-<span class="sd">            :param str clustername: name of this cluster (generated if None)</span>
-<span class="sd">            :param str cloud: cloud name</span>
-<span class="sd">            :param int count: number of instances in the cluster</span>
-<span class="sd">            :param str user: cloudmesh user</span>
-<span class="sd">            :param str username: cloud image username</span>
-<span class="sd">            :param str image: image name</span>
-<span class="sd">            :param str flavor: instance flavor</span>
-<span class="sd">            :param str key: key name</span>
-<span class="sd">            :param str secgroup: security group name</span>
-<span class="sd">            :param bool activate: activate this cluster after creation</span>
 <span class="sd">            :returns: a cluster</span>
 <span class="sd">            :rtype: :class:`Cluster`</span>
 <span class="sd">            &quot;&quot;&quot;</span>
 
             <span class="n">clustername</span> <span class="o">=</span> <span class="n">clustername</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">generate_name</span><span class="p">(</span><span class="n">Names</span><span class="o">.</span><span class="n">CLUSTER_COUNTER</span><span class="p">)</span>
-            <span class="n">cloud</span> <span class="o">=</span> <span class="n">cloud</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">cloud</span>
-            <span class="n">username</span> <span class="o">=</span> <span class="n">username</span> <span class="ow">or</span> <span class="n">Image</span><span class="o">.</span><span class="n">guess_username</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="n">image</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">image</span>
-            <span class="n">flavor</span> <span class="o">=</span> <span class="n">flavor</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">flavor</span>
-            <span class="n">key</span> <span class="o">=</span> <span class="n">key</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">key</span>
-            <span class="n">secgroup</span> <span class="o">=</span> <span class="n">secgroup</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">secgroup</span>
+
+            <span class="c1"># remove None to defer default definitions to later</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
 
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">cluster</span> <span class="o">=</span> <span class="n">Cluster</span><span class="p">(</span>
-                    <span class="n">name</span><span class="o">=</span><span class="n">clustername</span><span class="p">,</span>
-                    <span class="n">count</span><span class="o">=</span><span class="n">count</span><span class="p">,</span>
-                    <span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span>
-                    <span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span>
-                    <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span>
-                    <span class="n">flavor</span><span class="o">=</span><span class="n">flavor</span><span class="p">,</span>
-                    <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
-                    <span class="n">secgroup</span><span class="o">=</span><span class="n">secgroup</span><span class="p">,</span>
-                    <span class="n">assignFloatingIP</span><span class="o">=</span><span class="n">assignFloatingIP</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="k">except</span> <span class="n">ClusterNameClashException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
-                <span class="k">raise</span> <span class="n">UnrecoverableErrorException</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                <span class="n">spec</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">SPECIFICATION</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">clustername</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">spec</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="n">db</span><span class="o">.</span><span class="n">updateObj</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                <span class="n">spec</span> <span class="o">=</span> <span class="n">SPECIFICATION</span><span class="p">(</span><span class="n">clustername</span><span class="p">,</span> <span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+                <span class="n">db</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
 
-            <span class="n">cluster</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s1">&#39;Cluster {} created&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clustername</span><span class="p">))</span>
+            <span class="n">Default</span><span class="o">.</span><span class="n">set_specification</span><span class="p">(</span><span class="n">clustername</span><span class="p">)</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s1">&#39;Defined cluster </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clustername</span><span class="p">))</span></div>
 
-            <span class="k">if</span> <span class="n">activate</span><span class="p">:</span>
-                <span class="n">Default</span><span class="o">.</span><span class="n">set_cluster</span><span class="p">(</span><span class="n">clustername</span><span class="p">)</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s1">&#39;Cluster {} is now active&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clustername</span><span class="p">))</span>
+<div class="viewcode-block" id="Command.undefine"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ClusterCommand2.Command.undefine">[docs]</a>    <span class="k">def</span> <span class="nf">undefine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">specname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">all</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 
-            <span class="k">return</span> <span class="n">cluster</span></div>
+        <span class="n">specs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">all</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">spec</span> <span class="ow">in</span> <span class="n">db</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">SPECIFICATION</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">):</span>
+                <span class="n">specs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">spec</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">SPECIFICATION</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">specname</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">active_specification</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">specs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">for</span> <span class="n">spec</span> <span class="ow">in</span> <span class="n">specs</span><span class="p">:</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">cluster</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">Cluster</span><span class="p">,</span> <span class="n">specId</span><span class="o">=</span><span class="n">spec</span><span class="o">.</span><span class="n">cm_id</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Cannot undefine allocated cluster </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cluster</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Please delete the cluster first&#39;</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+            <span class="n">db</span><span class="o">.</span><span class="n">delete_</span><span class="p">(</span><span class="n">SPECIFICATION</span><span class="p">,</span> <span class="n">cm_id</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">cm_id</span><span class="p">)</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s1">&#39;Undefined specification </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">spec</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">SPECIFICATION</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">Default</span><span class="o">.</span><span class="n">set_specification</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Command.use"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ClusterCommand2.Command.use">[docs]</a>    <span class="k">def</span> <span class="nf">use</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">specname</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Activate the given specification</span>
+
+<span class="sd">        :param specname: namne of the specification</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">SPECIFICATION</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">specname</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">Default</span><span class="o">.</span><span class="n">set_specification</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">Default</span><span class="o">.</span><span class="n">set_cluster</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Command.avail"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ClusterCommand2.Command.avail">[docs]</a>    <span class="k">def</span> <span class="nf">avail</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Show the available cluster specifications</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">specs</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">SPECIFICATION</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">)</span>
+        <span class="n">active</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">active_specification</span>
+
+        <span class="k">for</span> <span class="n">spec</span> <span class="ow">in</span> <span class="n">specs</span><span class="p">:</span>
+            <span class="n">marker</span> <span class="o">=</span> <span class="s1">&#39;&gt;&#39;</span> <span class="k">if</span> <span class="n">spec</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">active</span> <span class="k">else</span> <span class="s1">&#39; &#39;</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">marker</span><span class="p">,</span> <span class="n">spec</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:&gt;4}{:&lt;30}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="Command.allocate"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ClusterCommand2.Command.allocate">[docs]</a>    <span class="k">def</span> <span class="nf">allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clustername</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="n">specname</span> <span class="o">=</span> <span class="n">clustername</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">active_specification</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">spec</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">SPECIFICATION</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">specname</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No specification with name=</span><span class="si">{}</span><span class="s1"> found&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">specname</span><span class="p">))</span>
+            <span class="k">return</span> <span class="mi">1</span>
+
+        <span class="n">defns</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cluster</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">Cluster</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">spec</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">specId</span><span class="o">=</span><span class="n">spec</span><span class="o">.</span><span class="n">cm_id</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="n">cluster</span> <span class="o">=</span> <span class="n">Cluster</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">spec</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">specId</span><span class="o">=</span><span class="n">spec</span><span class="o">.</span><span class="n">cm_id</span><span class="p">,</span> <span class="o">**</span><span class="n">defns</span><span class="p">)</span>
+
+        <span class="n">Default</span><span class="o">.</span><span class="n">set_cluster</span><span class="p">(</span><span class="n">cluster</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s1">&#39;Cluster </span><span class="si">{}</span><span class="s1"> is now active&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cluster</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+
+        <span class="n">cluster</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s1">&#39;Cluster </span><span class="si">{}</span><span class="s1"> created&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cluster</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">cluster</span></div>
+
+<div class="viewcode-block" id="Command.cross_ssh"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ClusterCommand2.Command.cross_ssh">[docs]</a>    <span class="k">def</span> <span class="nf">cross_ssh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clustername</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="n">clustername</span> <span class="o">=</span> <span class="n">clustername</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">cluster</span>
+        <span class="n">cluster</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">Cluster</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">clustername</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">cluster</span><span class="o">.</span><span class="n">enable_cross_ssh_login</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Command.list"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ClusterCommand2.Command.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;List the clusters created</span>
@@ -272,7 +362,7 @@
         <span class="n">clusters</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">activename</span><span class="p">,</span> <span class="n">clusters</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">active</span><span class="p">,</span> <span class="n">clusters</span></div>
 
-<div class="viewcode-block" id="Command.delete"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ClusterCommand2.Command.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clusternames</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="nb">all</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Command.delete"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ClusterCommand2.Command.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clusternames</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">all</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Delete clusters that have these names.</span>
 
 <span class="sd">        If not specified, delete the active cluster.</span>
@@ -290,20 +380,20 @@
                         <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">clusternames</span><span class="p">]</span>
 
         <span class="k">for</span> <span class="n">cluster</span> <span class="ow">in</span> <span class="n">clusters</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s1">&#39;Deleting cluster {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cluster</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s1">&#39;Deleting cluster </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cluster</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
             <span class="n">cluster</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s1">&#39;Deleted cluster {}: {} nodes&#39;</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s1">&#39;Deleted cluster </span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1"> nodes&#39;</span>
                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cluster</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">cluster</span><span class="o">.</span><span class="n">count</span><span class="p">))</span>
 
         <span class="n">remaining_clusters</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">Cluster</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">remaining_clusters</span><span class="p">:</span>
             <span class="n">name</span> <span class="o">=</span> <span class="n">remaining_clusters</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">Default</span><span class="o">.</span><span class="n">set_cluster</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s1">&#39;Active cluster: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span></div>
+        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s1">&#39;Active cluster: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Command.get"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ClusterCommand2.Command.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">property</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Command.get"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ClusterCommand2.Command.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">property</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Retrieve the property for a cluster/nodes in a cluster.</span>
 
 <span class="sd">        If no cluster is specified, use the currently active cluster.</span>
@@ -325,7 +415,7 @@
             <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="nb">property</span><span class="p">)</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">cluster</span><span class="p">]</span>
             <span class="k">return</span> <span class="n">values</span></div>
 
-<div class="viewcode-block" id="Command.nodes"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ClusterCommand2.Command.nodes">[docs]</a>    <span class="k">def</span> <span class="nf">nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Command.nodes"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ClusterCommand2.Command.nodes">[docs]</a>    <span class="k">def</span> <span class="nf">nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Retrieve the nodes of a cluster</span>
 
 <span class="sd">        If no cluster is specified, use the currently active cluster.</span>
@@ -336,22 +426,28 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">pdb</span><span class="p">;</span> <span class="n">pdb</span><span class="o">.</span><span class="n">set_trace</span><span class="p">()</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">cluster</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">cluster</span>
+            <span class="n">cluster</span> <span class="o">=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">from_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">cluster</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Cluster </span><span class="si">{}</span><span class="s1"> is active. Did you forget to allocate?&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+            <span class="k">return</span> <span class="p">[]</span></div>
+
+
+<div class="viewcode-block" id="Command.inventory"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ClusterCommand2.Command.inventory">[docs]</a>    <span class="k">def</span> <span class="nf">inventory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
         <span class="n">cluster</span> <span class="o">=</span> <span class="n">cluster</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">active_cluster</span>
-        <span class="k">return</span> <span class="n">cluster</span><span class="o">.</span><span class="n">list</span><span class="p">()</span></div>
+        <span class="nb">format</span> <span class="o">=</span> <span class="nb">format</span> <span class="ow">or</span> <span class="s1">&#39;ansible&#39;</span>
 
-
-<div class="viewcode-block" id="Command.inventory"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ClusterCommand2.Command.inventory">[docs]</a>    <span class="k">def</span> <span class="nf">inventory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-
-        <span class="n">cluster</span> <span class="o">=</span> <span class="n">cluster</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">active_cluster</span>
-        <span class="n">format</span> <span class="o">=</span> <span class="n">format</span> <span class="ow">or</span> <span class="s1">&#39;ansible&#39;</span>
-
-        <span class="k">if</span> <span class="n">format</span> <span class="o">==</span> <span class="s1">&#39;ansible&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s1">&#39;ansible&#39;</span><span class="p">:</span>
 
             <span class="n">inventory</span> <span class="o">=</span> <span class="n">Inventory</span><span class="o">.</span><span class="n">from_cluster</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
             <span class="n">inv_ini</span> <span class="o">=</span> <span class="n">inventory</span><span class="o">.</span><span class="n">ini</span><span class="p">()</span>
 
             <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="n">inv_ini</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">inv_ini</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
                     <span class="n">fd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">inv_ini</span><span class="p">)</span>
@@ -360,28 +456,38 @@
 
 
 <div class="viewcode-block" id="Cluster2Command"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ClusterCommand2.Cluster2Command">[docs]</a><span class="k">class</span> <span class="nc">Cluster2Command</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
-    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cluster2&#39;</span><span class="p">:</span> <span class="s1">&#39;cluster&#39;</span><span class="p">}</span>
+    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cluster&#39;</span><span class="p">:</span> <span class="s1">&#39;cluster&#39;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;init command cluster2 &quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;init command cluster2 &quot;</span><span class="p">)</span>
 
     <span class="nd">@command</span>
-    <span class="k">def</span> <span class="nf">do_cluster2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">do_cluster</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        ::</span>
 <span class="sd">            Usage:</span>
-<span class="sd">              cluster2 create [-n NAME] [-c COUNT] [-C CLOUD] [-u NAME] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]</span>
-<span class="sd">              cluster2 list</span>
-<span class="sd">              cluster2 nodes [CLUSTER]</span>
-<span class="sd">              cluster2 delete [--all] [--force] [NAME]...</span>
-<span class="sd">              cluster2 get [-n NAME] PROPERTY</span>
-<span class="sd">              cluster2 inventory [-F NAME] [-o PATH] [NAME]</span>
+<span class="sd">              cluster define [-n NAME] [-c COUNT] [-C CLOUD] [-u NAME] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]</span>
+<span class="sd">              cluster undefine [--all] [NAME]...</span>
+<span class="sd">              cluster avail</span>
+<span class="sd">              cluster use &lt;NAME&gt;</span>
+<span class="sd">              cluster allocate</span>
+<span class="sd">              cluster cross_ssh</span>
+<span class="sd">              cluster list</span>
+<span class="sd">              cluster nodes [CLUSTER]</span>
+<span class="sd">              cluster delete [--all] [--force] [NAME]...</span>
+<span class="sd">              cluster get [-n NAME] PROPERTY</span>
+<span class="sd">              cluster inventory [-F NAME] [-o PATH] [NAME]</span>
 
 <span class="sd">            Commands:</span>
 
-<span class="sd">              create     Create a cluster</span>
+<span class="sd">              define     Create a cluster specification</span>
+<span class="sd">              undefine   Delete the active or given specifications</span>
+<span class="sd">              avail      Show available cluster specifications</span>
+<span class="sd">              use        Activate the specification with the given name</span>
+<span class="sd">              allocate   Create a cluster from the active specification</span>
+<span class="sd">              nodes      Show the nodes of the cluster</span>
 <span class="sd">              list       List the available clusters</span>
 <span class="sd">              inventory  Obtain an inventory file</span>
 <span class="sd">              delete     Delete clusters and associated instances</span>
@@ -418,10 +524,10 @@
         <span class="n">arguments</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
         <span class="n">cmd</span> <span class="o">=</span> <span class="n">Command</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="n">arguments</span><span class="o">.</span><span class="n">create</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">arguments</span><span class="o">.</span><span class="n">define</span><span class="p">:</span>
 
-            <span class="n">cmd</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-                <span class="n">clustername</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--name&#39;</span><span class="p">],</span>
+            <span class="n">cmd</span><span class="o">.</span><span class="n">define</span><span class="p">(</span>
+                <span class="n">clustername</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--name&#39;</span><span class="p">],</span>
                 <span class="n">count</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--count&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">,</span>
                 <span class="n">cloud</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--cloud&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span>
                 <span class="n">username</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--username&#39;</span><span class="p">],</span>
@@ -432,6 +538,29 @@
                 <span class="n">assignFloatingIP</span><span class="o">=</span><span class="ow">not</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--no-floating-ip&#39;</span><span class="p">],</span>
             <span class="p">)</span>
 
+        <span class="k">elif</span> <span class="n">arguments</span><span class="o">.</span><span class="n">undefine</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">]:</span>
+                <span class="k">for</span> <span class="n">specname</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">]:</span>
+                    <span class="n">cmd</span><span class="o">.</span><span class="n">undefine</span><span class="p">(</span><span class="n">specname</span><span class="o">=</span><span class="n">specname</span><span class="p">,</span> <span class="nb">all</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--all&#39;</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cmd</span><span class="o">.</span><span class="n">undefine</span><span class="p">(</span><span class="nb">all</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--all&#39;</span><span class="p">])</span>
+
+        <span class="k">elif</span> <span class="n">arguments</span><span class="o">.</span><span class="n">avail</span><span class="p">:</span>
+
+            <span class="n">cmd</span><span class="o">.</span><span class="n">avail</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="n">arguments</span><span class="o">.</span><span class="n">use</span><span class="p">:</span>
+
+            <span class="n">cmd</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;&lt;NAME&gt;&#39;</span><span class="p">])</span>
+
+        <span class="k">elif</span> <span class="n">arguments</span><span class="o">.</span><span class="n">allocate</span><span class="p">:</span>
+
+            <span class="n">cmd</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="n">arguments</span><span class="o">.</span><span class="n">cross_ssh</span><span class="p">:</span>
+
+            <span class="n">cmd</span><span class="o">.</span><span class="n">cross_ssh</span><span class="p">()</span>
+
         <span class="k">elif</span> <span class="n">arguments</span><span class="o">.</span><span class="n">list</span><span class="p">:</span>
 
             <span class="k">try</span><span class="p">:</span>
@@ -439,7 +568,7 @@
             <span class="k">except</span> <span class="n">NoActiveClusterException</span><span class="p">:</span>
                 <span class="k">return</span>
 
-            <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="n">isactive</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
+            <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="n">isactive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">cluster</span><span class="p">:</span>
                     <span class="k">return</span>
                 <span class="k">if</span> <span class="n">isactive</span><span class="p">:</span>
@@ -450,17 +579,15 @@
                 <span class="n">stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
                 <span class="n">stream</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
 
-            <span class="n">show</span><span class="p">(</span><span class="n">active</span><span class="p">,</span> <span class="n">isactive</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">show</span><span class="p">(</span><span class="n">active</span><span class="p">,</span> <span class="n">isactive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="nb">map</span><span class="p">(</span><span class="n">show</span><span class="p">,</span> <span class="n">inactive</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
 
-            <span class="n">cluster</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">Cluster</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">arguments</span><span class="o">.</span><span class="n">CLUSTER</span><span class="p">)</span><span class="o">.</span><span class="n">one</span><span class="p">()</span> \
-                    <span class="k">if</span> <span class="n">arguments</span><span class="o">.</span><span class="n">CLUSTER</span> \
-                    <span class="k">else</span> <span class="bp">None</span>
-            <span class="n">nodes</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">cluster</span><span class="o">=</span><span class="n">cluster</span><span class="p">)</span>
+            <span class="n">nodes</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">cluster</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;CLUSTER&#39;</span><span class="p">])</span>
+
             <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">floating_ip</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="o">.</span><span class="n">delete</span><span class="p">:</span>
 
@@ -474,18 +601,18 @@
 
             <span class="n">values</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;PROPERTY&#39;</span><span class="p">],</span> <span class="n">cluster</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--name&#39;</span><span class="p">])</span>
             <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="o">.</span><span class="n">inventory</span><span class="p">:</span>
             <span class="n">cmd</span><span class="o">.</span><span class="n">inventory</span><span class="p">(</span>
                 <span class="n">cluster</span><span class="o">=</span><span class="n">arguments</span><span class="o">.</span><span class="n">NAME</span><span class="p">,</span>
-                <span class="n">format</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--format&#39;</span><span class="p">],</span>
+                <span class="nb">format</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--format&#39;</span><span class="p">],</span>
                 <span class="n">path</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--path&#39;</span><span class="p">],</span>
             <span class="p">)</span></div>
 
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">cmd</span> <span class="o">=</span> <span class="n">Cluster2Command</span><span class="p">()</span>
     <span class="n">cmd</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
         <span class="n">clustername</span><span class="o">=</span><span class="s1">&#39;test3&#39;</span><span class="p">,</span>
@@ -498,6 +625,9 @@
 
 </pre></div>
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -528,10 +658,11 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'4.5.2',
+            VERSION:'4.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../../../_static/jquery.js"></script>

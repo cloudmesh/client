@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins.HadoopCommand &mdash; cloudmesh_client 4.5.2 documentation</title>
+  <title>cloudmesh_client.shell.plugins.HadoopCommand &mdash; cloudmesh_client 4.6.1 documentation</title>
   
 
+  
+  
   
   
 
@@ -30,7 +32,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../../../../index.html"/>
+        <link rel="index" title="Index"
+              href="../../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
@@ -40,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -59,7 +65,7 @@
             
             
               <div class="version">
-                4.5.2
+                4.6.1
               </div>
             
           
@@ -80,7 +86,10 @@
           
             
             
-                <p class="caption"><span class="caption-text">Overview</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../introduction.html">Introduction</a></li>
@@ -142,8 +151,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../../../index.html">cloudmesh_client</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">cloudmesh_client</a>
+        
       </nav>
 
 
@@ -156,115 +167,165 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../../../index.html">Module code</a> &raquo;</li>
-      
+        
           <li><a href="../../../cloudmesh_client.html">cloudmesh_client</a> &raquo;</li>
-      
-    <li>cloudmesh_client.shell.plugins.HadoopCommand</li>
+        
+      <li>cloudmesh_client.shell.plugins.HadoopCommand</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.shell.plugins.HadoopCommand</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
 
 <span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">from</span> <span class="nn">.ClusterCommand2</span> <span class="k">import</span> <span class="n">Command</span> <span class="k">as</span> <span class="n">ClusterCommand</span>
+<span class="kn">from</span> <span class="nn">.StackCommand</span> <span class="k">import</span> <span class="n">Command</span> <span class="k">as</span> <span class="n">StackCommand</span>
 
-<span class="kn">from</span> <span class="nn">.ClusterCommand2</span> <span class="kn">import</span> <span class="n">Command</span> <span class="k">as</span> <span class="n">ClusterCommand</span>
-<span class="kn">from</span> <span class="nn">.StackCommand</span> <span class="kn">import</span> <span class="n">Command</span> <span class="k">as</span> <span class="n">StackCommand</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.stack</span> <span class="kn">import</span> <span class="n">SanityCheckError</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.dotdict</span> <span class="kn">import</span> <span class="n">dotdict</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="p">(</span><span class="n">CloudPluginCommand</span><span class="p">,</span> <span class="n">PluginCommand</span><span class="p">,</span>
-    <span class="n">command</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.stack</span> <span class="k">import</span> <span class="n">BigDataStack</span><span class="p">,</span> <span class="n">ProjectDB</span><span class="p">,</span> \
+    <span class="n">ProjectFactory</span><span class="p">,</span> <span class="n">SanityCheckError</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.dotdict</span> <span class="k">import</span> <span class="n">dotdict</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.db</span> <span class="k">import</span> <span class="n">CloudmeshDatabase</span><span class="p">,</span> <span class="n">SPECIFICATION</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="k">import</span> <span class="n">Default</span><span class="p">,</span> <span class="n">Names</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="k">import</span> <span class="n">CloudPluginCommand</span><span class="p">,</span> <span class="n">PluginCommand</span><span class="p">,</span> \
+    <span class="n">command</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="k">import</span> <span class="n">Console</span>
+
+
+<span class="n">db</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">()</span>
 
 
 <div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.HadoopCommand.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-<div class="viewcode-block" id="Command.start"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.HadoopCommand.Command.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">addons</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">flavor</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Start a hadoop cluster</span>
+<div class="viewcode-block" id="Command.sync"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.HadoopCommand.Command.sync">[docs]</a>    <span class="k">def</span> <span class="nf">sync</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stackname</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
-<span class="sd">        :param int count: number of nodes to use (minimum of 3)</span>
-<span class="sd">        :param list(str) addons: names of addons to deploy as well</span>
-<span class="sd">        :param str flavor: instance flavor</span>
-<span class="sd">        :param str image: image name</span>
-<span class="sd">        :param str username: login user name</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="n">clustercmd</span> <span class="o">=</span> <span class="n">ClusterCommand</span><span class="p">()</span>
-        <span class="n">cluster</span> <span class="o">=</span> <span class="n">clustercmd</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-            <span class="n">count</span><span class="o">=</span><span class="n">count</span><span class="p">,</span>
-            <span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span>
-            <span class="n">flavor</span><span class="o">=</span><span class="n">flavor</span><span class="p">,</span>
-            <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span>
-        <span class="p">)</span>
-
-        <span class="n">stackcmd</span> <span class="o">=</span> <span class="n">StackCommand</span><span class="p">()</span>
-
-        <span class="n">addons</span> <span class="o">=</span> <span class="n">addons</span> <span class="ow">or</span> <span class="p">[]</span>
-        <span class="n">playbooks</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;play-hadoop.yml&#39;</span><span class="p">]</span> <span class="o">+</span> \
-                    <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;addons&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">addons</span><span class="p">]</span>
-
-        <span class="n">stackcmd</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
-            <span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span>
-            <span class="n">playbooks</span><span class="o">=</span><span class="n">playbooks</span><span class="p">,</span>
-            <span class="n">ips</span><span class="o">=</span><span class="n">clustercmd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;floating_ip&#39;</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="n">cluster</span><span class="p">),</span>
-        <span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">stackname</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">active_stack</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">stackcmd</span><span class="o">.</span><span class="n">deploy</span><span class="p">()</span>
-        <span class="k">except</span> <span class="n">SanityCheckError</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span></div>
+            <span class="n">spec</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">SPECIFICATION</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;stack&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No project defined. Use `cm hadoop define` first&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
 
-<div class="viewcode-block" id="Command.list"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.HadoopCommand.Command.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;List the known deployments</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;local_path&#39;</span><span class="p">)</span>
+        <span class="n">stack</span> <span class="o">=</span> <span class="n">BigDataStack</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">stack</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">stack</span><span class="o">.</span><span class="n">sync_metadata</span><span class="p">()</span></div>
 
-<span class="sd">        :returns: </span>
-<span class="sd">        :rtype: </span>
+<div class="viewcode-block" id="Command.define"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.HadoopCommand.Command.define">[docs]</a>    <span class="k">def</span> <span class="nf">define</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;Define a hadoop stack.</span>
 
+<span class="sd">            &quot;&quot;&quot;</span>
+
+            <span class="n">stackname</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">generate_name</span><span class="p">(</span><span class="n">Names</span><span class="o">.</span><span class="n">STACK_COUNTER</span><span class="p">)</span>
+
+            <span class="c1"># remove None to defer default definitions to latter</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;local_path&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/.cloudmesh/stacks&#39;</span><span class="p">),</span> <span class="n">stackname</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">spec</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">SPECIFICATION</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">stackname</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;stack&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">spec</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="n">db</span><span class="o">.</span><span class="n">updateObj</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                <span class="n">spec</span> <span class="o">=</span> <span class="n">SPECIFICATION</span><span class="p">(</span><span class="n">stackname</span><span class="p">,</span> <span class="s1">&#39;stack&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+                <span class="n">db</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+
+            <span class="n">Default</span><span class="o">.</span><span class="n">set_stack</span><span class="p">(</span><span class="n">stackname</span><span class="p">)</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s1">&#39;Defined stack </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stackname</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Command.addons"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.HadoopCommand.Command.addons">[docs]</a>    <span class="k">def</span> <span class="nf">addons</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;List the addons available</span>
+
+<span class="sd">        :returns: list of addons</span>
+<span class="sd">        :rtype: list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;hadoop.list not implemented&#39;</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+        <span class="c1"># FIXME: don&#39;t hardcode the list of available stack addons</span>
+        <span class="c1">#</span>
+        <span class="c1"># The list of addons should ideally be dynamically</span>
+        <span class="c1"># discoverable from the current active stack. This hardcoding</span>
+        <span class="c1"># is intended to be a temporary workaround.</span>
+        <span class="c1">#</span>
+        <span class="c1"># The list of addons are in the addons subdir of the BDS repo:</span>
+        <span class="c1"># https://github.com/futuresystems/big-data-stack/tree/master/addons</span>
+        <span class="n">addons</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;hbase&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;hive&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;pig&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;spark&#39;</span><span class="p">,</span>
+        <span class="p">]</span>
 
-<div class="viewcode-block" id="Command.switch"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.HadoopCommand.Command.switch">[docs]</a>    <span class="k">def</span> <span class="nf">switch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Switch active deployments</span>
+        <span class="k">return</span> <span class="n">addons</span></div>
 
-<span class="sd">        :param str name: name of deployment to switch to</span>
-<span class="sd">        :returns: </span>
-<span class="sd">        :rtype: </span>
+<div class="viewcode-block" id="Command.deploy"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.HadoopCommand.Command.deploy">[docs]</a>    <span class="k">def</span> <span class="nf">deploy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clustername</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stackname</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
+        <span class="n">stackname</span> <span class="o">=</span> <span class="n">stackname</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">active_stack</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">SPECIFICATION</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">stackname</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;stack&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">opts</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+        <span class="n">cluster_cmd</span> <span class="o">=</span> <span class="n">ClusterCommand</span><span class="p">()</span>
+        <span class="n">cluster</span> <span class="o">=</span> <span class="n">cluster_cmd</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">clustername</span><span class="o">=</span><span class="n">clustername</span><span class="p">)</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">username</span>
+
+        <span class="n">stack</span> <span class="o">=</span> <span class="n">BigDataStack</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">opts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;local_path&#39;</span><span class="p">))</span>
+        <span class="n">stack</span><span class="o">.</span><span class="n">deploy</span><span class="p">(</span>
+            <span class="n">ips</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">floating_ip</span> <span class="ow">or</span> <span class="n">node</span><span class="o">.</span><span class="n">static_ip</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">cluster</span><span class="p">],</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">stackname</span><span class="p">,</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">user</span><span class="p">,</span>
+            <span class="n">playbooks</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;play-hadoop.yml&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;addons/</span><span class="si">%s</span><span class="s1">.yml&#39;</span> <span class="o">%</span> <span class="n">addon</span> <span class="k">for</span> <span class="n">addon</span> <span class="ow">in</span> <span class="n">opts</span><span class="p">[</span><span class="s1">&#39;addons&#39;</span><span class="p">]],</span>
+            <span class="n">defines</span> <span class="o">=</span> <span class="n">opts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;defines&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Command.avail"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.HadoopCommand.Command.avail">[docs]</a>    <span class="k">def</span> <span class="nf">avail</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">specs</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">SPECIFICATION</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;stack&#39;</span><span class="p">)</span>
+        <span class="n">active</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">active_stack</span>
+
+        <span class="k">return</span> <span class="n">active</span><span class="p">,</span> <span class="n">specs</span></div>
+
+<div class="viewcode-block" id="Command.use"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.HadoopCommand.Command.use">[docs]</a>    <span class="k">def</span> <span class="nf">use</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">specname</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Activate the given specification</span>
+
+<span class="sd">        :param specname: namne of the specification</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;hadoop.switch not implemented&#39;</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
-
-<div class="viewcode-block" id="Command.delete"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.HadoopCommand.Command.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="nb">all</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Delete deployments.</span>
-
-<span class="sd">        If no names are specified, delete the currently active</span>
-<span class="sd">        deployment.</span>
-
-<span class="sd">        :param list names: names of deployments to delete</span>
-<span class="sd">        :param bool all: delete all deployments</span>
-<span class="sd">        :returns: </span>
-<span class="sd">        :rtype:</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;hadoop.delete not implemented&#39;</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div></div>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">SPECIFICATION</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;stack&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">specname</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">Default</span><span class="o">.</span><span class="n">set_stack</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="HadoopCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.HadoopCommand.HadoopCommand">[docs]</a><span class="k">class</span> <span class="nc">HadoopCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
@@ -274,7 +335,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;init command hadoop&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;init command hadoop&quot;</span><span class="p">)</span>
 
     <span class="nd">@command</span>
     <span class="k">def</span> <span class="nf">do_hadoop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
@@ -282,53 +343,94 @@
 <span class="sd">        ::</span>
 
 <span class="sd">           Usage:</span>
-<span class="sd">             hadoop start [-f NAME] [-i NAME] [-u NAME] [COUNT] [ADDON]...</span>
-<span class="sd">             hadoop list</span>
-<span class="sd">             hadoop switch NAME</span>
-<span class="sd">             hadoop delete [-a] [NAME]...</span>
+<span class="sd">             hadoop sync</span>
+<span class="sd">             hadoop addons</span>
+<span class="sd">             hadoop define [-r REPO] [-b NAME] [-d COUNT] [ADDON]...</span>
+<span class="sd">             hadoop undefine [NAME]...</span>
+<span class="sd">             hadoop avail</span>
+<span class="sd">             hadoop use NAME</span>
+<span class="sd">             hadoop deploy</span>
 
 <span class="sd">           Arguments:</span>
 
-<span class="sd">             COUNT</span>
-<span class="sd">             ADDON</span>
-<span class="sd">             NAME</span>
+<span class="sd">             REPO            Repository location</span>
+<span class="sd">             CLUSTER         Name of a cluster</span>
+<span class="sd">             ADDON           Big Data Stack addon (eg: spark, hbase, pig)</span>
+<span class="sd">             NAME            Alphanumeric name</span>
+<span class="sd">             COUNT           Integer greater than zero</span>
+
+<span class="sd">           Commands:</span>
+
+<span class="sd">             sync       Checkout / synchronize the Big Data Stack</span>
+<span class="sd">             addons     List available addons</span>
+<span class="sd">             define     Create a deployment specification</span>
+<span class="sd">             undefine   Delete the active or given specifications</span>
+<span class="sd">             avail      Show available deployment specifications</span>
+<span class="sd">             use        Activate the specification with the given name</span>
+<span class="sd">             deploy     Deploy the active specification onto the active cluster</span>
 
 <span class="sd">           Options:</span>
 
-<span class="sd">             -a --all</span>
-<span class="sd">             -f --flavor=NAME</span>
-<span class="sd">             -i --image=NAME</span>
-<span class="sd">             -u --username=NAME</span>
+<span class="sd">             -r --repo=REPO        Location of the repository</span>
+<span class="sd">             -b --branch=NAME      Branch to use</span>
+<span class="sd">             -d --depth=COUNT      Clone depth</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">arguments</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
         <span class="n">cmd</span> <span class="o">=</span> <span class="n">Command</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="n">arguments</span><span class="o">.</span><span class="n">start</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">arguments</span><span class="o">.</span><span class="n">sync</span><span class="p">:</span>
 
-            <span class="n">cmd</span><span class="o">.</span><span class="n">start</span><span class="p">(</span>
-                <span class="n">count</span><span class="o">=</span><span class="n">arguments</span><span class="o">.</span><span class="n">COUNT</span> <span class="ow">or</span> <span class="mi">3</span><span class="p">,</span>
-                <span class="n">addons</span><span class="o">=</span><span class="n">arguments</span><span class="o">.</span><span class="n">ADDON</span><span class="p">,</span>
-                <span class="n">flavor</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--flavor&#39;</span><span class="p">],</span>
-                <span class="n">image</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--image&#39;</span><span class="p">],</span>
-                <span class="n">username</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--username&#39;</span><span class="p">],</span>
+            <span class="n">cmd</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="n">arguments</span><span class="o">.</span><span class="n">addons</span><span class="p">:</span>
+
+            <span class="n">addons</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">.</span><span class="n">addons</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">addons</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">arguments</span><span class="o">.</span><span class="n">define</span><span class="p">:</span>
+
+            <span class="n">cmd</span><span class="o">.</span><span class="n">define</span><span class="p">(</span>
+                <span class="n">addons</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;ADDON&#39;</span><span class="p">],</span>
+                <span class="n">repo</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--repo&#39;</span><span class="p">],</span>
+                <span class="n">branch</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--branch&#39;</span><span class="p">],</span>
+                <span class="n">depth</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--depth&#39;</span><span class="p">],</span>
             <span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="o">.</span><span class="n">list</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="o">.</span><span class="n">undefine</span><span class="p">:</span>
 
-            <span class="n">cmd</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+            <span class="n">cmd</span><span class="o">.</span><span class="n">undefine</span><span class="p">(</span>
+                <span class="n">names</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">]</span>
+            <span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="o">.</span><span class="n">switch</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="o">.</span><span class="n">avail</span><span class="p">:</span>
 
-            <span class="n">cmd</span><span class="o">.</span><span class="n">switch</span><span class="p">(</span><span class="n">arguments</span><span class="o">.</span><span class="n">NAME</span><span class="p">)</span>
+            <span class="n">active</span><span class="p">,</span> <span class="n">specs</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">.</span><span class="n">avail</span><span class="p">()</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="o">.</span><span class="n">delete</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">spec</span> <span class="ow">in</span> <span class="n">specs</span><span class="p">:</span>
+                <span class="n">marker</span> <span class="o">=</span> <span class="s1">&#39;&gt;&#39;</span> <span class="k">if</span> <span class="n">spec</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">active</span> <span class="k">else</span> <span class="s1">&#39; &#39;</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">marker</span><span class="p">,</span> <span class="n">spec</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:&gt;4}{:&lt;30}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
 
-            <span class="n">cmd</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">arguments</span><span class="o">.</span><span class="n">NAME</span><span class="p">,</span> <span class="nb">all</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--all&#39;</span><span class="p">])</span></div>
 
+        <span class="k">elif</span> <span class="n">arguments</span><span class="o">.</span><span class="n">use</span><span class="p">:</span>
+
+            <span class="n">cmd</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="k">elif</span> <span class="n">arguments</span><span class="o">.</span><span class="n">deploy</span><span class="p">:</span>
+
+            <span class="n">cmd</span><span class="o">.</span><span class="n">deploy</span><span class="p">()</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">)</span></div>
 </pre></div>
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -359,10 +461,11 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'4.5.2',
+            VERSION:'4.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../../../_static/jquery.js"></script>

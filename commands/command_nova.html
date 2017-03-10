@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Nova Command &mdash; cloudmesh_client 4.5.2 documentation</title>
+  <title>Nova Command &mdash; cloudmesh_client 4.6.1 documentation</title>
   
 
+  
+  
   
   
 
@@ -30,7 +32,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Network Command" href="command_network.html"/>
         <link rel="prev" title="Advanced Command Usage" href="command_advanced.html"/> 
@@ -42,6 +47,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -61,7 +67,7 @@
             
             
               <div class="version">
-                4.5.2
+                4.6.1
               </div>
             
           
@@ -82,7 +88,10 @@
           
             
             
-                <p class="caption"><span class="caption-text">Overview</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
@@ -173,8 +182,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">cloudmesh_client</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cloudmesh_client</a>
+        
       </nav>
 
 
@@ -183,25 +194,42 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="index.html">User Manual</a> &raquo;</li>
-      
-    <li>Nova Command</li>
+        
+      <li>Nova Command</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="../_sources/commands/command_nova.txt" rel="nofollow"> View page source</a>
+            
+            <a href="../_sources/commands/command_nova.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -272,24 +300,24 @@ Following are couple of examples:</p>
 <span class="o">|</span> <span class="n">ID</span>                                   <span class="o">|</span> <span class="n">Name</span>                                    <span class="o">|</span> <span class="n">Status</span> <span class="o">|</span> <span class="n">Server</span>                               <span class="o">|</span>
 <span class="o">+--------------------------------------+-----------------------------------------+--------+--------------------------------------+</span>
 <span class="o">|</span> <span class="mi">619</span><span class="n">b8942</span><span class="o">-</span><span class="mi">2355</span><span class="o">-</span><span class="mi">4</span><span class="n">aa2</span><span class="o">-</span><span class="n">bae3</span><span class="o">-</span><span class="mi">74</span><span class="n">b8f1751911</span> <span class="o">|</span> <span class="n">CentOS</span><span class="o">-</span><span class="mi">7</span>                                <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
-<span class="o">|</span> <span class="n">f63a996c</span><span class="o">-</span><span class="n">ea69</span><span class="o">-</span><span class="mi">4</span><span class="n">a56</span><span class="o">-</span><span class="mi">830</span><span class="n">e</span><span class="o">-</span><span class="n">c190bca2f828</span> <span class="o">|</span> <span class="n">VM</span> <span class="k">with</span> <span class="n">Cloudmesh</span> <span class="n">Configured</span> <span class="n">Completely</span> <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span> <span class="mi">8</span><span class="n">b7ce3bf</span><span class="o">-</span><span class="n">f797</span><span class="o">-</span><span class="mi">4</span><span class="n">e8e</span><span class="o">-</span><span class="mi">903</span><span class="n">c</span><span class="o">-</span><span class="mi">6</span><span class="n">a0de81b063c</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">f63a996c</span><span class="o">-</span><span class="n">ea69</span><span class="o">-</span><span class="mi">4</span><span class="n">a56</span><span class="o">-</span><span class="mi">830</span><span class="n">e</span><span class="o">-</span><span class="n">c190bca2f828</span> <span class="o">|</span> <span class="n">VM</span> <span class="k">with</span> <span class="n">Cloudmesh</span> <span class="n">Configured</span> <span class="n">Completely</span> <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span> <span class="mi">8</span><span class="n">b7ce3bf</span><span class="o">-</span><span class="n">f797</span><span class="o">-</span><span class="mf">4e8</span><span class="n">e</span><span class="o">-</span><span class="mi">903</span><span class="n">c</span><span class="o">-</span><span class="mi">6</span><span class="n">a0de81b063c</span> <span class="o">|</span>
 <span class="o">|</span> <span class="mi">7</span><span class="n">ddc3366</span><span class="o">-</span><span class="mi">73</span><span class="n">bf</span><span class="o">-</span><span class="mi">453</span><span class="n">a</span><span class="o">-</span><span class="n">a813</span><span class="o">-</span><span class="mi">43514030</span><span class="n">bf2e</span> <span class="o">|</span> <span class="n">badi</span><span class="o">/</span><span class="n">centos</span><span class="o">-</span><span class="mi">7</span><span class="o">-</span><span class="mi">2015</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span>                <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
 <span class="o">|</span> <span class="n">c3c5b676</span><span class="o">-</span><span class="n">be53</span><span class="o">-</span><span class="mi">4237</span><span class="o">-</span><span class="n">a40f</span><span class="o">-</span><span class="mi">451</span><span class="n">d4c6e572e</span> <span class="o">|</span> <span class="n">badi</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">-</span><span class="mf">14.04</span><span class="o">-</span><span class="mi">2015</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span>            <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
 <span class="o">|</span> <span class="n">f2c2bbda</span><span class="o">-</span><span class="mi">8</span><span class="n">bc1</span><span class="o">-</span><span class="mi">4</span><span class="n">f02</span><span class="o">-</span><span class="n">a2e8</span><span class="o">-</span><span class="mi">60014</span><span class="n">da66689</span> <span class="o">|</span> <span class="n">cloudmesh</span><span class="o">/</span><span class="n">ipynb</span><span class="o">-</span><span class="n">n</span><span class="o">-</span><span class="n">java</span>                  <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
 <span class="o">|</span> <span class="mi">186592</span><span class="n">ce</span><span class="o">-</span><span class="n">eed5</span><span class="o">-</span><span class="mi">4631</span><span class="o">-</span><span class="n">bc0c</span><span class="o">-</span><span class="mi">7022</span><span class="n">eccd8508</span> <span class="o">|</span> <span class="n">fg464</span><span class="o">/</span><span class="n">hadoop</span><span class="o">-</span><span class="n">b649</span>                       <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span> <span class="mi">63</span><span class="n">a2cf03</span><span class="o">-</span><span class="n">a6cf</span><span class="o">-</span><span class="mi">4</span><span class="n">d8a</span><span class="o">-</span><span class="mi">95</span><span class="n">c1</span><span class="o">-</span><span class="mi">250</span><span class="n">eb71f1ebc</span> <span class="o">|</span>
-<span class="o">|</span> <span class="mi">364</span><span class="n">bd53b</span><span class="o">-</span><span class="mi">87</span><span class="n">d3</span><span class="o">-</span><span class="mi">4</span><span class="n">ac6</span><span class="o">-</span><span class="mi">8</span><span class="n">e41</span><span class="o">-</span><span class="n">af540301f0cd</span> <span class="o">|</span> <span class="n">futuresystems</span><span class="o">/</span><span class="n">centos</span><span class="o">-</span><span class="mi">7</span>                  <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
-<span class="o">|</span> <span class="mi">58</span><span class="n">e5d678</span><span class="o">-</span><span class="mi">79</span><span class="n">ec</span><span class="o">-</span><span class="mi">4</span><span class="n">a4d</span><span class="o">-</span><span class="mi">9</span><span class="n">aa8</span><span class="o">-</span><span class="mi">37975</span><span class="n">b7f40ac</span> <span class="o">|</span> <span class="n">futuresystems</span><span class="o">/</span><span class="n">fedora</span><span class="o">-</span><span class="mi">21</span>                 <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
-<span class="o">|</span> <span class="n">a59833a2</span><span class="o">-</span><span class="mi">60</span><span class="n">c9</span><span class="o">-</span><span class="mi">47</span><span class="n">f0</span><span class="o">-</span><span class="n">b333</span><span class="o">-</span><span class="mi">4</span><span class="n">e0bc071ac3a</span> <span class="o">|</span> <span class="n">futuresystems</span><span class="o">/</span><span class="n">hadoop</span><span class="o">-</span><span class="n">v2</span>                 <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span> <span class="n">f01633b1</span><span class="o">-</span><span class="mi">76</span><span class="n">b0</span><span class="o">-</span><span class="mi">47</span><span class="n">b5</span><span class="o">-</span><span class="mi">915</span><span class="n">e</span><span class="o">-</span><span class="n">eaae4559ba60</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">364</span><span class="n">bd53b</span><span class="o">-</span><span class="mi">87</span><span class="n">d3</span><span class="o">-</span><span class="mi">4</span><span class="n">ac6</span><span class="o">-</span><span class="mf">8e41</span><span class="o">-</span><span class="n">af540301f0cd</span> <span class="o">|</span> <span class="n">futuresystems</span><span class="o">/</span><span class="n">centos</span><span class="o">-</span><span class="mi">7</span>                  <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="mf">58e5</span><span class="n">d678</span><span class="o">-</span><span class="mi">79</span><span class="n">ec</span><span class="o">-</span><span class="mi">4</span><span class="n">a4d</span><span class="o">-</span><span class="mi">9</span><span class="n">aa8</span><span class="o">-</span><span class="mi">37975</span><span class="n">b7f40ac</span> <span class="o">|</span> <span class="n">futuresystems</span><span class="o">/</span><span class="n">fedora</span><span class="o">-</span><span class="mi">21</span>                 <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="n">a59833a2</span><span class="o">-</span><span class="mi">60</span><span class="n">c9</span><span class="o">-</span><span class="mi">47</span><span class="n">f0</span><span class="o">-</span><span class="n">b333</span><span class="o">-</span><span class="mf">4e0</span><span class="n">bc071ac3a</span> <span class="o">|</span> <span class="n">futuresystems</span><span class="o">/</span><span class="n">hadoop</span><span class="o">-</span><span class="n">v2</span>                 <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span> <span class="n">f01633b1</span><span class="o">-</span><span class="mi">76</span><span class="n">b0</span><span class="o">-</span><span class="mi">47</span><span class="n">b5</span><span class="o">-</span><span class="mi">915</span><span class="n">e</span><span class="o">-</span><span class="n">eaae4559ba60</span> <span class="o">|</span>
 <span class="o">|</span> <span class="mi">367</span><span class="n">de5c7</span><span class="o">-</span><span class="mi">3</span><span class="n">a30</span><span class="o">-</span><span class="mi">4</span><span class="n">bad</span><span class="o">-</span><span class="n">b316</span><span class="o">-</span><span class="mi">1</span><span class="n">a2afa17d794</span> <span class="o">|</span> <span class="n">futuresystems</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">-</span><span class="mf">12.04</span>              <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
 <span class="o">|</span> <span class="mi">66708636</span><span class="o">-</span><span class="mi">5</span><span class="n">ed6</span><span class="o">-</span><span class="mi">4908</span><span class="o">-</span><span class="n">b36a</span><span class="o">-</span><span class="n">f5a69f8ac7ee</span> <span class="o">|</span> <span class="n">futuresystems</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">-</span><span class="mf">14.04</span>              <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
 <span class="o">|</span> <span class="mi">0</span><span class="n">f787e59</span><span class="o">-</span><span class="mi">6</span><span class="n">ff9</span><span class="o">-</span><span class="mi">466</span><span class="n">c</span><span class="o">-</span><span class="n">aaf6</span><span class="o">-</span><span class="n">cd3f3c9350d0</span> <span class="o">|</span> <span class="n">kilitbilgi</span><span class="o">/</span><span class="n">ubuntu_14_10_desktop</span>         <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
 <span class="o">|</span> <span class="mi">5337</span><span class="n">a50d</span><span class="o">-</span><span class="mi">4418</span><span class="o">-</span><span class="mi">4</span><span class="n">c1f</span><span class="o">-</span><span class="mi">9741</span><span class="o">-</span><span class="mi">5</span><span class="n">c31bf03e267</span> <span class="o">|</span> <span class="n">lee212</span><span class="o">/</span><span class="n">CoreOS</span>                           <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
 <span class="o">|</span> <span class="mi">132</span><span class="n">c961f</span><span class="o">-</span><span class="n">bca8</span><span class="o">-</span><span class="mi">4942</span><span class="o">-</span><span class="n">a2c5</span><span class="o">-</span><span class="n">a8f60f84aea9</span> <span class="o">|</span> <span class="n">lee212</span><span class="o">/</span><span class="n">CoreOS</span><span class="o">-</span><span class="n">Alpha</span>                     <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
-<span class="o">|</span> <span class="n">e8acb8e0</span><span class="o">-</span><span class="n">fbc9</span><span class="o">-</span><span class="mi">44</span><span class="n">e4</span><span class="o">-</span><span class="mi">9</span><span class="n">b31</span><span class="o">-</span><span class="mi">3</span><span class="n">c38fc9c25ae</span> <span class="o">|</span> <span class="n">lee212</span><span class="o">/</span><span class="n">boot2docker</span>                      <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="n">e8acb8e0</span><span class="o">-</span><span class="n">fbc9</span><span class="o">-</span><span class="mf">44e4</span><span class="o">-</span><span class="mi">9</span><span class="n">b31</span><span class="o">-</span><span class="mi">3</span><span class="n">c38fc9c25ae</span> <span class="o">|</span> <span class="n">lee212</span><span class="o">/</span><span class="n">boot2docker</span>                      <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
 <span class="o">|</span> <span class="n">b073ddce</span><span class="o">-</span><span class="mi">747</span><span class="n">d</span><span class="o">-</span><span class="mi">4</span><span class="n">c66</span><span class="o">-</span><span class="mi">8152</span><span class="o">-</span><span class="mi">70118</span><span class="n">a4e5781</span> <span class="o">|</span> <span class="n">mooc</span><span class="o">-</span><span class="n">backup</span>                             <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span> <span class="mi">805</span><span class="n">da4cb</span><span class="o">-</span><span class="n">a14f</span><span class="o">-</span><span class="mi">4465</span><span class="o">-</span><span class="mi">841</span><span class="n">f</span><span class="o">-</span><span class="mi">124346</span><span class="n">cf3bde</span> <span class="o">|</span>
-<span class="o">|</span> <span class="mi">85</span><span class="n">fdb68e</span><span class="o">-</span><span class="mi">8</span><span class="n">bd3</span><span class="o">-</span><span class="mi">4</span><span class="n">e5e</span><span class="o">-</span><span class="n">bb4e</span><span class="o">-</span><span class="n">f286298f4fe6</span> <span class="o">|</span> <span class="n">said</span><span class="o">/</span><span class="n">ubuntu15</span>                           <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="mi">85</span><span class="n">fdb68e</span><span class="o">-</span><span class="mi">8</span><span class="n">bd3</span><span class="o">-</span><span class="mf">4e5</span><span class="n">e</span><span class="o">-</span><span class="n">bb4e</span><span class="o">-</span><span class="n">f286298f4fe6</span> <span class="o">|</span> <span class="n">said</span><span class="o">/</span><span class="n">ubuntu15</span>                           <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
 <span class="o">|</span> <span class="n">e3d5fcf5</span><span class="o">-</span><span class="mi">1</span><span class="n">b40</span><span class="o">-</span><span class="mi">48</span><span class="n">df</span><span class="o">-</span><span class="mi">9098</span><span class="o">-</span><span class="mi">3</span><span class="n">c03a682421e</span> <span class="o">|</span> <span class="n">slaves_ubuntu_14_04</span>                     <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>                                      <span class="o">|</span>
-<span class="o">|</span> <span class="mi">58</span><span class="n">c9552c</span><span class="o">-</span><span class="mi">8</span><span class="n">d93</span><span class="o">-</span><span class="mi">42</span><span class="n">c0</span><span class="o">-</span><span class="mi">9</span><span class="n">dea</span><span class="o">-</span><span class="mi">5</span><span class="n">f48d90a3188</span> <span class="o">|</span> <span class="n">ubuntu12</span><span class="o">-</span><span class="n">cometworker1</span>                   <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span> <span class="mi">55458942</span><span class="o">-</span><span class="mi">1</span><span class="n">d8f</span><span class="o">-</span><span class="mi">4</span><span class="n">a54</span><span class="o">-</span><span class="n">af10</span><span class="o">-</span><span class="mi">8</span><span class="n">e01c47953ea</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">58</span><span class="n">c9552c</span><span class="o">-</span><span class="mi">8</span><span class="n">d93</span><span class="o">-</span><span class="mi">42</span><span class="n">c0</span><span class="o">-</span><span class="mi">9</span><span class="n">dea</span><span class="o">-</span><span class="mi">5</span><span class="n">f48d90a3188</span> <span class="o">|</span> <span class="n">ubuntu12</span><span class="o">-</span><span class="n">cometworker1</span>                   <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span> <span class="mi">55458942</span><span class="o">-</span><span class="mi">1</span><span class="n">d8f</span><span class="o">-</span><span class="mi">4</span><span class="n">a54</span><span class="o">-</span><span class="n">af10</span><span class="o">-</span><span class="mf">8e01</span><span class="n">c47953ea</span> <span class="o">|</span>
 <span class="o">+--------------------------------------+-----------------------------------------+--------+--------------------------------------+</span>
 </pre></div>
 </div>
@@ -318,15 +346,18 @@ Following are couple of examples:</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="command_network.html" class="btn btn-neutral float-right" title="Network Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="command_network.html" class="btn btn-neutral float-right" title="Network Command" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="command_advanced.html" class="btn btn-neutral" title="Advanced Command Usage" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="command_advanced.html" class="btn btn-neutral" title="Advanced Command Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -356,10 +387,11 @@ Following are couple of examples:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.5.2',
+            VERSION:'4.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.comet.comet &mdash; cloudmesh_client 4.5.2 documentation</title>
+  <title>cloudmesh_client.comet.comet &mdash; cloudmesh_client 4.6.1 documentation</title>
   
 
+  
+  
   
   
 
@@ -30,7 +32,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../../../index.html"/>
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -40,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -59,7 +65,7 @@
             
             
               <div class="version">
-                4.5.2
+                4.6.1
               </div>
             
           
@@ -80,7 +86,10 @@
           
             
             
-                <p class="caption"><span class="caption-text">Overview</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
@@ -142,8 +151,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../../index.html">cloudmesh_client</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">cloudmesh_client</a>
+        
       </nav>
 
 
@@ -156,28 +167,45 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-      
+        
           <li><a href="../../cloudmesh_client.html">cloudmesh_client</a> &raquo;</li>
-      
-    <li>cloudmesh_client.comet.comet</li>
+        
+      <li>cloudmesh_client.comet.comet</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.comet.comet</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">getpass</span>
 <span class="kn">import</span> <span class="nn">hashlib</span>
@@ -189,19 +217,19 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">webbrowser</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">input</span>
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="k">import</span> <span class="nb">input</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
 
 
 <span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">from</span> <span class="nn">requests.auth</span> <span class="kn">import</span> <span class="n">HTTPBasicAuth</span>
-<span class="kn">from</span> <span class="nn">httpsig.requests_auth</span> <span class="kn">import</span> <span class="n">HTTPSignatureAuth</span>
-<span class="kn">from</span> <span class="nn">requests.auth</span> <span class="kn">import</span> <span class="n">HTTPBasicAuth</span>
+<span class="kn">from</span> <span class="nn">requests.auth</span> <span class="k">import</span> <span class="n">HTTPBasicAuth</span>
+<span class="kn">from</span> <span class="nn">httpsig.requests_auth</span> <span class="k">import</span> <span class="n">HTTPSignatureAuth</span>
+<span class="kn">from</span> <span class="nn">requests.auth</span> <span class="k">import</span> <span class="n">HTTPBasicAuth</span>
 
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="kn">import</span> <span class="n">Shell</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.util</span> <span class="kn">import</span> <span class="n">banner</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="k">import</span> <span class="n">ConfigDict</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="k">import</span> <span class="n">Shell</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.util</span> <span class="k">import</span> <span class="n">banner</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="k">import</span> <span class="n">Console</span>
 
 <span class="n">requests</span><span class="o">.</span><span class="n">packages</span><span class="o">.</span><span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">()</span>
 
@@ -214,20 +242,20 @@
     <span class="n">api_version</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
     <span class="c1"># base_uri = &quot;https://comet-nucleus.sdsc.edu/nucleus&quot;</span>
     <span class="n">local_base_uri</span> <span class="o">=</span> <span class="s2">&quot;https://localhost:8443/nucleus&quot;</span>
-    <span class="n">auth_uri</span> <span class="o">=</span> <span class="s2">&quot;{}/rest-auth&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">base_uri</span><span class="p">)</span>
-    <span class="n">local_auth_uri</span> <span class="o">=</span> <span class="s2">&quot;{}/rest-auth&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">local_base_uri</span><span class="p">)</span>
-    <span class="n">tunnelled</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">auth_uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/rest-auth&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">base_uri</span><span class="p">)</span>
+    <span class="n">local_auth_uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/rest-auth&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">local_base_uri</span><span class="p">)</span>
+    <span class="n">tunnelled</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="c1"># &quot;USERPASS&quot;, &quot;APIKEY&quot;</span>
-    <span class="n">auth_provider</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="n">token</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="n">api_key</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="n">api_secret</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="n">api_auth</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">auth_provider</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">api_key</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">api_secret</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">api_auth</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">HEADER</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">}</span>
     <span class="n">AUTH_HEADER</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">}</span>
 
     <span class="c1"># in case of https endpoint</span>
-    <span class="n">verify</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">verify</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Comet.set_endpoint"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.set_endpoint">[docs]</a>    <span class="k">def</span> <span class="nf">set_endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="p">):</span>
@@ -259,7 +287,7 @@
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Comet.docs"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.docs">[docs]</a>    <span class="k">def</span> <span class="nf">docs</span><span class="p">():</span>
 
-        <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;{}/docs/#!/v1&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">base_uri</span><span class="p">))</span></div>
+        <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/docs/#!/v1&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">base_uri</span><span class="p">))</span></div>
 
     <span class="c1"># #####################</span>
     <span class="c1"># TUNNEL</span>
@@ -268,7 +296,7 @@
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Comet.tunnel"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.tunnel">[docs]</a>    <span class="k">def</span> <span class="nf">tunnel</span><span class="p">(</span><span class="n">start</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">start</span><span class="p">:</span>
-            <span class="n">Comet</span><span class="o">.</span><span class="n">tunnelled</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="n">Comet</span><span class="o">.</span><span class="n">tunnelled</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;ssh -L 8443:localhost:443 nucleus&quot;</span>
             <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -277,7 +305,7 @@
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Comet.kill_tunnel"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.kill_tunnel">[docs]</a>    <span class="k">def</span> <span class="nf">kill_tunnel</span><span class="p">():</span>
         <span class="n">pid</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">find_tunnel</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">pid</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">pid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No tunnel to comet found&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Killing the tunnel to comet&quot;</span><span class="p">)</span>
@@ -286,18 +314,18 @@
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Comet.state"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.state">[docs]</a>    <span class="k">def</span> <span class="nf">state</span><span class="p">():</span>
         <span class="n">pid</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">find_tunnel</span><span class="p">()</span>
-        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Comet tunnel: {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pid</span><span class="p">))</span></div>
+        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Comet tunnel: </span><span class="si">{:}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pid</span><span class="p">))</span></div>
 
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Comet.is_tunnel"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.is_tunnel">[docs]</a>    <span class="k">def</span> <span class="nf">is_tunnel</span><span class="p">():</span>
         <span class="n">pid</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">find_tunnel</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">pid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span></div>
+        <span class="k">return</span> <span class="n">pid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
 
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Comet.find_tunnel"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.find_tunnel">[docs]</a>    <span class="k">def</span> <span class="nf">find_tunnel</span><span class="p">():</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;ps&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;-ax&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">pid</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="n">info</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">pid</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
             <span class="k">if</span> <span class="p">(</span><span class="s2">&quot;localhost&quot;</span> <span class="ow">in</span> <span class="n">line</span> <span class="ow">and</span> <span class="s2">&quot;nucleus&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
                             <span class="s2">&quot;comet&quot;</span> <span class="ow">in</span> <span class="n">line</span> <span class="ow">and</span> <span class="s2">&quot;tunnel&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">)</span> <span class="ow">and</span> <span class="s1">&#39;status&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
@@ -339,105 +367,105 @@
         <span class="k">return</span> <span class="n">nonce</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Comet.set_auth_provider"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.set_auth_provider">[docs]</a>    <span class="k">def</span> <span class="nf">set_auth_provider</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">auth_provider</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet.set_auth_provider"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.set_auth_provider">[docs]</a>    <span class="k">def</span> <span class="nf">set_auth_provider</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">auth_provider</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># try to load from yaml file if not specified</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">auth_provider</span><span class="p">:</span>
             <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
             <span class="n">cometConf</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh.comet&quot;</span><span class="p">]</span>
-            <span class="n">auth_provider</span> <span class="o">=</span> <span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;endpoints&quot;</span><span class="p">][</span><span class="n">cls</span><span class="o">.</span><span class="n">endpoint</span><span class="p">][</span><span class="s2">&quot;auth_provider&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+            <span class="n">auth_provider</span> <span class="o">=</span> <span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;endpoints&quot;</span><span class="p">][</span><span class="bp">cls</span><span class="o">.</span><span class="n">endpoint</span><span class="p">][</span><span class="s2">&quot;auth_provider&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
             <span class="c1"># value not set in yaml file, use USERPASS as default</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">auth_provider</span><span class="p">:</span>
                 <span class="n">auth_provider</span> <span class="o">=</span> <span class="s2">&quot;USERPASS&quot;</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">auth_provider</span> <span class="o">=</span> <span class="n">auth_provider</span></div>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">auth_provider</span> <span class="o">=</span> <span class="n">auth_provider</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Comet.logon"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.logon">[docs]</a>    <span class="k">def</span> <span class="nf">logon</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet.logon"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.logon">[docs]</a>    <span class="k">def</span> <span class="nf">logon</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
         <span class="n">cometConf</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh.comet&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">endpoint</span><span class="p">:</span>
-            <span class="n">cls</span><span class="o">.</span><span class="n">set_endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="p">)</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">set_endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">cls</span><span class="o">.</span><span class="n">set_endpoint</span><span class="p">(</span><span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;active&quot;</span><span class="p">])</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">set_base_uri</span><span class="p">(</span><span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;endpoints&quot;</span><span class="p">][</span><span class="n">cls</span><span class="o">.</span><span class="n">endpoint</span><span class="p">][</span><span class="s2">&quot;nucleus_base_url&quot;</span><span class="p">])</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">set_api_version</span><span class="p">(</span><span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;endpoints&quot;</span><span class="p">][</span><span class="n">cls</span><span class="o">.</span><span class="n">endpoint</span><span class="p">][</span><span class="s2">&quot;api_version&quot;</span><span class="p">])</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">cls</span><span class="o">.</span><span class="n">auth_provider</span><span class="p">:</span>
-            <span class="n">cls</span><span class="o">.</span><span class="n">set_auth_provider</span><span class="p">()</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">set_endpoint</span><span class="p">(</span><span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;active&quot;</span><span class="p">])</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">set_base_uri</span><span class="p">(</span><span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;endpoints&quot;</span><span class="p">][</span><span class="bp">cls</span><span class="o">.</span><span class="n">endpoint</span><span class="p">][</span><span class="s2">&quot;nucleus_base_url&quot;</span><span class="p">])</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">set_api_version</span><span class="p">(</span><span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;endpoints&quot;</span><span class="p">][</span><span class="bp">cls</span><span class="o">.</span><span class="n">endpoint</span><span class="p">][</span><span class="s2">&quot;api_version&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">cls</span><span class="o">.</span><span class="n">auth_provider</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">set_auth_provider</span><span class="p">()</span>
         <span class="c1"># print (cls.endpoint)</span>
         <span class="c1"># print (cls.base_uri)</span>
         <span class="c1"># print (cls.api_version)</span>
         <span class="c1"># print (cls.auth_provider)</span>
-        <span class="n">ret</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="k">if</span> <span class="s2">&quot;USERPASS&quot;</span> <span class="o">==</span> <span class="n">cls</span><span class="o">.</span><span class="n">auth_provider</span><span class="p">:</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="s2">&quot;USERPASS&quot;</span> <span class="o">==</span> <span class="bp">cls</span><span class="o">.</span><span class="n">auth_provider</span><span class="p">:</span>
             <span class="c1"># for unit testing only.</span>
-            <span class="k">if</span> <span class="n">username</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">username</span> <span class="o">=</span> <span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;endpoints&quot;</span><span class="p">][</span><span class="n">cls</span><span class="o">.</span><span class="n">endpoint</span><span class="p">][</span><span class="s2">&quot;userpass&quot;</span><span class="p">][</span><span class="s2">&quot;username&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">username</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">username</span> <span class="o">=</span> <span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;endpoints&quot;</span><span class="p">][</span><span class="bp">cls</span><span class="o">.</span><span class="n">endpoint</span><span class="p">][</span><span class="s2">&quot;userpass&quot;</span><span class="p">][</span><span class="s2">&quot;username&quot;</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">username</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="ow">or</span> <span class="n">username</span> <span class="o">==</span> <span class="s1">&#39;TBD&#39;</span><span class="p">:</span>
                     <span class="n">username</span> <span class="o">=</span> <span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">password</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">password</span> <span class="o">=</span> <span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;endpoints&quot;</span><span class="p">][</span><span class="n">cls</span><span class="o">.</span><span class="n">endpoint</span><span class="p">][</span><span class="s2">&quot;userpass&quot;</span><span class="p">][</span><span class="s2">&quot;password&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">password</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">password</span> <span class="o">=</span> <span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;endpoints&quot;</span><span class="p">][</span><span class="bp">cls</span><span class="o">.</span><span class="n">endpoint</span><span class="p">][</span><span class="s2">&quot;userpass&quot;</span><span class="p">][</span><span class="s2">&quot;password&quot;</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">password</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;readline&quot;</span><span class="p">:</span>
                     <span class="n">password</span> <span class="o">=</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getpass</span><span class="p">()</span>
                 <span class="k">elif</span> <span class="n">password</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;env&quot;</span><span class="p">:</span>
                     <span class="n">password</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;COMET_PASSWORD&quot;</span><span class="p">,</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getpass</span><span class="p">())</span>
 
-            <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">token</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">auth_uri</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">tunnelled</span><span class="p">:</span>
-                        <span class="n">authuri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/login/&quot;</span> <span class="o">%</span> <span class="n">cls</span><span class="o">.</span><span class="n">local_auth_uri</span>
+            <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">token</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">auth_uri</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">tunnelled</span><span class="p">:</span>
+                        <span class="n">authuri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/login/&quot;</span> <span class="o">%</span> <span class="bp">cls</span><span class="o">.</span><span class="n">local_auth_uri</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="n">authuri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/login/&quot;</span> <span class="o">%</span> <span class="n">cls</span><span class="o">.</span><span class="n">auth_uri</span>
+                        <span class="n">authuri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/login/&quot;</span> <span class="o">%</span> <span class="bp">cls</span><span class="o">.</span><span class="n">auth_uri</span>
                     <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">:</span> <span class="n">password</span><span class="p">}</span>
                     <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">authuri</span><span class="p">,</span>
                                       <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
-                                      <span class="n">headers</span><span class="o">=</span><span class="n">cls</span><span class="o">.</span><span class="n">HEADER</span><span class="p">,</span>
-                                      <span class="n">verify</span><span class="o">=</span><span class="n">cls</span><span class="o">.</span><span class="n">verify</span><span class="p">)</span>
+                                      <span class="n">headers</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">HEADER</span><span class="p">,</span>
+                                      <span class="n">verify</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">verify</span><span class="p">)</span>
                     <span class="k">try</span><span class="p">:</span>
-                        <span class="n">cls</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;key&quot;</span><span class="p">]</span>
-                        <span class="n">cls</span><span class="o">.</span><span class="n">AUTH_HEADER</span><span class="p">[</span><span class="s1">&#39;Authorization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Token {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="n">cls</span><span class="o">.</span><span class="n">token</span><span class="p">)</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;key&quot;</span><span class="p">]</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">AUTH_HEADER</span><span class="p">[</span><span class="s1">&#39;Authorization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Token </span><span class="si">{:}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="bp">cls</span><span class="o">.</span><span class="n">token</span><span class="p">)</span>
                     <span class="k">except</span><span class="p">:</span>
-                        <span class="n">ret</span> <span class="o">=</span> <span class="bp">False</span>
-                    <span class="n">ret</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">token</span>
+                        <span class="n">ret</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="n">ret</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">token</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">ret</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">token</span>
-        <span class="k">elif</span> <span class="s2">&quot;APIKEY&quot;</span> <span class="o">==</span> <span class="n">cls</span><span class="o">.</span><span class="n">auth_provider</span><span class="p">:</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">token</span>
+        <span class="k">elif</span> <span class="s2">&quot;APIKEY&quot;</span> <span class="o">==</span> <span class="bp">cls</span><span class="o">.</span><span class="n">auth_provider</span><span class="p">:</span>
             <span class="c1"># print (&quot;API KEY based auth goes here&quot;)</span>
-            <span class="n">cls</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;endpoints&quot;</span><span class="p">][</span><span class="n">cls</span><span class="o">.</span><span class="n">endpoint</span><span class="p">][</span><span class="s2">&quot;apikey&quot;</span><span class="p">][</span><span class="s2">&quot;api_key&quot;</span><span class="p">]</span>
-            <span class="n">cls</span><span class="o">.</span><span class="n">api_secret</span> <span class="o">=</span> <span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;endpoints&quot;</span><span class="p">][</span><span class="n">cls</span><span class="o">.</span><span class="n">endpoint</span><span class="p">][</span><span class="s2">&quot;apikey&quot;</span><span class="p">][</span><span class="s2">&quot;api_secret&quot;</span><span class="p">]</span>
-            <span class="n">cls</span><span class="o">.</span><span class="n">api_auth</span> <span class="o">=</span> <span class="n">HTTPSignatureAuth</span><span class="p">(</span><span class="n">secret</span><span class="o">=</span><span class="n">cls</span><span class="o">.</span><span class="n">api_secret</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nonce&quot;</span><span class="p">,</span> <span class="s2">&quot;timestamp&quot;</span><span class="p">])</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;endpoints&quot;</span><span class="p">][</span><span class="bp">cls</span><span class="o">.</span><span class="n">endpoint</span><span class="p">][</span><span class="s2">&quot;apikey&quot;</span><span class="p">][</span><span class="s2">&quot;api_key&quot;</span><span class="p">]</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">api_secret</span> <span class="o">=</span> <span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;endpoints&quot;</span><span class="p">][</span><span class="bp">cls</span><span class="o">.</span><span class="n">endpoint</span><span class="p">][</span><span class="s2">&quot;apikey&quot;</span><span class="p">][</span><span class="s2">&quot;api_secret&quot;</span><span class="p">]</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">api_auth</span> <span class="o">=</span> <span class="n">HTTPSignatureAuth</span><span class="p">(</span><span class="n">secret</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">api_secret</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nonce&quot;</span><span class="p">,</span> <span class="s2">&quot;timestamp&quot;</span><span class="p">])</span>
             <span class="c1">#</span>
             <span class="c1"># api key based auth does not maintain a session</span>
             <span class="c1"># once values specified, considered as AuthNed.</span>
-            <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">api_key</span> <span class="ow">and</span> <span class="n">cls</span><span class="o">.</span><span class="n">api_secret</span> <span class="ow">and</span> <span class="n">cls</span><span class="o">.</span><span class="n">api_auth</span><span class="p">:</span>
-                <span class="n">ret</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">api_key</span> <span class="ow">and</span> <span class="bp">cls</span><span class="o">.</span><span class="n">api_secret</span> <span class="ow">and</span> <span class="bp">cls</span><span class="o">.</span><span class="n">api_auth</span><span class="p">:</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;The specified AUTH Provider Not Currently Supported&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The specified AUTH Provider Not Currently Supported&quot;</span><span class="p">)</span>
             <span class="k">pass</span>
         <span class="k">return</span> <span class="n">ret</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Comet.logoff"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.logoff">[docs]</a>    <span class="k">def</span> <span class="nf">logoff</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
-        <span class="n">ret</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="k">if</span> <span class="s2">&quot;USERPASS&quot;</span> <span class="o">==</span> <span class="n">cls</span><span class="o">.</span><span class="n">auth_provider</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">token</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">auth_uri</span><span class="p">:</span>
-                    <span class="n">authuri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/logout/&quot;</span> <span class="o">%</span> <span class="n">cls</span><span class="o">.</span><span class="n">auth_uri</span>
-                    <span class="n">header</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">HEADER</span><span class="p">)</span>
-                    <span class="n">header</span><span class="p">[</span><span class="s1">&#39;Authorization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Token </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">cls</span><span class="o">.</span><span class="n">token</span>
+<div class="viewcode-block" id="Comet.logoff"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.logoff">[docs]</a>    <span class="k">def</span> <span class="nf">logoff</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="s2">&quot;USERPASS&quot;</span> <span class="o">==</span> <span class="bp">cls</span><span class="o">.</span><span class="n">auth_provider</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">token</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">auth_uri</span><span class="p">:</span>
+                    <span class="n">authuri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/logout/&quot;</span> <span class="o">%</span> <span class="bp">cls</span><span class="o">.</span><span class="n">auth_uri</span>
+                    <span class="n">header</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">HEADER</span><span class="p">)</span>
+                    <span class="n">header</span><span class="p">[</span><span class="s1">&#39;Authorization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Token </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">cls</span><span class="o">.</span><span class="n">token</span>
                     <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">authuri</span><span class="p">,</span>
                                       <span class="n">headers</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
-                                      <span class="n">verify</span><span class="o">=</span><span class="n">cls</span><span class="o">.</span><span class="n">verify</span><span class="p">)</span>
-                    <span class="n">cls</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="bp">None</span>
-                    <span class="n">cls</span><span class="o">.</span><span class="n">AUTH_HEADER</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">HEADER</span>
+                                      <span class="n">verify</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">verify</span><span class="p">)</span>
+                    <span class="bp">cls</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="bp">cls</span><span class="o">.</span><span class="n">AUTH_HEADER</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">HEADER</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">ret</span> <span class="o">=</span> <span class="bp">False</span>
+                    <span class="n">ret</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">return</span> <span class="n">ret</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Comet.status"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
-        <span class="n">ret</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="k">if</span> <span class="s2">&quot;USERPASS&quot;</span> <span class="o">==</span> <span class="n">cls</span><span class="o">.</span><span class="n">auth_provider</span> <span class="ow">and</span> <span class="n">cls</span><span class="o">.</span><span class="n">token</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">ret</span> <span class="o">=</span> <span class="bp">False</span>
+<div class="viewcode-block" id="Comet.status"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="s2">&quot;USERPASS&quot;</span> <span class="o">==</span> <span class="bp">cls</span><span class="o">.</span><span class="n">auth_provider</span> <span class="ow">and</span> <span class="bp">cls</span><span class="o">.</span><span class="n">token</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">return</span> <span class="n">ret</span></div>
 
     <span class="c1"># #############################</span>
@@ -447,37 +475,37 @@
     <span class="c1"># To make GET calls for synchronous or asynchronous API</span>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.get"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">authuser</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">authpass</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet.get"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">authuser</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">authpass</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">Comet</span><span class="o">.</span><span class="n">http</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
                           <span class="n">authuser</span><span class="o">=</span><span class="n">authuser</span><span class="p">,</span> <span class="n">authpass</span><span class="o">=</span><span class="n">authpass</span><span class="p">,</span>
                           <span class="n">allow_redirects</span><span class="o">=</span><span class="n">allow_redirects</span><span class="p">)</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.post"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">md5</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-             <span class="n">cacert</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet.post"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">md5</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+             <span class="n">cacert</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">Comet</span><span class="o">.</span><span class="n">http</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;post&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
                           <span class="n">files</span><span class="o">=</span><span class="n">files</span><span class="p">,</span> <span class="n">md5</span><span class="o">=</span><span class="n">md5</span><span class="p">,</span> <span class="n">cacert</span><span class="o">=</span><span class="n">cacert</span><span class="p">,</span>
                           <span class="n">allow_redirects</span><span class="o">=</span><span class="n">allow_redirects</span><span class="p">)</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.put"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.put">[docs]</a>    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet.put"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.put">[docs]</a>    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">Comet</span><span class="o">.</span><span class="n">http</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;put&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
                           <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="n">allow_redirects</span><span class="p">)</span></div>
 
     <span class="c1"># To make GET calls for synchronous or asynchronous API</span>
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Comet.http"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.http">[docs]</a>    <span class="k">def</span> <span class="nf">http</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">,</span>
-             <span class="n">headers</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">authuser</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">authpass</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-             <span class="n">files</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">md5</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cacert</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+             <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">authuser</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">authpass</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+             <span class="n">files</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">md5</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cacert</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="c1"># print (&quot;KKK&quot;, url)</span>
         <span class="c1"># print (&quot;KKK&quot;, action)</span>
         <span class="c1"># print (&quot;KKK&quot;, Comet.auth_provider)</span>
-        <span class="n">ret</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">Comet</span><span class="o">.</span><span class="n">tunnelled</span><span class="p">:</span>
-            <span class="n">cacert</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="n">cacert</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">if</span> <span class="s2">&quot;USERPASS&quot;</span> <span class="o">==</span> <span class="n">Comet</span><span class="o">.</span><span class="n">auth_provider</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">headers</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">headers</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">headers</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">AUTH_HEADER</span>
             <span class="k">if</span> <span class="s1">&#39;post&#39;</span> <span class="o">==</span> <span class="n">action</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">files</span><span class="p">:</span>
@@ -537,7 +565,7 @@
                 <span class="c1"># Currently it works well for cluster listing</span>
                 <span class="c1"># However not sure if the delay is large, what the behaviour</span>
                 <span class="c1"># would be</span>
-                <span class="n">finished</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="n">finished</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="n">newurl</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;Location&quot;</span><span class="p">]</span>
                 <span class="k">while</span> <span class="ow">not</span> <span class="n">finished</span><span class="p">:</span>
                     <span class="n">ret</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">newurl</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
@@ -549,7 +577,7 @@
                     <span class="c1"># the result still has &#39;status&#39; in it (value as &#39;0&#39;)</span>
                     <span class="c1"># otherwise it&#39;s the correct value after redirection</span>
                     <span class="k">if</span> <span class="s1">&#39;status&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ret</span><span class="p">:</span>
-                        <span class="n">finished</span> <span class="o">=</span> <span class="bp">True</span>
+                        <span class="n">finished</span> <span class="o">=</span> <span class="kc">True</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">401</span><span class="p">:</span>
@@ -600,7 +628,7 @@
                                      <span class="n">allow_redirects</span><span class="o">=</span><span class="n">allow_redirects</span><span class="p">,</span>
                                      <span class="n">verify</span><span class="o">=</span><span class="n">cacert</span><span class="p">)</span>
             <span class="c1"># pprint (r.url)</span>
-            <span class="n">ret</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="kc">None</span>
 
             <span class="c1">#print (&quot;KKK --- DEBUGGING HTTP CALL (APIKEY)&quot;)</span>
             <span class="c1">#pprint (r)</span>
@@ -622,7 +650,7 @@
                 <span class="n">ret</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
             <span class="c1"># code 201, created for the post request</span>
             <span class="k">elif</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">201</span><span class="p">:</span>
-                <span class="n">finished</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="n">finished</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="n">newurl</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;Location&quot;</span><span class="p">]</span>
                 <span class="n">headers</span><span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()))</span>
                 <span class="n">headers</span><span class="p">[</span><span class="s2">&quot;nonce&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get_nonce</span><span class="p">()</span>
@@ -633,7 +661,7 @@
                     <span class="k">except</span><span class="p">:</span>
                         <span class="k">pass</span>
                     <span class="k">if</span> <span class="s1">&#39;status&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ret</span><span class="p">:</span>
-                        <span class="n">finished</span> <span class="o">=</span> <span class="bp">True</span>
+                        <span class="n">finished</span> <span class="o">=</span> <span class="kc">True</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">401</span><span class="p">:</span>
@@ -664,7 +692,7 @@
         <span class="k">return</span> <span class="n">ret</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.get_computeset"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.get_computeset">[docs]</a>    <span class="k">def</span> <span class="nf">get_computeset</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet.get_computeset"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.get_computeset">[docs]</a>    <span class="k">def</span> <span class="nf">get_computeset</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># print (id, state)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">id</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">state</span><span class="p">:</span>
@@ -674,12 +702,12 @@
             <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">geturl</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
             <span class="c1"># pprint (r)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">geturl</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;computeset/{}/&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
+            <span class="n">geturl</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;computeset/</span><span class="si">{}</span><span class="s2">/&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
             <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">geturl</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">r</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.console_url"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.console_url">[docs]</a>    <span class="k">def</span> <span class="nf">console_url</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet.console_url"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.console_url">[docs]</a>    <span class="k">def</span> <span class="nf">console_url</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
         <span class="n">cometConf</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh.comet&quot;</span><span class="p">]</span>
         <span class="n">defaultUser</span> <span class="o">=</span> <span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">]</span>
@@ -689,22 +717,22 @@
 <span class="sd">        if not user:</span>
 <span class="sd">            user = defaultUser</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">user</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">defaultUser</span> <span class="ow">and</span> <span class="s1">&#39;TBD&#39;</span><span class="o">!=</span><span class="n">defaultUser</span><span class="p">:</span>
             <span class="n">user</span> <span class="o">=</span> <span class="n">defaultUser</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">user</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter comet nucleus username: &quot;</span><span class="p">)</span>
         <span class="n">password</span> <span class="o">=</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getpass</span><span class="p">(</span><span class="s2">&quot;Enter comet nucleus password: &quot;</span><span class="p">)</span>
-        <span class="n">return_url</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">return_url</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="c1"># console access requires 2-factor, and only supported by userpass</span>
         <span class="n">Comet</span><span class="o">.</span><span class="n">set_auth_provider</span><span class="p">(</span><span class="n">auth_provider</span><span class="o">=</span><span class="s2">&quot;USERPASS&quot;</span><span class="p">)</span>
         <span class="n">Comet</span><span class="o">.</span><span class="n">logon</span><span class="p">()</span>
         <span class="c1"># print (Comet.auth_provider)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">nodeid</span><span class="p">:</span>
-            <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/{}/frontend/console/&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">))</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/</span><span class="si">{}</span><span class="s2">/frontend/console/&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/{}/compute/{}/console/&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="p">))</span>
-        <span class="n">return_url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">authuser</span><span class="o">=</span><span class="n">user</span><span class="p">,</span> <span class="n">authpass</span><span class="o">=</span><span class="n">password</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/</span><span class="si">{}</span><span class="s2">/compute/</span><span class="si">{}</span><span class="s2">/console/&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="p">))</span>
+        <span class="n">return_url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">authuser</span><span class="o">=</span><span class="n">user</span><span class="p">,</span> <span class="n">authpass</span><span class="o">=</span><span class="n">password</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="c1"># restore the preset auth method</span>
         <span class="n">auth_provider</span> <span class="o">=</span> <span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;endpoints&quot;</span><span class="p">][</span><span class="n">Comet</span><span class="o">.</span><span class="n">endpoint</span><span class="p">][</span><span class="s2">&quot;auth_provider&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
@@ -739,36 +767,36 @@
         <span class="k">return</span> <span class="n">return_url</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.console"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.console">[docs]</a>    <span class="k">def</span> <span class="nf">console</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">linkonly</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet.console"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.console">[docs]</a>    <span class="k">def</span> <span class="nf">console</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">linkonly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">console_url</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="p">)</span>
         <span class="c1">#pprint (url)</span>
         <span class="k">if</span> <span class="n">url</span><span class="p">:</span>
             <span class="k">if</span> <span class="s1">&#39;error&#39;</span> <span class="ow">in</span> <span class="n">url</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">url</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">],</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">url</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">],</span> <span class="n">traceflag</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">newurl_esc</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&amp;&quot;</span><span class="p">,</span> <span class="s2">&quot;\&amp;&quot;</span><span class="p">)</span>
-                <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;Console URL: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
+                <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Console URL: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">linkonly</span><span class="p">:</span>
                     <span class="c1"># for OSX</span>
                     <span class="k">if</span> <span class="s1">&#39;darwin&#39;</span> <span class="o">==</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="p">:</span>
-                        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;open {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">newurl_esc</span><span class="p">))</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;open </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">newurl_esc</span><span class="p">))</span>
                     <span class="c1"># for linux - tested on Ubuntu 14.04 and CentOS 7.1</span>
                     <span class="k">elif</span> <span class="s1">&#39;linux2&#39;</span> <span class="o">==</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="p">:</span>
-                        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;firefox {} &amp;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">newurl_esc</span><span class="p">))</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;firefox </span><span class="si">{}</span><span class="s2"> &amp;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">newurl_esc</span><span class="p">))</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No supportted OS/browser detected!&quot;</span>
                                       <span class="s2">&quot;Use the above url manually in your brower:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
-                                      <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                                      <span class="n">traceflag</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Console URL not available.&quot;</span>\
                           <span class="s2">&quot;Please make sure the node is running and try again!&quot;</span><span class="p">,</span>
-                          <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span></div>
+                          <span class="n">traceflag</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Comet.md5"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.md5">[docs]</a>    <span class="k">def</span> <span class="nf">md5</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
         <span class="nb">hash</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">()</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">4096</span><span class="p">),</span> <span class="n">b</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">4096</span><span class="p">),</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
                 <span class="nb">hash</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">hash</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span></div>
 
@@ -777,7 +805,7 @@
         <span class="n">ret</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">)</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">ret</span> <span class="o">=</span> <span class="n">r</span>
         <span class="k">return</span> <span class="n">ret</span></div>
 
@@ -787,13 +815,13 @@
         <span class="c1"># print (&quot;filename to use: %s&quot; % filename)</span>
         <span class="c1"># print (&quot;full file path: %s&quot; % filepath)</span>
         <span class="n">posturl</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">)</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">md5</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
             <span class="n">files</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">fh</span><span class="p">)}</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;File to be uploaded: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File to be uploaded: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
             <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">posturl</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="n">files</span><span class="p">,</span> <span class="n">md5</span><span class="o">=</span><span class="n">md5</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">ret</span> <span class="o">=</span> <span class="n">r</span>
         <span class="k">return</span> <span class="n">ret</span></div>
 
@@ -827,7 +855,7 @@
             <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;api key retrieval and set was successful!&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error getting api key. &quot;</span>
-                          <span class="s2">&quot;Please check your username/password&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span></div></div>
+                          <span class="s2">&quot;Please check your username/password&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div></div>
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">comet</span> <span class="o">=</span> <span class="n">Comet</span><span class="p">()</span>
@@ -835,12 +863,12 @@
     <span class="c1"># change user, password to proper value as set in django</span>
     <span class="c1"># in shell, we may ask user input</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="n">comet</span><span class="o">.</span><span class="n">status</span><span class="p">())</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">comet</span><span class="o">.</span><span class="n">logon</span><span class="p">())</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">comet</span><span class="o">.</span><span class="n">status</span><span class="p">())</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">comet</span><span class="o">.</span><span class="n">logoff</span><span class="p">())</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">comet</span><span class="o">.</span><span class="n">status</span><span class="p">())</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">comet</span><span class="o">.</span><span class="n">logoff</span><span class="p">())</span></div>
+    <span class="nb">print</span><span class="p">(</span><span class="n">comet</span><span class="o">.</span><span class="n">status</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">comet</span><span class="o">.</span><span class="n">logon</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">comet</span><span class="o">.</span><span class="n">status</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">comet</span><span class="o">.</span><span class="n">logoff</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">comet</span><span class="o">.</span><span class="n">status</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">comet</span><span class="o">.</span><span class="n">logoff</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="test_get_cluster_list"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.test_get_cluster_list">[docs]</a><span class="k">def</span> <span class="nf">test_get_cluster_list</span><span class="p">():</span>
@@ -849,7 +877,7 @@
     <span class="n">authheader</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
                   <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s1">&#39;Token </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">token</span><span class="p">}</span>
     <span class="n">geturl</span> <span class="o">=</span> <span class="s2">&quot;https://localhost:8443/nucleus/v1/cluster/&quot;</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">geturl</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">authheader</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">geturl</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">authheader</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="c1"># pprint (r)</span>
     <span class="n">pprint</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
 
@@ -859,7 +887,7 @@
     <span class="c1"># change user, password to proper value as set in django</span>
     <span class="c1"># in shell, we may ask user input</span>
     <span class="n">comet</span> <span class="o">=</span> <span class="n">Comet</span><span class="p">()</span>
-    <span class="n">Comet</span><span class="o">.</span><span class="n">tunnelled</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">Comet</span><span class="o">.</span><span class="n">tunnelled</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">token</span> <span class="o">=</span> <span class="n">comet</span><span class="o">.</span><span class="n">logon</span><span class="p">()</span>
 
     <span class="c1"># construct a header with auth token after login</span>
@@ -867,7 +895,7 @@
     <span class="n">authheader</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
                   <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s1">&#39;Token </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">token</span><span class="p">}</span>
     <span class="n">geturl</span> <span class="o">=</span> <span class="s2">&quot;https://localhost:8443/nucleus/v1/&quot;</span>
-    <span class="n">geturl1</span> <span class="o">=</span> <span class="s2">&quot;{}cluster/&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">geturl</span><span class="p">)</span>
+    <span class="n">geturl1</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">cluster/&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">geturl</span><span class="p">)</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">geturl1</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">authheader</span><span class="p">)</span>
     <span class="n">pprint</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
 
@@ -885,13 +913,13 @@
     <span class="n">pprint</span><span class="p">(</span><span class="n">r1</span><span class="p">)</span>
 
     <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TEST 3c: Get cluster &#39;vc2&#39; directly&quot;</span><span class="p">)</span>
-    <span class="n">Comet</span><span class="o">.</span><span class="n">tunnelled</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">Comet</span><span class="o">.</span><span class="n">tunnelled</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">geturl1</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/vc2/&quot;</span><span class="p">)</span>
     <span class="n">r1</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">geturl1</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">authheader</span><span class="p">)</span>
     <span class="n">pprint</span><span class="p">(</span><span class="n">r1</span><span class="p">)</span>
 
     <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;TEST 4: Get compute nodes sets&quot;</span><span class="p">)</span>
-    <span class="n">Comet</span><span class="o">.</span><span class="n">tunnelled</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">Comet</span><span class="o">.</span><span class="n">tunnelled</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">r1</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get_computeset</span><span class="p">()</span>
     <span class="n">pprint</span><span class="p">(</span><span class="n">r1</span><span class="p">)</span>
 
@@ -904,7 +932,7 @@
     <span class="n">authheader</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
                   <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s1">&#39;Token </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">token</span><span class="p">}</span>
     <span class="n">geturl</span> <span class="o">=</span> <span class="s2">&quot;https://localhost:8443/nucleus/v1/cluster/&quot;</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">geturl</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">authheader</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">geturl</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">authheader</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">pprint</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 
 
@@ -914,7 +942,7 @@
     <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;Authenticating...&quot;</span><span class="p">)</span>
     <span class="c1"># always logon first</span>
     <span class="n">comet</span> <span class="o">=</span> <span class="n">Comet</span><span class="p">()</span>
-    <span class="n">Comet</span><span class="o">.</span><span class="n">tunnelled</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">Comet</span><span class="o">.</span><span class="n">tunnelled</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">token</span> <span class="o">=</span> <span class="n">comet</span><span class="o">.</span><span class="n">logon</span><span class="p">()</span>
 
     <span class="n">authheader</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
@@ -932,11 +960,11 @@
 
     <span class="k">if</span> <span class="s1">&#39;on&#39;</span> <span class="o">==</span> <span class="n">action</span><span class="p">:</span>
         <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;Issuing request to poweron nodes...&quot;</span><span class="p">)</span>
-        <span class="n">posturl</span> <span class="o">=</span> <span class="s2">&quot;{}/computeset/&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">posturl</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/computeset/&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
         <span class="c1"># posturl = &quot;%s%s/compute/poweron&quot; % (url, vcname)</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">http</span><span class="p">(</span><span class="n">posturl</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;post&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">authheader</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
         <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;RETURNED RESULTS:&quot;</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
     <span class="k">elif</span> <span class="s1">&#39;off&#39;</span> <span class="o">==</span> <span class="n">action</span><span class="p">:</span>
         <span class="n">computesetid</span> <span class="o">=</span> <span class="mi">33</span>
         <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;Issuing request to poweroff nodes...&quot;</span><span class="p">)</span>
@@ -944,18 +972,21 @@
         <span class="c1"># posturl = &quot;%s%s/compute/poweron&quot; % (url, vcname)</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">http</span><span class="p">(</span><span class="n">puturl</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;put&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">authheader</span><span class="p">)</span>
         <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;RETURNED RESULTS:&quot;</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;The Specified Power Action NOT Supported!&quot;</span><span class="p">)</span></div>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The Specified Power Action NOT Supported!&quot;</span><span class="p">)</span></div>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">test_get_cluster_list</span><span class="p">()</span>
     <span class="c1"># main()</span>
     <span class="n">test_power_nodes</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
     <span class="n">test_power_nodes</span><span class="p">()</span>
 </pre></div>
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -986,10 +1017,11 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'4.5.2',
+            VERSION:'4.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../../_static/jquery.js"></script>

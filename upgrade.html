@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Upgrade &mdash; cloudmesh_client 4.5.2 documentation</title>
+  <title>Upgrade &mdash; cloudmesh_client 4.6.1 documentation</title>
   
 
+  
+  
   
   
 
@@ -30,7 +32,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="index.html"/>
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="index.html"/>
         <link rel="up" title="Setup" href="setup.html"/>
         <link rel="next" title="Preparation" href="system.html"/>
         <link rel="prev" title="Setup" href="setup.html"/> 
@@ -42,6 +47,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -61,7 +67,7 @@
             
             
               <div class="version">
-                4.5.2
+                4.6.1
               </div>
             
           
@@ -82,7 +88,10 @@
           
             
             
-                <p class="caption"><span class="caption-text">Overview</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
@@ -150,8 +159,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">cloudmesh_client</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">cloudmesh_client</a>
+        
       </nav>
 
 
@@ -160,25 +171,42 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
           <li><a href="setup.html">Setup</a> &raquo;</li>
-      
-    <li>Upgrade</li>
+        
+      <li>Upgrade</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/upgrade.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/upgrade.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -190,13 +218,13 @@
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">However an upgarde is also possible while you have vms running, but you may loose information
-about groups and anything that is stored in the database such as variables and defaults.
-As you see from this comment we strongly suggest to complete your current experiments and
-start fresh so you do not lose some information</p>
+about groups and anything that is stored in the database such as variables and defaults.</p>
 </div>
+<p>As you see from this comment we strongly suggest to complete your current experiments and
+start fresh so you do not lose some information</p>
 <p>To conduct an upgrade we recommend that you make a backup of the following files while at the same time moving them out of the way:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mv</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">.</span><span class="n">yaml</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">.</span><span class="n">yaml</span><span class="o">.</span><span class="n">bak</span><span class="o">.</span><span class="mi">1</span>
-<span class="n">mv</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">.</span><span class="n">db</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">bak</span><span class="o">.</span><span class="mi">1</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mv</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">cloudmesh</span><span class="o">.</span><span class="n">yaml</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">cloudmesh</span><span class="o">.</span><span class="n">yaml</span><span class="o">.</span><span class="n">bak</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">mv</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">cloudmesh</span><span class="o">.</span><span class="n">db</span> <span class="o">~/.</span><span class="n">cloudmesh</span><span class="o">/</span><span class="n">cloudmesh</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">bak</span><span class="o">.</span><span class="mi">1</span>
 </pre></div>
 </div>
 <p>Now you can get a new version of cloudmesh from either source, or pypi as described in the setup section.
@@ -205,15 +233,18 @@ After that starting cloudmesh with the <cite>cm</cite> command you can than copy
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="system.html" class="btn btn-neutral float-right" title="Preparation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="system.html" class="btn btn-neutral float-right" title="Preparation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="setup.html" class="btn btn-neutral" title="Setup" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="setup.html" class="btn btn-neutral" title="Setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -243,10 +274,11 @@ After that starting cloudmesh with the <cite>cm</cite> command you can than copy
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.5.2',
+            VERSION:'4.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

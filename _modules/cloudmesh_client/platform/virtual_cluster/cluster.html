@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.platform.virtual_cluster.cluster &mdash; cloudmesh_client 4.5.2 documentation</title>
+  <title>cloudmesh_client.platform.virtual_cluster.cluster &mdash; cloudmesh_client 4.6.1 documentation</title>
   
 
+  
+  
   
   
 
@@ -30,7 +32,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../../../../index.html"/>
+        <link rel="index" title="Index"
+              href="../../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
@@ -40,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -59,7 +65,7 @@
             
             
               <div class="version">
-                4.5.2
+                4.6.1
               </div>
             
           
@@ -80,7 +86,10 @@
           
             
             
-                <p class="caption"><span class="caption-text">Overview</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../introduction.html">Introduction</a></li>
@@ -142,8 +151,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../../../index.html">cloudmesh_client</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">cloudmesh_client</a>
+        
       </nav>
 
 
@@ -156,37 +167,64 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../../../index.html">Module code</a> &raquo;</li>
-      
+        
           <li><a href="../../../cloudmesh_client.html">cloudmesh_client</a> &raquo;</li>
-      
-    <li>cloudmesh_client.platform.virtual_cluster.cluster</li>
+        
+      <li>cloudmesh_client.platform.virtual_cluster.cluster</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.platform.virtual_cluster.cluster</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.api</span> <span class="kn">import</span> <span class="n">Provider</span>
+<span></span><span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">from</span> <span class="nn">pipes</span> <span class="k">import</span> <span class="n">quote</span>
+<span class="kn">import</span> <span class="nn">time</span>
 
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.CloudProvider</span> <span class="kn">import</span> <span class="n">CloudProvider</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.network</span> <span class="kn">import</span> <span class="n">Network</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.vm</span> <span class="kn">import</span> <span class="n">Vm</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.db</span> <span class="kn">import</span> <span class="n">CloudmeshDatabase</span><span class="p">,</span> <span class="n">IntegrityError</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.db.general.model</span> <span class="kn">import</span> <span class="n">CLUSTER</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.exc</span> <span class="kn">import</span> <span class="n">ClusterNameClashException</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.api</span> <span class="k">import</span> <span class="n">Provider</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.CloudProvider</span> <span class="k">import</span> <span class="n">CloudProvider</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.network</span> <span class="k">import</span> <span class="n">Network</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.vm</span> <span class="k">import</span> <span class="n">Vm</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.db</span> <span class="k">import</span> <span class="n">CloudmeshDatabase</span><span class="p">,</span> <span class="n">IntegrityError</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.db.general.model</span> <span class="k">import</span> <span class="n">CLUSTER</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.exc</span> <span class="k">import</span> <span class="n">ClusterNameClashException</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ssh.authorized_keys</span> <span class="k">import</span> <span class="n">AuthorizedKeys</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="k">import</span> <span class="n">Subprocess</span><span class="p">,</span> <span class="n">SubprocessError</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.util</span> <span class="k">import</span> <span class="n">tempdir</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="k">import</span> <span class="n">Console</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="k">import</span> <span class="n">Default</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.image</span> <span class="k">import</span> <span class="n">Image</span>
 
 
 <div class="viewcode-block" id="Cluster"><a class="viewcode-back" href="../../../../code/cloudmesh_client.platform.virtual_cluster.html#cloudmesh_client.platform.virtual_cluster.cluster.Cluster">[docs]</a><span class="k">class</span> <span class="nc">Cluster</span><span class="p">(</span><span class="n">CLUSTER</span><span class="p">):</span>  <span class="c1"># list abstraction see other commands</span>
@@ -199,7 +237,15 @@
         <span class="c1"># Use the table defined in the model, but we need to look up</span>
         <span class="c1"># the provider object dynamically</span>
 
-        <span class="nb">super</span><span class="p">(</span><span class="n">Cluster</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cloud&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cloud&#39;</span><span class="p">,</span> <span class="n">Default</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;image&#39;</span><span class="p">,</span> <span class="n">Default</span><span class="o">.</span><span class="n">image</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="n">Image</span><span class="o">.</span><span class="n">guess_username</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">]))</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;flavor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;flavor&#39;</span><span class="p">,</span> <span class="n">Default</span><span class="o">.</span><span class="n">flavor</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="n">Default</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;secgroup&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;secgroup&#39;</span><span class="p">,</span> <span class="n">Default</span><span class="o">.</span><span class="n">secgroup</span><span class="p">)</span>
+
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">Cluster</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">cloud_type</span>
 
         <span class="c1"># put this cluster in the database, the &#39;name&#39; attribute must</span>
@@ -208,15 +254,15 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">IntegrityError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">line</span> <span class="o">=</span> <span class="s1">&#39;UNIQUE constraint failed: {}.name&#39;</span>\
+            <span class="n">line</span> <span class="o">=</span> <span class="s1">&#39;UNIQUE constraint failed: </span><span class="si">{}</span><span class="s1">.name&#39;</span>\
                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__tablename__</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">ClusterNameClashException</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__tablename__</span><span class="p">,</span>
                                                 <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Cluster.from_name"><a class="viewcode-back" href="../../../../code/cloudmesh_client.platform.virtual_cluster.html#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.from_name">[docs]</a>    <span class="k">def</span> <span class="nf">from_name</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">Cluster</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">one</span><span class="p">()</span></div>
+<div class="viewcode-block" id="Cluster.from_name"><a class="viewcode-back" href="../../../../code/cloudmesh_client.platform.virtual_cluster.html#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.from_name">[docs]</a>    <span class="k">def</span> <span class="nf">from_name</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">Cluster</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">one</span><span class="p">()</span></div>
 
 
     <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -234,12 +280,13 @@
         <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">vm_table_from_provider</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Cluster.delete"><a class="viewcode-back" href="../../../../code/cloudmesh_client.platform.virtual_cluster.html#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Cluster.delete"><a class="viewcode-back" href="../../../../code/cloudmesh_client.platform.virtual_cluster.html#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Delete this cluster and all component nodes&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
             <span class="n">Vm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">servers</span><span class="o">=</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">],</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">,</span> <span class="n">cm_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cm_id</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="n">cm_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cm_id</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Cluster.create"><a class="viewcode-back" href="../../../../code/cloudmesh_client.platform.virtual_cluster.html#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sleeptime_s</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Boot all nodes in this cluster</span>
@@ -247,7 +294,7 @@
 <span class="sd">        :param float sleeptime_s: sleep this number of seconds between</span>
 <span class="sd">                                  polling VMs for ACTIVE status</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list</span><span class="p">())):</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list</span><span class="p">())):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Cluster.add"><a class="viewcode-back" href="../../../../code/cloudmesh_client.platform.virtual_cluster.html#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -255,7 +302,7 @@
 
         <span class="n">provider</span> <span class="o">=</span> <span class="n">Provider</span><span class="o">.</span><span class="n">from_cloud</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cloud</span><span class="p">)</span>
 
-        <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Booting VM for cluster {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Booting VM for cluster </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
         <span class="n">node</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span>
             <span class="n">key</span>      <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span>
             <span class="n">image</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span>
@@ -280,7 +327,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">update_</span><span class="p">(</span>
             <span class="n">table</span><span class="p">,</span>
             <span class="n">where</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;cm_id&#39;</span><span class="p">:</span> <span class="n">cm_id</span><span class="p">},</span>
-            <span class="n">values</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;cluster&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">}</span>
+            <span class="n">values</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;cluster&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Cluster.modify"><a class="viewcode-back" href="../../../../code/cloudmesh_client.platform.virtual_cluster.html#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.modify">[docs]</a>    <span class="k">def</span> <span class="nf">modify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -307,9 +354,88 @@
         <span class="s2">&quot;Removes an ssh public key from the cluster&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Cluster.enable_cross_ssh_login"><a class="viewcode-back" href="../../../../code/cloudmesh_client.platform.virtual_cluster.html#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.enable_cross_ssh_login">[docs]</a>    <span class="k">def</span> <span class="nf">enable_cross_ssh_login</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cluster.enable_cross_ssh_login"><a class="viewcode-back" href="../../../../code/cloudmesh_client.platform.virtual_cluster.html#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.enable_cross_ssh_login">[docs]</a>    <span class="k">def</span> <span class="nf">enable_cross_ssh_login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">useFloating</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">keytype</span><span class="o">=</span><span class="s1">&#39;rsa&#39;</span><span class="p">,</span> <span class="n">bits</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s1">&#39;CM Cluster Cross-SSH&#39;</span><span class="p">):</span>
         <span class="s2">&quot;Enables each node to log into all other nodes of the cluster&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+        <span class="n">ssh</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;ssh&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="s1">&#39;UserKnownHostsFile=/dev/null&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="s1">&#39;StrictHostKeyChecking=no&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;-l&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+        <span class="p">]</span>
+
+        <span class="n">ssh_keygen</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;ssh-keygen&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="s1">&#39;.ssh/id_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keytype</span><span class="p">),</span>
+            <span class="s1">&#39;-b&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">bits</span><span class="p">),</span>
+            <span class="s1">&#39;-t&#39;</span><span class="p">,</span> <span class="n">keytype</span><span class="p">,</span>
+            <span class="s1">&#39;-C&#39;</span><span class="p">,</span> <span class="n">quote</span><span class="p">(</span><span class="n">comment</span><span class="p">),</span>
+            <span class="s1">&#39;-N&#39;</span><span class="p">,</span> <span class="n">quote</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">),</span>
+        <span class="p">]</span>
+
+
+        <span class="n">slurp</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;scp&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="s1">&#39;UserKnownHostsFile=/dev/null&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="s1">&#39;StrictHostKeyChecking=no&#39;</span><span class="p">,</span>
+        <span class="p">]</span>
+
+
+        <span class="k">with</span> <span class="n">tempdir</span><span class="p">()</span> <span class="k">as</span> <span class="n">workdir</span><span class="p">:</span>
+
+            <span class="k">def</span> <span class="nf">auth_keys_f</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">workdir</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;authorized_keys&#39;</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">pubkey_f</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">workdir</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;id_</span><span class="si">{}</span><span class="s1">.pub&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keytype</span><span class="p">))</span>
+
+            <span class="k">def</span> <span class="nf">ip_f</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">floating_ip</span> <span class="k">if</span> <span class="n">useFloating</span> <span class="k">else</span> <span class="n">node</span><span class="o">.</span><span class="n">static_ip</span>
+
+
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="n">outdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">workdir</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">outdir</span><span class="p">)</span>
+
+                <span class="n">ip</span> <span class="o">=</span> <span class="n">ip_f</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+                <span class="c1"># cleanup</span>
+                <span class="n">rm</span> <span class="o">=</span> <span class="n">ssh</span> <span class="o">+</span> <span class="p">[</span><span class="n">ip</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span>
+                    <span class="s1">&#39;rm&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;-f&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;.ssh/id_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keytype</span><span class="p">),</span>
+                    <span class="s1">&#39;.ssh/id_</span><span class="si">{}</span><span class="s1">.pub&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keytype</span><span class="p">),</span>
+                <span class="p">]</span>
+                <span class="n">Subprocess</span><span class="p">(</span><span class="n">rm</span><span class="p">)</span>
+
+                <span class="n">genkey</span> <span class="o">=</span> <span class="n">ssh</span> <span class="o">+</span> <span class="p">[</span><span class="n">ip</span><span class="p">]</span> <span class="o">+</span> <span class="n">ssh_keygen</span>
+                <span class="n">Subprocess</span><span class="p">(</span><span class="n">genkey</span><span class="p">)</span>
+
+                <span class="n">pubkey</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">@</span><span class="si">{}</span><span class="s1">:.ssh/id_</span><span class="si">{}</span><span class="s1">.pub&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">ip</span><span class="p">,</span> <span class="n">keytype</span><span class="p">)</span>
+                <span class="n">auth_keys</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">@</span><span class="si">{}</span><span class="s1">:.ssh/authorized_keys&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">ip</span><span class="p">)</span>
+                <span class="n">scp</span> <span class="o">=</span> <span class="n">slurp</span> <span class="o">+</span> <span class="p">[</span><span class="n">pubkey</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">auth_keys</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">outdir</span><span class="p">]</span>
+                <span class="n">Subprocess</span><span class="p">(</span><span class="n">scp</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">nodeA</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="n">auth</span> <span class="o">=</span> <span class="n">AuthorizedKeys</span><span class="o">.</span><span class="n">from_authorized_keys</span><span class="p">(</span><span class="n">auth_keys_f</span><span class="p">(</span><span class="n">nodeA</span><span class="p">))</span>
+
+                <span class="c1"># add the keys for all the other machines</span>
+                <span class="k">for</span> <span class="n">nodeB</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pubkey_f</span><span class="p">(</span><span class="n">nodeB</span><span class="p">))</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">imap</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">strip</span><span class="p">,</span> <span class="n">fd</span><span class="p">):</span>
+                            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="p">:</span>
+                                <span class="k">continue</span>
+                            <span class="n">auth</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+                <span class="c1"># save new authorized_keys</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">auth_keys_f</span><span class="p">(</span><span class="n">nodeA</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
+                    <span class="n">fd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">auth</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="n">path</span> <span class="o">=</span> <span class="n">auth_keys_f</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                <span class="n">remote</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">@</span><span class="si">{}</span><span class="s1">:.ssh/authorized_keys&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">ip_f</span><span class="p">(</span><span class="n">node</span><span class="p">))</span>
+                <span class="n">scp</span> <span class="o">=</span> <span class="n">slurp</span> <span class="o">+</span> <span class="p">[</span><span class="n">path</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">remote</span><span class="p">]</span>
+                <span class="n">Subprocess</span><span class="p">(</span><span class="n">scp</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Cluster.disable_cross_ssh_login"><a class="viewcode-back" href="../../../../code/cloudmesh_client.platform.virtual_cluster.html#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.disable_cross_ssh_login">[docs]</a>    <span class="k">def</span> <span class="nf">disable_cross_ssh_login</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
@@ -340,6 +466,9 @@
 </pre></div>
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
@@ -369,10 +498,11 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'4.5.2',
+            VERSION:'4.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../../../_static/jquery.js"></script>

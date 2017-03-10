@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud package &mdash; cloudmesh_client 4.5.2 documentation</title>
+  <title>cloudmesh_client.cloud package &mdash; cloudmesh_client 4.6.1 documentation</title>
   
 
+  
+  
   
   
 
@@ -30,7 +32,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client package" href="cloudmesh_client.html"/>
         <link rel="next" title="cloudmesh_client.cloud.hpc package" href="cloudmesh_client.cloud.hpc.html"/>
         <link rel="prev" title="cloudmesh_client.api.impl package" href="cloudmesh_client.api.impl.html"/> 
@@ -42,6 +47,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -61,7 +67,7 @@
             
             
               <div class="version">
-                4.5.2
+                4.6.1
               </div>
             
           
@@ -82,7 +88,10 @@
           
             
             
-                <p class="caption"><span class="caption-text">Overview</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
@@ -173,7 +182,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#cloudmesh-client-default-module">cloudmesh_client.default module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.exc">cloudmesh_client.exc module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
@@ -203,8 +212,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">cloudmesh_client</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cloudmesh_client</a>
+        
       </nav>
 
 
@@ -213,25 +224,42 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="cloudmesh_client.html">cloudmesh_client package</a> &raquo;</li>
-      
-    <li>cloudmesh_client.cloud package</li>
+        
+      <li>cloudmesh_client.cloud package</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="../_sources/code/cloudmesh_client.cloud.txt" rel="nofollow"> View page source</a>
+            
+            <a href="../_sources/code/cloudmesh_client.cloud.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -1974,11 +2002,11 @@ the database, then inserting new data
 <span id="cloudmesh-client-cloud-stack-module"></span><h2>cloudmesh_client.cloud.stack module<a class="headerlink" href="#module-cloudmesh_client.cloud.stack" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cloudmesh_client.cloud.stack.BigDataStack">
-<em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.stack.</code><code class="descname">BigDataStack</code><span class="sig-paren">(</span><em>dest</em>, <em>repo='git://github.com/futuresystems/big-data-stack.git'</em>, <em>branch='master'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#BigDataStack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.BigDataStack" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.stack.</code><code class="descname">BigDataStack</code><span class="sig-paren">(</span><em>dest</em>, <em>repo='git://github.com/futuresystems/big-data-stack.git'</em>, <em>branch='master'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#BigDataStack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.BigDataStack" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="cloudmesh_client.cloud.stack.BigDataStack.deploy">
-<code class="descname">deploy</code><span class="sig-paren">(</span><em>ips=None</em>, <em>name=None</em>, <em>user=None</em>, <em>playbooks=None</em>, <em>defines=None</em>, <em>ping_max=10</em>, <em>ping_sleep=10</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#BigDataStack.deploy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.BigDataStack.deploy" title="Permalink to this definition">¶</a></dt>
+<code class="descname">deploy</code><span class="sig-paren">(</span><em>ips=None</em>, <em>name=None</em>, <em>user=None</em>, <em>playbooks=None</em>, <em>defines=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#BigDataStack.deploy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.BigDataStack.deploy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deploy the big-data-stack to a previously stood up cluster located
 at <cite>ips</cite> with login user <cite>user</cite>.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -2018,6 +2046,16 @@ the Big Data Stack repository.</p>
 </tbody>
 </table>
 </dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.stack.BigDataStack.load">
+<em class="property">classmethod </em><code class="descname">load</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#BigDataStack.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.BigDataStack.load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.stack.BigDataStack.sync_metadata">
+<code class="descname">sync_metadata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/stack.html#BigDataStack.sync_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.stack.BigDataStack.sync_metadata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -2703,15 +2741,18 @@ the database, then inserting new data
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cloudmesh_client.cloud.hpc.html" class="btn btn-neutral float-right" title="cloudmesh_client.cloud.hpc package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cloudmesh_client.cloud.hpc.html" class="btn btn-neutral float-right" title="cloudmesh_client.cloud.hpc package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="cloudmesh_client.api.impl.html" class="btn btn-neutral" title="cloudmesh_client.api.impl package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cloudmesh_client.api.impl.html" class="btn btn-neutral" title="cloudmesh_client.api.impl package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -2741,10 +2782,11 @@ the database, then inserting new data
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.5.2',
+            VERSION:'4.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

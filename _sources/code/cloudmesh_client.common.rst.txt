@@ -1,6 +1,13 @@
 cloudmesh_client.common package
 ===============================
 
+Subpackages
+-----------
+
+.. toctree::
+
+    cloudmesh_client.common.ssh
+
 Submodules
 ----------
 

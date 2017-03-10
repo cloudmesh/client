@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>VM Command &mdash; cloudmesh_client 4.5.2 documentation</title>
+  <title>VM Command &mdash; cloudmesh_client 4.6.1 documentation</title>
   
 
+  
+  
   
   
 
@@ -30,7 +32,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Advanced Command Usage" href="command_advanced.html"/>
         <link rel="prev" title="SecGroup Command" href="command_secgroup.html"/> 
@@ -42,6 +47,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -61,7 +67,7 @@
             
             
               <div class="version">
-                4.5.2
+                4.6.1
               </div>
             
           
@@ -82,7 +88,10 @@
           
             
             
-                <p class="caption"><span class="caption-text">Overview</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
@@ -171,8 +180,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">cloudmesh_client</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cloudmesh_client</a>
+        
       </nav>
 
 
@@ -181,25 +192,42 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="index.html">User Manual</a> &raquo;</li>
-      
-    <li>VM Command</li>
+        
+      <li>VM Command</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="../_sources/commands/command_vm.txt" rel="nofollow"> View page source</a>
+            
+            <a href="../_sources/commands/command_vm.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -297,7 +325,7 @@ like the one below:</p>
 <span class="o">+----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+</span>
 <span class="o">|</span> <span class="mi">10</span> <span class="o">|</span> <span class="mi">21305503</span><span class="o">-</span><span class="mi">2649</span><span class="o">-</span><span class="mi">3664</span><span class="o">-</span><span class="mi">8876</span><span class="o">-</span><span class="n">d825758c83f3</span> <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">001</span>                   <span class="o">|</span> <span class="n">ACTIVE</span>    <span class="o">|</span> <span class="mf">10.20</span><span class="o">.</span><span class="mf">99.</span><span class="n">xx</span> <span class="o">|</span> <span class="mf">140.123</span><span class="o">.</span><span class="mf">44.</span><span class="n">xxx</span>  <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="n">key</span>              <span class="o">|</span> <span class="n">undefined</span> <span class="o">|</span> <span class="n">albert</span>    <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span>
 <span class="o">|</span> <span class="mi">9</span>  <span class="o">|</span> <span class="mi">94</span><span class="n">f01af3</span><span class="o">-</span><span class="n">ee2a</span><span class="o">-</span><span class="mi">9887</span><span class="o">-</span><span class="n">b228</span><span class="o">-</span><span class="mi">75627</span><span class="n">f358169</span> <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">001</span>                   <span class="o">|</span> <span class="n">SHUTOFF</span>   <span class="o">|</span> <span class="mf">10.20</span><span class="o">.</span><span class="mf">99.</span><span class="n">xx</span> <span class="o">|</span> <span class="mf">140.123</span><span class="o">.</span><span class="mf">44.</span><span class="n">xxx</span>  <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="n">key</span>              <span class="o">|</span> <span class="n">undefined</span> <span class="o">|</span> <span class="n">albert</span>    <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span>
-<span class="o">|</span> <span class="mi">8</span>  <span class="o">|</span> <span class="mi">2</span><span class="n">f275d38</span><span class="o">-</span><span class="mi">62</span><span class="n">af</span><span class="o">-</span><span class="mi">1223</span><span class="o">-</span><span class="n">a04a</span><span class="o">-</span><span class="mi">0456</span><span class="n">e0d6466f</span> <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">jzqc23pekfcu</span>   <span class="o">|</span> <span class="n">SUSPENDED</span> <span class="o">|</span> <span class="mf">10.20</span><span class="o">.</span><span class="mf">99.</span><span class="n">xx</span> <span class="o">|</span> <span class="mf">140.123</span><span class="o">.</span><span class="mf">44.</span><span class="n">xxx</span>  <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="n">india</span><span class="o">-</span><span class="n">key</span>        <span class="o">|</span> <span class="n">undefined</span> <span class="o">|</span> <span class="n">albert</span>    <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span>
+<span class="o">|</span> <span class="mi">8</span>  <span class="o">|</span> <span class="mi">2</span><span class="n">f275d38</span><span class="o">-</span><span class="mi">62</span><span class="n">af</span><span class="o">-</span><span class="mi">1223</span><span class="o">-</span><span class="n">a04a</span><span class="o">-</span><span class="mf">0456e0</span><span class="n">d6466f</span> <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">jzqc23pekfcu</span>   <span class="o">|</span> <span class="n">SUSPENDED</span> <span class="o">|</span> <span class="mf">10.20</span><span class="o">.</span><span class="mf">99.</span><span class="n">xx</span> <span class="o">|</span> <span class="mf">140.123</span><span class="o">.</span><span class="mf">44.</span><span class="n">xxx</span>  <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="n">india</span><span class="o">-</span><span class="n">key</span>        <span class="o">|</span> <span class="n">undefined</span> <span class="o">|</span> <span class="n">albert</span>    <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span>
 <span class="o">|</span> <span class="mi">7</span>  <span class="o">|</span> <span class="mi">6730</span><span class="n">c273</span><span class="o">-</span><span class="mi">609</span><span class="n">f</span><span class="o">-</span><span class="mi">9879</span><span class="o">-</span><span class="n">a481</span><span class="o">-</span><span class="mi">313</span><span class="n">ff4200d82</span> <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">ekbvvsmjyqlo</span>   <span class="o">|</span> <span class="n">ACTIVE</span>    <span class="o">|</span> <span class="mf">10.20</span><span class="o">.</span><span class="mf">99.</span><span class="n">xx</span> <span class="o">|</span> <span class="mf">140.123</span><span class="o">.</span><span class="mf">44.</span><span class="n">xxx</span>  <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="n">india</span><span class="o">-</span><span class="n">key</span>        <span class="o">|</span> <span class="n">undefined</span> <span class="o">|</span> <span class="n">albert</span>    <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span>
 <span class="o">|</span> <span class="mi">6</span>  <span class="o">|</span> <span class="n">fa3580f3</span><span class="o">-</span><span class="mi">2</span><span class="n">dbd</span><span class="o">-</span><span class="n">d666</span><span class="o">-</span><span class="mi">9178</span><span class="o">-</span><span class="mi">326</span><span class="n">b39916c09</span> <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">cdmelfaefggf</span>   <span class="o">|</span> <span class="n">ACTIVE</span>    <span class="o">|</span> <span class="mf">10.20</span><span class="o">.</span><span class="mf">99.</span><span class="n">xx</span> <span class="o">|</span> <span class="mf">140.123</span><span class="o">.</span><span class="mf">44.</span><span class="n">xxx</span>  <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="n">india</span><span class="o">-</span><span class="n">key</span>        <span class="o">|</span> <span class="n">undefined</span> <span class="o">|</span> <span class="n">albert</span>    <span class="o">|</span> <span class="n">kilo</span>  <span class="o">|</span>
 <span class="o">+----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+</span>
@@ -447,15 +475,18 @@ albert@testvm:~$
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="command_advanced.html" class="btn btn-neutral float-right" title="Advanced Command Usage" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="command_advanced.html" class="btn btn-neutral float-right" title="Advanced Command Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="command_secgroup.html" class="btn btn-neutral" title="SecGroup Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="command_secgroup.html" class="btn btn-neutral" title="SecGroup Command" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -485,10 +516,11 @@ albert@testvm:~$
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.5.2',
+            VERSION:'4.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

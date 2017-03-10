@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins package &mdash; cloudmesh_client 4.5.2 documentation</title>
+  <title>cloudmesh_client.shell.plugins package &mdash; cloudmesh_client 4.6.1 documentation</title>
   
 
+  
+  
   
   
 
@@ -30,7 +32,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client.shell package" href="cloudmesh_client.shell.html"/>
         <link rel="next" title="cloudmesh_client.system package" href="cloudmesh_client.system.html"/>
         <link rel="prev" title="cloudmesh_client.shell package" href="cloudmesh_client.shell.html"/> 
@@ -42,6 +47,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -61,7 +67,7 @@
             
             
               <div class="version">
-                4.5.2
+                4.6.1
               </div>
             
           
@@ -82,7 +88,10 @@
           
             
             
-                <p class="caption"><span class="caption-text">Overview</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
@@ -151,7 +160,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#cloudmesh-client-default-module">cloudmesh_client.default module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.exc">cloudmesh_client.exc module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
@@ -181,8 +190,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">cloudmesh_client</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cloudmesh_client</a>
+        
       </nav>
 
 
@@ -191,27 +202,44 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="cloudmesh_client.html">cloudmesh_client package</a> &raquo;</li>
-      
+        
           <li><a href="cloudmesh_client.shell.html">cloudmesh_client.shell package</a> &raquo;</li>
-      
-    <li>cloudmesh_client.shell.plugins package</li>
+        
+      <li>cloudmesh_client.shell.plugins package</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="../_sources/code/cloudmesh_client.shell.plugins.txt" rel="nofollow"> View page source</a>
+            
+            <a href="../_sources/code/cloudmesh_client.shell.plugins.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -495,22 +523,32 @@
 <em class="property">class </em><code class="descclassname">cloudmesh_client.shell.plugins.ClusterCommand2.</code><code class="descname">Cluster2Command</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/ClusterCommand2.html#Cluster2Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Cluster2Command" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="cloudmesh_client.shell.html#cloudmesh_client.shell.command.PluginCommand" title="cloudmesh_client.shell.command.PluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.PluginCommand</span></code></a>, <a class="reference internal" href="cloudmesh_client.shell.html#cloudmesh_client.shell.command.CloudPluginCommand" title="cloudmesh_client.shell.command.CloudPluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.CloudPluginCommand</span></code></a></p>
 <dl class="method">
-<dt id="cloudmesh_client.shell.plugins.ClusterCommand2.Cluster2Command.do_cluster2">
-<code class="descname">do_cluster2</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Cluster2Command.do_cluster2" title="Permalink to this definition">¶</a></dt>
+<dt id="cloudmesh_client.shell.plugins.ClusterCommand2.Cluster2Command.do_cluster">
+<code class="descname">do_cluster</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Cluster2Command.do_cluster" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>::</dt>
 <dd><dl class="first docutils">
 <dt>Usage:</dt>
-<dd>cluster2 create [-n NAME] [-c COUNT] [-C CLOUD] [-u NAME] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]
-cluster2 list
-cluster2 nodes [CLUSTER]
-cluster2 delete [&#8211;all] [&#8211;force] [NAME]...
-cluster2 get [-n NAME] PROPERTY
-cluster2 inventory [-F NAME] [-o PATH] [NAME]</dd>
+<dd>cluster define [-n NAME] [-c COUNT] [-C CLOUD] [-u NAME] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]
+cluster undefine [&#8211;all] [NAME]...
+cluster avail
+cluster use &lt;NAME&gt;
+cluster allocate
+cluster cross_ssh
+cluster list
+cluster nodes [CLUSTER]
+cluster delete [&#8211;all] [&#8211;force] [NAME]...
+cluster get [-n NAME] PROPERTY
+cluster inventory [-F NAME] [-o PATH] [NAME]</dd>
 </dl>
 <p>Commands:</p>
 <blockquote>
-<div>create     Create a cluster
+<div>define     Create a cluster specification
+undefine   Delete the active or given specifications
+avail      Show available cluster specifications
+use        Activate the specification with the given name
+allocate   Create a cluster from the active specification
+nodes      Show the nodes of the cluster
 list       List the available clusters
 inventory  Obtain an inventory file
 delete     Delete clusters and associated instances
@@ -545,7 +583,7 @@ PATH                Path to entry on the filesystem</div></blockquote>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.shell.plugins.ClusterCommand2.Cluster2Command.topics">
-<code class="descname">topics</code><em class="property"> = {'cluster2': 'cluster'}</em><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Cluster2Command.topics" title="Permalink to this definition">¶</a></dt>
+<code class="descname">topics</code><em class="property"> = {'cluster': 'cluster'}</em><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Cluster2Command.topics" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -555,34 +593,33 @@ PATH                Path to entry on the filesystem</div></blockquote>
 <em class="property">class </em><code class="descclassname">cloudmesh_client.shell.plugins.ClusterCommand2.</code><code class="descname">Command</code><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/ClusterCommand2.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Command" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
-<dt id="cloudmesh_client.shell.plugins.ClusterCommand2.Command.create">
-<code class="descname">create</code><span class="sig-paren">(</span><em>clustername=None</em>, <em>cloud=None</em>, <em>count=1</em>, <em>username=None</em>, <em>image=None</em>, <em>flavor=None</em>, <em>key=None</em>, <em>secgroup=None</em>, <em>assignFloatingIP=True</em>, <em>activate=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/ClusterCommand2.html#Command.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Command.create" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a cluster.</p>
-<p>If values are <cite>None</cite>, they are automatically determined via
-defaults.</p>
+<dt id="cloudmesh_client.shell.plugins.ClusterCommand2.Command.allocate">
+<code class="descname">allocate</code><span class="sig-paren">(</span><em>clustername=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/ClusterCommand2.html#Command.allocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Command.allocate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.ClusterCommand2.Command.avail">
+<code class="descname">avail</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/ClusterCommand2.html#Command.avail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Command.avail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the available cluster specifications</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.ClusterCommand2.Command.cross_ssh">
+<code class="descname">cross_ssh</code><span class="sig-paren">(</span><em>clustername=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/ClusterCommand2.html#Command.cross_ssh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Command.cross_ssh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.ClusterCommand2.Command.define">
+<code class="descname">define</code><span class="sig-paren">(</span><em>clustername=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/ClusterCommand2.html#Command.define"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Command.define" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define a cluster.</p>
+<p>kwargs are passed to Cluster</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>clustername</strong> (<em>str</em>) &#8211; name of this cluster (generated if None)</li>
-<li><strong>cloud</strong> (<em>str</em>) &#8211; cloud name</li>
-<li><strong>count</strong> (<em>int</em>) &#8211; number of instances in the cluster</li>
-<li><strong>user</strong> (<em>str</em>) &#8211; cloudmesh user</li>
-<li><strong>username</strong> (<em>str</em>) &#8211; cloud image username</li>
-<li><strong>image</strong> (<em>str</em>) &#8211; image name</li>
-<li><strong>flavor</strong> (<em>str</em>) &#8211; instance flavor</li>
-<li><strong>key</strong> (<em>str</em>) &#8211; key name</li>
-<li><strong>secgroup</strong> (<em>str</em>) &#8211; security group name</li>
-<li><strong>activate</strong> (<em>bool</em>) &#8211; activate this cluster after creation</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a cluster</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a cluster</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal"><span class="pre">Cluster</span></code></p>
-</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">Cluster</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -669,6 +706,25 @@ position.</p>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a list of instances</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">a VM instance</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.ClusterCommand2.Command.undefine">
+<code class="descname">undefine</code><span class="sig-paren">(</span><em>specname=None</em>, <em>all=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/ClusterCommand2.html#Command.undefine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Command.undefine" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.ClusterCommand2.Command.use">
+<code class="descname">use</code><span class="sig-paren">(</span><em>specname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/ClusterCommand2.html#Command.use"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand2.Command.use" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activate the given specification</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>specname</strong> &#8211; namne of the specification</td>
 </tr>
 </tbody>
 </table>
@@ -1154,81 +1210,51 @@ HOST                           Host matching pattern</div></blockquote>
 <em class="property">class </em><code class="descclassname">cloudmesh_client.shell.plugins.HadoopCommand.</code><code class="descname">Command</code><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/HadoopCommand.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.HadoopCommand.Command" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
-<dt id="cloudmesh_client.shell.plugins.HadoopCommand.Command.delete">
-<code class="descname">delete</code><span class="sig-paren">(</span><em>names</em>, <em>all=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/HadoopCommand.html#Command.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.HadoopCommand.Command.delete" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete deployments.</p>
-<p>If no names are specified, delete the currently active
-deployment.</p>
+<dt id="cloudmesh_client.shell.plugins.HadoopCommand.Command.addons">
+<code class="descname">addons</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/HadoopCommand.html#Command.addons"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.HadoopCommand.Command.addons" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the addons available</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>names</strong> (<a class="reference internal" href="cloudmesh_client.html#cloudmesh_client.default.Default.list" title="cloudmesh_client.default.Default.list"><em>list</em></a>) &#8211; names of deployments to delete</li>
-<li><strong>all</strong> (<em>bool</em>) &#8211; delete all deployments</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of addons</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"></p>
-</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="cloudmesh_client.html#cloudmesh_client.default.Default.list" title="cloudmesh_client.default.Default.list">list</a></td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="method">
-<dt id="cloudmesh_client.shell.plugins.HadoopCommand.Command.list">
-<code class="descname">list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/HadoopCommand.html#Command.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.HadoopCommand.Command.list" title="Permalink to this definition">¶</a></dt>
-<dd><p>List the known deployments</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
+<dt id="cloudmesh_client.shell.plugins.HadoopCommand.Command.avail">
+<code class="descname">avail</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/HadoopCommand.html#Command.avail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.HadoopCommand.Command.avail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.HadoopCommand.Command.define">
+<code class="descname">define</code><span class="sig-paren">(</span><em>name=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/HadoopCommand.html#Command.define"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.HadoopCommand.Command.define" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define a hadoop stack.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cloudmesh_client.shell.plugins.HadoopCommand.Command.start">
-<code class="descname">start</code><span class="sig-paren">(</span><em>count=3</em>, <em>addons=None</em>, <em>flavor=None</em>, <em>image=None</em>, <em>username=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/HadoopCommand.html#Command.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.HadoopCommand.Command.start" title="Permalink to this definition">¶</a></dt>
-<dd><p>Start a hadoop cluster</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>count</strong> (<em>int</em>) &#8211; number of nodes to use (minimum of 3)</li>
-<li><strong>addons</strong> (<em>list(str)</em>) &#8211; names of addons to deploy as well</li>
-<li><strong>flavor</strong> (<em>str</em>) &#8211; instance flavor</li>
-<li><strong>image</strong> (<em>str</em>) &#8211; image name</li>
-<li><strong>username</strong> (<em>str</em>) &#8211; login user name</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
+<dt id="cloudmesh_client.shell.plugins.HadoopCommand.Command.deploy">
+<code class="descname">deploy</code><span class="sig-paren">(</span><em>clustername=None</em>, <em>stackname=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/HadoopCommand.html#Command.deploy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.HadoopCommand.Command.deploy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
-<dt id="cloudmesh_client.shell.plugins.HadoopCommand.Command.switch">
-<code class="descname">switch</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/HadoopCommand.html#Command.switch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.HadoopCommand.Command.switch" title="Permalink to this definition">¶</a></dt>
-<dd><p>Switch active deployments</p>
+<dt id="cloudmesh_client.shell.plugins.HadoopCommand.Command.sync">
+<code class="descname">sync</code><span class="sig-paren">(</span><em>stackname=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/HadoopCommand.html#Command.sync"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.HadoopCommand.Command.sync" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.HadoopCommand.Command.use">
+<code class="descname">use</code><span class="sig-paren">(</span><em>specname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/HadoopCommand.html#Command.use"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.HadoopCommand.Command.use" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activate the given specification</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) &#8211; name of deployment to switch to</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"></td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>specname</strong> &#8211; namne of the specification</td>
 </tr>
 </tbody>
 </table>
@@ -1244,23 +1270,37 @@ deployment.</p>
 <dt id="cloudmesh_client.shell.plugins.HadoopCommand.HadoopCommand.do_hadoop">
 <code class="descname">do_hadoop</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.HadoopCommand.HadoopCommand.do_hadoop" title="Permalink to this definition">¶</a></dt>
 <dd><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span>
-  <span class="n">hadoop</span> <span class="n">start</span> <span class="p">[</span><span class="o">-</span><span class="n">f</span> <span class="n">NAME</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">i</span> <span class="n">NAME</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">u</span> <span class="n">NAME</span><span class="p">]</span> <span class="p">[</span><span class="n">COUNT</span><span class="p">]</span> <span class="p">[</span><span class="n">ADDON</span><span class="p">]</span><span class="o">...</span>
-  <span class="n">hadoop</span> <span class="nb">list</span>
-  <span class="n">hadoop</span> <span class="n">switch</span> <span class="n">NAME</span>
-  <span class="n">hadoop</span> <span class="n">delete</span> <span class="p">[</span><span class="o">-</span><span class="n">a</span><span class="p">]</span> <span class="p">[</span><span class="n">NAME</span><span class="p">]</span><span class="o">...</span>
+  <span class="n">hadoop</span> <span class="n">sync</span>
+  <span class="n">hadoop</span> <span class="n">addons</span>
+  <span class="n">hadoop</span> <span class="n">define</span> <span class="p">[</span><span class="o">-</span><span class="n">r</span> <span class="n">REPO</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">b</span> <span class="n">NAME</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">d</span> <span class="n">COUNT</span><span class="p">]</span> <span class="p">[</span><span class="n">ADDON</span><span class="p">]</span><span class="o">...</span>
+  <span class="n">hadoop</span> <span class="n">undefine</span> <span class="p">[</span><span class="n">NAME</span><span class="p">]</span><span class="o">...</span>
+  <span class="n">hadoop</span> <span class="n">avail</span>
+  <span class="n">hadoop</span> <span class="n">use</span> <span class="n">NAME</span>
+  <span class="n">hadoop</span> <span class="n">deploy</span>
 
 <span class="n">Arguments</span><span class="p">:</span>
 
-  <span class="n">COUNT</span>
-  <span class="n">ADDON</span>
-  <span class="n">NAME</span>
+  <span class="n">REPO</span>            <span class="n">Repository</span> <span class="n">location</span>
+  <span class="n">CLUSTER</span>         <span class="n">Name</span> <span class="n">of</span> <span class="n">a</span> <span class="n">cluster</span>
+  <span class="n">ADDON</span>           <span class="n">Big</span> <span class="n">Data</span> <span class="n">Stack</span> <span class="n">addon</span> <span class="p">(</span><span class="n">eg</span><span class="p">:</span> <span class="n">spark</span><span class="p">,</span> <span class="n">hbase</span><span class="p">,</span> <span class="n">pig</span><span class="p">)</span>
+  <span class="n">NAME</span>            <span class="n">Alphanumeric</span> <span class="n">name</span>
+  <span class="n">COUNT</span>           <span class="n">Integer</span> <span class="n">greater</span> <span class="n">than</span> <span class="n">zero</span>
+
+<span class="n">Commands</span><span class="p">:</span>
+
+  <span class="n">sync</span>       <span class="n">Checkout</span> <span class="o">/</span> <span class="n">synchronize</span> <span class="n">the</span> <span class="n">Big</span> <span class="n">Data</span> <span class="n">Stack</span>
+  <span class="n">addons</span>     <span class="n">List</span> <span class="n">available</span> <span class="n">addons</span>
+  <span class="n">define</span>     <span class="n">Create</span> <span class="n">a</span> <span class="n">deployment</span> <span class="n">specification</span>
+  <span class="n">undefine</span>   <span class="n">Delete</span> <span class="n">the</span> <span class="n">active</span> <span class="ow">or</span> <span class="n">given</span> <span class="n">specifications</span>
+  <span class="n">avail</span>      <span class="n">Show</span> <span class="n">available</span> <span class="n">deployment</span> <span class="n">specifications</span>
+  <span class="n">use</span>        <span class="n">Activate</span> <span class="n">the</span> <span class="n">specification</span> <span class="k">with</span> <span class="n">the</span> <span class="n">given</span> <span class="n">name</span>
+  <span class="n">deploy</span>     <span class="n">Deploy</span> <span class="n">the</span> <span class="n">active</span> <span class="n">specification</span> <span class="n">onto</span> <span class="n">the</span> <span class="n">active</span> <span class="n">cluster</span>
 
 <span class="n">Options</span><span class="p">:</span>
 
-  <span class="o">-</span><span class="n">a</span> <span class="o">--</span><span class="nb">all</span>
-  <span class="o">-</span><span class="n">f</span> <span class="o">--</span><span class="n">flavor</span><span class="o">=</span><span class="n">NAME</span>
-  <span class="o">-</span><span class="n">i</span> <span class="o">--</span><span class="n">image</span><span class="o">=</span><span class="n">NAME</span>
-  <span class="o">-</span><span class="n">u</span> <span class="o">--</span><span class="n">username</span><span class="o">=</span><span class="n">NAME</span>
+  <span class="o">-</span><span class="n">r</span> <span class="o">--</span><span class="n">repo</span><span class="o">=</span><span class="n">REPO</span>        <span class="n">Location</span> <span class="n">of</span> <span class="n">the</span> <span class="n">repository</span>
+  <span class="o">-</span><span class="n">b</span> <span class="o">--</span><span class="n">branch</span><span class="o">=</span><span class="n">NAME</span>      <span class="n">Branch</span> <span class="n">to</span> <span class="n">use</span>
+  <span class="o">-</span><span class="n">d</span> <span class="o">--</span><span class="n">depth</span><span class="o">=</span><span class="n">COUNT</span>      <span class="n">Clone</span> <span class="n">depth</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1957,13 +1997,13 @@ for a cloud.</dd>
     <span class="n">IP_OR_ID</span>        <span class="n">IP</span> <span class="n">Address</span> <span class="ow">or</span> <span class="n">ID</span> <span class="n">of</span> <span class="n">IP</span> <span class="n">Address</span>
     <span class="n">FIXED_IP</span>        <span class="n">Fixed</span> <span class="n">IP</span> <span class="n">Address</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="mf">10.1</span><span class="o">.</span><span class="mf">5.2</span>
     <span class="n">FLOATING_IP</span>     <span class="n">Floating</span> <span class="n">IP</span> <span class="n">Address</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="mf">192.1</span><span class="o">.</span><span class="mf">66.8</span>
-    <span class="n">FLOATING_IP_ID</span>  <span class="n">ID</span> <span class="n">associated</span> <span class="k">with</span> <span class="n">Floating</span> <span class="n">IP</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="mi">185</span><span class="n">c5195</span><span class="o">-</span><span class="n">e824</span><span class="o">-</span><span class="mi">4</span><span class="n">e7b</span><span class="o">-</span><span class="mi">8581</span><span class="o">-</span><span class="mi">703</span><span class="n">abec4bc01</span>
+    <span class="n">FLOATING_IP_ID</span>  <span class="n">ID</span> <span class="n">associated</span> <span class="k">with</span> <span class="n">Floating</span> <span class="n">IP</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="mi">185</span><span class="n">c5195</span><span class="o">-</span><span class="n">e824</span><span class="o">-</span><span class="mf">4e7</span><span class="n">b</span><span class="o">-</span><span class="mi">8581</span><span class="o">-</span><span class="mi">703</span><span class="n">abec4bc01</span>
 
 <span class="n">Examples</span><span class="p">:</span>
     <span class="n">network</span> <span class="n">get</span> <span class="n">fixed</span> <span class="n">ip</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">india</span> <span class="mf">10.1</span><span class="o">.</span><span class="mf">2.5</span>
     <span class="n">network</span> <span class="n">get</span> <span class="n">fixed</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">india</span> <span class="mf">10.1</span><span class="o">.</span><span class="mf">2.5</span>
-    <span class="n">network</span> <span class="n">get</span> <span class="n">floating</span> <span class="n">ip</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">india</span> <span class="mi">185</span><span class="n">c5195</span><span class="o">-</span><span class="n">e824</span><span class="o">-</span><span class="mi">4</span><span class="n">e7b</span><span class="o">-</span><span class="mi">8581</span><span class="o">-</span><span class="mi">703</span><span class="n">abec4bc01</span>
-    <span class="n">network</span> <span class="n">get</span> <span class="n">floating</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">india</span> <span class="mi">185</span><span class="n">c5195</span><span class="o">-</span><span class="n">e824</span><span class="o">-</span><span class="mi">4</span><span class="n">e7b</span><span class="o">-</span><span class="mi">8581</span><span class="o">-</span><span class="mi">703</span><span class="n">abec4bc01</span>
+    <span class="n">network</span> <span class="n">get</span> <span class="n">floating</span> <span class="n">ip</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">india</span> <span class="mi">185</span><span class="n">c5195</span><span class="o">-</span><span class="n">e824</span><span class="o">-</span><span class="mf">4e7</span><span class="n">b</span><span class="o">-</span><span class="mi">8581</span><span class="o">-</span><span class="mi">703</span><span class="n">abec4bc01</span>
+    <span class="n">network</span> <span class="n">get</span> <span class="n">floating</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">india</span> <span class="mi">185</span><span class="n">c5195</span><span class="o">-</span><span class="n">e824</span><span class="o">-</span><span class="mf">4e7</span><span class="n">b</span><span class="o">-</span><span class="mi">8581</span><span class="o">-</span><span class="mi">703</span><span class="n">abec4bc01</span>
     <span class="n">network</span> <span class="n">reserve</span> <span class="n">fixed</span> <span class="n">ip</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">india</span> <span class="mf">10.1</span><span class="o">.</span><span class="mf">2.5</span>
     <span class="n">network</span> <span class="n">reserve</span> <span class="n">fixed</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">india</span> <span class="mf">10.1</span><span class="o">.</span><span class="mf">2.5</span>
     <span class="n">network</span> <span class="n">unreserve</span> <span class="n">fixed</span> <span class="n">ip</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">india</span> <span class="mf">10.1</span><span class="o">.</span><span class="mf">2.5</span>
@@ -1981,7 +2021,7 @@ for a cloud.</dd>
     <span class="n">network</span> <span class="nb">list</span> <span class="n">floating</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">india</span>
     <span class="n">network</span> <span class="nb">list</span> <span class="n">floating</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">india</span> <span class="o">--</span><span class="n">unused</span>
     <span class="n">network</span> <span class="nb">list</span> <span class="n">floating</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">india</span> <span class="mf">192.1</span><span class="o">.</span><span class="mf">66.8</span>
-    <span class="n">network</span> <span class="nb">list</span> <span class="n">floating</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">india</span> <span class="o">--</span><span class="n">instance</span><span class="o">=</span><span class="mi">323</span><span class="n">c5195</span><span class="o">-</span><span class="mi">7</span><span class="n">yy34</span><span class="o">-</span><span class="mi">4</span><span class="n">e7b</span><span class="o">-</span><span class="mi">8581</span><span class="o">-</span><span class="mi">703</span><span class="n">abec4b</span>
+    <span class="n">network</span> <span class="nb">list</span> <span class="n">floating</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">india</span> <span class="o">--</span><span class="n">instance</span><span class="o">=</span><span class="mi">323</span><span class="n">c5195</span><span class="o">-</span><span class="mi">7</span><span class="n">yy34</span><span class="o">-</span><span class="mf">4e7</span><span class="n">b</span><span class="o">-</span><span class="mi">8581</span><span class="o">-</span><span class="mi">703</span><span class="n">abec4b</span>
     <span class="n">network</span> <span class="nb">list</span> <span class="n">floating</span> <span class="n">pool</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">india</span>
     <span class="n">network</span> <span class="n">create</span> <span class="n">cluster</span> <span class="o">--</span><span class="n">group</span><span class="o">=</span><span class="n">demo_group</span>
 </pre></div>
@@ -2486,7 +2526,7 @@ Description:
 </div>
 <p>Description:</p>
 <blockquote>
-<div>DANGER: This method erases the database.</div></blockquote>
+<div>DANGER: This method erases the database and quits the shell.</div></blockquote>
 <dl class="docutils">
 <dt>Examples:</dt>
 <dd>clean</dd>
@@ -2881,7 +2921,7 @@ Options:
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict[play] -&gt; dict[key] -&gt; value</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.FlatDict.dict" title="cloudmesh_client.common.FlatDict.FlatDict.dict">dict</a>[play] -&gt; dict[<a class="reference internal" href="cloudmesh_client.platform.virtual_cluster.html#cloudmesh_client.platform.virtual_cluster.cluster.Cluster.key" title="cloudmesh_client.platform.virtual_cluster.cluster.Cluster.key">key</a>] -&gt; value</td>
 </tr>
 </tbody>
 </table>
@@ -3545,15 +3585,18 @@ toggled.</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cloudmesh_client.system.html" class="btn btn-neutral float-right" title="cloudmesh_client.system package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cloudmesh_client.system.html" class="btn btn-neutral float-right" title="cloudmesh_client.system package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="cloudmesh_client.shell.html" class="btn btn-neutral" title="cloudmesh_client.shell package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cloudmesh_client.shell.html" class="btn btn-neutral" title="cloudmesh_client.shell package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -3583,10 +3626,11 @@ toggled.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.5.2',
+            VERSION:'4.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

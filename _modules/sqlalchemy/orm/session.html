@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>sqlalchemy.orm.session &mdash; cloudmesh_client 4.5.2 documentation</title>
+  <title>sqlalchemy.orm.session &mdash; cloudmesh_client 4.6.1 documentation</title>
   
 
+  
+  
   
   
 
@@ -30,7 +32,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../../../index.html"/>
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -40,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -59,7 +65,7 @@
             
             
               <div class="version">
-                4.5.2
+                4.6.1
               </div>
             
           
@@ -80,7 +86,10 @@
           
             
             
-                <p class="caption"><span class="caption-text">Overview</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
@@ -142,8 +151,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../../index.html">cloudmesh_client</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">cloudmesh_client</a>
+        
       </nav>
 
 
@@ -156,19 +167,36 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-      
-    <li>sqlalchemy.orm.session</li>
+        
+      <li>sqlalchemy.orm.session</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -185,22 +213,22 @@
 
 
 <span class="kn">import</span> <span class="nn">weakref</span>
-<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">util</span><span class="p">,</span> <span class="n">sql</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="n">exc</span> <span class="k">as</span> <span class="n">sa_exc</span>
-<span class="kn">from</span> <span class="nn">..sql</span> <span class="kn">import</span> <span class="n">util</span> <span class="k">as</span> <span class="n">sql_util</span><span class="p">,</span> <span class="n">expression</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="k">import</span> <span class="n">util</span><span class="p">,</span> <span class="n">sql</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="n">exc</span> <span class="k">as</span> <span class="n">sa_exc</span>
+<span class="kn">from</span> <span class="nn">..sql</span> <span class="k">import</span> <span class="n">util</span> <span class="k">as</span> <span class="n">sql_util</span><span class="p">,</span> <span class="n">expression</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="p">(</span>
     <span class="n">SessionExtension</span><span class="p">,</span> <span class="n">attributes</span><span class="p">,</span> <span class="n">exc</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span>
     <span class="n">loading</span><span class="p">,</span> <span class="n">identity</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">..inspection</span> <span class="kn">import</span> <span class="n">inspect</span>
-<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">..inspection</span> <span class="k">import</span> <span class="n">inspect</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="p">(</span>
     <span class="n">object_mapper</span><span class="p">,</span> <span class="n">class_mapper</span><span class="p">,</span>
     <span class="n">_class_to_mapper</span><span class="p">,</span> <span class="n">_state_mapper</span><span class="p">,</span> <span class="n">object_state</span><span class="p">,</span>
     <span class="n">_none_set</span><span class="p">,</span> <span class="n">state_str</span><span class="p">,</span> <span class="n">instance_str</span>
 <span class="p">)</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">persistence</span>
-<span class="kn">from</span> <span class="nn">.unitofwork</span> <span class="kn">import</span> <span class="n">UOWTransaction</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">state</span> <span class="k">as</span> <span class="n">statelib</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">persistence</span>
+<span class="kn">from</span> <span class="nn">.unitofwork</span> <span class="k">import</span> <span class="n">UOWTransaction</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">state</span> <span class="k">as</span> <span class="n">statelib</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Session&#39;</span><span class="p">,</span> <span class="s1">&#39;SessionTransaction&#39;</span><span class="p">,</span>
@@ -220,22 +248,22 @@
             <span class="k">return</span> <span class="n">_sessions</span><span class="p">[</span><span class="n">state</span><span class="o">.</span><span class="n">session_id</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="k">pass</span>
-    <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">return</span> <span class="kc">None</span>
 
 
 <span class="k">class</span> <span class="nc">_SessionClassMethods</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Class-level methods for :class:`.Session`, :class:`.sessionmaker`.&quot;&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">close_all</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">close_all</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Close *all* sessions in memory.&quot;&quot;&quot;</span>
 
         <span class="k">for</span> <span class="n">sess</span> <span class="ow">in</span> <span class="n">_sessions</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">sess</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
     <span class="nd">@classmethod</span>
-    <span class="nd">@util.dependencies</span><span class="p">(</span><span class="s2">&quot;sqlalchemy.orm.util&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">identity_key</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">orm_util</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="nd">@util</span><span class="o">.</span><span class="n">dependencies</span><span class="p">(</span><span class="s2">&quot;sqlalchemy.orm.util&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">identity_key</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">orm_util</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return an identity key.</span>
 
 <span class="sd">        This is an alias of :func:`.util.identity_key`.</span>
@@ -244,7 +272,7 @@
         <span class="k">return</span> <span class="n">orm_util</span><span class="o">.</span><span class="n">identity_key</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">object_session</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">instance</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">object_session</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">instance</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return the :class:`.Session` to which an object belongs.</span>
 
 <span class="sd">        This is an alias of :func:`.object_session`.</span>
@@ -378,9 +406,9 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">_rollback_exception</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">_rollback_exception</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connections</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="o">=</span> <span class="n">parent</span>
@@ -414,7 +442,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span>
 
-    <span class="n">nested</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">nested</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="sd">&quot;&quot;&quot;Indicates if this is a nested, or SAVEPOINT, transaction.</span>
 
 <span class="sd">    When :attr:`.SessionTransaction.nested` is True, it is expected</span>
@@ -424,11 +452,11 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">is_active</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="ow">is</span> <span class="n">ACTIVE</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="ow">is</span> <span class="n">ACTIVE</span>
 
-    <span class="k">def</span> <span class="nf">_assert_active</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prepared_ok</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                       <span class="n">rollback_ok</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                       <span class="n">deactive_ok</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+    <span class="k">def</span> <span class="nf">_assert_active</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prepared_ok</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                       <span class="n">rollback_ok</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                       <span class="n">deactive_ok</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                        <span class="n">closed_msg</span><span class="o">=</span><span class="s2">&quot;This transaction is closed&quot;</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="ow">is</span> <span class="n">COMMITTED</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">sa_exc</span><span class="o">.</span><span class="n">InvalidRequestError</span><span class="p">(</span>
@@ -465,17 +493,17 @@
     <span class="k">def</span> <span class="nf">_is_transaction_boundary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nested</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span>
 
-    <span class="k">def</span> <span class="nf">connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bindkey</span><span class="p">,</span> <span class="n">execution_options</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bindkey</span><span class="p">,</span> <span class="n">execution_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_assert_active</span><span class="p">()</span>
         <span class="n">bind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get_bind</span><span class="p">(</span><span class="n">bindkey</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection_for_bind</span><span class="p">(</span><span class="n">bind</span><span class="p">,</span> <span class="n">execution_options</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_begin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_begin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_assert_active</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">SessionTransaction</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="n">nested</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_iterate_self_and_parents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">upto</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_iterate_self_and_parents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">upto</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span>
         <span class="n">result</span> <span class="o">=</span> <span class="p">()</span>
@@ -483,7 +511,7 @@
             <span class="n">result</span> <span class="o">+=</span> <span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="p">)</span>
             <span class="k">if</span> <span class="n">current</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="n">upto</span><span class="p">:</span>
                 <span class="k">break</span>
-            <span class="k">elif</span> <span class="n">current</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">current</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">sa_exc</span><span class="o">.</span><span class="n">InvalidRequestError</span><span class="p">(</span>
                     <span class="s2">&quot;Transaction </span><span class="si">%s</span><span class="s2"> is not on the active transaction list&quot;</span> <span class="o">%</span> <span class="p">(</span>
                         <span class="n">upto</span><span class="p">))</span>
@@ -508,7 +536,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_dirty</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">WeakKeyDictionary</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_key_switches</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">WeakKeyDictionary</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_restore_snapshot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dirty_only</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_restore_snapshot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dirty_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Restore the restoration state taken before a transaction began.</span>
 
 <span class="sd">        Corresponds to a rollback.</span>
@@ -518,7 +546,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_expunge_states</span><span class="p">(</span>
             <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_new</span><span class="p">),</span>
-            <span class="n">to_transient</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">to_transient</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="p">(</span><span class="n">oldkey</span><span class="p">,</span> <span class="n">newkey</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key_switches</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">identity_map</span><span class="o">.</span><span class="n">safe_discard</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
@@ -526,7 +554,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">identity_map</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_deleted</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_update_impl</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">revert_deletion</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_update_impl</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">revert_deletion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_deleted</span>
 
@@ -582,7 +610,7 @@
         <span class="k">if</span> <span class="n">execution_options</span><span class="p">:</span>
             <span class="n">conn</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execution_options</span><span class="p">(</span><span class="o">**</span><span class="n">execution_options</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">twophase</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">twophase</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">transaction</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">begin_twophase</span><span class="p">()</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">nested</span><span class="p">:</span>
             <span class="n">transaction</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">begin_nested</span><span class="p">()</span>
@@ -595,7 +623,7 @@
         <span class="k">return</span> <span class="n">conn</span>
 
     <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">twophase</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">twophase</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">sa_exc</span><span class="o">.</span><span class="n">InvalidRequestError</span><span class="p">(</span>
                 <span class="s2">&quot;&#39;twophase&#39; mode not enabled, or not root transaction; &quot;</span>
                 <span class="s2">&quot;can&#39;t prepare.&quot;</span><span class="p">)</span>
@@ -603,7 +631,7 @@
 
     <span class="k">def</span> <span class="nf">_prepare_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_assert_active</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">nested</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">nested</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">before_commit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
 
         <span class="n">stx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">transaction</span>
@@ -622,7 +650,7 @@
                     <span class="s2">&quot;session.commit() - is an after_flush() hook &quot;</span>
                     <span class="s2">&quot;creating new objects?&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">twophase</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">twophase</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connections</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
                     <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">prepare</span><span class="p">()</span>
@@ -633,11 +661,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">PREPARED</span>
 
     <span class="k">def</span> <span class="nf">commit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_assert_active</span><span class="p">(</span><span class="n">prepared_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assert_active</span><span class="p">(</span><span class="n">prepared_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">PREPARED</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_impl</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">nested</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">nested</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connections</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
                 <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
 
@@ -650,8 +678,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span>
 
-    <span class="k">def</span> <span class="nf">rollback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_capture_exception</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_assert_active</span><span class="p">(</span><span class="n">prepared_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">rollback_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">rollback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_capture_exception</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assert_active</span><span class="p">(</span><span class="n">prepared_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rollback_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="n">stx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">transaction</span>
         <span class="k">if</span> <span class="n">stx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span>
@@ -659,10 +687,10 @@
                 <span class="n">subtransaction</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
         <span class="n">boundary</span> <span class="o">=</span> <span class="bp">self</span>
-        <span class="n">rollback_err</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">rollback_err</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="ow">in</span> <span class="p">(</span><span class="n">ACTIVE</span><span class="p">,</span> <span class="n">PREPARED</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iterate_self_and_parents</span><span class="p">():</span>
-                <span class="k">if</span> <span class="n">transaction</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">transaction</span><span class="o">.</span><span class="n">nested</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">transaction</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">transaction</span><span class="o">.</span><span class="n">nested</span><span class="p">:</span>
                     <span class="k">try</span><span class="p">:</span>
                         <span class="n">transaction</span><span class="o">.</span><span class="n">_rollback_impl</span><span class="p">()</span>
                     <span class="k">except</span><span class="p">:</span>
@@ -708,9 +736,9 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">after_rollback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">invalidate</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">invalidate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">transaction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">connection</span><span class="p">,</span> <span class="n">transaction</span><span class="p">,</span> <span class="n">autoclose</span> <span class="ow">in</span> \
                     <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connections</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
                 <span class="k">if</span> <span class="n">invalidate</span><span class="p">:</span>
@@ -723,20 +751,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">CLOSED</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">after_transaction_end</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">autocommit</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_connections</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connections</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_assert_active</span><span class="p">(</span><span class="n">deactive_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">prepared_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">transaction</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assert_active</span><span class="p">(</span><span class="n">deactive_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">prepared_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">transaction</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
-        <span class="k">if</span> <span class="nb">type</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
             <span class="k">except</span><span class="p">:</span>
@@ -763,13 +791,13 @@
         <span class="s1">&#39;merge&#39;</span><span class="p">,</span> <span class="s1">&#39;query&#39;</span><span class="p">,</span> <span class="s1">&#39;refresh&#39;</span><span class="p">,</span> <span class="s1">&#39;rollback&#39;</span><span class="p">,</span>
         <span class="s1">&#39;scalar&#39;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bind</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">autoflush</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">expire_on_commit</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                 <span class="n">_enable_transaction_accounting</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                 <span class="n">autocommit</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">twophase</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                 <span class="n">weak_identity_map</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">binds</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">info</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">autoflush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">expire_on_commit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">_enable_transaction_accounting</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">autocommit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">twophase</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">weak_identity_map</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">binds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">info</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">query_cls</span><span class="o">=</span><span class="n">query</span><span class="o">.</span><span class="n">Query</span><span class="p">):</span>
-        <span class="sd">r&quot;&quot;&quot;Construct a new Session.</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Construct a new Session.</span>
 
 <span class="sd">        See also the :class:`.sessionmaker` function which is used to</span>
 <span class="sd">        generate a :class:`.Session`-producing callable with a given</span>
@@ -907,9 +935,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># same</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bind</span> <span class="o">=</span> <span class="n">bind</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__binds</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_flushing</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_warn_on_events</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_flushing</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_warn_on_events</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hash_key</span> <span class="o">=</span> <span class="n">_new_sessionid</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">autoflush</span> <span class="o">=</span> <span class="n">autoflush</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">autocommit</span> <span class="o">=</span> <span class="n">autocommit</span>
@@ -924,7 +952,7 @@
             <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="n">util</span><span class="o">.</span><span class="n">to_list</span><span class="p">(</span><span class="n">extension</span><span class="p">):</span>
                 <span class="n">SessionExtension</span><span class="o">.</span><span class="n">_adapt_listener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ext</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">binds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">binds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">bind</span> <span class="ow">in</span> <span class="n">binds</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_add_bind</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">bind</span><span class="p">)</span>
 
@@ -932,12 +960,12 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span>
         <span class="n">_sessions</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">hash_key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
 
-    <span class="n">connection_callable</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">connection_callable</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="n">transaction</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">transaction</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="sd">&quot;&quot;&quot;The current active or inactive :class:`.SessionTransaction`.&quot;&quot;&quot;</span>
 
-    <span class="nd">@util.memoized_property</span>
+    <span class="nd">@util</span><span class="o">.</span><span class="n">memoized_property</span>
     <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;A user-modifiable dictionary.</span>
 
@@ -952,7 +980,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">{}</span>
 
-    <span class="k">def</span> <span class="nf">begin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtransactions</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">begin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtransactions</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Begin a transaction on this :class:`.Session`.</span>
 
 <span class="sd">        If this Session is already within a transaction, either a plain</span>
@@ -969,7 +997,7 @@
 <span class="sd">        SAVEPOINT transactions, please see :ref:`session_begin_nested`.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">subtransactions</span> <span class="ow">or</span> <span class="n">nested</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">_begin</span><span class="p">(</span>
                     <span class="n">nested</span><span class="o">=</span><span class="n">nested</span><span class="p">)</span>
@@ -992,7 +1020,7 @@
 <span class="sd">        transactions, please see :ref:`session_begin_nested`.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">begin</span><span class="p">(</span><span class="n">nested</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">begin</span><span class="p">(</span><span class="n">nested</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">rollback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Rollback the current transaction in progress.</span>
@@ -1009,7 +1037,7 @@
 <span class="sd">            :ref:`session_rollback`</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">pass</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
@@ -1042,7 +1070,7 @@
 <span class="sd">            :ref:`session_committing`</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">autocommit</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
@@ -1061,7 +1089,7 @@
 <span class="sd">        :exc:`~sqlalchemy.exc.InvalidRequestError` is raised.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">autocommit</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
@@ -1069,12 +1097,12 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">prepare</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapper</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">clause</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                   <span class="n">bind</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                   <span class="n">close_with_result</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                   <span class="n">execution_options</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="k">def</span> <span class="nf">connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapper</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">clause</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                   <span class="n">bind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                   <span class="n">close_with_result</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                   <span class="n">execution_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                    <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-        <span class="sd">r&quot;&quot;&quot;Return a :class:`.Connection` object corresponding to this</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return a :class:`.Connection` object corresponding to this</span>
 <span class="sd">        :class:`.Session` object&#39;s transactional state.</span>
 
 <span class="sd">        If this :class:`.Session` is configured with ``autocommit=False``,</span>
@@ -1135,15 +1163,15 @@
 <span class="sd">          implementations of :meth:`get_bind`.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">bind</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">bind</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">bind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_bind</span><span class="p">(</span><span class="n">mapper</span><span class="p">,</span> <span class="n">clause</span><span class="o">=</span><span class="n">clause</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection_for_bind</span><span class="p">(</span><span class="n">bind</span><span class="p">,</span>
                                          <span class="n">close_with_result</span><span class="o">=</span><span class="n">close_with_result</span><span class="p">,</span>
                                          <span class="n">execution_options</span><span class="o">=</span><span class="n">execution_options</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_connection_for_bind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="n">execution_options</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_connection_for_bind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="n">execution_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">_connection_for_bind</span><span class="p">(</span>
                 <span class="n">engine</span><span class="p">,</span> <span class="n">execution_options</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1152,8 +1180,8 @@
                 <span class="n">conn</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execution_options</span><span class="p">(</span><span class="o">**</span><span class="n">execution_options</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">conn</span>
 
-    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clause</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">mapper</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">bind</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-        <span class="sd">r&quot;&quot;&quot;Execute a SQL expression construct or string statement within</span>
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clause</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mapper</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Execute a SQL expression construct or string statement within</span>
 <span class="sd">        the current transaction.</span>
 
 <span class="sd">        Returns a :class:`.ResultProxy` representing</span>
@@ -1277,13 +1305,13 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">clause</span> <span class="o">=</span> <span class="n">expression</span><span class="o">.</span><span class="n">_literal_as_text</span><span class="p">(</span><span class="n">clause</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">bind</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">bind</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">bind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_bind</span><span class="p">(</span><span class="n">mapper</span><span class="p">,</span> <span class="n">clause</span><span class="o">=</span><span class="n">clause</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection_for_bind</span><span class="p">(</span>
-            <span class="n">bind</span><span class="p">,</span> <span class="n">close_with_result</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">clause</span><span class="p">,</span> <span class="n">params</span> <span class="ow">or</span> <span class="p">{})</span>
+            <span class="n">bind</span><span class="p">,</span> <span class="n">close_with_result</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">clause</span><span class="p">,</span> <span class="n">params</span> <span class="ow">or</span> <span class="p">{})</span>
 
-    <span class="k">def</span> <span class="nf">scalar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clause</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">mapper</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">bind</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">scalar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clause</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mapper</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Like :meth:`~.Session.execute` but return a scalar result.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
@@ -1299,7 +1327,7 @@
 <span class="sd">        not use any connection resources until they are first needed.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_close_impl</span><span class="p">(</span><span class="n">invalidate</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_close_impl</span><span class="p">(</span><span class="n">invalidate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">invalidate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Close this Session, using connection invalidation.</span>
@@ -1332,11 +1360,11 @@
 <span class="sd">        .. versionadded:: 0.9.9</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_close_impl</span><span class="p">(</span><span class="n">invalidate</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_close_impl</span><span class="p">(</span><span class="n">invalidate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_close_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">invalidate</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">expunge_all</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">_iterate_self_and_parents</span><span class="p">():</span>
                 <span class="n">transaction</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">invalidate</span><span class="p">)</span>
 
@@ -1397,7 +1425,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_add_bind</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">bind</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">get_bind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapper</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">clause</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_bind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapper</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">clause</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return a &quot;bind&quot; to which this :class:`.Session` is bound.</span>
 
 <span class="sd">        The &quot;bind&quot; is usually an instance of :class:`.Engine`,</span>
@@ -1450,7 +1478,7 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">if</span> <span class="n">mapper</span> <span class="ow">is</span> <span class="n">clause</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mapper</span> <span class="ow">is</span> <span class="n">clause</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bind</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bind</span>
             <span class="k">else</span><span class="p">:</span>
@@ -1459,7 +1487,7 @@
                     <span class="s2">&quot;Connection, and no context was provided to locate &quot;</span>
                     <span class="s2">&quot;a binding.&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">mapper</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mapper</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">mapper</span> <span class="o">=</span> <span class="n">inspect</span><span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
             <span class="k">except</span> <span class="n">sa_exc</span><span class="o">.</span><span class="n">NoInspectionAvailable</span><span class="p">:</span>
@@ -1470,14 +1498,14 @@
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__binds</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">mapper</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">cls</span> <span class="ow">in</span> <span class="n">mapper</span><span class="o">.</span><span class="n">class_</span><span class="o">.</span><span class="n">__mro__</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">cls</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__binds</span><span class="p">:</span>
-                        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__binds</span><span class="p">[</span><span class="n">cls</span><span class="p">]</span>
-                <span class="k">if</span> <span class="n">clause</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="n">mapper</span><span class="o">.</span><span class="n">class_</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__binds</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__binds</span><span class="p">[</span><span class="bp">cls</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">clause</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">clause</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="n">mapped_table</span>
 
-            <span class="k">if</span> <span class="n">clause</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">sql_util</span><span class="o">.</span><span class="n">find_tables</span><span class="p">(</span><span class="n">clause</span><span class="p">,</span> <span class="n">include_crud</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">clause</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">sql_util</span><span class="o">.</span><span class="n">find_tables</span><span class="p">(</span><span class="n">clause</span><span class="p">,</span> <span class="n">include_crud</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
                     <span class="k">if</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__binds</span><span class="p">:</span>
                         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__binds</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
 
@@ -1491,9 +1519,9 @@
             <span class="k">return</span> <span class="n">mapper</span><span class="o">.</span><span class="n">mapped_table</span><span class="o">.</span><span class="n">bind</span>
 
         <span class="n">context</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">if</span> <span class="n">mapper</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mapper</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">context</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;mapper </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">mapper</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">clause</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">clause</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">context</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;SQL expression&#39;</span><span class="p">)</span>
 
         <span class="k">raise</span> <span class="n">sa_exc</span><span class="o">.</span><span class="n">UnboundExecutionError</span><span class="p">(</span>
@@ -1507,7 +1535,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_cls</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="nd">@util.contextmanager</span>
+    <span class="nd">@util</span><span class="o">.</span><span class="n">contextmanager</span>
     <span class="k">def</span> <span class="nf">no_autoflush</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return a context manager that disables autoflush.</span>
 
@@ -1530,7 +1558,7 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">autoflush</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">autoflush</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">autoflush</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">autoflush</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">yield</span> <span class="bp">self</span>
         <span class="k">finally</span><span class="p">:</span>
@@ -1551,7 +1579,7 @@
                     <span class="s2">&quot;flush is occurring prematurely&quot;</span><span class="p">)</span>
                 <span class="n">util</span><span class="o">.</span><span class="n">raise_from_cause</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">attribute_names</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">lockmode</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">attribute_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lockmode</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Expire and refresh the attributes on the given instance.</span>
 
 <span class="sd">        A query will be issued to the database and all attributes will be</span>
@@ -1598,7 +1626,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">object_mapper</span><span class="p">(</span><span class="n">instance</span><span class="p">)),</span>
                 <span class="n">state</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">refresh_state</span><span class="o">=</span><span class="n">state</span><span class="p">,</span>
                 <span class="n">lockmode</span><span class="o">=</span><span class="n">lockmode</span><span class="p">,</span>
-                <span class="n">only_load_props</span><span class="o">=</span><span class="n">attribute_names</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">only_load_props</span><span class="o">=</span><span class="n">attribute_names</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">sa_exc</span><span class="o">.</span><span class="n">InvalidRequestError</span><span class="p">(</span>
                 <span class="s2">&quot;Could not refresh instance &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span>
                 <span class="n">instance_str</span><span class="p">(</span><span class="n">instance</span><span class="p">))</span>
@@ -1636,7 +1664,7 @@
         <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">identity_map</span><span class="o">.</span><span class="n">all_states</span><span class="p">():</span>
             <span class="n">state</span><span class="o">.</span><span class="n">_expire</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">dict</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">identity_map</span><span class="o">.</span><span class="n">_modified</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">expire</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">attribute_names</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">expire</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">attribute_names</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Expire the attributes on an instance.</span>
 
 <span class="sd">        Marks the attributes of an instance as out of date. When an expired</span>
@@ -1699,7 +1727,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
             <span class="n">state</span><span class="o">.</span><span class="n">_detach</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-    <span class="nd">@util.deprecated</span><span class="p">(</span><span class="s2">&quot;0.7&quot;</span><span class="p">,</span> <span class="s2">&quot;The non-weak-referencing identity map &quot;</span>
+    <span class="nd">@util</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span><span class="s2">&quot;0.7&quot;</span><span class="p">,</span> <span class="s2">&quot;The non-weak-referencing identity map &quot;</span>
                      <span class="s2">&quot;feature is no longer needed.&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">prune</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Remove unreferenced instances cached in the identity map.</span>
@@ -1736,28 +1764,28 @@
             <span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">st_</span> <span class="k">for</span> <span class="n">o</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">st_</span><span class="p">,</span> <span class="n">dct_</span> <span class="ow">in</span> <span class="n">cascaded</span><span class="p">]</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_expunge_states</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">to_transient</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_expunge_states</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">to_transient</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">states</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">state</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
             <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">identity_map</span><span class="o">.</span><span class="n">contains_state</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">identity_map</span><span class="o">.</span><span class="n">safe_discard</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
             <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="p">:</span>
                 <span class="c1"># state is &quot;detached&quot; from being deleted, but still present</span>
                 <span class="c1"># in the transaction snapshot</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">_deleted</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">_deleted</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">statelib</span><span class="o">.</span><span class="n">InstanceState</span><span class="o">.</span><span class="n">_detach_states</span><span class="p">(</span>
             <span class="n">states</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">to_transient</span><span class="o">=</span><span class="n">to_transient</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_register_newly_persistent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">states</span><span class="p">):</span>
-        <span class="n">pending_to_persistent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">pending_to_persistent</span> <span class="ow">or</span> <span class="bp">None</span>
+        <span class="n">pending_to_persistent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">pending_to_persistent</span> <span class="ow">or</span> <span class="kc">None</span>
         <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">states</span><span class="p">:</span>
             <span class="n">mapper</span> <span class="o">=</span> <span class="n">_state_mapper</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
 
             <span class="c1"># prevent against last minute dereferences of the object</span>
             <span class="n">obj</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">obj</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 
                 <span class="n">instance_key</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="n">_identity_key_from_state</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
 
@@ -1775,7 +1803,7 @@
                         <span class="o">%</span> <span class="n">state_str</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
                     <span class="p">)</span>
 
-                <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">key</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">state</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">instance_key</span>
                 <span class="k">elif</span> <span class="n">state</span><span class="o">.</span><span class="n">key</span> <span class="o">!=</span> <span class="n">instance_key</span><span class="p">:</span>
                     <span class="c1"># primary key switch. use safe_discard() in case another</span>
@@ -1799,7 +1827,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_register_altered</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">pending_to_persistent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">pending_to_persistent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">states</span><span class="p">:</span>
                 <span class="n">pending_to_persistent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">obj</span><span class="p">())</span>
 
@@ -1811,31 +1839,31 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_enable_transaction_accounting</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">states</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">state</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">_new</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">_new</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">_dirty</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">_dirty</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">def</span> <span class="nf">_remove_newly_deleted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">states</span><span class="p">):</span>
-        <span class="n">persistent_to_deleted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">persistent_to_deleted</span> <span class="ow">or</span> <span class="bp">None</span>
+        <span class="n">persistent_to_deleted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">persistent_to_deleted</span> <span class="ow">or</span> <span class="kc">None</span>
         <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">states</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_enable_transaction_accounting</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">_deleted</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">_deleted</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
-            <span class="k">if</span> <span class="n">persistent_to_deleted</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">persistent_to_deleted</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="c1"># get a strong reference before we pop out of</span>
                 <span class="c1"># self._deleted</span>
                 <span class="n">obj</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">obj</span><span class="p">()</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">identity_map</span><span class="o">.</span><span class="n">safe_discard</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
-            <span class="n">state</span><span class="o">.</span><span class="n">_deleted</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">_deleted</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="c1"># can&#39;t call state._detach() here, because this state</span>
             <span class="c1"># is still in the transaction snapshot and needs to be</span>
             <span class="c1"># tracked as part of that</span>
-            <span class="k">if</span> <span class="n">persistent_to_deleted</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">persistent_to_deleted</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">persistent_to_deleted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">_warn</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">_warn</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Place an object in the ``Session``.</span>
 
 <span class="sd">        Its state will be persisted to the database on the next flush</span>
@@ -1862,7 +1890,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_flush_warning</span><span class="p">(</span><span class="s2">&quot;Session.add_all()&quot;</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="n">instances</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">_warn</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">_warn</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_save_or_update_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_save_or_update_impl</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
@@ -1888,11 +1916,11 @@
         <span class="k">except</span> <span class="n">exc</span><span class="o">.</span><span class="n">NO_STATE</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">exc</span><span class="o">.</span><span class="n">UnmappedInstanceError</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_delete_impl</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_delete_impl</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_delete_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">head</span><span class="p">):</span>
 
-        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">key</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">head</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">sa_exc</span><span class="o">.</span><span class="n">InvalidRequestError</span><span class="p">(</span>
                     <span class="s2">&quot;Instance &#39;</span><span class="si">%s</span><span class="s2">&#39; is not persisted&quot;</span> <span class="o">%</span>
@@ -1921,9 +1949,9 @@
 
         <span class="k">if</span> <span class="n">head</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">o</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">st_</span><span class="p">,</span> <span class="n">dct_</span> <span class="ow">in</span> <span class="n">cascade_states</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_delete_impl</span><span class="p">(</span><span class="n">st_</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_delete_impl</span><span class="p">(</span><span class="n">st_</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">load</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">load</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Copy the state of a given instance into a corresponding instance</span>
 <span class="sd">        within this :class:`.Session`.</span>
 
@@ -1986,7 +2014,7 @@
         <span class="n">object_mapper</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>  <span class="c1"># verify mapped</span>
         <span class="n">autoflush</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">autoflush</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">autoflush</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">autoflush</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_merge</span><span class="p">(</span>
                 <span class="n">attributes</span><span class="o">.</span><span class="n">instance_state</span><span class="p">(</span><span class="n">instance</span><span class="p">),</span>
                 <span class="n">attributes</span><span class="o">.</span><span class="n">instance_dict</span><span class="p">(</span><span class="n">instance</span><span class="p">),</span>
@@ -1995,16 +2023,16 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">autoflush</span> <span class="o">=</span> <span class="n">autoflush</span>
 
-    <span class="k">def</span> <span class="nf">_merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">state_dict</span><span class="p">,</span> <span class="n">load</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">_recursive</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-               <span class="n">_resolve_conflict_map</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">state_dict</span><span class="p">,</span> <span class="n">load</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">_recursive</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">_resolve_conflict_map</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">mapper</span> <span class="o">=</span> <span class="n">_state_mapper</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">_recursive</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">_recursive</span><span class="p">[</span><span class="n">state</span><span class="p">]</span>
 
-        <span class="n">new_instance</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="n">new_instance</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">key</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">key</span>
 
-        <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">load</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">sa_exc</span><span class="o">.</span><span class="n">InvalidRequestError</span><span class="p">(</span>
                     <span class="s2">&quot;merge() with load=False option does not support &quot;</span>
@@ -2014,7 +2042,7 @@
             <span class="n">key</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="n">_identity_key_from_state</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
             <span class="n">key_is_persistent</span> <span class="o">=</span> <span class="n">attributes</span><span class="o">.</span><span class="n">NEVER_SET</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">key_is_persistent</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="n">key_is_persistent</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">identity_map</span><span class="p">:</span>
             <span class="n">merged</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">identity_map</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
@@ -2031,7 +2059,7 @@
             <span class="n">merged_state</span> <span class="o">=</span> <span class="n">attributes</span><span class="o">.</span><span class="n">instance_state</span><span class="p">(</span><span class="n">merged</span><span class="p">)</span>
             <span class="n">merged_state</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">key</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_impl</span><span class="p">(</span><span class="n">merged_state</span><span class="p">)</span>
-            <span class="n">new_instance</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="n">new_instance</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="k">elif</span> <span class="n">key_is_persistent</span> <span class="ow">and</span> <span class="p">(</span>
             <span class="ow">not</span> <span class="n">_none_set</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="ow">or</span>
@@ -2039,13 +2067,13 @@
              <span class="ow">not</span> <span class="n">_none_set</span><span class="o">.</span><span class="n">issuperset</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">]))):</span>
             <span class="n">merged</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">mapper</span><span class="o">.</span><span class="n">class_</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">merged</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="n">merged</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="k">if</span> <span class="n">merged</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">merged</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">merged</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="n">class_manager</span><span class="o">.</span><span class="n">new_instance</span><span class="p">()</span>
             <span class="n">merged_state</span> <span class="o">=</span> <span class="n">attributes</span><span class="o">.</span><span class="n">instance_state</span><span class="p">(</span><span class="n">merged</span><span class="p">)</span>
             <span class="n">merged_dict</span> <span class="o">=</span> <span class="n">attributes</span><span class="o">.</span><span class="n">instance_dict</span><span class="p">(</span><span class="n">merged</span><span class="p">)</span>
-            <span class="n">new_instance</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="n">new_instance</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_save_or_update_state</span><span class="p">(</span><span class="n">merged_state</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">merged_state</span> <span class="o">=</span> <span class="n">attributes</span><span class="o">.</span><span class="n">instance_state</span><span class="p">(</span><span class="n">merged</span><span class="p">)</span>
@@ -2058,7 +2086,7 @@
         <span class="c1"># state out.</span>
         <span class="k">if</span> <span class="n">state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">merged_state</span><span class="p">:</span>
             <span class="c1"># version check if applicable</span>
-            <span class="k">if</span> <span class="n">mapper</span><span class="o">.</span><span class="n">version_id_col</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">mapper</span><span class="o">.</span><span class="n">version_id_col</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">existing_version</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="n">_get_state_attr_by_column</span><span class="p">(</span>
                     <span class="n">state</span><span class="p">,</span>
                     <span class="n">state_dict</span><span class="p">,</span>
@@ -2105,7 +2133,7 @@
             <span class="n">merged_state</span><span class="o">.</span><span class="n">_commit_all</span><span class="p">(</span><span class="n">merged_dict</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">identity_map</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">new_instance</span><span class="p">:</span>
-            <span class="n">merged_state</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">merged_state</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+            <span class="n">merged_state</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">merged_state</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">merged</span>
 
     <span class="k">def</span> <span class="nf">_validate_persistent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
@@ -2115,7 +2143,7 @@
                 <span class="n">state_str</span><span class="p">(</span><span class="n">state</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">_save_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">sa_exc</span><span class="o">.</span><span class="n">InvalidRequestError</span><span class="p">(</span>
                 <span class="s2">&quot;Object &#39;</span><span class="si">%s</span><span class="s2">&#39; already has an identity - &quot;</span>
                 <span class="s2">&quot;it can&#39;t be registered as pending&quot;</span> <span class="o">%</span> <span class="n">state_str</span><span class="p">(</span><span class="n">state</span><span class="p">))</span>
@@ -2128,8 +2156,8 @@
         <span class="k">if</span> <span class="n">to_attach</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_after_attach</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_update_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">revert_deletion</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">key</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_update_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">revert_deletion</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">sa_exc</span><span class="o">.</span><span class="n">InvalidRequestError</span><span class="p">(</span>
                 <span class="s2">&quot;Instance &#39;</span><span class="si">%s</span><span class="s2">&#39; is not persisted&quot;</span> <span class="o">%</span>
                 <span class="n">state_str</span><span class="p">(</span><span class="n">state</span><span class="p">))</span>
@@ -2151,12 +2179,12 @@
         <span class="n">obj</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">obj</span><span class="p">()</span>
 
         <span class="c1"># check for late gc</span>
-        <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
 
         <span class="n">to_attach</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_before_attach</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">revert_deletion</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">identity_map</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -2168,7 +2196,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">deleted_to_persistent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_save_or_update_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">key</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_save_impl</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_update_impl</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
@@ -2226,13 +2254,13 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">state</span> <span class="o">=</span> <span class="n">attributes</span><span class="o">.</span><span class="n">instance_state</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
         <span class="n">to_attach</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_before_attach</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
-        <span class="n">state</span><span class="o">.</span><span class="n">_load_pending</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">_load_pending</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">if</span> <span class="n">to_attach</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_after_attach</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_before_attach</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">session_id</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash_key</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">False</span>
+            <span class="k">return</span> <span class="kc">False</span>
 
         <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">session_id</span> <span class="ow">and</span> <span class="n">state</span><span class="o">.</span><span class="n">session_id</span> <span class="ow">in</span> <span class="n">_sessions</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">sa_exc</span><span class="o">.</span><span class="n">InvalidRequestError</span><span class="p">(</span>
@@ -2242,11 +2270,11 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">before_attach</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="kc">True</span>
 
     <span class="k">def</span> <span class="nf">_after_attach</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="n">state</span><span class="o">.</span><span class="n">session_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash_key</span>
-        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">modified</span> <span class="ow">and</span> <span class="n">state</span><span class="o">.</span><span class="n">_strong_obj</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">modified</span> <span class="ow">and</span> <span class="n">state</span><span class="o">.</span><span class="n">_strong_obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">state</span><span class="o">.</span><span class="n">_strong_obj</span> <span class="o">=</span> <span class="n">obj</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">after_attach</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
 
@@ -2279,7 +2307,7 @@
     <span class="k">def</span> <span class="nf">_contains_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">state</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">identity_map</span><span class="o">.</span><span class="n">contains_state</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">flush</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">flush</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Flush all the object changes to the database.</span>
 
 <span class="sd">        Writes out all pending object creations, deletions and modifications</span>
@@ -2312,10 +2340,10 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_clean</span><span class="p">():</span>
             <span class="k">return</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_flushing</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_flushing</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_flush</span><span class="p">(</span><span class="n">objects</span><span class="p">)</span>
         <span class="k">finally</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_flushing</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_flushing</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="nf">_flush_warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
         <span class="n">util</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
@@ -2330,7 +2358,7 @@
             <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span> <span class="ow">and</span> \
             <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span>
 
-    <span class="k">def</span> <span class="nf">_flush</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_flush</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="n">dirty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dirty_states</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">dirty</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deleted</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">:</span>
@@ -2361,7 +2389,7 @@
                     <span class="k">raise</span> <span class="n">exc</span><span class="o">.</span><span class="n">UnmappedInstanceError</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
                 <span class="n">objset</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">objset</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="n">objset</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="c1"># store objects whose fate has been decided</span>
         <span class="n">processed</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -2386,20 +2414,20 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">proc</span> <span class="o">=</span> <span class="n">deleted</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">processed</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">proc</span><span class="p">:</span>
-            <span class="n">_reg</span> <span class="o">=</span> <span class="n">flush_context</span><span class="o">.</span><span class="n">register_object</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">isdelete</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">_reg</span> <span class="o">=</span> <span class="n">flush_context</span><span class="o">.</span><span class="n">register_object</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">isdelete</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="k">assert</span> <span class="n">_reg</span><span class="p">,</span> <span class="s2">&quot;Failed to add object to the flush context!&quot;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">flush_context</span><span class="o">.</span><span class="n">has_work</span><span class="p">:</span>
             <span class="k">return</span>
 
         <span class="n">flush_context</span><span class="o">.</span><span class="n">transaction</span> <span class="o">=</span> <span class="n">transaction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">begin</span><span class="p">(</span>
-            <span class="n">subtransactions</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">subtransactions</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_warn_on_events</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_warn_on_events</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">flush_context</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
             <span class="k">finally</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_warn_on_events</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_warn_on_events</span> <span class="o">=</span> <span class="kc">False</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="o">.</span><span class="n">after_flush</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flush_context</span><span class="p">)</span>
 
@@ -2433,10 +2461,10 @@
 
         <span class="k">except</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">util</span><span class="o">.</span><span class="n">safe_reraise</span><span class="p">():</span>
-                <span class="n">transaction</span><span class="o">.</span><span class="n">rollback</span><span class="p">(</span><span class="n">_capture_exception</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+                <span class="n">transaction</span><span class="o">.</span><span class="n">rollback</span><span class="p">(</span><span class="n">_capture_exception</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">bulk_save_objects</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="n">return_defaults</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">update_changed_only</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">objects</span><span class="p">,</span> <span class="n">return_defaults</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">update_changed_only</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Perform a bulk save of the given list of objects.</span>
 
 <span class="sd">        The bulk save feature allows mapped objects to be used as the</span>
@@ -2510,14 +2538,14 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="p">(</span><span class="n">mapper</span><span class="p">,</span> <span class="n">isupdate</span><span class="p">),</span> <span class="n">states</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
             <span class="p">(</span><span class="n">attributes</span><span class="o">.</span><span class="n">instance_state</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">objects</span><span class="p">),</span>
-            <span class="k">lambda</span> <span class="n">state</span><span class="p">:</span> <span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">mapper</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">)</span>
+            <span class="k">lambda</span> <span class="n">state</span><span class="p">:</span> <span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">mapper</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_bulk_save_mappings</span><span class="p">(</span>
-                <span class="n">mapper</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">isupdate</span><span class="p">,</span> <span class="bp">True</span><span class="p">,</span>
-                <span class="n">return_defaults</span><span class="p">,</span> <span class="n">update_changed_only</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+                <span class="n">mapper</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">isupdate</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="n">return_defaults</span><span class="p">,</span> <span class="n">update_changed_only</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">bulk_insert_mappings</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">mapper</span><span class="p">,</span> <span class="n">mappings</span><span class="p">,</span> <span class="n">return_defaults</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">render_nulls</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">mapper</span><span class="p">,</span> <span class="n">mappings</span><span class="p">,</span> <span class="n">return_defaults</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">render_nulls</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Perform a bulk insert of the given list of mapping dictionaries.</span>
 
 <span class="sd">        The bulk insert feature allows plain Python dictionaries to be used as</span>
@@ -2604,8 +2632,8 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_bulk_save_mappings</span><span class="p">(</span>
-            <span class="n">mapper</span><span class="p">,</span> <span class="n">mappings</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span>
-            <span class="n">return_defaults</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="n">render_nulls</span><span class="p">)</span>
+            <span class="n">mapper</span><span class="p">,</span> <span class="n">mappings</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">return_defaults</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">render_nulls</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">bulk_update_mappings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapper</span><span class="p">,</span> <span class="n">mappings</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Perform a bulk update of the given list of mapping dictionaries.</span>
@@ -2655,16 +2683,16 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_bulk_save_mappings</span><span class="p">(</span>
-            <span class="n">mapper</span><span class="p">,</span> <span class="n">mappings</span><span class="p">,</span> <span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+            <span class="n">mapper</span><span class="p">,</span> <span class="n">mappings</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_bulk_save_mappings</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span> <span class="n">mapper</span><span class="p">,</span> <span class="n">mappings</span><span class="p">,</span> <span class="n">isupdate</span><span class="p">,</span> <span class="n">isstates</span><span class="p">,</span>
             <span class="n">return_defaults</span><span class="p">,</span> <span class="n">update_changed_only</span><span class="p">,</span> <span class="n">render_nulls</span><span class="p">):</span>
         <span class="n">mapper</span> <span class="o">=</span> <span class="n">_class_to_mapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_flushing</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_flushing</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="n">transaction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">begin</span><span class="p">(</span>
-            <span class="n">subtransactions</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">subtransactions</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">isupdate</span><span class="p">:</span>
                 <span class="n">persistence</span><span class="o">.</span><span class="n">_bulk_update</span><span class="p">(</span>
@@ -2678,13 +2706,13 @@
 
         <span class="k">except</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">util</span><span class="o">.</span><span class="n">safe_reraise</span><span class="p">():</span>
-                <span class="n">transaction</span><span class="o">.</span><span class="n">rollback</span><span class="p">(</span><span class="n">_capture_exception</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+                <span class="n">transaction</span><span class="o">.</span><span class="n">rollback</span><span class="p">(</span><span class="n">_capture_exception</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">finally</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_flushing</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_flushing</span> <span class="o">=</span> <span class="kc">False</span>
 
-    <span class="k">def</span> <span class="nf">is_modified</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">include_collections</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                    <span class="n">passive</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
-        <span class="sd">r&quot;&quot;&quot;Return ``True`` if the given instance has locally</span>
+    <span class="k">def</span> <span class="nf">is_modified</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">include_collections</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">passive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return ``True`` if the given instance has locally</span>
 <span class="sd">        modified attributes.</span>
 
 <span class="sd">        This method retrieves the history for each instrumented</span>
@@ -2752,7 +2780,7 @@
         <span class="n">state</span> <span class="o">=</span> <span class="n">object_state</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">state</span><span class="o">.</span><span class="n">modified</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">False</span>
+            <span class="k">return</span> <span class="kc">False</span>
 
         <span class="n">dict_</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">dict</span>
 
@@ -2769,9 +2797,9 @@
                                       <span class="n">passive</span><span class="o">=</span><span class="n">attributes</span><span class="o">.</span><span class="n">NO_CHANGE</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">added</span> <span class="ow">or</span> <span class="n">deleted</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">True</span>
+                <span class="k">return</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">False</span>
+            <span class="k">return</span> <span class="kc">False</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">is_active</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -2831,7 +2859,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">is_active</span>
 
-    <span class="n">identity_map</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">identity_map</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="sd">&quot;&quot;&quot;A mapping of object identities to objects themselves.</span>
 
 <span class="sd">    Iterating through ``Session.identity_map.values()`` provides</span>
@@ -2943,11 +2971,11 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bind</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="n">Session</span><span class="p">,</span> <span class="n">autoflush</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                 <span class="n">autocommit</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                 <span class="n">expire_on_commit</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                 <span class="n">info</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-        <span class="sd">r&quot;&quot;&quot;Construct a new :class:`.sessionmaker`.</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="n">Session</span><span class="p">,</span> <span class="n">autoflush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">autocommit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">expire_on_commit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">info</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Construct a new :class:`.sessionmaker`.</span>
 
 <span class="sd">        All arguments here except for ``class_`` correspond to arguments</span>
 <span class="sd">        accepted by :class:`.Session` directly.  See the</span>
@@ -2978,12 +3006,12 @@
         <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;autoflush&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">autoflush</span>
         <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;autocommit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">autocommit</span>
         <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;expire_on_commit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">expire_on_commit</span>
-        <span class="k">if</span> <span class="n">info</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">info</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;info&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kw</span> <span class="o">=</span> <span class="n">kw</span>
         <span class="c1"># make our own subclass of the given class, so that</span>
         <span class="c1"># events can be associated with it specifically.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">class_</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">class_</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="p">(</span><span class="n">class_</span><span class="p">,),</span> <span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">class_</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">class_</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="p">(</span><span class="n">class_</span><span class="p">,),</span> <span class="p">{})</span>
 
     <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">local_kw</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Produce a new :class:`.Session` object using the configuration</span>
@@ -3018,8 +3046,8 @@
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">(class_=</span><span class="si">%r</span><span class="s2">,</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">class_</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">class_</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
             <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">=</span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">kw</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
         <span class="p">)</span>
 
@@ -3148,6 +3176,9 @@
 </pre></div>
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
@@ -3177,10 +3208,11 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'4.5.2',
+            VERSION:'4.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../../_static/jquery.js"></script>

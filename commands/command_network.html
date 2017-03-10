@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Network Command &mdash; cloudmesh_client 4.5.2 documentation</title>
+  <title>Network Command &mdash; cloudmesh_client 4.6.1 documentation</title>
   
 
+  
+  
   
   
 
@@ -30,7 +32,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 4.5.2 documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Sync Command" href="command_sync.html"/>
         <link rel="prev" title="Nova Command" href="command_nova.html"/> 
@@ -42,6 +47,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -61,7 +67,7 @@
             
             
               <div class="version">
-                4.5.2
+                4.6.1
               </div>
             
           
@@ -82,7 +88,10 @@
           
             
             
-                <p class="caption"><span class="caption-text">Overview</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
@@ -176,8 +185,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">cloudmesh_client</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cloudmesh_client</a>
+        
       </nav>
 
 
@@ -186,25 +197,42 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="index.html">User Manual</a> &raquo;</li>
-      
-    <li>Network Command</li>
+        
+      <li>Network Command</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="../_sources/commands/command_network.txt" rel="nofollow"> View page source</a>
+            
+            <a href="../_sources/commands/command_network.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -246,7 +274,7 @@ span.prompt1:before {
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
 <span class="o">|</span> <span class="n">instance_name</span> <span class="o">|</span> <span class="n">floating_ip</span>     <span class="o">|</span> <span class="n">floating_ip_pool</span> <span class="o">|</span> <span class="n">fixed_ip</span>  <span class="o">|</span> <span class="n">floating_ip_id</span>                       <span class="o">|</span> <span class="n">instance_id</span>                          <span class="o">|</span>
 <span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
-<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.110</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mi">3</span><span class="n">e0915a9</span><span class="o">-</span><span class="n">f190</span><span class="o">-</span><span class="mi">324</span><span class="n">d</span><span class="o">-</span><span class="mi">8</span><span class="n">b56</span><span class="o">-</span><span class="mi">4</span><span class="n">c2fd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.110</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mf">3e0915</span><span class="n">a9</span><span class="o">-</span><span class="n">f190</span><span class="o">-</span><span class="mi">324</span><span class="n">d</span><span class="o">-</span><span class="mi">8</span><span class="n">b56</span><span class="o">-</span><span class="mi">4</span><span class="n">c2fd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
 <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">004</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.111</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.10</span> <span class="o">|</span> <span class="mi">58</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">2</span><span class="n">f44</span><span class="o">-</span><span class="n">af23</span><span class="o">-</span><span class="mi">0</span><span class="n">bb8ac60dc89</span> <span class="o">|</span> <span class="n">a183b85f</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">64562380286</span><span class="n">f</span> <span class="o">|</span>
 <span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
 </pre></div>
@@ -305,7 +333,7 @@ span.prompt1:before {
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
 <span class="o">|</span> <span class="n">instance_name</span> <span class="o">|</span> <span class="n">floating_ip</span>     <span class="o">|</span> <span class="n">floating_ip_pool</span> <span class="o">|</span> <span class="n">fixed_ip</span>  <span class="o">|</span> <span class="n">floating_ip_id</span>                       <span class="o">|</span> <span class="n">instance_id</span>                          <span class="o">|</span>
 <span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
-<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.110</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mi">3</span><span class="n">e0915a9</span><span class="o">-</span><span class="n">f190</span><span class="o">-</span><span class="mi">324</span><span class="n">d</span><span class="o">-</span><span class="mi">8</span><span class="n">b56</span><span class="o">-</span><span class="mi">4</span><span class="n">c2fd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.110</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mf">3e0915</span><span class="n">a9</span><span class="o">-</span><span class="n">f190</span><span class="o">-</span><span class="mi">324</span><span class="n">d</span><span class="o">-</span><span class="mi">8</span><span class="n">b56</span><span class="o">-</span><span class="mi">4</span><span class="n">c2fd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
 <span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.112</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mi">2</span><span class="n">cd915a9</span><span class="o">-</span><span class="n">f191</span><span class="o">-</span><span class="mi">762</span><span class="n">d</span><span class="o">-</span><span class="mi">2456</span><span class="o">-</span><span class="mi">24</span><span class="n">dcd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
 <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">004</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.111</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.10</span> <span class="o">|</span> <span class="mi">58</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">2</span><span class="n">f44</span><span class="o">-</span><span class="n">af23</span><span class="o">-</span><span class="mi">0</span><span class="n">bb8ac60dc89</span> <span class="o">|</span> <span class="n">a183b85f</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">64562380286</span><span class="n">f</span> <span class="o">|</span>
 <span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
@@ -327,7 +355,7 @@ span.prompt1:before {
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
 <span class="o">|</span> <span class="n">instance_name</span> <span class="o">|</span> <span class="n">floating_ip</span>     <span class="o">|</span> <span class="n">floating_ip_pool</span> <span class="o">|</span> <span class="n">fixed_ip</span>  <span class="o">|</span> <span class="n">floating_ip_id</span>                       <span class="o">|</span> <span class="n">instance_id</span>                          <span class="o">|</span>
 <span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
-<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.110</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mi">3</span><span class="n">e0915a9</span><span class="o">-</span><span class="n">f190</span><span class="o">-</span><span class="mi">324</span><span class="n">d</span><span class="o">-</span><span class="mi">8</span><span class="n">b56</span><span class="o">-</span><span class="mi">4</span><span class="n">c2fd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.110</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mf">3e0915</span><span class="n">a9</span><span class="o">-</span><span class="n">f190</span><span class="o">-</span><span class="mi">324</span><span class="n">d</span><span class="o">-</span><span class="mi">8</span><span class="n">b56</span><span class="o">-</span><span class="mi">4</span><span class="n">c2fd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
 <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">004</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.111</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.10</span> <span class="o">|</span> <span class="mi">58</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">2</span><span class="n">f44</span><span class="o">-</span><span class="n">af23</span><span class="o">-</span><span class="mi">0</span><span class="n">bb8ac60dc89</span> <span class="o">|</span> <span class="n">a183b85f</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">64562380286</span><span class="n">f</span> <span class="o">|</span>
 <span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
 </pre></div>
@@ -345,7 +373,7 @@ and associate it with an instance, use:</p>
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
 <span class="o">|</span> <span class="n">instance_name</span> <span class="o">|</span> <span class="n">floating_ip</span>     <span class="o">|</span> <span class="n">floating_ip_pool</span> <span class="o">|</span> <span class="n">fixed_ip</span>  <span class="o">|</span> <span class="n">floating_ip_id</span>                       <span class="o">|</span> <span class="n">instance_id</span>                          <span class="o">|</span>
 <span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
-<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.110</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mi">3</span><span class="n">e0915a9</span><span class="o">-</span><span class="n">f190</span><span class="o">-</span><span class="mi">324</span><span class="n">d</span><span class="o">-</span><span class="mi">8</span><span class="n">b56</span><span class="o">-</span><span class="mi">4</span><span class="n">c2fd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.110</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mf">3e0915</span><span class="n">a9</span><span class="o">-</span><span class="n">f190</span><span class="o">-</span><span class="mi">324</span><span class="n">d</span><span class="o">-</span><span class="mi">8</span><span class="n">b56</span><span class="o">-</span><span class="mi">4</span><span class="n">c2fd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
 <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">004</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.111</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.10</span> <span class="o">|</span> <span class="mi">58</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">2</span><span class="n">f44</span><span class="o">-</span><span class="n">af23</span><span class="o">-</span><span class="mi">0</span><span class="n">bb8ac60dc89</span> <span class="o">|</span> <span class="n">a183b85f</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">64562380286</span><span class="n">f</span> <span class="o">|</span>
 <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">009</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.113</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.11</span> <span class="o">|</span> <span class="mi">34</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">4</span><span class="n">er5</span><span class="o">-</span><span class="n">ag21</span><span class="o">-</span><span class="mi">34</span><span class="n">b8ac60dc85</span> <span class="o">|</span> <span class="n">e433b85f</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">64562380285</span><span class="n">r</span> <span class="o">|</span>
 <span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
@@ -365,9 +393,9 @@ that you want to associate with an instance:</p>
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
 <span class="o">|</span> <span class="n">instance_name</span> <span class="o">|</span> <span class="n">floating_ip</span>     <span class="o">|</span> <span class="n">floating_ip_pool</span> <span class="o">|</span> <span class="n">fixed_ip</span>  <span class="o">|</span> <span class="n">floating_ip_id</span>                       <span class="o">|</span> <span class="n">instance_id</span>                          <span class="o">|</span>
 <span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
-<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.110</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mi">3</span><span class="n">e0915a9</span><span class="o">-</span><span class="n">f190</span><span class="o">-</span><span class="mi">324</span><span class="n">d</span><span class="o">-</span><span class="mi">8</span><span class="n">b56</span><span class="o">-</span><span class="mi">4</span><span class="n">c2fd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.110</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mf">3e0915</span><span class="n">a9</span><span class="o">-</span><span class="n">f190</span><span class="o">-</span><span class="mi">324</span><span class="n">d</span><span class="o">-</span><span class="mi">8</span><span class="n">b56</span><span class="o">-</span><span class="mi">4</span><span class="n">c2fd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
 <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">004</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.111</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.10</span> <span class="o">|</span> <span class="mi">58</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">2</span><span class="n">f44</span><span class="o">-</span><span class="n">af23</span><span class="o">-</span><span class="mi">0</span><span class="n">bb8ac60dc89</span> <span class="o">|</span> <span class="n">a183b85f</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">64562380286</span><span class="n">f</span> <span class="o">|</span>
-<span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">008</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.112</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.12</span> <span class="o">|</span> <span class="n">c45beca5</span><span class="o">-</span><span class="n">cd34</span><span class="o">-</span><span class="mi">4</span><span class="n">e3d</span><span class="o">-</span><span class="mi">4</span><span class="n">r34</span><span class="o">-</span><span class="mi">34</span><span class="n">b8ac64td42</span> <span class="o">|</span> <span class="mi">2</span><span class="n">ds345f4</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">342432</span><span class="n">fd3fcc</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">008</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.112</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.12</span> <span class="o">|</span> <span class="n">c45beca5</span><span class="o">-</span><span class="n">cd34</span><span class="o">-</span><span class="mf">4e3</span><span class="n">d</span><span class="o">-</span><span class="mi">4</span><span class="n">r34</span><span class="o">-</span><span class="mi">34</span><span class="n">b8ac64td42</span> <span class="o">|</span> <span class="mi">2</span><span class="n">ds345f4</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">342432</span><span class="n">fd3fcc</span> <span class="o">|</span>
 <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">009</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.113</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.11</span> <span class="o">|</span> <span class="mi">34</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">4</span><span class="n">er5</span><span class="o">-</span><span class="n">ag21</span><span class="o">-</span><span class="mi">34</span><span class="n">b8ac60dc85</span> <span class="o">|</span> <span class="n">e433b85f</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">64562380285</span><span class="n">r</span> <span class="o">|</span>
 <span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
 </pre></div>
@@ -389,10 +417,10 @@ that you want to associate with an instance:</p>
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
 <span class="o">|</span> <span class="n">instance_name</span> <span class="o">|</span> <span class="n">floating_ip</span>     <span class="o">|</span> <span class="n">floating_ip_pool</span> <span class="o">|</span> <span class="n">fixed_ip</span>  <span class="o">|</span> <span class="n">floating_ip_id</span>                       <span class="o">|</span> <span class="n">instance_id</span>                          <span class="o">|</span>
 <span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
-<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.110</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mi">3</span><span class="n">e0915a9</span><span class="o">-</span><span class="n">f190</span><span class="o">-</span><span class="mi">324</span><span class="n">d</span><span class="o">-</span><span class="mi">8</span><span class="n">b56</span><span class="o">-</span><span class="mi">4</span><span class="n">c2fd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.110</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mf">3e0915</span><span class="n">a9</span><span class="o">-</span><span class="n">f190</span><span class="o">-</span><span class="mi">324</span><span class="n">d</span><span class="o">-</span><span class="mi">8</span><span class="n">b56</span><span class="o">-</span><span class="mi">4</span><span class="n">c2fd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
 <span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.113</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mi">34</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">4</span><span class="n">er5</span><span class="o">-</span><span class="n">ag21</span><span class="o">-</span><span class="mi">34</span><span class="n">b8ac60dc85</span> <span class="o">|</span>                                      <span class="o">|</span>
 <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">004</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.111</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.10</span> <span class="o">|</span> <span class="mi">58</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">2</span><span class="n">f44</span><span class="o">-</span><span class="n">af23</span><span class="o">-</span><span class="mi">0</span><span class="n">bb8ac60dc89</span> <span class="o">|</span> <span class="n">a183b85f</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">64562380286</span><span class="n">f</span> <span class="o">|</span>
-<span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">008</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.112</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.12</span> <span class="o">|</span> <span class="n">c45beca5</span><span class="o">-</span><span class="n">cd34</span><span class="o">-</span><span class="mi">4</span><span class="n">e3d</span><span class="o">-</span><span class="mi">4</span><span class="n">r34</span><span class="o">-</span><span class="mi">34</span><span class="n">b8ac64td42</span> <span class="o">|</span> <span class="mi">2</span><span class="n">ds345f4</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">342432</span><span class="n">fd3fcc</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">008</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.112</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.12</span> <span class="o">|</span> <span class="n">c45beca5</span><span class="o">-</span><span class="n">cd34</span><span class="o">-</span><span class="mf">4e3</span><span class="n">d</span><span class="o">-</span><span class="mi">4</span><span class="n">r34</span><span class="o">-</span><span class="mi">34</span><span class="n">b8ac64td42</span> <span class="o">|</span> <span class="mi">2</span><span class="n">ds345f4</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">342432</span><span class="n">fd3fcc</span> <span class="o">|</span>
 <span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
 </pre></div>
 </div>
@@ -409,10 +437,10 @@ that you want to associate with an instance:</p>
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
 <span class="o">|</span> <span class="n">instance_name</span> <span class="o">|</span> <span class="n">floating_ip</span>     <span class="o">|</span> <span class="n">floating_ip_pool</span> <span class="o">|</span> <span class="n">fixed_ip</span>  <span class="o">|</span> <span class="n">floating_ip_id</span>                       <span class="o">|</span> <span class="n">instance_id</span>                          <span class="o">|</span>
 <span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
-<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.110</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mi">3</span><span class="n">e0915a9</span><span class="o">-</span><span class="n">f190</span><span class="o">-</span><span class="mi">324</span><span class="n">d</span><span class="o">-</span><span class="mi">8</span><span class="n">b56</span><span class="o">-</span><span class="mi">4</span><span class="n">c2fd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
+<span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.110</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mf">3e0915</span><span class="n">a9</span><span class="o">-</span><span class="n">f190</span><span class="o">-</span><span class="mi">324</span><span class="n">d</span><span class="o">-</span><span class="mi">8</span><span class="n">b56</span><span class="o">-</span><span class="mi">4</span><span class="n">c2fd2a0d97b</span> <span class="o">|</span>                                      <span class="o">|</span>
 <span class="o">|</span>               <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.113</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span>           <span class="o">|</span> <span class="mi">34</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">4</span><span class="n">er5</span><span class="o">-</span><span class="n">ag21</span><span class="o">-</span><span class="mi">34</span><span class="n">b8ac60dc85</span> <span class="o">|</span>                                      <span class="o">|</span>
 <span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">004</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.111</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.10</span> <span class="o">|</span> <span class="mi">58</span><span class="n">fbeca5</span><span class="o">-</span><span class="n">aad3</span><span class="o">-</span><span class="mi">2</span><span class="n">f44</span><span class="o">-</span><span class="n">af23</span><span class="o">-</span><span class="mi">0</span><span class="n">bb8ac60dc89</span> <span class="o">|</span> <span class="n">a183b85f</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">64562380286</span><span class="n">f</span> <span class="o">|</span>
-<span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">008</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.112</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.12</span> <span class="o">|</span> <span class="n">c45beca5</span><span class="o">-</span><span class="n">cd34</span><span class="o">-</span><span class="mi">4</span><span class="n">e3d</span><span class="o">-</span><span class="mi">4</span><span class="n">r34</span><span class="o">-</span><span class="mi">34</span><span class="n">b8ac64td42</span> <span class="o">|</span> <span class="mi">2</span><span class="n">ds345f4</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">342432</span><span class="n">fd3fcc</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">albert</span><span class="o">-</span><span class="mi">008</span>    <span class="o">|</span> <span class="mf">100.165</span><span class="o">.</span><span class="mf">123.112</span> <span class="o">|</span> <span class="n">ext</span><span class="o">-</span><span class="n">net</span>          <span class="o">|</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">2.12</span> <span class="o">|</span> <span class="n">c45beca5</span><span class="o">-</span><span class="n">cd34</span><span class="o">-</span><span class="mf">4e3</span><span class="n">d</span><span class="o">-</span><span class="mi">4</span><span class="n">r34</span><span class="o">-</span><span class="mi">34</span><span class="n">b8ac64td42</span> <span class="o">|</span> <span class="mi">2</span><span class="n">ds345f4</span><span class="o">-</span><span class="mi">2</span><span class="n">d4r</span><span class="o">-</span><span class="mi">44</span><span class="n">b9</span><span class="o">-</span><span class="mi">933</span><span class="n">f</span><span class="o">-</span><span class="mi">342432</span><span class="n">fd3fcc</span> <span class="o">|</span>
 <span class="o">+---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+</span>
 </pre></div>
 </div>
@@ -439,15 +467,18 @@ but you need to have admin privilidges in your account.</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="command_sync.html" class="btn btn-neutral float-right" title="Sync Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="command_sync.html" class="btn btn-neutral float-right" title="Sync Command" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="command_nova.html" class="btn btn-neutral" title="Nova Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="command_nova.html" class="btn btn-neutral" title="Nova Command" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -477,10 +508,11 @@ but you need to have admin privilidges in your account.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.5.2',
+            VERSION:'4.6.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
