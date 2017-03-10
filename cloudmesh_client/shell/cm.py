@@ -806,6 +806,13 @@ def main():
       --nosplash    do not show the banner [default: False]
     """
 
+    #
+    # TODO: There is a bug in opensatck that does not send a Deprecatuon Class
+    #       for the warning, so we ignore all warnings for now :(
+    #
+    import warnings
+    warnings.filterwarnings("ignore")
+
     def manual():
         print(main.__doc__)
 
