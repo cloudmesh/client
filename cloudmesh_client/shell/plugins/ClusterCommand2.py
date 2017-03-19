@@ -220,7 +220,6 @@ class Command(object):
         """
 
         try:
-            import pdb; pdb.set_trace()
             name = cluster or Default.cluster
             cluster = Cluster.from_name(name)
             return cluster.list()
