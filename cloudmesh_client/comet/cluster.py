@@ -838,9 +838,12 @@ class Cluster(object):
             url = Comet.url("cluster/{}/frontend/"
                             .format(clusterid))
         r = Comet.get(url)
-        return Printer.attribute(r,
+        ret = "ERROR: Node not available. Please check the cluster/node name!\n"
+        if r:
+            ret = Printer.attribute(r,
                                  #order=Cluster.NODEINFO_ORDER,
                                  output=format)
+        return ret
 
     @staticmethod
     def delete():
