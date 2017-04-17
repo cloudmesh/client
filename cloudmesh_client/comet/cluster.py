@@ -257,7 +257,9 @@ class Cluster(object):
                     frontend = dict(empty)
                     frontend.update(cluster["frontend"])
                     pubip = cluster["frontend"]["pub_ip"]
+                    pubmac = cluster["frontend"]["pub_mac"]
                     frontend["ip"] = pubip
+                    frontend["pub_mac"] = pubmac
                     frontend["admin_state"] = cluster["frontend"]["frontend_state"]
                     result += "Cluster: %s\tFrontend: %s\tIP: %s\n" % \
                                 (cluster["name"],
@@ -272,16 +274,27 @@ class Cluster(object):
 
                 for index, anode in enumerate(data):
                     bnode = dict(anode)
+                    pubmac = None
+                    if 'pub_mac' in bnode:
+                        pubmac = bnode["pub_mac"]
                     if "interface" in bnode:
                         macs = []
+                        macs_pub_order = []
                         # ips = []
                         for ipaddr in anode["interface"]:
                             macs.append(ipaddr["mac"])
                             # ips.append(ipaddr["ip"] or "N/A")
-                        if format == 'table':
-                            bnode["mac"] = "\n".join(macs)
+                        if pubmac in macs:
+                            macs_pub_order.append(pubmac)
+                            for mac in macs:
+                                if mac != pubmac:
+                                    macs_pub_order.append(mac)
                         else:
-                            bnode["mac"] = ";".join(macs)
+                            macs_pub_order = macs
+                        if format == 'table':
+                            bnode["mac"] = "\n".join(macs_pub_order)
+                        else:
+                            bnode["mac"] = ";".join(macs_pub_order)
 
                         if "active_computeset_state" in anode and \
                                 anode["active_computeset"] is not None and \
@@ -838,9 +851,12 @@ class Cluster(object):
             url = Comet.url("cluster/{}/frontend/"
                             .format(clusterid))
         r = Comet.get(url)
-        return Printer.attribute(r,
+        ret = "ERROR: Node not available. Please check the cluster/node name!\n"
+        if r:
+            ret = Printer.attribute(r,
                                  #order=Cluster.NODEINFO_ORDER,
                                  output=format)
+        return ret
 
     @staticmethod
     def delete():
