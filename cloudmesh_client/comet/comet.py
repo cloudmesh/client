@@ -18,6 +18,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 from httpsig.requests_auth import HTTPSignatureAuth
 from requests.auth import HTTPBasicAuth
+from requests.exceptions import ConnectionError
 
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.Shell import Shell
@@ -631,24 +632,28 @@ class Comet(object):
         password = getpass.getpass()
         keyurl = "%s/getkey" % cometConf["endpoints"][endpoint]["nucleus_base_url"]
         headers = {"ACCEPT": "application/json"}
-        r = requests.get(keyurl, headers=headers, auth=HTTPBasicAuth(user, password))
-        if r.status_code == 200:
-            keyobj = r.json()
-            api_key = keyobj["key_name"]
-            api_secret = keyobj["key"]
-            config = ConfigDict("cloudmesh.yaml")
-            config.data["cloudmesh"]["comet"]["endpoints"] \
-                [endpoint]["auth_provider"] = 'apikey'
-            config.data["cloudmesh"]["comet"]["endpoints"] \
-                [endpoint]["apikey"]["api_key"] = api_key
-            config.data["cloudmesh"]["comet"]["endpoints"] \
-                [endpoint]["apikey"]["api_secret"] = api_secret
+        try:
+            r = requests.get(keyurl, headers=headers, auth=HTTPBasicAuth(user, password))
+            if r.status_code == 200:
+                keyobj = r.json()
+                api_key = keyobj["key_name"]
+                api_secret = keyobj["key"]
+                config = ConfigDict("cloudmesh.yaml")
+                config.data["cloudmesh"]["comet"]["endpoints"] \
+                    [endpoint]["auth_provider"] = 'apikey'
+                config.data["cloudmesh"]["comet"]["endpoints"] \
+                    [endpoint]["apikey"]["api_key"] = api_key
+                config.data["cloudmesh"]["comet"]["endpoints"] \
+                    [endpoint]["apikey"]["api_secret"] = api_secret
 
-            config.save()
-            Console.ok("api key retrieval and set was successful!")
-        else:
+                config.save()
+                Console.ok("api key retrieval and set was successful!")
+            else:
+                Console.error("Error getting api key. "
+                              "Please check your username/password", traceflag=False)
+        except ConnectionError:
             Console.error("Error getting api key. "
-                          "Please check your username/password", traceflag=False)
+                              "The nucleus service may be unvailable", traceflag=False)
 
 def main():
     comet = Comet()

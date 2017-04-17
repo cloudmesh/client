@@ -169,6 +169,25 @@ Steps to get a virtual cluster on comet
 FAQ
 -----------------------------------------------
 
+What is my comet nucleus username/password?
+~~~~~~~~~~~~
+
+You will be asked to provide your comet nucleus username and password for
+apikey retrieval ('cm comet init') or console access. The username is the
+one communicated to you by our support team via a secure fashion (usually
+a PGP encrypted email; or via a phone call). When a password is required,
+you need to type in the secret string first (given to you along with your
+username), followed by a tap on the YubiKey token.
+
+I'm configuring my virtual cluster/gateway frontend node. How can I find the network configuration parameters for the public network interface?
+~~~~~~~~~~~~
+
+There is a command to get the node detail information - 'cm comet node info
+YOUR_CLUSTER_NAME'. You will have all the necessary information to configure
+your frontend node, specifically, the 'interface' parameter gives the mac
+address of the NICs, and the 'pub_ip', 'pub_mac' and 'pub_netmask' indicate
+which NIC is public, and its configuration parameters.
+
 Why the nodes/computeset I requested to start was not started immediately?
 ~~~~~~~~~~~~
 
