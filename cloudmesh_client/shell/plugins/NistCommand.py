@@ -106,7 +106,10 @@ class Command(object):
 
         ################################################################
 
-        
+        Console.ok('Running Fingerprint matching')
+        cmd = [vansible_playbook, '-u', user, '../match.yml']
+        Console.debug_msg(' '.join(cmd))
+        check_call(cmd, cwd=bds)
 
 
 class NistCommand(PluginCommand, CloudPluginCommand):
