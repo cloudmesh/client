@@ -53,6 +53,12 @@ class Command(object):
 
         ################################################################
 
+        Console.ok('Getting cluster')
+        cluster_cmd = ClusterCommand()
+        cluster = cluster_cmd.allocate(clustername=clustername)
+        user = username or cluster.username
+        ips = [vm.floating_ip for vm in cluster.list()]
+
         if provision:
 
             Console.ok('Creating virtualenv')
@@ -61,12 +67,6 @@ class Command(object):
             Console.ok('Installing dependencies')
             check_call([vpip, 'install', '-U',
                         '-r', os.path.join(local_path, 'big-data-stack', 'requirements.txt')])
-
-            Console.ok('Getting cluster')
-            cluster_cmd = ClusterCommand()
-            cluster = cluster_cmd.allocate(clustername=clustername)
-            user = username or cluster.username
-            ips = [vm.floating_ip for vm in cluster.list()]
 
             Console.ok('Generating inventory file')
             mkinventory = [vpython, 'mk-inventory', '-n', cluster.name+'-'] + ips
