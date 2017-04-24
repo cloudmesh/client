@@ -111,6 +111,18 @@ class Command(object):
         Console.debug_msg(' '.join(cmd))
         check_call(cmd, cwd=bds)
 
+        ################################################################
+
+        # This doesn't use Ansible since we want to see the result of
+        # the query
+        Console.ok('Querying for matches')
+        cmd = ['ssh', '-o', 'UserKnownHostsFile=/dev/null', '-o', 'StrictHostKeyChecking=no',
+               '-l', 'hadoop',
+               cluster.list()[0].floating_ip,
+               '/tmp/query.sh']
+        Console.debug_msg(' '.join(cmd))
+        check_call(cmd)
+
 
 class NistCommand(PluginCommand, CloudPluginCommand):
 
