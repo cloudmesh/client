@@ -40,6 +40,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                             [--endpoint=ENDPOINT]
                comet start CLUSTERID [--count=NUMNODES] [COMPUTENODEIDS]
                             [--allocation=ALLOCATION]
+                            [--reservation=RESERVATION]
                             [--walltime=WALLTIME]
                             [--endpoint=ENDPOINT]
                comet terminate COMPUTESETID [--endpoint=ENDPOINT]
@@ -73,6 +74,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                         that are available to boot as a computeset
                 --allocation=ALLOCATION     Allocation to charge when power on
                                             node(s)
+                --reservation=RESERVATION   Submit the request to an existing reservation
                 --walltime=WALLTIME     Walltime requested for the node(s).
                                         Walltime could be an integer value followed
                                         by a unit (m, h, d, w, for minute, hour, day,
@@ -482,6 +484,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
             walltime = arguments["--walltime"] or None
             allocation = arguments["--allocation"] or None
 
+            reservation = arguments["--reservation"] or None
             # validating walltime and allocation parameters
             walltime = Cluster.convert_to_mins(walltime)
             if not walltime:
@@ -498,6 +501,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                            computenodeids,
                                            numnodes,
                                            allocation,
+                                           reservation,
                                            walltime)
                   )
         elif arguments["terminate"]:

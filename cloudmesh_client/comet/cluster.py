@@ -54,6 +54,36 @@ class Cluster(object):
                   "allocation",
                   "admin_state"
                     ]
+    CLUSTER_ORDER_TABLE=[
+                  "name",
+                  "state",
+                  "active_computeset",
+                  "allocation",
+                  "admin_state",
+                  "mac",
+                  "ip",
+                  "kind",
+                  "type",
+                  "cpus",
+                  "cluster",
+                  "memory",
+                  "disksize"
+                    ]
+    CLUSTER_HEADER_TABLE=[
+                  "name",
+                  "state",
+                  "computeset",
+                  "allocation",
+                  "admin_state",
+                  "mac",
+                  "ip",
+                  "kind",
+                  "type",
+                  "cpus",
+                  "cluster",
+                  "RAM(M)",
+                  "disk(G)"
+                    ]
     '''
     CLUSTER_SORT_KEY=[
                       "name",
@@ -341,10 +371,10 @@ class Cluster(object):
                         # print (sort_keys)
                 if "table" == format:
                     result_print = Printer.write(data,
-                                                 order=Cluster.CLUSTER_ORDER,
-                                                 header=Cluster.CLUSTER_HEADER,
-                                                 output=format,
-                                                 sort_keys=sort_keys)
+                                        order=Cluster.CLUSTER_ORDER_TABLE,
+                                        header=Cluster.CLUSTER_HEADER_TABLE,
+                                        output=format,
+                                        sort_keys=sort_keys)
                     result += str(result_print)
                 else:
                     result_print = Printer.write(data,
@@ -582,6 +612,7 @@ class Cluster(object):
                          computenodeids=None,
                          numnodes=None,
                          allocation=None,
+                         reservation=None,
                          walltime=None):
         ret = ''
         # print ("clusterid: %s" % clusterid)
@@ -624,7 +655,10 @@ class Cluster(object):
                         "walltime_mins": "%s" % walltime,
                         "allocation": "%s" % allocation}
 
-        # print("Issuing request to poweron nodes...")
+        if reservation:
+            data["reservation"] = reservation
+
+        # print("Issuing request to start/allocate and power on nodes...")
         posturl = Comet.url("computeset/")
         # print ("POST data: %s" % data)
         r = Comet.post(posturl, data=data)
