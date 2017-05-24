@@ -10,6 +10,9 @@ import sys
 from builtins import input
 from pprint import pprint
 
+from cloudmesh_client.common.Printer import Printer
+import requests
+
 # noinspection PyUnusedLocal,PyBroadException
 class CometCommand(PluginCommand, CometPluginCommand):
     topics = {"comet": "comet"}
@@ -59,6 +62,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                             [--endpoint=ENDPOINT]
                comet iso detach CLUSTERID [COMPUTENODEIDS]
                             [--endpoint=ENDPOINT]
+               comet reservation (list|create|update|delete)
 
             Options:
                 --endpoint=ENDPOINT     Specify the comet nucleus service
@@ -651,5 +655,19 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                                                newname))
                             else:
                                 print ("Action aborted!")
-
+        elif arguments["reservation"]:
+            if arguments["create"] or \
+                            arguments["update"] or \
+                            arguments["delete"]:
+                Console.info("Operation not supported. Please contact XSEDE helpdesk for help!")
+            if arguments["list"]:
+                if "hpcinfo" in cometConf:
+                    hpcinfourl = cometConf["hpcinfo"]["endpoint"]
+                else:
+                    Console.error("Admin feature not configured for this client", traceflag = False)
+                    return ""
+                ret = requests.get("%s/reservations" % hpcinfourl)
+                jobs = ret.json()
+                result = Printer.write(jobs)
+                print (result)
         return ""
