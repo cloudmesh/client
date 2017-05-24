@@ -88,8 +88,8 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 --state=COMPUTESESTATE  List only computeset with the specified state.
                                         The state could be submitted, running, completed
                 --link                  Whether to open the console url or just show the link
-                --concise               Concise table view
-                --status                Table view displays on those columns showing state of nodes
+                --concise               Concise table view for cluster info
+                --status                Cluster table view displays only those columns showing state of nodes
 
             Arguments:
                 ENDPOINT        Service endpoint based on the yaml config file.
