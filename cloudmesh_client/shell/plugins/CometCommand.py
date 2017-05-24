@@ -32,7 +32,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                comet init
                comet active [ENDPOINT]
                comet ll [CLUSTERID] [--format=FORMAT] [--endpoint=ENDPOINT]
-               comet cluster [CLUSTERID]
+               comet cluster [--concise|--status] [CLUSTERID]
                              [--format=FORMAT]
                              [--sort=SORTKEY]
                              [--endpoint=ENDPOINT]
@@ -88,6 +88,8 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 --state=COMPUTESESTATE  List only computeset with the specified state.
                                         The state could be submitted, running, completed
                 --link                  Whether to open the console url or just show the link
+                --concise               Concise table view
+                --status                Table view displays on those columns showing state of nodes
 
             Arguments:
                 ENDPOINT        Service endpoint based on the yaml config file.
@@ -431,10 +433,17 @@ class CometCommand(PluginCommand, CometPluginCommand):
             print(Cluster.simple_list(cluster_id, format=output_format))
 
         elif arguments["cluster"]:
-
+            view = "FULL"
+            if arguments["--concise"]:
+                view = "CONCISE"
+            if arguments["--status"]:
+                view = "STATE"
             cluster_id = arguments["CLUSTERID"]
             sortkey = arguments["--sort"]
-            print(Cluster.list(cluster_id, format=output_format, sort=sortkey))
+            print(Cluster.list(cluster_id,
+                               format=output_format,
+                               sort=sortkey,
+                               view=view))
 
         elif arguments["computeset"]:
             computeset_id = arguments["COMPUTESETID"] or None

@@ -39,6 +39,7 @@ class Cluster(object):
                   "allocation",
                   "admin_state"
                     ]
+
     CLUSTER_HEADER=[
                   "name",
                   "state",
@@ -54,6 +55,7 @@ class Cluster(object):
                   "allocation",
                   "admin_state"
                     ]
+
     CLUSTER_ORDER_TABLE=[
                   "name",
                   "state",
@@ -62,13 +64,14 @@ class Cluster(object):
                   "admin_state",
                   "mac",
                   "ip",
+                  "cluster",
                   "kind",
                   "type",
                   "cpus",
-                  "cluster",
                   "memory",
                   "disksize"
                     ]
+
     CLUSTER_HEADER_TABLE=[
                   "name",
                   "state",
@@ -77,13 +80,61 @@ class Cluster(object):
                   "admin_state",
                   "mac",
                   "ip",
+                  "cluster",
                   "kind",
                   "type",
                   "cpus",
-                  "cluster",
                   "RAM(M)",
                   "disk(G)"
                     ]
+
+    CLUSTER_ORDER_TABLE_CONCISE=[
+                  "name",
+                  "state",
+                  "active_computeset",
+                  "allocation",
+                  "admin_state",
+                  "mac",
+                  "ip",
+                  "cluster"
+                    ]
+
+    CLUSTER_HEADER_TABLE_CONCISE=[
+                  "name",
+                  "state",
+                  "computeset",
+                  "allocation",
+                  "admin_state",
+                  "mac",
+                  "ip",
+                  "cluster"
+                    ]
+
+    CLUSTER_ORDER_TABLE_STATE=[
+                  "name",
+                  "state",
+                  "active_computeset",
+                  "allocation",
+                  "admin_state"
+                    ]
+
+    CLUSTER_HEADER_TABLE_STATE=[
+                  "name",
+                  "state",
+                  "computeset",
+                  "allocation",
+                  "admin_state"
+                    ]
+
+    CLUSTER_TABLE_VIEW = \
+                {"FULL": {"header": CLUSTER_HEADER_TABLE,
+                          "order": CLUSTER_ORDER_TABLE},
+                 "CONCISE": {"header": CLUSTER_HEADER_TABLE_CONCISE,
+                             "order": CLUSTER_ORDER_TABLE_CONCISE},
+                 "STATE": {"header": CLUSTER_HEADER_TABLE_STATE,
+                           "order": CLUSTER_ORDER_TABLE_STATE}
+                }
+
     '''
     CLUSTER_SORT_KEY=[
                       "name",
@@ -200,7 +251,7 @@ class Cluster(object):
             return result
 
     @staticmethod
-    def list(id=None, format="table", sort=None):
+    def list(id=None, format="table", sort=None, view="FULL"):
 
         def check_for_error(r):
             if r is not None:
@@ -371,10 +422,10 @@ class Cluster(object):
                         # print (sort_keys)
                 if "table" == format:
                     result_print = Printer.write(data,
-                                        order=Cluster.CLUSTER_ORDER_TABLE,
-                                        header=Cluster.CLUSTER_HEADER_TABLE,
-                                        output=format,
-                                        sort_keys=sort_keys)
+                            order=Cluster.CLUSTER_TABLE_VIEW[view]["order"],
+                            header=Cluster.CLUSTER_TABLE_VIEW[view]["header"],
+                            output=format,
+                            sort_keys=sort_keys)
                     result += str(result_print)
                 else:
                     result_print = Printer.write(data,
