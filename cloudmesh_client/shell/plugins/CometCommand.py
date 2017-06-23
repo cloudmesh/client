@@ -10,6 +10,9 @@ import sys
 from builtins import input
 from pprint import pprint
 
+from cloudmesh_client.common.Printer import Printer
+import requests
+
 # noinspection PyUnusedLocal,PyBroadException
 class CometCommand(PluginCommand, CometPluginCommand):
     topics = {"comet": "comet"}
@@ -29,7 +32,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                comet init
                comet active [ENDPOINT]
                comet ll [CLUSTERID] [--format=FORMAT] [--endpoint=ENDPOINT]
-               comet cluster [CLUSTERID]
+               comet cluster [--concise|--status] [CLUSTERID]
                              [--format=FORMAT]
                              [--sort=SORTKEY]
                              [--endpoint=ENDPOINT]
@@ -40,6 +43,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                             [--endpoint=ENDPOINT]
                comet start CLUSTERID [--count=NUMNODES] [COMPUTENODEIDS]
                             [--allocation=ALLOCATION]
+                            [--reservation=RESERVATION]
                             [--walltime=WALLTIME]
                             [--endpoint=ENDPOINT]
                comet terminate COMPUTESETID [--endpoint=ENDPOINT]
@@ -58,6 +62,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                             [--endpoint=ENDPOINT]
                comet iso detach CLUSTERID [COMPUTENODEIDS]
                             [--endpoint=ENDPOINT]
+               comet reservation (list|create|update|delete)
 
             Options:
                 --endpoint=ENDPOINT     Specify the comet nucleus service
@@ -73,6 +78,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                         that are available to boot as a computeset
                 --allocation=ALLOCATION     Allocation to charge when power on
                                             node(s)
+                --reservation=RESERVATION   Submit the request to an existing reservation
                 --walltime=WALLTIME     Walltime requested for the node(s).
                                         Walltime could be an integer value followed
                                         by a unit (m, h, d, w, for minute, hour, day,
@@ -82,6 +88,8 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 --state=COMPUTESESTATE  List only computeset with the specified state.
                                         The state could be submitted, running, completed
                 --link                  Whether to open the console url or just show the link
+                --concise               Concise table view for cluster info
+                --status                Cluster table view displays only those columns showing state of nodes
 
             Arguments:
                 ENDPOINT        Service endpoint based on the yaml config file.
@@ -425,10 +433,17 @@ class CometCommand(PluginCommand, CometPluginCommand):
             print(Cluster.simple_list(cluster_id, format=output_format))
 
         elif arguments["cluster"]:
-
+            view = "FULL"
+            if arguments["--concise"]:
+                view = "CONCISE"
+            if arguments["--status"]:
+                view = "STATE"
             cluster_id = arguments["CLUSTERID"]
             sortkey = arguments["--sort"]
-            print(Cluster.list(cluster_id, format=output_format, sort=sortkey))
+            print(Cluster.list(cluster_id,
+                               format=output_format,
+                               sort=sortkey,
+                               view=view))
 
         elif arguments["computeset"]:
             computeset_id = arguments["COMPUTESETID"] or None
@@ -482,6 +497,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
             walltime = arguments["--walltime"] or None
             allocation = arguments["--allocation"] or None
 
+            reservation = arguments["--reservation"] or None
             # validating walltime and allocation parameters
             walltime = Cluster.convert_to_mins(walltime)
             if not walltime:
@@ -498,6 +514,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                            computenodeids,
                                            numnodes,
                                            allocation,
+                                           reservation,
                                            walltime)
                   )
         elif arguments["terminate"]:
@@ -647,5 +664,19 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                                                newname))
                             else:
                                 print ("Action aborted!")
-
+        elif arguments["reservation"]:
+            if arguments["create"] or \
+                            arguments["update"] or \
+                            arguments["delete"]:
+                Console.info("Operation not supported. Please contact XSEDE helpdesk for help!")
+            if arguments["list"]:
+                if "hpcinfo" in cometConf:
+                    hpcinfourl = cometConf["hpcinfo"]["endpoint"]
+                else:
+                    Console.error("Admin feature not configured for this client", traceflag = False)
+                    return ""
+                ret = requests.get("%s/reservations" % hpcinfourl)
+                jobs = ret.json()
+                result = Printer.write(jobs)
+                print (result)
         return ""
