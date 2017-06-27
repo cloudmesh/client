@@ -209,17 +209,21 @@ class Comet(object):
                     else:
                         authuri = "%s/login/" % cls.auth_uri
                     data = {"username": username, "password": password}
-                    r = requests.post(authuri,
-                                      data=json.dumps(data),
-                                      headers=cls.HEADER,
-                                      verify=cls.verify)
                     try:
-                        cls.token = r.json()["key"]
-                        cls.AUTH_HEADER['Authorization'] = "Token {:}".format(
-                            cls.token)
-                    except:
-                        ret = False
-                    ret = cls.token
+                        r = requests.post(authuri,
+                                          data=json.dumps(data),
+                                          headers=cls.HEADER,
+                                          verify=cls.verify)
+                        try:
+                            cls.token = r.json()["key"]
+                            cls.AUTH_HEADER['Authorization'] = "Token {:}".format(
+                                cls.token)
+                        except:
+                            ret = False
+                        ret = cls.token
+                    except ConnectionError:
+                        Console.error("Error connecting to the Comet nucleus service",
+                                      traceflag=False)
             else:
                 ret = cls.token
         elif "APIKEY" == cls.auth_provider:
@@ -246,11 +250,15 @@ class Comet(object):
                     authuri = "%s/logout/" % cls.auth_uri
                     header = dict(cls.HEADER)
                     header['Authorization'] = "Token %s" % cls.token
-                    r = requests.post(authuri,
-                                      headers=header,
-                                      verify=cls.verify)
-                    cls.token = None
-                    cls.AUTH_HEADER = cls.HEADER
+                    try:
+                        r = requests.post(authuri,
+                                          headers=header,
+                                          verify=cls.verify)
+                        cls.token = None
+                        cls.AUTH_HEADER = cls.HEADER
+                    except ConnectionError:
+                        Console.error("Error connecting to the Comet nucleus service",
+                                      traceflag=False)
                 else:
                     ret = False
         return ret
@@ -271,21 +279,36 @@ class Comet(object):
     @staticmethod
     def get(url, headers=None, allow_redirects=True, data=None,
                  authuser=None, authpass=None):
-        return Comet.http(url, action="get", headers=headers, data=data,
-                          authuser=authuser, authpass=authpass,
-                          allow_redirects=allow_redirects)
+        try:
+            return Comet.http(url, action="get", headers=headers, data=data,
+                              authuser=authuser, authpass=authpass,
+                              allow_redirects=allow_redirects)
+        except ConnectionError:
+            Console.error("Error connecting to the Comet nucleus service",
+                          traceflag=False)
+            return None
 
     @staticmethod
     def post(url, headers=None, data=None, md5=None, files=None,
              cacert=True, allow_redirects=True):
-        return Comet.http(url, action="post", headers=headers, data=data,
-                          files=files, md5=md5, cacert=cacert,
-                          allow_redirects=allow_redirects)
+        try:
+            return Comet.http(url, action="post", headers=headers, data=data,
+                              files=files, md5=md5, cacert=cacert,
+                              allow_redirects=allow_redirects)
+        except ConnectionError:
+            Console.error("Error connecting to the Comet nucleus service",
+                          traceflag=False)
+            return None
 
     @staticmethod
     def put(url, headers=None, data=None, allow_redirects=True):
-        return Comet.http(url, action="put", headers=headers,
-                          data=data, allow_redirects=allow_redirects)
+        try:
+            return Comet.http(url, action="put", headers=headers,
+                              data=data, allow_redirects=allow_redirects)
+        except ConnectionError:
+            Console.error("Error connecting to the Comet nucleus service",
+                          traceflag=False)
+            return None
 
     # To make GET calls for synchronous or asynchronous API
     @staticmethod
@@ -296,193 +319,198 @@ class Comet(object):
         # print ("KKK", action)
         # print ("KKK", Comet.auth_provider)
         ret = None
-        if Comet.tunnelled:
-            cacert = False
-        if "USERPASS" == Comet.auth_provider:
-            if headers is None:
-                headers = Comet.AUTH_HEADER
-            if 'post' == action:
-                if files:
-                    del headers["content-type"]
-                    headers["md5"] = md5
-                    r = requests.post(url, headers=headers, files=files,
-                                      allow_redirects=allow_redirects,
-                                      verify=cacert)
-                else:
-                    r = requests.post(url, headers=headers, data=json.dumps(data),
-                                      allow_redirects=allow_redirects,
-                                      verify=cacert)
-
-            elif 'put' == action:
-                r = requests.put(url, headers=headers, data=json.dumps(data),
-                                 allow_redirects=allow_redirects, verify=cacert)
-            else:
-                if data:
-                    if authuser and authpass:
-                        r = requests.get(url, headers=headers, params=data,
-                                         auth=(authuser, authpass),
-                                         allow_redirects=allow_redirects, verify=cacert)
+        try:
+            if Comet.tunnelled:
+                cacert = False
+            if "USERPASS" == Comet.auth_provider:
+                if headers is None:
+                    headers = Comet.AUTH_HEADER
+                if 'post' == action:
+                    if files:
+                        del headers["content-type"]
+                        headers["md5"] = md5
+                        r = requests.post(url, headers=headers, files=files,
+                                          allow_redirects=allow_redirects,
+                                          verify=cacert)
                     else:
-                        r = requests.get(url, headers=headers, params=data,
-                                         allow_redirects=allow_redirects, verify=cacert)
+                        r = requests.post(url, headers=headers, data=json.dumps(data),
+                                          allow_redirects=allow_redirects,
+                                          verify=cacert)
+
+                elif 'put' == action:
+                    r = requests.put(url, headers=headers, data=json.dumps(data),
+                                     allow_redirects=allow_redirects, verify=cacert)
                 else:
-                    if authuser and authpass:
-                        r = requests.get(url, headers=headers,
-                                         auth=(authuser, authpass),
-                                         allow_redirects=allow_redirects, verify=cacert)
+                    if data:
+                        if authuser and authpass:
+                            r = requests.get(url, headers=headers, params=data,
+                                             auth=(authuser, authpass),
+                                             allow_redirects=allow_redirects, verify=cacert)
+                        else:
+                            r = requests.get(url, headers=headers, params=data,
+                                             allow_redirects=allow_redirects, verify=cacert)
                     else:
-                        r = requests.get(url, headers=headers,
-                                         allow_redirects=allow_redirects, verify=cacert)
+                        if authuser and authpass:
+                            r = requests.get(url, headers=headers,
+                                             auth=(authuser, authpass),
+                                             allow_redirects=allow_redirects, verify=cacert)
+                        else:
+                            r = requests.get(url, headers=headers,
+                                             allow_redirects=allow_redirects, verify=cacert)
 
-            #print ("KKK --- DEBUGGING HTTP CALL (USERPASS)")
-            #pprint (r)
-            #pprint (r.status_code)
-            #pprint (r.headers)
-            #pprint (r.text)
+                #print ("KKK --- DEBUGGING HTTP CALL (USERPASS)")
+                #pprint (r)
+                #pprint (r.status_code)
+                #pprint (r.headers)
+                #pprint (r.text)
 
-            # 303 redirect
-            if r.status_code == 303:
-                ret = r.headers["Location"]
-            # responded immediately
-            elif r.status_code == 200:
-                try:
-                    ret = r.json()
-                except:
-                    ret = r.text
-            # processed successfully, but returned empty
-            elif r.status_code == 204:
-                ret = ''
-            # code 201, created for the post request
-            elif r.status_code == 201:
-                # now automatically redirect to result page
-                # thus no need to check status periodically.
-                # Currently it works well for cluster listing
-                # However not sure if the delay is large, what the behaviour
-                # would be
-                finished = False
-                newurl = r.headers["Location"]
-                while not finished:
-                    ret = requests.get(newurl, headers=headers)
+                # 303 redirect
+                if r.status_code == 303:
+                    ret = r.headers["Location"]
+                # responded immediately
+                elif r.status_code == 200:
                     try:
-                        ret = ret.json()
+                        ret = r.json()
                     except:
-                        pass
-                    # in some occasions, when the result is not ready,
-                    # the result still has 'status' in it (value as '0')
-                    # otherwise it's the correct value after redirection
-                    if 'status' not in ret:
-                        finished = True
-                    else:
-                        time.sleep(1)
-            elif r.status_code == 401:
-                ret = {"error": "Not Authenticated"}
-            elif r.status_code == 403:
-                ret = {"error": "Permission denied"}
-            elif r.status_code == 400:
-                ret = {"error": "%s" % r.text}
-        elif "APIKEY" == Comet.auth_provider:
-            headers = {'content-type': 'application/json',
-                       "timestamp": str(int(time.time())),
-                       "nonce": Comet.get_nonce(),
-                       "X-Api-Key": Comet.api_key}
-            # print ("KKK", headers)
-            # print ("KKK", Comet.api_auth)
-            # print ("KKK", data)
-            # print ("KKK", cacert)
-            if 'post' == action:
-                if files:
-                    headers = {"timestamp": str(int(time.time())),
-                               "nonce": Comet.get_nonce(),
-                               "X-Api-Key": Comet.api_key,
-                               "md5": md5}
-                    r = requests.post(url, auth=Comet.api_auth, headers=headers,
-                                      files=files,
-                                      allow_redirects=allow_redirects,
-                                      verify=cacert)
-                else:
-                    r = requests.post(url, auth=Comet.api_auth, headers=headers,
-                                      data=json.dumps(data),
-                                      allow_redirects=allow_redirects,
-                                      verify=cacert)
-            elif 'put' == action:
-                r = requests.put(url, auth=Comet.api_auth, headers=headers,
-                                 data=json.dumps(data),
-                                 allow_redirects=allow_redirects,
-                                 verify=cacert)
-            else:
-                if data:
-                    # print (url)
-                    # print (data)
-                    r = requests.get(url, auth=Comet.api_auth, headers=headers,
-                                     params=data,
-                                     allow_redirects=allow_redirects,
-                                     verify=cacert)
-                else:
-                    r = requests.get(url, auth=Comet.api_auth, headers=headers,
-                                     allow_redirects=allow_redirects,
-                                     verify=cacert)
-            # pprint (r.url)
-            ret = None
-
-            #print ("KKK --- DEBUGGING HTTP CALL (APIKEY)")
-            #pprint (r)
-            #pprint (r.status_code)
-            #pprint (r.headers)
-            #pprint (r.text)
-
-            # 303 redirect
-            if r.status_code == 303:
-                ret = r.headers["Location"]
-            # responded immediately
-            elif r.status_code == 200:
-                try:
-                    ret = r.json()
-                except:
-                    ret = r.text
-            # processed successfully, but returned empty
-            elif r.status_code == 204:
-                ret = ''
-            # code 201, created for the post request
-            elif r.status_code == 201:
-                finished = False
-                newurl = r.headers["Location"]
-                headers["timestamp"] = str(int(time.time()))
-                headers["nonce"] = Comet.get_nonce()
-                while not finished:
-                    ret = requests.get(newurl, auth=Comet.api_auth, headers=headers)
-                    try:
-                        ret = ret.json()
-                    except:
-                        pass
-                    if 'status' not in ret:
-                        finished = True
-                    else:
-                        time.sleep(1)
-            elif r.status_code == 401:
-                try:
-                    ret = r.json()
-                    ret = {"error": ret}
-                except:
-                    pass
-                if not ret:
+                        ret = r.text
+                # processed successfully, but returned empty
+                elif r.status_code == 204:
+                    ret = ''
+                # code 201, created for the post request
+                elif r.status_code == 201:
+                    # now automatically redirect to result page
+                    # thus no need to check status periodically.
+                    # Currently it works well for cluster listing
+                    # However not sure if the delay is large, what the behaviour
+                    # would be
+                    finished = False
+                    newurl = r.headers["Location"]
+                    while not finished:
+                        ret = requests.get(newurl, headers=headers)
+                        try:
+                            ret = ret.json()
+                        except:
+                            pass
+                        # in some occasions, when the result is not ready,
+                        # the result still has 'status' in it (value as '0')
+                        # otherwise it's the correct value after redirection
+                        if 'status' not in ret:
+                            finished = True
+                        else:
+                            time.sleep(1)
+                elif r.status_code == 401:
                     ret = {"error": "Not Authenticated"}
-            elif r.status_code == 403:
-                try:
-                    ret = r.json()
-                    ret = {"error": ret}
-                except:
-                    pass
-                if not ret:
+                elif r.status_code == 403:
                     ret = {"error": "Permission denied"}
-            elif r.status_code == 400:
-                try:
-                    ret = r.json()
-                    ret = {"error": ret}
-                except:
-                    pass
-                if not ret:
+                elif r.status_code == 400:
                     ret = {"error": "%s" % r.text}
-        # print ("KKKKK", ret)
+            elif "APIKEY" == Comet.auth_provider:
+                headers = {'content-type': 'application/json',
+                           "timestamp": str(int(time.time())),
+                           "nonce": Comet.get_nonce(),
+                           "X-Api-Key": Comet.api_key}
+                # print ("KKK", headers)
+                # print ("KKK", Comet.api_auth)
+                # print ("KKK", data)
+                # print ("KKK", cacert)
+                if 'post' == action:
+                    if files:
+                        headers = {"timestamp": str(int(time.time())),
+                                   "nonce": Comet.get_nonce(),
+                                   "X-Api-Key": Comet.api_key,
+                                   "md5": md5}
+                        r = requests.post(url, auth=Comet.api_auth, headers=headers,
+                                          files=files,
+                                          allow_redirects=allow_redirects,
+                                          verify=cacert)
+                    else:
+                        r = requests.post(url, auth=Comet.api_auth, headers=headers,
+                                          data=json.dumps(data),
+                                          allow_redirects=allow_redirects,
+                                          verify=cacert)
+                elif 'put' == action:
+                    r = requests.put(url, auth=Comet.api_auth, headers=headers,
+                                     data=json.dumps(data),
+                                     allow_redirects=allow_redirects,
+                                     verify=cacert)
+                else:
+                    if data:
+                        # print (url)
+                        # print (data)
+                        r = requests.get(url, auth=Comet.api_auth, headers=headers,
+                                         params=data,
+                                         allow_redirects=allow_redirects,
+                                         verify=cacert)
+                    else:
+                        r = requests.get(url, auth=Comet.api_auth, headers=headers,
+                                         allow_redirects=allow_redirects,
+                                         verify=cacert)
+                # pprint (r.url)
+                ret = None
+
+                #print ("KKK --- DEBUGGING HTTP CALL (APIKEY)")
+                #pprint (r)
+                #pprint (r.status_code)
+                #pprint (r.headers)
+                #pprint (r.text)
+
+                # 303 redirect
+                if r.status_code == 303:
+                    ret = r.headers["Location"]
+                # responded immediately
+                elif r.status_code == 200:
+                    try:
+                        ret = r.json()
+                    except:
+                        ret = r.text
+                # processed successfully, but returned empty
+                elif r.status_code == 204:
+                    ret = ''
+                # code 201, created for the post request
+                elif r.status_code == 201:
+                    finished = False
+                    newurl = r.headers["Location"]
+                    headers["timestamp"] = str(int(time.time()))
+                    headers["nonce"] = Comet.get_nonce()
+                    while not finished:
+                        ret = requests.get(newurl, auth=Comet.api_auth, headers=headers)
+                        try:
+                            ret = ret.json()
+                        except:
+                            pass
+                        if 'status' not in ret:
+                            finished = True
+                        else:
+                            time.sleep(1)
+                elif r.status_code == 401:
+                    try:
+                        ret = r.json()
+                        ret = {"error": ret}
+                    except:
+                        pass
+                    if not ret:
+                        ret = {"error": "Not Authenticated"}
+                elif r.status_code == 403:
+                    try:
+                        ret = r.json()
+                        ret = {"error": ret}
+                    except:
+                        pass
+                    if not ret:
+                        ret = {"error": "Permission denied"}
+                elif r.status_code == 400:
+                    try:
+                        ret = r.json()
+                        ret = {"error": ret}
+                    except:
+                        pass
+                    if not ret:
+                        ret = {"error": "%s" % r.text}
+            # print ("KKKKK", ret)
+        except ConnectionError:
+            #Console.error("Error connecting to the Comet nucleus service",
+            #              traceflag=False)
+            raise ConnectionError()
         return ret
 
     @staticmethod
