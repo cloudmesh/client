@@ -281,6 +281,14 @@ class CloudmeshDatabase(object):
             .update(values)
         cls.session.commit()
 
+    @classmethod
+    def updateObj(cls, obj):
+        # ensure that the object already exists
+        obj.__class__.query.filter_by(cm_id = obj.cm_id).first()
+
+        # save changes. This works b/c of the ORM wrapper.
+        cls.session.commit()
+
     def find_new(cls, **kwargs):
         """
         This method returns either
@@ -1075,5 +1083,5 @@ class CloudmeshDatabase(object):
                 Console.error("refresh not supported for this kind: {}".format(kind))
 
         except Exception as ex:
-            Console.error("Problem with secgroup")
+            Console.error("Problem during refresh: %r" % ex)
             return False

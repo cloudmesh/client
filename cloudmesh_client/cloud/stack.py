@@ -15,6 +15,7 @@ import yaml
 
 import requests
 
+from cloudmesh_client.common.util import exponential_backoff
 from cloudmesh_client.common.Shell import Subprocess, SubprocessError
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.db import CloudmeshDatabase
@@ -211,7 +212,10 @@ class ProjectDB(object):
         :raises: :class:`KeyError` if no project is currently active
         """
 
-        return self[self.active]
+        if self.active:
+            return self[self.active]
+        else:
+            raise ValueError('No active project')
 
 
 class ProjectFactory(object):
@@ -406,12 +410,31 @@ class KWArgs(object):
 class BigDataStack(object):
     def __init__(self, dest,
                  repo='git://github.com/futuresystems/big-data-stack.git',
-                 branch='master'):
+                 branch='master',
+                 **kwargs
+    ):
         self.path = os.path.abspath(dest)
         self.repo = repo
         self.branch = branch
         self.local = os.path.isdir(repo)
         self._env = dict()
+
+    @classmethod
+    def load(cls, path):
+        filename = os.path.join(path, '.cloudmesh_metadata')
+        Console.debug_msg('Loading {} to {}'.format(cls.__name__, filename))
+        with open(filename) as fd:
+            d = yaml.load(fd)
+        stack = cls(dest=path, **d)
+        stack._env = d['_env']
+        return stack
+
+    def sync_metadata(self):
+        path = os.path.join(self.path, '.cloudmesh_metadata')
+        Console.debug_msg('Saving {} to {}'.format(self.__class__.__name__, path))
+        y = yaml.dump(self.__dict__, default_flow_style=False)
+        with open(path, 'w') as fd:
+            fd.write(y)
 
     def init(self, force=False, update=False):
         """Initialize by cloning (or updating if requested) a local copy of
@@ -459,7 +482,7 @@ class BigDataStack(object):
         Subprocess(cmd, cwd=self.path, env=self._env)
 
     def deploy(self, ips=None, name=None, user=None, playbooks=None,
-               defines=None, ping_max=10, ping_sleep=10):
+               defines=None):
         """Deploy the big-data-stack to a previously stood up cluster located
         at `ips` with login user `user`.
 
@@ -479,8 +502,6 @@ class BigDataStack(object):
         :type ping_sleep: :class:`int`
         """
         assert ips is not None
-        assert ping_max > 0, ping_max
-        assert ping_sleep > 0, ping_sleep
 
         name = name or os.getenv('USER') + '-' + os.path.basename(self.path)
         user = user or 'defaultuser'
@@ -496,30 +517,26 @@ class BigDataStack(object):
             fd.write(inventory.stdout)
 
         Console.info('Waiting for cluster to be accessible')
-        ping_ok = False
-        for i in xrange(ping_max):
-            Console.debug_msg('Attempt {} / {}'.format(i+1, ping_max))
+
+        def ping():
             try:
                 Subprocess(['ansible', 'all', '-m', 'ping', '-u', user],
                            cwd=self.path, env=self._env,
                            stdout=None, stderr=None)
-                ping_ok = True
-                Console.debug_msg('Success!')
-                break
+                return True
             except SubprocessError:
-                Console.debug_msg('Failure, sleeping for {} seconds'
-                                  .format(ping_sleep))
-                time.sleep(ping_sleep)
+                return False
 
-        if not ping_ok:
-            msg = 'Ping Failure'
-            reason = 'Unable to connect to all nodes'
-            Console.error(' '.join([msg, reason]))
-            raise SanityCheckError(message=msg, reason=reason)
+        exponential_backoff(ping)
 
         basic_command = ['ansible-playbook', '-u', user]
         Console.debug_msg('Running playbooks {}'.format(playbooks))
         for play in playbooks:
+            donefile = os.path.join(self.path, play) + '.done'
+            if os.path.exists(donefile):
+                Console.ok('Skipping completed play %s' % play)
+                continue
+
             cmd = basic_command + [play]
             define = ['{}={}'.format(k, v) for k, v in defines[play]]
             if define:
@@ -528,6 +545,8 @@ class BigDataStack(object):
                          .format(play, define))
             Subprocess(cmd, cwd=self.path, env=self._env,
                        stdout=None, stderr=None)
+            with open(donefile, 'w') as fd:
+                fd.write('')
 
 
 class SanityCheckError(Exception):

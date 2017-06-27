@@ -10,34 +10,56 @@ Setup Cloudmesh Client on Ubuntu Desktop in Virtualbox
 Virtual Box
 ----------------------------------------------------------------------
 
-**Step 1:** For convenience we will be using Ubuntu Xenial in this
-demo to install the Cloudmesh client on it. Please make sure you have
+Step 1: Install Virtual Box
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+For convenience we will be using Ubuntu Xenial in this demo to
+install the Cloudmesh client on it. Please make sure you have
 
 * `VirtualBox <https://www.virtualbox.org>`_ installed (`downloads page <https://www.virtualbox.org/wiki/Downloads>`_).
 
-**Step 2:** Next, please download the
+Step 2: Download a VirtualBox Image
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Next, please download the
 
 * `Ubuntu desktop ISO <http://www.ubuntu.com/download>`_.
 
 and remember the location where you downloaded it. You will need that
 location later.
 
-**Step 3:** Create VirtualBox, create a new VM (Ubuntu, 64bit)
+Step 3: Create a VirtualBox
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Create VirtualBox, create a new VM (Ubuntu, 64bit)
 
-**Step 4:** Start the box. When asked for the ISO, use the folder icon
- to browse to the location of the downloaded image.
+Step 4: Associate the VM ISO
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**Step 5:** Start and configure the system. Note in case the last step
- does not return, shut down or terminate the VM and restart it.
+When asked for the ISO, use the folder icon
+to browse to the location of the downloaded image.
 
-**Step 6:** Once you have logged into the vm, start a terminal by
- clicking on the cog and type in *terminal*
+Step 5: Start the vm
+^^^^^^^^^^^^^^^^^^^^
 
-**Step 7:** (optional) You may want to enable the vm guest addition
-and enable bidirectional shared clipboard and drag and drop. You may
-have to restart the vm so that these changes take effect.
+Start and configure the system. Note in case the last step
+does not return, shut down or terminate the VM and restart it.
 
-**Step 8:** Install cloudmesh. Paste and copy between host and vm, as
+Step 6: Start a terminal
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Once you have logged into the vm, start a terminal by clicking on the
+cog and type in *terminal*
+
+Step 7: VM guest additions
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+(optional) You may want to enable the vm guest addition and enable
+bidirectional shared clipboard and drag and drop. You may have to
+restart the vm so that these changes take effect.
+
+Step 8: Install cloudmesh
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Paste and copy between host and vm, as
  well as .
 
 .. note: as well as . is unclear .... FIX
@@ -54,7 +76,7 @@ The script has the following contents::
     sudo pip install pip -U
     sudo apt install git -y
     sudo pip install ansible
-    sudo pip install cloudmesh_client
+    sudo pip install cloudmesh_client
     python --version
     pip --version
     git –version
@@ -138,7 +160,7 @@ This will return::
    9: ubuntu-16.04-server-amd64.iso
   10: CentOS-7-x86_64-LiveGNOME-1511.iso
 
-Next we attach an iso. YOu can use either the name of the iso, or simply the id
+Next we attach an iso. You can use either the name of the iso, or simply the id
 
 .. prompt:: bash, cloudmesh$
 

@@ -21,7 +21,10 @@ class Names:
     VM_COUNTER = 'vm_counter'
 
     CLUSTER_COUNTER = 'cluster'
+    STACK_COUNTER = 'stack'
+    ACTIVE_STACK = 'active-stack'
     ACTIVE_CLUSTER = 'active-cluster'
+    ACTIVE_SPECIFICATION = 'active-specification'
 
 
 # noinspection PyBroadException
@@ -202,6 +205,10 @@ class Default(object):
         return value
 
     @readable_classproperty
+    def active_stack(cls):
+        return cls.get(name=Names.ACTIVE_STACK)
+
+    @readable_classproperty
     def cluster(cls):
         return cls.get(name=Names.ACTIVE_CLUSTER)
 
@@ -220,6 +227,10 @@ class Default(object):
         from cloudmesh_client.platform.virtual_cluster.cluster import Cluster
 
         return Cluster.from_name(name)
+
+    @readable_classproperty
+    def active_specification(cls):
+        return cls.get(name=Names.ACTIVE_SPECIFICATION)
 
     @readable_classproperty
     def user(cls):
@@ -419,13 +430,25 @@ class Default(object):
         cls.set("key", name)
 
     @classmethod
-    def set_cluster(cls, value):
+    def set_cluster_counter(cls, value):
         """
         sets the default cluster
         :param value: the cluster name as defined in the cloudmesh yaml file.
         :return:
         """
-        cls.set("cluster", value)
+        cls.set(Names.CLUSTER_COUNTER, value)
+
+    @classmethod
+    def set_specification(cls, value):
+        """Sets the default specification
+
+        :param cls: 
+        :param value: 
+        :returns: 
+        :rtype: 
+
+        """
+        cls.set(Names.ACTIVE_SPECIFICATION, value)
 
     @classmethod
     def set_debug(cls, value):
@@ -486,12 +509,20 @@ class Default(object):
         cls.set("timer", value)
 
     @classmethod
+    def set_stack(cls, name):
+        """Sets the stack name
+
+        :param str name: stack name
+        """
+        cls.set(Names.ACTIVE_STACK, name)
+
+    @classmethod
     def set_cluster(cls, value):
         """Sets the cluster
 
         :param str value: cluster name
         """
-        cls.set('active-cluster', value)
+        cls.set(Names.ACTIVE_CLUSTER, value)
 
     @classmethod
     def load(cls, filename):

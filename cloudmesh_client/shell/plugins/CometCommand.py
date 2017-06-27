@@ -675,7 +675,9 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 else:
                     Console.error("Admin feature not configured for this client", traceflag = False)
                     return ""
-                ret = requests.get("%s/reservations" % hpcinfourl)
+                ret = requests.get("%s/reservations/%s" % (hpcinfourl,
+                                                           cometConf['active'])
+                                  )
                 jobs = ret.json()
                 result = Printer.write(jobs)
                 print (result)
