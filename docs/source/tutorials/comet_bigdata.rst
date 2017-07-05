@@ -40,8 +40,8 @@ On your head node clone the Big Data Stack repository
 
 ::
 
-   head $ git clone git://github.com/cloudmesh/xsede17
-   head $ cd xsede17
+   head $ git clone git://github.com/cloudmesh/pearc17
+   head $ cd pearc17
 
 Next create a virtualenvironment and install dependencies:
 
