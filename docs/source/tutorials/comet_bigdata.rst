@@ -110,7 +110,7 @@ will take several minutes.
 
 ::
 
-   (BDS) head $ ansible-playbook play-hadoop.yml addons/spark.yml
+   (BDS) head $ ansible-playbook -K pearc17.yml
 
 
 Usage
