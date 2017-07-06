@@ -173,7 +173,7 @@ You can submit to the cluster by invoking:
 
 ::
 
-   hadoop@bds-0 $ spark-submit --master yarn --deploy-mnode cluster spark-shakespeare.py
+   hadoop@bds-0 $ spark-submit --master yarn --deploy-mode cluster spark-shakespeare.py
 
 
 (Make sure to cleanup before rerunning else the task will fail:
