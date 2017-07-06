@@ -148,14 +148,14 @@ Shakespeare's works. The analysis consists of the following steps:
 
 ::
 
-   from pyspark import sparkcontext
+   from pyspark import SparkContext
 
-   sc = sparkcontext()
+   sc = SparkContext()
 
-   txt = sc.textfile('hdfs:///shakespeare.txt')
-   counts = txt.flatmap(lambda line: line.split(" ")) \
+   txt = sc.textFile('hdfs:///shakespeare.txt')
+   counts = txt.flatMap(lambda line: line.split(" ")) \
                .map(lambda word: (word, 1)) \
-               .reducebykey(lambda a, b: a + b) \
+               .reduceByKey(lambda a, b: a + b) \
                .sortBy(lambda t: t[1], ascending=False)
    counts.saveAsTextFile('hdfs:///shakespeare-wordcount.txt')
 
