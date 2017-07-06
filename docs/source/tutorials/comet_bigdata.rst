@@ -169,6 +169,20 @@ You can run the analysis locally with the following invocation:
    hadoop@bds-0 $ spark-submit spark-shakespeare.py
 
 
+You can submit to the cluster by invoking:
+
+::
+
+   hadoop@bds-0 $ spark-submit --master yarn --deploy-mnode cluster spark-shakespeare.py
+
+
+(Make sure to cleanup before rerunning else the task will fail:
+
+::
+
+   hadoop@bds-0 $ hadoop fs -rm -r /shakespeare-wordcount.txt
+
+
 You can then view the top ten words by:
 
 ::
