@@ -122,8 +122,8 @@ you passed to ``mk-inventory`` and switch to the ``hadoop`` user.
 ::
 
    (BDS) head $ ssh 10.0.0.1
-   nbdraadmin@bds-0 $ sudo su - hadoop
-   hadoop@bds-0 $
+   nbdraadmin@vm-nbdra-00 $ sudo su - hadoop
+   hadoop@vm-nbdra-00 $
 
 
 Word Count
@@ -134,8 +134,8 @@ HDFS:
 
 ::
 
-   hadoop@bds-0 $ curl https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt >shakespeare.txt
-   hadoop@bds-0 $ hadoop fs -put shakespeare.txt /
+   hadoop@vm-nbdra-00 $ curl https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt >shakespeare.txt
+   hadoop@vm-nbdra-00 $ hadoop fs -put shakespeare.txt /
 
 Next, you can use the following program (adapted from the `Spark
 website <https://spark.apache.org/examples.html>_`) to analyze
@@ -166,28 +166,28 @@ You can run the analysis locally with the following invocation:
 
 ::
 
-   hadoop@bds-0 $ spark-submit spark-shakespeare.py
+   hadoop@vm-nbdra-00 $ spark-submit spark-shakespeare.py
 
 
 You can submit to the cluster by invoking:
 
 ::
 
-   hadoop@bds-0 $ spark-submit --master yarn --deploy-mode cluster spark-shakespeare.py
+   hadoop@vm-nbdra-00 $ spark-submit --master yarn --deploy-mode cluster spark-shakespeare.py
 
 
 (Make sure to cleanup before rerunning else the task will fail:
 
 ::
 
-   hadoop@bds-0 $ hadoop fs -rm -r /shakespeare-wordcount.txt
+   hadoop@vm-nbdra-00 $ hadoop fs -rm -r /shakespeare-wordcount.txt
 
 
 You can then view the top ten words by:
 
 ::
 
-   hadoop@bds-0 $ hadoop fs -cat /shakespeare-wordcount.txt/part-00000 | head
+   hadoop@vm-nbdra-00 $ hadoop fs -cat /shakespeare-wordcount.txt/part-00000 | head
 
 
 Further Work
