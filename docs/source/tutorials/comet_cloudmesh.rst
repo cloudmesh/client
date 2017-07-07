@@ -14,7 +14,7 @@ Comet Cloudmesh Tutorial
 Status of this Tutorial
 -----------------------
 
-Released for PEARC17 Comet VC Tutorial
+Released for PEARC17 Tutorial - `**Using Comet's Virtual Clusters** <http://sched.co/AQ3H>`_
 
 Overview
 --------
