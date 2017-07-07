@@ -1,3 +1,5 @@
+.. _comet_bigdata:
+
 Comet Big Data Tutorial
 =======================
 
