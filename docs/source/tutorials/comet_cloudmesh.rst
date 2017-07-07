@@ -23,13 +23,11 @@ some configuration scripts to configure the front-end behaving as a NAT router,
 DHCP/TFTP and PXE-booting server; booting the compute nodes, which will be
 automatically installed and configured; and running some testing examples.
 
-
 Requirements
 ------------
-
-- Experience on cluster system installation and management.
-- Some knowledge of git, shell scripting, and Python.
-- A Comet cluster (vctNN) assigned to you.
+* Experience with Linux system installation and management and, ideally, with HPC cluster management.
+* Knowledge of Git, shell scripting, and Python.
+* A Comet Virtual Cluster (vctNN) assigned to you.
 
 .. note:: Scripts used in this tutorial are maintained at:
 
