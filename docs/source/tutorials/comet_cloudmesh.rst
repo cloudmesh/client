@@ -6,8 +6,7 @@ Comet Cloudmesh Tutorial
    .. contents::
       :local:
 
-
-**Goal**: Install a Comet virtual cluster with Ubuntu 16.04, and run some performance testing examples.
+**Goal**: Install a Comet Virtual Cluster (VC) with Ubuntu 16.04, and run examples.
 
 **Time**: ~ ?? min
 
