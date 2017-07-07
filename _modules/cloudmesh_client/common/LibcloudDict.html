@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.common.LibcloudDict &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>cloudmesh_client.common.LibcloudDict &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -65,7 +67,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -212,8 +214,8 @@
                               <span class="s1">&#39;cybera-ec2&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;aws&#39;</span><span class="p">]</span>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="LibcloudDict.convert_libcloud_vm_to_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LibcloudDict.LibcloudDict.convert_libcloud_vm_to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">convert_libcloud_vm_to_dict</span><span class="p">(</span><span class="n">node_obj</span><span class="p">):</span>
+<div class="viewcode-block" id="LibcloudDict.convert_libcloud_vm_to_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LibcloudDict.LibcloudDict.convert_libcloud_vm_to_dict">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">convert_libcloud_vm_to_dict</span><span class="p">(</span><span class="n">node_obj</span><span class="p">):</span>
         <span class="n">vm_dict</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">node_obj</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
             <span class="s1">&#39;node_id&#39;</span><span class="p">:</span> <span class="n">node_obj</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
@@ -241,8 +243,8 @@
         <span class="c1"># pprint(vm_dict)</span>
         <span class="k">return</span> <span class="n">vm_dict</span></div>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="LibcloudDict.handle_vm_extra_args"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_extra_args">[docs]</a>    <span class="k">def</span> <span class="nf">handle_vm_extra_args</span><span class="p">(</span><span class="n">extra_args</span><span class="p">):</span>
+<div class="viewcode-block" id="LibcloudDict.handle_vm_extra_args"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_extra_args">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">handle_vm_extra_args</span><span class="p">(</span><span class="n">extra_args</span><span class="p">):</span>
         <span class="n">extra_vm_dict</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">extra_args</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
             <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;availability&quot;</span><span class="p">:</span>
@@ -263,8 +265,8 @@
                 <span class="n">extra_vm_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
         <span class="k">return</span> <span class="n">extra_vm_dict</span></div>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="LibcloudDict.handle_vm_size_details"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_size_details">[docs]</a>    <span class="k">def</span> <span class="nf">handle_vm_size_details</span><span class="p">(</span><span class="n">node_size_obj</span><span class="p">):</span>
+<div class="viewcode-block" id="LibcloudDict.handle_vm_size_details"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_size_details">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">handle_vm_size_details</span><span class="p">(</span><span class="n">node_size_obj</span><span class="p">):</span>
         <span class="n">vm_size_dict</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="n">node_size_obj</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
             <span class="n">vm_size_dict</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node_size_obj</span><span class="o">.</span><span class="n">id</span>
@@ -285,14 +287,14 @@
             <span class="n">LibcloudDict</span><span class="o">.</span><span class="n">handle_vm_size_extra_args</span><span class="p">(</span><span class="n">node_size_obj</span><span class="o">.</span><span class="n">extra</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">vm_size_dict</span></div>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="LibcloudDict.handle_vm_size_extra_args"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_size_extra_args">[docs]</a>    <span class="k">def</span> <span class="nf">handle_vm_size_extra_args</span><span class="p">(</span><span class="n">node_size_extra_args</span><span class="p">):</span>
+<div class="viewcode-block" id="LibcloudDict.handle_vm_size_extra_args"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_size_extra_args">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">handle_vm_size_extra_args</span><span class="p">(</span><span class="n">node_size_extra_args</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">node_size_extra_args</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
             <span class="c1"># TODO: Convert to Console</span>
             <span class="n">pprint</span><span class="p">(</span><span class="n">key</span> <span class="o">+</span> <span class="s2">&quot; : &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">))</span></div>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="LibcloudDict.handle_vm_image_details"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_image_details">[docs]</a>    <span class="k">def</span> <span class="nf">handle_vm_image_details</span><span class="p">(</span><span class="n">node_image_obj</span><span class="p">,</span> <span class="n">is_image_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="LibcloudDict.handle_vm_image_details"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_image_details">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">handle_vm_image_details</span><span class="p">(</span><span class="n">node_image_obj</span><span class="p">,</span> <span class="n">is_image_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="n">node_image_dict</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="n">is_image_dict</span><span class="p">:</span>
             <span class="n">node_image_dict</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node_image_obj</span><span class="o">.</span><span class="n">id</span>
@@ -315,8 +317,8 @@
         <span class="c1"># Node Image Extra Args to be added here</span>
         <span class="k">return</span> <span class="n">node_image_dict</span></div>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="LibcloudDict.handle_vm_image_extra_args"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_image_extra_args">[docs]</a>    <span class="k">def</span> <span class="nf">handle_vm_image_extra_args</span><span class="p">(</span><span class="n">extra_args</span><span class="p">):</span>
+<div class="viewcode-block" id="LibcloudDict.handle_vm_image_extra_args"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_image_extra_args">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">handle_vm_image_extra_args</span><span class="p">(</span><span class="n">extra_args</span><span class="p">):</span>
         <span class="n">image_extra_args_dict</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">extra_args</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
             <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;architecture&quot;</span><span class="p">:</span>
@@ -347,8 +349,8 @@
                 <span class="n">image_extra_args_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
         <span class="k">return</span> <span class="n">image_extra_args_dict</span></div>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="LibcloudDict.handle_key_details"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_key_details">[docs]</a>    <span class="k">def</span> <span class="nf">handle_key_details</span><span class="p">(</span><span class="n">key_obj</span><span class="p">):</span>
+<div class="viewcode-block" id="LibcloudDict.handle_key_details"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_key_details">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">handle_key_details</span><span class="p">(</span><span class="n">key_obj</span><span class="p">):</span>
         <span class="c1"># Simply converts all attributes to dict</span>
         <span class="n">key_dict</span> <span class="o">=</span> <span class="n">key_obj</span><span class="o">.</span><span class="vm">__dict__</span>
         <span class="c1"># Selects attributes to convert</span>
@@ -393,7 +395,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

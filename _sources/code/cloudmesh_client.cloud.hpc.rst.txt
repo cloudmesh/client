@@ -1,5 +1,5 @@
-cloudmesh_client.cloud.hpc package
-==================================
+cloudmesh\_client\.cloud\.hpc package
+=====================================
 
 Subpackages
 -----------
@@ -11,16 +11,16 @@ Subpackages
 Submodules
 ----------
 
-cloudmesh_client.cloud.hpc.BatchProvider module
------------------------------------------------
+cloudmesh\_client\.cloud\.hpc\.BatchProvider module
+---------------------------------------------------
 
 .. automodule:: cloudmesh_client.cloud.hpc.BatchProvider
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.cloud.hpc.BatchProviderBase module
----------------------------------------------------
+cloudmesh\_client\.cloud\.hpc\.BatchProviderBase module
+-------------------------------------------------------
 
 .. automodule:: cloudmesh_client.cloud.hpc.BatchProviderBase
     :members:

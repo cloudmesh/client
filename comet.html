@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Comet Virtual Cluster &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>Comet Virtual Cluster &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="index.html"/>
         <link rel="next" title="Setup" href="setup.html"/>
         <link rel="prev" title="Example Scripts" href="scripts.html"/> 
 
@@ -66,7 +68,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -107,8 +109,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#is-comet-virtual-cluster-a-right-solution-for-your-project">Is Comet virtual cluster a right solution for your project?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#steps-to-get-a-virtual-cluster-on-comet">Steps to get a virtual cluster on comet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#faq">FAQ</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-is-my-comet-nucleus-username-password">What is my comet nucleus username/password?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#i-m-configuring-my-virtual-cluster-gateway-frontend-node-how-can-i-find-the-network-configuration-parameters-for-the-public-network-interface">I’m configuring my virtual cluster/gateway frontend node. How can I find the network configuration parameters for the public network interface?</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#why-the-nodes-computeset-i-requested-to-start-was-not-started-immediately">Why the nodes/computeset I requested to start was not started immediately?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#why-the-computeset-i-started-shows-as-active-but-the-nodes-of-the-computeset-are-not-running">Why the computeset I started shows as &#8216;active&#8217; but the nodes of the computeset are not running?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#why-the-computeset-i-started-shows-as-active-but-the-nodes-of-the-computeset-are-not-running">Why the computeset I started shows as ‘active’ but the nodes of the computeset are not running?</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#why-are-the-names-of-the-nodes-so-complicated">Why are the names of the nodes so complicated?</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#i-have-the-comet-yubikey-mixed-up-with-my-other-keys-how-can-i-find-which-one-is-for-comet">I have the Comet YubiKey mixed up with my other keys. How can I find which one is for Comet?</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#how-do-i-get-support">How do I get support?</a></li>
@@ -237,7 +241,7 @@ of the usage.</p>
 system, which is well suited for most scientific and technical
 workloads. In addition, a VC should not be simply thought of as a VM
 (virtual machine). Other XSEDE resources, such as Indiana
-University&#8217;s Jetstream address this need. Comets VCs are primarily
+University’s Jetstream address this need. Comets VCs are primarily
 intended for those users who require both fine-grained control over
 their software stack and access to multiple nodes. With regards to the
 software stack, this may include access to operating systems different
@@ -250,15 +254,15 @@ who want to make the transition for performance or cost reasons.</p>
 <p>Maintaining and configuring a virtual cluster requires a certain level
 of technical expertise. We expect that each project will have at least
 one person possessing strong systems administration experience with
-the relevant OS since the owner of the VC will be provided with &#8220;bare
-metal&#8221; root level access. SDSC staff will be available primarily to
+the relevant OS since the owner of the VC will be provided with “bare
+metal” root level access. SDSC staff will be available primarily to
 address performance issues that may be related to problems with the
 Comet hardware and not to help users build their system images.</p>
 <p>All VC requests must include a brief justification that addresses the
 following:</p>
 <ul class="simple">
 <li>Why is a VC required for this project?</li>
-<li>What expertise does the PI&#8217;s team have for building and maintaining
+<li>What expertise does the PI’s team have for building and maintaining
 the VC?</li>
 </ul>
 <p>Please visit <a class="reference external" href="https://portal.xsede.org/sdsc-comet">https://portal.xsede.org/sdsc-comet</a> for more details on
@@ -295,7 +299,7 @@ on both managemental and performance aspects. It utilized virualization
 based technologies but always has HPC in the mind. You are managing/using
 a VC as if it were an on-premise physical cluster in your institution. You
 have full control (and responsiblity) to your cluster, from the OS flavor
-to what software stacks are going to be deployed. So it&#8217;s suitable to your
+to what software stacks are going to be deployed. So it’s suitable to your
 needs if you want a flexible and customized HPC environment that is totally
 managed by yourself.</p>
 <p>So for this scenarios:</p>
@@ -382,6 +386,23 @@ our support team at IU.</p>
 </div>
 <div class="section" id="faq">
 <h2>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-is-my-comet-nucleus-username-password">
+<h3>What is my comet nucleus username/password?<a class="headerlink" href="#what-is-my-comet-nucleus-username-password" title="Permalink to this headline">¶</a></h3>
+<p>You will be asked to provide your comet nucleus username and password for
+apikey retrieval (‘cm comet init’) or console access. The username is the
+one communicated to you by our support team via a secure fashion (usually
+a PGP encrypted email; or via a phone call). When a password is required,
+you need to type in the secret string first (given to you along with your
+username), followed by a tap on the YubiKey token.</p>
+</div>
+<div class="section" id="i-m-configuring-my-virtual-cluster-gateway-frontend-node-how-can-i-find-the-network-configuration-parameters-for-the-public-network-interface">
+<h3>I’m configuring my virtual cluster/gateway frontend node. How can I find the network configuration parameters for the public network interface?<a class="headerlink" href="#i-m-configuring-my-virtual-cluster-gateway-frontend-node-how-can-i-find-the-network-configuration-parameters-for-the-public-network-interface" title="Permalink to this headline">¶</a></h3>
+<p>There is a command to get the node detail information - ‘cm comet node info
+YOUR_CLUSTER_NAME’. You will have all the necessary information to configure
+your frontend node, specifically, the ‘interface’ parameter gives the mac
+address of the NICs, and the ‘pub_ip’, ‘pub_mac’ and ‘pub_netmask’ indicate
+which NIC is public, and its configuration parameters.</p>
+</div>
 <div class="section" id="why-the-nodes-computeset-i-requested-to-start-was-not-started-immediately">
 <h3>Why the nodes/computeset I requested to start was not started immediately?<a class="headerlink" href="#why-the-nodes-computeset-i-requested-to-start-was-not-started-immediately" title="Permalink to this headline">¶</a></h3>
 <p>Comet virtual clusters are deployed on the same physical resources of
@@ -390,13 +411,13 @@ of VC nodes are also subject to the availability of system resources at
 the time when VC requests are being made.</p>
 </div>
 <div class="section" id="why-the-computeset-i-started-shows-as-active-but-the-nodes-of-the-computeset-are-not-running">
-<h3>Why the computeset I started shows as &#8216;active&#8217; but the nodes of the computeset are not running?<a class="headerlink" href="#why-the-computeset-i-started-shows-as-active-but-the-nodes-of-the-computeset-are-not-running" title="Permalink to this headline">¶</a></h3>
+<h3>Why the computeset I started shows as ‘active’ but the nodes of the computeset are not running?<a class="headerlink" href="#why-the-computeset-i-started-shows-as-active-but-the-nodes-of-the-computeset-are-not-running" title="Permalink to this headline">¶</a></h3>
 <p>There are various cases that why this might happen.</p>
 <p>1. The physical host(s) where the VM(s) are to be deployed is having memory
 issue (fragmentation, not enough) which prevents the VM(s) to be running. We
 are consistently working on improving the situation in similar cases, but if
 you encounter this please submit a ticket for help.</p>
-<p>2. In some case you might have a &#8216;bad&#8217; ISO attached to the node to be started,
+<p>2. In some case you might have a ‘bad’ ISO attached to the node to be started,
 which caused it to be stuck in the booting process. You can verify this by
 attaching to the console access. The fix for this is to detach the ISO, or
 attach another proper one.</p>
@@ -421,7 +442,7 @@ rename your nodes such as:</p>
 </div>
 <p>This wil than result in a cluster where the frontend name is osg
 (given to you by the comet team), but you have renamed the nodes to
-osg-1, osg-2, ...</p>
+osg-1, osg-2, …</p>
 </div>
 <div class="section" id="i-have-the-comet-yubikey-mixed-up-with-my-other-keys-how-can-i-find-which-one-is-for-comet">
 <h3>I have the Comet YubiKey mixed up with my other keys. How can I find which one is for Comet?<a class="headerlink" href="#i-have-the-comet-yubikey-mixed-up-with-my-other-keys-how-can-i-find-which-one-is-for-comet" title="Permalink to this headline">¶</a></h3>
@@ -429,7 +450,7 @@ osg-1, osg-2, ...</p>
 generate a string similar to this:</p>
 <blockquote>
 <div><blockquote>
-<div>geffgefe........................................</div></blockquote>
+<div>geffgefe………………………………….</div></blockquote>
 <p>The beginning characters will help identify the key. All Comet VC keys
 should generate a string starting with these characters.</p>
 </div></blockquote>
@@ -485,7 +506,7 @@ on the subject line.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

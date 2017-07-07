@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Summary of Changes &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>Summary of Changes &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="index.html"/>
         <link rel="up" title="Changes" href="changes.html"/>
         <link rel="next" title="Changelog" href="changes_gitlog.html"/>
         <link rel="prev" title="Changes" href="changes.html"/> 
@@ -67,7 +69,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -278,7 +280,7 @@
 on india kilo and jetstream. [fugangwang]</li>
 <li>Comet:<ul>
 <li>nodes/computesets power on/off restructured.</li>
-<li>Support &#8216;ALL&#8217; for computeset state filter</li>
+<li>Support ‘ALL’ for computeset state filter</li>
 <li>computeset info for nodes stuck in inactive state.</li>
 </ul>
 </li>
@@ -329,7 +331,7 @@ acceptable too when computenodes is expected.</li>
 <h3>2.1.1 (2016-02-15)<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Fixed travis builds</li>
-<li>Update cm.py, added code to method def var_finder(self, line, c=&#8217;$&#8217;):</li>
+<li>Update cm.py, added code to method def var_finder(self, line, c=’$’):</li>
 <li>Uploading image and attach/detach to node. [fugangwang]</li>
 </ul>
 </div>
@@ -357,7 +359,7 @@ allocation and customized walltime. [fugangwang]</li>
 <div class="section" id="new">
 <h2>New<a class="headerlink" href="#new" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Adding a &#8220;cm key load&#8221; command that loads the keys from the yaml file.
+<li>Adding a “cm key load” command that loads the keys from the yaml file.
 [Gregor von Laszewski]</li>
 <li>Auto-refresh images and flavors if the database does not contain
 values for it. [Gregor von Laszewski]</li>
@@ -370,7 +372,7 @@ values for it. [Gregor von Laszewski]</li>
 <div class="section" id="changes">
 <h2>Changes<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Improved the &#8220;cm register info&#8221; command. [Gregor von Laszewski]</li>
+<li>Improved the “cm register info” command. [Gregor von Laszewski]</li>
 <li>New location of the Cloudmesh presentation. [Gregor von Laszewski]</li>
 </ul>
 <div class="section" id="id8">
@@ -439,7 +441,7 @@ Laszewski]</li>
 <li>Add template for ec2 chameleon cloud. [Gregor von Laszewski]</li>
 <li>New chameleon cloud EC2 setup instructions. [Gregor von Laszewski]</li>
 <li>Improve the configuration documentation. [Gregor von Laszewski]</li>
-<li>Added &#8211;cloud=general note when no general default group is set.
+<li>Added –cloud=general note when no general default group is set.
 [Gregor von Laszewski]</li>
 </ul>
 </div>
@@ -497,13 +499,13 @@ Laszewski]</li>
 <li>Add uuid to image list. [Gregor von Laszewski]</li>
 <li>Add template for cybera cloud. [Gregor von Laszewski]</li>
 <li>Improve key command options. [Gregor von Laszewski]</li>
-<li>Simplified the table when just saying &#8220;default&#8221; [Gregor von Laszewski]</li>
+<li>Simplified the table when just saying “default” [Gregor von Laszewski]</li>
 <li>Change the way cm is started. [Gregor von Laszewski]</li>
 <li>Added cluster command prototype. [Gregor von Laszewski]</li>
 <li>Template for a cluster command to be implemented similar to the old
 cloudmesh. [Gregor von Laszewski]</li>
 <li>Added yaml file variables to the manual. [Gregor von Laszewski]</li>
-<li>Allow &#8220;history&#8221; without the list option to behave just like history
+<li>Allow “history” without the list option to behave just like history
 list. [Gregor von Laszewski]</li>
 <li>Add variable support read from cloudmesh.yaml file; fix echo command.
 [Gregor von Laszewski]</li>
@@ -594,7 +596,7 @@ called by the portal. [fugangwang]</li>
 <li>Update README.rst. [Hyungro Lee]</li>
 <li>Minor. [Hyungro Lee]</li>
 <li>Hello world heat example. [Hyungro Lee]</li>
-<li>Excluding &#8216;completed&#8217; computeset as they have no use at all.
+<li>Excluding ‘completed’ computeset as they have no use at all.
 [fugangwang]</li>
 <li>Handling redirection of the console url internally and open the final
 url in browser. [fugangwang]</li>
@@ -659,7 +661,7 @@ slurm. [Gregor von Laszewski]</li>
 <div class="section" id="id33">
 <h2>Other<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Fix for slurm table to distingush &#8220;user&#8221; from &#8220;user &#8221;. E.g. replace
+<li>Fix for slurm table to distingush “user” from “user “. E.g. replace
 the space wit _ [Gregor von Laszewski]</li>
 <li>Version 0.7.7. [Gregor von Laszewski]</li>
 </ul>
@@ -707,7 +709,7 @@ are not set. [Gregor von Laszewski]</li>
 <li>Adding a scripts directory with sample scripts. [Gregor von Laszewski]</li>
 <li>When a single argument is given to cm that ends in .cm it is
 interpreted as script. cm demo.cm. [Gregor von Laszewski]</li>
-<li>Add a exec script command so it also works with cm &#8211;script=filename.
+<li>Add a exec script command so it also works with cm –script=filename.
 [Gregor von Laszewski]</li>
 <li>A simple demo script. [Gregor von Laszewski]</li>
 <li>Allowing commenst in cmd with #, // and /<a href="#id40"><span class="problematic" id="id41">*</span></a>, they must be on one line
@@ -769,7 +771,7 @@ Laszewski]</li>
 Printer. [Gregor von Laszewski]</li>
 <li>Switching to classmethods. [Gregor von Laszewski]</li>
 <li>Add a function cm register new that copies the etc/yaml file into
-.cloudmesh. It does not ask .... [Gregor von Laszewski]</li>
+.cloudmesh. It does not ask …. [Gregor von Laszewski]</li>
 <li>Changing the credentials so that they can be used directly in
 openstack api calls, removing OS_VERSION, as already defined as
 cm_type_version. [Gregor von Laszewski]</li>
@@ -803,7 +805,7 @@ variables to your shell. [Gregor von Laszewski]</li>
 <li>Fix the cm register list command. [Gregor von Laszewski]</li>
 <li>Fixing cm register (list, ssh), adding some format options. [Gregor
 von Laszewski]</li>
-<li>Replace the &#8220;register rc&#8221; and and a &#8220;register export&#8221; [Gregor von
+<li>Replace the “register rc” and and a “register export” [Gregor von
 Laszewski]</li>
 <li>Introducing inteligent serach on id, name, and uuid in image list.
 [Gregor von Laszewski]</li>
@@ -968,7 +970,7 @@ Laszewski]</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">chg:</th><td class="field-body">dev: using &#8211;format=FORMAT instead of &#8211;output. [Gregor von</td>
+<tr class="field-odd field"><th class="field-name">chg:</th><td class="field-body">dev: using –format=FORMAT instead of –output. [Gregor von</td>
 </tr>
 </tbody>
 </table>
@@ -986,7 +988,7 @@ Laszewski]</p>
 <p>Laszewski]</p>
 </li>
 <li><p class="first">Made changes to setup.py so that cloudmesh.yaml is installed at
-&#8220;~/.cloudmesh/cloudmesh.yaml&#8221; [Erika Dsouza]</p>
+“~/.cloudmesh/cloudmesh.yaml” [Erika Dsouza]</p>
 </li>
 <li><p class="first">Dev: Update ChangeLog. [Gregor von Laszewski]</p>
 </li>
@@ -1313,7 +1315,7 @@ Laszewski]</li>
 <li>Adding cloudmesh native provider. [Gregor von Laszewski]</li>
 <li>Introducing mesh. [Gregor von Laszewski]</li>
 <li>Updating key default and key delete. [Paulo Chagas]</li>
-<li>Updating key delete using &#8211;select. [Paulo Chagas]</li>
+<li>Updating key delete using –select. [Paulo Chagas]</li>
 <li>Fixing key command. [Paulo Chagas]</li>
 <li>Created doc for command_vm functions. [Daniel Silva]</li>
 <li>Created command_vm functions. [Daniel Silva]</li>
@@ -1322,7 +1324,7 @@ Laszewski]</li>
 <li>Update function included. function usage documentation included.
 [Paulo Chagas]</li>
 <li>Created tests for nova command. [Daniel Silva]</li>
-<li>&#8211;select option implemented. SSKeyDBManager created with some methods.
+<li>–select option implemented. SSKeyDBManager created with some methods.
 Some tests made. [Paulo Chagas]</li>
 <li>Fixed register tests. [Daniel Silva]</li>
 <li>Updating filename to uri. [Paulo Chagas]</li>
@@ -1363,9 +1365,9 @@ Laszewski]</li>
 <li>Rename clas sto SSHkey. [Gregor von Laszewski]</li>
 <li>Adding SSHkey type derived from old ssh key cloudmesh key.util.py.
 [Gregor von Laszewski]</li>
-<li>Editing &#8220;if&#8221;s on limits command. [Paulo Chagas]</li>
-<li>Editing &#8220;if&#8221;s on quota command. [Paulo Chagas]</li>
-<li>Editing &#8220;if&#8221;s on ssh command. [Paulo Chagas]</li>
+<li>Editing “if”s on limits command. [Paulo Chagas]</li>
+<li>Editing “if”s on quota command. [Paulo Chagas]</li>
+<li>Editing “if”s on ssh command. [Paulo Chagas]</li>
 <li>Getting geys from .ssh and github. [Gregor von Laszewski]</li>
 <li>Improve the new-ENV script. [Gregor von Laszewski]</li>
 <li>Documentation management changes for changes and authors. [Gregor von
@@ -1383,10 +1385,10 @@ Laszewski]</li>
 <li>Rename README.rst to README.md. [Gregor von Laszewski]</li>
 <li>Update README.rst. [Gregor von Laszewski]</li>
 <li>Created register_CERT command in command_cloud.py. [Daniel Silva]</li>
-<li>Editing &#8220;if&#8221;s on volume command. [Paulo Chagas]</li>
+<li>Editing “if”s on volume command. [Paulo Chagas]</li>
 <li>Created command line arguments in cm_shell_[admin, key, loglevel and
 status] [Daniel Silva]</li>
-<li>Editing &#8220;if&#8221;s on vm command. The &#8211;command has some issue: docopt
+<li>Editing “if”s on vm command. The –command has some issue: docopt
 separate commands by space. [Paulo Chagas]</li>
 <li>Adding the home of hacking and CONTRIBUTING. [Gregor von Laszewski]</li>
 <li>Updare vm command. [Gregor von Laszewski]</li>
@@ -1395,9 +1397,9 @@ separate commands by space. [Paulo Chagas]</li>
 <li>Indentation. [Hyungro Lee]</li>
 <li>Launcher commands with examples and description. [Hyungro Lee]</li>
 <li>Stack update. [Hyungro Lee]</li>
-<li>Editing &#8220;if&#8221;s on secgroup command. [Paulo Chagas]</li>
+<li>Editing “if”s on secgroup command. [Paulo Chagas]</li>
 <li>Created register india command. [Daniel Silva]</li>
-<li>Editing &#8220;if&#8221;s on refresh command. [Paulo Chagas]</li>
+<li>Editing “if”s on refresh command. [Paulo Chagas]</li>
 <li>Adding selector. [Gregor von Laszewski]</li>
 <li>Adding a select command. [Gregor von Laszewski]</li>
 <li>Finalizing the refersh command. [Gregor von Laszewski]</li>
@@ -1507,7 +1509,7 @@ Laszewski]</li>
 <li>Changing more imports. [Gregor von Laszewski]</li>
 <li>Cahnge import statements. [Gregor von Laszewski]</li>
 <li>Reorganize the module. [Gregor von Laszewski]</li>
-<li>Dev version of libcloud from github &#8216;trunk&#8217; [Hyungro Lee]</li>
+<li>Dev version of libcloud from github ‘trunk’ [Hyungro Lee]</li>
 <li>Reorganize the modules. [Gregor von Laszewski]</li>
 <li>Preparing for update on vm and image. [Gregor von Laszewski]</li>
 <li>Abstracting the lister and inserter. [Gregor von Laszewski]</li>
@@ -1758,7 +1760,7 @@ Laszewski]</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

@@ -1,5 +1,5 @@
-cloudmesh_client.etc package
-============================
+cloudmesh\_client\.etc package
+==============================
 
 Module contents
 ---------------

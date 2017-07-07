@@ -1,27 +1,27 @@
-cloudmesh_client.comet package
-==============================
+cloudmesh\_client\.comet package
+================================
 
 Submodules
 ----------
 
-cloudmesh_client.comet.authenticate module
-------------------------------------------
+cloudmesh\_client\.comet\.authenticate module
+---------------------------------------------
 
 .. automodule:: cloudmesh_client.comet.authenticate
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.comet.cluster module
--------------------------------------
+cloudmesh\_client\.comet\.cluster module
+----------------------------------------
 
 .. automodule:: cloudmesh_client.comet.cluster
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.comet.comet module
------------------------------------
+cloudmesh\_client\.comet\.comet module
+--------------------------------------
 
 .. automodule:: cloudmesh_client.comet.comet
     :members:

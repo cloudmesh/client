@@ -1,5 +1,5 @@
-cloudmesh_client package
-========================
+cloudmesh\_client package
+=========================
 
 Subpackages
 -----------
@@ -22,72 +22,72 @@ Subpackages
 Submodules
 ----------
 
-cloudmesh_client.default module
--------------------------------
+cloudmesh\_client\.default module
+---------------------------------
 
 .. automodule:: cloudmesh_client.default
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.exc module
----------------------------
+cloudmesh\_client\.exc module
+-----------------------------
 
 .. automodule:: cloudmesh_client.exc
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.locations module
----------------------------------
+cloudmesh\_client\.locations module
+-----------------------------------
 
 .. automodule:: cloudmesh_client.locations
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.logger module
-------------------------------
+cloudmesh\_client\.logger module
+--------------------------------
 
 .. automodule:: cloudmesh_client.logger
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.main module
-----------------------------
+cloudmesh\_client\.main module
+------------------------------
 
 .. automodule:: cloudmesh_client.main
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.setup module
------------------------------
+cloudmesh\_client\.setup module
+-------------------------------
 
 .. automodule:: cloudmesh_client.setup
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell_commad module
-------------------------------------
+cloudmesh\_client\.shell\_commad module
+---------------------------------------
 
 .. automodule:: cloudmesh_client.shell_commad
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.var module
----------------------------
+cloudmesh\_client\.var module
+-----------------------------
 
 .. automodule:: cloudmesh_client.var
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.version module
--------------------------------
+cloudmesh\_client\.version module
+---------------------------------
 
 .. automodule:: cloudmesh_client.version
     :members:

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quickstart &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>Quickstart &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="index.html"/>
         <link rel="next" title="Reference Card" href="reference_card.html"/>
         <link rel="prev" title="Introduction" href="introduction.html"/> 
 
@@ -66,7 +68,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -327,7 +329,7 @@ And as always, please assure proper spelling of the image name:</p>
 <pre class="highlight"><span class="prompt2">default image=Ubuntu-14.04-64</span>
 <span class="prompt2">default flavor=m1.small</span>
 </pre><p>When starting vms the vms are added to a default group. The initial
-default group name is simply &#8216;default&#8217;. If you like to change it you
+default group name is simply ‘default’. If you like to change it you
 can set it with the following command:</p>
 <pre class="highlight"><span class="prompt2">default group=experiment_a</span>
 </pre><p>Next, you need to upload your ssh keys to the cloud. If you already
@@ -466,7 +468,7 @@ Ex:</p>
 <p class="first admonition-title">Note</p>
 <p class="last">is it pem or cer</p>
 </div>
-<p>The default Azure Location will be &#8220;Central US&#8221;, but it is configurable in cloudmesh.yaml file.</p>
+<p>The default Azure Location will be “Central US”, but it is configurable in cloudmesh.yaml file.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">does not say how</p>
@@ -479,7 +481,7 @@ certificates and SSH keys.</p>
 <p class="first admonition-title">Note</p>
 <p>in a future version of cloudmesh this command will be merged into the key command and use the name of
 the azure cloud in the yaml file to identify it</p>
-<p class="last">key add &#8211;cloud= azure &#8211;name=key-name &#8211;pub=pub-key-path &#8211;cert=pem-certificate-file-path &#8211;pfx=pfx-file-path</p>
+<p class="last">key add –cloud= azure –name=key-name –pub=pub-key-path –cert=pem-certificate-file-path –pfx=pfx-file-path</p>
 </div>
 <p>To create a new VM deployment in the Azure cloud with an SSH key it is mandatory to have a
 certificate associated with it. The steps to create a Key pair and a certificate are:</p>
@@ -585,7 +587,7 @@ system further to for example list the output</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

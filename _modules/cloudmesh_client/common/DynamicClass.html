@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.common.DynamicClass &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>cloudmesh_client.common.DynamicClass &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -65,7 +67,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -212,8 +214,8 @@
 <div class="viewcode-block" id="DynamicClass.add_instance_method"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.DynamicClass.DynamicClass.add_instance_method">[docs]</a>    <span class="k">def</span> <span class="nf">add_instance_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="DynamicClass.add_classmethod"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.DynamicClass.DynamicClass.add_classmethod">[docs]</a>    <span class="k">def</span> <span class="nf">add_classmethod</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+<div class="viewcode-block" id="DynamicClass.add_classmethod"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.DynamicClass.DynamicClass.add_classmethod">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">add_classmethod</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="DynamicClass.load_instancemethod"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.DynamicClass.DynamicClass.load_instancemethod">[docs]</a>    <span class="k">def</span> <span class="nf">load_instancemethod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">location</span><span class="p">):</span>
@@ -221,8 +223,8 @@
         <span class="n">f</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">module_name</span><span class="p">),</span> <span class="n">class_name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_instance_method</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="DynamicClass.load_classmethod"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.DynamicClass.DynamicClass.load_classmethod">[docs]</a>    <span class="k">def</span> <span class="nf">load_classmethod</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">location</span><span class="p">):</span>
+<div class="viewcode-block" id="DynamicClass.load_classmethod"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.DynamicClass.DynamicClass.load_classmethod">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">load_classmethod</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">location</span><span class="p">):</span>
         <span class="n">module_name</span><span class="p">,</span> <span class="n">class_name</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">f</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">module_name</span><span class="p">),</span> <span class="n">class_name</span><span class="p">)</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">add_classmethod</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></div></div>
@@ -261,7 +263,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

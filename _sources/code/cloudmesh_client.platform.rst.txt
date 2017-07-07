@@ -1,5 +1,5 @@
-cloudmesh_client.platform package
-=================================
+cloudmesh\_client\.platform package
+===================================
 
 Subpackages
 -----------

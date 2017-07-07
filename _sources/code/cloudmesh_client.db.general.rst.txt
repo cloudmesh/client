@@ -1,11 +1,11 @@
-cloudmesh_client.db.general package
-===================================
+cloudmesh\_client\.db\.general package
+======================================
 
 Submodules
 ----------
 
-cloudmesh_client.db.general.model module
-----------------------------------------
+cloudmesh\_client\.db\.general\.model module
+--------------------------------------------
 
 .. automodule:: cloudmesh_client.db.general.model
     :members:

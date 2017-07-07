@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>API &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>API &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="index.html"/>
         <link rel="next" title="Hacking" href="hacking.html"/>
         <link rel="prev" title="Comet Big Data Tutorial" href="tutorials/comet_bigdata.html"/> 
 
@@ -66,7 +68,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -234,8 +236,8 @@ cloud india you simply can say:</p>
 </div>
 <p>Other examples include</p>
 <blockquote>
-<div>cm.update(&#8220;image&#8221;, &#8220;india&#8221;)
-cm.update(&#8220;vm&#8221;, &#8220;india&#8221;)</div></blockquote>
+<div>cm.update(“image”, “india”)
+cm.update(“vm”, “india”)</div></blockquote>
 <p>Multiple updates and clouds can be introduced with a parametrized call:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;vm,flavor,image&quot;</span><span class="p">,</span> <span class="s2">&quot;india,aws,azure&quot;</span><span class="p">)</span>
 </pre></div>
@@ -246,9 +248,9 @@ used are singular.</p>
 <p>Once the data is in the database its easy to query it either with the
 native query functions or with specialized find functions exposed to
 the cm object.</p>
-<p>To query for example a vm with the name &#8220;gregor-001&#8221; you can use</p>
+<p>To query for example a vm with the name “gregor-001” you can use</p>
 <blockquote>
-<div>vm = cm.find(&#8220;vm&#8221;, name=&#8221;gregor-001&#8221;).first()</div></blockquote>
+<div>vm = cm.find(“vm”, name=”gregor-001”).first()</div></blockquote>
 <p>Using the method:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">o_to_d</span><span class="p">(</span><span class="n">vm</span><span class="p">)</span>
 </pre></div>
@@ -266,7 +268,7 @@ you use the native form or the dict representation.</p>
 <div class="section" id="updating-an-element-in-the-database">
 <h2>Updating an element in the database<a class="headerlink" href="#updating-an-element-in-the-database" title="Permalink to this headline">¶</a></h2>
 <p>The cloud related data have a number of attributes that make it easy
-to identify them.  The most important one is &#8216;cm_id` which presents in
+to identify them.  The most important one is ‘cm_id` which presents in
 human readable format a unique id for the object in the database.</p>
 <p>The id is generated fir the <cite>getID</cite> method.</p>
 <p>Let us assume the following setup for our example:</p>
@@ -354,7 +356,7 @@ on which the object belongs to.:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

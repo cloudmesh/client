@@ -1,11 +1,11 @@
-cloudmesh_client.common.ssh package
-===================================
+cloudmesh\_client\.common\.ssh package
+======================================
 
 Submodules
 ----------
 
-cloudmesh_client.common.ssh.authorized_keys module
---------------------------------------------------
+cloudmesh\_client\.common\.ssh\.authorized\_keys module
+-------------------------------------------------------
 
 .. automodule:: cloudmesh_client.common.ssh.authorized_keys
     :members:

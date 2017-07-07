@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.common.StopWatch &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>cloudmesh_client.common.StopWatch &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -65,7 +67,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -226,13 +228,13 @@
     <span class="c1"># Timer end dict</span>
     <span class="n">timer_end</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="StopWatch.keys"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.StopWatch.StopWatch.keys">[docs]</a>    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="StopWatch.keys"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.StopWatch.StopWatch.keys">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;returns the names of the timers&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">timer_end</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="StopWatch.start"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.StopWatch.StopWatch.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="StopWatch.start"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.StopWatch.StopWatch.start">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        starts a timer with the given name.</span>
 
@@ -241,8 +243,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">timer_start</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="StopWatch.stop"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.StopWatch.StopWatch.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="StopWatch.stop"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.StopWatch.StopWatch.stop">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        stops the timer with a given name.</span>
 
@@ -251,8 +253,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">timer_end</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="StopWatch.get"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.StopWatch.StopWatch.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="StopWatch.get"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.StopWatch.StopWatch.get">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns the time of the timer.</span>
 
@@ -264,8 +266,8 @@
             <span class="bp">cls</span><span class="o">.</span><span class="n">timer_start</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">time_elapsed</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="StopWatch.clear"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.StopWatch.StopWatch.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="StopWatch.clear"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.StopWatch.StopWatch.clear">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        clear start and end timer_start</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -306,7 +308,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

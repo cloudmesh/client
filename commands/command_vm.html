@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>VM Command &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>VM Command &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Advanced Command Usage" href="command_advanced.html"/>
         <link rel="prev" title="SecGroup Command" href="command_secgroup.html"/> 
@@ -67,7 +69,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -275,7 +277,7 @@ operations on various clouds available to Cloudmesh.</p>
 <li>refresh - If refresh flag is set</li>
 <li>debug - if debug flag is set</li>
 <li>interactive - if interactive flag is set</li>
-<li>purge - if the purge flag is set. This determines if a &#8216;delete&#8217; on the cloud</li>
+<li>purge - if the purge flag is set. This determines if a ‘delete’ on the cloud</li>
 </ul>
 <p>will also delete the records from the local db</p>
 <div class="section" id="booting-a-vm-instance">
@@ -318,7 +320,7 @@ span.prompt1:before {
 </div>
 <div class="section" id="listing-a-vm-instances">
 <h3>Listing a VM instances<a class="headerlink" href="#listing-a-vm-instances" title="Permalink to this headline">¶</a></h3>
-<p>You can list all the VM instances running on the cloud by &#8216;vm list&#8217; command
+<p>You can list all the VM instances running on the cloud by ‘vm list’ command
 like the one below:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+</span>
 <span class="o">|</span> <span class="nb">id</span> <span class="o">|</span> <span class="n">uuid</span>                                 <span class="o">|</span> <span class="n">label</span>                        <span class="o">|</span> <span class="n">status</span>    <span class="o">|</span> <span class="n">static_ip</span>   <span class="o">|</span> <span class="n">floating_ip</span>     <span class="o">|</span> <span class="n">key_name</span>                <span class="o">|</span> <span class="n">project</span>   <span class="o">|</span> <span class="n">user</span>      <span class="o">|</span> <span class="n">cloud</span> <span class="o">|</span>
@@ -334,7 +336,7 @@ like the one below:</p>
 </div>
 <div class="section" id="stop-a-vm">
 <h3>Stop a VM<a class="headerlink" href="#stop-a-vm" title="Permalink to this headline">¶</a></h3>
-<p>You can stop a VM by supplying it&#8217;s label or UUID:</p>
+<p>You can stop a VM by supplying it’s label or UUID:</p>
 <pre class="highlight"><span class="prompt1">vm stop testvm --cloud=kilo</span>
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Machine</span> <span class="n">testvm</span> <span class="ow">is</span> <span class="n">being</span> <span class="n">stopped</span> <span class="n">on</span> <span class="n">kilo</span> <span class="n">Cloud</span><span class="o">...</span>
 <span class="n">info</span><span class="o">.</span> <span class="n">OK</span><span class="o">.</span>
@@ -347,7 +349,7 @@ like the one below:</p>
 </div>
 <div class="section" id="start-a-vm">
 <h3>Start a VM<a class="headerlink" href="#start-a-vm" title="Permalink to this headline">¶</a></h3>
-<p>You can start a VM by supplying it&#8217;s label or UUID:</p>
+<p>You can start a VM by supplying it’s label or UUID:</p>
 <pre class="highlight"><span class="prompt1">vm start testvm --cloud=kilo</span>
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Machine</span> <span class="n">testvm</span> <span class="ow">is</span> <span class="n">being</span> <span class="n">started</span> <span class="n">on</span> <span class="n">kilo</span> <span class="n">Cloud</span><span class="o">...</span>
 <span class="n">info</span><span class="o">.</span> <span class="n">OK</span><span class="o">.</span>
@@ -364,9 +366,9 @@ accessed publicly:</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">seems working, bug to &#8216;non unique match&#8217; error, while &#8216;cm vm list &#8211;refresh&#8217;</p>
+<p class="last">seems working, bug to ‘non unique match’ error, while ‘cm vm list –refresh’</p>
 </div>
-<p>does not indicate so. The problem might be in &#8216;cm vm list&#8217; and/or &#8216;refresh&#8217;</p>
+<p>does not indicate so. The problem might be in ‘cm vm list’ and/or ‘refresh’</p>
 </div>
 <div class="section" id="retrieving-ip-address-details">
 <h3>Retrieving IP Address details<a class="headerlink" href="#retrieving-ip-address-details" title="Permalink to this headline">¶</a></h3>
@@ -450,7 +452,7 @@ albert@testvm:~$
 </div>
 <div class="section" id="deleting-a-vm">
 <h3>Deleting a VM<a class="headerlink" href="#deleting-a-vm" title="Permalink to this headline">¶</a></h3>
-<p>You can delete a VM on the target cloud by using &#8216;vm delete&#8217; command as below:</p>
+<p>You can delete a VM on the target cloud by using ‘vm delete’ command as below:</p>
 <pre class="highlight"><span class="prompt1">vm delete testvm --cloud=kilo</span>
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Machine</span> <span class="n">testvm</span> <span class="ow">is</span> <span class="n">being</span> <span class="n">deleted</span> <span class="n">on</span> <span class="n">kilo</span> <span class="n">Cloud</span><span class="o">...</span>
 </pre></div>
@@ -458,7 +460,7 @@ albert@testvm:~$
 </div>
 <div class="section" id="renaming-a-vm">
 <h3>Renaming a VM<a class="headerlink" href="#renaming-a-vm" title="Permalink to this headline">¶</a></h3>
-<p>You can rename a VM on the target cloud by using &#8216;vm rename&#8217; command as below:</p>
+<p>You can rename a VM on the target cloud by using ‘vm rename’ command as below:</p>
 <pre class="highlight"><span class="prompt1">vm rename testvm --new=testvm_renamed --cloud=kilo</span>
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Renaming</span> <span class="n">VM</span> <span class="p">(</span><span class="n">testvm</span><span class="p">)</span> <span class="p">:</span> <span class="mi">5</span><span class="n">bd7911e2b</span><span class="o">-</span><span class="n">xxxx</span><span class="o">-</span><span class="n">xxxx</span><span class="o">-</span><span class="n">xxxx</span><span class="o">-</span><span class="n">xxxxxxx</span>
 <span class="n">Machine</span> <span class="n">testvm</span> <span class="n">renamed</span> <span class="n">to</span> <span class="n">testvm_renamed</span> <span class="n">on</span> <span class="n">kilo</span> <span class="n">Cloud</span><span class="o">...</span>
@@ -516,7 +518,7 @@ albert@testvm:~$
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

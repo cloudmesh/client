@@ -1,11 +1,11 @@
-cloudmesh_client.api.impl package
-=================================
+cloudmesh\_client\.api\.impl package
+====================================
 
 Submodules
 ----------
 
-cloudmesh_client.api.impl.openstack module
-------------------------------------------
+cloudmesh\_client\.api\.impl\.openstack module
+----------------------------------------------
 
 .. automodule:: cloudmesh_client.api.impl.openstack
     :members:

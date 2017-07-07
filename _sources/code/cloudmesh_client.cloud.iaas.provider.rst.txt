@@ -1,5 +1,5 @@
-cloudmesh_client.cloud.iaas.provider package
-============================================
+cloudmesh\_client\.cloud\.iaas\.provider package
+================================================
 
 Subpackages
 -----------

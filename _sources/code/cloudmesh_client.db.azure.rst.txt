@@ -1,11 +1,11 @@
-cloudmesh_client.db.azure package
-=================================
+cloudmesh\_client\.db\.azure package
+====================================
 
 Submodules
 ----------
 
-cloudmesh_client.db.azure.model module
---------------------------------------
+cloudmesh\_client\.db\.azure\.model module
+------------------------------------------
 
 .. automodule:: cloudmesh_client.db.azure.model
     :members:

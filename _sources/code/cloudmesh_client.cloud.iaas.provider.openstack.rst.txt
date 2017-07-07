@@ -1,11 +1,11 @@
-cloudmesh_client.cloud.iaas.provider.openstack package
-======================================================
+cloudmesh\_client\.cloud\.iaas\.provider\.openstack package
+===========================================================
 
 Submodules
 ----------
 
-cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI module
--------------------------------------------------------------------------------
+cloudmesh\_client\.cloud\.iaas\.provider\.openstack\.CloudProviderOpenstackAPI module
+-------------------------------------------------------------------------------------
 
 .. automodule:: cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI
     :members:

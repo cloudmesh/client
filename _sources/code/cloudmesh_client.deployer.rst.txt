@@ -1,5 +1,5 @@
-cloudmesh_client.deployer package
-=================================
+cloudmesh\_client\.deployer package
+===================================
 
 Subpackages
 -----------

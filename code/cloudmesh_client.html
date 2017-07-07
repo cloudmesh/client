@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client package &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>cloudmesh_client package &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="../index.html"/>
         <link rel="next" title="cloudmesh_client.api package" href="cloudmesh_client.api.html"/>
         <link rel="prev" title="Stack" href="../stack.html"/> 
 
@@ -66,7 +68,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -531,6 +533,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.LogLevelCommand">cloudmesh_client.shell.plugins.LogLevelCommand module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ManCommand">cloudmesh_client.shell.plugins.ManCommand module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.NetworkCommand">cloudmesh_client.shell.plugins.NetworkCommand module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.NistCommand">cloudmesh_client.shell.plugins.NistCommand module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.NovaCommand">cloudmesh_client.shell.plugins.NovaCommand module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.OpenCommand">cloudmesh_client.shell.plugins.OpenCommand module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.PortalCommand">cloudmesh_client.shell.plugins.PortalCommand module</a></li>
@@ -590,7 +593,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Cloudmesh contains the concept of defaults. Defaults can have
 categories (we will rename cloud to categories). A category can be a
-cloud name or the name &#8216;general&#8217;. The category general is a &#8216;global&#8217;
+cloud name or the name ‘general’. The category general is a ‘global’
 name space and contains defaults of global value (in future we will
 rename the value to global).</p>
 <dl class="attribute">
@@ -659,10 +662,10 @@ rename the value to global).</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>counter_name</strong> (<em>str</em>) &#8211; name of the counter in the database</li>
-<li><strong>display_name</strong> (<em>str</em>) &#8211; pretty name to show user (defaults to <code class="docutils literal"><span class="pre">counter_name</span></code>)</li>
-<li><strong>prefix</strong> (<em>str</em>) &#8211; prefix the generated name with this</li>
-<li><strong>fill</strong> (<em>int</em>) &#8211; number of zeros to fill with</li>
+<li><strong>counter_name</strong> (<em>str</em>) – name of the counter in the database</li>
+<li><strong>display_name</strong> (<em>str</em>) – pretty name to show user (defaults to <code class="docutils literal"><span class="pre">counter_name</span></code>)</li>
+<li><strong>prefix</strong> (<em>str</em>) – prefix the generated name with this</li>
+<li><strong>fill</strong> (<em>int</em>) – number of zeros to fill with</li>
 </ul>
 </td>
 </tr>
@@ -712,7 +715,7 @@ If it is not present in db, it creates a new entry.
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.image">
-<code class="descname">image</code><em class="property"> = u'Ubuntu-14.04-64'</em><a class="headerlink" href="#cloudmesh_client.default.Default.image" title="Permalink to this definition">¶</a></dt>
+<code class="descname">image</code><em class="property"> = u'Ubuntu-16.04-64'</em><a class="headerlink" href="#cloudmesh_client.default.Default.image" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -746,11 +749,11 @@ only one should be used.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>category</strong> &#8211; the category of the default value. If general is used
+<li><strong>category</strong> – the category of the default value. If general is used
 it is a special category that is used for global values.</li>
-<li><strong>format</strong> &#8211; json, table, yaml, dict, csv</li>
-<li><strong>order</strong> &#8211; The order in which the attributes are returned</li>
-<li><strong>output</strong> &#8211; The output format.</li>
+<li><strong>format</strong> – json, table, yaml, dict, csv</li>
+<li><strong>order</strong> – The order in which the attributes are returned</li>
+<li><strong>output</strong> – The output format.</li>
 </ul>
 </td>
 </tr>
@@ -817,7 +820,7 @@ it is a special category that is used for global values.</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) &#8211; cluster name</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em>) – cluster name</td>
 </tr>
 </tbody>
 </table>
@@ -840,9 +843,9 @@ it is a special category that is used for global values.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; </li>
-<li><strong>value</strong> &#8211; </li>
-<li><strong>user</strong> &#8211; </li>
+<li><strong>name</strong> – </li>
+<li><strong>value</strong> – </li>
+<li><strong>user</strong> – </li>
 </ul>
 </td>
 </tr>
@@ -902,7 +905,7 @@ it is a special category that is used for global values.</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> &#8211; the key name</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> – the key name</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
 </tr>
@@ -953,8 +956,8 @@ it is a special category that is used for global values.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>cls</strong> &#8211; </li>
-<li><strong>value</strong> &#8211; </li>
+<li><strong>cls</strong> – </li>
+<li><strong>value</strong> – </li>
 </ul>
 </td>
 </tr>
@@ -976,7 +979,7 @@ it is a special category that is used for global values.</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) &#8211; stack name</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) – stack name</td>
 </tr>
 </tbody>
 </table>
@@ -1018,7 +1021,7 @@ it is a special category that is used for global values.</li>
 
 <dl class="attribute">
 <dt id="cloudmesh_client.default.Default.vm">
-<code class="descname">vm</code><em class="property"> = u'fuwang-002'</em><a class="headerlink" href="#cloudmesh_client.default.Default.vm" title="Permalink to this definition">¶</a></dt>
+<code class="descname">vm</code><em class="property"> = u'fuwang-001'</em><a class="headerlink" href="#cloudmesh_client.default.Default.vm" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1162,15 +1165,15 @@ Requires user interaction to change the state.</p>
 <dl class="function">
 <dt id="cloudmesh_client.setup.check_pip">
 <code class="descclassname">cloudmesh_client.setup.</code><code class="descname">check_pip</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/setup.html#check_pip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.setup.check_pip" title="Permalink to this definition">¶</a></dt>
-<dd><p>major = int(pip.__version__.split(&#8221;.&#8221;)[0])
+<dd><p>major = int(pip.__version__.split(“.”)[0])
 if major &lt; 7:</p>
 <blockquote>
-<div>print(&#8220;&#8221;)
-print(&#8221;    ERROR: Pip version&#8221;, pip.__version__, &#8220;is to old.&#8221;)
-print(&#8221;    Tip:   Please update pip with &#8221;)
-print(&#8220;&#8221;)
-print(&#8221;             pip install pip -U&#8221;)
-print(&#8220;&#8221;)
+<div>print(“”)
+print(”    ERROR: Pip version”, pip.__version__, “is to old.”)
+print(”    Tip:   Please update pip with “)
+print(“”)
+print(”             pip install pip -U”)
+print(“”)
 sys.exit()</div></blockquote>
 </dd></dl>
 
@@ -1209,7 +1212,7 @@ sys.exit()</div></blockquote>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Cloudmesh contains the concept of defaults. Defaults can have
 categories (we will rename cloud to categories). A category can be a
-cloud name or the name &#8216;general&#8217;. The category general is a &#8216;global&#8217;
+cloud name or the name ‘general’. The category general is a ‘global’
 name space and contains defaults of global value (in future we will
 rename the value to global).</p>
 <dl class="classmethod">
@@ -1240,8 +1243,8 @@ with the given category.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>key</strong> &#8211; The dictionary key</li>
-<li><strong>category</strong> &#8211; The category</li>
+<li><strong>key</strong> – The dictionary key</li>
+<li><strong>category</strong> – The category</li>
 </ul>
 </td>
 </tr>
@@ -1263,11 +1266,11 @@ only one should be used.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>category</strong> &#8211; the category of the default value. If general is used
+<li><strong>category</strong> – the category of the default value. If general is used
 it is a special category that is used for global values.</li>
-<li><strong>format</strong> &#8211; json, table, yaml, dict, csv</li>
-<li><strong>order</strong> &#8211; The order in which the attributes are returned</li>
-<li><strong>output</strong> &#8211; The output format.</li>
+<li><strong>format</strong> – json, table, yaml, dict, csv</li>
+<li><strong>order</strong> – The order in which the attributes are returned</li>
+<li><strong>output</strong> – The output format.</li>
 </ul>
 </td>
 </tr>
@@ -1352,7 +1355,7 @@ it is a special category that is used for global values.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

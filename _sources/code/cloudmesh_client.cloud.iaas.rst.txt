@@ -1,5 +1,5 @@
-cloudmesh_client.cloud.iaas package
-===================================
+cloudmesh\_client\.cloud\.iaas package
+======================================
 
 Subpackages
 -----------
@@ -11,16 +11,16 @@ Subpackages
 Submodules
 ----------
 
-cloudmesh_client.cloud.iaas.CloudProvider module
-------------------------------------------------
+cloudmesh\_client\.cloud\.iaas\.CloudProvider module
+----------------------------------------------------
 
 .. automodule:: cloudmesh_client.cloud.iaas.CloudProvider
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.cloud.iaas.CloudProviderBase module
-----------------------------------------------------
+cloudmesh\_client\.cloud\.iaas\.CloudProviderBase module
+--------------------------------------------------------
 
 .. automodule:: cloudmesh_client.cloud.iaas.CloudProviderBase
     :members:

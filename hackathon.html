@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Using python 2 and 3 for development &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>Using python 2 and 3 for development &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="index.html"/>
         <link rel="prev" title="cloudmesh_client.system package" href="code/cloudmesh_client.system.html"/> 
 
   
@@ -65,7 +67,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -250,9 +252,9 @@ span.prompt1:before {
 </div>
 <blockquote>
 <div>pip3.5 install pip -U
-pip3.5 install &#8211;user virtualenv
+pip3.5 install –user virtualenv
 pip2.7 install pip -U
-pip2.7 install &#8211;user virtualenv</div></blockquote>
+pip2.7 install –user virtualenv</div></blockquote>
 <p>Edit the  bash_profile with your prefered editor and append some useful aliasses:</p>
 <pre class="highlight"><span class="prompt1">emacs ~/.bash_profile</span>
 </pre><p>Append the following aliasses:</p>
@@ -264,7 +266,7 @@ alias ENV3=`source ~/ENV3/bin/activate`
 </div>
 <p>Next source the bashrc file so you have accesss to the new commands</p>
 <pre class="highlight"><span class="prompt1"><span class="nb">source</span> ~/.bash_profile</span>
-</pre><p>Next let us create two virtualenv&#8217;s one for python 2, the other for
+</pre><p>Next let us create two virtualenv’s one for python 2, the other for
 python 3 in the directories <cite>~/ENV2</cite> and <cite>~/ENV3</cite>.</p>
 <pre class="highlight"><span class="prompt1">virtualenv3 ~/ENV3</span>
 <span class="prompt1">virtualenv2 ~/ENV2</span>
@@ -374,7 +376,7 @@ except:
 </div>
 <div class="section" id="dict">
 <h3>Dict<a class="headerlink" href="#dict" title="Permalink to this headline">¶</a></h3>
-<p>Using dict heights = {&#8216;Fred&#8217;: 175, &#8216;Anne&#8217;: 166, &#8216;Joe&#8217;: 192}
+<p>Using dict heights = {‘Fred’: 175, ‘Anne’: 166, ‘Joe’: 192}
 as an example</p>
 <p>Iterable dict keys:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">heights</span><span class="p">:</span>
@@ -494,7 +496,7 @@ YES!
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

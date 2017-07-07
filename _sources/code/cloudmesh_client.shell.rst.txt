@@ -1,5 +1,5 @@
-cloudmesh_client.shell package
-==============================
+cloudmesh\_client\.shell package
+================================
 
 Subpackages
 -----------
@@ -11,32 +11,32 @@ Subpackages
 Submodules
 ----------
 
-cloudmesh_client.shell.cm module
---------------------------------
+cloudmesh\_client\.shell\.cm module
+-----------------------------------
 
 .. automodule:: cloudmesh_client.shell.cm
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.cm_shell_status module
----------------------------------------------
+cloudmesh\_client\.shell\.cm\_shell\_status module
+--------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.cm_shell_status
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.command module
--------------------------------------
+cloudmesh\_client\.shell\.command module
+----------------------------------------
 
 .. automodule:: cloudmesh_client.shell.command
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.console module
--------------------------------------
+cloudmesh\_client\.shell\.console module
+----------------------------------------
 
 .. automodule:: cloudmesh_client.shell.console
     :members:

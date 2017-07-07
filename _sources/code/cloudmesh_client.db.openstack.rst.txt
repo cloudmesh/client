@@ -1,11 +1,11 @@
-cloudmesh_client.db.openstack package
-=====================================
+cloudmesh\_client\.db\.openstack package
+========================================
 
 Submodules
 ----------
 
-cloudmesh_client.db.openstack.model module
-------------------------------------------
+cloudmesh\_client\.db\.openstack\.model module
+----------------------------------------------
 
 .. automodule:: cloudmesh_client.db.openstack.model
     :members:

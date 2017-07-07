@@ -1,19 +1,19 @@
-cloudmesh_client.cloud.hpc.provider.slurm package
-=================================================
+cloudmesh\_client\.cloud\.hpc\.provider\.slurm package
+======================================================
 
 Submodules
 ----------
 
-cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM module
--------------------------------------------------------------------
+cloudmesh\_client\.cloud\.hpc\.provider\.slurm\.BatchProviderSLURM module
+-------------------------------------------------------------------------
 
 .. automodule:: cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.cloud.hpc.provider.slurm.squeue module
--------------------------------------------------------
+cloudmesh\_client\.cloud\.hpc\.provider\.slurm\.squeue module
+-------------------------------------------------------------
 
 .. automodule:: cloudmesh_client.cloud.hpc.provider.slurm.squeue
     :members:

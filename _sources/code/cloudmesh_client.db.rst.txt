@@ -1,5 +1,5 @@
-cloudmesh_client.db package
-===========================
+cloudmesh\_client\.db package
+=============================
 
 Subpackages
 -----------
@@ -14,8 +14,8 @@ Subpackages
 Submodules
 ----------
 
-cloudmesh_client.db.CloudmeshDatabase module
---------------------------------------------
+cloudmesh\_client\.db\.CloudmeshDatabase module
+-----------------------------------------------
 
 .. automodule:: cloudmesh_client.db.CloudmeshDatabase
     :members:

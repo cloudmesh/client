@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.api &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>cloudmesh_client.api &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../cloudmesh_client.html"/> 
 
   
@@ -65,7 +67,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -232,20 +234,20 @@
     <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ABCMeta</span>
     <span class="n">db</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">()</span>
 
-    <span class="nd">@abstractmethod</span>
-<div class="viewcode-block" id="Resource.create"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Resource.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Resource.create"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Resource.create">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span></div>
 
-    <span class="nd">@abstractmethod</span>
-<div class="viewcode-block" id="Resource.delete"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Resource.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Resource.delete"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Resource.delete">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span></div>
 
-    <span class="nd">@abstractmethod</span>
-<div class="viewcode-block" id="Resource.list"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Resource.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Resource.list"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Resource.list">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span></div>
 
-    <span class="nd">@abstractmethod</span>
-<div class="viewcode-block" id="Resource.refresh"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Resource.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Resource.refresh"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Resource.refresh">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span></div></div>
 
 
@@ -277,8 +279,8 @@
     <span class="k">def</span> <span class="nf">cloud</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cloud</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Provider.from_cloud"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Provider.from_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">from_cloud</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud_name</span><span class="p">):</span>
+<div class="viewcode-block" id="Provider.from_cloud"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Provider.from_cloud">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_cloud</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        :param str cloud_name: name of the cloud as found in cloudmesh.yaml</span>
@@ -292,24 +294,24 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="bp">NotImplemented</span><span class="p">(</span><span class="s1">&#39;Provider </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">provider_name</span><span class="p">)</span></div>
 
-    <span class="nd">@abstractmethod</span>
-<div class="viewcode-block" id="Provider.node"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Provider.node">[docs]</a>    <span class="k">def</span> <span class="nf">node</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Provider.node"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Provider.node">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">node</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Factory method to create an instance of the</span>
 <span class="sd">        appropriate subclass of :class:`Node`&quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
-    <span class="nd">@abstractmethod</span>
-<div class="viewcode-block" id="Provider.boot"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Provider.boot">[docs]</a>    <span class="k">def</span> <span class="nf">boot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Provider.boot"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Provider.boot">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">boot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Boots a single VM&quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
-    <span class="nd">@abstractmethod</span>
-<div class="viewcode-block" id="Provider.delete"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Provider.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+<div class="viewcode-block" id="Provider.delete"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Provider.delete">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Deletes a running :class:`Node`&quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
-    <span class="nd">@abstractmethod</span>
-<div class="viewcode-block" id="Provider.create_ip"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Provider.create_ip">[docs]</a>    <span class="k">def</span> <span class="nf">create_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+<div class="viewcode-block" id="Provider.create_ip"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Provider.create_ip">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">create_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates and associeates a public ip with given node</span>
 
@@ -349,24 +351,24 @@
         <span class="s2">&quot;The public ip address of this node&quot;</span>
         <span class="k">pass</span>
 
-    <span class="nd">@abstractmethod</span>
-<div class="viewcode-block" id="Node.start"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Node.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="n">selfs</span><span class="p">):</span>
+<div class="viewcode-block" id="Node.start"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Node.start">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="n">selfs</span><span class="p">):</span>
         <span class="k">pass</span></div>
 
-    <span class="nd">@abstractmethod</span>
-<div class="viewcode-block" id="Node.stop"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Node.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Node.stop"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Node.stop">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span></div>
 
-    <span class="nd">@abstractmethod</span>
-<div class="viewcode-block" id="Node.delete"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Node.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Node.delete"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Node.delete">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span></div>
 
-    <span class="nd">@abstractmethod</span>
-<div class="viewcode-block" id="Node.create_ip"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Node.create_ip">[docs]</a>    <span class="k">def</span> <span class="nf">create_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Node.create_ip"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Node.create_ip">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">create_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span></div>
 
-    <span class="nd">@abstractmethod</span>
-<div class="viewcode-block" id="Node.ssh"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Node.ssh">[docs]</a>    <span class="k">def</span> <span class="nf">ssh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Node.ssh"><a class="viewcode-back" href="../../code/cloudmesh_client.api.html#cloudmesh_client.api.Node.ssh">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">ssh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;ssh into and optionally run a command on this node</span>
 
 <span class="sd">        :param list(str) cmd: the command to run</span>
@@ -428,7 +430,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

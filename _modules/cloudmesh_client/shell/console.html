@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.console &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>cloudmesh_client.shell.console &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -65,7 +67,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -283,20 +285,20 @@
 
     <span class="n">theme</span> <span class="o">=</span> <span class="n">theme_color</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Console.set_debug"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.console.Console.set_debug">[docs]</a>    <span class="k">def</span> <span class="nf">set_debug</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Console.set_debug"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.console.Console.set_debug">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_debug</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">on</span></div>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Console.set_theme"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.console.Console.set_theme">[docs]</a>    <span class="k">def</span> <span class="nf">set_theme</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Console.set_theme"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.console.Console.set_theme">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">set_theme</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">color</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">theme</span> <span class="o">=</span> <span class="n">Console</span><span class="o">.</span><span class="n">theme_color</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">theme</span> <span class="o">=</span> <span class="n">Console</span><span class="o">.</span><span class="n">theme_bw</span>
         <span class="n">Console</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span></div>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Console.get"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.console.Console.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="Console.get"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.console.Console.get">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">Console</span><span class="o">.</span><span class="n">theme</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Console</span><span class="o">.</span><span class="n">theme</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
@@ -306,13 +308,13 @@
     <span class="k">def</span> <span class="nf">msg</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">90</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">)</span>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Console.msg"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.console.Console.msg">[docs]</a>    <span class="k">def</span> <span class="nf">msg</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+<div class="viewcode-block" id="Console.msg"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.console.Console.msg">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">msg</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">message</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Console.error"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.console.Console.error">[docs]</a>    <span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Console.error"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.console.Console.error">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">message</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
         <span class="k">if</span> <span class="n">prefix</span><span class="p">:</span>
             <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;ERROR: &quot;</span>
@@ -329,8 +331,8 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()))</span>
             <span class="nb">print</span></div>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Console.TODO"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.console.Console.TODO">[docs]</a>    <span class="k">def</span> <span class="nf">TODO</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Console.TODO"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.console.Console.TODO">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">TODO</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">message</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
         <span class="k">if</span> <span class="n">prefix</span><span class="p">:</span>
             <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;TODO: &quot;</span>
@@ -348,8 +350,8 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()))</span>
             <span class="nb">print</span></div>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Console.debug_msg"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.console.Console.debug_msg">[docs]</a>    <span class="k">def</span> <span class="nf">debug_msg</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+<div class="viewcode-block" id="Console.debug_msg"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.console.Console.debug_msg">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">debug_msg</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">message</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
         <span class="k">if</span> <span class="n">Console</span><span class="o">.</span><span class="n">color</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">cprint</span><span class="p">(</span><span class="s1">&#39;RED&#39;</span><span class="p">,</span> <span class="s1">&#39;DEBUG: &#39;</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
@@ -357,32 +359,32 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s1">&#39;DEBUG: &#39;</span> <span class="o">+</span> <span class="n">message</span><span class="p">))</span></div>
 
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Console.info"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.console.Console.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+<div class="viewcode-block" id="Console.info"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.console.Console.info">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">message</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
         <span class="k">if</span> <span class="n">Console</span><span class="o">.</span><span class="n">color</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">cprint</span><span class="p">(</span><span class="s1">&#39;OKBLUE&#39;</span><span class="p">,</span> <span class="s2">&quot;INFO: &quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s2">&quot;INFO: &quot;</span> <span class="o">+</span> <span class="n">message</span><span class="p">))</span></div>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Console.warning"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.console.Console.warning">[docs]</a>    <span class="k">def</span> <span class="nf">warning</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+<div class="viewcode-block" id="Console.warning"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.console.Console.warning">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">warning</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">message</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
         <span class="k">if</span> <span class="n">Console</span><span class="o">.</span><span class="n">color</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">cprint</span><span class="p">(</span><span class="s1">&#39;WARNING&#39;</span><span class="p">,</span> <span class="s2">&quot;WARNING: &quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s2">&quot;WARNING: &quot;</span> <span class="o">+</span> <span class="n">message</span><span class="p">))</span></div>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Console.ok"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.console.Console.ok">[docs]</a>    <span class="k">def</span> <span class="nf">ok</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+<div class="viewcode-block" id="Console.ok"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.console.Console.ok">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">ok</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">message</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
         <span class="k">if</span> <span class="n">Console</span><span class="o">.</span><span class="n">color</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">cprint</span><span class="p">(</span><span class="s1">&#39;OKGREEN&#39;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">message</span><span class="p">))</span></div>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Console.cprint"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.console.Console.cprint">[docs]</a>    <span class="k">def</span> <span class="nf">cprint</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+<div class="viewcode-block" id="Console.cprint"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.console.Console.cprint">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">cprint</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">message</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
         <span class="n">prefix</span> <span class="o">=</span> <span class="n">prefix</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
         <span class="nb">print</span><span class="p">((</span><span class="n">Console</span><span class="o">.</span><span class="n">theme</span><span class="p">[</span><span class="n">color</span><span class="p">]</span> <span class="o">+</span>
@@ -452,7 +454,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell package &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>cloudmesh_client.shell package &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client package" href="cloudmesh_client.html"/>
         <link rel="next" title="cloudmesh_client.shell.plugins package" href="cloudmesh_client.shell.plugins.html"/>
         <link rel="prev" title="cloudmesh_client.provider.openstack package" href="cloudmesh_client.provider.openstack.html"/> 
@@ -67,7 +69,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -277,6 +279,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.LogLevelCommand">cloudmesh_client.shell.plugins.LogLevelCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ManCommand">cloudmesh_client.shell.plugins.ManCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.NetworkCommand">cloudmesh_client.shell.plugins.NetworkCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.NistCommand">cloudmesh_client.shell.plugins.NistCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.NovaCommand">cloudmesh_client.shell.plugins.NovaCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.OpenCommand">cloudmesh_client.shell.plugins.OpenCommand module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.PortalCommand">cloudmesh_client.shell.plugins.PortalCommand module</a></li>
@@ -422,7 +425,7 @@ history ID</dd>
 <code class="descname">do_shell</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.do_shell" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Usage:</dt>
-<dd>shell ARGUMENTS...</dd>
+<dd>shell ARGUMENTS…</dd>
 <dt>Description:</dt>
 <dd>Executes a shell command</dd>
 </dl>
@@ -455,7 +458,7 @@ VALUE   VALUE to be assigned</dd>
 <code class="descname">do_version</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.do_version" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Usage:</dt>
-<dd>version [&#8211;format=FORMAT] [&#8211;check=CHECK]</dd>
+<dd>version [–format=FORMAT] [–check=CHECK]</dd>
 <dt>Options:</dt>
 <dd><table class="first last docutils option-list" frame="void" rules="none">
 <col class="option" />
@@ -577,7 +580,7 @@ for c in command_classes:</p>
 <p>print (classes)</p>
 <dl class="docutils">
 <dt>PluginCommandClasses = type(</dt>
-<dd>&#8216;CommandProxyClass&#8217;,
+<dd>‘CommandProxyClass’,
 tuple(classes),
 {})</dd>
 </dl>
@@ -595,8 +598,8 @@ tuple(classes),
 </ol>
 <dl class="docutils">
 <dt>Usage:</dt>
-<dd>cm &#8211;help
-cm [&#8211;echo] [&#8211;debug] [&#8211;nosplash] [-i] [COMMAND ...]</dd>
+<dd>cm –help
+cm [–echo] [–debug] [–nosplash] [-i] [COMMAND …]</dd>
 <dt>Arguments:</dt>
 <dd>COMMAND                  A command to be executed</dd>
 <dt>Options:</dt>
@@ -709,21 +712,21 @@ It also generates a help function</p>
 <p>&#64;command
 def do_myfunc(self, args):</p>
 <blockquote>
-<div>&#8220;&#8221;&#8221; docopts text &#8220;&#8221;&#8221;
+<div>“”” docopts text “””
 pass</div></blockquote>
 <p>will create</p>
 <dl class="docutils">
 <dt>def do_myfunc(self, args, arguments):</dt>
-<dd>&#8220;&#8221;&#8221; docopts text &#8220;&#8221;&#8221;
-...</dd>
+<dd>“”” docopts text “””
+…</dd>
 <dt>def help_myfunc(self, args, arguments):</dt>
-<dd>... prints the docopt text ...</dd>
+<dd>… prints the docopt text …</dd>
 </dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>func</strong> &#8211; the function for the decorator</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>func</strong> – the function for the decorator</td>
 </tr>
 </tbody>
 </table>
@@ -889,7 +892,7 @@ warnings, errors, ok and regular messages.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

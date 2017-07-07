@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Cloudmesh Comet CLI &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>Cloudmesh Comet CLI &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Reservation Command" href="command_reservation.html"/>
         <link rel="prev" title="Hpc Command" href="command_hpc.html"/> 
@@ -67,7 +69,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -228,7 +230,7 @@
 VC easily and securely. The CLI is part of a larger effort called
 Cloudmesh Client toolkit, which provides command line and shell
 interface of accessing heterogeneous clouds, clusters, and workstations
-right from the users&#8217; computers. By utilizing this client tool, Comet VC
+right from the users’ computers. By utilizing this client tool, Comet VC
 users can access all capabilities to manage their virtual cluster, while
 bypassing the security concerns and the complexity of programming with
 the Comet nucleus API.</p>
@@ -343,7 +345,7 @@ node.</p>
 <pre class="highlight"><span class="prompt1">cm comet node info vc2 vm-vc2-0</span>
 </pre><p>Gives the detailed information of the specified compute node.</p>
 <p>By default it returned information in a table format. It also accepts
-the &#8211;format=FROMAT parameter so the output can be easily parsed while
+the –format=FROMAT parameter so the output can be easily parsed while
 being used in scripting (FORMAT could be one of csv, json, yaml).</p>
 </div>
 <div class="section" id="power-management-of-frontend-node">
@@ -366,7 +368,7 @@ nodes and the walltime you requested.</p>
 <p><strong>Please note that each VM you requested corresponds to 24 cores (You
 have the exclusive access to the whole physical node), thus one VM node
 hour is equivalent to 24 SUs. So please TERMINATE the resources (see
-below) if you don&#8217;t actively use them. Keeping them idle (even SHUT OFF)
+below) if you don’t actively use them. Keeping them idle (even SHUT OFF)
 will still cost your allocation.</strong></p>
 <p><strong>Currently for the DEV resources you are not charged for any usage.
 Please use the DEV resource to develop/test your application/workflow,
@@ -377,12 +379,12 @@ resources so other users can use them as well.</strong></p>
 <pre class="highlight"><span class="prompt1">cm comet start vc2 vm-vc2-<span class="o">[</span><span class="m">0</span>-3<span class="o">]</span></span>
 </pre><p>This will request the nodes for a default period of time and power on
 them (currently default as 2 days).</p>
-<p>To request for a customized time period, use &#8211;walltime parameter.
+<p>To request for a customized time period, use –walltime parameter.
 E.g., 100m (100 minutes), 6h (6 hours), 2d (2 days) , 1w (1 week):</p>
 <pre class="highlight"><span class="prompt1">cm comet start vc2 vm-vc2-<span class="o">[</span><span class="m">0</span>-3<span class="o">]</span> --walltime<span class="o">=</span>6h</span>
 </pre><p>The above will put the request under the one allocation associated
 with the cluster.  If your cluster have more than one allocations,
-use &#8211;allocation parameter:</p>
+use –allocation parameter:</p>
 <pre class="highlight"><span class="prompt1">cm comet start vc2 vm-vc2-<span class="o">[</span><span class="m">0</span>-3<span class="o">]</span> --allocation<span class="o">=</span>YOUR_ALLOCATION</span>
 </pre><p>If you have more allocations, but does not specify via CLI, you will
 see a list of allocations to choose from to use.</p>
@@ -421,8 +423,8 @@ freely power the nodes back on and off.</p>
 <p><strong>Please be reminded that your account will still be charged in this
 case until you terminate the computeset as described earlier.</strong></p>
 <p><strong>Please note that the node disks are persisted silently on the background
-periodically, or when you shut them off gracefully (&#8216;cm comet terminate&#8217;
-or &#8216;cm comet power shutdown&#8217;). So the next time you start the node, or
+periodically, or when you shut them off gracefully (‘cm comet terminate’
+or ‘cm comet power shutdown’). So the next time you start the node, or
 powered if on, you can start with where you have left.</strong></p>
 </div>
 <div class="section" id="getting-console-access">
@@ -520,7 +522,7 @@ NEWNAMES</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

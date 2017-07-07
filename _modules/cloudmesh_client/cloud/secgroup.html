@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.secgroup &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>cloudmesh_client.cloud.secgroup &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -65,7 +67,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -240,8 +242,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># noinspection PyPep8</span>
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.convert_rules_to_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.convert_rules_to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">convert_rules_to_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">os_result</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.convert_rules_to_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.convert_rules_to_dict">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">convert_rules_to_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">os_result</span><span class="p">):</span>
         <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">os_result</span><span class="p">):</span>
 
@@ -258,8 +260,8 @@
             <span class="p">}</span>
         <span class="k">return</span> <span class="n">d</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.refresh"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.refresh"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.refresh">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method would refresh the secgroup list by first clearing</span>
 <span class="sd">        the database, then inserting new data</span>
@@ -268,8 +270,8 @@
 
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="s1">&#39;secgroup&#39;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.add_rule_to_db"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.add_rule_to_db">[docs]</a>    <span class="k">def</span> <span class="nf">add_rule_to_db</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">from_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">to_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cidr</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.add_rule_to_db"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.add_rule_to_db">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">add_rule_to_db</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">from_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">to_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cidr</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">delete_rule_from_db</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">rule</span> <span class="o">=</span> <span class="p">{</span>
@@ -286,8 +288,8 @@
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem adding rule&quot;</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.delete_rule_from_db"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.delete_rule_from_db">[docs]</a>    <span class="k">def</span> <span class="nf">delete_rule_from_db</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.delete_rule_from_db"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.delete_rule_from_db">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">delete_rule_from_db</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">old_rule</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;general&quot;</span><span class="p">,</span>
             <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;secgrouprule&quot;</span><span class="p">,</span>
@@ -297,8 +299,8 @@
 
         <span class="bp">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="o">**</span><span class="n">old_rule</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.upload"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.upload">[docs]</a>    <span class="k">def</span> <span class="nf">upload</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.upload"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.upload">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">upload</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">cloud</span><span class="o">==</span><span class="s1">&#39;all&#39;</span><span class="p">:</span>
             <span class="n">clouds</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;active&quot;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
@@ -339,8 +341,8 @@
             <span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s2">&quot;...done&quot;</span><span class="p">)</span>
         <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;All completed&quot;</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.create"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.create"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.create">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method creates a new security group in database</span>
 <span class="sd">        &amp; returns the uuid of the created group</span>
@@ -363,8 +365,8 @@
 
         <span class="k">return</span> <span class="kc">None</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
+<div class="viewcode-block" id="SecGroup.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.list">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
              <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
              <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
              <span class="n">category</span><span class="o">=</span><span class="s1">&#39;general&#39;</span><span class="p">,</span>
@@ -415,8 +417,8 @@
                                  <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">)</span></div>
 
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.list_rules"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.list_rules">[docs]</a>    <span class="k">def</span> <span class="nf">list_rules</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.list_rules"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.list_rules">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">list_rules</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method gets the security group rules</span>
 <span class="sd">        from the cloudmesh database</span>
@@ -455,8 +457,8 @@
 
         <span class="k">return</span> <span class="kc">None</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.enable_ssh"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.enable_ssh">[docs]</a>    <span class="k">def</span> <span class="nf">enable_ssh</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">secgroup_name</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.enable_ssh"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.enable_ssh">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">enable_ssh</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">secgroup_name</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">):</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">if</span> <span class="n">cloud</span> <span class="ow">in</span> <span class="n">LibcloudDict</span><span class="o">.</span><span class="n">Libcloud_category_list</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Creating and adding security group for libcloud&quot;</span><span class="p">)</span>
@@ -497,8 +499,8 @@
         <span class="c1"># print (d)</span>
         <span class="k">return</span> <span class="n">ret</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.get"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.get"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.get">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method queries the database to fetch secgroup</span>
 <span class="sd">        with given name filtered by cloud.</span>
@@ -528,8 +530,8 @@
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;get secgroup&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">None</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.add_rule"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.add_rule">[docs]</a>    <span class="k">def</span> <span class="nf">add_rule</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">secgroup_uuid</span><span class="p">,</span> <span class="n">from_port</span><span class="p">,</span> <span class="n">to_port</span><span class="p">,</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">cidr</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.add_rule"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.add_rule">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">add_rule</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">secgroup_uuid</span><span class="p">,</span> <span class="n">from_port</span><span class="p">,</span> <span class="n">to_port</span><span class="p">,</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">cidr</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
 
             <span class="c1"># Get the nova client object</span>
@@ -568,8 +570,8 @@
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span>
         <span class="k">return</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.reset_defaults"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.reset_defaults">[docs]</a>    <span class="k">def</span> <span class="nf">reset_defaults</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.reset_defaults"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.reset_defaults">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">reset_defaults</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
 
         <span class="c1">#secgroup = &quot;{}-default&quot;.format(Default.user)</span>
         <span class="n">secgroup</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span>
@@ -601,8 +603,8 @@
                                 <span class="n">protocol</span><span class="o">=</span><span class="s2">&quot;icmp&quot;</span><span class="p">,</span>
                                 <span class="n">cidr</span><span class="o">=</span><span class="s2">&quot;0.0.0.0/0&quot;</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.delete"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
+<div class="viewcode-block" id="SecGroup.delete"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.delete">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
                <span class="n">category</span><span class="o">=</span><span class="s1">&#39;general&#39;</span><span class="p">,</span>
                <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -639,8 +641,8 @@
 
 
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.delete_secgroup"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.delete_secgroup">[docs]</a>    <span class="k">def</span> <span class="nf">delete_secgroup</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.delete_secgroup"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.delete_secgroup">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">delete_secgroup</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># Find the secgroup from the cloud</span>
             <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
@@ -649,8 +651,8 @@
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;delete group&quot;</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.delete_rule"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.delete_rule">[docs]</a>    <span class="k">def</span> <span class="nf">delete_rule</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">secgroup</span><span class="p">,</span> <span class="n">from_port</span><span class="p">,</span> <span class="n">to_port</span><span class="p">,</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">cidr</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.delete_rule"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.delete_rule">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">delete_rule</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">secgroup</span><span class="p">,</span> <span class="n">from_port</span><span class="p">,</span> <span class="n">to_port</span><span class="p">,</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">cidr</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">args</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s2">&quot;group&quot;</span><span class="p">:</span> <span class="n">secgroup</span><span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">],</span>
@@ -682,8 +684,8 @@
 
         <span class="k">return</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.delete_all_rules"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.delete_all_rules">[docs]</a>    <span class="k">def</span> <span class="nf">delete_all_rules</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">secgroup</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.delete_all_rules"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.delete_all_rules">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">delete_all_rules</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">secgroup</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
 
             <span class="n">args</span> <span class="o">=</span> <span class="p">{</span>
@@ -707,18 +709,18 @@
     <span class="c1"># the operations are from the perspective on the cloud</span>
     <span class="c1"># and does not make any change on local db</span>
     <span class="c1">#</span>
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.add_group_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.add_group_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">add_group_cloud</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">groupname</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.add_group_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.add_group_cloud">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">add_group_cloud</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">groupname</span><span class="p">):</span>
         <span class="n">provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
         <span class="k">return</span> <span class="n">provider</span><span class="o">.</span><span class="n">create_secgroup</span><span class="p">(</span><span class="n">groupname</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.delete_group_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.delete_group_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">delete_group_cloud</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">groupname</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.delete_group_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.delete_group_cloud">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">delete_group_cloud</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">groupname</span><span class="p">):</span>
         <span class="n">provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
         <span class="k">return</span> <span class="n">provider</span><span class="o">.</span><span class="n">delete_secgroup</span><span class="p">(</span><span class="n">groupname</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.add_rule_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.add_rule_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">add_rule_cloud</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">groupname</span><span class="p">,</span> <span class="n">rulename</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.add_rule_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.add_rule_cloud">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">add_rule_cloud</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">groupname</span><span class="p">,</span> <span class="n">rulename</span><span class="p">):</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
         <span class="c1"># fetch rule from db</span>
@@ -740,8 +742,8 @@
             <span class="n">ret</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">add_secgroup_rule</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ret</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.delete_rule_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.delete_rule_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">delete_rule_cloud</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">groupname</span><span class="p">,</span> <span class="n">rulename</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.delete_rule_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.delete_rule_cloud">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">delete_rule_cloud</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">groupname</span><span class="p">,</span> <span class="n">rulename</span><span class="p">):</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
         <span class="n">ruleid</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_rule_cloud</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="n">groupname</span><span class="p">,</span> <span class="n">rulename</span><span class="p">)</span>
@@ -752,8 +754,8 @@
         <span class="c1">#                  .format(rulename, groupname), traceflag=False)</span>
         <span class="k">return</span> <span class="n">ret</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.delete_all_rules_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.delete_all_rules_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">delete_all_rules_cloud</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">groupname</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.delete_all_rules_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.delete_all_rules_cloud">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">delete_all_rules_cloud</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">groupname</span><span class="p">):</span>
         <span class="n">rules</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">list_rules_cloud</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="n">groupname</span><span class="p">)</span>
         <span class="n">provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
         <span class="k">if</span> <span class="n">rules</span><span class="p">:</span>
@@ -766,14 +768,14 @@
                     <span class="n">provider</span><span class="o">.</span><span class="n">delete_secgroup_rule</span><span class="p">(</span><span class="n">ruleid</span><span class="p">)</span>
         <span class="k">return</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.list_groups_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.list_groups_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">list_groups_cloud</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.list_groups_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.list_groups_cloud">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">list_groups_cloud</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
         <span class="n">provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
         <span class="n">groups</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">list_secgroup</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">groups</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.get_group_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.get_group_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">get_group_cloud</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">groupname</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.get_group_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.get_group_cloud">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_group_cloud</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">groupname</span><span class="p">):</span>
         <span class="n">provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
         <span class="n">groups</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">list_secgroup</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="kc">None</span>
@@ -784,8 +786,8 @@
                 <span class="k">break</span>
         <span class="k">return</span> <span class="n">ret</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.list_rules_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.list_rules_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">list_rules_cloud</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">groupname</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.list_rules_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.list_rules_cloud">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">list_rules_cloud</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">groupname</span><span class="p">):</span>
         <span class="n">provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
         <span class="n">groups</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">list_secgroup</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
         <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">:</span>
@@ -794,8 +796,8 @@
                 <span class="k">return</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;rules&quot;</span><span class="p">]</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SecGroup.get_rule_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.get_rule_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">get_rule_cloud</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">groupname</span><span class="p">,</span> <span class="n">rulename</span><span class="p">):</span>
+<div class="viewcode-block" id="SecGroup.get_rule_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.secgroup.SecGroup.get_rule_cloud">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_rule_cloud</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">groupname</span><span class="p">,</span> <span class="n">rulename</span><span class="p">):</span>
         <span class="n">rules</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">list_rules_cloud</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="n">groupname</span><span class="p">)</span>
         <span class="c1"># find properties for db rule</span>
 
@@ -879,7 +881,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

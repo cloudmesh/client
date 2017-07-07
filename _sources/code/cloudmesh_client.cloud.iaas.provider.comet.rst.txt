@@ -1,11 +1,11 @@
-cloudmesh_client.cloud.iaas.provider.comet package
-==================================================
+cloudmesh\_client\.cloud\.iaas\.provider\.comet package
+=======================================================
 
 Submodules
 ----------
 
-cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI module
------------------------------------------------------------------------
+cloudmesh\_client\.cloud\.iaas\.provider\.comet\.CloudProviderCometAPI module
+-----------------------------------------------------------------------------
 
 .. automodule:: cloudmesh_client.cloud.iaas.provider.comet.CloudProviderCometAPI
     :members:

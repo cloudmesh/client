@@ -1,5 +1,5 @@
-cloudmesh_client.cloud.hpc.provider package
-===========================================
+cloudmesh\_client\.cloud\.hpc\.provider package
+===============================================
 
 Subpackages
 -----------

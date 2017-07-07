@@ -1,11 +1,11 @@
-cloudmesh_client.provider.libcloud package
-==========================================
+cloudmesh\_client\.provider\.libcloud package
+=============================================
 
 Submodules
 ----------
 
-cloudmesh_client.provider.libcloud.attributes module
-----------------------------------------------------
+cloudmesh\_client\.provider\.libcloud\.attributes module
+--------------------------------------------------------
 
 .. automodule:: cloudmesh_client.provider.libcloud.attributes
     :members:

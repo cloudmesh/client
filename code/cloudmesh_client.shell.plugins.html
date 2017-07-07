@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins package &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>cloudmesh_client.shell.plugins package &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client.shell package" href="cloudmesh_client.shell.html"/>
         <link rel="next" title="cloudmesh_client.system package" href="cloudmesh_client.system.html"/>
         <link rel="prev" title="cloudmesh_client.shell package" href="cloudmesh_client.shell.html"/> 
@@ -67,7 +69,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -530,14 +532,14 @@
 <dd><dl class="first docutils">
 <dt>Usage:</dt>
 <dd>cluster define [-n NAME] [-c COUNT] [-C CLOUD] [-u NAME] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]
-cluster undefine [&#8211;all] [NAME]...
+cluster undefine [–all] [NAME]…
 cluster avail
 cluster use &lt;NAME&gt;
 cluster allocate
 cluster cross_ssh
 cluster list
 cluster nodes [CLUSTER]
-cluster delete [&#8211;all] [&#8211;force] [NAME]...
+cluster delete [–all] [–force] [NAME]…
 cluster get [-n NAME] PROPERTY
 cluster inventory [-F NAME] [-o PATH] [NAME]</dd>
 </dl>
@@ -560,20 +562,20 @@ COUNT               Integer &gt; 0
 PATH                Path to entry on the filesystem</div></blockquote>
 <p>Options:</p>
 <blockquote>
-<div>-A &#8211;no-activate               Don&#8217;t activate this cluster
--I &#8211;no-floating-ip            Don&#8217;t assign floating IPs
--n NAME &#8211;name=NAME            Name of the cluster
--c COUNT &#8211;count=COUNT         Number of nodes in the cluster
--C NAME &#8211;cloud=NAME           Name of the cloud
--u NAME &#8211;username=NAME        Name of the image login user
--i NAME &#8211;image=NAME           Name of the image
--f NAME &#8211;flavor=NAME          Name of the flavor
--k NAME &#8211;key=NAME             Name of the key
--s NAME &#8211;secgroup=NAME        NAME of the security group
--F NAME &#8211;format=NAME          Name of the output format
--o PATH &#8211;path=PATH            Output to this path
-&#8211;force
-&#8211;all</div></blockquote>
+<div>-A –no-activate               Don’t activate this cluster
+-I –no-floating-ip            Don’t assign floating IPs
+-n NAME –name=NAME            Name of the cluster
+-c COUNT –count=COUNT         Number of nodes in the cluster
+-C NAME –cloud=NAME           Name of the cloud
+-u NAME –username=NAME        Name of the image login user
+-i NAME –image=NAME           Name of the image
+-f NAME –flavor=NAME          Name of the flavor
+-k NAME –key=NAME             Name of the key
+-s NAME –secgroup=NAME        NAME of the security group
+-F NAME –format=NAME          Name of the output format
+-o PATH –path=PATH            Output to this path
+–force
+–all</div></blockquote>
 <p>Inventory File Format:</p>
 <blockquote class="last">
 <div>ansible  [default]            Ansible-compatible inventory</div></blockquote>
@@ -635,7 +637,7 @@ If there is no active cluster, delete the first cluster.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>clusternames</strong> (<a class="reference internal" href="cloudmesh_client.html#cloudmesh_client.default.Default.list" title="cloudmesh_client.default.Default.list"><em>list</em></a>) &#8211; list of cluster names to delete</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>clusternames</strong> (<a class="reference internal" href="cloudmesh_client.html#cloudmesh_client.default.Default.list" title="cloudmesh_client.default.Default.list"><em>list</em></a>) – list of cluster names to delete</td>
 </tr>
 </tbody>
 </table>
@@ -651,8 +653,8 @@ If there is no active cluster, delete the first cluster.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>property</strong> (<em>str</em>) &#8211; name of the property</li>
-<li><strong>cluster</strong> (<a class="reference internal" href="cloudmesh_client.api.html#cloudmesh_client.api.Cluster" title="cloudmesh_client.api.Cluster"><em>Cluster</em></a>) &#8211; the cluster (default: currently active)</li>
+<li><strong>property</strong> (<em>str</em>) – name of the property</li>
+<li><strong>cluster</strong> (<a class="reference internal" href="cloudmesh_client.api.html#cloudmesh_client.api.Cluster" title="cloudmesh_client.api.Cluster"><em>Cluster</em></a>) – the cluster (default: currently active)</li>
 </ul>
 </td>
 </tr>
@@ -701,7 +703,7 @@ position.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cluster</strong> (<a class="reference internal" href="cloudmesh_client.api.html#cloudmesh_client.api.Cluster" title="cloudmesh_client.api.Cluster"><em>Cluster</em></a>) &#8211; the cluster (default: currently active)</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cluster</strong> (<a class="reference internal" href="cloudmesh_client.api.html#cloudmesh_client.api.Cluster" title="cloudmesh_client.api.Cluster"><em>Cluster</em></a>) – the cluster (default: currently active)</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a list of instances</td>
 </tr>
@@ -724,7 +726,7 @@ position.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>specname</strong> &#8211; namne of the specification</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>specname</strong> – namne of the specification</td>
 </tr>
 </tbody>
 </table>
@@ -786,7 +788,7 @@ position.</p>
    <span class="n">comet</span> <span class="n">init</span>
    <span class="n">comet</span> <span class="n">active</span> <span class="p">[</span><span class="n">ENDPOINT</span><span class="p">]</span>
    <span class="n">comet</span> <span class="n">ll</span> <span class="p">[</span><span class="n">CLUSTERID</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">endpoint</span><span class="o">=</span><span class="n">ENDPOINT</span><span class="p">]</span>
-   <span class="n">comet</span> <span class="n">cluster</span> <span class="p">[</span><span class="n">CLUSTERID</span><span class="p">]</span>
+   <span class="n">comet</span> <span class="n">cluster</span> <span class="p">[</span><span class="o">--</span><span class="n">concise</span><span class="o">|--</span><span class="n">status</span><span class="p">]</span> <span class="p">[</span><span class="n">CLUSTERID</span><span class="p">]</span>
                  <span class="p">[</span><span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">]</span>
                  <span class="p">[</span><span class="o">--</span><span class="n">sort</span><span class="o">=</span><span class="n">SORTKEY</span><span class="p">]</span>
                  <span class="p">[</span><span class="o">--</span><span class="n">endpoint</span><span class="o">=</span><span class="n">ENDPOINT</span><span class="p">]</span>
@@ -797,6 +799,7 @@ position.</p>
                 <span class="p">[</span><span class="o">--</span><span class="n">endpoint</span><span class="o">=</span><span class="n">ENDPOINT</span><span class="p">]</span>
    <span class="n">comet</span> <span class="n">start</span> <span class="n">CLUSTERID</span> <span class="p">[</span><span class="o">--</span><span class="n">count</span><span class="o">=</span><span class="n">NUMNODES</span><span class="p">]</span> <span class="p">[</span><span class="n">COMPUTENODEIDS</span><span class="p">]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">allocation</span><span class="o">=</span><span class="n">ALLOCATION</span><span class="p">]</span>
+                <span class="p">[</span><span class="o">--</span><span class="n">reservation</span><span class="o">=</span><span class="n">RESERVATION</span><span class="p">]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">walltime</span><span class="o">=</span><span class="n">WALLTIME</span><span class="p">]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">endpoint</span><span class="o">=</span><span class="n">ENDPOINT</span><span class="p">]</span>
    <span class="n">comet</span> <span class="n">terminate</span> <span class="n">COMPUTESETID</span> <span class="p">[</span><span class="o">--</span><span class="n">endpoint</span><span class="o">=</span><span class="n">ENDPOINT</span><span class="p">]</span>
@@ -815,6 +818,7 @@ position.</p>
                 <span class="p">[</span><span class="o">--</span><span class="n">endpoint</span><span class="o">=</span><span class="n">ENDPOINT</span><span class="p">]</span>
    <span class="n">comet</span> <span class="n">iso</span> <span class="n">detach</span> <span class="n">CLUSTERID</span> <span class="p">[</span><span class="n">COMPUTENODEIDS</span><span class="p">]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">endpoint</span><span class="o">=</span><span class="n">ENDPOINT</span><span class="p">]</span>
+   <span class="n">comet</span> <span class="n">reservation</span> <span class="p">(</span><span class="nb">list</span><span class="o">|</span><span class="n">create</span><span class="o">|</span><span class="n">update</span><span class="o">|</span><span class="n">delete</span><span class="p">)</span>
 
 <span class="n">Options</span><span class="p">:</span>
     <span class="o">--</span><span class="n">endpoint</span><span class="o">=</span><span class="n">ENDPOINT</span>     <span class="n">Specify</span> <span class="n">the</span> <span class="n">comet</span> <span class="n">nucleus</span> <span class="n">service</span>
@@ -830,6 +834,7 @@ position.</p>
                             <span class="n">that</span> <span class="n">are</span> <span class="n">available</span> <span class="n">to</span> <span class="n">boot</span> <span class="k">as</span> <span class="n">a</span> <span class="n">computeset</span>
     <span class="o">--</span><span class="n">allocation</span><span class="o">=</span><span class="n">ALLOCATION</span>     <span class="n">Allocation</span> <span class="n">to</span> <span class="n">charge</span> <span class="n">when</span> <span class="n">power</span> <span class="n">on</span>
                                 <span class="n">node</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="o">--</span><span class="n">reservation</span><span class="o">=</span><span class="n">RESERVATION</span>   <span class="n">Submit</span> <span class="n">the</span> <span class="n">request</span> <span class="n">to</span> <span class="n">an</span> <span class="n">existing</span> <span class="n">reservation</span>
     <span class="o">--</span><span class="n">walltime</span><span class="o">=</span><span class="n">WALLTIME</span>     <span class="n">Walltime</span> <span class="n">requested</span> <span class="k">for</span> <span class="n">the</span> <span class="n">node</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span>
                             <span class="n">Walltime</span> <span class="n">could</span> <span class="n">be</span> <span class="n">an</span> <span class="n">integer</span> <span class="n">value</span> <span class="n">followed</span>
                             <span class="n">by</span> <span class="n">a</span> <span class="n">unit</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="k">for</span> <span class="n">minute</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span>
@@ -839,6 +844,8 @@ position.</p>
     <span class="o">--</span><span class="n">state</span><span class="o">=</span><span class="n">COMPUTESESTATE</span>  <span class="n">List</span> <span class="n">only</span> <span class="n">computeset</span> <span class="k">with</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">state</span><span class="o">.</span>
                             <span class="n">The</span> <span class="n">state</span> <span class="n">could</span> <span class="n">be</span> <span class="n">submitted</span><span class="p">,</span> <span class="n">running</span><span class="p">,</span> <span class="n">completed</span>
     <span class="o">--</span><span class="n">link</span>                  <span class="n">Whether</span> <span class="n">to</span> <span class="nb">open</span> <span class="n">the</span> <span class="n">console</span> <span class="n">url</span> <span class="ow">or</span> <span class="n">just</span> <span class="n">show</span> <span class="n">the</span> <span class="n">link</span>
+    <span class="o">--</span><span class="n">concise</span>               <span class="n">Concise</span> <span class="n">table</span> <span class="n">view</span> <span class="k">for</span> <span class="n">cluster</span> <span class="n">info</span>
+    <span class="o">--</span><span class="n">status</span>                <span class="n">Cluster</span> <span class="n">table</span> <span class="n">view</span> <span class="n">displays</span> <span class="n">only</span> <span class="n">those</span> <span class="n">columns</span> <span class="n">showing</span> <span class="n">state</span> <span class="n">of</span> <span class="n">nodes</span>
 
 <span class="n">Arguments</span><span class="p">:</span>
     <span class="n">ENDPOINT</span>        <span class="n">Service</span> <span class="n">endpoint</span> <span class="n">based</span> <span class="n">on</span> <span class="n">the</span> <span class="n">yaml</span> <span class="n">config</span> <span class="n">file</span><span class="o">.</span>
@@ -942,7 +949,7 @@ such default values. These defaults are used in other commands
 if they are not overwritten by a command parameter.</p>
 <p>The current default values can by listed with</p>
 <blockquote>
-<div>default list &#8211;all</div></blockquote>
+<div>default list –all</div></blockquote>
 <p>Via the default command you can list, set, get and delete
 default values. You can list the defaults with</p>
 <blockquote>
@@ -957,29 +964,29 @@ default values. You can list the defaults with</p>
 <blockquote>
 <div>default delete KEY</div></blockquote>
 <p class="last">To be specific to a cloud you can specify the name of the
-cloud with the &#8211;cloud=CLOUD option. The list command can
+cloud with the –cloud=CLOUD option. The list command can
 print the information in various formats iv specified.</p>
 </dd>
 <dt>Examples:</dt>
 <dd><dl class="first last docutils">
 <dt>default</dt>
 <dd>lists the default for the current default cloud</dd>
-<dt>default list &#8211;all</dt>
+<dt>default list –all</dt>
 <dd>lists all default values</dd>
-<dt>default list &#8211;cloud=kilo</dt>
+<dt>default list –cloud=kilo</dt>
 <dd>lists the defaults for the cloud with the name kilo</dd>
 <dt>default image=xyz</dt>
 <dd>sets the default image for the default cloud to xyz</dd>
-<dt>default image=abc &#8211;cloud=kilo</dt>
+<dt>default image=abc –cloud=kilo</dt>
 <dd>sets the default image for the cloud kilo to xyz</dd>
 <dt>default image</dt>
 <dd>list the default image of the default cloud</dd>
-<dt>default image &#8211;cloud=kilo</dt>
+<dt>default image –cloud=kilo</dt>
 <dd>list the default image of the cloud kilo</dd>
 <dt>default delete image</dt>
 <dd>deletes the value for the default image in the
 default cloud</dd>
-<dt>default delete image &#8211;cloud=kilo</dt>
+<dt>default delete image –cloud=kilo</dt>
 <dd>deletes the value for the default image in the
 cloud kilo</dd>
 </dl>
@@ -1015,10 +1022,10 @@ cloud kilo</dd>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>cluster</strong> (<em>str</em>) &#8211; cluster name (default is the active cluster)</li>
-<li><strong>path</strong> (<em>str</em>) &#8211; path to the role (default is current working directory)</li>
-<li><strong>username</strong> (<em>str</em>) &#8211; login username of the nodes (overrides autodetected value)</li>
-<li><strong>modifyKnownHosts</strong> &#8211; whether to update ~/.ssh/known_hosts</li>
+<li><strong>cluster</strong> (<em>str</em>) – cluster name (default is the active cluster)</li>
+<li><strong>path</strong> (<em>str</em>) – path to the role (default is current working directory)</li>
+<li><strong>username</strong> (<em>str</em>) – login username of the nodes (overrides autodetected value)</li>
+<li><strong>modifyKnownHosts</strong> – whether to update ~/.ssh/known_hosts</li>
 </ul>
 </td>
 </tr>
@@ -1039,7 +1046,7 @@ cloud kilo</dd>
 <dt>::</dt>
 <dd><dl class="first docutils">
 <dt>Usage:</dt>
-<dd>deploy ansible role [-c CLUSTER] [-u NAME] [-N] [-H HOST] [-b] URI...</dd>
+<dd>deploy ansible role [-c CLUSTER] [-u NAME] [-N] [-H HOST] [-b] URI…</dd>
 </dl>
 <p>Commands:</p>
 <blockquote>
@@ -1058,11 +1065,11 @@ URI                            Location of the item as a uri
 HOST                           Host matching pattern</div></blockquote>
 <p>Options:</p>
 <blockquote class="last">
-<div>-c &#8211;cluster=CLUSTER           Cluster name to operate on (defaults to active)
--N &#8211;no-modify-known-hosts     Don&#8217;t let ssh update ~/.ssh/known_hosts
--u &#8211;username=NAME             Username of the nodes to manage
--H HOST &#8211;hosts=HOST           Host matching pattern [default: all]
--b &#8211;no-become                 Don&#8217;t become privileged user</div></blockquote>
+<div>-c –cluster=CLUSTER           Cluster name to operate on (defaults to active)
+-N –no-modify-known-hosts     Don’t let ssh update ~/.ssh/known_hosts
+-u –username=NAME             Username of the nodes to manage
+-H HOST –hosts=HOST           Host matching pattern [default: all]
+-b –no-become                 Don’t become privileged user</div></blockquote>
 </dd>
 </dl>
 </dd></dl>
@@ -1254,7 +1261,7 @@ HOST                           Host matching pattern</div></blockquote>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>specname</strong> &#8211; namne of the specification</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>specname</strong> – namne of the specification</td>
 </tr>
 </tbody>
 </table>
@@ -1738,7 +1745,7 @@ HOST                           Host matching pattern</div></blockquote>
 <p>Description:</p>
 <p>Launcher is a command line tool to test the portal launch
 functionalities through command line.</p>
-<p>The current launcher values can by listed with &#8211;all option:(
+<p>The current launcher values can by listed with –all option:(
 if you have a launcher cloud specified. You can also add a
 cloud parameter to apply the command to a specific cloud)</p>
 <blockquote>
@@ -1750,8 +1757,8 @@ cloud parameter to apply the command to a specific cloud)</p>
 </div></blockquote>
 <dl class="docutils">
 <dt>Examples:</dt>
-<dd>launcher list &#8211;all
-launcher list &#8211;cloud=general
+<dd>launcher list –all
+launcher list –cloud=general
 launcher delete &lt;KEY&gt;</dd>
 </dl>
 </dd></dl>
@@ -1904,11 +1911,11 @@ Examples:
 for a cloud.</dd>
 <dt>Examples:</dt>
 <dd><dl class="first last docutils">
-<dt>loglevel set DEBUG &#8211;cloud=kilo</dt>
+<dt>loglevel set DEBUG –cloud=kilo</dt>
 <dd>sets the default log level to DEBUG for kilo.</dd>
-<dt>loglevel get &#8211;cloud=kilo</dt>
+<dt>loglevel get –cloud=kilo</dt>
 <dd>retreives the default log level for kilo cloud.</dd>
-<dt>loglevel save &#8211;cloud=kilo</dt>
+<dt>loglevel save –cloud=kilo</dt>
 <dd>saves the log level preference to the db &amp; yaml file.</dd>
 </dl>
 </dd>
@@ -2036,6 +2043,55 @@ for a cloud.</dd>
 <dl class="attribute">
 <dt id="cloudmesh_client.shell.plugins.NetworkCommand.NetworkCommand.topics">
 <code class="descname">topics</code><em class="property"> = {'network': 'cloud'}</em><a class="headerlink" href="#cloudmesh_client.shell.plugins.NetworkCommand.NetworkCommand.topics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cloudmesh_client.shell.plugins.NistCommand">
+<span id="cloudmesh-client-shell-plugins-nistcommand-module"></span><h2>cloudmesh_client.shell.plugins.NistCommand module<a class="headerlink" href="#module-cloudmesh_client.shell.plugins.NistCommand" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.shell.plugins.NistCommand.Command">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.plugins.NistCommand.</code><code class="descname">Command</code><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/NistCommand.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.NistCommand.Command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.NistCommand.Command.fingerprint">
+<code class="descname">fingerprint</code><span class="sig-paren">(</span><em>workdir=None</em>, <em>clustername=None</em>, <em>username=None</em>, <em>provision=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/NistCommand.html#Command.fingerprint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.NistCommand.Command.fingerprint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.shell.plugins.NistCommand.NistCommand">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.plugins.NistCommand.</code><code class="descname">NistCommand</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/NistCommand.html#NistCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.NistCommand.NistCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.shell.html#cloudmesh_client.shell.command.PluginCommand" title="cloudmesh_client.shell.command.PluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.PluginCommand</span></code></a>, <a class="reference internal" href="cloudmesh_client.shell.html#cloudmesh_client.shell.command.CloudPluginCommand" title="cloudmesh_client.shell.command.CloudPluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.CloudPluginCommand</span></code></a></p>
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.NistCommand.NistCommand.do_nist">
+<code class="descname">do_nist</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.NistCommand.NistCommand.do_nist" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span>
+  <span class="n">nist</span> <span class="n">fingerprint</span> <span class="p">[</span><span class="o">-</span><span class="n">c</span> <span class="n">CLUSTER</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">u</span> <span class="n">TEXT</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">N</span><span class="p">]</span>
+
+<span class="n">Arguments</span><span class="p">:</span>
+
+  <span class="n">CLUSTER</span>         <span class="n">Name</span> <span class="n">of</span> <span class="n">a</span> <span class="n">cluster</span>
+  <span class="n">TEXT</span>            <span class="n">String</span>
+
+<span class="n">Commands</span><span class="p">:</span>
+
+  <span class="n">fingerprint</span>     <span class="n">Run</span> <span class="n">the</span> <span class="n">fingerprint</span> <span class="n">example</span>
+
+<span class="n">Options</span><span class="p">:</span>
+
+  <span class="o">-</span><span class="n">c</span> <span class="o">--</span><span class="n">cluster</span><span class="o">=</span><span class="n">CLUSTER</span>  <span class="n">Name</span> <span class="n">of</span> <span class="n">a</span> <span class="n">defined</span> <span class="n">cluster</span>
+  <span class="o">-</span><span class="n">u</span> <span class="o">--</span><span class="n">username</span><span class="o">=</span><span class="n">TEXT</span>    <span class="n">Username</span> <span class="n">to</span> <span class="n">log</span> <span class="ow">in</span> <span class="k">with</span>
+  <span class="o">-</span><span class="n">N</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">provision</span>     <span class="n">Do</span> <span class="ow">not</span> <span class="n">provision</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.shell.plugins.NistCommand.NistCommand.topics">
+<code class="descname">topics</code><em class="property"> = {'nist': 'nist'}</em><a class="headerlink" href="#cloudmesh_client.shell.plugins.NistCommand.NistCommand.topics" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2770,7 +2826,7 @@ Description:
 <dt>Usage:</dt>
 <dd>server</dd>
 <dt>Options:</dt>
-<dd>-h &#8211;help
+<dd>-h –help
 -v       verbose mode</dd>
 <dt>Description:</dt>
 <dd><p class="first">Starts up a REST service and a WEB GUI so one can browse the data in an
@@ -2917,7 +2973,7 @@ Options:
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>overrides</strong> &#8211; list of [(play:k1=v1,k2=v2)...]</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>overrides</strong> – list of [(play:k1=v1,k2=v2)…]</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
 </tr>
@@ -3626,7 +3682,7 @@ toggled.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

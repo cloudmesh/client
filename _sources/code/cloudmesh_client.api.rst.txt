@@ -1,5 +1,5 @@
-cloudmesh_client.api package
-============================
+cloudmesh\_client\.api package
+==============================
 
 Subpackages
 -----------

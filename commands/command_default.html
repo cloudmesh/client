@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Default Command &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>Default Command &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Info Command" href="command_info.html"/>
         <link rel="prev" title="Color Command" href="command_colors.html"/> 
@@ -67,7 +69,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -245,7 +247,7 @@ cloud that is found in the yaml file and the default group is set to
 <cite>general</cite>.</p>
 <div class="section" id="default-list">
 <h2>default list<a class="headerlink" href="#default-list" title="Permalink to this headline">¶</a></h2>
-<p>All the current default values can by listed with &#8211;all option:</p>
+<p>All the current default values can by listed with –all option:</p>
 <pre class="highlight"><style type="text/css">
 span.prompt1:before {
   content: "cm> ";
@@ -260,7 +262,7 @@ span.prompt1:before {
 <span class="o">+--------+-----------+-------+-------+</span>
 </pre></div>
 </div>
-<p>You can also add a &#8211;cloud=CLOUD option to see the defaults set
+<p>You can also add a –cloud=CLOUD option to see the defaults set
 for a cloud:</p>
 <pre class="highlight"><span class="prompt1">default list --cloud=chameleon</span>
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+--------+-----------+-------+-------+</span>
@@ -273,13 +275,13 @@ for a cloud:</p>
 </div>
 <div class="section" id="set-default-values">
 <h2>set default values<a class="headerlink" href="#set-default-values" title="Permalink to this headline">¶</a></h2>
-<p>To add a default value, type in a key=value pair. If no &#8211;cloud is specified,
+<p>To add a default value, type in a key=value pair. If no –cloud is specified,
 it adds the value to the general/global cloud:</p>
 <pre class="highlight"><span class="prompt1">default image=xyz</span>
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Successfully</span> <span class="n">added</span> <span class="n">value</span><span class="p">:</span> <span class="n">xyz</span> <span class="k">for</span> <span class="n">key</span><span class="p">:</span> <span class="n">image</span>
 </pre></div>
 </div>
-<p>With the &#8211;cloud=CLOUD option, defaults can be set for a particular
+<p>With the –cloud=CLOUD option, defaults can be set for a particular
 cloud:</p>
 <pre class="highlight"><span class="prompt1">default image=xyz --cloud=chameleon</span>
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Successfully</span> <span class="n">added</span> <span class="n">value</span><span class="p">:</span> <span class="n">xyz</span> <span class="k">for</span> <span class="n">key</span><span class="p">:</span> <span class="n">image</span>
@@ -288,13 +290,13 @@ cloud:</p>
 </div>
 <div class="section" id="looking-up-default-values">
 <h2>looking up default values<a class="headerlink" href="#looking-up-default-values" title="Permalink to this headline">¶</a></h2>
-<p>To loop up a default value set, type in the key. If no &#8211;cloud option is
+<p>To loop up a default value set, type in the key. If no –cloud option is
 specified, it returns the value of the general/global cloud:</p>
 <pre class="highlight"><span class="prompt1">default image</span>
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Default</span> <span class="n">value</span> <span class="k">for</span> <span class="n">image</span> <span class="ow">is</span> <span class="n">xyz</span>
 </pre></div>
 </div>
-<p>With the &#8211;cloud=CLOUD option, defaults can be looked up for a particular
+<p>With the –cloud=CLOUD option, defaults can be looked up for a particular
 cloud:</p>
 <pre class="highlight"><span class="prompt1">default image --cloud=chameleon</span>
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Default</span> <span class="n">value</span> <span class="k">for</span> <span class="n">image</span> <span class="ow">is</span> <span class="n">xyz</span>
@@ -303,13 +305,13 @@ cloud:</p>
 </div>
 <div class="section" id="deleting-default-values">
 <h2>deleting default values<a class="headerlink" href="#deleting-default-values" title="Permalink to this headline">¶</a></h2>
-<p>To delete a default value, type in delete followed by the key. If no &#8211;cloud
+<p>To delete a default value, type in delete followed by the key. If no –cloud
 option is specified, it deletes the value of the general/global cloud:</p>
 <pre class="highlight"><span class="prompt1">default delete image</span>
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Deleted</span> <span class="n">key</span> <span class="n">image</span> <span class="k">for</span> <span class="n">cloud</span> <span class="n">general</span>
 </pre></div>
 </div>
-<p>With the &#8211;cloud=CLOUD option, defaults can be deleted for a particular
+<p>With the –cloud=CLOUD option, defaults can be deleted for a particular
 cloud:</p>
 <pre class="highlight"><span class="prompt1">default delete image --cloud=chameleon</span>
 </pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Deleted</span> <span class="n">key</span> <span class="n">image</span> <span class="k">for</span> <span class="n">cloud</span> <span class="n">chameleon</span>
@@ -334,7 +336,7 @@ heterogeneous clouds becomes easy:</p>
 <span class="prompt1"></span>
 <span class="prompt1">default cloud=chameleon</span>
 <span class="prompt1">vm boot</span>
-</pre><p>You have now two vms&#8217;s one on kilo and one on chameleon.</p>
+</pre><p>You have now two vms’s one on kilo and one on chameleon.</p>
 </div>
 <div class="section" id="distributing-defaults">
 <h2>distributing defaults<a class="headerlink" href="#distributing-defaults" title="Permalink to this headline">¶</a></h2>
@@ -418,7 +420,7 @@ cm vm ip assign</div></blockquote>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.db.CloudmeshDatabase &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>cloudmesh_client.db.CloudmeshDatabase &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -65,7 +67,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -340,8 +342,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)[</span><span class="s2">&quot;cloudmesh.profile.user&quot;</span><span class="p">]</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.refresh_new"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.refresh_new">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.refresh_new"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.refresh_new">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">refresh_new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method refreshes the local database</span>
 <span class="sd">        with the live cloud details</span>
@@ -427,8 +429,8 @@
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem with secgroup&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">False</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.insert"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.insert"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.insert">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Insert a row into the database</span>
 
 <span class="sd">        :param obj: the object model to insert</span>
@@ -452,8 +454,8 @@
         <span class="bp">cls</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
 
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.select"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="o">**</span><span class="n">filter_args</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.select"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.select">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="o">**</span><span class="n">filter_args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return rows of the table matching filter args.</span>
 
 <span class="sd">        This is a proxy for sqlalchemy&#39;s ``session.query(table).filter(**kwargs)``</span>
@@ -464,8 +466,8 @@
 
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">table</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="o">**</span><span class="n">filter_args</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.delete_"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.delete_">[docs]</a>    <span class="k">def</span> <span class="nf">delete_</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="o">**</span><span class="n">filter_args</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.delete_"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.delete_">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">delete_</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="o">**</span><span class="n">filter_args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Delete rows in the table matching ``filter_args``</span>
 
 <span class="sd">        :param type table: the model class</span>
@@ -473,8 +475,8 @@
         <span class="bp">cls</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">table</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="o">**</span><span class="n">filter_args</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.update_"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.update_">[docs]</a>    <span class="k">def</span> <span class="nf">update_</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.update_"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.update_">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">update_</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Updates a subset of rows in the table, filtered by ``where``,</span>
 <span class="sd">        setting to ``values``.</span>
 
@@ -488,8 +490,8 @@
             <span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.updateObj"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.updateObj">[docs]</a>    <span class="k">def</span> <span class="nf">updateObj</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.updateObj"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.updateObj">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">updateObj</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="c1"># ensure that the object already exists</span>
         <span class="n">obj</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">cm_id</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">cm_id</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
 
@@ -619,8 +621,8 @@
 
         <span class="k">return</span> <span class="n">objects</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.add_new"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.add_new">[docs]</a>    <span class="k">def</span> <span class="nf">add_new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.add_new"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.add_new">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">add_new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        o dotdict</span>
 
@@ -681,31 +683,31 @@
     <span class="c1">#</span>
     <span class="c1"># MODEL</span>
     <span class="c1">#</span>
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.create"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.create"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.create">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="c1"># cls.clean()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">cls</span><span class="o">.</span><span class="n">data</span><span class="p">)):</span>
             <span class="bp">cls</span><span class="o">.</span><span class="n">create_model</span><span class="p">()</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.create_model"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.create_model">[docs]</a>    <span class="k">def</span> <span class="nf">create_model</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.create_model"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.create_model">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">create_model</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Model created&quot;</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.clean"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.clean">[docs]</a>    <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.clean"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.clean">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">tables</span><span class="p">:</span>
             <span class="bp">cls</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="n">table</span><span class="o">.</span><span class="n">__kind__</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="n">table</span><span class="o">.</span><span class="n">__provider__</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.create_tables"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.create_tables">[docs]</a>    <span class="k">def</span> <span class="nf">create_tables</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.create_tables"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.create_tables">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">create_tables</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :return: the list of tables in model</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">tables</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">Base</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">()]</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.info"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.info"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.info">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">tables</span><span class="p">:</span>
@@ -720,8 +722,8 @@
                 <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.table"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.table">[docs]</a>    <span class="k">def</span> <span class="nf">table</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.table"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.table">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">table</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        :param category:</span>
@@ -750,14 +752,14 @@
 
         <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No table found for name=</span><span class="si">{}</span><span class="s2">, provider=</span><span class="si">{}</span><span class="s2">, kind=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">provider</span><span class="p">,</span> <span class="n">kind</span><span class="p">))</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.vm_table_from_provider"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.vm_table_from_provider">[docs]</a>    <span class="k">def</span> <span class="nf">vm_table_from_provider</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">provider</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.vm_table_from_provider"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.vm_table_from_provider">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">vm_table_from_provider</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">provider</span><span class="p">):</span>
         <span class="n">tablename</span> <span class="o">=</span> <span class="s1">&#39;vm_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span>
         <span class="n">table</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">tablename</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">table</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.get_table_from_kind"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.get_table_from_kind">[docs]</a>    <span class="k">def</span> <span class="nf">get_table_from_kind</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.get_table_from_kind"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.get_table_from_kind">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_table_from_kind</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
         <span class="n">providers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">tables</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">__kind__</span> <span class="o">==</span> <span class="n">kind</span><span class="p">:</span>
@@ -775,15 +777,15 @@
     <span class="c1"># SESSION</span>
     <span class="c1">#</span>
     <span class="c1"># noinspection PyPep8Naming</span>
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.start"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.start"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.start">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">session</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># print(&quot;start session&quot;)</span>
             <span class="n">Session</span> <span class="o">=</span> <span class="n">sessionmaker</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
             <span class="bp">cls</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.all"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
+<div class="viewcode-block" id="CloudmeshDatabase.all"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.all">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
             <span class="n">provider</span><span class="o">=</span><span class="s1">&#39;general&#39;</span><span class="p">,</span>
             <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">kind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -848,8 +850,8 @@
             <span class="n">result</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.find"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.find">[docs]</a>    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.find"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.find">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns either</span>
 <span class="sd">        a) an array of objects from the database in dict format, that match a particular kind.</span>
@@ -928,8 +930,8 @@
 
         <span class="k">return</span> <span class="n">objects</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.add"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.add"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.add">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        o dotdict</span>
 
@@ -995,16 +997,16 @@
             <span class="bp">cls</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.add_obj"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.add_obj">[docs]</a>    <span class="k">def</span> <span class="nf">add_obj</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">objects</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.add_obj"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.add_obj">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">add_obj</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">objects</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">objects</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
                 <span class="n">t</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
                 <span class="n">o</span> <span class="o">=</span> <span class="n">t</span><span class="p">(</span><span class="o">**</span><span class="n">obj</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
                 <span class="bp">cls</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">o</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.filter_by"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.filter_by">[docs]</a>    <span class="k">def</span> <span class="nf">filter_by</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.filter_by"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.filter_by">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">filter_by</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns either</span>
 <span class="sd">        a) an array of objects from the database in dict format, that match a particular kind.</span>
@@ -1030,13 +1032,13 @@
 
         <span class="k">return</span> <span class="n">objects</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.save"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.save"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.save">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.to_list"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.to_list">[docs]</a>    <span class="k">def</span> <span class="nf">to_list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.to_list"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.to_list">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">to_list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        convert the object to dict</span>
 
@@ -1053,8 +1055,8 @@
                 <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.to_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.to_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.to_dict">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        convert the object to dict</span>
 
@@ -1074,8 +1076,8 @@
     <span class="c1">#</span>
     <span class="c1"># DELETE</span>
     <span class="c1">#</span>
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.delete"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.delete"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.delete">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param kind:</span>
 <span class="sd">        :return:</span>
@@ -1108,8 +1110,8 @@
 
         <span class="k">return</span> <span class="n">result</span> <span class="o">!=</span> <span class="mi">0</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.update"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.update"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.update">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        :param kind:</span>
@@ -1137,8 +1139,8 @@
         <span class="bp">cls</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="o">**</span><span class="nb">filter</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.set"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
+<div class="viewcode-block" id="CloudmeshDatabase.set"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.set">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
             <span class="n">name</span><span class="p">,</span>
             <span class="n">attribute</span><span class="p">,</span>
             <span class="n">value</span><span class="p">,</span>
@@ -1180,8 +1182,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem setting attributes&quot;</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.clear"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.clear"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.clear">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method deletes all &#39;kind&#39; entries</span>
 <span class="sd">        from the cloudmesh database</span>
@@ -1210,8 +1212,8 @@
     <span class="c1"># REFRESH</span>
     <span class="c1"># ###################################</span>
     <span class="c1"># noinspection PyUnusedLocal</span>
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CloudmeshDatabase.refresh"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.refresh"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.refresh">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method refreshes the local database</span>
 <span class="sd">        with the live cloud details</span>
@@ -1327,7 +1329,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

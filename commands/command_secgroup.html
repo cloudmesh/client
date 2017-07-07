@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>SecGroup Command &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>SecGroup Command &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="VM Command" href="command_vm.html"/>
         <link rel="prev" title="List Command" href="command_list.html"/> 
@@ -67,7 +69,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -257,14 +259,14 @@ span.prompt1:before {
   content: "cm> ";
 }
 </style><span class="prompt1">secgroup add my_new_group webapp 8080 8080 tcp 0.0.0.0/0</span>
-</pre><p>This will create locally a secgroup named &#8216;my_new_group&#8217;, with a rule &#8216;webapp&#8217;
+</pre><p>This will create locally a secgroup named ‘my_new_group’, with a rule ‘webapp’
 defined, which opens port 8080 for protocol tcp and for the network 0.0.0.0/0.</p>
 <p>To upload/update the group/rules into a cloud:</p>
 <pre class="highlight"><span class="prompt1">secgroup upload --cloud=india</span>
 </pre><p>This will upload the locally defined security groups(s) and rule(s) to cloud
 india, for the current (as specified in the yaml config file) user and project.
-If no &#8216;&#8211;cloud&#8217; parameter is specified, or set to &#8216;all&#8217;, it will upload to all
-&#8216;active&#8217; clouds.</p>
+If no ‘–cloud’ parameter is specified, or set to ‘all’, it will upload to all
+‘active’ clouds.</p>
 </div>
 <div class="section" id="security-group-list">
 <h2>Security Group List<a class="headerlink" href="#security-group-list" title="Permalink to this headline">¶</a></h2>
@@ -281,7 +283,7 @@ If no &#8216;&#8211;cloud&#8217; parameter is specified, or set to &#8216;all&#8
 <span class="o">+--------+----------------+----------+--------+-----------+----------+</span>
 </pre></div>
 </div>
-<p>To list the Security Groups currently in a specified cloud &#8216;india&#8217;:</p>
+<p>To list the Security Groups currently in a specified cloud ‘india’:</p>
 <pre class="highlight"><span class="prompt1">secgroup list --cloud=india</span>
 </pre></div>
 <div class="section" id="security-group-rule-delete">
@@ -289,23 +291,23 @@ If no &#8216;&#8211;cloud&#8217; parameter is specified, or set to &#8216;all&#8
 <p>To delete a specific rule within a security group use:</p>
 <pre class="highlight"><span class="prompt1">secgroup delete my_secgroup_name rule_name</span>
 </pre><p>This will delete the named rule from the specified secgroup from the local
-database. Use the &#8216;secgroup upload&#8217; command to sync the changes to remote
+database. Use the ‘secgroup upload’ command to sync the changes to remote
 cloud(s).</p>
 </div>
 <div class="section" id="security-group-delete">
 <h2>Security Group Delete<a class="headerlink" href="#security-group-delete" title="Permalink to this headline">¶</a></h2>
 <p>To delete an entire security group use:</p>
 <pre class="highlight"><span class="prompt1">secgroup delete my_unused_secgroup --cloud=india</span>
-</pre><p>Use the &#8211;cloud parameter to specify on which cloud the named secgroup will
+</pre><p>Use the –cloud parameter to specify on which cloud the named secgroup will
 be deleted. If not specified, it will delete the secgroup locally, and use
-&#8216;secgroup upload&#8217; to sync the changes to remote cloud(s).</p>
+‘secgroup upload’ to sync the changes to remote cloud(s).</p>
 </div>
 <div class="section" id="security-group-rule-upload-update">
 <h2>Security Group/Rule upload/update<a class="headerlink" href="#security-group-rule-upload-update" title="Permalink to this headline">¶</a></h2>
 <pre class="highlight"><span class="prompt1">secgroup upload my_secgroup --cloud=india</span>
-</pre><p>This uploads the named secgroup &#8216;my_secgroup&#8217; to the cloud &#8216;india&#8217;. If no
+</pre><p>This uploads the named secgroup ‘my_secgroup’ to the cloud ‘india’. If no
 secgroup name specified, it will upload/update all locally defined groups.
-If no &#8211;cloud parameter specified, or set to &#8216;all&#8217;, it will upload to all
+If no –cloud parameter specified, or set to ‘all’, it will upload to all
 active clouds (as defined in the yaml config file).</p>
 </div>
 </div>
@@ -353,7 +355,7 @@ active clouds (as defined in the yaml config file).</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

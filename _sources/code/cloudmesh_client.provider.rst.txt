@@ -1,5 +1,5 @@
-cloudmesh_client.provider package
-=================================
+cloudmesh\_client\.provider package
+===================================
 
 Subpackages
 -----------

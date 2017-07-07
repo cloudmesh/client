@@ -1,27 +1,27 @@
-cloudmesh_client.cloud.iaas.provider.libcloud package
-=====================================================
+cloudmesh\_client\.cloud\.iaas\.provider\.libcloud package
+==========================================================
 
 Submodules
 ----------
 
-cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud module
---------------------------------------------------------------------------
+cloudmesh\_client\.cloud\.iaas\.provider\.libcloud\.CloudProviderLibcloud module
+--------------------------------------------------------------------------------
 
 .. automodule:: cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2 module
------------------------------------------------------------------------------
+cloudmesh\_client\.cloud\.iaas\.provider\.libcloud\.CloudProviderLibcloudEC2 module
+-----------------------------------------------------------------------------------
 
 .. automodule:: cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudOpenStack module
------------------------------------------------------------------------------------
+cloudmesh\_client\.cloud\.iaas\.provider\.libcloud\.CloudProviderLibcloudOpenStack module
+-----------------------------------------------------------------------------------------
 
 .. automodule:: cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudOpenStack
     :members:

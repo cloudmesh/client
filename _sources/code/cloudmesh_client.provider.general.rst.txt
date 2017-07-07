@@ -1,11 +1,11 @@
-cloudmesh_client.provider.general package
-=========================================
+cloudmesh\_client\.provider\.general package
+============================================
 
 Submodules
 ----------
 
-cloudmesh_client.provider.general.attributes module
----------------------------------------------------
+cloudmesh\_client\.provider\.general\.attributes module
+-------------------------------------------------------
 
 .. automodule:: cloudmesh_client.provider.general.attributes
     :members:

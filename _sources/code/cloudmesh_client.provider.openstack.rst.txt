@@ -1,11 +1,11 @@
-cloudmesh_client.provider.openstack package
-===========================================
+cloudmesh\_client\.provider\.openstack package
+==============================================
 
 Submodules
 ----------
 
-cloudmesh_client.provider.openstack.attributes module
------------------------------------------------------
+cloudmesh\_client\.provider\.openstack\.attributes module
+---------------------------------------------------------
 
 .. automodule:: cloudmesh_client.provider.openstack.attributes
     :members:

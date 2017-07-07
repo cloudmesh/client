@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quick Start Microsoft Azure &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>Quick Start Microsoft Azure &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="index.html"/> 
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -64,7 +66,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -205,7 +207,7 @@
 <h1>Quick Start Microsoft Azure<a class="headerlink" href="#quick-start-microsoft-azure" title="Permalink to this headline">¶</a></h1>
 <p>Starting an Microsoft Azure Virtual Machine is simple on Cloudmesh client with
 a few steps. This instruction guides you how to register Azure account on
-Cloudmesh client and get access to a machine once it&#8217;s running. It may take 10
+Cloudmesh client and get access to a machine once it’s running. It may take 10
 minutes.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -228,9 +230,9 @@ section.</p>
 along with a subscription ID. To obtain a subscription ID,</p>
 <ul class="simple">
 <li>Login <a class="reference external" href="https://manage.windowsazure.com">the classic Azure Portal</a></li>
-<li>Find &#8216;Settings&#8217; at the bottome of the left tab</li>
+<li>Find ‘Settings’ at the bottome of the left tab</li>
 <li>You will find a subscription ID associated with your account in the
-&#8216;settings&#8217; page like:
+‘settings’ page like:
 <code class="docutils literal"><span class="pre">8b3df2b9-3ac1-4828-b6e0-8f8be62e6e6r</span></code></li>
 <li>Keep the subscription ID when you register Azure cloud on Cloudmesh</li>
 </ul>
@@ -266,7 +268,7 @@ interactively like:</p>
 </div>
 </li>
 </ul>
-<p>You will find <code class="docutils literal"><span class="pre">~/.cloudmesh/azure-cert.pem</span></code> file on your account. Let&#8217;s
+<p>You will find <code class="docutils literal"><span class="pre">~/.cloudmesh/azure-cert.pem</span></code> file on your account. Let’s
 create server certificate (.cer) from the client certificate (.pem).</p>
 <ul class="simple">
 <li>Run <code class="docutils literal"><span class="pre">openssl</span> <span class="pre">x509</span> <span class="pre">-inform</span> <span class="pre">pem</span> <span class="pre">-in</span> <span class="pre">~/.cloudmesh/azure-cert.pem</span> <span class="pre">-outform</span> <span class="pre">der</span>
@@ -310,7 +312,7 @@ and <a class="reference external" href="https://azure.microsoft.com/en-us/docume
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Provide absolute path for &#8216;managementcertfile&#8217;.</p>
+<p class="last">Provide absolute path for ‘managementcertfile’.</p>
 </div>
 <p>You can skip servicecertfile and thumbprint at this stage.</p>
 </div>
@@ -449,7 +451,7 @@ Welcome to Ubuntu 12.04.5 LTS (GNU/Linux 3.13.0-83:-generic x86_64)
    azure@TBD-002:~$
 </pre></div>
 </div>
-<p>Congrats! you have launched an Azure Virtual Machine on Cloudmesh and it&#8217;s
+<p>Congrats! you have launched an Azure Virtual Machine on Cloudmesh and it’s
 ready to use.</p>
 </div>
 <div class="section" id="terminating-azure-virtual-machine">
@@ -460,7 +462,7 @@ ready to use.</p>
 <span class="n">VM</span> <span class="n">record</span> <span class="n">TBD</span><span class="o">-</span><span class="mi">002</span> <span class="ow">is</span> <span class="n">being</span> <span class="n">deleted</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">local</span> <span class="n">database</span><span class="o">...</span>
 </pre></div>
 </div>
-<p>That&#8217;s all. Simply provide VM instance name to terminate.</p>
+<p>That’s all. Simply provide VM instance name to terminate.</p>
 </div>
 <div class="section" id="list-of-server-sizes-flavors">
 <h2>List of Server Sizes (flavors)<a class="headerlink" href="#list-of-server-sizes-flavors" title="Permalink to this headline">¶</a></h2>
@@ -4793,8 +4795,8 @@ R2</p>
 7.0.0-672
 Barracuda Web Application Firewall
 8.0.101101</p>
-<p>Debian 9 &#8220;Stretch&#8221; DAILY</p>
-<p>Debian 9 &#8220;Stretch&#8221; DAILY</p>
+<p>Debian 9 “Stretch” DAILY</p>
+<p>Debian 9 “Stretch” DAILY</p>
 <p>SQL Server 2014 RTM Standard on Windows
 Server 2012 R2</p>
 <p>SQL Server 2014 RTM Enterprise on
@@ -4812,20 +4814,20 @@ R2</p>
 R2</p>
 <p>Ubuntu Server 12.10</p>
 <p>Ubuntu Server 12.04.5-LTS DAILY</p>
-<p>Debian 8 &#8220;Jessie&#8221; DAILY</p>
-<p>Debian 8 &#8220;Jessie&#8221; DAILY</p>
+<p>Debian 8 “Jessie” DAILY</p>
+<p>Debian 8 “Jessie” DAILY</p>
 <p>RightImage Windows 2008R2 SP1 x64
 sqlsvr2012 v5.8.8.1</p>
 <p>RightImage Windows 2008R2 SP1 x64
 sqlsvr2012 v5.8.8</p>
-<p>Debian 8 &#8220;Jessie&#8221; DAILY</p>
-<p>Debian 8 &#8220;Jessie&#8221; DAILY</p>
-<p>Debian 8 &#8220;Jessie&#8221; DAILY</p>
-<p>Debian 8 &#8220;Jessie&#8221; DAILY</p>
-<p>Debian 8 &#8220;Jessie&#8221; DAILY</p>
-<p>Debian 8 &#8220;Jessie&#8221; DAILY</p>
-<p>Debian 8 &#8220;Jessie&#8221; DAILY</p>
-<p>Debian 8 &#8220;Jessie&#8221; DAILY</p>
+<p>Debian 8 “Jessie” DAILY</p>
+<p>Debian 8 “Jessie” DAILY</p>
+<p>Debian 8 “Jessie” DAILY</p>
+<p>Debian 8 “Jessie” DAILY</p>
+<p>Debian 8 “Jessie” DAILY</p>
+<p>Debian 8 “Jessie” DAILY</p>
+<p>Debian 8 “Jessie” DAILY</p>
+<p>Debian 8 “Jessie” DAILY</p>
 <p>Ubuntu Server 14.04.3-LTS</p>
 <p>Ubuntu Server 14.04.4-LTS</p>
 <p>Ubuntu Server 14.04.3-LTS</p>
@@ -4837,14 +4839,14 @@ sqlsvr2012 v5.8.8</p>
 Host with Microsoft Office 365 ProPlus</p>
 <p>Ubuntu Server 14.04.3-LTS</p>
 <p>Ubuntu Server 14.04.3-LTS</p>
-<p>Debian 9 &#8220;Stretch&#8221; DAILY</p>
-<p>Debian 9 &#8220;Stretch&#8221; DAILY</p>
+<p>Debian 9 “Stretch” DAILY</p>
+<p>Debian 9 “Stretch” DAILY</p>
 <p>GitHub Enterprise</p>
 <p>GitHub Enterprise</p>
-<p>Debian 9 &#8220;Stretch&#8221; DAILY</p>
-<p>Debian 9 &#8220;Stretch&#8221; DAILY</p>
-<p>Debian 9 &#8220;Stretch&#8221; DAILY</p>
-<p>Debian 9 &#8220;Stretch&#8221; DAILY</p>
+<p>Debian 9 “Stretch” DAILY</p>
+<p>Debian 9 “Stretch” DAILY</p>
+<p>Debian 9 “Stretch” DAILY</p>
+<p>Debian 9 “Stretch” DAILY</p>
 <p>GitHub Enterprise</p>
 <p>GitHub Enterprise</p>
 <p>GitHub Enterprise</p>
@@ -5008,14 +5010,14 @@ SDK 2.9 on Windows Server 2012 R2
 Visual Studio Community 2015 Update 3
 with Azure SDK 2.9.1 on Windows Server
 2012 R2
-Visual Studio &#8220;15&#8221; Enterprise Preview 3
+Visual Studio “15” Enterprise Preview 3
 with Azure SDK 2.9.1 on Windows Server
 2012 R2 (x64)
 Visual Studio Enterprise 2015 Update 3
 with Azure SDK 2.9.1 on Windows Server
 2012 R2
 RightImage CentOS 6.2 x64 v5.8.8.1</p>
-<p>Visual Studio &#8220;15&#8221; Enterprise Preview 2
+<p>Visual Studio “15” Enterprise Preview 2
 with Azure SDK 2.9 on Windows Server
 2012 R2 (x64)
 RightImage CentOS 6.3 x64 v5.8.8.5</p>
@@ -5219,31 +5221,31 @@ v13.5.1</p>
 <p>Team Foundation Server 2013 Update 4 on
 Windows Server 2012 R2</p>
 <p>Ubuntu 15.04 Core edge (Snappy)</p>
-<p>Debian 7 &#8220;Wheezy&#8221;</p>
-<p>Debian 8 &#8220;Jessie&#8221; DAILY</p>
-<p>Debian 7 &#8220;Wheezy&#8221;</p>
-<p>Debian 7 &#8220;Wheezy&#8221;</p>
-<p>Debian 7 &#8220;Wheezy&#8221;</p>
-<p>Debian 7 &#8220;Wheezy&#8221;</p>
-<p>Debian 7 &#8220;Wheezy&#8221; DAILY</p>
-<p>Debian 7 &#8220;Wheezy&#8221; DAILY</p>
-<p>Debian 7 &#8220;Wheezy&#8221; DAILY</p>
-<p>Debian 7 &#8220;Wheezy&#8221; DAILY</p>
+<p>Debian 7 “Wheezy”</p>
+<p>Debian 8 “Jessie” DAILY</p>
+<p>Debian 7 “Wheezy”</p>
+<p>Debian 7 “Wheezy”</p>
+<p>Debian 7 “Wheezy”</p>
+<p>Debian 7 “Wheezy”</p>
+<p>Debian 7 “Wheezy” DAILY</p>
+<p>Debian 7 “Wheezy” DAILY</p>
+<p>Debian 7 “Wheezy” DAILY</p>
+<p>Debian 7 “Wheezy” DAILY</p>
 <p>SQL Server 2014 SP1 with KB</p>
 <p>SQL Server 2016 CTP3.1 Evaluation on
 Windows Server 2012 R2
 Oracle Database 12.1.0.2 Standard
 Edition
-Debian 8 &#8220;Jessie&#8221; DAILY</p>
-<p>Debian 8 &#8220;Jessie&#8221; DAILY</p>
-<p>Debian 8 &#8220;Jessie&#8221; DAILY</p>
-<p>Debian 8 &#8220;Jessie&#8221;</p>
-<p>Debian 8 &#8220;Jessie&#8221;</p>
-<p>Debian 8 &#8220;Jessie&#8221;</p>
-<p>Debian 8 &#8220;Jessie&#8221;</p>
-<p>Debian 8 &#8220;Jessie&#8221;</p>
-<p>Debian 9 &#8220;Stretch&#8221; DAILY</p>
-<p>Debian 9 &#8220;Stretch&#8221; DAILY</p>
+Debian 8 “Jessie” DAILY</p>
+<p>Debian 8 “Jessie” DAILY</p>
+<p>Debian 8 “Jessie” DAILY</p>
+<p>Debian 8 “Jessie”</p>
+<p>Debian 8 “Jessie”</p>
+<p>Debian 8 “Jessie”</p>
+<p>Debian 8 “Jessie”</p>
+<p>Debian 8 “Jessie”</p>
+<p>Debian 9 “Stretch” DAILY</p>
+<p>Debian 9 “Stretch” DAILY</p>
 <p>Ubuntu Server 16.04 LTS DAILY</p>
 <p>Ubuntu Server 16.04 LTS DAILY</p>
 <p>Ubuntu Server 16.04 LTS DAILY</p>
@@ -5429,14 +5431,14 @@ Windows Server 2008 R2</p>
 <p>Ubuntu Server 12.04.5 LTS</p>
 <p>Ubuntu Server 12.04.5 LTS</p>
 <p>Ubuntu Server 12.04.5 LTS</p>
-<p>Debian 7 &#8220;Wheezy&#8221; DAILY</p>
-<p>Debian 7 &#8220;Wheezy&#8221; DAILY</p>
-<p>Debian 7 &#8220;Wheezy&#8221; DAILY</p>
-<p>Debian 7 &#8220;Wheezy&#8221; DAILY</p>
-<p>Debian 7 &#8220;Wheezy&#8221; DAILY</p>
-<p>Debian 7 &#8220;Wheezy&#8221; DAILY</p>
-<p>Debian 7 &#8220;Wheezy&#8221; DAILY</p>
-<p>Debian 7 &#8220;Wheezy&#8221; DAILY</p>
+<p>Debian 7 “Wheezy” DAILY</p>
+<p>Debian 7 “Wheezy” DAILY</p>
+<p>Debian 7 “Wheezy” DAILY</p>
+<p>Debian 7 “Wheezy” DAILY</p>
+<p>Debian 7 “Wheezy” DAILY</p>
+<p>Debian 7 “Wheezy” DAILY</p>
+<p>Debian 7 “Wheezy” DAILY</p>
+<p>Debian 7 “Wheezy” DAILY</p>
 <p>SUSE Linux Enterprise Server 11 SP4
 (Premium Image)
 SUSE Linux Enterprise Server 11 SP3 for
@@ -5447,8 +5449,8 @@ openSUSE Leap 42.1</p>
 SAP Cloud Appliance Library
 SUSE Linux Enterprise Server 11 SP4
 (Premium Image)
-Debian 7 &#8220;Wheezy&#8221; DAILY</p>
-<p>Debian 7 &#8220;Wheezy&#8221; DAILY</p>
+Debian 7 “Wheezy” DAILY</p>
+<p>Debian 7 “Wheezy” DAILY</p>
 <p>CoreOS Beta</p>
 <p>CoreOS Beta</p>
 <p>CoreOS Beta</p>
@@ -5672,11 +5674,11 @@ Developer on Windows Server 2012 R2 RTW</p>
 <p>CoreOS Beta</p>
 <p>CoreOS Beta</p>
 <p>CoreOS Beta</p>
-<p>Debian 9 &#8220;Stretch&#8221; DAILY</p>
+<p>Debian 9 “Stretch” DAILY</p>
 <p>Ubuntu 15.04 Core stable (Snappy)</p>
 <p>Ubuntu 15.04 Core stable (Snappy)</p>
 <p>Ubuntu 15.04 Core edge (Snappy)</p>
-<p>Debian 9 &#8220;Stretch&#8221; DAILY</p>
+<p>Debian 9 “Stretch” DAILY</p>
 <p>Ubuntu 15.04 Core edge (Snappy)</p>
 <p>Ubuntu 15.04 Core edge (Snappy)</p>
 <p>Ubuntu 15.04 Core edge (Snappy)</p>
@@ -5701,12 +5703,12 @@ RTWU1
 Microsoft Azure Site Recovery Hydration
 VM
 Ubuntu Server 12.04.4 LTS</p>
-<p>Debian 9 &#8220;Stretch&#8221; DAILY</p>
+<p>Debian 9 “Stretch” DAILY</p>
 <p>Ubuntu Server 12.04.4 LTS</p>
 <p>Ubuntu Server 16.04 LTS</p>
 <p>SQL Server 2012 SP3 Express on Windows
 Server 2012 R2</p>
-<p>Debian 9 &#8220;Stretch&#8221; DAILY</p>
+<p>Debian 9 “Stretch” DAILY</p>
 <p>RightImage Ubuntu 12.04 x64 v5.8.8</p>
 <p>RightImage Ubuntu 12.04 x64 v5.8.8.5</p>
 <p>RightImage-Ubuntu-12.04-x64-v14.2</p>
@@ -9743,14 +9745,14 @@ SDK 2.9 on Windows Server 2012 R2
 Visual Studio Community 2015 Update 3
 with Azure SDK 2.9.1 on Windows Server
 2012 R2
-Visual Studio &#8220;15&#8221; Enterprise Preview 3
+Visual Studio “15” Enterprise Preview 3
 with Azure SDK 2.9.1 on Windows Server
 2012 R2 (x64)
 Visual Studio Enterprise 2015 Update 3
 with Azure SDK 2.9.1 on Windows Server
 2012 R2
 RightScale Linux v13</p>
-<p>Visual Studio &#8220;15&#8221; Enterprise Preview 2
+<p>Visual Studio “15” Enterprise Preview 2
 with Azure SDK 2.9 on Windows Server
 2012 R2 (x64)
 RightScale Linux v13</p>
@@ -10510,7 +10512,7 @@ Tech Preview 4</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

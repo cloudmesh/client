@@ -1,11 +1,11 @@
-cloudmesh_client.platform.virtual_cluster package
-=================================================
+cloudmesh\_client\.platform\.virtual\_cluster package
+=====================================================
 
 Submodules
 ----------
 
-cloudmesh_client.platform.virtual_cluster.cluster module
---------------------------------------------------------
+cloudmesh\_client\.platform\.virtual\_cluster\.cluster module
+-------------------------------------------------------------
 
 .. automodule:: cloudmesh_client.platform.virtual_cluster.cluster
     :members:

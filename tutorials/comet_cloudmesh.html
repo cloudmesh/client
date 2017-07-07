@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Comet Cloudmesh Tutorial &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>Comet Cloudmesh Tutorial &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="../index.html"/>
         <link rel="next" title="Comet Big Data Tutorial" href="comet_bigdata.html"/>
         <link rel="prev" title="Exercises" href="../exercises.html"/> 
 
@@ -66,7 +68,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -115,19 +117,35 @@
 <p class="caption"><span class="caption-text">Tutorials</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Comet Cloudmesh Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#virtual-box">Virtual Box</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#configure-cloudmesh">Configure Cloudmesh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#instalation-with-pip">Instalation with Pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#status-of-this-tutorial">Status of this Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-cloudmesh-client-tool-to-access-comet-vc">Install Cloudmesh Client tool to access Comet VC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cloudmesh-client-tool-in-virtual-box">Cloudmesh Client tool in Virtual Box</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#step-1-install-virtual-box">Step 1: Install Virtual Box</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-2-download-a-virtualbox-image">Step 2: Download a VirtualBox Image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-3-create-a-virtualbox">Step 3: Create a VirtualBox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-4-associate-the-vm-iso">Step 4: Associate the VM ISO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-5-start-the-vm">Step 5: Start the vm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-6-start-a-terminal">Step 6: Start a terminal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-7-vm-guest-additions">Step 7: VM guest additions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-8-install-cloudmesh">Step 8: Install cloudmesh</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#macos">MacOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#linux">Linux</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#virtual-cluster-architecture">Virtual Cluster Architecture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#getting-access-to-your-cluster">Getting access to your cluster</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#example-install-the-front-end-node">Example: Install the front-end node</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#finishing-front-end-setup">Finishing Front-end setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-the-vc-front-end-node">Install the VC front-end node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configuring-the-front-end-node">Configuring the front-end node</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#example-install-compute-nodes">Example: Install Compute Nodes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#verifying-infiniband-performance">Verifying InfiniBand Performance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">OSU Micro-Benchmarks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#openfoam">OpenFOAM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#julia">Julia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-vc-compute-nodes">Install VC Compute Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#demo1-verifying-infiniband-performance">DEMO1: Verifying InfiniBand Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#demo2-osu-micro-benchmarks">DEMO2: OSU Micro-Benchmarks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#demo3-optional-openfoam">DEMO3 (optional): OpenFOAM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#demo4-optional-julia">DEMO4 (optional): Julia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#demo5-bigdata-analytical-software-stack-deployment-and-example-run">DEMO5: Bigdata analytical software stack deployment and example run</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="comet_bigdata.html">Comet Big Data Tutorial</a></li>
@@ -220,43 +238,125 @@
             
   <div class="section" id="comet-cloudmesh-tutorial">
 <h1>Comet Cloudmesh Tutorial<a class="headerlink" href="#comet-cloudmesh-tutorial" title="Permalink to this headline">¶</a></h1>
-<p>Setup Cloudmesh Client on Ubuntu Desktop in Virtualbox</p>
+<div class="sidebar">
+<p class="first sidebar-title">Page Contents</p>
+<div class="contents local last topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#status-of-this-tutorial" id="id15">Status of this Tutorial</a></li>
+<li><a class="reference internal" href="#overview" id="id16">Overview</a></li>
+<li><a class="reference internal" href="#requirements" id="id17">Requirements</a></li>
+<li><a class="reference internal" href="#install-cloudmesh-client-tool-to-access-comet-vc" id="id18">Install Cloudmesh Client tool to access Comet VC</a><ul>
+<li><a class="reference internal" href="#cloudmesh-client-tool-in-virtual-box" id="id19">Cloudmesh Client tool in Virtual Box</a><ul>
+<li><a class="reference internal" href="#step-1-install-virtual-box" id="id20">Step 1: Install Virtual Box</a></li>
+<li><a class="reference internal" href="#step-2-download-a-virtualbox-image" id="id21">Step 2: Download a VirtualBox Image</a></li>
+<li><a class="reference internal" href="#step-3-create-a-virtualbox" id="id22">Step 3: Create a VirtualBox</a></li>
+<li><a class="reference internal" href="#step-4-associate-the-vm-iso" id="id23">Step 4: Associate the VM ISO</a></li>
+<li><a class="reference internal" href="#step-5-start-the-vm" id="id24">Step 5: Start the vm</a></li>
+<li><a class="reference internal" href="#step-6-start-a-terminal" id="id25">Step 6: Start a terminal</a></li>
+<li><a class="reference internal" href="#step-7-vm-guest-additions" id="id26">Step 7: VM guest additions</a></li>
+<li><a class="reference internal" href="#step-8-install-cloudmesh" id="id27">Step 8: Install cloudmesh</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#macos" id="id28">MacOS</a></li>
+<li><a class="reference internal" href="#linux" id="id29">Linux</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#virtual-cluster-architecture" id="id30">Virtual Cluster Architecture</a></li>
+<li><a class="reference internal" href="#getting-access-to-your-cluster" id="id31">Getting access to your cluster</a></li>
+<li><a class="reference internal" href="#install-the-vc-front-end-node" id="id32">Install the VC front-end node</a></li>
+<li><a class="reference internal" href="#configuring-the-front-end-node" id="id33">Configuring the front-end node</a></li>
+<li><a class="reference internal" href="#install-vc-compute-nodes" id="id34">Install VC Compute Nodes</a></li>
+<li><a class="reference internal" href="#demo1-verifying-infiniband-performance" id="id35">DEMO1: Verifying InfiniBand Performance</a></li>
+<li><a class="reference internal" href="#demo2-osu-micro-benchmarks" id="id36">DEMO2: OSU Micro-Benchmarks</a></li>
+<li><a class="reference internal" href="#demo3-optional-openfoam" id="id37">DEMO3 (optional): OpenFOAM</a></li>
+<li><a class="reference internal" href="#demo4-optional-julia" id="id38">DEMO4 (optional): Julia</a></li>
+<li><a class="reference internal" href="#demo5-bigdata-analytical-software-stack-deployment-and-example-run" id="id39">DEMO5: Bigdata analytical software stack deployment and example run</a></li>
+</ul>
+</div>
+</div>
+<p><strong>Goal</strong>: Install a Comet virtual cluster with Ubuntu 16.04, and run some performance testing examples.</p>
+<p><strong>Time</strong>: ~ ?? min</p>
+<div class="section" id="status-of-this-tutorial">
+<h2><a class="toc-backref" href="#id15">Status of this Tutorial</a><a class="headerlink" href="#status-of-this-tutorial" title="Permalink to this headline">¶</a></h2>
+<p>Released for PEARC17 Comet VC Tutorial</p>
+</div>
+<div class="section" id="overview">
+<h2><a class="toc-backref" href="#id16">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>In this tutorial you will install a virtual cluster from scratch. This includes
+manually install the front-end node from an attached OS; running some
+configuration script to configure the front-end behaving as a NAT router,
+dhcp/tftp and pxe-booting server; booting the compute nodes, which will be
+automatically installed and configured; and running some testing examples.</p>
+</div>
+<div class="section" id="requirements">
+<h2><a class="toc-backref" href="#id17">Requirements</a><a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Experience on cluster system installation and management.</li>
+<li>Some knowledge of git, shell scripting, and Python.</li>
+<li>A Comet cluster (vctNN) assigned to you.</li>
+</ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>Scripts used in this tutorial are maintained at:</p>
 <ul class="last simple">
-<li><a class="reference external" href="https://github.com/sdsc/comet-vc-tutorial">https://github.com/sdsc/comet-vc-tutorial</a></li>
+<li><a class="reference external" href="https://github.com/cloudmesh/cloudmesh.comet.vcdeploy">https://github.com/cloudmesh/cloudmesh.comet.vcdeploy</a></li>
 </ul>
 </div>
-<div class="section" id="virtual-box">
-<h2>Virtual Box<a class="headerlink" href="#virtual-box" title="Permalink to this headline">¶</a></h2>
-<p><strong>Step 1:</strong> For convenience we will be using Ubuntu Xenial in this
-demo to install the Cloudmesh client on it. Please make sure you have</p>
+</div>
+<div class="section" id="install-cloudmesh-client-tool-to-access-comet-vc">
+<h2><a class="toc-backref" href="#id18">Install Cloudmesh Client tool to access Comet VC</a><a class="headerlink" href="#install-cloudmesh-client-tool-to-access-comet-vc" title="Permalink to this headline">¶</a></h2>
+<p>First we will need to install the Cloudmesh Client too to access
+and manage the VC on Comet. The tool could be easily installed
+via ‘pip install cloudmesh_client’, however the dependent system
+libraries installation varies from OS to OS. We provided a preconfigured
+VirtualBox image to ensure a proper environment has been setup. You
+can choose to install the client tool directly on your machine.</p>
+<div class="section" id="cloudmesh-client-tool-in-virtual-box">
+<h3><a class="toc-backref" href="#id19">Cloudmesh Client tool in Virtual Box</a><a class="headerlink" href="#cloudmesh-client-tool-in-virtual-box" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="step-1-install-virtual-box">
+<h4><a class="toc-backref" href="#id20">Step 1: Install Virtual Box</a><a class="headerlink" href="#step-1-install-virtual-box" title="Permalink to this headline">¶</a></h4>
+<p>For convenience we will be using Ubuntu Xenial in this demo to
+install the Cloudmesh client on it. Please make sure you have</p>
 <ul class="simple">
 <li><a class="reference external" href="https://www.virtualbox.org">VirtualBox</a> installed (<a class="reference external" href="https://www.virtualbox.org/wiki/Downloads">downloads page</a>).</li>
 </ul>
-<p><strong>Step 2:</strong> Next, please download the</p>
+</div>
+<div class="section" id="step-2-download-a-virtualbox-image">
+<h4><a class="toc-backref" href="#id21">Step 2: Download a VirtualBox Image</a><a class="headerlink" href="#step-2-download-a-virtualbox-image" title="Permalink to this headline">¶</a></h4>
+<p>Next, please download the</p>
 <ul class="simple">
 <li><a class="reference external" href="http://www.ubuntu.com/download">Ubuntu desktop ISO</a>.</li>
 </ul>
 <p>and remember the location where you downloaded it. You will need that
 location later.</p>
-<p><strong>Step 3:</strong> Create VirtualBox, create a new VM (Ubuntu, 64bit)</p>
-<dl class="docutils">
-<dt><strong>Step 4:</strong> Start the box. When asked for the ISO, use the folder icon</dt>
-<dd>to browse to the location of the downloaded image.</dd>
-<dt><strong>Step 5:</strong> Start and configure the system. Note in case the last step</dt>
-<dd>does not return, shut down or terminate the VM and restart it.</dd>
-<dt><strong>Step 6:</strong> Once you have logged into the vm, start a terminal by</dt>
-<dd>clicking on the cog and type in <em>terminal</em></dd>
-</dl>
-<p><strong>Step 7:</strong> (optional) You may want to enable the vm guest addition
-and enable bidirectional shared clipboard and drag and drop. You may
-have to restart the vm so that these changes take effect.</p>
-<dl class="docutils">
-<dt><strong>Step 8:</strong> Install cloudmesh. Paste and copy between host and vm, as</dt>
-<dd>well as .</dd>
-</dl>
+</div>
+<div class="section" id="step-3-create-a-virtualbox">
+<h4><a class="toc-backref" href="#id22">Step 3: Create a VirtualBox</a><a class="headerlink" href="#step-3-create-a-virtualbox" title="Permalink to this headline">¶</a></h4>
+<p>Create VirtualBox, create a new VM (Ubuntu, 64bit)</p>
+</div>
+<div class="section" id="step-4-associate-the-vm-iso">
+<h4><a class="toc-backref" href="#id23">Step 4: Associate the VM ISO</a><a class="headerlink" href="#step-4-associate-the-vm-iso" title="Permalink to this headline">¶</a></h4>
+<p>When asked for the ISO, use the folder icon
+to browse to the location of the downloaded image.</p>
+</div>
+<div class="section" id="step-5-start-the-vm">
+<h4><a class="toc-backref" href="#id24">Step 5: Start the vm</a><a class="headerlink" href="#step-5-start-the-vm" title="Permalink to this headline">¶</a></h4>
+<p>Start and configure the system. Note in case the last step
+does not return, shut down or terminate the VM and restart it.</p>
+</div>
+<div class="section" id="step-6-start-a-terminal">
+<h4><a class="toc-backref" href="#id25">Step 6: Start a terminal</a><a class="headerlink" href="#step-6-start-a-terminal" title="Permalink to this headline">¶</a></h4>
+<p>Once you have logged into the vm, start a terminal by clicking on the
+cog and type in <em>terminal</em></p>
+</div>
+<div class="section" id="step-7-vm-guest-additions">
+<h4><a class="toc-backref" href="#id26">Step 7: VM guest additions</a><a class="headerlink" href="#step-7-vm-guest-additions" title="Permalink to this headline">¶</a></h4>
+<p>(optional) You may want to enable the vm guest addition and enable
+bidirectional shared clipboard and drag and drop. You may have to
+restart the vm so that these changes take effect.</p>
+</div>
+<div class="section" id="step-8-install-cloudmesh">
+<h4><a class="toc-backref" href="#id27">Step 8: Install cloudmesh</a><a class="headerlink" href="#step-8-install-cloudmesh" title="Permalink to this headline">¶</a></h4>
 <pre class="highlight"><style type="text/css">
 span.prompt1:before {
   content: "cloudmesh$ ";
@@ -275,248 +375,331 @@ pip --version
 git –version
 </pre></div>
 </div>
+<p>Make sure passlib is installed:</p>
+<pre class="highlight"><span class="prompt1">sudo pip install passlib</span>
+</pre></div>
 </div>
-<div class="section" id="configure-cloudmesh">
-<h2>Configure Cloudmesh<a class="headerlink" href="#configure-cloudmesh" title="Permalink to this headline">¶</a></h2>
-<p>Next, we need to configure Cloudmesh. We will only use a fraction of
-Cloudmesh capabilities for this tutorial that is focused on using
-comet</p>
-<pre class="highlight"><span class="prompt1">ssh-keygen</span>
-<span class="prompt1">cm</span>
-<span class="prompt1">cm version</span>
+<div class="section" id="macos">
+<h3><a class="toc-backref" href="#id28">MacOS</a><a class="headerlink" href="#macos" title="Permalink to this headline">¶</a></h3>
+<p>For system level packages installation, see: <a class="reference external" href="http://cloudmesh.github.io/client/system.html#osx">http://cloudmesh.github.io/client/system.html#osx</a></p>
+<p>For the Cloudmesh client tool installation:</p>
+<pre class="highlight"><style type="text/css">
+span.prompt2:before {
+  content: "$ ";
+}
+</style><span class="prompt2">virtualenv ~/CM</span>
+<span class="prompt2">source ~/CM/bin/activate</span>
+</pre><pre class="highlight"><style type="text/css">
+span.prompt3:before {
+  content: "(CM)$ ";
+}
+</style><span class="prompt3">pip install -U pip</span>
+<span class="prompt3">pip install cloudmesh_client</span>
+<span class="prompt3">pip install passlib</span>
 </pre></div>
-<div class="section" id="instalation-with-pip">
-<h2>Instalation with Pip<a class="headerlink" href="#instalation-with-pip" title="Permalink to this headline">¶</a></h2>
-<p>Installing in a virtualenv is highly recommended.</p>
-<pre class="highlight"><span class="prompt1">pip install cloudmesh_client</span>
-<span class="prompt1">cm help</span>
-<span class="prompt1">cm comet init</span>
+<div class="section" id="linux">
+<h3><a class="toc-backref" href="#id29">Linux</a><a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
+<p>For system level packages installation, see: <a class="reference external" href="http://cloudmesh.github.io/client/system.html#ubuntu-16-04">http://cloudmesh.github.io/client/system.html#ubuntu-16-04</a></p>
+<p>For the Cloudmesh client tool installation:</p>
+<pre class="highlight"><span class="prompt2">virtualenv ~/CM</span>
+<span class="prompt2">source ~/CM/bin/activate</span>
+</pre><pre class="highlight"><span class="prompt3">pip install -U pip</span>
+<span class="prompt3">pip install cloudmesh_client</span>
+<span class="prompt3">pip install passlib</span>
+</pre><p>To verify the Cloudmesh client tool has been installe properly, try:</p>
+<pre class="highlight"><span class="prompt3">cm verion</span>
+<span class="prompt3">cm help</span>
+</pre><p>And to initialize the comet authentication settings:</p>
+<pre class="highlight"><span class="prompt3">cm comet init</span>
+</pre><p>Use all default settings, and provide your Comet VC username/password
+to retrieve an API key:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>Initializing the comet configuration file...
+Set the active service endpoint to use. The availalbe endpoints are - dev/production [dev]:
+Set the base url for the nucleus dev service [https://comet-nucleus-dev.sdsc.edu/nucleus]:
+Set the api version for the nucleus dev service [v1]:
+Authenticating to the nucleus dev service and obtaining the apikey...
+Comet nucleus username [YOUR_COMET_VC_USER]:
+Password:
+api key retrieval and set was successful!
 </pre></div>
+</div>
+</div>
+</div>
 <div class="section" id="virtual-cluster-architecture">
-<h2>Virtual Cluster Architecture<a class="headerlink" href="#virtual-cluster-architecture" title="Permalink to this headline">¶</a></h2>
-<div class="figure" id="id5">
-<a class="reference internal image-reference" href="../_images/vc-diagram.png"><img alt="screenshot" src="../_images/vc-diagram.png" style="width: 812.0px; height: 609.0px;" /></a>
+<h2><a class="toc-backref" href="#id30">Virtual Cluster Architecture</a><a class="headerlink" href="#virtual-cluster-architecture" title="Permalink to this headline">¶</a></h2>
+<div class="figure" id="id2">
+<a class="reference internal image-reference" href="../_images/vc-diagram_pearc17.png"><img alt="screenshot" src="../_images/vc-diagram_pearc17.png" style="width: 628.0px; height: 411.5px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Virtual cluster architecture</span></p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">We used name <cite>vctNN</cite> in this tutorial as an example VC name.
+please replace this with the proper name assigned to you.</p>
 </div>
 </div>
 <div class="section" id="getting-access-to-your-cluster">
-<h2>Getting access to your cluster<a class="headerlink" href="#getting-access-to-your-cluster" title="Permalink to this headline">¶</a></h2>
-<p>Access your virtual cluster (vc)</p>
+<h2><a class="toc-backref" href="#id31">Getting access to your cluster</a><a class="headerlink" href="#getting-access-to-your-cluster" title="Permalink to this headline">¶</a></h2>
 <p>The cluster information can be obtained with the following commands:</p>
-<pre class="highlight"><span class="prompt1">cm comet ll</span>
-<span class="prompt1">cm comet cluster</span>
-<span class="prompt1">cm comet cluster vct&lt;NN&gt;</span>
+<pre class="highlight"><span class="prompt3">cm comet ll</span>
+<span class="prompt3">cm comet cluster</span>
+<span class="prompt3">cm comet cluster vctNN</span>
 </pre><p>The list of ISO images that are currently available can be obtained with:</p>
-<pre class="highlight"><span class="prompt1">cm comet iso list</span>
+<pre class="highlight"><span class="prompt3">cm comet iso list</span>
 </pre></div>
-<div class="section" id="example-install-the-front-end-node">
-<h2>Example: Install the front-end node<a class="headerlink" href="#example-install-the-front-end-node" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="install-the-vc-front-end-node">
+<h2><a class="toc-backref" href="#id32">Install the VC front-end node</a><a class="headerlink" href="#install-the-vc-front-end-node" title="Permalink to this headline">¶</a></h2>
+<p>This section takes ~10 min to finish.</p>
 <p>Find an iso and attach</p>
-<pre class="highlight"><span class="prompt1">cm comet iso list</span>
+<pre class="highlight"><span class="prompt3">cm comet iso list</span>
 </pre><p>This will return:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">1</span><span class="p">:</span> <span class="n">CentOS</span><span class="o">-</span><span class="mi">7</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">NetInstall</span><span class="o">-</span><span class="mf">1511.</span><span class="n">iso</span>
- <span class="mi">2</span><span class="p">:</span> <span class="n">CentOS</span><span class="o">-</span><span class="mf">6.8</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">netinstall</span><span class="o">.</span><span class="n">iso</span>
- <span class="mi">3</span><span class="p">:</span> <span class="n">kernel</span><span class="o">-</span><span class="mf">6.2</span><span class="o">-</span><span class="mf">0.</span><span class="n">x86_64</span><span class="o">.</span><span class="n">disk1</span><span class="o">.</span><span class="n">iso</span>
- <span class="mi">4</span><span class="p">:</span> <span class="n">systemrescuecd</span><span class="o">-</span><span class="n">x86</span><span class="o">-</span><span class="mf">4.2</span><span class="o">.</span><span class="mf">0.</span><span class="n">iso</span>
- <span class="mi">5</span><span class="p">:</span> <span class="n">base</span><span class="o">+</span><span class="n">kernel</span><span class="o">+</span><span class="n">kvm</span><span class="o">+</span><span class="n">os</span><span class="o">-</span><span class="mf">6.2</span><span class="o">.</span><span class="n">x86_64</span><span class="o">.</span><span class="n">disk1</span><span class="o">.</span><span class="n">iso</span>
- <span class="mi">6</span><span class="p">:</span> <span class="n">ubuntu</span><span class="o">-</span><span class="mf">14.04</span><span class="o">.</span><span class="mi">4</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">iso</span>
- <span class="mi">7</span><span class="p">:</span> <span class="n">ubuntu</span><span class="o">-</span><span class="mf">15.04</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">iso</span>
- <span class="mi">8</span><span class="p">:</span> <span class="n">CentOS</span><span class="o">-</span><span class="mf">6.8</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">LiveDVD</span><span class="o">.</span><span class="n">iso</span>
- <span class="mi">9</span><span class="p">:</span> <span class="n">ubuntu</span><span class="o">-</span><span class="mf">16.04</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">iso</span>
-<span class="mi">10</span><span class="p">:</span> <span class="n">CentOS</span><span class="o">-</span><span class="mi">7</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">LiveGNOME</span><span class="o">-</span><span class="mf">1511.</span><span class="n">iso</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">:</span> <span class="n">CentOS</span><span class="o">-</span><span class="mi">7</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">NetInstall</span><span class="o">-</span><span class="mf">1511.</span><span class="n">iso</span>
+<span class="mi">2</span><span class="p">:</span> <span class="n">ubuntu</span><span class="o">-</span><span class="mf">16.04</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">iso</span>
+<span class="mi">3</span><span class="p">:</span> <span class="n">ipxe</span><span class="o">.</span><span class="n">iso</span>
+<span class="mi">4</span><span class="p">:</span> <span class="n">ubuntu</span><span class="o">-</span><span class="mf">16.04</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">iso</span>
+<span class="mi">5</span><span class="p">:</span> <span class="n">CentOS</span><span class="o">-</span><span class="mi">7</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">LiveGNOME</span><span class="o">-</span><span class="mf">1511.</span><span class="n">iso</span>
+<span class="mi">6</span><span class="p">:</span> <span class="n">ubuntu</span><span class="o">-</span><span class="mf">15.04</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">iso</span>
+<span class="mi">7</span><span class="p">:</span> <span class="n">CentOS</span><span class="o">-</span><span class="mf">6.7</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">netinstall</span><span class="o">.</span><span class="n">iso</span>
+<span class="mi">8</span><span class="p">:</span> <span class="n">ubuntu</span><span class="o">-</span><span class="mf">16.04</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">iso</span>
+<span class="mi">9</span><span class="p">:</span> <span class="n">CentOS</span><span class="o">-</span><span class="mf">6.8</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">LiveDVD</span><span class="o">.</span><span class="n">iso</span>
+<span class="mi">10</span><span class="p">:</span> <span class="n">CentOS</span><span class="o">-</span><span class="mi">7</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">NetInstall</span><span class="o">-</span><span class="mf">1611.</span><span class="n">iso</span>
+<span class="mi">11</span><span class="p">:</span> <span class="n">systemrescuecd</span><span class="o">-</span><span class="n">x86</span><span class="o">-</span><span class="mf">4.2</span><span class="o">.</span><span class="mf">0.</span><span class="n">iso</span>
+<span class="mi">12</span><span class="p">:</span> <span class="n">kali</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="mf">2016.2</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">iso</span>
+<span class="mi">13</span><span class="p">:</span> <span class="n">systemrescuecd</span><span class="o">-</span><span class="n">x86</span><span class="o">-</span><span class="mf">4.9</span><span class="o">.</span><span class="mf">0.</span><span class="n">iso</span>
+<span class="mi">14</span><span class="p">:</span> <span class="n">CentOS</span><span class="o">-</span><span class="mf">6.8</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">netinstall</span><span class="o">.</span><span class="n">iso</span>
+<span class="mi">15</span><span class="p">:</span> <span class="n">coreos_production_iso_image</span><span class="o">.</span><span class="n">iso</span>
+<span class="mi">16</span><span class="p">:</span> <span class="n">CentOS</span><span class="o">-</span><span class="mi">7</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">Minimal</span><span class="o">-</span><span class="mf">1511.</span><span class="n">iso</span>
+<span class="mi">17</span><span class="p">:</span> <span class="n">base</span><span class="o">+</span><span class="n">kernel</span><span class="o">+</span><span class="n">kvm</span><span class="o">+</span><span class="n">os</span><span class="o">-</span><span class="mf">6.2</span><span class="o">.</span><span class="n">x86_64</span><span class="o">.</span><span class="n">disk1</span><span class="o">.</span><span class="n">iso</span>
+<span class="mi">18</span><span class="p">:</span> <span class="n">kernel</span><span class="o">-</span><span class="mf">6.2</span><span class="o">-</span><span class="mf">0.</span><span class="n">x86_64</span><span class="o">.</span><span class="n">disk1</span><span class="o">.</span><span class="n">iso</span>
+<span class="mi">19</span><span class="p">:</span> <span class="n">Fedora</span><span class="o">-</span><span class="n">Server</span><span class="o">-</span><span class="n">netinst</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="mi">25</span><span class="o">-</span><span class="mf">1.3</span><span class="o">.</span><span class="n">iso</span>
+<span class="mi">20</span><span class="p">:</span> <span class="n">ubuntu</span><span class="o">-</span><span class="mf">14.04</span><span class="o">.</span><span class="mi">4</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">iso</span>
 </pre></div>
 </div>
-<p>Next we attach an iso. YOu can use either the name of the iso, or simply the id</p>
-<pre class="highlight"><span class="prompt1">cm comet iso attach 6 vct&lt;NN&gt;</span>
-</pre><p>Let us check the status of the server.</p>
-<pre class="highlight"><span class="prompt1">cm comet cluster vct&lt;NN&gt;</span>
+<p>Next we attach an iso. You can use either the name of the iso, or simply the id</p>
+<pre class="highlight"><span class="prompt3">cm comet iso attach 2 vctNN</span>
+</pre><p>Please note for this tutorial we use image 2, the latest Ubuntu 16.04.2.</p>
+<p>Let us check the status of the server.</p>
+<pre class="highlight"><span class="prompt3">cm comet cluster vctNN</span>
 </pre><p>If it is already running, please power if off so the iso attach could
 take effect:</p>
-<pre class="highlight"><span class="prompt1">cm comet power off vct&lt;NN&gt;</span>
+<pre class="highlight"><span class="prompt3">cm comet power off vctNN</span>
 </pre><p>Now we need to power on the server</p>
-<pre class="highlight"><span class="prompt1">cm comet power on vct&lt;NN&gt;</span>
-</pre><p>To see what is happening on the server, we can attach a console to follow and complete the setup of the OS</p>
-<pre class="highlight"><span class="prompt1">cm comet console vct&lt;NN&gt;</span>
+<pre class="highlight"><span class="prompt3">cm comet power on vctNN</span>
+</pre><p>To see what is happening on the server and finish the installation,
+we need to attach a console to follow the installation steps:</p>
+<pre class="highlight"><span class="prompt3">cm comet console vctNN</span>
 </pre><p>Screenshots for the front-end node configuration are given next:</p>
-<div class="figure" id="id6">
-<a class="reference internal image-reference" href="../_images/00_install_start.png"><img alt="screenshot" src="../_images/00_install_start.png" style="width: 647.0px; height: 489.0px;" /></a>
+<div class="figure" id="id3">
+<a class="reference internal image-reference" href="../_images/00_install_language.png"><img alt="screenshot" src="../_images/00_install_language.png" style="width: 1271.5px; height: 767.5px;" /></a>
+<p class="caption"><span class="caption-text">Figure: Initial screen after Front-end (FE) booted</span></p>
+</div>
+<div class="figure" id="id4">
+<a class="reference internal image-reference" href="../_images/00_install_start.png"><img alt="screenshot" src="../_images/00_install_start.png" style="width: 643.5px; height: 485.5px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Install ubuntu server</span></p>
 </div>
+<div class="figure" id="id5">
+<a class="reference internal image-reference" href="../_images/01_NIC.png"><img alt="screenshot" src="../_images/01_NIC.png" style="width: 803.5px; height: 604.0px;" /></a>
+<p class="caption"><span class="caption-text">Figure: Configure the network. DHCP is configured on <cite>ens4</cite> (the public interface)</span></p>
+</div>
+<div class="figure" id="id6">
+<a class="reference internal image-reference" href="../_images/20_hostname.png"><img alt="screenshot" src="../_images/20_hostname.png" style="width: 803.5px; height: 604.5px;" /></a>
+<p class="caption"><span class="caption-text">Figure: The hostname should be automatically set to the one assigned to you</span></p>
+</div>
 <div class="figure" id="id7">
-<a class="reference internal image-reference" href="../_images/01_NIC.png"><img alt="screenshot" src="../_images/01_NIC.png" style="width: 811.0px; height: 612.0px;" /></a>
-<p class="caption"><span class="caption-text">Figure: Configure the network. DHCP is configured on <cite>eth1</cite> (the public interface)</span></p>
+<a class="reference internal image-reference" href="../_images/09_services_packages.png"><img alt="screenshot" src="../_images/09_services_packages.png" style="width: 802.5px; height: 606.5px;" /></a>
+<p class="caption"><span class="caption-text">Figure: Select OpenSSH using the arrow keys and space bar and then tab to Continue</span></p>
 </div>
 <div class="figure" id="id8">
-<a class="reference internal image-reference" href="../_images/20_hostname.png"><img alt="screenshot" src="../_images/20_hostname.png" style="width: 810.0px; height: 609.0px;" /></a>
-<p class="caption"><span class="caption-text">Figure: Set the hostname</span></p>
-</div>
-<div class="figure" id="id9">
-<a class="reference internal image-reference" href="../_images/22_user_password_creation.png"><img alt="screenshot" src="../_images/22_user_password_creation.png" style="width: 806.0px; height: 611.0px;" /></a>
-<p class="caption"><span class="caption-text">Figure: Set up the non-privileged user account, including a strong password</span></p>
-</div>
-<div class="figure" id="id10">
-<a class="reference internal image-reference" href="../_images/08_partition.png"><img alt="screenshot" src="../_images/08_partition.png" style="width: 813.0px; height: 609.0px;" /></a>
-<p class="caption"><span class="caption-text">Figure: Partition the disk</span></p>
-</div>
-<div class="figure" id="id11">
-<a class="reference internal image-reference" href="../_images/09_services_packages.png"><img alt="screenshot" src="../_images/09_services_packages.png" style="width: 811.0px; height: 611.0px;" /></a>
-<p class="caption"><span class="caption-text">Figure: Select OpenSSH using the space bar and then tab to Continue</span></p>
-</div>
-<div class="figure" id="id12">
-<a class="reference internal image-reference" href="../_images/10_complete.png"><img alt="screenshot" src="../_images/10_complete.png" style="width: 809.0px; height: 608.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/10_complete.png"><img alt="screenshot" src="../_images/10_complete.png" style="width: 803.0px; height: 604.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Complete the installation</span></p>
 </div>
-<div class="figure" id="id13">
-<a class="reference internal image-reference" href="../_images/11_complete_console_expired.png"><img alt="screenshot" src="../_images/11_complete_console_expired.png" style="width: 810.0px; height: 609.0px;" /></a>
-<p class="caption"><span class="caption-text">Figure: Press CONTINUE (we&#8217;ll detach the ISO later)</span></p>
+<p>Now the node will reboot. Watch carefully to find this screen, and then
+press ‘ESC’ key.</p>
+<div class="figure" id="id9">
+<a class="reference internal image-reference" href="../_images/11_reboot_esc.png"><img alt="screenshot" src="../_images/11_reboot_esc.png" style="width: 722.5px; height: 402.0px;" /></a>
+<p class="caption"><span class="caption-text">Figure: Booting menu after installation</span></p>
 </div>
-<div class="figure" id="id14">
-<a class="reference internal image-reference" href="../_images/12_reboot_cd.png"><img alt="screenshot" src="../_images/12_reboot_cd.png" style="width: 650.0px; height: 489.0px;" /></a>
-<p class="caption"><span class="caption-text">Figure: The machine will be rebooted. Allow it to start booting from the CDROM again.</span></p>
+<p>Then choose the 3rd device - virtio disk</p>
+<div class="figure" id="id10">
+<a class="reference internal image-reference" href="../_images/12_boot_3_virtio.png"><img alt="screenshot" src="../_images/12_boot_3_virtio.png" style="width: 723.5px; height: 404.5px;" /></a>
+<p class="caption"><span class="caption-text">Figure: Choose to boot from the disk</span></p>
 </div>
-<div class="figure" id="id15">
-<a class="reference internal image-reference" href="../_images/13_reboot_cd_choose_hd.png"><img alt="screenshot" src="../_images/13_reboot_cd_choose_hd.png" style="width: 648.0px; height: 486.0px;" /></a>
+<p>In case you missed the ESC/F12 step, the node will be booted to the CD again.
+Now choose ‘Boot from first hard disk’, and carefully watch till it failed</p>
+<div class="figure" id="id11">
+<a class="reference internal image-reference" href="../_images/30_reboot_choose_hd.png"><img alt="screenshot" src="../_images/30_reboot_choose_hd.png" style="width: 643.5px; height: 484.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: From the CDROM boot menu, choose to boot from hard disk</span></p>
 </div>
+<div class="figure" id="id12">
+<a class="reference internal image-reference" href="../_images/31_boot_hd_fail.png"><img alt="screenshot" src="../_images/31_boot_hd_fail.png" style="width: 725.5px; height: 404.0px;" /></a>
+<p class="caption"><span class="caption-text">Figure: Boot from HD from the CDROM boot menu will fail, press any key to reboot again</span></p>
 </div>
-<div class="section" id="finishing-front-end-setup">
-<h2>Finishing Front-end setup<a class="headerlink" href="#finishing-front-end-setup" title="Permalink to this headline">¶</a></h2>
-<p>At end of the installation, click <strong>complete</strong> to finish the setup. The node will
-reboot into the OS installation CD again, but now choose &#8216;boot from first hard disk&#8217;
-option from the booting menu. This ensure the node boots into the newly installed OS,
-while having the OS installation CD still attached (we will need the CD again in the
-later steps).</p>
-<p>Once the node is back on, you can now login and configure the cluster from your laptop/desktop:</p>
-<pre class="highlight"><span class="prompt1">cm comet console vct&lt;NN&gt;</span>
-</pre><p>YOu can also ssh into the machine after it is configures with the usual ssh commands while
-using your login name that you set up and specify your cluster name.</p>
-<pre class="highlight"><span class="prompt1">ssh USER@vct&lt;NN&gt;.sdsc.edu</span>
-</pre></div>
+<p>Then press any key so it reboot again, and try to catch the ESC/F12 screen again.</p>
+<div class="figure" id="id13">
+<a class="reference internal image-reference" href="../_images/13_booted_login.png"><img alt="screenshot" src="../_images/13_booted_login.png" style="width: 1272.5px; height: 747.5px;" /></a>
+<p class="caption"><span class="caption-text">Figure: Login screen after boot</span></p>
+</div>
+</div>
 <div class="section" id="configuring-the-front-end-node">
-<h2>Configuring the front-end node<a class="headerlink" href="#configuring-the-front-end-node" title="Permalink to this headline">¶</a></h2>
-<p>On your managing machine where Cloudmesh client tools is installed:</p>
-<p>If your <strong>managing</strong> machine is running Linux:</p>
-<pre class="highlight"><span class="prompt1">wget -O cmutil.py http://bit.ly/vc-cmutil</span>
-<span class="prompt1">python cmutil.py nodesfile vct&lt;NN&gt;</span>
-<span class="prompt1">scp vcn*.txt &lt;USER&gt;@vct&lt;NN&gt;.sdsc.edu:~/</span>
-</pre><p>If your <strong>managing</strong> machine is running Mac OS X use curl instead of wget:</p>
-<pre class="highlight"><span class="prompt1">curl -L -o cmutil.py http://bit.ly/vc-cmutil</span>
-<span class="prompt1">python cmutil.py nodesfile vct&lt;NN&gt;</span>
-<span class="prompt1">scp vcn*.txt &lt;USER&gt;@vct&lt;NN&gt;.sdsc.edu:~/</span>
-</pre><p>On the vc <strong>front-end</strong> node:</p>
-<pre class="highlight"><style type="text/css">
-span.prompt2:before {
-  content: "fe$ ";
-}
-</style><span class="prompt2">wget -O deploy.sh http://bit.ly/vc-deployment</span>
-<span class="prompt2">chmod +x deploy.sh</span>
-<span class="prompt2">sudo ./deploy.sh</span>
-</pre><p>At this point we are done with the ISO and back on your <strong>managing</strong>
-machine you should detach it:</p>
-<pre class="highlight"><span class="prompt1">cm comet iso detach vct&lt;NN&gt;</span>
-</pre><p>ISO are removed the next time the virtual node is shutdown or powered
-off (not when  rebooted or reset).</p>
+<h2><a class="toc-backref" href="#id33">Configuring the front-end node</a><a class="headerlink" href="#configuring-the-front-end-node" title="Permalink to this headline">¶</a></h2>
+<p>This section takes ~5 min to finish.</p>
+<p>Now the FE node is back on, you can login and configure the cluster from your laptop/desktop.</p>
+<p>To verify, you can try ssh login first. Use the uesrname and password you set
+during the FE node installation.</p>
+<pre class="highlight"><span class="prompt3">ssh USER@vctNN.sdsc.edu</span>
+</pre><p>Once the ssh login is verified, we can start the configuration of the FE node.
+We have scripted this process to only a few steps:</p>
+<p>On your <strong>managing machine</strong> where Cloudmesh client tools is installed
+(make sure virtualenv is activated if you have used that):</p>
+<pre class="highlight"><span class="prompt3">mkdir ~/pearc17</span>
+<span class="prompt3">cd ~/pearc17</span>
+<span class="prompt3">git clone https://github.com/cloudmesh/cloudmesh.comet.vcdeploy.git</span>
+<span class="prompt3">cd cloudmesh.comet.vcdeploy/ubuntu16.04.2</span>
+<span class="prompt3">./deploy.sh &lt;vctNN&gt; &lt;USER&gt;</span>
+</pre><p>This will finish the configuration. At the end you will see something like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PLAY</span> <span class="n">RECAP</span> <span class="o">**************************************************************</span>
+<span class="n">vctNN</span><span class="o">.</span><span class="n">sdsc</span><span class="o">.</span><span class="n">edu</span>             <span class="p">:</span> <span class="n">ok</span><span class="o">=</span><span class="mi">43</span>   <span class="n">changed</span><span class="o">=</span><span class="mi">15</span>   <span class="n">unreachable</span><span class="o">=</span><span class="mi">0</span>    <span class="n">failed</span><span class="o">=</span><span class="mi">0</span>
+</pre></div>
 </div>
-<div class="section" id="example-install-compute-nodes">
-<h2>Example: Install Compute Nodes<a class="headerlink" href="#example-install-compute-nodes" title="Permalink to this headline">¶</a></h2>
-<p>Compute node setup</p>
-<pre class="highlight"><span class="prompt1">cm comet start vct&lt;NN&gt; vm-vct&lt;NN&gt;-[1-2]</span>
-</pre><p>Takes about 15~20 minutes. Once done, the node will be shutoff.</p>
-<p>Once you see the boot question in your console log, please change it to
-localboot. Do this on the front-end node:</p>
-<pre class="highlight"><span class="prompt2">cd $HOME</span>
-<span class="prompt2">sudo ./comet-vc-tutorial/cmutil.py setboot $HOSTNAME vm-vct01-01 net=false</span>
-</pre><p>You will also need to generate an SSH keypair for your non-privileged
-user account and create an <code class="docutils literal"><span class="pre">authorized_keys</span></code> file to allow your
-parallel application to access both nodes. This key pair is only for
-use within the cluster since it will not have a passphrase. Just hit
-enter at each step.</p>
-<pre class="highlight"><span class="prompt2">cd $HOME</span>
-<span class="prompt2">ssh-keygen</span>
-<span class="prompt2">cat .ssh/id_rsa.pub &gt;&gt; .ssh/authorized_keys</span>
-</pre><p>Then on your managing host where Cloudmesh client is installed:</p>
-<pre class="highlight"><span class="prompt1">cm comet power on vct&lt;NN&gt; vm-vct&lt;NN&gt;-[1-2]</span>
-</pre><p>Wait for the compute nodes to be booted on, which can be checked by:</p>
-<pre class="highlight"><span class="prompt1">cm comet cluster vct&lt;NN&gt;</span>
-</pre><p>to see if the state (2nd column) of the nodes is &#8216;active&#8217;.</p>
-<p>Once the compute nodes are on, run these on the front-end node:</p>
-<pre class="highlight"><span class="prompt2">sudo $HOME/comet-vc-tutorial/key_setup.sh</span>
-</pre><p>This will propagate the non-privileged user&#8217;s password to the compute
-nodes securely.</p>
-<p>Login to compute nodes from front-end, and run your app.</p>
+<p>Which indicates the process has been completed successfully.</p>
+<p>At this point we are done with the ISO so you could detach it:</p>
+<pre class="highlight"><span class="prompt3">cm comet iso detach vctNN</span>
+</pre><p>ISO are removed the next time the virtual node is shutdown or powered
+off (not when rebooted or reset). If the ISO stays attached, rebooting
+the FE node will boot to the CDROM boot menu again, and you will need
+to attach to console access to choose the boot options.</p>
+</div>
+<div class="section" id="install-vc-compute-nodes">
+<h2><a class="toc-backref" href="#id34">Install VC Compute Nodes</a><a class="headerlink" href="#install-vc-compute-nodes" title="Permalink to this headline">¶</a></h2>
+<p>This section takes 5~10 min to finish.</p>
+<p>On your <strong>managing machine</strong> where Cloudmesh client tools is installed
+(make sure virtualenv is activated if you have used that):</p>
+<pre class="highlight"><span class="prompt3">cm comet start vctNN vm-vctNN-[00-01]</span>
+</pre><p>This starts the compute nodes. Once the resources are allocated and the
+nodes are booted, they will be net-installed automatically.</p>
+<p>You can check the status of the nodes by running:</p>
+<pre class="highlight"><span class="prompt3">cm comet cluster vctNN --status</span>
+</pre><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Cluster</span><span class="p">:</span> <span class="n">vctNN</span>      <span class="n">Frontend</span><span class="p">:</span> <span class="n">vctNN</span> <span class="n">IP</span><span class="p">:</span> <span class="mf">132.249</span><span class="o">.</span><span class="n">xxx</span><span class="o">.</span><span class="n">xxx</span>
+<span class="o">+-------------+--------+------------+------------+-------------+</span>
+<span class="o">|</span> <span class="n">name</span>        <span class="o">|</span> <span class="n">state</span>  <span class="o">|</span> <span class="n">computeset</span> <span class="o">|</span> <span class="n">allocation</span> <span class="o">|</span> <span class="n">admin_state</span> <span class="o">|</span>
+<span class="o">+-------------+--------+------------+------------+-------------+</span>
+<span class="o">|</span> <span class="n">vctNN</span>       <span class="o">|</span> <span class="n">active</span> <span class="o">|</span>            <span class="o">|</span>            <span class="o">|</span> <span class="n">synced</span>      <span class="o">|</span>
+<span class="o">|</span> <span class="n">vm</span><span class="o">-</span><span class="n">vctNN</span><span class="o">-</span><span class="mi">00</span> <span class="o">|</span> <span class="n">active</span> <span class="o">|</span> <span class="mi">26</span>         <span class="o">|</span> <span class="n">ABC123</span>     <span class="o">|</span> <span class="n">syncing</span>     <span class="o">|</span>
+<span class="o">|</span> <span class="n">vm</span><span class="o">-</span><span class="n">vctNN</span><span class="o">-</span><span class="mi">01</span> <span class="o">|</span> <span class="n">active</span> <span class="o">|</span> <span class="mi">26</span>         <span class="o">|</span> <span class="n">ABC123</span>     <span class="o">|</span> <span class="n">syncing</span>     <span class="o">|</span>
+<span class="o">+-------------+--------+------------+------------+-------------+</span>
+</pre></div>
+</div>
+<p>At the end of the nodes installation the nodes will be powered off. Verify
+this by running the previous command, and check if the <cite>state</cite> is not
+<cite>active</cite>, and if the <cite>admin_state</cite> is <cite>ready</cite>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">In the production environment we use two factor
-authentication with <a class="reference external" href="https://www.yubico.com/">YubiKeys</a> to
-retrieve the API token used to by Cloudmesh and to access
-the console of a virtual machine. To simplify the tutorial
-we use username and password access in an isolated teaching
-environment. When utilizing the production version you will
-need to get in contact with the Comet staff. You must have a
-valid XSEDE allocation on Comet for a virtual cluster.</p>
+<p class="last">The state update may have some delay, e.g., half a minute or so.
+The <cite>active</cite> of <cite>state</cite> means the node is running; <cite>nostate</cite> or
+sometimes <cite>nostate-error</cite> means the node is powered off. For
+<cite>admin_state</cite>, <cite>synced</cite> means the node is running and the disk
+is synced; <cite>syncing</cite> means the disk is syncing to the backend,
+in which a power change of the node will be ignored; <cite>ready</cite>
+means the node is off and the disk is ready to be booted.</p>
 </div>
+<p><strong>BEFORE</strong> powering them back on, you need to execute this from
+the <strong>FE</strong> node:</p>
+<p>Login to the FE node if not yet:</p>
+<pre class="highlight"><span class="prompt3">ssh USER@vctNN.sdsc.edu</span>
+</pre><p>Now from the <strong>FE</strong> node:</p>
+<pre class="highlight"><style type="text/css">
+span.prompt4:before {
+  content: "FE$ ";
+}
+</style><span class="prompt4">sudo python cmutil.py setboot vctNN vm-vctNN-00 net=false</span>
+<span class="prompt4">sudo python cmutil.py setboot vctNN vm-vctNN-00 net=false</span>
+</pre><p>Otherwise the nodes will be net-installed again.</p>
+<p>After disabled the netboot for the compute nodes, now on your <strong>managing host</strong> where Cloudmesh client is installed:</p>
+<pre class="highlight"><span class="prompt3">cm comet power on vctNN vm-vctNN-[00-01]</span>
+</pre><p>Wait for the compute nodes to be booted on, which can be checked by:</p>
+<pre class="highlight"><span class="prompt3">cm comet cluster vctNN --status</span>
+</pre><p>to see if the state (2nd column) of the nodes is ‘active’.</p>
+<p>Once the compute nodes are on, run these on the <strong>FE</strong> node:</p>
+<pre class="highlight"><span class="prompt4">python cmutil.py settrust vctNN</span>
+</pre><p>This will propagate the ssh keys, known hosts file from the FE node to the
+compute nodes, so ssh between any nodes within the VC could be easily done.</p>
+<p>Login to compute nodes from front-end, and run your app.</p>
 </div>
-<div class="section" id="verifying-infiniband-performance">
-<h2>Verifying InfiniBand Performance<a class="headerlink" href="#verifying-infiniband-performance" title="Permalink to this headline">¶</a></h2>
-<p>We&#8217;ll start by verifying the InfiniBand connectivity between the
+<div class="section" id="demo1-verifying-infiniband-performance">
+<h2><a class="toc-backref" href="#id35">DEMO1: Verifying InfiniBand Performance</a><a class="headerlink" href="#demo1-verifying-infiniband-performance" title="Permalink to this headline">¶</a></h2>
+<p>We’ll start by verifying the InfiniBand connectivity between the
 compute nodes using RDMA performance tests and the <a class="reference external" href="http://mvapich.cse.ohio-state.edu/benchmarks/">OSU
 Micro-Benchmarks</a>. The InfiniBand tests
 are in the Ubuntu <code class="docutils literal"><span class="pre">perftest</span></code> package which is already installed on the
-compute nodes. The InfiniBand tests must run as <code class="docutils literal"><span class="pre">root</span></code> so we&#8217;ll
+compute nodes. The InfiniBand tests must run as <code class="docutils literal"><span class="pre">root</span></code> so we’ll
 change to <code class="docutils literal"><span class="pre">root</span></code> on the front-end and then use the SSH keys that are
 in place to access the compute nodes.</p>
-<p>From your managing machine open two SSH terminals to your virtual
-front-end. In one terminal, start a server on the first compute node:</p>
-<pre class="highlight"><span class="prompt1">sudo su -</span>
-<span class="prompt1">ssh vm-vct01-00</span>
+<p>From your <strong>managing machine</strong> open two SSH terminals to your virtual
+front-end. And then from the <strong>FE</strong> terminals:</p>
+<p>In one terminal, start a server on the first compute node:</p>
+<pre class="highlight"><span class="prompt4">ssh vm-vctNN-00</span>
 </pre><p>Then in that vm type</p>
 <pre class="highlight"><style type="text/css">
-span.prompt3:before {
-  content: "vm-vct01-00$ ";
+span.prompt5:before {
+  content: "vm-vctNN-00$ ";
 }
-</style><span class="prompt3">ib_write_bw</span>
+</style><span class="prompt5">ib_write_bw</span>
 </pre><p>In the other terminal, connect to the server from the second compute
 node and start the test:</p>
-<pre class="highlight"><span class="prompt1">sudo su -</span>
-<span class="prompt1">ssh vm-vct01-01</span>
+<pre class="highlight"><span class="prompt4">ssh vm-vctNN-01</span>
 </pre><pre class="highlight"><style type="text/css">
-span.prompt4:before {
-  content: "vm-vct01-01$ ";
+span.prompt6:before {
+  content: "vm-vctNN-01$ ";
 }
-</style><span class="prompt4">ib_write_bw vm-vct01-00</span>
-</pre><p>The bandwidth results will confirm that we&#8217;re sending data over InfiniBand:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">------------------------------------------------------------------</span>
-                  <span class="n">RDMA_Write</span> <span class="n">BW</span> <span class="n">Test</span>
-<span class="n">Number</span> <span class="n">of</span> <span class="n">qp</span><span class="s1">&#39;s running 1</span>
-<span class="n">Connection</span> <span class="nb">type</span> <span class="p">:</span> <span class="n">RC</span>
-<span class="n">Each</span> <span class="n">Qp</span> <span class="n">will</span> <span class="n">post</span> <span class="n">up</span> <span class="n">to</span> <span class="mi">100</span> <span class="n">messages</span> <span class="n">each</span> <span class="n">time</span>
-<span class="n">Inline</span> <span class="n">data</span> <span class="ow">is</span> <span class="n">used</span> <span class="n">up</span> <span class="n">to</span> <span class="mi">400</span> <span class="nb">bytes</span> <span class="n">message</span>
-  <span class="n">local</span> <span class="n">address</span><span class="p">:</span>  <span class="n">LID</span> <span class="mh">0x35</span><span class="p">,</span> <span class="n">QPN</span> <span class="mh">0x09fc</span><span class="p">,</span> <span class="n">PSN</span> <span class="mh">0x60a317</span> <span class="n">RKey</span> <span class="mh">0xe00140fc</span> <span class="n">VAddr</span> <span class="mh">0x007f089b60d000</span>
-  <span class="n">remote</span> <span class="n">address</span><span class="p">:</span> <span class="n">LID</span> <span class="mh">0x45</span><span class="p">,</span> <span class="n">QPN</span> <span class="mh">0x09fc</span><span class="p">,</span> <span class="n">PSN</span> <span class="mh">0xb1e176</span><span class="p">,</span> <span class="n">RKey</span> <span class="mh">0x200140fd</span> <span class="n">VAddr</span> <span class="mh">0x007fd1ff5a1000</span>
-<span class="n">Mtu</span> <span class="p">:</span> <span class="mi">2048</span>
-<span class="o">------------------------------------------------------------------</span>
- <span class="c1">#bytes #iterations    BW peak[MB/sec]    BW average[MB/sec]</span>
-  <span class="mi">65536</span>        <span class="mi">5000</span>            <span class="mf">6021.90</span>               <span class="mf">6020.33</span>
-<span class="o">------------------------------------------------------------------</span>
+</style><span class="prompt6">ib_write_bw vm-vctNN-00</span>
+</pre><p>The bandwidth results will confirm that we’re sending data over InfiniBand:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">---------------------------------------------------------------------------------------</span>
+                    <span class="n">RDMA_Write</span> <span class="n">BW</span> <span class="n">Test</span>
+ <span class="n">Dual</span><span class="o">-</span><span class="n">port</span>       <span class="p">:</span> <span class="n">OFF</span>              <span class="n">Device</span>         <span class="p">:</span> <span class="n">mlx4_0</span>
+ <span class="n">Number</span> <span class="n">of</span> <span class="n">qps</span>   <span class="p">:</span> <span class="mi">1</span>                <span class="n">Transport</span> <span class="nb">type</span> <span class="p">:</span> <span class="n">IB</span>
+ <span class="n">Connection</span> <span class="nb">type</span> <span class="p">:</span> <span class="n">RC</span>               <span class="n">Using</span> <span class="n">SRQ</span>      <span class="p">:</span> <span class="n">OFF</span>
+ <span class="n">TX</span> <span class="n">depth</span>        <span class="p">:</span> <span class="mi">128</span>
+ <span class="n">CQ</span> <span class="n">Moderation</span>   <span class="p">:</span> <span class="mi">100</span>
+ <span class="n">Mtu</span>             <span class="p">:</span> <span class="mi">2048</span><span class="p">[</span><span class="n">B</span><span class="p">]</span>
+ <span class="n">Link</span> <span class="nb">type</span>       <span class="p">:</span> <span class="n">IB</span>
+ <span class="n">Max</span> <span class="n">inline</span> <span class="n">data</span> <span class="p">:</span> <span class="mi">0</span><span class="p">[</span><span class="n">B</span><span class="p">]</span>
+ <span class="n">rdma_cm</span> <span class="n">QPs</span>         <span class="p">:</span> <span class="n">OFF</span>
+ <span class="n">Data</span> <span class="n">ex</span><span class="o">.</span> <span class="n">method</span> <span class="p">:</span> <span class="n">Ethernet</span>
+<span class="o">---------------------------------------------------------------------------------------</span>
+ <span class="n">local</span> <span class="n">address</span><span class="p">:</span> <span class="n">LID</span> <span class="mh">0x3c</span> <span class="n">QPN</span> <span class="mh">0x0a1b</span> <span class="n">PSN</span> <span class="mh">0xecf3ce</span> <span class="n">RKey</span> <span class="mh">0x68010f00</span> <span class="n">VAddr</span> <span class="mh">0x002b19db6f2000</span>
+ <span class="n">remote</span> <span class="n">address</span><span class="p">:</span> <span class="n">LID</span> <span class="mh">0x11</span> <span class="n">QPN</span> <span class="mh">0x0a1b</span> <span class="n">PSN</span> <span class="mh">0x3e7b9f</span> <span class="n">RKey</span> <span class="mh">0x68010f00</span> <span class="n">VAddr</span> <span class="mh">0x002b41b62fd000</span>
+<span class="o">---------------------------------------------------------------------------------------</span>
+ <span class="c1">#bytes     #iterations    BW peak[MB/sec]    BW average[MB/sec]   MsgRate[Mpps]</span>
+ <span class="mi">65536</span>      <span class="mi">5000</span>             <span class="mf">6034.72</span>            <span class="mf">6033.76</span>                <span class="mf">0.096540</span>
+<span class="o">---------------------------------------------------------------------------------------</span>
 </pre></div>
 </div>
 <p>And the first server will show its results in the first terminal:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">------------------------------------------------------------------</span>
-                  <span class="n">RDMA_Write</span> <span class="n">BW</span> <span class="n">Test</span>
-<span class="n">Number</span> <span class="n">of</span> <span class="n">qp</span><span class="s1">&#39;s running 1</span>
-<span class="n">Connection</span> <span class="nb">type</span> <span class="p">:</span> <span class="n">RC</span>
-<span class="n">Each</span> <span class="n">Qp</span> <span class="n">will</span> <span class="n">post</span> <span class="n">up</span> <span class="n">to</span> <span class="mi">100</span> <span class="n">messages</span> <span class="n">each</span> <span class="n">time</span>
-<span class="n">Inline</span> <span class="n">data</span> <span class="ow">is</span> <span class="n">used</span> <span class="n">up</span> <span class="n">to</span> <span class="mi">400</span> <span class="nb">bytes</span> <span class="n">message</span>
-  <span class="n">local</span> <span class="n">address</span><span class="p">:</span>  <span class="n">LID</span> <span class="mh">0x45</span><span class="p">,</span> <span class="n">QPN</span> <span class="mh">0x09fc</span><span class="p">,</span> <span class="n">PSN</span> <span class="mh">0xb1e176</span> <span class="n">RKey</span> <span class="mh">0x200140fd</span> <span class="n">VAddr</span> <span class="mh">0x007fd1ff5a1000</span>
-  <span class="n">remote</span> <span class="n">address</span><span class="p">:</span> <span class="n">LID</span> <span class="mh">0x35</span><span class="p">,</span> <span class="n">QPN</span> <span class="mh">0x09fc</span><span class="p">,</span> <span class="n">PSN</span> <span class="mh">0x60a317</span><span class="p">,</span> <span class="n">RKey</span> <span class="mh">0xe00140fc</span> <span class="n">VAddr</span> <span class="mh">0x007f089b60d000</span>
-<span class="n">Mtu</span> <span class="p">:</span> <span class="mi">2048</span>
-<span class="o">------------------------------------------------------------------</span>
- <span class="c1">#bytes #iterations    BW peak[MB/sec]    BW average[MB/sec]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">************************************</span>
+<span class="o">*</span> <span class="n">Waiting</span> <span class="k">for</span> <span class="n">client</span> <span class="n">to</span> <span class="n">connect</span><span class="o">...</span> <span class="o">*</span>
+<span class="o">************************************</span>
+<span class="o">---------------------------------------------------------------------------------------</span>
+                    <span class="n">RDMA_Write</span> <span class="n">BW</span> <span class="n">Test</span>
+ <span class="n">Dual</span><span class="o">-</span><span class="n">port</span>       <span class="p">:</span> <span class="n">OFF</span>              <span class="n">Device</span>         <span class="p">:</span> <span class="n">mlx4_0</span>
+ <span class="n">Number</span> <span class="n">of</span> <span class="n">qps</span>   <span class="p">:</span> <span class="mi">1</span>                <span class="n">Transport</span> <span class="nb">type</span> <span class="p">:</span> <span class="n">IB</span>
+ <span class="n">Connection</span> <span class="nb">type</span> <span class="p">:</span> <span class="n">RC</span>               <span class="n">Using</span> <span class="n">SRQ</span>      <span class="p">:</span> <span class="n">OFF</span>
+ <span class="n">CQ</span> <span class="n">Moderation</span>   <span class="p">:</span> <span class="mi">100</span>
+ <span class="n">Mtu</span>             <span class="p">:</span> <span class="mi">2048</span><span class="p">[</span><span class="n">B</span><span class="p">]</span>
+ <span class="n">Link</span> <span class="nb">type</span>       <span class="p">:</span> <span class="n">IB</span>
+ <span class="n">Max</span> <span class="n">inline</span> <span class="n">data</span> <span class="p">:</span> <span class="mi">0</span><span class="p">[</span><span class="n">B</span><span class="p">]</span>
+ <span class="n">rdma_cm</span> <span class="n">QPs</span>         <span class="p">:</span> <span class="n">OFF</span>
+ <span class="n">Data</span> <span class="n">ex</span><span class="o">.</span> <span class="n">method</span> <span class="p">:</span> <span class="n">Ethernet</span>
+<span class="o">---------------------------------------------------------------------------------------</span>
+ <span class="n">local</span> <span class="n">address</span><span class="p">:</span> <span class="n">LID</span> <span class="mh">0x11</span> <span class="n">QPN</span> <span class="mh">0x0a1b</span> <span class="n">PSN</span> <span class="mh">0x3e7b9f</span> <span class="n">RKey</span> <span class="mh">0x68010f00</span> <span class="n">VAddr</span> <span class="mh">0x002b41b62fd000</span>
+ <span class="n">remote</span> <span class="n">address</span><span class="p">:</span> <span class="n">LID</span> <span class="mh">0x3c</span> <span class="n">QPN</span> <span class="mh">0x0a1b</span> <span class="n">PSN</span> <span class="mh">0xecf3ce</span> <span class="n">RKey</span> <span class="mh">0x68010f00</span> <span class="n">VAddr</span> <span class="mh">0x002b19db6f2000</span>
+<span class="o">---------------------------------------------------------------------------------------</span>
+ <span class="c1">#bytes     #iterations    BW peak[MB/sec]    BW average[MB/sec]   MsgRate[Mpps]</span>
+ <span class="mi">65536</span>      <span class="mi">5000</span>             <span class="mf">6034.72</span>            <span class="mf">6033.76</span>                <span class="mf">0.096540</span>
+<span class="o">---------------------------------------------------------------------------------------</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id1">
-<h2>OSU Micro-Benchmarks<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="demo2-osu-micro-benchmarks">
+<h2><a class="toc-backref" href="#id36">DEMO2: OSU Micro-Benchmarks</a><a class="headerlink" href="#demo2-osu-micro-benchmarks" title="Permalink to this headline">¶</a></h2>
 <p>The <a class="reference external" href="http://mvapich.cse.ohio-state.edu/benchmarks/">OSU Micro-Benchmarks</a> are suite of
 individual applications measuring the latency and bandwidth of
 individual MPI calls. The cover both the performance of both the
@@ -524,150 +707,150 @@ underlying network fabric and the MPI implementation. The
 Micro-Benchmarks provide coverage for the latest MPI standards but the
 version of <a class="reference external" href="https://www.open-mpi.org/">Open MPI</a> in the Ubuntu
 Trusty distribution is a bit older and not all of the messaging calls
-are available. We&#8217;ll focus only a few as part of the InfiniBand and
+are available. We’ll focus only a few as part of the InfiniBand and
 MPI verification.</p>
-<p>Begin by logging on to the first compute node where we&#8217;ll download and
+<p>Begin by logging on to the first compute node where we’ll download and
 compile the benchmarks. This can be done with your non-privileged user
 account. Then download the benchmarks, extract, and configure the
 source.</p>
-<pre class="highlight"><span class="prompt1">ssh vm-vct01-00</span>
-</pre><pre class="highlight"><span class="prompt3">wget http://mvapich.cse.ohio-state.edu/download/mvapich/osu-micro-benchmarks-5.3.tar.gz</span>
-<span class="prompt3">tar -zxf osu-micro-benchmarks-5.3.tar.gz</span>
-<span class="prompt3">cd osu-micro-benchmarks-5.3/</span>
-<span class="prompt3">./configure CC=/usr/bin/mpicc CXX=/usr/bin/mpicxx</span>
+<pre class="highlight"><span class="prompt4">ssh vm-vctNN-00</span>
+</pre><pre class="highlight"><span class="prompt5">wget http://mvapich.cse.ohio-state.edu/download/mvapich/osu-micro-benchmarks-5.3.tar.gz</span>
+<span class="prompt5">tar -zxf osu-micro-benchmarks-5.3.tar.gz</span>
+<span class="prompt5">cd osu-micro-benchmarks-5.3/</span>
+<span class="prompt5">./configure CC=/usr/bin/mpicc CXX=/usr/bin/mpicxx</span>
 </pre><p>After the source configuration step completes, go into the directory
 for the point-to-point communication benchmarks and compile them.</p>
-<pre class="highlight"><span class="prompt3">cd mpi/pt2pt/</span>
-<span class="prompt3">make</span>
+<pre class="highlight"><span class="prompt5">cd mpi/pt2pt/</span>
+<span class="prompt5">make</span>
 </pre><p>To run the tests create a host file with the two compute nodes
 specified:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">vm</span><span class="o">-</span><span class="n">vct01</span><span class="o">-</span><span class="mi">00</span>
-<span class="n">vm</span><span class="o">-</span><span class="n">vct01</span><span class="o">-</span><span class="mi">01</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">vm</span><span class="o">-</span><span class="n">vctNN</span><span class="o">-</span><span class="mi">00</span>
+<span class="n">vm</span><span class="o">-</span><span class="n">vctNN</span><span class="o">-</span><span class="mi">01</span>
 </pre></div>
 </div>
-<p>Remember where you&#8217;ve placed this (<code class="docutils literal"><span class="pre">$HOME/two-hosts.txt</span></code> is a good
+<p>Remember where you’ve placed this (<code class="docutils literal"><span class="pre">$HOME/two-hosts.txt</span></code> is a good
 idea) and run the bandwidth test.</p>
-<pre class="highlight"><span class="prompt3">mpirun -np 2 -hostfile ~/two-hosts.txt ./osu_bw</span>
+<pre class="highlight"><span class="prompt5">mpirun -np 2 -hostfile ~/two-hosts.txt ./osu_bw</span>
 </pre><p>The results will go to the terminal and you can compare them to the
-<code class="docutils literal"><span class="pre">ib_write_bw</span></code> performance. You can ignore Open MPI&#8217;s complaints
+<code class="docutils literal"><span class="pre">ib_write_bw</span></code> performance. You can ignore Open MPI’s complaints
 regarding registered memory, this is due to change in the driver:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># OSU MPI Bandwidth Test v5.3</span>
 <span class="c1"># Size      Bandwidth (MB/s)</span>
-<span class="mi">1</span>                       <span class="mf">1.56</span>
-<span class="mi">2</span>                       <span class="mf">3.13</span>
-<span class="mi">4</span>                       <span class="mf">6.22</span>
-<span class="mi">8</span>                      <span class="mf">12.63</span>
-<span class="mi">16</span>                     <span class="mf">24.94</span>
-<span class="mi">32</span>                     <span class="mf">50.52</span>
-<span class="mi">64</span>                     <span class="mf">99.95</span>
-<span class="mi">128</span>                   <span class="mf">188.23</span>
-<span class="mi">256</span>                   <span class="mf">360.56</span>
-<span class="mi">512</span>                   <span class="mf">692.32</span>
-<span class="mi">1024</span>                 <span class="mf">1258.43</span>
-<span class="mi">2048</span>                 <span class="mf">2178.72</span>
-<span class="mi">4096</span>                 <span class="mf">3395.65</span>
-<span class="mi">8192</span>                 <span class="mf">4576.91</span>
-<span class="mi">16384</span>                <span class="mf">4659.19</span>
-<span class="mi">32768</span>                <span class="mf">5445.82</span>
-<span class="mi">65536</span>                <span class="mf">5993.62</span>
-<span class="mi">131072</span>               <span class="mf">6136.74</span>
-<span class="mi">262144</span>               <span class="mf">6210.81</span>
-<span class="mi">524288</span>               <span class="mf">6245.60</span>
-<span class="mi">1048576</span>              <span class="mf">6242.02</span>
-<span class="mi">2097152</span>              <span class="mf">6241.21</span>
-<span class="mi">4194304</span>              <span class="mf">6254.35</span>
+<span class="mi">1</span>                       <span class="mf">9.38</span>
+<span class="mi">2</span>                      <span class="mf">19.08</span>
+<span class="mi">4</span>                      <span class="mf">38.43</span>
+<span class="mi">8</span>                      <span class="mf">76.53</span>
+<span class="mi">16</span>                    <span class="mf">143.79</span>
+<span class="mi">32</span>                    <span class="mf">292.97</span>
+<span class="mi">64</span>                    <span class="mf">432.52</span>
+<span class="mi">128</span>                   <span class="mf">572.09</span>
+<span class="mi">256</span>                   <span class="mf">923.03</span>
+<span class="mi">512</span>                  <span class="mf">1586.87</span>
+<span class="mi">1024</span>                 <span class="mf">3310.19</span>
+<span class="mi">2048</span>                 <span class="mf">5511.89</span>
+<span class="mi">4096</span>                 <span class="mf">5881.63</span>
+<span class="mi">8192</span>                 <span class="mf">7594.89</span>
+<span class="mi">16384</span>                <span class="mf">9925.63</span>
+<span class="mi">32768</span>               <span class="mf">10485.90</span>
+<span class="mi">65536</span>               <span class="mf">10965.30</span>
+<span class="mi">131072</span>              <span class="mf">11034.08</span>
+<span class="mi">262144</span>              <span class="mf">10974.80</span>
+<span class="mi">524288</span>              <span class="mf">10863.44</span>
+<span class="mi">1048576</span>             <span class="mf">10313.80</span>
+<span class="mi">2097152</span>             <span class="mf">10332.34</span>
+<span class="mi">4194304</span>              <span class="mf">5182.40</span>
 </pre></div>
 </div>
-<p>Now we&#8217;ll try a collective benchmark for <code class="docutils literal"><span class="pre">MPI_Alltoall</span></code>. We can
+<p>Now we’ll try a collective benchmark for <code class="docutils literal"><span class="pre">MPI_Alltoall</span></code>. We can
 reuse our host file for 24 tasks and let MPI distribute the tasks.</p>
-<pre class="highlight"><span class="prompt3">cd ../collective/</span>
-<span class="prompt3">make osu_alltoall</span>
-<span class="prompt3">mpirun -np 24 -hostfile ~/two-hosts.txt ./osu_alltoall</span>
+<pre class="highlight"><span class="prompt5">cd ../collective/</span>
+<span class="prompt5">make osu_alltoall</span>
+<span class="prompt5">mpirun -np 24 -hostfile ~/two-hosts.txt ./osu_alltoall</span>
 </pre><p>Again, there perfomance results (this time for latency) go to the terminal:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># OSU MPI All-to-All Personalized Exchange Latency Test v5.3</span>
 <span class="c1"># Size       Avg Latency(us)</span>
-<span class="mi">1</span>                      <span class="mf">30.80</span>
-<span class="mi">2</span>                      <span class="mf">30.54</span>
-<span class="mi">4</span>                      <span class="mf">30.68</span>
-<span class="mi">8</span>                      <span class="mf">30.88</span>
-<span class="mi">16</span>                     <span class="mf">34.35</span>
-<span class="mi">32</span>                     <span class="mf">35.43</span>
-<span class="mi">64</span>                     <span class="mf">37.50</span>
-<span class="mi">128</span>                    <span class="mf">39.63</span>
-<span class="mi">256</span>                   <span class="mf">136.95</span>
-<span class="mi">512</span>                   <span class="mf">144.51</span>
-<span class="mi">1024</span>                  <span class="mf">160.50</span>
-<span class="mi">2048</span>                  <span class="mf">209.13</span>
-<span class="mi">4096</span>                  <span class="mf">331.33</span>
-<span class="mi">8192</span>                  <span class="mf">459.79</span>
-<span class="mi">16384</span>                <span class="mf">1270.14</span>
-<span class="mi">32768</span>                <span class="mf">1768.40</span>
-<span class="mi">65536</span>                <span class="mf">3064.40</span>
-<span class="mi">131072</span>               <span class="mf">5344.35</span>
-<span class="mi">262144</span>              <span class="mf">11198.39</span>
-<span class="mi">524288</span>              <span class="mf">23086.68</span>
-<span class="mi">1048576</span>             <span class="mf">48169.37</span>
+<span class="mi">1</span>                      <span class="mf">10.20</span>
+<span class="mi">2</span>                      <span class="mf">10.70</span>
+<span class="mi">4</span>                      <span class="mf">10.84</span>
+<span class="mi">8</span>                      <span class="mf">10.96</span>
+<span class="mi">16</span>                     <span class="mf">11.35</span>
+<span class="mi">32</span>                     <span class="mf">12.02</span>
+<span class="mi">64</span>                     <span class="mf">13.14</span>
+<span class="mi">128</span>                    <span class="mf">16.15</span>
+<span class="mi">256</span>                    <span class="mf">21.60</span>
+<span class="mi">512</span>                    <span class="mf">40.38</span>
+<span class="mi">1024</span>                   <span class="mf">29.85</span>
+<span class="mi">2048</span>                   <span class="mf">56.84</span>
+<span class="mi">4096</span>                  <span class="mf">118.41</span>
+<span class="mi">8192</span>                  <span class="mf">194.88</span>
+<span class="mi">16384</span>                 <span class="mf">321.10</span>
+<span class="mi">32768</span>                 <span class="mf">562.16</span>
+<span class="mi">65536</span>                <span class="mf">3041.93</span>
+<span class="mi">131072</span>               <span class="mf">6361.44</span>
+<span class="mi">262144</span>              <span class="mf">12628.80</span>
+<span class="mi">524288</span>              <span class="mf">26586.52</span>
+<span class="mi">1048576</span>             <span class="mf">50982.36</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="openfoam">
-<h2>OpenFOAM<a class="headerlink" href="#openfoam" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="demo3-optional-openfoam">
+<h2><a class="toc-backref" href="#id37">DEMO3 (optional): OpenFOAM</a><a class="headerlink" href="#demo3-optional-openfoam" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="http://openfoam.org/">OpenFOAM</a> is a parallel open-source
 <a class="reference external" href="https://en.wikipedia.org/wiki/Computational_fluid_dynamics">computational fluid dynamics</a>
 application that is available in a public Ubuntu repository. To
 install it, on each of the compute nodes run:</p>
-<pre class="highlight"><span class="prompt3">sudo apt install software-properties-common -y</span>
-<span class="prompt3">sudo add-apt-repository http://download.openfoam.org/ubuntu</span>
-<span class="prompt3">sudo apt-get update</span>
-<span class="prompt3">sudo apt-get install openfoam4 -y --force-yes</span>
+<pre class="highlight"><span class="prompt5">sudo apt install software-properties-common -y</span>
+<span class="prompt5">sudo add-apt-repository http://download.openfoam.org/ubuntu</span>
+<span class="prompt5">sudo apt-get update</span>
+<span class="prompt5">sudo apt-get install openfoam4 -y --force-yes</span>
 </pre><p>Add the OpenFOAM profile to your <code class="docutils literal"><span class="pre">.bashrc</span></code>:</p>
-<pre class="highlight"><span class="prompt3">echo &#39;. /opt/openfoam4/etc/bashrc&#39; &gt;&gt; ~/.bashrc</span>
-<span class="prompt3">source ~/.bashrc</span>
-</pre><p>We&#8217;re now able to setup the files and directories needed for a
+<pre class="highlight"><span class="prompt5">echo &#39;. /opt/openfoam4/etc/bashrc&#39; &gt;&gt; ~/.bashrc</span>
+<span class="prompt5">source ~/.bashrc</span>
+</pre><p>We’re now able to setup the files and directories needed for a
 benchmarking run.</p>
-<pre class="highlight"><span class="prompt3">mkdir -p $FOAM_RUN</span>
-<span class="prompt3">cd $FOAM_RUN</span>
-<span class="prompt3">cp -r $FOAM_TUTORIALS/multiphase/interFoam/laminar/damBreak/damBreak .</span>
-<span class="prompt3">foamCloneCase damBreak damBreakFine</span>
-<span class="prompt3">cd damBreakFine</span>
-<span class="prompt3">cp ~/comet-vc-tutorial/examples/OpenFOAM/blockMeshDict system/</span>
-<span class="prompt3">cp ~/comet-vc-tutorial/examples/OpenFOAM/decomposeParDict system/</span>
+<pre class="highlight"><span class="prompt5">mkdir -p $FOAM_RUN</span>
+<span class="prompt5">cd $FOAM_RUN</span>
+<span class="prompt5">cp -r $FOAM_TUTORIALS/multiphase/interFoam/laminar/damBreak/damBreak .</span>
+<span class="prompt5">foamCloneCase damBreak damBreakFine</span>
+<span class="prompt5">cd damBreakFine</span>
+<span class="prompt5">cp ~/comet-vc-tutorial/examples/OpenFOAM/blockMeshDict system/</span>
+<span class="prompt5">cp ~/comet-vc-tutorial/examples/OpenFOAM/decomposeParDict system/</span>
 </pre><p>Setup the mesh and initial conditions.</p>
-<pre class="highlight"><span class="prompt3">blockMesh</span>
-<span class="prompt3">cp -r 0/alpha.water.orig 0/alpha.water</span>
-<span class="prompt3">setFields</span>
+<pre class="highlight"><span class="prompt5">blockMesh</span>
+<span class="prompt5">cp -r 0/alpha.water.orig 0/alpha.water</span>
+<span class="prompt5">setFields</span>
 </pre><p>Decompose the mesh.</p>
-<pre class="highlight"><span class="prompt3">decomposePar</span>
+<pre class="highlight"><span class="prompt5">decomposePar</span>
 </pre><p>Create a host file (<code class="docutils literal"><span class="pre">hosts.txt</span></code>) and run the code. For example,
 create <code class="docutils literal"><span class="pre">hosts.txt</span></code> for 24 tasks on each compute node and run.</p>
-<pre class="highlight"><span class="prompt3">echo &quot;vm-vct16-00 slots=24&quot; &gt; hosts.txt</span>
-<span class="prompt3">echo &quot;vm-vct16-01 slots=24&quot; &gt;&gt; hosts.txt</span>
-<span class="prompt3">mpirun  -hostfile ./hosts.txt -np 48 `which foamExec` interFoam -parallel</span>
+<pre class="highlight"><span class="prompt5">echo &quot;vm-vctNN-00 slots=24&quot; &gt; hosts.txt</span>
+<span class="prompt5">echo &quot;vm-vctNN-01 slots=24&quot; &gt;&gt; hosts.txt</span>
+<span class="prompt5">mpirun  -hostfile ./hosts.txt -np 48 `which foamExec` interFoam -parallel</span>
 </pre><p>This will take a while (about 5-10 minutes).</p>
 <p>The OpenFOAM packages include a version of <a class="reference external" href="http://www.paraview.org/">ParaView</a> for OpenFOAM that you can use to view the
 mesh. From a system with X windows SSH to your front-end and compute
 node with X forwarding enabled.</p>
-<pre class="highlight"><span class="prompt3">ssh -X &lt;username&gt;@vct16.sdsc.edu</span>
-<span class="prompt3">ssh -X vm-vct16-00</span>
-<span class="prompt3">cd $FOAM_RUN/damBreakFine</span>
-<span class="prompt3">paraFoam -case processor1</span>
-</pre><div class="figure" id="id16">
+<pre class="highlight"><span class="prompt5">ssh -X &lt;username&gt;@vctNN.sdsc.edu</span>
+<span class="prompt5">ssh -X vm-vctNN-00</span>
+<span class="prompt5">cd $FOAM_RUN/damBreakFine</span>
+<span class="prompt5">paraFoam -case processor1</span>
+</pre><div class="figure" id="id14">
 <a class="reference internal image-reference" href="../_images/paraview-vct.png"><img alt="screenshot" src="../_images/paraview-vct.png" style="width: 972.0px; height: 685.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: ParaView with OpenFOAM example data</span></p>
 </div>
 </div>
-<div class="section" id="julia">
-<h2>Julia<a class="headerlink" href="#julia" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="demo4-optional-julia">
+<h2><a class="toc-backref" href="#id38">DEMO4 (optional): Julia</a><a class="headerlink" href="#demo4-optional-julia" title="Permalink to this headline">¶</a></h2>
 <p>Like OpenFOAM, <a class="reference external" href="http://julialang.org/">Julia</a> has Ubuntu packages in
 public repositories. You can install on the compute nodes following a
 similar process. On each compute node run the following commands from
 <a class="reference external" href="http://julialang.org/downloads/platform.html">the Julia installation instructions for Ubuntu</a>. When prompted, hit <code class="docutils literal"><span class="pre">ENTER</span></code>.</p>
-<pre class="highlight"><span class="prompt3">sudo add-apt-repository ppa:staticfloat/juliareleases</span>
-<span class="prompt3">sudo add-apt-repository ppa:staticfloat/julia-deps</span>
-<span class="prompt3">sudo apt-get update</span>
-<span class="prompt3">sudo apt-get install julia -y</span>
+<pre class="highlight"><span class="prompt5">sudo add-apt-repository ppa:staticfloat/juliareleases</span>
+<span class="prompt5">sudo add-apt-repository ppa:staticfloat/julia-deps</span>
+<span class="prompt5">sudo apt-get update</span>
+<span class="prompt5">sudo apt-get install julia -y</span>
 </pre><p>You can start Julia on the command line for interactive use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>rpwagner@vm-vct01-00:~$ julia
+<div class="highlight-default"><div class="highlight"><pre><span></span>rpwagner@vm-vctNN-00:~$ julia
                _
    _       _ _(_)_     |  A fresh approach to technical computing
   (_)     | (_) (_)    |  Documentation: http://docs.julialang.org
@@ -680,7 +863,7 @@ similar process. On each compute node run the following commands from
 julia&gt;
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span>rpwagner@vm-vct01-00:~$ julia --machinefile machinefile-jl.txt
+<div class="highlight-default"><div class="highlight"><pre><span></span>rpwagner@vm-vctNN-00:~$ julia --machinefile machinefile-jl.txt
                _
    _       _ _(_)_     |  A fresh approach to technical computing
   (_)     | (_) (_)    |  Documentation: http://docs.julialang.org
@@ -693,6 +876,10 @@ julia&gt;
 julia&gt;
 </pre></div>
 </div>
+</div>
+<div class="section" id="demo5-bigdata-analytical-software-stack-deployment-and-example-run">
+<h2><a class="toc-backref" href="#id39">DEMO5: Bigdata analytical software stack deployment and example run</a><a class="headerlink" href="#demo5-bigdata-analytical-software-stack-deployment-and-example-run" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="reference internal" href="comet_bigdata.html#comet-bigdata"><span class="std std-ref">Comet Big Data Tutorial</span></a></p>
 </div>
 </div>
 
@@ -739,7 +926,7 @@ julia&gt;
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

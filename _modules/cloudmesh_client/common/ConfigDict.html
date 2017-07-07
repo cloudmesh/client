@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.common.ConfigDict &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>cloudmesh_client.common.ConfigDict &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -65,7 +67,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -289,8 +291,8 @@
 
 
 <div class="viewcode-block" id="Config"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.api.Config">[docs]</a><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Config.check_file_for_tabs"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.api.Config.check_file_for_tabs">[docs]</a>    <span class="k">def</span> <span class="nf">check_file_for_tabs</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Config.check_file_for_tabs"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.api.Config.check_file_for_tabs">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">check_file_for_tabs</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;identifies if the file contains tabs and returns True if it</span>
 <span class="sd">        does. It also prints the location of the lines and columns. If</span>
 <span class="sd">        verbose is set to False, the location is not printed.</span>
@@ -315,8 +317,8 @@
             <span class="n">line_no</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">file_contains_tabs</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Config.path_expand"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.api.Config.path_expand">[docs]</a>    <span class="k">def</span> <span class="nf">path_expand</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<div class="viewcode-block" id="Config.path_expand"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.api.Config.path_expand">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">path_expand</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        expands the path while replacing environment variables, ./, and ~/</span>
 <span class="sd">        :param path: the path to be expanded</span>
@@ -331,8 +333,8 @@
         <span class="n">location</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expandvars</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">location</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Config.find_file"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.api.Config.find_file">[docs]</a>    <span class="k">def</span> <span class="nf">find_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">load_order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Config.find_file"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.api.Config.find_file">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">find_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">load_order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        find the specified file in the list of directories that are given in the</span>
 <span class="sd">        array load_order</span>
@@ -570,8 +572,8 @@
             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">start</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="ConfigDict.check"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.api.ConfigDict.check">[docs]</a>    <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="ConfigDict.check"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.api.ConfigDict.check">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        checks the filename if it is syntactically correct and does not include tabs</span>
 <span class="sd">        :param filename:</span>
@@ -580,8 +582,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="ConfigDict.getUser"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.api.ConfigDict.getUser">[docs]</a>    <span class="k">def</span> <span class="nf">getUser</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
+<div class="viewcode-block" id="ConfigDict.getUser"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.api.ConfigDict.getUser">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">getUser</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">config</span> <span class="o">=</span> <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
 
@@ -676,7 +678,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

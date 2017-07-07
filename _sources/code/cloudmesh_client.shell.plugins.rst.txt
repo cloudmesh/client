@@ -1,411 +1,419 @@
-cloudmesh_client.shell.plugins package
-======================================
+cloudmesh\_client\.shell\.plugins package
+=========================================
 
 Submodules
 ----------
 
-cloudmesh_client.shell.plugins.AkeyCommand module
--------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.AkeyCommand module
+-----------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.AkeyCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.Bar module
------------------------------------------
+cloudmesh\_client\.shell\.plugins\.Bar module
+---------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.Bar
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.CheckCommand module
---------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.CheckCommand module
+------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.CheckCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.CloudCommand module
---------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.CloudCommand module
+------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.CloudCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.ClusterCommand module
-----------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.ClusterCommand module
+--------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.ClusterCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.ClusterCommand2 module
------------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.ClusterCommand2 module
+---------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.ClusterCommand2
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.ColorCommand module
---------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.ColorCommand module
+------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.ColorCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.CometCommand module
---------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.CometCommand module
+------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.CometCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.DebugCommand module
---------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.DebugCommand module
+------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.DebugCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.DefaultCommand module
-----------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.DefaultCommand module
+--------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.DefaultCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.DeployCommand module
----------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.DeployCommand module
+-------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.DeployCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.FlavorCommand module
----------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.FlavorCommand module
+-------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.FlavorCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.GroupCommand module
---------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.GroupCommand module
+------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.GroupCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.HadoopCommand module
----------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.HadoopCommand module
+-------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.HadoopCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.HpcCommand module
-------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.HpcCommand module
+----------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.HpcCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.ImageCommand module
---------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.ImageCommand module
+------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.ImageCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.InfoCommand module
--------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.InfoCommand module
+-----------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.InfoCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.InventoryCommand module
-------------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.InventoryCommand module
+----------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.InventoryCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.KeyCommand module
-------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.KeyCommand module
+----------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.KeyCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.LauncherCommand module
------------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.LauncherCommand module
+---------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.LauncherCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.LimitsCommand module
----------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.LimitsCommand module
+-------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.LimitsCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.ListCommand module
--------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.ListCommand module
+-----------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.ListCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.LoadCommand module
--------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.LoadCommand module
+-----------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.LoadCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.LogLevelCommand module
------------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.LogLevelCommand module
+---------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.LogLevelCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.ManCommand module
-------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.ManCommand module
+----------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.ManCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.NetworkCommand module
-----------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.NetworkCommand module
+--------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.NetworkCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.NovaCommand module
--------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.NistCommand module
+-----------------------------------------------------
+
+.. automodule:: cloudmesh_client.shell.plugins.NistCommand
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh\_client\.shell\.plugins\.NovaCommand module
+-----------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.NovaCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.OpenCommand module
--------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.OpenCommand module
+-----------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.OpenCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.PortalCommand module
----------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.PortalCommand module
+-------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.PortalCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.PyCommand module
------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.PyCommand module
+---------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.PyCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.QuotaCommand module
---------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.QuotaCommand module
+------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.QuotaCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.RefreshCommand module
-----------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.RefreshCommand module
+--------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.RefreshCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.RegisterCommand module
------------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.RegisterCommand module
+---------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.RegisterCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.ReservationCommand module
---------------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.ReservationCommand module
+------------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.ReservationCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.ResetCommand module
---------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.ResetCommand module
+------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.ResetCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.SecgroupCommand module
------------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.SecgroupCommand module
+---------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.SecgroupCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.SecureShellCommand module
---------------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.SecureShellCommand module
+------------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.SecureShellCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.SelectCommand module
----------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.SelectCommand module
+-------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.SelectCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.ServerCommand module
----------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.ServerCommand module
+-------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.ServerCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.SetupCommand module
---------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.SetupCommand module
+------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.SetupCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.StackCommand module
---------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.StackCommand module
+------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.StackCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.SubmitCommands module
-----------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.SubmitCommands module
+--------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.SubmitCommands
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.SyncCommand module
--------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.SyncCommand module
+-----------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.SyncCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.TerminalCommands module
-------------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.TerminalCommands module
+----------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.TerminalCommands
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.TestCommand module
--------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.TestCommand module
+-----------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.TestCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.TimerCommand module
---------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.TimerCommand module
+------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.TimerCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.UsageCommand module
---------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.UsageCommand module
+------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.UsageCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.VcCommand module
------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.VcCommand module
+---------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.VcCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.VmCommand module
------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.VmCommand module
+---------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.VmCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.WhoCommand module
-------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.WhoCommand module
+----------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.WhoCommand
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.WorkflowCommand module
------------------------------------------------------
+cloudmesh\_client\.shell\.plugins\.WorkflowCommand module
+---------------------------------------------------------
 
 .. automodule:: cloudmesh_client.shell.plugins.WorkflowCommand
     :members:

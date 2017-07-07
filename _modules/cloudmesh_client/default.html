@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.default &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>cloudmesh_client.default &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../cloudmesh_client.html"/> 
 
   
@@ -65,7 +67,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -250,8 +252,8 @@
 
     <span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">()</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.list"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
+<div class="viewcode-block" id="Default.list"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.list">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
              <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
              <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
              <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -296,8 +298,8 @@
     <span class="c1"># GENERAL SETTER AND GETTER METHOD</span>
     <span class="c1">#</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.set"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s1">&#39;general&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;str&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.set"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s1">&#39;general&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;str&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        sets the default value for a given category</span>
 <span class="sd">        :param key: the dictionary key of the value to store it at.</span>
@@ -325,8 +327,8 @@
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;problem setting key value </span><span class="si">{}</span><span class="s2">=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">),</span> <span class="n">traceflag</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.get"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s1">&#39;general&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.get"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.get">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s1">&#39;general&#39;</span><span class="p">):</span>
         <span class="n">o</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
                         <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;default&quot;</span><span class="p">,</span>
                         <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">,</span>
@@ -346,16 +348,16 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">value</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.delete"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.delete"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.delete">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">category</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">__provider__</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">__kind__</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">__provider__</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">__kind__</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.clear"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.clear"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.clear">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        deletes all default values in the database.</span>
 <span class="sd">        :return:</span>
@@ -456,8 +458,8 @@
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;output&quot;</span><span class="p">)</span>
 
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.set_loglevel"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_loglevel">[docs]</a>    <span class="k">def</span> <span class="nf">set_loglevel</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.set_loglevel"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_loglevel">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_loglevel</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
         <span class="n">level</span> <span class="o">=</span> <span class="n">level</span> <span class="ow">or</span> <span class="s1">&#39;debug&#39;</span>
         <span class="n">level</span> <span class="o">=</span> <span class="n">level</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">level</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;debug&#39;</span><span class="p">,</span>
@@ -474,8 +476,8 @@
     <span class="c1"># COUNTER</span>
     <span class="c1"># ###################################</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.generate_name"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.generate_name">[docs]</a>    <span class="k">def</span> <span class="nf">generate_name</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">counter_name</span><span class="p">,</span> <span class="n">display_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="Default.generate_name"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.generate_name">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">generate_name</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">counter_name</span><span class="p">,</span> <span class="n">display_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                       <span class="n">prefix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Generate a name based on a counter</span>
 
@@ -496,16 +498,16 @@
 
         <span class="k">return</span> <span class="n">name</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.incr_counter"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.incr_counter">[docs]</a>    <span class="k">def</span> <span class="nf">incr_counter</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;index&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.incr_counter"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.incr_counter">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">incr_counter</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;index&quot;</span><span class="p">):</span>
         <span class="n">count</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_counter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
 
         <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
 
         <span class="bp">cls</span><span class="o">.</span><span class="n">set_counter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">count</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.get_counter"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.get_counter">[docs]</a>    <span class="k">def</span> <span class="nf">get_counter</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;index&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.get_counter"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.get_counter">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_counter</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;index&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Function that returns the prefix username and count for vm naming.</span>
 <span class="sd">        If it is not present in db, it creates a new entry.</span>
@@ -518,8 +520,8 @@
 
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">count</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.set_counter"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_counter">[docs]</a>    <span class="k">def</span> <span class="nf">set_counter</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.set_counter"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_counter">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_counter</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Special function to update vm prefix count.</span>
 
@@ -532,13 +534,13 @@
         <span class="bp">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;int&#39;</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.set_output"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_output">[docs]</a>    <span class="k">def</span> <span class="nf">set_output</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.set_output"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_output">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_output</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="s2">&quot;output&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.set_user"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_user">[docs]</a>    <span class="k">def</span> <span class="nf">set_user</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.set_user"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_user">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_user</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        sets the cloud in the category general</span>
 <span class="sd">        :param value: the cloud as defined in cloudmesh.yaml</span>
@@ -550,8 +552,8 @@
     <span class="k">def</span> <span class="nf">purge</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;purge&quot;</span><span class="p">)</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.set_cloud"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">set_cloud</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.set_cloud"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_cloud">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_cloud</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        sets the cloud in the category general</span>
 <span class="sd">        :param value: the cloud as defined in cloudmesh.yaml</span>
@@ -559,8 +561,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;cloud&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.set_vm"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_vm">[docs]</a>    <span class="k">def</span> <span class="nf">set_vm</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.set_vm"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_vm">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_vm</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        sets the cloud in the category general</span>
 <span class="sd">        :param value: the cloud as defined in cloudmesh.yaml</span>
@@ -568,8 +570,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.set_image"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_image">[docs]</a>    <span class="k">def</span> <span class="nf">set_image</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.set_image"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_image">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_image</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        sets the default image for a specific category.</span>
 <span class="sd">        :param value: the image uuid or name</span>
@@ -578,8 +580,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.get_image"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.get_image">[docs]</a>    <span class="k">def</span> <span class="nf">get_image</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.get_image"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.get_image">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_image</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns the image for a particular category</span>
 <span class="sd">        :param category: the category</span>
@@ -589,8 +591,8 @@
             <span class="n">category</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">cloud</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.set_flavor"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_flavor">[docs]</a>    <span class="k">def</span> <span class="nf">set_flavor</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.set_flavor"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_flavor">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_flavor</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        sets the default flavor for a particular category</span>
 <span class="sd">        :param value: the flavor name or uuid</span>
@@ -599,8 +601,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.get_flavor"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.get_flavor">[docs]</a>    <span class="k">def</span> <span class="nf">get_flavor</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.get_flavor"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.get_flavor">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_flavor</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        gets ths flavor default for a category</span>
 <span class="sd">        :param category: the category</span>
@@ -610,8 +612,8 @@
             <span class="n">category</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">cloud</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.set_group"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_group">[docs]</a>    <span class="k">def</span> <span class="nf">set_group</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.set_group"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_group">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_group</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        sets the default group</span>
 <span class="sd">        :param value: the group name</span>
@@ -619,8 +621,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.set_secgroup"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_secgroup">[docs]</a>    <span class="k">def</span> <span class="nf">set_secgroup</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.set_secgroup"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_secgroup">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_secgroup</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        sets the default group</span>
 <span class="sd">        :param value: the group name</span>
@@ -628,16 +630,16 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;secgroup&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.set_key"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_key">[docs]</a>    <span class="k">def</span> <span class="nf">set_key</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.set_key"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_key">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_key</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param name: the key name</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.set_cluster_counter"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_cluster_counter">[docs]</a>    <span class="k">def</span> <span class="nf">set_cluster_counter</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.set_cluster_counter"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_cluster_counter">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_cluster_counter</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        sets the default cluster</span>
 <span class="sd">        :param value: the cluster name as defined in the cloudmesh yaml file.</span>
@@ -645,8 +647,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">Names</span><span class="o">.</span><span class="n">CLUSTER_COUNTER</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.set_specification"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_specification">[docs]</a>    <span class="k">def</span> <span class="nf">set_specification</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.set_specification"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_specification">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_specification</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Sets the default specification</span>
 
 <span class="sd">        :param cls: </span>
@@ -657,8 +659,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">Names</span><span class="o">.</span><span class="n">ACTIVE_SPECIFICATION</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.set_debug"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_debug">[docs]</a>    <span class="k">def</span> <span class="nf">set_debug</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.set_debug"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_debug">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_debug</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        enables debugging</span>
 <span class="sd">        :param value: True/False</span>
@@ -670,8 +672,8 @@
         <span class="k">else</span><span class="p">:</span>
            <span class="bp">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="s2">&quot;False&quot;</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.set_refresh"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_refresh">[docs]</a>    <span class="k">def</span> <span class="nf">set_refresh</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.set_refresh"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_refresh">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_refresh</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        sets the default for all clouds to refresh</span>
 <span class="sd">        :param value:</span>
@@ -682,8 +684,8 @@
         <span class="k">else</span><span class="p">:</span>
            <span class="bp">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;refresh&quot;</span><span class="p">,</span> <span class="s2">&quot;False&quot;</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.set_purge"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_purge">[docs]</a>    <span class="k">def</span> <span class="nf">set_purge</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.set_purge"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_purge">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_purge</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        sets the default for all clouds to refresh</span>
 <span class="sd">        :param value:</span>
@@ -694,8 +696,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;purge&quot;</span><span class="p">,</span> <span class="s2">&quot;False&quot;</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.set_interactive"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_interactive">[docs]</a>    <span class="k">def</span> <span class="nf">set_interactive</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.set_interactive"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_interactive">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_interactive</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        sets the default for all clouds to refresh</span>
 <span class="sd">        :param value:</span>
@@ -706,8 +708,8 @@
         <span class="k">else</span><span class="p">:</span>
            <span class="bp">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;interactive&quot;</span><span class="p">,</span> <span class="s2">&quot;False&quot;</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.set_timer"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_timer">[docs]</a>    <span class="k">def</span> <span class="nf">set_timer</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.set_timer"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_timer">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_timer</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        sets the default for all clouds to timer</span>
 <span class="sd">        :param value:</span>
@@ -715,24 +717,24 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;timer&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.set_stack"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_stack">[docs]</a>    <span class="k">def</span> <span class="nf">set_stack</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.set_stack"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_stack">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_stack</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Sets the stack name</span>
 
 <span class="sd">        :param str name: stack name</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">Names</span><span class="o">.</span><span class="n">ACTIVE_STACK</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.set_cluster"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_cluster">[docs]</a>    <span class="k">def</span> <span class="nf">set_cluster</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.set_cluster"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_cluster">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_cluster</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Sets the cluster</span>
 
 <span class="sd">        :param str value: cluster name</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">Names</span><span class="o">.</span><span class="n">ACTIVE_CLUSTER</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.load"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.load"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.load">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
 
         <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">]</span>
         <span class="n">clouds</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;clouds&quot;</span><span class="p">]</span>
@@ -823,7 +825,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

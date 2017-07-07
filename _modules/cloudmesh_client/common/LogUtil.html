@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.common.LogUtil &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>cloudmesh_client.common.LogUtil &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="../../../index.html"/>
         <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
@@ -65,7 +67,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -228,8 +230,8 @@
 
     <span class="n">category</span> <span class="o">=</span> <span class="s2">&quot;general&quot;</span>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="LogUtil.save"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LogUtil.LogUtil.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">():</span>
+<div class="viewcode-block" id="LogUtil.save"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LogUtil.LogUtil.save">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">save</span><span class="p">():</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        save the loglevel for a cloud to the cloudmesh.yaml file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -249,8 +251,8 @@
         <span class="c1"># Save this into cloudmesh yaml</span>
         <span class="n">config</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="LogUtil.set_level"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LogUtil.LogUtil.set_level">[docs]</a>    <span class="k">def</span> <span class="nf">set_level</span><span class="p">(</span><span class="n">log_level</span><span class="p">):</span>
+<div class="viewcode-block" id="LogUtil.set_level"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LogUtil.LogUtil.set_level">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">set_level</span><span class="p">(</span><span class="n">log_level</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        sets th eloglevel in the database and the loglevel file from</span>
 <span class="sd">        cloudmesh.yaml</span>
@@ -280,8 +282,8 @@
         <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Set log level to: &quot;</span> <span class="o">+</span> <span class="n">log_level</span><span class="p">)</span>
         <span class="k">return</span> <span class="s2">&quot;Ok.&quot;</span></div>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="LogUtil.get_level"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LogUtil.LogUtil.get_level">[docs]</a>    <span class="k">def</span> <span class="nf">get_level</span><span class="p">():</span>
+<div class="viewcode-block" id="LogUtil.get_level"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LogUtil.LogUtil.get_level">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_level</span><span class="p">():</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the log level from database</span>
 <span class="sd">        :param cloudname: The name of the cloud</span>
@@ -295,8 +297,8 @@
         <span class="c1"># return the level</span>
         <span class="k">return</span> <span class="n">log_level</span></div>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="LogUtil.initialize_logging"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LogUtil.LogUtil.initialize_logging">[docs]</a>    <span class="k">def</span> <span class="nf">initialize_logging</span><span class="p">():</span>
+<div class="viewcode-block" id="LogUtil.initialize_logging"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LogUtil.LogUtil.initialize_logging">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">initialize_logging</span><span class="p">():</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        reads the log level from the cloudmesh.yaml file from</span>
 <span class="sd">        cloudmesh.logging.level. If the value is not set the logging will be</span>
@@ -313,8 +315,8 @@
 
         <span class="k">return</span></div>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="LogUtil.get_logger"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LogUtil.LogUtil.get_logger">[docs]</a>    <span class="k">def</span> <span class="nf">get_logger</span><span class="p">():</span>
+<div class="viewcode-block" id="LogUtil.get_logger"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LogUtil.LogUtil.get_logger">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_logger</span><span class="p">():</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get caller file name</span>
 <span class="sd">        :return: file name based on the context where the logger is caller</span>
@@ -327,8 +329,8 @@
         <span class="c1"># return logger object</span>
         <span class="k">return</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">the_class</span><span class="p">)</span></div>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="LogUtil.get_level_obj"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LogUtil.LogUtil.get_level_obj">[docs]</a>    <span class="k">def</span> <span class="nf">get_level_obj</span><span class="p">(</span><span class="n">log_level</span><span class="p">):</span>
+<div class="viewcode-block" id="LogUtil.get_level_obj"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.LogUtil.LogUtil.get_level_obj">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_level_obj</span><span class="p">(</span><span class="n">log_level</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        gets the log level when passing a string</span>
 <span class="sd">        :param log_level: case insensitive string. Valid values are debug,</span>
@@ -387,7 +389,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

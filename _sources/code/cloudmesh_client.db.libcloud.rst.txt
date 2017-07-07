@@ -1,11 +1,11 @@
-cloudmesh_client.db.libcloud package
-====================================
+cloudmesh\_client\.db\.libcloud package
+=======================================
 
 Submodules
 ----------
 
-cloudmesh_client.db.libcloud.model module
------------------------------------------
+cloudmesh\_client\.db\.libcloud\.model module
+---------------------------------------------
 
 .. automodule:: cloudmesh_client.db.libcloud.model
     :members:

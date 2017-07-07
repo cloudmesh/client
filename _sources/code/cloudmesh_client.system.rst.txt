@@ -1,19 +1,19 @@
-cloudmesh_client.system package
-===============================
+cloudmesh\_client\.system package
+=================================
 
 Submodules
 ----------
 
-cloudmesh_client.system.rack module
------------------------------------
+cloudmesh\_client\.system\.rack module
+--------------------------------------
 
 .. automodule:: cloudmesh_client.system.rack
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.system.who module
-----------------------------------
+cloudmesh\_client\.system\.who module
+-------------------------------------
 
 .. automodule:: cloudmesh_client.system.who
     :members:

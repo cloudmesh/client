@@ -1,27 +1,27 @@
-cloudmesh_client.deployer.ansible package
-=========================================
+cloudmesh\_client\.deployer\.ansible package
+============================================
 
 Submodules
 ----------
 
-cloudmesh_client.deployer.ansible.inventory module
---------------------------------------------------
+cloudmesh\_client\.deployer\.ansible\.inventory module
+------------------------------------------------------
 
 .. automodule:: cloudmesh_client.deployer.ansible.inventory
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.deployer.ansible.playbook module
--------------------------------------------------
+cloudmesh\_client\.deployer\.ansible\.playbook module
+-----------------------------------------------------
 
 .. automodule:: cloudmesh_client.deployer.ansible.playbook
     :members:
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.deployer.ansible.role module
----------------------------------------------
+cloudmesh\_client\.deployer\.ansible\.role module
+-------------------------------------------------
 
 .. automodule:: cloudmesh_client.deployer.ansible.role
     :members:

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Command Ideas &mdash; cloudmesh_client 4.6.1 documentation</title>
+  <title>Command Ideas &mdash; cloudmesh_client 4.7.3 documentation</title>
   
 
   
@@ -30,12 +30,14 @@
   
 
   
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="cloudmesh_client 4.6.1 documentation" href="index.html"/> 
+    <link rel="top" title="cloudmesh_client 4.7.3 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -64,7 +66,7 @@
             
             
               <div class="version">
-                4.6.1
+                4.7.3
               </div>
             
           
@@ -263,7 +265,7 @@ hostname can be overwritten with <a class="reference external" href="mailto:user
 </pre></div>
 </div>
 <p>Lists all virtual machines that starts with a specific character or
-sequence of characters. After the virtual machine name, a &#8216;*&#8217; can be
+sequence of characters. After the virtual machine name, a ‘*’ can be
 used as a regular expression. The following command lists all the
 Virtual machines that has gregor as their prefix.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="nb">list</span> <span class="n">gregor</span><span class="o">-*</span>
@@ -273,8 +275,8 @@ Virtual machines that has gregor as their prefix.</p>
 </div>
 <p>The convenient specification to set multiple matches i applied
 to all other commands and parameters where possible.</p>
-<p>Q: is [01-02] the same as &#8220;01,02&#8221; or does it need to be
-&#8220;[01-02]&#8221;. Looks like from documentation it works without []</p>
+<p>Q: is [01-02] the same as “01,02” or does it need to be
+“[01-02]”. Looks like from documentation it works without []</p>
 <p>We need an extensive manual on this derived from hostlist
 <a class="reference external" href="https://www.nsc.liu.se/~kent/python-hostlist/">https://www.nsc.liu.se/~kent/python-hostlist/</a>
 but much better. Section will be called <em>Parameter Expansion</em>.</p>
@@ -375,12 +377,12 @@ certain labels.</p>
 <blockquote>
 <div><p>default active ATTRIBUTE=VALUE
 default list
-default [&#8211;cloud=CLOUD] ATTRIBUTE=VALUE</p>
+default [–cloud=CLOUD] ATTRIBUTE=VALUE</p>
 <p>pprint(arguments)
 if arguments[ATTRIBUTE=VALUE]:</p>
 <blockquote>
-<div><p>(a, v) = split(&#8220;=&#8221;, 1)</p>
-<p>if a = &#8220;activate&#8221;</p>
+<div><p>(a, v) = split(“=”, 1)</p>
+<p>if a = “activate”</p>
 </div></blockquote>
 </div></blockquote>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="n">default</span> <span class="o">--</span><span class="n">cloud</span><span class="o">=</span><span class="n">india</span> <span class="nb">format</span><span class="o">-</span><span class="n">table</span><span class="o">-</span><span class="n">header</span><span class="o">=</span><span class="s2">&quot;name,id&quot;</span>
@@ -436,7 +438,7 @@ if arguments[ATTRIBUTE=VALUE]:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.6.1',
+            VERSION:'4.7.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
