@@ -117,82 +117,59 @@ cluster
 ----------------------------------------------------------------------
 Command - cluster::
 
-    Usage:
-        cluster list [--format=FORMAT]
-        cluster list NAME
-                     [--format=FORMAT]
-                     [--column=COLUMN]
-                     [--short]
-        cluster create NAME
-                       [--count=COUNT]
-                       [--login=USERNAME]
-                       [--cloud=CLOUD]
-                       [--image=IMAGE]
-                       [--flavor=FLAVOR]
-                       [--add]
-        cluster delete NAME
-        cluster setup NAME [--username]
-        cluster inventory NAME
+    ::
+        Usage:
+          cluster define [-n NAME] [-c COUNT] [-C CLOUD] [-u NAME] [-i IMAGE] [-f FLAVOR] [-k KEY] [-s NAME] [-AI]
+          cluster undefine [--all] [NAME]...
+          cluster avail
+          cluster use <NAME>
+          cluster allocate
+          cluster cross_ssh
+          cluster list
+          cluster nodes [CLUSTER]
+          cluster delete [--all] [--force] [NAME]...
+          cluster get [-n NAME] PROPERTY
+          cluster inventory [-F NAME] [-o PATH] [NAME]
 
-    Description:
-        with the help of the cluster command you can create a number
-        of virtual machines that are integrated in a named virtual cluster.
-        You will be able to login between the nodes of the virtual cluster
-        while using public keys.
+        Commands:
 
-        cluster setup NAME
-          sets up the keys between the cluster node as well as the machine that
-          executes the cm command
+          define     Create a cluster specification
+          undefine   Delete the active or given specifications
+          avail      Show available cluster specifications
+          use        Activate the specification with the given name
+          allocate   Create a cluster from the active specification
+          nodes      Show the nodes of the cluster
+          list       List the available clusters
+          inventory  Obtain an inventory file
+          delete     Delete clusters and associated instances
+          get        Get properties of a cluster/nodes in a cluster
 
-        cluster inventory NAME
-          creates an inventory.txt file to be used by ansible in the current directory
+        Arguments:
 
-        cluster create NAME
-           creates the virtual machines used for the cluster
+          NAME                Alphanumeric name
+          COUNT               Integer > 0
+          PATH                Path to entry on the filesystem
 
-        cluster list NAME
-           lists selected details of the vms for the cluster
+        Options:
 
-        cluster delete NAME
-            remove the cluster and its VMs
+          -A --no-activate               Don't activate this cluster
+          -I --no-floating-ip            Don't assign floating IPs
+          -n NAME --name=NAME            Name of the cluster
+          -c COUNT --count=COUNT         Number of nodes in the cluster
+          -C NAME --cloud=NAME           Name of the cloud
+          -u NAME --username=NAME        Name of the image login user
+          -i NAME --image=NAME           Name of the image
+          -f NAME --flavor=NAME          Name of the flavor
+          -k NAME --key=NAME             Name of the key
+          -s NAME --secgroup=NAME        NAME of the security group
+          -F NAME --format=NAME          Name of the output format
+          -o PATH --path=PATH            Output to this path
+          --force
+          --all
 
-    Examples:
-        cluster list
-            list the clusters
+        Inventory File Format:
 
-        cluster create NAME --count=COUNT --login=USERNAME [options...]
-            Start a cluster of VMs, and each of them can log into each other.
-            CAUTION: you should specify defaults before using this command:
-            1. select cloud to work on, e.g. cloud select kilo
-                 default cloud=kilo
-            2. test if you can create a single VM on the cloud to see if
-               everything is set up
-            3. set the default key to start VMs, e.g. key default [USERNAME-key]
-            5. set image of VMs, e.g. default image
-            6. set flavor of VMs, e.g. default flavor
-            7. Make sure to use a new unused group name
-
-    Arguments:
-        NAME              cluster name or group name
-
-    Options:
-        --count=COUNT     give the number of VMs to add into the cluster
-        --login=USERNAME  give a login name for the VMs, e.g. ubuntu
-        --cloud=CLOUD     give a cloud to work on
-        --flavor=FLAVOR   give the name of the flavor or flavor id
-        --image=IMAGE     give the name of the image or image id
-        --add             if a group exists and there are VMs in it
-                          additional vms will be added to this cluster and the
-                          keys will be added to each other so one can login between
-                          them
-        FORMAT            output format: table, json, csv
-        COLUMN            customize what information to display, for example:
-                          --column=status,addresses prints the columns status
-                          and addresses
-        --detail          for table print format, a brief version
-                          is used as default, use this flag to print
-                          detailed table
-
+          ansible  [default]            Ansible-compatible inventory
 
 color
 ----------------------------------------------------------------------
@@ -224,28 +201,42 @@ Command - comet::
 
     Usage:
        comet init
-       comet ll [CLUSTERID] [--format=FORMAT]
+       comet active [ENDPOINT]
+       comet ll [CLUSTERID] [--format=FORMAT] [--endpoint=ENDPOINT]
        comet cluster [CLUSTERID]
                      [--format=FORMAT]
                      [--sort=SORTKEY]
+                     [--endpoint=ENDPOINT]
        comet computeset [COMPUTESETID]
                     [--allocation=ALLOCATION]
                     [--cluster=CLUSTERID]
                     [--state=COMPUTESESTATE]
+                    [--endpoint=ENDPOINT]
        comet start CLUSTERID [--count=NUMNODES] [COMPUTENODEIDS]
                     [--allocation=ALLOCATION]
                     [--walltime=WALLTIME]
-       comet terminate COMPUTESETID
+                    [--endpoint=ENDPOINT]
+       comet terminate COMPUTESETID [--endpoint=ENDPOINT]
        comet power (on|off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
+                    [--endpoint=ENDPOINT]
        comet console [--link] CLUSTERID [COMPUTENODEID]
+                    [--endpoint=ENDPOINT]
        comet node info CLUSTERID [COMPUTENODEID] [--format=FORMAT]
+                    [--endpoint=ENDPOINT]
        comet node rename CLUSTERID OLDNAMES NEWNAMES
-       comet iso list
+                    [--endpoint=ENDPOINT]
+       comet iso list [--endpoint=ENDPOINT]
        comet iso upload [--isoname=ISONAME] PATHISOFILE
+                    [--endpoint=ENDPOINT]
        comet iso attach ISOIDNAME CLUSTERID [COMPUTENODEIDS]
+                    [--endpoint=ENDPOINT]
        comet iso detach CLUSTERID [COMPUTENODEIDS]
+                    [--endpoint=ENDPOINT]
 
     Options:
+        --endpoint=ENDPOINT     Specify the comet nucleus service
+                                endpoint to work with, e.g., dev
+                                or production
         --format=FORMAT         Format is either table, json, yaml,
                                 csv, rest
                                 [default: table]
@@ -267,6 +258,8 @@ Command - comet::
         --link                  Whether to open the console url or just show the link
 
     Arguments:
+        ENDPOINT        Service endpoint based on the yaml config file.
+                        By default it's either dev or production.
         CLUSTERID       The assigned name of a cluster, e.g. vc1
         COMPUTESETID    An integer identifier assigned to a computeset
         COMPUTENODEID   A compute node name, e.g., vm-vc1-0
@@ -397,6 +390,38 @@ Command - default::
             deletes the value for the default image in the
             cloud kilo
 
+
+deploy
+----------------------------------------------------------------------
+Command - deploy::
+
+    ::
+        Usage:
+          deploy ansible role [-c CLUSTER] [-u NAME] [-N] [-H HOST] [-b] URI...
+
+        Commands:
+
+          ansible                        Ansible deployment
+
+        Ansible Commands:
+          playbook                       Deploy a pre-prepared playbook
+          role                           Deploy a role to all nodes
+
+        Arguments:
+
+          CLUSTER                        Cluster name to deploy to
+          NAME                           Alphanumeric name
+          COUNT                          Integer > 0
+          URI                            Location of the item as a uri
+          HOST                           Host matching pattern
+
+        Options:
+
+          -c --cluster=CLUSTER           Cluster name to operate on (defaults to active)
+          -N --no-modify-known-hosts     Don't let ssh update ~/.ssh/known_hosts
+          -u --username=NAME             Username of the nodes to manage
+          -H HOST --hosts=HOST           Host matching pattern [default: all]
+          -b --no-become                 Don't become privileged user
 
 echo
 ----------------------------------------------------------------------
@@ -542,6 +567,44 @@ Command - h::
         history list
         history last
         history ID
+
+hadoop
+----------------------------------------------------------------------
+Command - hadoop::
+
+    Usage:
+      hadoop sync
+      hadoop addons
+      hadoop define [-r REPO] [-b NAME] [-d COUNT] [ADDON]...
+      hadoop undefine [NAME]...
+      hadoop avail
+      hadoop use NAME
+      hadoop deploy
+
+    Arguments:
+
+      REPO            Repository location
+      CLUSTER         Name of a cluster
+      ADDON           Big Data Stack addon (eg: spark, hbase, pig)
+      NAME            Alphanumeric name
+      COUNT           Integer greater than zero
+
+    Commands:
+
+      sync       Checkout / synchronize the Big Data Stack
+      addons     List available addons
+      define     Create a deployment specification
+      undefine   Delete the active or given specifications
+      avail      Show available deployment specifications
+      use        Activate the specification with the given name
+      deploy     Deploy the active specification onto the active cluster
+
+    Options:
+
+      -r --repo=REPO        Location of the repository
+      -b --branch=NAME      Branch to use
+      -d --depth=COUNT      Clone depth
+
 
 help
 ----------------------------------------------------------------------
@@ -845,8 +908,11 @@ Command - key::
 
          Prints list of keys. NAME of the key can be specified
 
+    key add ssh
 
-    key add [--name=keyname] FILENAME
+        adds the default key with the name id_rsa.pub
+
+    key add NAME  --source=FILENAME
 
         adds the key specifid by the filename to the key
         database
@@ -875,6 +941,10 @@ launcher
 Command - launcher::
 
       Usage:
+          launcher repo add NAME URL
+          launcher repo delete NAME
+          launcher repo list
+          launcher repo
           launcher list [NAMES] [--cloud=CLOUD] [--format=FORMAT] [--source=db|dir]
           launcher add NAME SOURCE
           launcher delete [NAMES] [--cloud=CLOUD]
@@ -885,6 +955,7 @@ Command - launcher::
           launcher refresh
           launcher log [NAME]
           launcher status [NAME]
+
 
       Arguments:
 
@@ -898,7 +969,8 @@ Command - launcher::
 
     Description:
 
-    Launcher is a command line tool to test the portal launch functionalities through command
+    Launcher is a command line tool to test the portal launch
+    functionalities through command line.
 
     The current launcher values can by listed with --all option:(
     if you have a launcher cloud specified. You can also add a
@@ -1415,7 +1487,7 @@ Command - reset::
 
     Description:
 
-        DANGER: This method erases the database.
+        DANGER: This method erases the database and quits the shell.
 
 
     Examples:
@@ -1443,16 +1515,22 @@ secgroup
 Command - secgroup::
 
     Usage:
-        secgroup list
+        secgroup list [--format=FORMAT]
         secgroup list --cloud=CLOUD [--format=FORMAT]
-        secgroup list GROUP [RULE] [--format=FORMAT]
+        secgroup list GROUP [--format=FORMAT]
         secgroup add GROUP RULE FROMPORT TOPORT PROTOCOL CIDR
         secgroup delete GROUP [--cloud=CLOUD]
+        secgroup delete GROUP RULE
         secgroup upload [GROUP] [--cloud=CLOUD]
 
     Options:
-        --cloud=CLOUD       Name of the IaaS cloud e.g. kilo, chameleoon. The clouds are defined in the yaml
-                            file. If the name "all" is used for the cloud all clouds will be selected.
+        --format=FORMAT Specify output format, in one of the following:
+                        table, csv, json, yaml, dict. The default value
+                        is 'table'.
+        --cloud=CLOUD   Name of the IaaS cloud e.g. kilo,chameleoon.
+                        The clouds are defined in the yaml file.
+                        If the name "all" is used for the cloud all
+                        clouds will be selected.
 
     Arguments:
         RULE          The security group rule name
@@ -1460,7 +1538,8 @@ Command - secgroup::
         FROMPORT      Staring port of the rule, e.g. 22
         TOPORT        Ending port of the rule, e.g. 22
         PROTOCOL      Protocol applied, e.g. TCP,UDP,ICMP
-        CIDR          IP address range in CIDR format, e.g., 129.79.0.0/16
+        CIDR          IP address range in CIDR format, e.g.,
+                      129.79.0.0/16
 
     Description:
         security_group command provides list/add/delete
@@ -1470,48 +1549,51 @@ Command - secgroup::
 
 
     Examples:
-        secgroup list --cloud india
-        secgroup rules-list --cloud=kilo default
-        secgroup create --cloud=kilo webservice
-        secgroup rules-add --cloud=kilo webservice 8080 8088 TCP 129.79.0.0/16
-        secgroup rules-delete --cloud=kilo webservice 8080 8088 TCP 129.79.0.0/16
-        secgroup rules-delete --all
+        secgroup list
+        secgroup list --cloud=kilo
+        secgroup add my_new_group webapp 8080 8080 tcp 0.0.0.0/0
+        seggroup delete my_group my_rule
+        secgroup delete my_unused_group --cloud=kilo
+        secgroup upload --cloud=kilo
 
     Description:
 
-        Security groups are first assembled in a local database. Once they are defined they can be added to the
-        clouds.
+        Security groups are first assembled in a local database.
+        Once they are defined they can be added to the clouds.
 
-        secgroup list
+        secgroup list [--format=FORMAT]
             lists all security groups and rules in the database
 
-        secgroup list --cloud=CLOUD... [--format=FORMAT]
+        secgroup list GROUP [--format=FORMAT]
+            lists a given security group and its rules defined
+            locally in the database
+
+        secgroup list --cloud=CLOUD [--format=FORMAT]
             lists the security groups and rules on the specified clouds.
 
-        secgroup list GROUP [RULE] [--format=FORMAT]
-            lists a given security group. If in addition the RULE is specified it only lists the RULE
-
         secgroup add GROUP RULE FROMPORT TOPORT PROTOCOL CIDR
-            adds a security rule with the given group and teh details of the security ruls
+            adds a security rule with the given group and the details
+            of the security ruls
 
-        secgroup delete GROUP
-            deletes all security rules related to the specified group
+        secgroup delete GROUP [--cloud=CLOUD]
+            Deletes a security group from the local database. To make
+            the change on the remote cloud, using the 'upload' command
+            afterwards.
+            If the --cloud parameter is specified, the change would be
+            made directly on the specified cloud
 
         secgroup delete GROUP RULE
-            deletes just the given rule from the group
+            deletes the given rule from the group. To make this change
+            on the remote cloud, using 'upload' command.
 
         secgroup upload [GROUP] [--cloud=CLOUD...]
-            uploads a given group to the given cloud. if the cloud is not specified the default cloud is used.
-            If the parameter for cloud is "all" the rules and groups will be uploaded to all active clouds.
+            uploads a given group to the given cloud. If the cloud is
+            not specified the default cloud is used.
+            If the parameter for cloud is "all" the rules and groups
+            will be uploaded to all active clouds.
+            This will synchronize the changes (add/delete on security
+            groups, rules) made locally to the remote cloud(s).
 
-
-    Example:
-
-        cm secgroup list
-        cm secgroup list --cloud=kilo
-        cm secgroup add  cm-gregor-default web 80 80 tcp  0.0.0.0/0
-        cm secgroup add  cm-gregor-default ssh 22 22 tcp  0.0.0.0/0
-        cm secgroup upload --cloud=kilo
 
 select
 ----------------------------------------------------------------------
@@ -1651,6 +1733,59 @@ Command - ssh::
 
                     conducts an ssh login to myhost if it is defined in
                     ~/.ssh/config file
+
+stack
+----------------------------------------------------------------------
+Command - stack::
+
+     Usage:
+       stack check
+       stack init [-fU] [--no-activate] [-s STACK] [-n NAME] [-u NAME] [-b NAME] [-o DEFN]... [-p PLAY] <ip>...
+       stack deploy [-f] [-n NAME]
+       stack project [-l] [<name>]
+
+     Commands:
+       check     Sanity check
+       init      Initialize a stack
+       deploy    Deploy a stack
+       project   List and activate projects
+
+     Arguments:
+       STACK  Name of the stack. Options: (bds)
+       NAME   Alphanumeric name
+       DEFN   In the form: play1:k1=v1,k2=v2,...
+       PLAY   In the form: playbook,playbook,...
+
+    Options:
+
+       -v --verbose
+       --no-activate                 Do not activate a project upon creation
+       -s STACK --stack=STACK        The stack name [default: bds]
+       -n NAME --name=NAME           Name of the project (if not specified during creation, generated).
+       -u NAME --username=NAME       Name of login user to cluster [default: $USER]
+       -b NAME --branch=NAME         Name of the stack's branch to clone from [default: master]
+       -o DEFN --overrides=DEFN      Overrides for a playbook, may be specified multiple times
+       -p PLAY --playbooks=PLAY      Playbooks to run
+       -f --force                    Force rerunning a command to continue
+       -U --update                   Update the stack
+       -l --list                     List
+
+     Examples:
+
+      The following example assumes that a cluster (Ubuntu
+      14.04) has been launched already and can be accessed by
+      the 'ubuntu` user at addresses 10.0.0.10, 10.0.0.11, and
+      10.0.0.12.
+
+         # verify the environment
+         cm stack check
+
+         # create a project for the cluster with given username and addresses
+         cm stack init -u ubuntu -p play-hadoop.yml,addons/spark.yml 10.0.0.10 10.0.0.11 10.0.0.12
+
+         # deploy hadoop, spark to the cluster
+         cm stack deploy
+
 
 submit
 ----------------------------------------------------------------------
@@ -1943,6 +2078,7 @@ Command - vm::
                  [--cloud=CLOUD]
                  [--key=KEY]
                  [--command=COMMAND]
+                 [--modify-knownhosts]
         vm rename [OLDNAMES] [NEWNAMES] [--force] [--dryrun]
         vm list [NAMES]
                 [--cloud=CLOUDS|--active]
@@ -1970,6 +2106,7 @@ Command - vm::
         OLDNAMES       Old names of the VM while renaming.
 
     Options:
+      -H --modify-knownhosts  Do not modify ~/.ssh/known_hosts file when ssh'ing into a machine
         --username=USERNAME  the username to login into the vm. If not specified it will be guessed
                              from the image name and the cloud
         --ip=IP          give the public ip of the server

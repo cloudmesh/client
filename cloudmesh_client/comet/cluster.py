@@ -39,6 +39,7 @@ class Cluster(object):
                   "allocation",
                   "admin_state"
                     ]
+
     CLUSTER_HEADER=[
                   "name",
                   "state",
@@ -54,6 +55,86 @@ class Cluster(object):
                   "allocation",
                   "admin_state"
                     ]
+
+    CLUSTER_ORDER_TABLE=[
+                  "name",
+                  "state",
+                  "active_computeset",
+                  "allocation",
+                  "admin_state",
+                  "mac",
+                  "ip",
+                  "cluster",
+                  "kind",
+                  "type",
+                  "cpus",
+                  "memory",
+                  "disksize"
+                    ]
+
+    CLUSTER_HEADER_TABLE=[
+                  "name",
+                  "state",
+                  "computeset",
+                  "allocation",
+                  "admin_state",
+                  "mac",
+                  "ip",
+                  "cluster",
+                  "kind",
+                  "type",
+                  "cpus",
+                  "RAM(M)",
+                  "disk(G)"
+                    ]
+
+    CLUSTER_ORDER_TABLE_CONCISE=[
+                  "name",
+                  "state",
+                  "active_computeset",
+                  "allocation",
+                  "admin_state",
+                  "mac",
+                  "ip",
+                  "cluster"
+                    ]
+
+    CLUSTER_HEADER_TABLE_CONCISE=[
+                  "name",
+                  "state",
+                  "computeset",
+                  "allocation",
+                  "admin_state",
+                  "mac",
+                  "ip",
+                  "cluster"
+                    ]
+
+    CLUSTER_ORDER_TABLE_STATE=[
+                  "name",
+                  "state",
+                  "active_computeset",
+                  "allocation",
+                  "admin_state"
+                    ]
+
+    CLUSTER_HEADER_TABLE_STATE=[
+                  "name",
+                  "state",
+                  "computeset",
+                  "allocation",
+                  "admin_state"
+                    ]
+
+    CLUSTER_TABLE_VIEW = \
+                {"FULL": {"header": CLUSTER_HEADER_TABLE,
+                          "order": CLUSTER_ORDER_TABLE},
+                 "CONCISE": {"header": CLUSTER_HEADER_TABLE_CONCISE,
+                             "order": CLUSTER_ORDER_TABLE_CONCISE},
+                 "STATE": {"header": CLUSTER_HEADER_TABLE_STATE,
+                           "order": CLUSTER_ORDER_TABLE_STATE}
+                }
+
     '''
     CLUSTER_SORT_KEY=[
                       "name",
@@ -101,7 +182,7 @@ class Cluster(object):
         else:
             r = Comet.get(Comet.url("cluster/" + id + "/"))
             if r is None:
-                Console.error("Could not find cluster `{}`"
+                Console.error("Error finding cluster `{}`"
                               .format(id))
                 return result
             r = [r]
@@ -110,7 +191,7 @@ class Cluster(object):
             if 'error' in r:
                 Console.error("An error occurred: {error}".format(**r))
                 raise ValueError("COMET Error")
-            elif 'error' in r[0]:
+            elif len(r) > 0 and 'error' in r[0]:
                 Console.error("An error occurred: {error}".format(**r[0]))
                 raise ValueError("COMET Error")
 
@@ -120,12 +201,20 @@ class Cluster(object):
                 elements = {}
                 for cluster in r:
                     element = {}
+                    if 'allocations' in cluster:
+                        if format == 'table':
+                            element["allocations"] = \
+                                    "\n".join(cluster["allocations"])
+                        else:
+                            element["allocations"] = \
+                                    ";".join(cluster["allocations"])
+
                     for attribute in ["project", "name", "description"]:
                         element[attribute] = cluster[attribute]
                         element["nodes"] = len(cluster["computes"])
                     for attribute in cluster["frontend"]:
-                        element["frontend " + attribute] = cluster["frontend"][
-                            attribute]
+                        element["frontend " + attribute] = \
+                                    cluster["frontend"][attribute]
                     names = []
                     for compute in cluster["computes"]:
                         names.append(compute["name"])
@@ -143,6 +232,7 @@ class Cluster(object):
                                            "frontend name",
                                            "frontend state",
                                            "frontend type",
+                                           "allocations",
                                            "description",
                                        ],
                                        header=[
@@ -153,6 +243,7 @@ class Cluster(object):
                                            "Frontend (Fe)",
                                            "State (Fe)",
                                            "Type (Fe)",
+                                           "allocations",
                                            "Description",
                                        ],
 
@@ -160,7 +251,7 @@ class Cluster(object):
             return result
 
     @staticmethod
-    def list(id=None, format="table", sort=None):
+    def list(id=None, format="table", sort=None, view="FULL"):
 
         def check_for_error(r):
             if r is not None:
@@ -176,41 +267,35 @@ class Cluster(object):
             r = Comet.get(Comet.url("cluster/" + id + "/"))
             check_for_error(r)
             if r is None:
-                Console.error("Could not find cluster `{}`"
+                Console.error("Error finding cluster `{}`"
                               .format(id))
                 return result
             r = [r]
-        #
-        # stuck state included in cluster data via API
-        '''
-        stuck_computesets = {}
-        computesets = Comet.get_computeset()
-        if computesets:
-            for computeset in computesets:
-                if computeset["state"] in Cluster.STUCK_COMPUTESETS:
-                    cluster = computeset["cluster"]
-                    id = computeset["id"]
-                    nodes = computeset["computes"]
 
-                    if cluster not in stuck_computesets:
-                        stuck_computesets[cluster] = {}
-                    for node in nodes:
-                        stuck_computesets[cluster][node["name"]] = \
-                            "{}({})".format(id, computeset["state"])
-        '''
         #
         # getting account/allocation for each computeset
         # to display in the cluster view
         computeset_account = {}
-        stuck_computesets = {}
+        # stuck_computesets = {}
         computesets = Comet.get_computeset()
+
+        # pprint (computesets)
         if computesets:
+            computesets_submitted = Comet.get_computeset(state="submitted")
+            if computesets_submitted:
+                computesets += computesets_submitted
+            computesets_ending = Comet.get_computeset(state="ending")
+            if computesets_ending:
+                computesets += computesets_ending
             for computeset in computesets:
                 id = computeset["id"]
                 account = computeset["account"]
                 if id not in computeset_account:
                     computeset_account[id] = account
 
+        # no longer track and display the (possible) stuck
+        # computeset in this way
+        '''
         stuck_computesets = {}
         computesets = Comet.get_computeset()
         if computesets:
@@ -225,6 +310,7 @@ class Cluster(object):
                     for node in nodes:
                         stuck_computesets[cluster][node["name"]] = \
                             "{}({})".format (id, computeset["state"])
+        '''
 
         if r is not None:
             if format == "rest":
@@ -257,7 +343,9 @@ class Cluster(object):
                     frontend = dict(empty)
                     frontend.update(cluster["frontend"])
                     pubip = cluster["frontend"]["pub_ip"]
+                    pubmac = cluster["frontend"]["pub_mac"]
                     frontend["ip"] = pubip
+                    frontend["pub_mac"] = pubmac
                     frontend["admin_state"] = cluster["frontend"]["frontend_state"]
                     result += "Cluster: %s\tFrontend: %s\tIP: %s\n" % \
                                 (cluster["name"],
@@ -272,28 +360,43 @@ class Cluster(object):
 
                 for index, anode in enumerate(data):
                     bnode = dict(anode)
+                    pubmac = None
+                    if 'pub_mac' in bnode:
+                        pubmac = bnode["pub_mac"]
                     if "interface" in bnode:
                         macs = []
+                        macs_pub_order = []
                         # ips = []
                         for ipaddr in anode["interface"]:
                             macs.append(ipaddr["mac"])
                             # ips.append(ipaddr["ip"] or "N/A")
-                        if format == 'table':
-                            bnode["mac"] = "\n".join(macs)
+                        if pubmac in macs:
+                            macs_pub_order.append(pubmac)
+                            for mac in macs:
+                                if mac != pubmac:
+                                    macs_pub_order.append(mac)
                         else:
-                            bnode["mac"] = ";".join(macs)
+                            macs_pub_order = macs
+                        if format == 'table':
+                            bnode["mac"] = "\n".join(macs_pub_order)
+                        else:
+                            bnode["mac"] = ";".join(macs_pub_order)
 
                         if "active_computeset_state" in anode and \
-                                    anode["active_computeset"] is not None and \
-                                    anode["active_computeset_state"] is not None:
+                                anode["active_computeset"] is not None and \
+                                anode["active_computeset_state"] is not None:
+                            # if not running state, show also the status after
+                            # the computeset id
                             if anode["active_computeset_state"] != 'running':
                                 bnode["active_computeset"] = "%s(%s)" % \
                                                     (anode["active_computeset"],
                                                      anode["active_computeset_state"])
-                            else:
-                                if anode["active_computeset"] in computeset_account:
-                                    bnode["allocation"] = \
-                                        computeset_account[anode["active_computeset"]]
+                            # if an active computeset has a valid account
+                            # associated with it, display the account/allocation
+                            # does this for computeset in all states
+                            if anode["active_computeset"] in computeset_account:
+                                bnode["allocation"] = \
+                                computeset_account[anode["active_computeset"]]
 
                         if "compute_state" in anode:
                             bnode["admin_state"] = anode["compute_state"]
@@ -324,10 +427,10 @@ class Cluster(object):
                         # print (sort_keys)
                 if "table" == format:
                     result_print = Printer.write(data,
-                                                 order=Cluster.CLUSTER_ORDER,
-                                                 header=Cluster.CLUSTER_HEADER,
-                                                 output=format,
-                                                 sort_keys=sort_keys)
+                            order=Cluster.CLUSTER_TABLE_VIEW[view]["order"],
+                            header=Cluster.CLUSTER_TABLE_VIEW[view]["header"],
+                            output=format,
+                            sort_keys=sort_keys)
                     result += str(result_print)
                 else:
                     result_print = Printer.write(data,
@@ -408,7 +511,10 @@ class Cluster(object):
                                                         cluster,
                                                         allocation)
         else:
-            result = "No computeset exists with the specified ID"
+            if id:
+                result = "No computeset found with the specified ID"
+            else:
+                result = "No computeset found"
         return result
 
     @staticmethod
@@ -565,6 +671,7 @@ class Cluster(object):
                          computenodeids=None,
                          numnodes=None,
                          allocation=None,
+                         reservation=None,
                          walltime=None):
         ret = ''
         # print ("clusterid: %s" % clusterid)
@@ -607,7 +714,10 @@ class Cluster(object):
                         "walltime_mins": "%s" % walltime,
                         "allocation": "%s" % allocation}
 
-        # print("Issuing request to poweron nodes...")
+        if reservation:
+            data["reservation"] = reservation
+
+        # print("Issuing request to start/allocate and power on nodes...")
         posturl = Comet.url("computeset/")
         # print ("POST data: %s" % data)
         r = Comet.post(posturl, data=data)
@@ -768,7 +878,10 @@ class Cluster(object):
                     iso_id_name = None
 
         if iso_id_name is not None:
-            iso_id_name = "public/{}".format(iso_id_name)
+            # currently only those in public directory is accessible
+            # for empty string, DO NOT append as that is for detach
+            if len(iso_id_name) != 0:
+                iso_id_name = "public/{}".format(iso_id_name)
             urls = {}
             # attaching to compute node
             if nodeids:
@@ -789,6 +902,7 @@ class Cluster(object):
             tofrom['Attaching'] = 'to'
             tofrom['Detaching'] = 'from'
             for node, url in urls.items():
+                url = url.replace("+","%2B")
                 r = Comet.put(url)
                 # print (r)
                 if r is not None:
@@ -830,9 +944,12 @@ class Cluster(object):
             url = Comet.url("cluster/{}/frontend/"
                             .format(clusterid))
         r = Comet.get(url)
-        return Printer.attribute(r,
+        ret = "ERROR: Node not available. Please check the cluster/node name!\n"
+        if r:
+            ret = Printer.attribute(r,
                                  #order=Cluster.NODEINFO_ORDER,
                                  output=format)
+        return ret
 
     @staticmethod
     def delete():

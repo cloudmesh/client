@@ -106,6 +106,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                          [--cloud=CLOUD]
                          [--key=KEY]
                          [--command=COMMAND]
+                         [--modify-knownhosts]
                 vm rename [OLDNAMES] [NEWNAMES] [--force] [--dryrun]
                 vm list [NAMES]
                         [--cloud=CLOUDS|--active]
@@ -133,6 +134,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 OLDNAMES       Old names of the VM while renaming.
 
             Options:
+              -H --modify-knownhosts  Do not modify ~/.ssh/known_hosts file when ssh'ing into a machine
                 --username=USERNAME  the username to login into the vm. If not specified it will be guessed
                                      from the image name and the cloud
                 --ip=IP          give the public ip of the server
@@ -246,17 +248,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
         def _print_dict_ip(d, header=None, output='table'):
             return Printer.write(d, order=["network", "version", "addr"], output=output, sort_keys=True)
 
-        def get_vm_name(name=None, offset=0, fill=3):
-
-            if name is None:
-                count = Default.get_counter(name='name') + offset
-                prefix = Default.user
-                if prefix is None or count is None:
-                    Console.error("Prefix and Count could not be retrieved correctly.", traceflag=False)
-                    return
-                name = prefix + "-" + str(count).zfill(fill)
-            return name
-
         def _refresh_cloud(cloud):
             try:
                 msg = "Refresh VMs for cloud {:}.".format(cloud)
@@ -326,7 +317,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         if arguments["boot"]:
 
-            arg.username = arguments["--username"] or Image.guess_username(arg.image)
+            arg.username = arguments["--username"] or Image.guess_username_from_category(arg.cloud, arg.image)
             is_name_provided = arg.name is not None
 
             arg.user = Default.user
@@ -334,7 +325,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             for index in range(0, arg.count):
                 vm_details = dotdict({
                     "cloud": arg.cloud,
-                    "name": get_vm_name(arg.name, index),
+                    "name": Vm.generate_vm_name(),
                     "image": arg.image,
                     "flavor": arg.flavor,
                     "key": arg.key,
@@ -343,11 +334,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     "username": arg.username,
                     "user": arg.user
                 })
-                # correct the username
-                vm_details.username = Image.guess_username_from_category(
-                    vm_details.cloud,
-                    vm_details.image,
-                    username=arg.username)
+
                 try:
 
                     if arg.dryrun:
@@ -767,10 +754,12 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             chameleon = "chameleon" in ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"][arg.cloud][
                 "cm_host"]
 
+            # TODO
+            # username should be fetched from --username parameter or from definition in yaml file in any cloud
             if chameleon:
                 arg.username = "cc"
             elif arg.cloud == "azure":
-                arg.username = ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"]["azure"]["default"]["username"]
+                arg.username = arguments["--username"] or ConfigDict(filename="cloudmesh.yaml")["cloudmesh"]["clouds"]["azure"]["default"]["username"]
             else:
                 if arg.username is None:
                     Console.error("Could not guess the username of the vm", traceflag=False)
@@ -856,6 +845,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 if arg.key is not None:
                     sshcommand += " -i {:}".format(arg.key)
                 sshcommand += " -o StrictHostKeyChecking=no"
+                sshcommand += '' if arguments['--modify-knownhosts'] else ' -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
                 sshcommand += " {:}@{:}".format(data.username, ip)
                 if commands is not None:
                     sshcommand += " \"{:}\"".format(commands)

@@ -27,8 +27,8 @@ easiest is to open a terminal and type
   xcode-select --install
 
 
-We recommend that you use python 2.7, e.g. at least python
-2.7.10. This version of python is easy to install while downloading
+We recommend that you use python at 2.7.13, but not python 3. 
+This version of python is easy to install while downloading
 the dmg and installing it on the system. You can find the python
 version at:
 
@@ -58,9 +58,9 @@ Make sure that you have the supported versions:
   ==========  =========
   Software    Version
   ==========  =========
-  Python      2.7.10
-  pip         8.0.2
-  virtualenv  13.1.2
+  Python      2.7.13
+  pip         8.1.2
+  virtualenv  15.0.1
   ==========  =========  
   
 On OSX as well as the other operating systems we **require** you to
@@ -73,8 +73,10 @@ use. You can say
 
 It will give you the path of the python interpreter.
 
-If you have a vanilla OS X at the time of writing of this documentation,
-the python version is 2.7.10 hence you can use
+If you have a vanilla OS X at the time of writing of this
+documentation, the python version is 2.7.10 hence you can use also
+this version. However, it may be better to upgrade to 2.7.13 and using
+it via virtualenv.
 
 .. prompt:: bash
 
@@ -83,8 +85,8 @@ the python version is 2.7.10 hence you can use
 to setup the virtualenv on your computer.
 
 In case you are using a different version of python please use the
-appropriate path. Let us assume the interpreter was found in `/usr/local/bin/python`.
-Next you can create a virtual ENV with
+appropriate path. Let us assume the interpreter was found in
+`/usr/local/bin/python`.  Next you can create a virtual ENV with
 
 .. prompt:: bash
 
@@ -124,7 +126,8 @@ have an up to date python environment in ~/ENV
 	  However, the version installed with pip were not usable. The
 	  workaround is to use easy_install for these packages as
 	  shown above.  If you have better idea how to fix this, let
-	  us know and send mail to laszewski@gmail.com.
+	  us know and send mail to laszewski@gmail.com. Alternatively
+	  you can install them with homebrew.
 
 It is recommended that you test the version of the python interpreter
 and pip again
@@ -133,13 +136,13 @@ and pip again
    
    pip --version
 
-which should give the version 8.0.2
+which should give the version 8.1.2
 
 .. prompt:: bash
 
    python --version
 
-which should give the version Python 2.7.10
+which should give the version Python 2.7.10 or 2.7.13 if you installed that.
 
 OSX Quick Install Scripts (untested)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -152,7 +155,7 @@ instructions above
    xcode-select --install
    open https://www.python.org/downloads/
 
-Install python 2.7.10. Next do
+Install python 2.7.12. Next do
 
 .. prompt:: bash
 
@@ -330,7 +333,30 @@ Add the following to your .bashrc file::
 
      source $HOME/ENV/bin/activate
 
-  
+Ubuntu 16.04
+----------------------------------------------------------------------
+
+Similar to the instructions for Ubuntu 14.04/15.04, but these packages would be needed to be installed with 'apt'
+
+.. prompt:: bash
+
+    sudo apt update
+    sudo apt install build-essential checkinstall python-dev virtualenv libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev
+
+In some cases the python2 package may not be installed on Ubuntu 16.04. In this case you also need to install it:
+
+.. prompt:: bash
+
+    sudo apt install python-minimal
+
+You can also try the one line script to setup the system and install cloudmesh_client:
+
+.. prompt:: bash
+
+    wget -O cm-setup.sh https://raw.githubusercontent.com/cloudmesh/client/bin/deploy-on-xenial.sh
+    sh cm-setup.sh
+
+
 CentOS
 ----------------------------------------------------------------------
 

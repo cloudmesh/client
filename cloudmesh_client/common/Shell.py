@@ -9,6 +9,8 @@
 
 from __future__ import print_function
 
+from pipes import quote
+import errno
 import glob
 import os
 import os.path
@@ -17,6 +19,51 @@ import subprocess
 import zipfile
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.util import path_expand
+
+
+class SubprocessError(Exception):
+    def __init__(self, cmd, returncode, stderr, stdout):
+        self.cmd = cmd
+        self.returncode = returncode
+        self.stderr = stderr
+        self.stdout = stdout
+
+
+    def __str__(self):
+
+        def indent(lines, amount, ch=' '):
+            padding = amount * ch
+            return padding + ('\n'+padding).join(lines.split('\n'))
+
+        cmd = ' '.join(map(quote, self.cmd))
+        s = ''
+        s += 'Command: %s\n' % cmd
+        s += 'Exit code: %s\n' % self.returncode
+
+        if self.stderr:
+            s += 'Stderr:\n' + indent(self.stderr, 4)
+        if self.stdout:
+            s += 'Stdout:\n' + indent(self.stdout, 4)
+
+        return s
+
+
+class Subprocess(object):
+
+    def __init__(self, cmd, cwd=None, stderr=subprocess.PIPE, stdout=subprocess.PIPE, env=None):
+
+        Console.debug_msg('Running cmd: {}'.format(' '.join(map(quote, cmd))))
+
+        proc = subprocess.Popen(cmd, stderr=stderr, stdout=stdout, cwd=cwd, env=env)
+        stdout, stderr = proc.communicate()
+
+        self.returncode = proc.returncode
+        self.stderr = stderr
+        self.stdout = stdout
+
+        if self.returncode != 0:
+            raise SubprocessError(cmd, self.returncode, self.stderr, self.stdout)
+
 
 
 class Shell(object):
@@ -51,6 +98,13 @@ class Shell(object):
     ls = cls.execute('cmd', args...)
 
     '''
+
+    @classmethod
+    def check_output(cls, *args, **kwargs):
+        """Thin wrapper around :func:`subprocess.check_output`
+        """
+        return subprocess.check_output(*args, **kwargs)
+
 
     @classmethod
     def ls(cls, *args):
@@ -307,7 +361,7 @@ class Shell(object):
         return platform.system().lower()
 
     @classmethod
-    def execute(cls, cmd, arguments="", shell=False, cwd=None):
+    def execute(cls, cmd, arguments="", shell=False, cwd=None, traceflag=True, witherror=True):
         """Run Shell command
 
         :param cmd: command to run
@@ -354,7 +408,8 @@ class Shell(object):
                     stderr=subprocess.STDOUT,
                     cwd=cwd)
         except:
-            Console.error("problem executing subprocess")
+            if witherror:
+                Console.error("problem executing subprocess", traceflag=traceflag)
         if result is not None:
             result = result.strip().decode()
         return result
@@ -367,18 +422,22 @@ class Shell(object):
         - parent directory(ies) does not exist, make them as well
         """
         """http://code.activestate.com/recipes/82465-a-friendly-mkdir/"""
-        _newdir = path_expand(newdir)
-        if os.path.isdir(_newdir):
-            pass
-        elif os.path.isfile(_newdir):
-            raise OSError("a file with the same name as the desired "
-                          "dir, '%s', already exists." % _newdir)
-        else:
-            head, tail = os.path.split(_newdir)
-            if head and not os.path.isdir(head):
-                os.mkdir(head)
-            if tail:
-                os.mkdir(_newdir)
+
+        newdir = path_expand(newdir)
+        try:
+            os.makedirs(newdir)
+        except OSError as e:
+
+            # EEXIST (errno 17) occurs under two conditions when the path exists:
+            # - it is a file
+            # - it is a directory
+            #
+            # if it is a file, this is a valid error, otherwise, all
+            # is fine.
+            if e.errno == errno.EEXIST and os.path.isdir(newdir):
+                pass
+            else: raise
+
 
     def unzip(source_filename, dest_dir):
         """

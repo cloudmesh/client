@@ -33,7 +33,7 @@ class Printer(object):
                             order=order, header=header, output=output,
                             sort_keys=sort_keys, show_none=show_none)
         else:
-            Console.error("unkown type")
+            Console.error("unkown type {0}".format(type(table)))
 
     @classmethod
     def list(cls,
@@ -250,35 +250,38 @@ class Printer(object):
                   order=None,
                   sort_keys=True,
                   output="table"):
-        if header is None:
-            header = ["Attribute", "Value"]
-        if output == "table":
-            x = PrettyTable(header)
-            if order is not None:
-                sorted_list = order
-            else:
-                sorted_list = list(d)
-            if sort_keys:
-                sorted_list = sorted(d)
-
-            for key in sorted_list:
-                if type(d[key]) == dict:
-                    values = d[key]
-                    x.add_row([key, "+"])
-                    for e in values:
-                       x.add_row(["  -", "{}: {}".format(e, values[e])])
-                elif type(d[key]) == list:
-                    values = list(d[key])
-                    x.add_row([key, "+"])
-                    for e in values:
-                        x.add_row(["  -", e])
+        ret = ''
+        if d:
+            if header is None:
+                header = ["Attribute", "Value"]
+            if output == "table":
+                x = PrettyTable(header)
+                if order is not None:
+                    sorted_list = order
                 else:
-                    x.add_row([key, d[key] or ""])
+                    sorted_list = list(d)
+                if sort_keys:
+                    sorted_list = sorted(d)
 
-            x.align = "l"
-            return x
-        else:
-            return cls.dict({output: d}, output=output)
+                for key in sorted_list:
+                    if type(d[key]) == dict:
+                        values = d[key]
+                        x.add_row([key, "+"])
+                        for e in values:
+                           x.add_row(["  -", "{}: {}".format(e, values[e])])
+                    elif type(d[key]) == list:
+                        values = list(d[key])
+                        x.add_row([key, "+"])
+                        for e in values:
+                            x.add_row(["  -", e])
+                    else:
+                        x.add_row([key, d[key] or ""])
+
+                x.align = "l"
+                ret = x
+            else:
+                ret = cls.dict({output: d}, output=output)
+        return ret
 
     @classmethod
     def print_list(cls, l, output='table'):

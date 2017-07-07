@@ -191,7 +191,18 @@ class Key(ListResource):
               keyname: ssh rsa hajfhjldahlfjhdlsak ..... comment
               github-x: github
         """
+    @classmethod
+    def get_from_cloud(cls, cloud, live=False, format="table"):
+        """
+        This method lists all keys of the cloud
+        :param cloud: the cloud name
+        :return: a SSHKeyManager (dict of keys)
+        """
+        try:
+            return CloudProvider(cloud).provider.list_key(cloud)
 
+        except Exception as ex:
+            Console.error(ex.message)
 
     @classmethod
     def _add_from_sshkey(cls,
@@ -260,7 +271,7 @@ class Key(ListResource):
     @classmethod
     def list_on_cloud(cls, cloud, live=False, format="table"):
         """
-        This method lists all flavors of the cloud
+        This method lists all keys of the cloud
         :param cloud: the cloud name
         """
         try:

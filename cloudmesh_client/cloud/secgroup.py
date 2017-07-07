@@ -63,14 +63,7 @@ class SecGroup(ListResource):
 
     @classmethod
     def add_rule_to_db(cls, group=None, name=None, from_port=None, to_port=None, protocol=None, cidr=None):
-        old_rule = {
-            "category": "general",
-            "kind": "secgrouprule",
-            "name": name,
-            "group": group
-        }
-
-        cls.cm.delete(**old_rule)
+        cls.delete_rule_from_db(group=group, name=name)
         try:
             rule = {
                 "category": "general",
@@ -87,8 +80,19 @@ class SecGroup(ListResource):
             Console.error("Problem adding rule")
 
     @classmethod
+    def delete_rule_from_db(cls, group=None, name=None):
+        old_rule = {
+            "category": "general",
+            "kind": "secgrouprule",
+            "name": name,
+            "group": group
+        }
+
+        cls.cm.delete(**old_rule)
+
+    @classmethod
     def upload(cls, cloud=None, group=None):
-        if cloud is None:
+        if cloud is None or cloud=='all':
             clouds = ConfigDict("cloudmesh.yaml")["cloudmesh"]["active"]
         else:
             clouds = [cloud]
@@ -360,7 +364,8 @@ class SecGroup(ListResource):
     @classmethod
     def reset_defaults(cls):
 
-        secgroup = "{}-default".format(Default.user)
+        #secgroup = "{}-default".format(Default.user)
+        secgroup = "default"
         Default.set_secgroup(secgroup)
 
         # nova secgroup-add-rule default icmp -1 -1 0.0.0.0/0
@@ -547,7 +552,11 @@ class SecGroup(ListResource):
         if rules:
             for rule in rules:
                 ruleid = rule['id']
-                provider.delete_secgroup_rule(ruleid)
+                # only refresh those defined with a protocol
+                # This leaves the default rule defined by
+                # allowing the same secgroup untouched
+                if rule['ip_protocol']:
+                    provider.delete_secgroup_rule(ruleid)
         return
 
     @classmethod

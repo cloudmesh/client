@@ -1,7 +1,38 @@
 from __future__ import print_function
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase, CloudmeshMixin
-from sqlalchemy import Column, Date, Integer, String
 
+import json
+from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase, CloudmeshMixin
+
+from sqlalchemy import Column, ForeignKey, Date, Integer, String, Boolean, Enum, Text
+from sqlalchemy.orm.session import object_session
+
+
+class SPECIFICATION(CloudmeshMixin, CloudmeshDatabase.Base):
+    """A SPECIFICATION consists of a JSON definition of some object along
+    with a name and type fields
+
+    """
+
+    __tablename__ = 'specification'
+    __kind__ = 'specification'
+    __provider__ = 'general'
+
+    name = Column(String)
+    type = Column(Enum('cluster', 'stack'))
+    spec = Column(Text)
+
+    def __init__(self, name, type, spec):
+        self.name = name
+        self.type = type
+        self.spec = json.dumps(spec)
+
+    def update(self, **kwargs):
+        defns = json.loads(self.spec)
+        defns.update(kwargs)
+        self.spec = json.dumps(defns)
+
+    def get(self):
+        return json.loads(self.spec)
 
 class WORKFLOW(CloudmeshMixin, CloudmeshDatabase.Base):
     """table to store default values
@@ -204,3 +235,57 @@ class BATCHJOB(CloudmeshMixin, CloudmeshDatabase.Base):
         self.time = kwargs.pop('time')
         self.group = kwargs.pop('group')
         self.job_id = kwargs.pop('job_id')
+
+
+class CLUSTER(CloudmeshMixin, CloudmeshDatabase.Base):
+    """This is a proxy for the main implementation, given in
+    :module:`cloudmesh_client.cloud.cluster`.
+
+    The implementation is split from the definitions in order to avoid
+    recursive dependencies. If the implementation of various methods
+    were done withing this class, various helper functions would need
+    to be imported (eg :module:`cloudmesh_client.cloud.vm`). These
+    module import :module:`cloudmesh_client.db.CloudmeshDatabase`,
+    which import the various ``models`` modules. When this happens,
+    the error that is an ImportError for CloudmeshDatabase.
+
+    When modifying, add attributes to this class, then update the
+    implementation in subclass.
+    """
+
+    __tablename__ = 'cluster'
+    __kind__ = 'cluster'
+    __provider__ = 'general'
+
+    name = Column(String, unique=True)
+    specId = Column(ForeignKey(SPECIFICATION.cm_id))
+    count = Column(Integer, default=1)
+    cloud = Column(String)
+    username = Column(String)
+    image = Column(String)
+    flavor = Column(String)
+    key = Column(String)
+    secgroup = Column(String)
+    assignFloatingIP = Column(Boolean, default=True)
+
+    def __init__(self, name=None, specId=None, cloud=None, count=None,
+                 username=None, image=None, flavor=None,
+                 key=None, secgroup=None,
+                 assignFloatingIP=True):
+
+        assert cloud is not None
+        assert image is not None
+        assert flavor is not None
+        assert key is not None
+
+        self.name = name
+        self.specId = specId
+        self.count = count
+        self.cloud = cloud
+        self.username = username
+        self.image = image
+        self.flavor = flavor
+        self.key = key
+        self.secgroup = secgroup
+        self.assignFloatingIP = assignFloatingIP
+

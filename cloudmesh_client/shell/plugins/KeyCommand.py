@@ -100,8 +100,11 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
                 Prints list of keys. NAME of the key can be specified
 
-               
-           key add [--name=keyname] FILENAME
+           key add ssh
+
+               adds the default key with the name id_rsa.pub
+
+           key add NAME  --source=FILENAME
 
                adds the key specifid by the filename to the key
                database
@@ -164,11 +167,15 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     #
                     #keys = Key.list(cloud, output=_format)
 
-                    keys = Key.list_on_cloud(cloud, live=True, format=_format)
+                    #keys = Key.list_on_cloud(cloud, live=True, format=_format)
+                    keys = Key.get_from_cloud(cloud, live=True, format=_format)
                     if keys is None:
                         Console.ok("The Key list is empty")
                     else:
-                        print(keys)
+                        print(Printer.write(keys,
+                            order=["name",
+                                "fingerprint"],
+                            output=_format or "table"))
                     return ""
 
             elif arguments['--source'] == 'ssh':

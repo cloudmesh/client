@@ -38,16 +38,22 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
         ::
 
             Usage:
-                secgroup list
+                secgroup list [--format=FORMAT]
                 secgroup list --cloud=CLOUD [--format=FORMAT]
-                secgroup list GROUP [RULE] [--format=FORMAT]
+                secgroup list GROUP [--format=FORMAT]
                 secgroup add GROUP RULE FROMPORT TOPORT PROTOCOL CIDR
                 secgroup delete GROUP [--cloud=CLOUD]
+                secgroup delete GROUP RULE
                 secgroup upload [GROUP] [--cloud=CLOUD]
 
             Options:
-                --cloud=CLOUD       Name of the IaaS cloud e.g. kilo, chameleoon. The clouds are defined in the yaml
-                                    file. If the name "all" is used for the cloud all clouds will be selected.
+                --format=FORMAT Specify output format, in one of the following:
+                                table, csv, json, yaml, dict. The default value
+                                is 'table'.
+                --cloud=CLOUD   Name of the IaaS cloud e.g. kilo,chameleoon.
+                                The clouds are defined in the yaml file.
+                                If the name "all" is used for the cloud all
+                                clouds will be selected.
 
             Arguments:
                 RULE          The security group rule name
@@ -55,7 +61,8 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                 FROMPORT      Staring port of the rule, e.g. 22
                 TOPORT        Ending port of the rule, e.g. 22
                 PROTOCOL      Protocol applied, e.g. TCP,UDP,ICMP
-                CIDR          IP address range in CIDR format, e.g., 129.79.0.0/16
+                CIDR          IP address range in CIDR format, e.g.,
+                              129.79.0.0/16
 
             Description:
                 security_group command provides list/add/delete
@@ -65,48 +72,51 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
 
             Examples:
-                secgroup list --cloud india
-                secgroup rules-list --cloud=kilo default
-                secgroup create --cloud=kilo webservice
-                secgroup rules-add --cloud=kilo webservice 8080 8088 TCP 129.79.0.0/16
-                secgroup rules-delete --cloud=kilo webservice 8080 8088 TCP 129.79.0.0/16
-                secgroup rules-delete --all
+                secgroup list
+                secgroup list --cloud=kilo
+                secgroup add my_new_group webapp 8080 8080 tcp 0.0.0.0/0
+                seggroup delete my_group my_rule
+                secgroup delete my_unused_group --cloud=kilo
+                secgroup upload --cloud=kilo
 
             Description:
 
-                Security groups are first assembled in a local database. Once they are defined they can be added to the
-                clouds.
+                Security groups are first assembled in a local database.
+                Once they are defined they can be added to the clouds.
 
-                secgroup list
+                secgroup list [--format=FORMAT]
                     lists all security groups and rules in the database
 
-                secgroup list --cloud=CLOUD... [--format=FORMAT]
+                secgroup list GROUP [--format=FORMAT]
+                    lists a given security group and its rules defined
+                    locally in the database
+
+                secgroup list --cloud=CLOUD [--format=FORMAT]
                     lists the security groups and rules on the specified clouds.
 
-                secgroup list GROUP [RULE] [--format=FORMAT]
-                    lists a given security group. If in addition the RULE is specified it only lists the RULE
-
                 secgroup add GROUP RULE FROMPORT TOPORT PROTOCOL CIDR
-                    adds a security rule with the given group and teh details of the security ruls
+                    adds a security rule with the given group and the details
+                    of the security ruls
 
-                secgroup delete GROUP
-                    deletes all security rules related to the specified group
+                secgroup delete GROUP [--cloud=CLOUD]
+                    Deletes a security group from the local database. To make
+                    the change on the remote cloud, using the 'upload' command
+                    afterwards.
+                    If the --cloud parameter is specified, the change would be
+                    made directly on the specified cloud
 
                 secgroup delete GROUP RULE
-                    deletes just the given rule from the group
+                    deletes the given rule from the group. To make this change
+                    on the remote cloud, using 'upload' command.
 
                 secgroup upload [GROUP] [--cloud=CLOUD...]
-                    uploads a given group to the given cloud. if the cloud is not specified the default cloud is used.
-                    If the parameter for cloud is "all" the rules and groups will be uploaded to all active clouds.
+                    uploads a given group to the given cloud. If the cloud is
+                    not specified the default cloud is used.
+                    If the parameter for cloud is "all" the rules and groups
+                    will be uploaded to all active clouds.
+                    This will synchronize the changes (add/delete on security
+                    groups, rules) made locally to the remote cloud(s).
 
-
-            Example:
-
-                cm secgroup list
-                cm secgroup list --cloud=kilo
-                cm secgroup add  cm-gregor-default web 80 80 tcp  0.0.0.0/0
-                cm secgroup add  cm-gregor-default ssh 22 22 tcp  0.0.0.0/0
-                cm secgroup upload --cloud=kilo
         """
 
         arg = dotdict(arguments)
@@ -149,8 +159,11 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
         # Delete a security-group
         elif arguments["delete"]:
-
-            self._delete(arg)
+            if arg["RULE"] is not None:
+                SecGroup.delete_rule_from_db(group=arg["GROUP"],
+                                             name=arg["RULE"])
+            else:
+                self._delete(arg)
 
         elif arguments["upload"]:
 

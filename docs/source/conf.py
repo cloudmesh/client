@@ -12,12 +12,17 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
+import os
+# os.path.abspath('../../build/lib')
+# os.system ("pwd")
 
 from cloudmesh_client.version import __version__
-import os
+# __version__ = '4.3.1'
 
-# os.path.abspath('../cloudmesh_client')
 
+def setup(app):
+    app.add_stylesheet('css/custom.css')
+    
 # on_rtd is whether we are on readthedocs.org
 
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
@@ -391,3 +396,4 @@ epub_exclude_files = ['search.html']
 
 # If false, no index is generated.
 # epub_use_index = True
+

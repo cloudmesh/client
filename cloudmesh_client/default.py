@@ -1,14 +1,10 @@
 from __future__ import print_function
 
-from cloudmesh_client.common import Printer
-import cloudmesh_client
-from cloudmesh_client.common.ConfigDict import ConfigDict
-
-# from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client import CloudmeshDatabase
-from cloudmesh_client.shell.console import Console
-from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.common.Printer import Printer
+from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.exc import NoActiveClusterException
+from cloudmesh_client.shell.console import Console
 
 
 # noinspection PyPep8Naming
@@ -18,6 +14,17 @@ class readable_classproperty(object):
 
     def __get__(self, obj, owner):
         return self.f(owner)
+
+
+class Names:
+
+    VM_COUNTER = 'vm_counter'
+
+    CLUSTER_COUNTER = 'cluster'
+    STACK_COUNTER = 'stack'
+    ACTIVE_STACK = 'active-stack'
+    ACTIVE_CLUSTER = 'active-cluster'
+    ACTIVE_SPECIFICATION = 'active-specification'
 
 
 # noinspection PyBroadException
@@ -68,7 +75,7 @@ class Default(object):
             if category is None:
                 result = cls.cm.all(kind=cls.__kind__)
             else:
-                result = cls.cm.all(category=category, kind=cls.__kind__)
+                result = cls.cm.all(provider=category, kind=cls.__kind__)
 
             table = Printer.write(result,
                                   output=output)
@@ -198,8 +205,32 @@ class Default(object):
         return value
 
     @readable_classproperty
+    def active_stack(cls):
+        return cls.get(name=Names.ACTIVE_STACK)
+
+    @readable_classproperty
     def cluster(cls):
-        return cls.get(name="cluster")
+        return cls.get(name=Names.ACTIVE_CLUSTER)
+
+    @readable_classproperty
+    def cluster_counter(cls):
+        return cls.get(name=Names.CLUSTER_COUNTER)
+
+    @readable_classproperty
+    def active_cluster(cls):
+        name = cls.cluster
+        if not name:
+            raise NoActiveClusterException()
+
+        # this import is here rather than the top to avoid circular
+        # dependencies
+        from cloudmesh_client.platform.virtual_cluster.cluster import Cluster
+
+        return Cluster.from_name(name)
+
+    @readable_classproperty
+    def active_specification(cls):
+        return cls.get(name=Names.ACTIVE_SPECIFICATION)
 
     @readable_classproperty
     def user(cls):
@@ -235,6 +266,29 @@ class Default(object):
     # ###################################
     # COUNTER
     # ###################################
+
+    @classmethod
+    def generate_name(cls, counter_name, display_name=None,
+                      prefix=None, fill=3):
+        """Generate a name based on a counter
+
+        :param str counter_name: name of the counter in the database
+        :param str display_name: pretty name to show user (defaults to ``counter_name``)
+        :param str prefix: prefix the generated name with this
+        :param int fill: number of zeros to fill with
+        :returns: a generated name
+        :rtype: :class:`str`
+        """
+
+        prefix = (prefix + '-') if prefix else ''
+
+        counter = cls.get_counter(name=counter_name)
+        index = str(counter).zfill(fill)
+        name = prefix + (display_name or counter_name) + '-' + index
+        cls.incr_counter(name=counter_name)
+
+        return name
+
     @classmethod
     def incr_counter(cls, name="index"):
         count = cls.get_counter(name=name)
@@ -376,13 +430,25 @@ class Default(object):
         cls.set("key", name)
 
     @classmethod
-    def set_cluster(cls, value):
+    def set_cluster_counter(cls, value):
         """
         sets the default cluster
         :param value: the cluster name as defined in the cloudmesh yaml file.
         :return:
         """
-        cls.set("cluster", value)
+        cls.set(Names.CLUSTER_COUNTER, value)
+
+    @classmethod
+    def set_specification(cls, value):
+        """Sets the default specification
+
+        :param cls: 
+        :param value: 
+        :returns: 
+        :rtype: 
+
+        """
+        cls.set(Names.ACTIVE_SPECIFICATION, value)
 
     @classmethod
     def set_debug(cls, value):
@@ -443,6 +509,22 @@ class Default(object):
         cls.set("timer", value)
 
     @classmethod
+    def set_stack(cls, name):
+        """Sets the stack name
+
+        :param str name: stack name
+        """
+        cls.set(Names.ACTIVE_STACK, name)
+
+    @classmethod
+    def set_cluster(cls, value):
+        """Sets the cluster
+
+        :param str value: cluster name
+        """
+        cls.set(Names.ACTIVE_CLUSTER, value)
+
+    @classmethod
     def load(cls, filename):
 
         config = ConfigDict(filename=filename)["cloudmesh"]
@@ -498,4 +580,4 @@ class Default(object):
             elif cls.key is None and cls.user is not None:
                 cls.key = cls.user
             else:
-                Console.error("Please define a key first, e.g.: cm key add --ssh", traceflag=False)
+                Console.error("Please define a key first, e.g.: cm key add --ssh <keyname>", traceflag=False)

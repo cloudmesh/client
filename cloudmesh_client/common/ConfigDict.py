@@ -150,15 +150,19 @@ class Config(object):
                 return name
         return None
 
-
 class ConfigDict(object):
+    __shared_state = {}
     versions = ['4.1']
+    data = {}
+    filename = None
 
     def __init__(self,
                  filename,
                  load_order=None,
                  verbose=False,
-                 etc=False):
+                 etc=False,
+                 reload=False):
+
         """
         Creates a dictionary from a yaml configuration file
         while using the filename to load it in the specified load_order.
@@ -172,6 +176,13 @@ class ConfigDict(object):
         :rtype: ConfigDict
         """
 
+
+        self.__dict__ = self.__shared_state
+
+        if ConfigDict.data != {} and not reload:
+            return
+
+        # print ("INIT CONFIGDICT", filename, load_order, verbose, etc)
         self.data = None
         if etc:
             import cloudmesh_client.etc
@@ -190,7 +201,8 @@ class ConfigDict(object):
                 if verbose:
                     print("Loading ConfigDict", name)
                 self.load(name)
-                self.filename = name
+                ConfigDict.filename = name
+                ConfigDict.data = self.data
                 return
 
         # Create default yaml file
@@ -203,6 +215,8 @@ class ConfigDict(object):
         :type filename: string
         :return:
         """
+        # print ("LOAD CONFIGDICT", filename)
+
         self.data = BaseConfigDict(filename=Config.path_expand(filename))
         try:
             version = str(self.data["meta"]["version"])
@@ -272,7 +286,7 @@ class ConfigDict(object):
         :return:
         """
         content = self.data.yaml()
-        with open(Config.path_expand(self.filename), 'w') as f:
+        with open(Config.path_expand(ConfigDict.filename), 'w') as f:
             f.write(content)
 
     def __setitem__(self, item, value):

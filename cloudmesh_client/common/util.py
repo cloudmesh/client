@@ -1,4 +1,5 @@
 from __future__ import print_function
+from contextlib import contextmanager
 from string import Template
 import inspect
 import glob
@@ -6,12 +7,50 @@ import os
 import shutil
 import collections
 # import pip
+import time
+import tempfile
 import sys
 import re
 
 from builtins import input
 from past.builtins import basestring
 import random
+
+
+@contextmanager
+def tempdir(*args, **kwargs):
+    """A contextmanager to work in an auto-removed temporary directory
+
+    Arguments are passed through to tempfile.mkdtemp
+
+    example:
+
+    >>> with tempdir() as path:
+    ...    pass
+    """
+
+    d = tempfile.mkdtemp(*args, **kwargs)
+    try:
+        yield d
+    finally:
+        shutil.rmtree(d)
+
+
+def exponential_backoff(fn, sleeptime_s_max=30*60):
+    """Calls `fn` until it returns True, with an exponentially increasing wait time between calls"""
+
+    sleeptime_ms = 500
+    while True:
+        if fn() == True:
+            return True
+        else:
+            print ('Sleeping {} ms'.format(sleeptime_ms))
+            time.sleep(sleeptime_ms / 1000.0)
+            sleeptime_ms *= 2
+
+        if sleeptime_ms/1000.0 > sleeptime_s_max:
+            return False
+
 
 def search(lines, pattern):
     p = pattern.replace("*", ".*")
@@ -272,12 +311,26 @@ def check_python():
         print("             pip install -U pip\n")
 
 # Reference: http://interactivepython.org/runestone/static/everyday/2013/01/3_password.html
-def generate_password(length=8):
-    alphabet = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+def generate_password(length=8, lower=True, upper=True, number=True):
+    lletters = "abcdefghijklmnopqrstuvwxyz"
+    uletters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    # This doesn't guarantee both lower and upper cases will show up
+    alphabet = lletters + uletters
+    digit = "0123456789"
     mypw = ""
 
-    for i in range(length):
-        next_index = random.randrange(len(alphabet))
-        mypw = mypw + alphabet[next_index]
+    def _random_character(texts):
+        return texts[random.randrange(len(texts))]
 
+    if not lower:
+        alphabet = uletters
+    elif not upper:
+        alphabet = lletters
+
+    for i in range(length):
+        # last half length will be filled with numbers
+        if number and i >= (length / 2):
+            mypw = mypw + _random_character(digit)
+        else:
+            mypw = mypw + _random_character(alphabet)
     return mypw

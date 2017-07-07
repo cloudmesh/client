@@ -7,14 +7,47 @@ notifications:
     - kevinwangfg@gmail.com
 
 before_install:
+  # - echo "- UPGRADE -----------"
+  # - sudo apt-get -o Dpkg::Options::='--force-confold' --force-yes -fuy dist-upgrade
   - echo "- BEFORE INSTALL -----------"
-  - cd /tmp
-  - wget http://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz
-  - tar xzvf Python-2.7.12.tgz
-  - cd Python-2.7.12
-  - ./configure --enable-shared
-  - sudo make >
-  - sudo make install
+  - sudo apt-get install -y autotools-dev
+  - sudo apt-get install -y blt-dev
+  - sudo apt-get install -y bzip2
+  - sudo apt-get install -y dpkg-dev
+  - sudo apt-get install -y g++-multilib
+  - sudo apt-get install -y gcc-multilib
+  - sudo apt-get install -y libbluetooth-dev
+  - sudo apt-get install -y libbz2-dev
+  - sudo apt-get install -y libexpat1-dev
+  - sudo apt-get install -y libffi-dev
+  - sudo apt-get install -y libffi6
+  - sudo apt-get install -y libffi6-dbg
+  - sudo apt-get install -y libgdbm-dev
+  - sudo apt-get install -y libgpm2
+  - sudo apt-get install -y libncursesw5-dev
+  - sudo apt-get install -y libreadline-dev
+  - sudo apt-get install -y libsqlite3-dev
+  - sudo apt-get install -y libssl-dev
+  - sudo apt-get install -y libtinfo-dev
+  - sudo apt-get install -y mime-support
+  - sudo apt-get install -y net-tools
+  - sudo apt-get install -y netbase
+  - sudo apt-get install -y python-crypto
+  - sudo apt-get install -y python-mox3
+  - sudo apt-get install -y python-pil
+  - sudo apt-get install -y python-ply
+  - sudo apt-get install -y quilt
+  - sudo apt-get install -y tk-dev
+  - sudo apt-get install -y zlib1g-dev
+  # - cd /tmp
+  - wget http://www.python.org/ftp/python/2.7.13/Python-2.7.13.tgz
+  - tar xzvf Python-2.7.13.tgz
+  - cd Python-2.7.13
+  - ./configure --enable-shared > python-install.log 2>&1
+  - sudo make >> python-install.log 2>&1
+  - sudo make install >> python-install.log 2>&1
+  - sudo pip install backports.ssl_match_hostname
+  - cd ..
   - echo "-----------------------------"
 
 addons:
@@ -39,6 +72,8 @@ python:
   - "2.7"
 
 install:
+  - pwd
+  - ls
   # - export PATH="/opt/python/2.7.10/bin:$PATH"
   - echo $PATH
   - sudo pip install --upgrade pip
@@ -52,20 +87,17 @@ install:
   - cd pycrypto-2.6.1
   - python setup.py install
   - cd ..
-  - git clone https://github.com/cloudmesh/client.git
-  - cd client
-<<<<<<< HEAD
+  - pwd
+  - ls
+  - pip install pip -U
+  - python --version
+  - pip --version
+  # - git clone https://github.com/cloudmesh/client.git
+  # - cd client
   - pip install -U -r requirements.txt
   - pip install -U -r requirements-doc.txt
   - pip install -U -r requirements-test.txt
   - pip install -U .
-=======
-  - pip install -r requirements.txt
-  - pip install -r requirements-doc.txt
-  - pip install -r requirements-test.txt
-  - pip install .
->>>>>>> master
-  - ln -s `pwd` $(dirname `which python`)/../lib/python2.7/site-packages/cloudmesh_client
 
 script:
   - pwd

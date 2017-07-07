@@ -1,4 +1,4 @@
-from ..CloudmeshDatabase import CloudmeshDatabase, CloudmeshMixin
+from ..CloudmeshDatabase import CloudmeshDatabase, CloudmeshMixin, CloudmeshVMMixin
 from sqlalchemy import Column, Date, Integer, String
 
 
@@ -125,7 +125,7 @@ class FLAVOR_OPENSTACK(CloudmeshMixin, CloudmeshDatabase.Base):
 
 
 # noinspection PyPep8Naming
-class VM_OPENSTACK(CloudmeshMixin, CloudmeshDatabase.Base):
+class VM_OPENSTACK(CloudmeshMixin, CloudmeshVMMixin, CloudmeshDatabase.Base):
     __tablename__ = "vm_openstack"
     __kind__ = 'vm'
     __provider__ = "openstack"
