@@ -9,12 +9,12 @@ Comet Big Data Tutorial
 
 **Goal**: Deploy an analytics cluster and run spark examples.
 
-**Time**: < 1 hour
+**Time**: ~ 15 min
 
 Status of this Tutorial
 -----------------------
 
-Work-in-progress
+Released for PEARC17 Comet VC Tutorial
 
 Overview
 --------
@@ -33,48 +33,44 @@ Requirements
   - ssh-reachable user with admin privileges
 
 
+.. note:: This tutorial used `vct01` as an example. Please change to your cluster name.
+
 Preparation
 -----------
 
-On your head node clone the Big Data Stack repository
+On your VC front-end node clone the Big Data Stack repository:
 
 ::
 
-   head $ git clone --recursive --branch pearc17 git://github.com/futuresystems/big-data-stack
-   head $ cd big-data-stack
+   FE $ git clone --recursive --branch pearc17 git://github.com/futuresystems/big-data-stack
+   FE $ cd big-data-stack
 
 Next create a virtualenvironment and install dependencies:
 
 ::
 
-   head $ virtualenv ~/BDS
-   head $ source ~/BDS/bin/activate
-   (BDS) head $ pip install -r requirements.txt
+   FE $ virtualenv ~/BDS
+   FE $ source ~/BDS/bin/activate
+   (BDS) FE $ pip install -r requirements.txt
 
-Next you need to configure ansible to use the internal network interface.
+The proper interla network interface has been set for this tutorial. For general
+case, you may need to configure ansible to use the internal network interface.
 Do so by setting the ``bds_internal_iface`` to ``ens3`` in ``group_vars/all.yml``
 
-::
-
-   (BDS) head $ nano group_vars/all.yml
-
-
-You will also need to configure authentication. Edit ``ansible.cfg``
+The ansible remote_user has been set properly for this tutorial assuming you
+followed all the previous steps to setup the VC. For general use, please make
+sure to configure the authentication. Edit ``ansible.cfg``
 and ensure the following are set in the ``[defaults]`` section:
 
-- ``remote_user=nbdraadmin``
+- ``remote_user=YOUR_COMPUTE_USERNAME``
 - ``become_ask_pass=True``
-
-::
-
-   (BDS) head $ nano ansible.cfg
 
 Finally, generate the ansible inventory file using your cluster IP
 addresses. Note, your IP addresses may be different.
 
 ::
 
-   (BDS) head $ python mk-inventory -n bds- 10.0.0.1 10.0.0.2 >inventory.txt
+   (BDS) FE $ python mk-inventory -n bds- 10.0.0.1 10.0.0.2 >inventory.txt
 
 
 Sanity Check
@@ -85,7 +81,7 @@ correctly configured by pinging the cluster.
 
 ::
 
-   (BDS) head $ ansible all -m ping
+   (BDS) FE $ ansible all -m ping
    bds-0 | SUCCESS => {
      "changed": false, 
      "ping": "pong"
@@ -110,7 +106,7 @@ will take several minutes.
 
 ::
 
-   (BDS) head $ ansible-playbook -K pearc17.yml
+   (BDS) FE $ ansible-playbook -K pearc17.yml
 
 
 Usage
@@ -121,9 +117,9 @@ you passed to ``mk-inventory`` and switch to the ``hadoop`` user.
 
 ::
 
-   (BDS) head $ ssh 10.0.0.1
-   nbdraadmin@vm-nbdra-00 $ sudo su - hadoop
-   hadoop@vm-nbdra-00 $
+   (BDS) FE $ ssh vm-vct01-00
+   comet@vm-vct01-00 $ sudo su - hadoop
+   hadoop@vm-vct01-00 $
 
 
 Word Count
@@ -134,11 +130,11 @@ HDFS:
 
 ::
 
-   hadoop@vm-nbdra-00 $ curl https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt >shakespeare.txt
-   hadoop@vm-nbdra-00 $ hadoop fs -put shakespeare.txt /
+   hadoop@vm-vct01-00 $ wget https://raw.githubusercontent.com/cloudmesh/cloudmesh.comet.vcdeploy/master/examples/shakespeare.txt
+   hadoop@vm-vct01-00 $ hadoop fs -put shakespeare.txt /
 
 Next, you can use the following program (adapted from the `Spark
-website <https://spark.apache.org/examples.html>_`) to analyze
+website <https://spark.apache.org/examples.html>`_) to analyze
 Shakespeare's works. The analysis consists of the following steps:
 
 #. split the text into words
@@ -159,44 +155,44 @@ Shakespeare's works. The analysis consists of the following steps:
                .sortBy(lambda t: t[1], ascending=False)
    counts.saveAsTextFile('hdfs:///shakespeare-wordcount.txt')
 
+You can download this example by running this:
 
-Save this as spark-shakespeare.py.
+::
+
+   hadoop@vm-vct01-00 $ wget https://raw.githubusercontent.com/cloudmesh/cloudmesh.comet.vcdeploy/master/examples/spark-shakespeare.py
 
 You can run the analysis locally with the following invocation:
 
 ::
 
-   hadoop@vm-nbdra-00 $ spark-submit spark-shakespeare.py
+   hadoop@vm-vct01-00 $ spark-submit spark-shakespeare.py
 
 
-You can submit to the cluster by invoking:
-
-::
-
-   hadoop@vm-nbdra-00 $ spark-submit --master yarn --deploy-mode cluster spark-shakespeare.py
-
-
-(Make sure to cleanup before rerunning else the task will fail:
+Or you can submit to the cluster by invoking:
 
 ::
 
-   hadoop@vm-nbdra-00 $ hadoop fs -rm -r /shakespeare-wordcount.txt
+   hadoop@vm-vct01-00 $ spark-submit --master yarn --deploy-mode cluster spark-shakespeare.py
+
+
+**Make sure to cleanup** before rerunning otherwise the task will fail:
+
+::
+
+   hadoop@vm-vct01-00 $ hadoop fs -rm -r /shakespeare-wordcount.txt
 
 
 You can then view the top ten words by:
 
 ::
 
-   hadoop@vm-nbdra-00 $ hadoop fs -cat /shakespeare-wordcount.txt/part-00000 | head
+   hadoop@vm-vct01-00 $ hadoop fs -cat /shakespeare-wordcount.txt/part-00000 | head
 
 
-Further Work
+What's next?
 ------------
 
-We leave it as an exercise any further refinement of the analysis
-method. Some suggestions include:
+- Try with a larger data set and compare the performance between local run and cluster run
+- Try with more sophisticated textual analytics
+- Deploy other components. This tutorial is tailored specially for the PEARC17 Comet VC tutorial to minimize user intervention and customization while showing the essence of the big data stack deployment. For the general use, please refer to the `main repo <https://github.com/futuresystems/big-data-stack>`_.
 
-- removing ancillary text (eg "ACT", "SCENE", character or location names, etc)
-- licensing information
-- paragraph numbers
-- effects of punctuation
