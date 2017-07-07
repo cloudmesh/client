@@ -17,11 +17,10 @@ Released for PEARC17 Tutorial - `**Using Comet's Virtual Clusters** <http://sche
 
 Overview
 --------
-
-In this tutorial you will install a virtual cluster from scratch. This includes
-manually install the front-end node from an attached OS; running some
-configuration script to configure the front-end behaving as a NAT router,
-dhcp/tftp and pxe-booting server; booting the compute nodes, which will be
+In this tutorial you will learn how to install a Comet virtual cluster. This
+includes manually install the front-end node from an attached OS ISO; running
+some configuration scripts to configure the front-end behaving as a NAT router,
+DHCP/TFTP and PXE-booting server; booting the compute nodes, which will be
 automatically installed and configured; and running some testing examples.
 
 
