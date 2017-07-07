@@ -121,10 +121,18 @@
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#install-cloudmesh-client-tool-to-access-comet-vc">Install Cloudmesh Client tool to access Comet VC</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#cloudmesh-client-tool-in-virtual-box">Cloudmesh Client tool in Virtual Box</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cloudmesh-client-tool-in-pearc17-virtualbox-appliance">Cloudmesh Client tool in PEARC17 VirtualBox Appliance</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#step-1-install-virtual-box">Step 1: Install Virtual Box</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-2-download-comet-pearc17-virtualbox-appliance">Step 2: Download Comet PEARC17 VirtualBox Appliance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-3-import-comet-pearc17-virtualbox-appliance">Step 3: Import Comet PEARC17 VirtualBox Appliance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-4-run-comet-pearc17-virtualbox-appliance">Step 4: Run Comet PEARC17 VirtualBox Appliance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-5-open-terminal-in-comet-pearc17-virtualbox-appliance">Step 5: Open Terminal in Comet PEARC17 VirtualBox Appliance</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cloudmesh-client-tool-in-empty-virtual-box-machine">Cloudmesh Client tool in empty Virtual Box Machine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Step 1: Install Virtual Box</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#step-2-download-a-virtualbox-image">Step 2: Download a VirtualBox Image</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#step-3-create-a-virtualbox">Step 3: Create a VirtualBox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-3-create-a-virtualbox-machine">Step 3: Create a VirtualBox Machine</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#step-4-associate-the-vm-iso">Step 4: Associate the VM ISO</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#step-5-start-the-vm">Step 5: Start the vm</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#step-6-start-a-terminal">Step 6: Start a terminal</a></li>
@@ -132,10 +140,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#step-8-install-cloudmesh">Step 8: Install cloudmesh</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#macos">MacOS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#linux">Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cloudmesh-client-tool-installed-directly-in-macos">Cloudmesh Client Tool Installed Directly in MacOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cloudmesh-client-tool-installed-directly-in-linux">Cloudmesh Client Tool Installed Directly in Linux</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#using-cloudmesh-client-tool-to-access-comet-vc">Using Cloudmesh Client tool to access Comet VC</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#virtual-cluster-architecture">Virtual Cluster Architecture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#getting-access-to-your-cluster">Getting access to your cluster</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#install-the-vc-front-end-node">Install the VC front-end node</a></li>
@@ -242,58 +251,67 @@
 <p class="first sidebar-title">Page Contents</p>
 <div class="contents local last topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#status-of-this-tutorial" id="id15">Status of this Tutorial</a></li>
-<li><a class="reference internal" href="#overview" id="id16">Overview</a></li>
-<li><a class="reference internal" href="#requirements" id="id17">Requirements</a></li>
-<li><a class="reference internal" href="#install-cloudmesh-client-tool-to-access-comet-vc" id="id18">Install Cloudmesh Client tool to access Comet VC</a><ul>
-<li><a class="reference internal" href="#cloudmesh-client-tool-in-virtual-box" id="id19">Cloudmesh Client tool in Virtual Box</a><ul>
-<li><a class="reference internal" href="#step-1-install-virtual-box" id="id20">Step 1: Install Virtual Box</a></li>
-<li><a class="reference internal" href="#step-2-download-a-virtualbox-image" id="id21">Step 2: Download a VirtualBox Image</a></li>
-<li><a class="reference internal" href="#step-3-create-a-virtualbox" id="id22">Step 3: Create a VirtualBox</a></li>
-<li><a class="reference internal" href="#step-4-associate-the-vm-iso" id="id23">Step 4: Associate the VM ISO</a></li>
-<li><a class="reference internal" href="#step-5-start-the-vm" id="id24">Step 5: Start the vm</a></li>
-<li><a class="reference internal" href="#step-6-start-a-terminal" id="id25">Step 6: Start a terminal</a></li>
-<li><a class="reference internal" href="#step-7-vm-guest-additions" id="id26">Step 7: VM guest additions</a></li>
-<li><a class="reference internal" href="#step-8-install-cloudmesh" id="id27">Step 8: Install cloudmesh</a></li>
+<li><a class="reference internal" href="#status-of-this-tutorial" id="id24">Status of this Tutorial</a></li>
+<li><a class="reference internal" href="#overview" id="id25">Overview</a></li>
+<li><a class="reference internal" href="#requirements" id="id26">Requirements</a></li>
+<li><a class="reference internal" href="#install-cloudmesh-client-tool-to-access-comet-vc" id="id27">Install Cloudmesh Client tool to access Comet VC</a><ul>
+<li><a class="reference internal" href="#cloudmesh-client-tool-in-pearc17-virtualbox-appliance" id="id28">Cloudmesh Client tool in PEARC17 VirtualBox Appliance</a><ul>
+<li><a class="reference internal" href="#step-1-install-virtual-box" id="id29">Step 1: Install Virtual Box</a></li>
+<li><a class="reference internal" href="#step-2-download-comet-pearc17-virtualbox-appliance" id="id30">Step 2: Download Comet PEARC17 VirtualBox Appliance</a></li>
+<li><a class="reference internal" href="#step-3-import-comet-pearc17-virtualbox-appliance" id="id31">Step 3: Import Comet PEARC17 VirtualBox Appliance</a></li>
+<li><a class="reference internal" href="#step-4-run-comet-pearc17-virtualbox-appliance" id="id32">Step 4: Run Comet PEARC17 VirtualBox Appliance</a></li>
+<li><a class="reference internal" href="#step-5-open-terminal-in-comet-pearc17-virtualbox-appliance" id="id33">Step 5: Open Terminal in Comet PEARC17 VirtualBox Appliance</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#macos" id="id28">MacOS</a></li>
-<li><a class="reference internal" href="#linux" id="id29">Linux</a></li>
+<li><a class="reference internal" href="#cloudmesh-client-tool-in-empty-virtual-box-machine" id="id34">Cloudmesh Client tool in empty Virtual Box Machine</a><ul>
+<li><a class="reference internal" href="#id1" id="id35">Step 1: Install Virtual Box</a></li>
+<li><a class="reference internal" href="#step-2-download-a-virtualbox-image" id="id36">Step 2: Download a VirtualBox Image</a></li>
+<li><a class="reference internal" href="#step-3-create-a-virtualbox-machine" id="id37">Step 3: Create a VirtualBox Machine</a></li>
+<li><a class="reference internal" href="#step-4-associate-the-vm-iso" id="id38">Step 4: Associate the VM ISO</a></li>
+<li><a class="reference internal" href="#step-5-start-the-vm" id="id39">Step 5: Start the vm</a></li>
+<li><a class="reference internal" href="#step-6-start-a-terminal" id="id40">Step 6: Start a terminal</a></li>
+<li><a class="reference internal" href="#step-7-vm-guest-additions" id="id41">Step 7: VM guest additions</a></li>
+<li><a class="reference internal" href="#step-8-install-cloudmesh" id="id42">Step 8: Install cloudmesh</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#virtual-cluster-architecture" id="id30">Virtual Cluster Architecture</a></li>
-<li><a class="reference internal" href="#getting-access-to-your-cluster" id="id31">Getting access to your cluster</a></li>
-<li><a class="reference internal" href="#install-the-vc-front-end-node" id="id32">Install the VC front-end node</a></li>
-<li><a class="reference internal" href="#configuring-the-front-end-node" id="id33">Configuring the front-end node</a></li>
-<li><a class="reference internal" href="#install-vc-compute-nodes" id="id34">Install VC Compute Nodes</a></li>
-<li><a class="reference internal" href="#demo1-verifying-infiniband-performance" id="id35">DEMO1: Verifying InfiniBand Performance</a></li>
-<li><a class="reference internal" href="#demo2-osu-micro-benchmarks" id="id36">DEMO2: OSU Micro-Benchmarks</a></li>
-<li><a class="reference internal" href="#demo3-optional-openfoam" id="id37">DEMO3 (optional): OpenFOAM</a></li>
-<li><a class="reference internal" href="#demo4-optional-julia" id="id38">DEMO4 (optional): Julia</a></li>
-<li><a class="reference internal" href="#demo5-bigdata-analytical-software-stack-deployment-and-example-run" id="id39">DEMO5: Bigdata analytical software stack deployment and example run</a></li>
+<li><a class="reference internal" href="#cloudmesh-client-tool-installed-directly-in-macos" id="id43">Cloudmesh Client Tool Installed Directly in MacOS</a></li>
+<li><a class="reference internal" href="#cloudmesh-client-tool-installed-directly-in-linux" id="id44">Cloudmesh Client Tool Installed Directly in Linux</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-cloudmesh-client-tool-to-access-comet-vc" id="id45">Using Cloudmesh Client tool to access Comet VC</a></li>
+<li><a class="reference internal" href="#virtual-cluster-architecture" id="id46">Virtual Cluster Architecture</a></li>
+<li><a class="reference internal" href="#getting-access-to-your-cluster" id="id47">Getting access to your cluster</a></li>
+<li><a class="reference internal" href="#install-the-vc-front-end-node" id="id48">Install the VC front-end node</a></li>
+<li><a class="reference internal" href="#configuring-the-front-end-node" id="id49">Configuring the front-end node</a></li>
+<li><a class="reference internal" href="#install-vc-compute-nodes" id="id50">Install VC Compute Nodes</a></li>
+<li><a class="reference internal" href="#demo1-verifying-infiniband-performance" id="id51">DEMO1: Verifying InfiniBand Performance</a></li>
+<li><a class="reference internal" href="#demo2-osu-micro-benchmarks" id="id52">DEMO2: OSU Micro-Benchmarks</a></li>
+<li><a class="reference internal" href="#demo3-optional-openfoam" id="id53">DEMO3 (optional): OpenFOAM</a></li>
+<li><a class="reference internal" href="#demo4-optional-julia" id="id54">DEMO4 (optional): Julia</a></li>
+<li><a class="reference internal" href="#demo5-bigdata-analytical-software-stack-deployment-and-example-run" id="id55">DEMO5: Bigdata analytical software stack deployment and example run</a></li>
 </ul>
 </div>
 </div>
-<p><strong>Goal</strong>: Install a Comet virtual cluster with Ubuntu 16.04, and run some performance testing examples.</p>
+<p><strong>Goal</strong>: Install a Comet Virtual Cluster (VC) with Ubuntu 16.04, and run examples.</p>
 <p><strong>Time</strong>: ~ ?? min</p>
 <div class="section" id="status-of-this-tutorial">
-<h2><a class="toc-backref" href="#id15">Status of this Tutorial</a><a class="headerlink" href="#status-of-this-tutorial" title="Permalink to this headline">¶</a></h2>
-<p>Released for PEARC17 Comet VC Tutorial</p>
+<h2><a class="toc-backref" href="#id24">Status of this Tutorial</a><a class="headerlink" href="#status-of-this-tutorial" title="Permalink to this headline">¶</a></h2>
+<p>Released for PEARC17 Tutorial - <a class="reference external" href="http://sched.co/AQ3H">**Using Comet’s Virtual Clusters**</a></p>
 </div>
 <div class="section" id="overview">
-<h2><a class="toc-backref" href="#id16">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>In this tutorial you will install a virtual cluster from scratch. This includes
-manually install the front-end node from an attached OS; running some
-configuration script to configure the front-end behaving as a NAT router,
-dhcp/tftp and pxe-booting server; booting the compute nodes, which will be
+<h2><a class="toc-backref" href="#id25">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>In this tutorial you will learn how to install a Comet virtual cluster. This
+includes manually install the front-end node from an attached OS ISO; running
+some configuration scripts to configure the front-end behaving as a NAT router,
+DHCP/TFTP and PXE-booting server; booting the compute nodes, which will be
 automatically installed and configured; and running some testing examples.</p>
 </div>
 <div class="section" id="requirements">
-<h2><a class="toc-backref" href="#id17">Requirements</a><a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id26">Requirements</a><a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Experience on cluster system installation and management.</li>
-<li>Some knowledge of git, shell scripting, and Python.</li>
-<li>A Comet cluster (vctNN) assigned to you.</li>
+<li>Experience with Linux system installation and management and, ideally, with HPC cluster management.</li>
+<li>Knowledge of Git, shell scripting, and Python.</li>
+<li>A Comet Virtual Cluster (vctNN) assigned to you.</li>
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -304,17 +322,81 @@ automatically installed and configured; and running some testing examples.</p>
 </div>
 </div>
 <div class="section" id="install-cloudmesh-client-tool-to-access-comet-vc">
-<h2><a class="toc-backref" href="#id18">Install Cloudmesh Client tool to access Comet VC</a><a class="headerlink" href="#install-cloudmesh-client-tool-to-access-comet-vc" title="Permalink to this headline">¶</a></h2>
-<p>First we will need to install the Cloudmesh Client too to access
-and manage the VC on Comet. The tool could be easily installed
-via ‘pip install cloudmesh_client’, however the dependent system
-libraries installation varies from OS to OS. We provided a preconfigured
-VirtualBox image to ensure a proper environment has been setup. You
-can choose to install the client tool directly on your machine.</p>
-<div class="section" id="cloudmesh-client-tool-in-virtual-box">
-<h3><a class="toc-backref" href="#id19">Cloudmesh Client tool in Virtual Box</a><a class="headerlink" href="#cloudmesh-client-tool-in-virtual-box" title="Permalink to this headline">¶</a></h3>
+<h2><a class="toc-backref" href="#id27">Install Cloudmesh Client tool to access Comet VC</a><a class="headerlink" href="#install-cloudmesh-client-tool-to-access-comet-vc" title="Permalink to this headline">¶</a></h2>
+<p>First we will need to install the Cloudmesh Client to access and manage the VC
+on Comet. The tool could be easily installed via <code class="code docutils literal"><span class="pre">pip</span> <span class="pre">install</span>
+<span class="pre">cloudmesh_client</span></code>, however installation of the dependent system libraries varies
+from OS to OS. We provided a preconfigured VirtualBox appliance to ensure a
+proper environment has been setup. Alternately, you can choose to install the
+client tool directly on your machine.</p>
+<div class="section" id="cloudmesh-client-tool-in-pearc17-virtualbox-appliance">
+<h3><a class="toc-backref" href="#id28">Cloudmesh Client tool in PEARC17 VirtualBox Appliance</a><a class="headerlink" href="#cloudmesh-client-tool-in-pearc17-virtualbox-appliance" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="step-1-install-virtual-box">
-<h4><a class="toc-backref" href="#id20">Step 1: Install Virtual Box</a><a class="headerlink" href="#step-1-install-virtual-box" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id29">Step 1: Install Virtual Box</a><a class="headerlink" href="#step-1-install-virtual-box" title="Permalink to this headline">¶</a></h4>
+<p>For convenience we will be using Ubuntu Xenial in this demo to install the
+Cloudmesh client on it.</p>
+<p>Please make sure you have <a class="reference external" href="https://www.virtualbox.org">VirtualBox</a> installed (<a class="reference external" href="https://www.virtualbox.org/wiki/Downloads">downloads page</a>).</p>
+</div>
+<div class="section" id="step-2-download-comet-pearc17-virtualbox-appliance">
+<h4><a class="toc-backref" href="#id30">Step 2: Download Comet PEARC17 VirtualBox Appliance</a><a class="headerlink" href="#step-2-download-comet-pearc17-virtualbox-appliance" title="Permalink to this headline">¶</a></h4>
+<p>For PEARC17 we provide a pre-installed VirtualBox Appliance for download on the
+internal PEARC17 web server. You should be able to download the appliance file
+from…</p>
+<ul class="simple">
+<li><a class="reference external" href="http://bit.ly/pearc17-comet-ova">Comet PEARC17 VirtualBox Appliance (CometPEARC17.ova)</a></li>
+</ul>
+<p>…and remember the location where you downloaded it. You will need that
+location later.</p>
+<p>After downloading the Comet PEARC17 VirtualBox Appliance locate it on your
+machine.</p>
+<div class="figure" id="id5">
+<a class="reference internal image-reference" href="../_images/CometPEARC17-cm-virtualbox-001.png"><img alt="screenshot" src="../_images/CometPEARC17-cm-virtualbox-001.png" style="width: 712.0px; height: 360.0px;" /></a>
+<p class="caption"><span class="caption-text">Figure: Locate downloaded VirtualBox Appliance file (CometPEARC17.ova)</span></p>
+</div>
+</div>
+<div class="section" id="step-3-import-comet-pearc17-virtualbox-appliance">
+<h4><a class="toc-backref" href="#id31">Step 3: Import Comet PEARC17 VirtualBox Appliance</a><a class="headerlink" href="#step-3-import-comet-pearc17-virtualbox-appliance" title="Permalink to this headline">¶</a></h4>
+<p>During import of the Comet PEARC17 VirtualBox Appliance you will have the option
+to configure the number of CPUs and amount of RAM. We recommend 2 CPUs and 2048
+MB of RAM.</p>
+<div class="figure" id="id6">
+<a class="reference internal image-reference" href="../_images/CometPEARC17-cm-virtualbox-002.png"><img alt="screenshot" src="../_images/CometPEARC17-cm-virtualbox-002.png" style="width: 1280.0px; height: 760.0px;" /></a>
+<p class="caption"><span class="caption-text">Figure: Configure processors and memory for VirutalBox Appliance</span></p>
+</div>
+<p>After you’ve  configured the Comet PEARC17 VirtualBox Appliance click on the
+<strong>Import</strong> button to initiate the import process…</p>
+<div class="figure" id="id7">
+<a class="reference internal image-reference" href="../_images/CometPEARC17-cm-virtualbox-003.png"><img alt="screenshot" src="../_images/CometPEARC17-cm-virtualbox-003.png" style="width: 1280.0px; height: 760.0px;" /></a>
+<p class="caption"><span class="caption-text">Figure: Import VirtualBox Appliance</span></p>
+</div>
+</div>
+<div class="section" id="step-4-run-comet-pearc17-virtualbox-appliance">
+<h4><a class="toc-backref" href="#id32">Step 4: Run Comet PEARC17 VirtualBox Appliance</a><a class="headerlink" href="#step-4-run-comet-pearc17-virtualbox-appliance" title="Permalink to this headline">¶</a></h4>
+<p>After you’ve successfully imported the Comet PEARC17 VirtualBox Appliance you
+can select the machine and click on the <strong>Start</strong> button to start the machine.</p>
+<div class="figure" id="id8">
+<a class="reference internal image-reference" href="../_images/CometPEARC17-cm-virtualbox-005.png"><img alt="screenshot" src="../_images/CometPEARC17-cm-virtualbox-005.png" style="width: 1280.0px; height: 760.0px;" /></a>
+<p class="caption"><span class="caption-text">Figure: Start VirtualBox Appliance</span></p>
+</div>
+</div>
+<div class="section" id="step-5-open-terminal-in-comet-pearc17-virtualbox-appliance">
+<h4><a class="toc-backref" href="#id33">Step 5: Open Terminal in Comet PEARC17 VirtualBox Appliance</a><a class="headerlink" href="#step-5-open-terminal-in-comet-pearc17-virtualbox-appliance" title="Permalink to this headline">¶</a></h4>
+<p>After the Comet PEARC17 VirtualBox machine has booted you can open a terminal
+and start using Cloudmesh Client as it is pre-installed.</p>
+<div class="figure" id="id9">
+<a class="reference internal image-reference" href="../_images/CometPEARC17-cm-virtualbox-007.png"><img alt="screenshot" src="../_images/CometPEARC17-cm-virtualbox-007.png" style="width: 1280.0px; height: 760.0px;" /></a>
+<p class="caption"><span class="caption-text">Figure: Open Terminal in Ubuntu Desktop</span></p>
+</div>
+<div class="figure" id="id10">
+<a class="reference internal image-reference" href="../_images/CometPEARC17-cm-virtualbox-008.png"><img alt="screenshot" src="../_images/CometPEARC17-cm-virtualbox-008.png" style="width: 1280.0px; height: 760.0px;" /></a>
+<p class="caption"><span class="caption-text">Figure: Run Cloudmesh Client in Terminal</span></p>
+</div>
+</div>
+</div>
+<div class="section" id="cloudmesh-client-tool-in-empty-virtual-box-machine">
+<h3><a class="toc-backref" href="#id34">Cloudmesh Client tool in empty Virtual Box Machine</a><a class="headerlink" href="#cloudmesh-client-tool-in-empty-virtual-box-machine" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id1">
+<h4><a class="toc-backref" href="#id35">Step 1: Install Virtual Box</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
 <p>For convenience we will be using Ubuntu Xenial in this demo to
 install the Cloudmesh client on it. Please make sure you have</p>
 <ul class="simple">
@@ -322,7 +404,7 @@ install the Cloudmesh client on it. Please make sure you have</p>
 </ul>
 </div>
 <div class="section" id="step-2-download-a-virtualbox-image">
-<h4><a class="toc-backref" href="#id21">Step 2: Download a VirtualBox Image</a><a class="headerlink" href="#step-2-download-a-virtualbox-image" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id36">Step 2: Download a VirtualBox Image</a><a class="headerlink" href="#step-2-download-a-virtualbox-image" title="Permalink to this headline">¶</a></h4>
 <p>Next, please download the</p>
 <ul class="simple">
 <li><a class="reference external" href="http://www.ubuntu.com/download">Ubuntu desktop ISO</a>.</li>
@@ -330,33 +412,33 @@ install the Cloudmesh client on it. Please make sure you have</p>
 <p>and remember the location where you downloaded it. You will need that
 location later.</p>
 </div>
-<div class="section" id="step-3-create-a-virtualbox">
-<h4><a class="toc-backref" href="#id22">Step 3: Create a VirtualBox</a><a class="headerlink" href="#step-3-create-a-virtualbox" title="Permalink to this headline">¶</a></h4>
-<p>Create VirtualBox, create a new VM (Ubuntu, 64bit)</p>
+<div class="section" id="step-3-create-a-virtualbox-machine">
+<h4><a class="toc-backref" href="#id37">Step 3: Create a VirtualBox Machine</a><a class="headerlink" href="#step-3-create-a-virtualbox-machine" title="Permalink to this headline">¶</a></h4>
+<p>Create VirtualBox Machine, create a new VM (Ubuntu, 64bit)</p>
 </div>
 <div class="section" id="step-4-associate-the-vm-iso">
-<h4><a class="toc-backref" href="#id23">Step 4: Associate the VM ISO</a><a class="headerlink" href="#step-4-associate-the-vm-iso" title="Permalink to this headline">¶</a></h4>
-<p>When asked for the ISO, use the folder icon
-to browse to the location of the downloaded image.</p>
+<h4><a class="toc-backref" href="#id38">Step 4: Associate the VM ISO</a><a class="headerlink" href="#step-4-associate-the-vm-iso" title="Permalink to this headline">¶</a></h4>
+<p>When asked for the ISO, use the folder icon to browse to the location of the
+downloaded image.</p>
 </div>
 <div class="section" id="step-5-start-the-vm">
-<h4><a class="toc-backref" href="#id24">Step 5: Start the vm</a><a class="headerlink" href="#step-5-start-the-vm" title="Permalink to this headline">¶</a></h4>
-<p>Start and configure the system. Note in case the last step
-does not return, shut down or terminate the VM and restart it.</p>
+<h4><a class="toc-backref" href="#id39">Step 5: Start the vm</a><a class="headerlink" href="#step-5-start-the-vm" title="Permalink to this headline">¶</a></h4>
+<p>Start and configure the system. Note in case the last step does not return, shut
+down or terminate the VM and restart it.</p>
 </div>
 <div class="section" id="step-6-start-a-terminal">
-<h4><a class="toc-backref" href="#id25">Step 6: Start a terminal</a><a class="headerlink" href="#step-6-start-a-terminal" title="Permalink to this headline">¶</a></h4>
-<p>Once you have logged into the vm, start a terminal by clicking on the
-cog and type in <em>terminal</em></p>
+<h4><a class="toc-backref" href="#id40">Step 6: Start a terminal</a><a class="headerlink" href="#step-6-start-a-terminal" title="Permalink to this headline">¶</a></h4>
+<p>Once you have logged into the vm, start a terminal by clicking on the cog and
+type in <strong>terminal</strong>.</p>
 </div>
 <div class="section" id="step-7-vm-guest-additions">
-<h4><a class="toc-backref" href="#id26">Step 7: VM guest additions</a><a class="headerlink" href="#step-7-vm-guest-additions" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id41">Step 7: VM guest additions</a><a class="headerlink" href="#step-7-vm-guest-additions" title="Permalink to this headline">¶</a></h4>
 <p>(optional) You may want to enable the vm guest addition and enable
 bidirectional shared clipboard and drag and drop. You may have to
 restart the vm so that these changes take effect.</p>
 </div>
 <div class="section" id="step-8-install-cloudmesh">
-<h4><a class="toc-backref" href="#id27">Step 8: Install cloudmesh</a><a class="headerlink" href="#step-8-install-cloudmesh" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id42">Step 8: Install cloudmesh</a><a class="headerlink" href="#step-8-install-cloudmesh" title="Permalink to this headline">¶</a></h4>
 <pre class="highlight"><style type="text/css">
 span.prompt1:before {
   content: "cloudmesh$ ";
@@ -379,8 +461,8 @@ git –version
 <pre class="highlight"><span class="prompt1">sudo pip install passlib</span>
 </pre></div>
 </div>
-<div class="section" id="macos">
-<h3><a class="toc-backref" href="#id28">MacOS</a><a class="headerlink" href="#macos" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="cloudmesh-client-tool-installed-directly-in-macos">
+<h3><a class="toc-backref" href="#id43">Cloudmesh Client Tool Installed Directly in MacOS</a><a class="headerlink" href="#cloudmesh-client-tool-installed-directly-in-macos" title="Permalink to this headline">¶</a></h3>
 <p>For system level packages installation, see: <a class="reference external" href="http://cloudmesh.github.io/client/system.html#osx">http://cloudmesh.github.io/client/system.html#osx</a></p>
 <p>For the Cloudmesh client tool installation:</p>
 <pre class="highlight"><style type="text/css">
@@ -397,8 +479,8 @@ span.prompt3:before {
 <span class="prompt3">pip install cloudmesh_client</span>
 <span class="prompt3">pip install passlib</span>
 </pre></div>
-<div class="section" id="linux">
-<h3><a class="toc-backref" href="#id29">Linux</a><a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="cloudmesh-client-tool-installed-directly-in-linux">
+<h3><a class="toc-backref" href="#id44">Cloudmesh Client Tool Installed Directly in Linux</a><a class="headerlink" href="#cloudmesh-client-tool-installed-directly-in-linux" title="Permalink to this headline">¶</a></h3>
 <p>For system level packages installation, see: <a class="reference external" href="http://cloudmesh.github.io/client/system.html#ubuntu-16-04">http://cloudmesh.github.io/client/system.html#ubuntu-16-04</a></p>
 <p>For the Cloudmesh client tool installation:</p>
 <pre class="highlight"><span class="prompt2">virtualenv ~/CM</span>
@@ -406,7 +488,11 @@ span.prompt3:before {
 </pre><pre class="highlight"><span class="prompt3">pip install -U pip</span>
 <span class="prompt3">pip install cloudmesh_client</span>
 <span class="prompt3">pip install passlib</span>
-</pre><p>To verify the Cloudmesh client tool has been installe properly, try:</p>
+</pre></div>
+</div>
+<div class="section" id="using-cloudmesh-client-tool-to-access-comet-vc">
+<h2><a class="toc-backref" href="#id45">Using Cloudmesh Client tool to access Comet VC</a><a class="headerlink" href="#using-cloudmesh-client-tool-to-access-comet-vc" title="Permalink to this headline">¶</a></h2>
+<p>To verify the Cloudmesh client tool has been installed properly, try:</p>
 <pre class="highlight"><span class="prompt3">cm verion</span>
 <span class="prompt3">cm help</span>
 </pre><p>And to initialize the comet authentication settings:</p>
@@ -424,10 +510,9 @@ api key retrieval and set was successful!
 </pre></div>
 </div>
 </div>
-</div>
 <div class="section" id="virtual-cluster-architecture">
-<h2><a class="toc-backref" href="#id30">Virtual Cluster Architecture</a><a class="headerlink" href="#virtual-cluster-architecture" title="Permalink to this headline">¶</a></h2>
-<div class="figure" id="id2">
+<h2><a class="toc-backref" href="#id46">Virtual Cluster Architecture</a><a class="headerlink" href="#virtual-cluster-architecture" title="Permalink to this headline">¶</a></h2>
+<div class="figure" id="id11">
 <a class="reference internal image-reference" href="../_images/vc-diagram_pearc17.png"><img alt="screenshot" src="../_images/vc-diagram_pearc17.png" style="width: 628.0px; height: 411.5px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Virtual cluster architecture</span></p>
 </div>
@@ -438,7 +523,7 @@ please replace this with the proper name assigned to you.</p>
 </div>
 </div>
 <div class="section" id="getting-access-to-your-cluster">
-<h2><a class="toc-backref" href="#id31">Getting access to your cluster</a><a class="headerlink" href="#getting-access-to-your-cluster" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id47">Getting access to your cluster</a><a class="headerlink" href="#getting-access-to-your-cluster" title="Permalink to this headline">¶</a></h2>
 <p>The cluster information can be obtained with the following commands:</p>
 <pre class="highlight"><span class="prompt3">cm comet ll</span>
 <span class="prompt3">cm comet cluster</span>
@@ -447,7 +532,10 @@ please replace this with the proper name assigned to you.</p>
 <pre class="highlight"><span class="prompt3">cm comet iso list</span>
 </pre></div>
 <div class="section" id="install-the-vc-front-end-node">
-<h2><a class="toc-backref" href="#id32">Install the VC front-end node</a><a class="headerlink" href="#install-the-vc-front-end-node" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id48">Install the VC front-end node</a><a class="headerlink" href="#install-the-vc-front-end-node" title="Permalink to this headline">¶</a></h2>
+<p><strong>NOTE: During the PEARC17 Tutorial the initial install of the cluster frontend
+**has been completed in advance. The following steps are included to document
+**the process  that was followed.</strong></p>
 <p>This section takes ~10 min to finish.</p>
 <p>Find an iso and attach</p>
 <pre class="highlight"><span class="prompt3">cm comet iso list</span>
@@ -455,21 +543,7 @@ please replace this with the proper name assigned to you.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">:</span> <span class="n">CentOS</span><span class="o">-</span><span class="mi">7</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">NetInstall</span><span class="o">-</span><span class="mf">1511.</span><span class="n">iso</span>
 <span class="mi">2</span><span class="p">:</span> <span class="n">ubuntu</span><span class="o">-</span><span class="mf">16.04</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">iso</span>
 <span class="mi">3</span><span class="p">:</span> <span class="n">ipxe</span><span class="o">.</span><span class="n">iso</span>
-<span class="mi">4</span><span class="p">:</span> <span class="n">ubuntu</span><span class="o">-</span><span class="mf">16.04</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">iso</span>
-<span class="mi">5</span><span class="p">:</span> <span class="n">CentOS</span><span class="o">-</span><span class="mi">7</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">LiveGNOME</span><span class="o">-</span><span class="mf">1511.</span><span class="n">iso</span>
-<span class="mi">6</span><span class="p">:</span> <span class="n">ubuntu</span><span class="o">-</span><span class="mf">15.04</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">iso</span>
-<span class="mi">7</span><span class="p">:</span> <span class="n">CentOS</span><span class="o">-</span><span class="mf">6.7</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">netinstall</span><span class="o">.</span><span class="n">iso</span>
-<span class="mi">8</span><span class="p">:</span> <span class="n">ubuntu</span><span class="o">-</span><span class="mf">16.04</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">iso</span>
-<span class="mi">9</span><span class="p">:</span> <span class="n">CentOS</span><span class="o">-</span><span class="mf">6.8</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">LiveDVD</span><span class="o">.</span><span class="n">iso</span>
-<span class="mi">10</span><span class="p">:</span> <span class="n">CentOS</span><span class="o">-</span><span class="mi">7</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">NetInstall</span><span class="o">-</span><span class="mf">1611.</span><span class="n">iso</span>
-<span class="mi">11</span><span class="p">:</span> <span class="n">systemrescuecd</span><span class="o">-</span><span class="n">x86</span><span class="o">-</span><span class="mf">4.2</span><span class="o">.</span><span class="mf">0.</span><span class="n">iso</span>
-<span class="mi">12</span><span class="p">:</span> <span class="n">kali</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="mf">2016.2</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">iso</span>
-<span class="mi">13</span><span class="p">:</span> <span class="n">systemrescuecd</span><span class="o">-</span><span class="n">x86</span><span class="o">-</span><span class="mf">4.9</span><span class="o">.</span><span class="mf">0.</span><span class="n">iso</span>
-<span class="mi">14</span><span class="p">:</span> <span class="n">CentOS</span><span class="o">-</span><span class="mf">6.8</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">netinstall</span><span class="o">.</span><span class="n">iso</span>
-<span class="mi">15</span><span class="p">:</span> <span class="n">coreos_production_iso_image</span><span class="o">.</span><span class="n">iso</span>
-<span class="mi">16</span><span class="p">:</span> <span class="n">CentOS</span><span class="o">-</span><span class="mi">7</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">Minimal</span><span class="o">-</span><span class="mf">1511.</span><span class="n">iso</span>
-<span class="mi">17</span><span class="p">:</span> <span class="n">base</span><span class="o">+</span><span class="n">kernel</span><span class="o">+</span><span class="n">kvm</span><span class="o">+</span><span class="n">os</span><span class="o">-</span><span class="mf">6.2</span><span class="o">.</span><span class="n">x86_64</span><span class="o">.</span><span class="n">disk1</span><span class="o">.</span><span class="n">iso</span>
-<span class="mi">18</span><span class="p">:</span> <span class="n">kernel</span><span class="o">-</span><span class="mf">6.2</span><span class="o">-</span><span class="mf">0.</span><span class="n">x86_64</span><span class="o">.</span><span class="n">disk1</span><span class="o">.</span><span class="n">iso</span>
+<span class="o">...&lt;</span><span class="n">snip</span><span class="o">&gt;...</span>
 <span class="mi">19</span><span class="p">:</span> <span class="n">Fedora</span><span class="o">-</span><span class="n">Server</span><span class="o">-</span><span class="n">netinst</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="mi">25</span><span class="o">-</span><span class="mf">1.3</span><span class="o">.</span><span class="n">iso</span>
 <span class="mi">20</span><span class="p">:</span> <span class="n">ubuntu</span><span class="o">-</span><span class="mf">14.04</span><span class="o">.</span><span class="mi">4</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">iso</span>
 </pre></div>
@@ -488,59 +562,60 @@ take effect:</p>
 we need to attach a console to follow the installation steps:</p>
 <pre class="highlight"><span class="prompt3">cm comet console vctNN</span>
 </pre><p>Screenshots for the front-end node configuration are given next:</p>
-<div class="figure" id="id3">
+<div class="figure" id="id12">
 <a class="reference internal image-reference" href="../_images/00_install_language.png"><img alt="screenshot" src="../_images/00_install_language.png" style="width: 1271.5px; height: 767.5px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Initial screen after Front-end (FE) booted</span></p>
 </div>
-<div class="figure" id="id4">
+<div class="figure" id="id13">
 <a class="reference internal image-reference" href="../_images/00_install_start.png"><img alt="screenshot" src="../_images/00_install_start.png" style="width: 643.5px; height: 485.5px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Install ubuntu server</span></p>
 </div>
-<div class="figure" id="id5">
+<div class="figure" id="id14">
 <a class="reference internal image-reference" href="../_images/01_NIC.png"><img alt="screenshot" src="../_images/01_NIC.png" style="width: 803.5px; height: 604.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Configure the network. DHCP is configured on <cite>ens4</cite> (the public interface)</span></p>
 </div>
-<div class="figure" id="id6">
+<div class="figure" id="id15">
 <a class="reference internal image-reference" href="../_images/20_hostname.png"><img alt="screenshot" src="../_images/20_hostname.png" style="width: 803.5px; height: 604.5px;" /></a>
 <p class="caption"><span class="caption-text">Figure: The hostname should be automatically set to the one assigned to you</span></p>
 </div>
-<div class="figure" id="id7">
+<div class="figure" id="id16">
 <a class="reference internal image-reference" href="../_images/09_services_packages.png"><img alt="screenshot" src="../_images/09_services_packages.png" style="width: 802.5px; height: 606.5px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Select OpenSSH using the arrow keys and space bar and then tab to Continue</span></p>
 </div>
-<div class="figure" id="id8">
+<div class="figure" id="id17">
 <a class="reference internal image-reference" href="../_images/10_complete.png"><img alt="screenshot" src="../_images/10_complete.png" style="width: 803.0px; height: 604.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Complete the installation</span></p>
 </div>
 <p>Now the node will reboot. Watch carefully to find this screen, and then
 press ‘ESC’ key.</p>
-<div class="figure" id="id9">
+<div class="figure" id="id18">
 <a class="reference internal image-reference" href="../_images/11_reboot_esc.png"><img alt="screenshot" src="../_images/11_reboot_esc.png" style="width: 722.5px; height: 402.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Booting menu after installation</span></p>
 </div>
 <p>Then choose the 3rd device - virtio disk</p>
-<div class="figure" id="id10">
+<div class="figure" id="id19">
 <a class="reference internal image-reference" href="../_images/12_boot_3_virtio.png"><img alt="screenshot" src="../_images/12_boot_3_virtio.png" style="width: 723.5px; height: 404.5px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Choose to boot from the disk</span></p>
 </div>
-<p>In case you missed the ESC/F12 step, the node will be booted to the CD again.
-Now choose ‘Boot from first hard disk’, and carefully watch till it failed</p>
-<div class="figure" id="id11">
+<p>In case you missed the <code class="code docutils literal"><span class="pre">ESC+F12</span></code> step, the node will be booted to the CD again.
+Simply reboot the machine using <code class="code docutils literal"><span class="pre">CTRL+ALT+DEL</span></code> to start again. Now choose ‘Boot
+from first hard disk’, and carefully watch till it failed</p>
+<div class="figure" id="id20">
 <a class="reference internal image-reference" href="../_images/30_reboot_choose_hd.png"><img alt="screenshot" src="../_images/30_reboot_choose_hd.png" style="width: 643.5px; height: 484.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: From the CDROM boot menu, choose to boot from hard disk</span></p>
 </div>
-<div class="figure" id="id12">
+<div class="figure" id="id21">
 <a class="reference internal image-reference" href="../_images/31_boot_hd_fail.png"><img alt="screenshot" src="../_images/31_boot_hd_fail.png" style="width: 725.5px; height: 404.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Boot from HD from the CDROM boot menu will fail, press any key to reboot again</span></p>
 </div>
-<p>Then press any key so it reboot again, and try to catch the ESC/F12 screen again.</p>
-<div class="figure" id="id13">
+<p>Then press any key so it reboot again, and try to catch the <code class="code docutils literal"><span class="pre">ESC+F12</span></code> screen again.</p>
+<div class="figure" id="id22">
 <a class="reference internal image-reference" href="../_images/13_booted_login.png"><img alt="screenshot" src="../_images/13_booted_login.png" style="width: 1272.5px; height: 747.5px;" /></a>
 <p class="caption"><span class="caption-text">Figure: Login screen after boot</span></p>
 </div>
 </div>
 <div class="section" id="configuring-the-front-end-node">
-<h2><a class="toc-backref" href="#id33">Configuring the front-end node</a><a class="headerlink" href="#configuring-the-front-end-node" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id49">Configuring the front-end node</a><a class="headerlink" href="#configuring-the-front-end-node" title="Permalink to this headline">¶</a></h2>
 <p>This section takes ~5 min to finish.</p>
 <p>Now the FE node is back on, you can login and configure the cluster from your laptop/desktop.</p>
 <p>To verify, you can try ssh login first. Use the uesrname and password you set
@@ -569,8 +644,8 @@ the FE node will boot to the CDROM boot menu again, and you will need
 to attach to console access to choose the boot options.</p>
 </div>
 <div class="section" id="install-vc-compute-nodes">
-<h2><a class="toc-backref" href="#id34">Install VC Compute Nodes</a><a class="headerlink" href="#install-vc-compute-nodes" title="Permalink to this headline">¶</a></h2>
-<p>This section takes 5~10 min to finish.</p>
+<h2><a class="toc-backref" href="#id50">Install VC Compute Nodes</a><a class="headerlink" href="#install-vc-compute-nodes" title="Permalink to this headline">¶</a></h2>
+<p>This section takes ~5 to 10 min to complete.</p>
 <p>On your <strong>managing machine</strong> where Cloudmesh client tools is installed
 (make sure virtualenv is activated if you have used that):</p>
 <pre class="highlight"><span class="prompt3">cm comet start vctNN vm-vctNN-[00-01]</span>
@@ -613,7 +688,8 @@ span.prompt4:before {
 </style><span class="prompt4">sudo python cmutil.py setboot vctNN vm-vctNN-00 net=false</span>
 <span class="prompt4">sudo python cmutil.py setboot vctNN vm-vctNN-00 net=false</span>
 </pre><p>Otherwise the nodes will be net-installed again.</p>
-<p>After disabled the netboot for the compute nodes, now on your <strong>managing host</strong> where Cloudmesh client is installed:</p>
+<p>After disabled the netboot for the compute nodes, now on your <strong>managing host</strong>
+where Cloudmesh client is installed:</p>
 <pre class="highlight"><span class="prompt3">cm comet power on vctNN vm-vctNN-[00-01]</span>
 </pre><p>Wait for the compute nodes to be booted on, which can be checked by:</p>
 <pre class="highlight"><span class="prompt3">cm comet cluster vctNN --status</span>
@@ -625,7 +701,7 @@ compute nodes, so ssh between any nodes within the VC could be easily done.</p>
 <p>Login to compute nodes from front-end, and run your app.</p>
 </div>
 <div class="section" id="demo1-verifying-infiniband-performance">
-<h2><a class="toc-backref" href="#id35">DEMO1: Verifying InfiniBand Performance</a><a class="headerlink" href="#demo1-verifying-infiniband-performance" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id51">DEMO1: Verifying InfiniBand Performance</a><a class="headerlink" href="#demo1-verifying-infiniband-performance" title="Permalink to this headline">¶</a></h2>
 <p>We’ll start by verifying the InfiniBand connectivity between the
 compute nodes using RDMA performance tests and the <a class="reference external" href="http://mvapich.cse.ohio-state.edu/benchmarks/">OSU
 Micro-Benchmarks</a>. The InfiniBand tests
@@ -699,7 +775,7 @@ span.prompt6:before {
 </div>
 </div>
 <div class="section" id="demo2-osu-micro-benchmarks">
-<h2><a class="toc-backref" href="#id36">DEMO2: OSU Micro-Benchmarks</a><a class="headerlink" href="#demo2-osu-micro-benchmarks" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id52">DEMO2: OSU Micro-Benchmarks</a><a class="headerlink" href="#demo2-osu-micro-benchmarks" title="Permalink to this headline">¶</a></h2>
 <p>The <a class="reference external" href="http://mvapich.cse.ohio-state.edu/benchmarks/">OSU Micro-Benchmarks</a> are suite of
 individual applications measuring the latency and bandwidth of
 individual MPI calls. The cover both the performance of both the
@@ -794,7 +870,7 @@ reuse our host file for 24 tasks and let MPI distribute the tasks.</p>
 </div>
 </div>
 <div class="section" id="demo3-optional-openfoam">
-<h2><a class="toc-backref" href="#id37">DEMO3 (optional): OpenFOAM</a><a class="headerlink" href="#demo3-optional-openfoam" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id53">DEMO3 (optional): OpenFOAM</a><a class="headerlink" href="#demo3-optional-openfoam" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="http://openfoam.org/">OpenFOAM</a> is a parallel open-source
 <a class="reference external" href="https://en.wikipedia.org/wiki/Computational_fluid_dynamics">computational fluid dynamics</a>
 application that is available in a public Ubuntu repository. To
@@ -834,13 +910,13 @@ node with X forwarding enabled.</p>
 <span class="prompt5">ssh -X vm-vctNN-00</span>
 <span class="prompt5">cd $FOAM_RUN/damBreakFine</span>
 <span class="prompt5">paraFoam -case processor1</span>
-</pre><div class="figure" id="id14">
+</pre><div class="figure" id="id23">
 <a class="reference internal image-reference" href="../_images/paraview-vct.png"><img alt="screenshot" src="../_images/paraview-vct.png" style="width: 972.0px; height: 685.0px;" /></a>
 <p class="caption"><span class="caption-text">Figure: ParaView with OpenFOAM example data</span></p>
 </div>
 </div>
 <div class="section" id="demo4-optional-julia">
-<h2><a class="toc-backref" href="#id38">DEMO4 (optional): Julia</a><a class="headerlink" href="#demo4-optional-julia" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id54">DEMO4 (optional): Julia</a><a class="headerlink" href="#demo4-optional-julia" title="Permalink to this headline">¶</a></h2>
 <p>Like OpenFOAM, <a class="reference external" href="http://julialang.org/">Julia</a> has Ubuntu packages in
 public repositories. You can install on the compute nodes following a
 similar process. On each compute node run the following commands from
@@ -878,7 +954,7 @@ julia&gt;
 </div>
 </div>
 <div class="section" id="demo5-bigdata-analytical-software-stack-deployment-and-example-run">
-<h2><a class="toc-backref" href="#id39">DEMO5: Bigdata analytical software stack deployment and example run</a><a class="headerlink" href="#demo5-bigdata-analytical-software-stack-deployment-and-example-run" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id55">DEMO5: Bigdata analytical software stack deployment and example run</a><a class="headerlink" href="#demo5-bigdata-analytical-software-stack-deployment-and-example-run" title="Permalink to this headline">¶</a></h2>
 <p>See <a class="reference internal" href="comet_bigdata.html#comet-bigdata"><span class="std std-ref">Comet Big Data Tutorial</span></a></p>
 </div>
 </div>

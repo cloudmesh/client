@@ -6,32 +6,28 @@ Comet Cloudmesh Tutorial
    .. contents::
       :local:
 
-
-**Goal**: Install a Comet virtual cluster with Ubuntu 16.04, and run some performance testing examples.
+**Goal**: Install a Comet Virtual Cluster (VC) with Ubuntu 16.04, and run examples.
 
 **Time**: ~ ?? min
 
 Status of this Tutorial
 -----------------------
 
-Released for PEARC17 Comet VC Tutorial
+Released for PEARC17 Tutorial - `**Using Comet's Virtual Clusters** <http://sched.co/AQ3H>`_
 
 Overview
 --------
-
-In this tutorial you will install a virtual cluster from scratch. This includes
-manually install the front-end node from an attached OS; running some
-configuration script to configure the front-end behaving as a NAT router,
-dhcp/tftp and pxe-booting server; booting the compute nodes, which will be
+In this tutorial you will learn how to install a Comet virtual cluster. This
+includes manually install the front-end node from an attached OS ISO; running
+some configuration scripts to configure the front-end behaving as a NAT router,
+DHCP/TFTP and PXE-booting server; booting the compute nodes, which will be
 automatically installed and configured; and running some testing examples.
-
 
 Requirements
 ------------
-
-- Experience on cluster system installation and management.
-- Some knowledge of git, shell scripting, and Python.
-- A Comet cluster (vctNN) assigned to you.
+* Experience with Linux system installation and management and, ideally, with HPC cluster management.
+* Knowledge of Git, shell scripting, and Python.
+* A Comet Virtual Cluster (vctNN) assigned to you.
 
 .. note:: Scripts used in this tutorial are maintained at:
 
@@ -39,15 +35,94 @@ Requirements
 
 Install Cloudmesh Client tool to access Comet VC
 -------------------------------------------------------
+First we will need to install the Cloudmesh Client to access and manage the VC
+on Comet. The tool could be easily installed via :code:`pip install
+cloudmesh_client`, however installation of the dependent system libraries varies
+from OS to OS. We provided a preconfigured VirtualBox appliance to ensure a
+proper environment has been setup. Alternately, you can choose to install the
+client tool directly on your machine.
 
-First we will need to install the Cloudmesh Client too to access
-and manage the VC on Comet. The tool could be easily installed
-via 'pip install cloudmesh_client', however the dependent system
-libraries installation varies from OS to OS. We provided a preconfigured
-VirtualBox image to ensure a proper environment has been setup. You
-can choose to install the client tool directly on your machine.
+Cloudmesh Client tool in PEARC17 VirtualBox Appliance
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Cloudmesh Client tool in Virtual Box
+Step 1: Install Virtual Box
+*******************************
+For convenience we will be using Ubuntu Xenial in this demo to install the
+Cloudmesh client on it.
+
+Please make sure you have `VirtualBox <https://www.virtualbox.org>`_ installed (`downloads page <https://www.virtualbox.org/wiki/Downloads>`_).
+
+Step 2: Download Comet PEARC17 VirtualBox Appliance
+**************************************************************
+For PEARC17 we provide a pre-installed VirtualBox Appliance for download on the
+internal PEARC17 web server. You should be able to download the appliance file
+from...
+
+* `Comet PEARC17 VirtualBox Appliance (CometPEARC17.ova) <http://bit.ly/pearc17-comet-ova>`_
+
+...and remember the location where you downloaded it. You will need that
+location later.
+
+After downloading the Comet PEARC17 VirtualBox Appliance locate it on your
+machine.
+
+.. figure:: ./images/CometPEARC17-cm-virtualbox-001.png
+    :scale: 50 %
+    :alt: screenshot
+
+    Figure: Locate downloaded VirtualBox Appliance file (CometPEARC17.ova)
+
+Step 3: Import Comet PEARC17 VirtualBox Appliance
+**************************************************************
+During import of the Comet PEARC17 VirtualBox Appliance you will have the option
+to configure the number of CPUs and amount of RAM. We recommend 2 CPUs and 2048
+MB of RAM.
+
+.. figure:: ./images/CometPEARC17-cm-virtualbox-002.png
+    :scale: 50 %
+    :alt: screenshot
+
+    Figure: Configure processors and memory for VirutalBox Appliance
+
+After you've  configured the Comet PEARC17 VirtualBox Appliance click on the
+**Import** button to initiate the import process...
+
+.. figure:: ./images/CometPEARC17-cm-virtualbox-003.png
+    :scale: 50 %
+    :alt: screenshot
+
+    Figure: Import VirtualBox Appliance
+
+Step 4: Run Comet PEARC17 VirtualBox Appliance
+**************************************************************
+After you've successfully imported the Comet PEARC17 VirtualBox Appliance you
+can select the machine and click on the **Start** button to start the machine.
+
+.. figure:: ./images/CometPEARC17-cm-virtualbox-005.png
+    :scale: 50 %
+    :alt: screenshot
+
+    Figure: Start VirtualBox Appliance
+
+Step 5: Open Terminal in Comet PEARC17 VirtualBox Appliance
+**************************************************************
+After the Comet PEARC17 VirtualBox machine has booted you can open a terminal
+and start using Cloudmesh Client as it is pre-installed.
+
+.. figure:: ./images/CometPEARC17-cm-virtualbox-007.png
+    :scale: 50 %
+    :alt: screenshot
+
+    Figure: Open Terminal in Ubuntu Desktop
+
+.. figure:: ./images/CometPEARC17-cm-virtualbox-008.png
+    :scale: 50 %
+    :alt: screenshot
+
+    Figure: Run Cloudmesh Client in Terminal
+
+
+Cloudmesh Client tool in empty Virtual Box Machine
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Step 1: Install Virtual Box
@@ -59,7 +134,6 @@ install the Cloudmesh client on it. Please make sure you have
 
 Step 2: Download a VirtualBox Image
 **************************************************************
-
 Next, please download the
 
 * `Ubuntu desktop ISO <http://www.ubuntu.com/download>`_.
@@ -67,38 +141,33 @@ Next, please download the
 and remember the location where you downloaded it. You will need that
 location later.
 
-Step 3: Create a VirtualBox
+Step 3: Create a VirtualBox Machine
 **************************************************************
-Create VirtualBox, create a new VM (Ubuntu, 64bit)
+Create VirtualBox Machine, create a new VM (Ubuntu, 64bit)
 
 Step 4: Associate the VM ISO
 **************************************************************
-
-When asked for the ISO, use the folder icon
-to browse to the location of the downloaded image.
+When asked for the ISO, use the folder icon to browse to the location of the
+downloaded image.
 
 Step 5: Start the vm
 **************************************************************
-
-Start and configure the system. Note in case the last step
-does not return, shut down or terminate the VM and restart it.
+Start and configure the system. Note in case the last step does not return, shut
+down or terminate the VM and restart it.
 
 Step 6: Start a terminal
 **************************************************************
-
-Once you have logged into the vm, start a terminal by clicking on the
-cog and type in *terminal*
+Once you have logged into the vm, start a terminal by clicking on the cog and
+type in **terminal**.
 
 Step 7: VM guest additions
 **************************************************************
-
 (optional) You may want to enable the vm guest addition and enable
 bidirectional shared clipboard and drag and drop. You may have to
 restart the vm so that these changes take effect.
 
 Step 8: Install cloudmesh
 **************************************************************
-  
 .. prompt:: bash, cloudmesh$
 
     wget -O cm-setup.sh http://bit.ly/cloudmesh-client-xenial
@@ -122,7 +191,7 @@ Make sure passlib is installed:
 
     sudo pip install passlib
 
-MacOS
+Cloudmesh Client Tool Installed Directly in MacOS
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 For system level packages installation, see: http://cloudmesh.github.io/client/system.html#osx
@@ -140,7 +209,7 @@ For the Cloudmesh client tool installation:
     pip install cloudmesh_client
     pip install passlib
 
-Linux
+Cloudmesh Client Tool Installed Directly in Linux
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 For system level packages installation, see: http://cloudmesh.github.io/client/system.html#ubuntu-16-04
@@ -157,8 +226,11 @@ For the Cloudmesh client tool installation:
     pip install -U pip
     pip install cloudmesh_client
     pip install passlib
-    
-To verify the Cloudmesh client tool has been installe properly, try:
+
+
+Using Cloudmesh Client tool to access Comet VC
+-------------------------------------------------------
+To verify the Cloudmesh client tool has been installed properly, try:
 
 .. prompt:: bash, (CM)$
 
@@ -177,12 +249,12 @@ to retrieve an API key:
 ::
 
     Initializing the comet configuration file...
-    Set the active service endpoint to use. The availalbe endpoints are - dev/production [dev]: 
-    Set the base url for the nucleus dev service [https://comet-nucleus-dev.sdsc.edu/nucleus]: 
-    Set the api version for the nucleus dev service [v1]: 
+    Set the active service endpoint to use. The availalbe endpoints are - dev/production [dev]:
+    Set the base url for the nucleus dev service [https://comet-nucleus-dev.sdsc.edu/nucleus]:
+    Set the api version for the nucleus dev service [v1]:
     Authenticating to the nucleus dev service and obtaining the apikey...
-    Comet nucleus username [YOUR_COMET_VC_USER]: 
-    Password: 
+    Comet nucleus username [YOUR_COMET_VC_USER]:
+    Password:
     api key retrieval and set was successful!
 
 Virtual Cluster Architecture
@@ -196,15 +268,14 @@ Virtual Cluster Architecture
 
 .. note:: We used name `vctNN` in this tutorial as an example VC name.
           please replace this with the proper name assigned to you.
- 
+
 Getting access to your cluster
 ----------------------------------------------------------------------
-
 The cluster information can be obtained with the following commands:
 
 .. prompt:: bash, (CM)$
 
-  cm comet ll 
+  cm comet ll
   cm comet cluster
   cm comet cluster vctNN
 
@@ -218,6 +289,9 @@ The list of ISO images that are currently available can be obtained with:
 
 Install the VC front-end node
 ----------------------------------------------------------------------
+**NOTE: During the PEARC17 Tutorial the initial install of the cluster frontend
+**has been completed in advance. The following steps are included to document
+**the process  that was followed.**
 
 This section takes ~10 min to finish.
 
@@ -232,21 +306,7 @@ This will return::
     1: CentOS-7-x86_64-NetInstall-1511.iso
     2: ubuntu-16.04.2-server-amd64.iso
     3: ipxe.iso
-    4: ubuntu-16.04.1-server-amd64.iso
-    5: CentOS-7-x86_64-LiveGNOME-1511.iso
-    6: ubuntu-15.04-server-amd64.iso
-    7: CentOS-6.7-x86_64-netinstall.iso
-    8: ubuntu-16.04-server-amd64.iso
-    9: CentOS-6.8-x86_64-LiveDVD.iso
-    10: CentOS-7-x86_64-NetInstall-1611.iso
-    11: systemrescuecd-x86-4.2.0.iso
-    12: kali-linux-2016.2-amd64.iso
-    13: systemrescuecd-x86-4.9.0.iso
-    14: CentOS-6.8-x86_64-netinstall.iso
-    15: coreos_production_iso_image.iso
-    16: CentOS-7-x86_64-Minimal-1511.iso
-    17: base+kernel+kvm+os-6.2.x86_64.disk1.iso
-    18: kernel-6.2-0.x86_64.disk1.iso
+    ...<snip>...
     19: Fedora-Server-netinst-x86_64-25-1.3.iso
     20: ubuntu-14.04.4-server-amd64.iso
 
@@ -339,22 +399,23 @@ Then choose the 3rd device - virtio disk
 
    Figure: Choose to boot from the disk
 
-In case you missed the ESC/F12 step, the node will be booted to the CD again.
-Now choose 'Boot from first hard disk', and carefully watch till it failed
+In case you missed the :code:`ESC+F12` step, the node will be booted to the CD again.
+Simply reboot the machine using :code:`CTRL+ALT+DEL` to start again. Now choose 'Boot
+from first hard disk', and carefully watch till it failed
 
 .. figure:: ./images/30_reboot_choose_hd.png
    :scale: 50 %
    :alt: screenshot
 
    Figure: From the CDROM boot menu, choose to boot from hard disk
-   
+
 .. figure:: ./images/31_boot_hd_fail.png
    :scale: 50 %
    :alt: screenshot
 
    Figure: Boot from HD from the CDROM boot menu will fail, press any key to reboot again
 
-Then press any key so it reboot again, and try to catch the ESC/F12 screen again.
+Then press any key so it reboot again, and try to catch the :code:`ESC+F12` screen again.
 
 .. figure:: ./images/13_booted_login.png
    :scale: 50 %
@@ -394,7 +455,7 @@ On your **managing machine** where Cloudmesh client tools is installed
 This will finish the configuration. At the end you will see something like this::
 
     PLAY RECAP **************************************************************
-    vctNN.sdsc.edu             : ok=43   changed=15   unreachable=0    failed=0 
+    vctNN.sdsc.edu             : ok=43   changed=15   unreachable=0    failed=0
 
 Which indicates the process has been completed successfully.
 
@@ -409,11 +470,11 @@ off (not when rebooted or reset). If the ISO stays attached, rebooting
 the FE node will boot to the CDROM boot menu again, and you will need
 to attach to console access to choose the boot options.
 
-  
+
 Install VC Compute Nodes
 ----------------------------------------------------------------------
 
-This section takes 5~10 min to finish.
+This section takes ~5 to 10 min to complete.
 
 On your **managing machine** where Cloudmesh client tools is installed
 (make sure virtualenv is activated if you have used that):
@@ -447,10 +508,10 @@ this by running the previous command, and check if the `state` is not
 `active`, and if the `admin_state` is `ready`.
 
 .. note:: The state update may have some delay, e.g., half a minute or so.
-          The `active` of `state` means the node is running; `nostate` or 
-          sometimes `nostate-error` means the node is powered off. For 
+          The `active` of `state` means the node is running; `nostate` or
+          sometimes `nostate-error` means the node is powered off. For
           `admin_state`, `synced` means the node is running and the disk
-          is synced; `syncing` means the disk is syncing to the backend, 
+          is synced; `syncing` means the disk is syncing to the backend,
           in which a power change of the node will be ignored; `ready`
           means the node is off and the disk is ready to be booted.
 
@@ -462,7 +523,7 @@ Login to the FE node if not yet:
 .. prompt:: bash, (CM)$
 
     ssh USER@vctNN.sdsc.edu
-    
+
 Now from the **FE** node:
 
 .. prompt:: bash, FE$
@@ -471,8 +532,9 @@ Now from the **FE** node:
     sudo python cmutil.py setboot vctNN vm-vctNN-00 net=false
 
 Otherwise the nodes will be net-installed again.
-  
-After disabled the netboot for the compute nodes, now on your **managing host** where Cloudmesh client is installed:
+
+After disabled the netboot for the compute nodes, now on your **managing host**
+where Cloudmesh client is installed:
 
 .. prompt:: bash, (CM)$
 
@@ -522,7 +584,7 @@ Then in that vm type
 
 .. prompt:: bash, vm-vctNN-00$
 
-  ib_write_bw 
+  ib_write_bw
 
 In the other terminal, connect to the server from the second compute
 node and start the test:
@@ -532,11 +594,11 @@ node and start the test:
   ssh vm-vctNN-01
 
 .. prompt:: bash, vm-vctNN-01$
-	    
+
   ib_write_bw vm-vctNN-00
 
 The bandwidth results will confirm that we're sending data over InfiniBand::
- 
+
     ---------------------------------------------------------------------------------------
                         RDMA_Write BW Test
      Dual-port       : OFF		Device         : mlx4_0
@@ -601,11 +663,11 @@ account. Then download the benchmarks, extract, and configure the
 source.
 
 .. prompt:: bash, FE$
-  
+
   ssh vm-vctNN-00
 
 .. prompt:: bash, vm-vctNN-00$
-  
+
   wget http://mvapich.cse.ohio-state.edu/download/mvapich/osu-micro-benchmarks-5.3.tar.gz
   tar -zxf osu-micro-benchmarks-5.3.tar.gz
   cd osu-micro-benchmarks-5.3/
@@ -719,7 +781,7 @@ Add the OpenFOAM profile to your ``.bashrc``:
 
    echo '. /opt/openfoam4/etc/bashrc' >> ~/.bashrc
    source ~/.bashrc
-   
+
 We're now able to setup the files and directories needed for a
 benchmarking run.
 
@@ -757,7 +819,7 @@ create ``hosts.txt`` for 24 tasks on each compute node and run.
   mpirun  -hostfile ./hosts.txt -np 48 `which foamExec` interFoam -parallel
 
 This will take a while (about 5-10 minutes).
-  
+
 The OpenFOAM packages include a version of `ParaView
 <http://www.paraview.org/>`_ for OpenFOAM that you can use to view the
 mesh. From a system with X windows SSH to your front-end and compute
@@ -765,8 +827,8 @@ node with X forwarding enabled.
 
 .. prompt:: bash, vm-vctNN-00$
 
-   ssh -X <username>@vctNN.sdsc.edu 
-   ssh -X vm-vctNN-00 
+   ssh -X <username>@vctNN.sdsc.edu
+   ssh -X vm-vctNN-00
    cd $FOAM_RUN/damBreakFine
    paraFoam -case processor1
 
@@ -805,13 +867,13 @@ You can start Julia on the command line for interactive use::
      | | |_| | | | (_| |  |  Version 0.4.6 (2016-06-19 17:16 UTC)
     _/ |\__'_|_|_|\__'_|  |  Official http://julialang.org release
    |__/                   |  x86_64-linux-gnu
-   
+
    julia>
 
 
 ::
 
-    rpwagner@vm-vctNN-00:~$ julia --machinefile machinefile-jl.txt 
+    rpwagner@vm-vctNN-00:~$ julia --machinefile machinefile-jl.txt
 		   _
        _       _ _(_)_     |  A fresh approach to technical computing
       (_)     | (_) (_)    |  Documentation: http://docs.julialang.org
@@ -821,9 +883,8 @@ You can start Julia on the command line for interactive use::
      _/ |\__'_|_|_|\__'_|  |  Official http://julialang.org release
     |__/                   |  x86_64-linux-gnu
 
-    julia> 
+    julia>
 
 DEMO5: Bigdata analytical software stack deployment and example run
 ----------------------------------------------------------------------
 See :ref:`comet_bigdata`
-
