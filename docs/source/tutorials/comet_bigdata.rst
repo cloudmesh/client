@@ -55,8 +55,9 @@ Next create a virtualenvironment and install dependencies:
    FE $ source ~/BDS/bin/activate
    (BDS) FE $ pip install -r requirements.txt
 
-The proper interla network interface has been set for this tutorial. For general
-case, you may need to configure ansible to use the internal network interface.
+The proper internal network interface has been set for this tutorial.
+For general case, you may need to configure ansible to use the internal
+network interface.
 Do so by setting the ``bds_internal_iface`` to ``ens3`` in ``group_vars/all.yml``
 
 The ansible remote_user has been set properly for this tutorial assuming you
