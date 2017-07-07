@@ -8,12 +8,12 @@ Comet Cloudmesh Tutorial
 
 **Goal**: Install a Comet Virtual Cluster (VC) with Ubuntu 16.04, and run examples.
 
-**Time**: ~ ?? min
+**Time**: ~1 to 2 hours.
 
 Status of this Tutorial
 -----------------------
 
-Released for PEARC17 Tutorial - `**Using Comet's Virtual Clusters** <http://sched.co/AQ3H>`_
+Released for PEARC17 Tutorial - `Using Comet's Virtual Clusters <http://sched.co/AQ3H>`_
 
 Overview
 --------
@@ -452,10 +452,15 @@ On your **managing machine** where Cloudmesh client tools is installed
     cd cloudmesh.comet.vcdeploy/ubuntu16.04.2
     ./deploy.sh <vctNN> <USER>
 
+.. note:: You may be asked to provide the password for several times.
+
+.. note:: It's assumed that you have had a ssh keypair in ~/.ssh/. If you
+          haven't had one, use ssh-keygen to generate a keypair first.
+
 This will finish the configuration. At the end you will see something like this::
 
     PLAY RECAP **************************************************************
-    vctNN.sdsc.edu             : ok=43   changed=15   unreachable=0    failed=0
+    vctNN.sdsc.edu             : ok=48   changed=41   unreachable=0    failed=0
 
 Which indicates the process has been completed successfully.
 
@@ -540,7 +545,8 @@ where Cloudmesh client is installed:
 
   cm comet power on vctNN vm-vctNN-[00-01]
 
-Wait for the compute nodes to be booted on, which can be checked by:
+Wait for the compute nodes to be booted on (This could take a few
+minutes), which can be checked by:
 
 .. prompt:: bash, (CM)$
 
@@ -700,29 +706,29 @@ regarding registered memory, this is due to change in the driver::
 
     # OSU MPI Bandwidth Test v5.3
     # Size      Bandwidth (MB/s)
-    1                       9.38
-    2                      19.08
-    4                      38.43
-    8                      76.53
-    16                    143.79
-    32                    292.97
-    64                    432.52
-    128                   572.09
-    256                   923.03
-    512                  1586.87
-    1024                 3310.19
-    2048                 5511.89
-    4096                 5881.63
-    8192                 7594.89
-    16384                9925.63
-    32768               10485.90
-    65536               10965.30
-    131072              11034.08
-    262144              10974.80
-    524288              10863.44
-    1048576             10313.80
-    2097152             10332.34
-    4194304              5182.40
+    1                       9.04
+    2                      18.42
+    4                      37.70
+    8                      75.40
+    16                    146.69
+    32                    292.57
+    64                    428.43
+    128                   586.04
+    256                   909.23
+    512                  1595.34
+    1024                 3618.72
+    2048                 5236.77
+    4096                 6009.90
+    8192                 7854.50
+    16384               10265.02
+    32768               10829.96
+    65536               11345.41
+    131072              11442.63
+    262144              11430.55
+    524288              11322.77
+    1048576             10930.49
+    2097152             10711.41
+    4194304             10639.83
 
 Now we'll try a collective benchmark for ``MPI_Alltoall``. We can
 reuse our host file for 24 tasks and let MPI distribute the tasks.
@@ -737,27 +743,27 @@ Again, there perfomance results (this time for latency) go to the terminal::
 
     # OSU MPI All-to-All Personalized Exchange Latency Test v5.3
     # Size       Avg Latency(us)
-    1                      10.20
-    2                      10.70
-    4                      10.84
-    8                      10.96
-    16                     11.35
-    32                     12.02
-    64                     13.14
-    128                    16.15
-    256                    21.60
-    512                    40.38
-    1024                   29.85
-    2048                   56.84
-    4096                  118.41
-    8192                  194.88
-    16384                 321.10
-    32768                 562.16
-    65536                3041.93
-    131072               6361.44
-    262144              12628.80
-    524288              26586.52
-    1048576             50982.36
+    1                       9.92
+    2                      10.31
+    4                      10.49
+    8                      10.60
+    16                     10.89
+    32                     11.34
+    64                     12.24
+    128                    15.14
+    256                    20.27
+    512                    37.53
+    1024                   29.62
+    2048                   53.92
+    4096                  119.42
+    8192                  192.33
+    16384                 314.22
+    32768                 557.86
+    65536                3082.00
+    131072               6302.07
+    262144              12704.54
+    524288              30272.60
+    1048576             50294.14
 
 DEMO3 (optional): OpenFOAM
 ----------------------------------------------------------------------
