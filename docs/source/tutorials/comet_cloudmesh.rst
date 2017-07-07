@@ -35,15 +35,86 @@ Requirements
 
 Install Cloudmesh Client tool to access Comet VC
 -------------------------------------------------------
+Cloudmesh Client tool in PEARC17 VirtualBox Appliance
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-First we will need to install the Cloudmesh Client too to access
-and manage the VC on Comet. The tool could be easily installed
-via 'pip install cloudmesh_client', however the dependent system
-libraries installation varies from OS to OS. We provided a preconfigured
-VirtualBox image to ensure a proper environment has been setup. You
-can choose to install the client tool directly on your machine.
+Step 1: Install Virtual Box
+*******************************
+For convenience we will be using Ubuntu Xenial in this demo to install the
+Cloudmesh client on it.
 
-Cloudmesh Client tool in Virtual Box
+Please make sure you have `VirtualBox <https://www.virtualbox.org>`_ installed (`downloads page <https://www.virtualbox.org/wiki/Downloads>`_).
+
+Step 2: Download Comet PEARC17 VirtualBox Appliance
+**************************************************************
+For PEARC17 we provide a pre-installed VirtualBox Appliance for download on the
+internal PEARC17 web server. You should be able to download the appliance file
+from...
+
+* `Comet PEARC17 VirtualBox Appliance (CometPEARC17.ova) <http://bit.ly/pearc17-comet-ova>`_
+
+...and remember the location where you downloaded it. You will need that
+location later.
+
+After downloading the Comet PEARC17 VirtualBox Appliance locate it on your
+machine.
+
+.. figure:: ./images/CometPEARC17-cm-virtualbox-001.png
+    :scale: 50 %
+    :alt: screenshot
+
+    Figure: Locate downloaded VirtualBox Appliance file (CometPEARC17.ova)
+
+Step 3: Import Comet PEARC17 VirtualBox Appliance
+**************************************************************
+During import of the Comet PEARC17 VirtualBox Appliance you will have the option
+to configure the number of CPUs and amount of RAM. We recommend 2 CPUs and 2048
+MB of RAM.
+
+.. figure:: ./images/CometPEARC17-cm-virtualbox-002.png
+    :scale: 50 %
+    :alt: screenshot
+
+    Figure: Configure processors and memory for VirutalBox Appliance
+
+After you've  configured the Comet PEARC17 VirtualBox Appliance click on the
+**Import** button to initiate the import process...
+
+.. figure:: ./images/CometPEARC17-cm-virtualbox-003.png
+    :scale: 50 %
+    :alt: screenshot
+
+    Figure: Import VirtualBox Appliance
+
+Step 4: Run Comet PEARC17 VirtualBox Appliance
+**************************************************************
+After you've successfully imported the Comet PEARC17 VirtualBox Appliance you
+can select the machine and click on the **Start** button to start the machine.
+
+.. figure:: ./images/CometPEARC17-cm-virtualbox-005.png
+    :scale: 50 %
+    :alt: screenshot
+
+    Figure: Start VirtualBox Appliance
+
+Step 5: Open Terminal in Comet PEARC17 VirtualBox Appliance
+**************************************************************
+After the Comet PEARC17 VirtualBox machine has booted you can open a terminal
+and start using Cloudmesh Client as it is pre-installed.
+
+.. figure:: ./images/CometPEARC17-cm-virtualbox-007.png
+    :scale: 50 %
+    :alt: screenshot
+
+    Figure: Open Terminal in Ubuntu Desktop
+
+.. figure:: ./images/CometPEARC17-cm-virtualbox-008.png
+    :scale: 50 %
+    :alt: screenshot
+
+    Figure: Run Cloudmesh Client in Terminal
+
+
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Step 1: Install Virtual Box
