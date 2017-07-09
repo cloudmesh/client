@@ -534,7 +534,7 @@ Now from the **FE** node:
 .. prompt:: bash, FE$
 
     sudo python cmutil.py setboot vctNN vm-vctNN-00 net=false
-    sudo python cmutil.py setboot vctNN vm-vctNN-00 net=false
+    sudo python cmutil.py setboot vctNN vm-vctNN-01 net=false
 
 Otherwise the nodes will be net-installed again.
 
