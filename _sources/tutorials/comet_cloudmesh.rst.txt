@@ -50,7 +50,9 @@ Step 1: Install Virtual Box
 For convenience we will be using Ubuntu Xenial in this demo to install the
 Cloudmesh client on it.
 
-Please make sure you have `VirtualBox <https://www.virtualbox.org>`_ installed (`downloads page <https://www.virtualbox.org/wiki/Downloads>`_).
+Please make sure you have `VirtualBox <https://www.virtualbox.org>`_ installed
+(`downloads page <https://www.virtualbox.org/wiki/Downloads>`_). Make sure to
+download and install both the **platform packages** and **Extension Pack**.
 
 Step 2: Download Comet PEARC17 VirtualBox Appliance
 **************************************************************
