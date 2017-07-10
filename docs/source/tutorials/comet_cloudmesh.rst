@@ -649,6 +649,38 @@ And the first server will show its results in the first terminal::
      65536      5000             6034.72            6033.76		   0.096540
     ---------------------------------------------------------------------------------------
 
+Similarly, we can test the latency by running :code:`ib_write_lat` in the
+place of :code:`ib_write_bw`. The results are as such. Please note we added
+option :code:`-a` to run the test with different run sizes::
+
+    ---------------------------------------------------------------------------------------
+     #bytes #iterations    t_min[usec]    t_max[usec]  t_typical[usec]
+     2       1000          1.10           5.29         1.13
+     4       1000          1.10           2.30         1.13
+     8       1000          1.11           8.23         1.14
+     16      1000          1.11           6.27         1.14
+     32      1000          1.15           6.38         1.18
+     64      1000          1.17           2.88         1.20
+     128     1000          1.27           7.02         1.29
+     256     1000          1.60           7.88         1.63
+     512     1000          1.81           7.82         1.85
+     1024    1000          2.04           7.45         2.08
+     2048    1000          2.52           7.04         2.58
+     4096    1000          2.85           6.62         2.91
+     8192    1000          3.49           7.60         3.56
+     16384   1000          4.74           7.46         4.98
+     32768   1000          7.44           11.96        7.58
+     65536   1000          12.71          36.10        12.91
+     131072  1000          22.94          28.73        23.38
+     262144  1000          43.66          46.34        44.16
+     524288  1000          84.88          88.37        85.68
+     1048576 1000          167.85         173.88       169.49
+     2097152 1000          333.30         343.71       335.02
+     4194304 1000          665.24         683.21       668.04
+     8388608 1000          1442.65        1451.63      1447.71
+    ---------------------------------------------------------------------------------------
+
+
 DEMO2: OSU Micro-Benchmarks
 ----------------------------------------------------------------------
 
@@ -765,7 +797,11 @@ Again, there perfomance results (this time for latency) go to the terminal::
     524288              30272.60
     1048576             50294.14
 
-DEMO3 (optional): OpenFOAM
+DEMO3: Bigdata analytical software stack deployment and example run
+----------------------------------------------------------------------
+See :ref:`comet_bigdata`
+
+DEMO4 (optional): OpenFOAM
 ----------------------------------------------------------------------
 
 `OpenFOAM <http://openfoam.org/>`_ is a parallel open-source
@@ -845,14 +881,18 @@ node with X forwarding enabled.
    Figure: ParaView with OpenFOAM example data
 
 
-DEMO4 (optional): Julia
+DEMO5 (optional): Julia
 ----------------------------------------------------------------------
 
-Like OpenFOAM, `Julia <http://julialang.org/>`_ has Ubuntu packages in
-public repositories. You can install on the compute nodes following a
-similar process. On each compute node run the following commands from
-`the Julia installation instructions for Ubuntu
-<http://julialang.org/downloads/platform.html>`_. When prompted, hit ``ENTER``.
+`Julia <http://julialang.org/>`_ is a high-level, high-performance dynamic
+programming language for numerical computing. It provides a sophisticated
+compiler, distributed parallel execution, numerical accuracy, and an
+extensive mathematical function library. Like OpenFOAM, Julia has Ubuntu
+packages in public repositories. You can install on the compute nodes
+following a similar process. On each compute node run the following
+commands from `the Julia installation instructions for Ubuntu
+<http://julialang.org/downloads/platform.html>`_. When prompted,
+hit ``ENTER``.
 
 .. prompt:: bash, vm-vctNN-00$
 
@@ -860,7 +900,6 @@ similar process. On each compute node run the following commands from
    sudo add-apt-repository ppa:staticfloat/julia-deps
    sudo apt-get update
    sudo apt-get install julia -y
-
 
 You can start Julia on the command line for interactive use::
 
@@ -890,7 +929,3 @@ You can start Julia on the command line for interactive use::
     |__/                   |  x86_64-linux-gnu
 
     julia>
-
-DEMO5: Bigdata analytical software stack deployment and example run
-----------------------------------------------------------------------
-See :ref:`comet_bigdata`
