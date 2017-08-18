@@ -182,7 +182,7 @@ class Cluster(object):
         else:
             r = Comet.get(Comet.url("cluster/" + id + "/"))
             if r is None:
-                Console.error("Could not find cluster `{}`"
+                Console.error("Error finding cluster `{}`"
                               .format(id))
                 return result
             r = [r]
@@ -267,7 +267,7 @@ class Cluster(object):
             r = Comet.get(Comet.url("cluster/" + id + "/"))
             check_for_error(r)
             if r is None:
-                Console.error("Could not find cluster `{}`"
+                Console.error("Error finding cluster `{}`"
                               .format(id))
                 return result
             r = [r]
@@ -278,10 +278,15 @@ class Cluster(object):
         computeset_account = {}
         # stuck_computesets = {}
         computesets = Comet.get_computeset()
-        computesets += Comet.get_computeset(state="submitted")
-        computesets += Comet.get_computeset(state="ending")
+
         # pprint (computesets)
         if computesets:
+            computesets_submitted = Comet.get_computeset(state="submitted")
+            if computesets_submitted:
+                computesets += computesets_submitted
+            computesets_ending = Comet.get_computeset(state="ending")
+            if computesets_ending:
+                computesets += computesets_ending
             for computeset in computesets:
                 id = computeset["id"]
                 account = computeset["account"]
@@ -506,7 +511,10 @@ class Cluster(object):
                                                         cluster,
                                                         allocation)
         else:
-            result = "No computeset exists with the specified ID"
+            if id:
+                result = "No computeset found with the specified ID"
+            else:
+                result = "No computeset found"
         return result
 
     @staticmethod

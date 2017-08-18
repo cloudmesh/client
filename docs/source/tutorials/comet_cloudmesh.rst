@@ -1,47 +1,175 @@
 Comet Cloudmesh Tutorial
 =========================
 
-Setup Cloudmesh Client on Ubuntu Desktop in Virtualbox
+.. sidebar:: Page Contents
+
+   .. contents::
+      :local:
+
+**Goal**: Install a Comet Virtual Cluster (VC) with Ubuntu 16.04, and run examples.
+
+**Time**: ~1 to 2 hours.
+
+Status of this Tutorial
+-----------------------
+
+Released for PEARC17 Tutorial - `Using Comet's Virtual Clusters <http://sched.co/AQ3H>`_
+
+Overview
+--------
+In this tutorial you will learn how to install a Comet virtual cluster. This
+includes manually install the front-end node from an attached OS ISO; running
+some configuration scripts to configure the front-end behaving as a NAT router,
+DHCP/TFTP and PXE-booting server; booting the compute nodes, which will be
+automatically installed and configured; and running some testing examples.
+
+Requirements
+------------
+* Experience with Linux system installation and management and, ideally, with HPC cluster management.
+* Knowledge of Git, shell scripting, and Python.
+* A Comet Virtual Cluster (vctNN) assigned to you.
 
 .. note:: Scripts used in this tutorial are maintained at:
 
-   * https://github.com/sdsc/comet-vc-tutorial
+   * https://github.com/cloudmesh/cloudmesh.comet.vcdeploy
 
-Virtual Box
-----------------------------------------------------------------------
+Install Cloudmesh Client tool to access Comet VC
+-------------------------------------------------------
+First we will need to install the Cloudmesh Client to access and manage the VC
+on Comet. The tool could be easily installed via :code:`pip install
+cloudmesh_client`, however installation of the dependent system libraries varies
+from OS to OS. We provided a preconfigured VirtualBox appliance to ensure a
+proper environment has been setup. Alternately, you can choose to install the
+client tool directly on your machine.
 
-**Step 1:** For convenience we will be using Ubuntu Xenial in this
-demo to install the Cloudmesh client on it. Please make sure you have
+Cloudmesh Client tool in PEARC17 VirtualBox Appliance
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Step 1: Install Virtual Box
+*******************************
+For convenience we will be using Ubuntu Xenial in this demo to install the
+Cloudmesh client on it.
+
+Please make sure you have `VirtualBox <https://www.virtualbox.org>`_ installed
+(`downloads page <https://www.virtualbox.org/wiki/Downloads>`_). Make sure to
+download and install both the **platform packages** and **Extension Pack**.
+
+Step 2: Download Comet PEARC17 VirtualBox Appliance
+**************************************************************
+For PEARC17 we provide a pre-installed VirtualBox Appliance for download on the
+internal PEARC17 web server. You should be able to download the appliance file
+from...
+
+* `Comet PEARC17 VirtualBox Appliance (CometPEARC17.ova) <http://bit.ly/pearc17-comet-ova>`_
+
+...and remember the location where you downloaded it. You will need that
+location later.
+
+After downloading the Comet PEARC17 VirtualBox Appliance locate it on your
+machine.
+
+.. figure:: ./images/CometPEARC17-cm-virtualbox-001.png
+    :scale: 50 %
+    :alt: screenshot
+
+    Figure: Locate downloaded VirtualBox Appliance file (CometPEARC17.ova)
+
+Step 3: Import Comet PEARC17 VirtualBox Appliance
+**************************************************************
+During import of the Comet PEARC17 VirtualBox Appliance you will have the option
+to configure the number of CPUs and amount of RAM. We recommend 2 CPUs and 2048
+MB of RAM.
+
+.. figure:: ./images/CometPEARC17-cm-virtualbox-002.png
+    :scale: 50 %
+    :alt: screenshot
+
+    Figure: Configure processors and memory for VirutalBox Appliance
+
+After you've  configured the Comet PEARC17 VirtualBox Appliance click on the
+**Import** button to initiate the import process...
+
+.. figure:: ./images/CometPEARC17-cm-virtualbox-003.png
+    :scale: 50 %
+    :alt: screenshot
+
+    Figure: Import VirtualBox Appliance
+
+Step 4: Run Comet PEARC17 VirtualBox Appliance
+**************************************************************
+After you've successfully imported the Comet PEARC17 VirtualBox Appliance you
+can select the machine and click on the **Start** button to start the machine.
+
+.. figure:: ./images/CometPEARC17-cm-virtualbox-005.png
+    :scale: 50 %
+    :alt: screenshot
+
+    Figure: Start VirtualBox Appliance
+
+Step 5: Open Terminal in Comet PEARC17 VirtualBox Appliance
+**************************************************************
+After the Comet PEARC17 VirtualBox machine has booted you can open a terminal
+and start using Cloudmesh Client as it is pre-installed.
+
+.. figure:: ./images/CometPEARC17-cm-virtualbox-007.png
+    :scale: 50 %
+    :alt: screenshot
+
+    Figure: Open Terminal in Ubuntu Desktop
+
+.. figure:: ./images/CometPEARC17-cm-virtualbox-008.png
+    :scale: 50 %
+    :alt: screenshot
+
+    Figure: Run Cloudmesh Client in Terminal
+
+
+Cloudmesh Client tool in empty Virtual Box Machine
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Step 1: Install Virtual Box
+*******************************
+For convenience we will be using Ubuntu Xenial in this demo to
+install the Cloudmesh client on it. Please make sure you have
 
 * `VirtualBox <https://www.virtualbox.org>`_ installed (`downloads page <https://www.virtualbox.org/wiki/Downloads>`_).
 
-**Step 2:** Next, please download the
+Step 2: Download a VirtualBox Image
+**************************************************************
+Next, please download the
 
 * `Ubuntu desktop ISO <http://www.ubuntu.com/download>`_.
 
 and remember the location where you downloaded it. You will need that
 location later.
 
-**Step 3:** Create VirtualBox, create a new VM (Ubuntu, 64bit)
+Step 3: Create a VirtualBox Machine
+**************************************************************
+Create VirtualBox Machine, create a new VM (Ubuntu, 64bit)
 
-**Step 4:** Start the box. When asked for the ISO, use the folder icon
- to browse to the location of the downloaded image.
+Step 4: Associate the VM ISO
+**************************************************************
+When asked for the ISO, use the folder icon to browse to the location of the
+downloaded image.
 
-**Step 5:** Start and configure the system. Note in case the last step
- does not return, shut down or terminate the VM and restart it.
+Step 5: Start the vm
+**************************************************************
+Start and configure the system. Note in case the last step does not return, shut
+down or terminate the VM and restart it.
 
-**Step 6:** Once you have logged into the vm, start a terminal by
- clicking on the cog and type in *terminal*
+Step 6: Start a terminal
+**************************************************************
+Once you have logged into the vm, start a terminal by clicking on the cog and
+type in **terminal**.
 
-**Step 7:** (optional) You may want to enable the vm guest addition
-and enable bidirectional shared clipboard and drag and drop. You may
-have to restart the vm so that these changes take effect.
+Step 7: VM guest additions
+**************************************************************
+(optional) You may want to enable the vm guest addition and enable
+bidirectional shared clipboard and drag and drop. You may have to
+restart the vm so that these changes take effect.
 
-**Step 8:** Install cloudmesh. Paste and copy between host and vm, as
- well as .
-
-.. note: as well as . is unclear .... FIX
-  
+Step 8: Install cloudmesh
+**************************************************************
 .. prompt:: bash, cloudmesh$
 
     wget -O cm-setup.sh http://bit.ly/cloudmesh-client-xenial
@@ -54,123 +182,177 @@ The script has the following contents::
     sudo pip install pip -U
     sudo apt install git -y
     sudo pip install ansible
-    sudo pip install cloudmesh_client
+    sudo pip install cloudmesh_client
     python --version
     pip --version
     git –version
 
-
-
-Configure Cloudmesh
--------------------
-
-Next, we need to configure Cloudmesh. We will only use a fraction of
-Cloudmesh capabilities for this tutorial that is focused on using
-comet
+Make sure passlib is installed:
 
 .. prompt:: bash, cloudmesh$
 
-   ssh-keygen
-   cm
-   cm version
+    sudo pip install passlib
 
-    
-Instalation with Pip
-----------------------------------------------------------------------
+Cloudmesh Client Tool Installed Directly in MacOS
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Installing in a virtualenv is highly recommended.
+For system level packages installation, see: http://cloudmesh.github.io/client/system.html#osx
 
-.. prompt:: bash, cloudmesh$
+For the Cloudmesh client tool installation:
 
-  pip install cloudmesh_client
-  cm help
-  cm comet init
+.. prompt:: bash, $
+
+    virtualenv ~/CM
+    source ~/CM/bin/activate
+
+.. prompt:: bash, (CM)$
+
+    pip install -U pip
+    pip install cloudmesh_client
+    pip install passlib
+
+Cloudmesh Client Tool Installed Directly in Linux
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For system level packages installation, see: http://cloudmesh.github.io/client/system.html#ubuntu-16-04
+
+For the Cloudmesh client tool installation:
+
+.. prompt:: bash, $
+
+    virtualenv ~/CM
+    source ~/CM/bin/activate
+
+.. prompt:: bash, (CM)$
+
+    pip install -U pip
+    pip install cloudmesh_client
+    pip install passlib
+
+
+Using Cloudmesh Client tool to access Comet VC
+-------------------------------------------------------
+To verify the Cloudmesh client tool has been installed properly, try:
+
+.. prompt:: bash, (CM)$
+
+    cm verion
+    cm help
+
+And to initialize the comet authentication settings:
+
+.. prompt:: bash, (CM)$
+
+    cm comet init
+
+Use all default settings, and provide your Comet VC username/password
+to retrieve an API key:
+
+::
+
+    Initializing the comet configuration file...
+    Set the active service endpoint to use. The availalbe endpoints are - dev/production [dev]:
+    Set the base url for the nucleus dev service [https://comet-nucleus-dev.sdsc.edu/nucleus]:
+    Set the api version for the nucleus dev service [v1]:
+    Authenticating to the nucleus dev service and obtaining the apikey...
+    Comet nucleus username [YOUR_COMET_VC_USER]:
+    Password:
+    api key retrieval and set was successful!
 
 Virtual Cluster Architecture
 ----------------------------------------------------------------------
 
-.. figure:: ./images/vc-diagram.png
+.. figure:: ./images/vc-diagram_pearc17.png
    :scale: 50 %
    :alt: screenshot
 
    Figure: Virtual cluster architecture
- 
+
+.. note:: We used name `vctNN` in this tutorial as an example VC name.
+          please replace this with the proper name assigned to you.
+
 Getting access to your cluster
 ----------------------------------------------------------------------
-
-Access your virtual cluster (vc)
-
 The cluster information can be obtained with the following commands:
 
-.. prompt:: bash, cloudmesh$
+.. prompt:: bash, (CM)$
 
-  cm comet ll 
+  cm comet ll
   cm comet cluster
-  cm comet cluster vct<NN>
+  cm comet cluster vctNN
 
 The list of ISO images that are currently available can be obtained with:
 
-.. prompt:: bash, cloudmesh$
+.. prompt:: bash, (CM)$
 
   cm comet iso list
 
 .. note: in future versions the command iso may be renamed to *image*.
 
-Example: Install the front-end node
+Install the VC front-end node
 ----------------------------------------------------------------------
+**NOTE: During the PEARC17 Tutorial the initial install of the cluster frontend
+**has been completed in advance. The following steps are included to document
+**the process  that was followed.**
+
+This section takes ~10 min to finish.
 
 Find an iso and attach
 
-.. prompt:: bash, cloudmesh$
+.. prompt:: bash, (CM)$
 
   cm comet iso list
 
 This will return::
 
-   1: CentOS-7-x86_64-NetInstall-1511.iso
-   2: CentOS-6.8-x86_64-netinstall.iso
-   3: kernel-6.2-0.x86_64.disk1.iso
-   4: systemrescuecd-x86-4.2.0.iso
-   5: base+kernel+kvm+os-6.2.x86_64.disk1.iso
-   6: ubuntu-14.04.4-server-amd64.iso
-   7: ubuntu-15.04-server-amd64.iso
-   8: CentOS-6.8-x86_64-LiveDVD.iso
-   9: ubuntu-16.04-server-amd64.iso
-  10: CentOS-7-x86_64-LiveGNOME-1511.iso
+    1: CentOS-7-x86_64-NetInstall-1511.iso
+    2: ubuntu-16.04.2-server-amd64.iso
+    3: ipxe.iso
+    ...<snip>...
+    19: Fedora-Server-netinst-x86_64-25-1.3.iso
+    20: ubuntu-14.04.4-server-amd64.iso
 
-Next we attach an iso. YOu can use either the name of the iso, or simply the id
+Next we attach an iso. You can use either the name of the iso, or simply the id
 
-.. prompt:: bash, cloudmesh$
+.. prompt:: bash, (CM)$
 
-  cm comet iso attach 6 vct<NN>
+  cm comet iso attach 2 vctNN
 
+Please note for this tutorial we use image 2, the latest Ubuntu 16.04.2.
 
 Let us check the status of the server.
 
-.. prompt:: bash, cloudmesh$
+.. prompt:: bash, (CM)$
 
-   cm comet cluster vct<NN>
+   cm comet cluster vctNN
 
 If it is already running, please power if off so the iso attach could
 take effect:
 
-.. prompt:: bash, cloudmesh$
+.. prompt:: bash, (CM)$
 
-  cm comet power off vct<NN>
+  cm comet power off vctNN
 
 Now we need to power on the server
 
-.. prompt:: bash, cloudmesh$
+.. prompt:: bash, (CM)$
 
-  cm comet power on vct<NN>
+  cm comet power on vctNN
 
-To see what is happening on the server, we can attach a console to follow and complete the setup of the OS
+To see what is happening on the server and finish the installation,
+we need to attach a console to follow the installation steps:
 
-.. prompt:: bash, cloudmesh$
+.. prompt:: bash, (CM)$
 
-  cm comet console vct<NN>
+  cm comet console vctNN
 
 Screenshots for the front-end node configuration are given next:
+
+.. figure:: ./images/00_install_language.png
+   :scale: 50 %
+   :alt: screenshot
+
+   Figure: Initial screen after Front-end (FE) booted
 
 .. figure:: ./images/00_install_start.png
    :scale: 50 %
@@ -182,31 +364,19 @@ Screenshots for the front-end node configuration are given next:
    :scale: 50 %
    :alt: screenshot
 
-   Figure: Configure the network. DHCP is configured on `eth1` (the public interface)
+   Figure: Configure the network. DHCP is configured on `ens4` (the public interface)
 
 .. figure:: ./images/20_hostname.png
    :scale: 50 %
    :alt: screenshot
 
-   Figure: Set the hostname
-
-.. figure:: ./images/22_user_password_creation.png
-   :scale: 50 %
-   :alt: screenshot
-
-   Figure: Set up the non-privileged user account, including a strong password
-
-.. figure:: ./images/08_partition.png
-   :scale: 50 %
-   :alt: screenshot
-
-   Figure: Partition the disk
+   Figure: The hostname should be automatically set to the one assigned to you
 
 .. figure:: ./images/09_services_packages.png
    :scale: 50 %
    :alt: screenshot
 
-   Figure: Select OpenSSH using the space bar and then tab to Continue
+   Figure: Select OpenSSH using the arrow keys and space bar and then tab to Continue
 
 .. figure:: ./images/10_complete.png
    :scale: 50 %
@@ -214,153 +384,190 @@ Screenshots for the front-end node configuration are given next:
 
    Figure: Complete the installation
 
-.. figure:: ./images/11_complete_console_expired.png
+Now the node will reboot. Watch carefully to find this screen, and then
+press 'ESC' key.
+
+.. figure:: ./images/11_reboot_esc.png
    :scale: 50 %
    :alt: screenshot
 
-   Figure: Press CONTINUE (we'll detach the ISO later)
+   Figure: Booting menu after installation
 
-.. figure:: ./images/12_reboot_cd.png
+Then choose the 3rd device - virtio disk
+
+.. figure:: ./images/12_boot_3_virtio.png
    :scale: 50 %
    :alt: screenshot
 
-   Figure: The machine will be rebooted. Allow it to start booting from the CDROM again.
+   Figure: Choose to boot from the disk
 
-.. figure:: ./images/13_reboot_cd_choose_hd.png
+In case you missed the :code:`ESC+F12` step, the node will be booted to the CD again.
+Simply reboot the machine using :code:`CTRL+ALT+DEL` to start again. Now choose 'Boot
+from first hard disk', and carefully watch till it failed
+
+.. figure:: ./images/30_reboot_choose_hd.png
    :scale: 50 %
    :alt: screenshot
 
    Figure: From the CDROM boot menu, choose to boot from hard disk
 
+.. figure:: ./images/31_boot_hd_fail.png
+   :scale: 50 %
+   :alt: screenshot
 
-Finishing Front-end setup
-----------------------------------------------------------------------
+   Figure: Boot from HD from the CDROM boot menu will fail, press any key to reboot again
 
-At end of the installation, click **complete** to finish the setup. The node will
-reboot into the OS installation CD again, but now choose 'boot from first hard disk'
-option from the booting menu. This ensure the node boots into the newly installed OS,
-while having the OS installation CD still attached (we will need the CD again in the
-later steps).
+Then press any key so it reboot again, and try to catch the :code:`ESC+F12` screen again.
 
-Once the node is back on, you can now login and configure the cluster from your laptop/desktop:
+.. figure:: ./images/13_booted_login.png
+   :scale: 50 %
+   :alt: screenshot
 
-.. prompt:: bash, cloudmesh$
+   Figure: Login screen after boot
 
-  cm comet console vct<NN>
-
-YOu can also ssh into the machine after it is configures with the usual ssh commands while
-using your login name that you set up and specify your cluster name.
-
-.. prompt:: bash, cloudmesh$
-
-  ssh USER@vct<NN>.sdsc.edu
 
 Configuring the front-end node
 ----------------------------------------------------------------------
 
-On your managing machine where Cloudmesh client tools is installed:
+This section takes ~5 min to finish.
 
-If your **managing** machine is running Linux:
+Now the FE node is back on, you can login and configure the cluster from your laptop/desktop.
 
-.. prompt:: bash, cloudmesh$
+To verify, you can try ssh login first. Use the uesrname and password you set
+during the FE node installation.
 
-  wget -O cmutil.py http://bit.ly/vc-cmutil
-  python cmutil.py nodesfile vct<NN>
-  scp vcn*.txt <USER>@vct<NN>.sdsc.edu:~/
+.. prompt:: bash, (CM)$
 
-If your **managing** machine is running Mac OS X use curl instead of wget:
+  ssh USER@vctNN.sdsc.edu
 
-.. prompt:: bash, cloudmesh$
+Once the ssh login is verified, we can start the configuration of the FE node.
+We have scripted this process to only a few steps:
 
-     curl -L -o cmutil.py http://bit.ly/vc-cmutil
-     python cmutil.py nodesfile vct<NN>
-     scp vcn*.txt <USER>@vct<NN>.sdsc.edu:~/
+On your **managing machine** where Cloudmesh client tools is installed
+(make sure virtualenv is activated if you have used that):
 
-On the vc **front-end** node:
+.. prompt:: bash, (CM)$
 
-.. prompt:: bash, fe$
+    mkdir ~/pearc17
+    cd ~/pearc17
+    git clone https://github.com/cloudmesh/cloudmesh.comet.vcdeploy.git
+    cd cloudmesh.comet.vcdeploy/ubuntu16.04.2
+    ./deploy.sh <vctNN> <USER>
 
-  wget -O deploy.sh http://bit.ly/vc-deployment
-  chmod +x deploy.sh
-  sudo ./deploy.sh
+.. note:: You may be asked to provide the password for several times.
 
-At this point we are done with the ISO and back on your **managing**
-machine you should detach it:
+.. note:: It's assumed that you have had a ssh keypair in ~/.ssh/. If you
+          haven't had one, use ssh-keygen to generate a keypair first.
 
-.. prompt:: bash, cloudmesh$
+This will finish the configuration. At the end you will see something like this::
 
-  cm comet iso detach vct<NN>
+    PLAY RECAP **************************************************************
+    vctNN.sdsc.edu             : ok=48   changed=41   unreachable=0    failed=0
+
+Which indicates the process has been completed successfully.
+
+At this point we are done with the ISO so you could detach it:
+
+.. prompt:: bash, (CM)$
+
+  cm comet iso detach vctNN
 
 ISO are removed the next time the virtual node is shutdown or powered
-off (not when  rebooted or reset).
+off (not when rebooted or reset). If the ISO stays attached, rebooting
+the FE node will boot to the CDROM boot menu again, and you will need
+to attach to console access to choose the boot options.
 
-  
-Example: Install Compute Nodes
+
+Install VC Compute Nodes
 ----------------------------------------------------------------------
 
-Compute node setup
+This section takes ~5 to 10 min to complete.
 
-.. prompt:: bash, cloudmesh$
+On your **managing machine** where Cloudmesh client tools is installed
+(make sure virtualenv is activated if you have used that):
 
-   cm comet start vct<NN> vm-vct<NN>-[1-2]
+.. prompt:: bash, (CM)$
 
-Takes about 15~20 minutes. Once done, the node will be shutoff.
+   cm comet start vctNN vm-vctNN-[00-01]
 
-Once you see the boot question in your console log, please change it to
-localboot. Do this on the front-end node:
+This starts the compute nodes. Once the resources are allocated and the
+nodes are booted, they will be net-installed automatically.
 
-.. prompt:: bash, fe$
+You can check the status of the nodes by running:
 
-  cd $HOME
-  sudo ./comet-vc-tutorial/cmutil.py setboot $HOSTNAME vm-vct01-01 net=false
+.. prompt:: bash, (CM)$
 
-You will also need to generate an SSH keypair for your non-privileged
-user account and create an ``authorized_keys`` file to allow your
-parallel application to access both nodes. This key pair is only for
-use within the cluster since it will not have a passphrase. Just hit
-enter at each step.
+    cm comet cluster vctNN --status
 
-.. prompt:: bash, fe$
+::
 
-  cd $HOME
-  ssh-keygen
-  cat .ssh/id_rsa.pub >> .ssh/authorized_keys
-  
-Then on your managing host where Cloudmesh client is installed:
+    Cluster: vctNN	Frontend: vctNN	IP: 132.249.xxx.xxx
+    +-------------+--------+------------+------------+-------------+
+    | name        | state  | computeset | allocation | admin_state |
+    +-------------+--------+------------+------------+-------------+
+    | vctNN       | active |            |            | synced      |
+    | vm-vctNN-00 | active | 26         | ABC123     | syncing     |
+    | vm-vctNN-01 | active | 26         | ABC123     | syncing     |
+    +-------------+--------+------------+------------+-------------+
 
-.. prompt:: bash, cloudmesh$
+At the end of the nodes installation the nodes will be powered off. Verify
+this by running the previous command, and check if the `state` is not
+`active`, and if the `admin_state` is `ready`.
 
-  cm comet power on vct<NN> vm-vct<NN>-[1-2]
+.. note:: The state update may have some delay, e.g., half a minute or so.
+          The `active` of `state` means the node is running; `nostate` or
+          sometimes `nostate-error` means the node is powered off. For
+          `admin_state`, `synced` means the node is running and the disk
+          is synced; `syncing` means the disk is syncing to the backend,
+          in which a power change of the node will be ignored; `ready`
+          means the node is off and the disk is ready to be booted.
 
-Wait for the compute nodes to be booted on, which can be checked by:
+**BEFORE** powering them back on, you need to execute this from
+the **FE** node:
 
-.. prompt:: bash, cloudmesh$
+Login to the FE node if not yet:
 
-  cm comet cluster vct<NN>
+.. prompt:: bash, (CM)$
+
+    ssh USER@vctNN.sdsc.edu
+
+Now from the **FE** node:
+
+.. prompt:: bash, FE$
+
+    sudo python cmutil.py setboot vctNN vm-vctNN-00 net=false
+    sudo python cmutil.py setboot vctNN vm-vctNN-01 net=false
+
+Otherwise the nodes will be net-installed again.
+
+After disabled the netboot for the compute nodes, now on your **managing host**
+where Cloudmesh client is installed:
+
+.. prompt:: bash, (CM)$
+
+  cm comet power on vctNN vm-vctNN-[00-01]
+
+Wait for the compute nodes to be booted on (This could take a few
+minutes), which can be checked by:
+
+.. prompt:: bash, (CM)$
+
+  cm comet cluster vctNN --status
 
 to see if the state (2nd column) of the nodes is 'active'.
 
-Once the compute nodes are on, run these on the front-end node:
+Once the compute nodes are on, run these on the **FE** node:
 
-.. prompt:: bash, fe$
+.. prompt:: bash, FE$
 
-  sudo $HOME/comet-vc-tutorial/key_setup.sh
+  python cmutil.py settrust vctNN
 
-This will propagate the non-privileged user's password to the compute
-nodes securely.
+This will propagate the ssh keys, known hosts file from the FE node to the
+compute nodes, so ssh between any nodes within the VC could be easily done.
 
 Login to compute nodes from front-end, and run your app.
 
-.. note:: In the production environment we use two factor
-          authentication with `YubiKeys <https://www.yubico.com/>`_ to
-          retrieve the API token used to by Cloudmesh and to access
-          the console of a virtual machine. To simplify the tutorial
-          we use username and password access in an isolated teaching
-          environment. When utilizing the production version you will
-          need to get in contact with the Comet staff. You must have a
-          valid XSEDE allocation on Comet for a virtual cluster.
-
-Verifying InfiniBand Performance
+DEMO1: Verifying InfiniBand Performance
 ----------------------------------------------------------------------
 
 We'll start by verifying the InfiniBand connectivity between the
@@ -372,63 +579,111 @@ compute nodes. The InfiniBand tests must run as ``root`` so we'll
 change to ``root`` on the front-end and then use the SSH keys that are
 in place to access the compute nodes.
 
-From your managing machine open two SSH terminals to your virtual
-front-end. In one terminal, start a server on the first compute node:
+From your **managing machine** open two SSH terminals to your virtual
+front-end. And then from the **FE** terminals:
 
-.. prompt:: bash, cloudmesh$
+In one terminal, start a server on the first compute node:
 
-  sudo su -
-  ssh vm-vct01-00
+.. prompt:: bash, FE$
+
+  ssh vm-vctNN-00
 
 Then in that vm type
 
-.. prompt:: bash, vm-vct01-00$
+.. prompt:: bash, vm-vctNN-00$
 
-  ib_write_bw 
+  ib_write_bw
 
 In the other terminal, connect to the server from the second compute
 node and start the test:
 
-.. prompt:: bash, cloudmesh$
+.. prompt:: bash, FE$
 
-  sudo su -
-  ssh vm-vct01-01
+  ssh vm-vctNN-01
 
-.. prompt:: bash, vm-vct01-01$
-	    
-  ib_write_bw vm-vct01-00
+.. prompt:: bash, vm-vctNN-01$
+
+  ib_write_bw vm-vctNN-00
 
 The bandwidth results will confirm that we're sending data over InfiniBand::
- 
-  ------------------------------------------------------------------
-                    RDMA_Write BW Test
-  Number of qp's running 1
-  Connection type : RC
-  Each Qp will post up to 100 messages each time
-  Inline data is used up to 400 bytes message
-    local address:  LID 0x35, QPN 0x09fc, PSN 0x60a317 RKey 0xe00140fc VAddr 0x007f089b60d000
-    remote address: LID 0x45, QPN 0x09fc, PSN 0xb1e176, RKey 0x200140fd VAddr 0x007fd1ff5a1000
-  Mtu : 2048
-  ------------------------------------------------------------------
-   #bytes #iterations    BW peak[MB/sec]    BW average[MB/sec]  
-    65536        5000            6021.90               6020.33
-  ------------------------------------------------------------------
+
+    ---------------------------------------------------------------------------------------
+                        RDMA_Write BW Test
+     Dual-port       : OFF		Device         : mlx4_0
+     Number of qps   : 1		Transport type : IB
+     Connection type : RC		Using SRQ      : OFF
+     TX depth        : 128
+     CQ Moderation   : 100
+     Mtu             : 2048[B]
+     Link type       : IB
+     Max inline data : 0[B]
+     rdma_cm QPs	 : OFF
+     Data ex. method : Ethernet
+    ---------------------------------------------------------------------------------------
+     local address: LID 0x3c QPN 0x0a1b PSN 0xecf3ce RKey 0x68010f00 VAddr 0x002b19db6f2000
+     remote address: LID 0x11 QPN 0x0a1b PSN 0x3e7b9f RKey 0x68010f00 VAddr 0x002b41b62fd000
+    ---------------------------------------------------------------------------------------
+     #bytes     #iterations    BW peak[MB/sec]    BW average[MB/sec]   MsgRate[Mpps]
+     65536      5000             6034.72            6033.76		   0.096540
+    ---------------------------------------------------------------------------------------
 
 And the first server will show its results in the first terminal::
 
-  ------------------------------------------------------------------
-                    RDMA_Write BW Test
-  Number of qp's running 1
-  Connection type : RC
-  Each Qp will post up to 100 messages each time
-  Inline data is used up to 400 bytes message
-    local address:  LID 0x45, QPN 0x09fc, PSN 0xb1e176 RKey 0x200140fd VAddr 0x007fd1ff5a1000
-    remote address: LID 0x35, QPN 0x09fc, PSN 0x60a317, RKey 0xe00140fc VAddr 0x007f089b60d000
-  Mtu : 2048
-  ------------------------------------------------------------------
-   #bytes #iterations    BW peak[MB/sec]    BW average[MB/sec]  
+    ************************************
+    * Waiting for client to connect... *
+    ************************************
+    ---------------------------------------------------------------------------------------
+                        RDMA_Write BW Test
+     Dual-port       : OFF		Device         : mlx4_0
+     Number of qps   : 1		Transport type : IB
+     Connection type : RC		Using SRQ      : OFF
+     CQ Moderation   : 100
+     Mtu             : 2048[B]
+     Link type       : IB
+     Max inline data : 0[B]
+     rdma_cm QPs	 : OFF
+     Data ex. method : Ethernet
+    ---------------------------------------------------------------------------------------
+     local address: LID 0x11 QPN 0x0a1b PSN 0x3e7b9f RKey 0x68010f00 VAddr 0x002b41b62fd000
+     remote address: LID 0x3c QPN 0x0a1b PSN 0xecf3ce RKey 0x68010f00 VAddr 0x002b19db6f2000
+    ---------------------------------------------------------------------------------------
+     #bytes     #iterations    BW peak[MB/sec]    BW average[MB/sec]   MsgRate[Mpps]
+     65536      5000             6034.72            6033.76		   0.096540
+    ---------------------------------------------------------------------------------------
 
-OSU Micro-Benchmarks
+Similarly, we can test the latency by running :code:`ib_write_lat` in the
+place of :code:`ib_write_bw`. The results are as such. Please note we added
+option :code:`-a` to run the test with different run sizes::
+
+    ---------------------------------------------------------------------------------------
+     #bytes #iterations    t_min[usec]    t_max[usec]  t_typical[usec]
+     2       1000          1.10           5.29         1.13
+     4       1000          1.10           2.30         1.13
+     8       1000          1.11           8.23         1.14
+     16      1000          1.11           6.27         1.14
+     32      1000          1.15           6.38         1.18
+     64      1000          1.17           2.88         1.20
+     128     1000          1.27           7.02         1.29
+     256     1000          1.60           7.88         1.63
+     512     1000          1.81           7.82         1.85
+     1024    1000          2.04           7.45         2.08
+     2048    1000          2.52           7.04         2.58
+     4096    1000          2.85           6.62         2.91
+     8192    1000          3.49           7.60         3.56
+     16384   1000          4.74           7.46         4.98
+     32768   1000          7.44           11.96        7.58
+     65536   1000          12.71          36.10        12.91
+     131072  1000          22.94          28.73        23.38
+     262144  1000          43.66          46.34        44.16
+     524288  1000          84.88          88.37        85.68
+     1048576 1000          167.85         173.88       169.49
+     2097152 1000          333.30         343.71       335.02
+     4194304 1000          665.24         683.21       668.04
+     8388608 1000          1442.65        1451.63      1447.71
+    ---------------------------------------------------------------------------------------
+
+
+DEMO2: OSU Micro-Benchmarks
 ----------------------------------------------------------------------
 
 The `OSU Micro-Benchmarks
@@ -447,12 +702,12 @@ compile the benchmarks. This can be done with your non-privileged user
 account. Then download the benchmarks, extract, and configure the
 source.
 
-.. prompt:: bash, cloudmesh$
-  
-  ssh vm-vct01-00
+.. prompt:: bash, FE$
 
-.. prompt:: bash, vm-vct01-00$
-  
+  ssh vm-vctNN-00
+
+.. prompt:: bash, vm-vctNN-00$
+
   wget http://mvapich.cse.ohio-state.edu/download/mvapich/osu-micro-benchmarks-5.3.tar.gz
   tar -zxf osu-micro-benchmarks-5.3.tar.gz
   cd osu-micro-benchmarks-5.3/
@@ -461,7 +716,7 @@ source.
 After the source configuration step completes, go into the directory
 for the point-to-point communication benchmarks and compile them.
 
-.. prompt:: bash, vm-vct01-00$
+.. prompt:: bash, vm-vctNN-00$
 
   cd mpi/pt2pt/
   make
@@ -469,13 +724,13 @@ for the point-to-point communication benchmarks and compile them.
 To run the tests create a host file with the two compute nodes
 specified::
 
-  vm-vct01-00
-  vm-vct01-01
+  vm-vctNN-00
+  vm-vctNN-01
 
 Remember where you've placed this (``$HOME/two-hosts.txt`` is a good
 idea) and run the bandwidth test.
 
-.. prompt:: bash, vm-vct01-00$
+.. prompt:: bash, vm-vctNN-00$
 
    mpirun -np 2 -hostfile ~/two-hosts.txt ./osu_bw
 
@@ -483,36 +738,36 @@ The results will go to the terminal and you can compare them to the
 ``ib_write_bw`` performance. You can ignore Open MPI's complaints
 regarding registered memory, this is due to change in the driver::
 
-  # OSU MPI Bandwidth Test v5.3
-  # Size      Bandwidth (MB/s)
-  1                       1.56
-  2                       3.13
-  4                       6.22
-  8                      12.63
-  16                     24.94
-  32                     50.52
-  64                     99.95
-  128                   188.23
-  256                   360.56
-  512                   692.32
-  1024                 1258.43
-  2048                 2178.72
-  4096                 3395.65
-  8192                 4576.91
-  16384                4659.19
-  32768                5445.82
-  65536                5993.62
-  131072               6136.74
-  262144               6210.81
-  524288               6245.60
-  1048576              6242.02
-  2097152              6241.21
-  4194304              6254.35
+    # OSU MPI Bandwidth Test v5.3
+    # Size      Bandwidth (MB/s)
+    1                       9.04
+    2                      18.42
+    4                      37.70
+    8                      75.40
+    16                    146.69
+    32                    292.57
+    64                    428.43
+    128                   586.04
+    256                   909.23
+    512                  1595.34
+    1024                 3618.72
+    2048                 5236.77
+    4096                 6009.90
+    8192                 7854.50
+    16384               10265.02
+    32768               10829.96
+    65536               11345.41
+    131072              11442.63
+    262144              11430.55
+    524288              11322.77
+    1048576             10930.49
+    2097152             10711.41
+    4194304             10639.83
 
 Now we'll try a collective benchmark for ``MPI_Alltoall``. We can
 reuse our host file for 24 tasks and let MPI distribute the tasks.
 
-.. prompt:: bash, vm-vct01-00$
+.. prompt:: bash, vm-vctNN-00$
 
   cd ../collective/
   make osu_alltoall
@@ -520,31 +775,35 @@ reuse our host file for 24 tasks and let MPI distribute the tasks.
 
 Again, there perfomance results (this time for latency) go to the terminal::
 
-   # OSU MPI All-to-All Personalized Exchange Latency Test v5.3
-   # Size       Avg Latency(us)
-   1                      30.80
-   2                      30.54
-   4                      30.68
-   8                      30.88
-   16                     34.35
-   32                     35.43
-   64                     37.50
-   128                    39.63
-   256                   136.95
-   512                   144.51
-   1024                  160.50
-   2048                  209.13
-   4096                  331.33
-   8192                  459.79
-   16384                1270.14
-   32768                1768.40
-   65536                3064.40
-   131072               5344.35
-   262144              11198.39
-   524288              23086.68
-   1048576             48169.37
+    # OSU MPI All-to-All Personalized Exchange Latency Test v5.3
+    # Size       Avg Latency(us)
+    1                       9.92
+    2                      10.31
+    4                      10.49
+    8                      10.60
+    16                     10.89
+    32                     11.34
+    64                     12.24
+    128                    15.14
+    256                    20.27
+    512                    37.53
+    1024                   29.62
+    2048                   53.92
+    4096                  119.42
+    8192                  192.33
+    16384                 314.22
+    32768                 557.86
+    65536                3082.00
+    131072               6302.07
+    262144              12704.54
+    524288              30272.60
+    1048576             50294.14
 
-OpenFOAM
+DEMO3: Bigdata analytical software stack deployment and example run
+----------------------------------------------------------------------
+See :ref:`comet_bigdata`
+
+DEMO4 (optional): OpenFOAM
 ----------------------------------------------------------------------
 
 `OpenFOAM <http://openfoam.org/>`_ is a parallel open-source
@@ -553,7 +812,7 @@ OpenFOAM
 application that is available in a public Ubuntu repository. To
 install it, on each of the compute nodes run:
 
-.. prompt:: bash, vm-vct01-00$
+.. prompt:: bash, vm-vctNN-00$
 
    sudo apt install software-properties-common -y
    sudo add-apt-repository http://download.openfoam.org/ubuntu
@@ -562,15 +821,15 @@ install it, on each of the compute nodes run:
 
 Add the OpenFOAM profile to your ``.bashrc``:
 
-.. prompt:: bash, vm-vct01-00$
+.. prompt:: bash, vm-vctNN-00$
 
    echo '. /opt/openfoam4/etc/bashrc' >> ~/.bashrc
    source ~/.bashrc
-   
+
 We're now able to setup the files and directories needed for a
 benchmarking run.
 
-.. prompt:: bash, vm-vct01-00$
+.. prompt:: bash, vm-vctNN-00$
 
    mkdir -p $FOAM_RUN
    cd $FOAM_RUN
@@ -582,7 +841,7 @@ benchmarking run.
 
 Setup the mesh and initial conditions.
 
-.. prompt:: bash, vm-vct01-00$
+.. prompt:: bash, vm-vctNN-00$
 
    blockMesh
    cp -r 0/alpha.water.orig 0/alpha.water
@@ -590,30 +849,30 @@ Setup the mesh and initial conditions.
 
 Decompose the mesh.
 
-.. prompt:: bash, vm-vct01-00$
+.. prompt:: bash, vm-vctNN-00$
 
   decomposePar
 
 Create a host file (``hosts.txt``) and run the code. For example,
 create ``hosts.txt`` for 24 tasks on each compute node and run.
 
-.. prompt:: bash, vm-vct01-00$
+.. prompt:: bash, vm-vctNN-00$
 
-  echo "vm-vct16-00 slots=24" > hosts.txt
-  echo "vm-vct16-01 slots=24" >> hosts.txt
+  echo "vm-vctNN-00 slots=24" > hosts.txt
+  echo "vm-vctNN-01 slots=24" >> hosts.txt
   mpirun  -hostfile ./hosts.txt -np 48 `which foamExec` interFoam -parallel
 
 This will take a while (about 5-10 minutes).
-  
+
 The OpenFOAM packages include a version of `ParaView
 <http://www.paraview.org/>`_ for OpenFOAM that you can use to view the
 mesh. From a system with X windows SSH to your front-end and compute
 node with X forwarding enabled.
 
-.. prompt:: bash, vm-vct01-00$
+.. prompt:: bash, vm-vctNN-00$
 
-   ssh -X <username>@vct16.sdsc.edu 
-   ssh -X vm-vct16-00 
+   ssh -X <username>@vctNN.sdsc.edu
+   ssh -X vm-vctNN-00
    cd $FOAM_RUN/damBreakFine
    paraFoam -case processor1
 
@@ -624,26 +883,29 @@ node with X forwarding enabled.
    Figure: ParaView with OpenFOAM example data
 
 
-Julia
+DEMO5 (optional): Julia
 ----------------------------------------------------------------------
 
-Like OpenFOAM, `Julia <http://julialang.org/>`_ has Ubuntu packages in
-public repositories. You can install on the compute nodes following a
-similar process. On each compute node run the following commands from
-`the Julia installation instructions for Ubuntu
-<http://julialang.org/downloads/platform.html>`_. When prompted, hit ``ENTER``.
+`Julia <http://julialang.org/>`_ is a high-level, high-performance dynamic
+programming language for numerical computing. It provides a sophisticated
+compiler, distributed parallel execution, numerical accuracy, and an
+extensive mathematical function library. Like OpenFOAM, Julia has Ubuntu
+packages in public repositories. You can install on the compute nodes
+following a similar process. On each compute node run the following
+commands from `the Julia installation instructions for Ubuntu
+<http://julialang.org/downloads/platform.html>`_. When prompted,
+hit ``ENTER``.
 
-.. prompt:: bash, vm-vct01-00$
+.. prompt:: bash, vm-vctNN-00$
 
    sudo add-apt-repository ppa:staticfloat/juliareleases
    sudo add-apt-repository ppa:staticfloat/julia-deps
    sudo apt-get update
    sudo apt-get install julia -y
 
-
 You can start Julia on the command line for interactive use::
 
-   rpwagner@vm-vct01-00:~$ julia
+   rpwagner@vm-vctNN-00:~$ julia
                   _
       _       _ _(_)_     |  A fresh approach to technical computing
      (_)     | (_) (_)    |  Documentation: http://docs.julialang.org
@@ -652,13 +914,13 @@ You can start Julia on the command line for interactive use::
      | | |_| | | | (_| |  |  Version 0.4.6 (2016-06-19 17:16 UTC)
     _/ |\__'_|_|_|\__'_|  |  Official http://julialang.org release
    |__/                   |  x86_64-linux-gnu
-   
+
    julia>
 
 
 ::
 
-    rpwagner@vm-vct01-00:~$ julia --machinefile machinefile-jl.txt 
+    rpwagner@vm-vctNN-00:~$ julia --machinefile machinefile-jl.txt
 		   _
        _       _ _(_)_     |  A fresh approach to technical computing
       (_)     | (_) (_)    |  Documentation: http://docs.julialang.org
@@ -668,4 +930,4 @@ You can start Julia on the command line for interactive use::
      _/ |\__'_|_|_|\__'_|  |  Official http://julialang.org release
     |__/                   |  x86_64-linux-gnu
 
-    julia> 
+    julia>

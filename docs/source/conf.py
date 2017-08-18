@@ -20,6 +20,9 @@ from cloudmesh_client.version import __version__
 # __version__ = '4.3.1'
 
 
+def setup(app):
+    app.add_stylesheet('css/custom.css')
+    
 # on_rtd is whether we are on readthedocs.org
 
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
@@ -393,3 +396,4 @@ epub_exclude_files = ['search.html']
 
 # If false, no index is generated.
 # epub_use_index = True
+

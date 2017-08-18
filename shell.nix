@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {}
+{ pkgs ? import ./nixpkgs.nix
 }:
 
 with pkgs;
@@ -37,7 +37,6 @@ stdenv.mkDerivation {
     test -d venv || virtualenv venv
     source venv/bin/activate
 
-    pip install jedi rope importmagic autopep8 yapf
     pip install -r requirements.txt
   '';
 }
