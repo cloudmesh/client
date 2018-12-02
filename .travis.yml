@@ -81,7 +81,7 @@ install:
   - python --version
   - pip --version
   - mkdir ~/.cloudmesh
-  - sudo pip install pyyaml --upgrade --force
+  # - sudo pip install pyyaml --upgrade --force  # TODO: This line is breaking the Travis build
   - sudo pip install lockfile
   - curl -L http://ftp.dlitz.net/pub/dlitz/crypto/pycrypto/pycrypto-2.6.1.tar.gz | tar xz
   - cd pycrypto-2.6.1
