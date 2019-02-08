@@ -941,7 +941,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     Console.error("Wrong VMs specified for rename", traceflag=False)
                 elif len(oldnames) != len(newnames):
                     Console.error("The number of VMs to be renamed is wrong",
-                                  traceflat=False)
+                                  traceflag=False)
                 else:
                     for i in range(0, len(oldnames)):
                         oldname = oldnames[i]
