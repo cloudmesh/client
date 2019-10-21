@@ -78,6 +78,6 @@ six==1.10.0
 SQLAlchemy==1.1.5
 stevedore==1.20.0
 urllib3==1.20
-Werkzeug==0.11.15
+Werkzeug==0.15.3
 wrapt==1.10.8
 WTForms==2.1
