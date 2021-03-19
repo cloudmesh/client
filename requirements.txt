@@ -38,7 +38,7 @@ idna==2.2
 ipaddress==1.0.18
 iso8601==0.1.11
 itsdangerous==0.24
-Jinja2==2.8.1
+Jinja2==2.11.3
 jsonschema==2.5.1
 keystoneauth1==2.18.0
 MarkupSafe==0.23
