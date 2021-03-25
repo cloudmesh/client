@@ -62,7 +62,7 @@ python-hostlist==1.16
 python-keystoneclient==3.5.0
 python-novaclient==6.0.0
 pytz==2016.7
-PyYAML==3.12
+PyYAML==5.4
 requests==2.11.1
 rfc3986==0.4.1
 sandman==0.9.8
