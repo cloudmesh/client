@@ -1,4 +1,4 @@
-ansible==2.1.2.0
+ansible==2.10.0
 apache-libcloud==1.2.1
 azure==1.0.3
 azure-common==1.1.4
