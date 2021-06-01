@@ -70,7 +70,7 @@ simplejson==3.8.2
 six==1.10.0
 SQLAlchemy==1.0.15
 stevedore==1.17.1
-urllib3==1.18
+urllib3==1.26.5
 Werkzeug==0.11.11
 wrapt==1.10.8
 WTForms==2.1
