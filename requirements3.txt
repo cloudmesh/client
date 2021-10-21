@@ -13,7 +13,7 @@ azure-nspkg==1.0.0
 azure-servicebus==0.20.1
 azure-servicemanagement-legacy==0.20.2
 azure-storage==0.20.3
-Babel==2.3.4
+Babel==2.9.1
 cffi==1.8.3
 click==6.6
 cloudmesh-timestring==1.6.2.1
